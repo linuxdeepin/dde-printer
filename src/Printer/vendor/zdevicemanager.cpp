@@ -512,6 +512,7 @@ int ReflushDevicesByHostTask::doWork()
     probe_hplip(m_strHost);
     if (m_bQuit) return 0;
 
-    probe_smb(m_strHost);
+    if (getResult().size() <= 0)
+        probe_smb(m_strHost);
     return 0;
 }
