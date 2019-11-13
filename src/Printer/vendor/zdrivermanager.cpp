@@ -311,8 +311,12 @@ void DriverSearcher::startSearch()
     }
 
     PrinterServerInterface *search = g_printerServer->searchSolution(strMake, strModel, m_printer.strDeviceId);
-    connect(search, &PrinterServerInterface::signalDone, this, &DriverSearcher::slotDone);
-    search->postToServer();
+    if (search) {
+        connect(search, &PrinterServerInterface::signalDone, this, &DriverSearcher::slotDone);
+        search->postToServer();
+    } else {
+        askForFinish();
+    }
 }
 
 QList<QMap<QString, QVariant>> DriverSearcher::getDrivers()
@@ -374,6 +378,22 @@ void DriverSearcher::sortDrivers()
     m_drivers = drivers;
 }
 
+void DriverSearcher::askForFinish()
+{
+    //如果之前本地驱动还没有初始化完成，则等待驱动初始化完成再搜索一次
+    if (-1 == m_localIndex) {
+        if (g_iStatus < TStat_Suc) {
+            connect(g_driverManager, &DriverManager::signalStatus, this, &DriverSearcher::slotDriverInit);
+            return;
+        }
+
+        getLocalDrivers();
+    }
+
+    sortDrivers();
+    emit signalDone();
+}
+
 void DriverSearcher::slotDone(int iCode, const QByteArray &result)
 {
     qDebug() << iCode << result;
@@ -401,20 +421,7 @@ void DriverSearcher::slotDone(int iCode, const QByteArray &result)
     }
 
     qInfo() << "Got driver count:" << m_drivers.count();
-
-
-    //如果之前本地驱动还没有初始化完成，则等待驱动初始化完成再搜索一次
-    if (-1 == m_localIndex) {
-        if (g_iStatus < TStat_Suc) {
-            connect(g_driverManager, &DriverManager::signalStatus, this, &DriverSearcher::slotDriverInit);
-            return;
-        }
-
-        getLocalDrivers();
-    }
-
-    sortDrivers();
-    emit signalDone();
+    askForFinish();
 }
 
 void DriverSearcher::slotDriverInit(int id, int state)

@@ -28,12 +28,13 @@ class PrinterServerInterface : public QObject
     Q_OBJECT
 
 public:
-    PrinterServerInterface(const QString &url, const QJsonObject &obj, QObject* parent=nullptr);
-
     void postToServer();
 
 signals:
     void signalDone(int, QByteArray);
+
+protected:
+    PrinterServerInterface(const QString &url, const QJsonObject &obj, QObject* parent=nullptr);
 
 private:
     QNetworkReply* post_request(const QString &path, const QJsonObject &obj);
@@ -41,6 +42,8 @@ private:
 
     QString                 m_url;
     QJsonObject             m_args;
+
+    friend class PrinterService;
 };
 
 class PrinterService : public QObject

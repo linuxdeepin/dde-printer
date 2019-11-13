@@ -24,6 +24,8 @@
 
 #include <QSettings>
 #include <QFile>
+#include <QLocale>
+#include <QDebug>
 
 #define VERSION         "1.2.0"
 #define CLIENT_CODE     "godfather"
@@ -59,7 +61,11 @@ const QString zSettings::getClientCode()
 
 const QString zSettings::getHostName()
 {
-    return value("HostName", SERVER_ADDR).toString();
+    qInfo() << QLocale::languageToString(QLocale::system().language());
+    if (QLocale::system().language() == QLocale::Chinese)
+        return value("HostName", SERVER_ADDR).toString();
+    else
+        return value("HostName", "").toString();
 }
 
 unsigned short zSettings::getHostPort()
