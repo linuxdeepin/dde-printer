@@ -64,7 +64,7 @@ protected:
     unsigned int getActionStatus(int iRow) const;
     int getJobId(int iRow);
     int getHighestPriority();
-    void setHighestPriority(int iPriority);
+    void setHighestPriority(int id, int iPriority);
 
     void setWhichJob(int which);
     void updateJobState(int id, int state, const QString &message);

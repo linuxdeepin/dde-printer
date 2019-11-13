@@ -409,8 +409,9 @@ void JobListView::doItemAction(int jobId, unsigned int iAction)
             iPriority = -1;
         }
 
-        if (0 == g_jobManager->priorityJob(jobId, iPriority))
-            jobModel->setHighestPriority(iPriority);
+        if (0 == g_jobManager->priorityJob(jobId, iPriority)) {
+            jobModel->setHighestPriority(jobId, iPriority);
+        }
 
         break;
     }
@@ -545,7 +546,7 @@ QSize JobItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModel
 
 JobsDataModel::JobsDataModel(QObject* parent)
     : QAbstractTableModel(parent),
-      m_iHighestPriority(51),
+      m_iHighestPriority(50),
     m_iWhichJob(WHICH_JOB_RUNING)
 {
     m_reflushTimer = new QTimer(this);
@@ -679,6 +680,15 @@ void JobsDataModel::updateJobState(int id, int state, const QString &message)
         }
         m_jobs.removeAt(index);
         m_jobs.insert(index, job);
+
+
+        int jobPriority = job[JOB_ATTR_PRIORITY].toString().toInt();
+        //从其他状态变为等待状态，重新对任务列表排序
+        //如果最高优先级的任务变为非等待状态,重新对任务列表进行排序
+        if (IPP_JSTATE_PENDING == state || jobPriority == m_iHighestPriority) {
+            m_reflushTimer->start();
+            return;
+        }
     }
     //如果刷新的定时器已经启动，和定时器事件一起刷新
     if (!m_reflushTimer->isActive())
@@ -693,16 +703,16 @@ void JobsDataModel::slotReflushJobItems()
     m_reflushTimer->stop();
     beginResetModel();
 
+    m_iHighestPriority = 50;
     //获取最高优先级的值，用于列表显示任务是否能优先打印
-    m_iHighestPriority = 51;
     for (int i=0;i<m_jobs.count();i++) {
         jobPriority = m_jobs[i][JOB_ATTR_PRIORITY].toString().toInt();
         iState = m_jobs[i][JOB_ATTR_STATE].toString().toInt();
 
-        if (jobPriority > m_iHighestPriority && iState <= IPP_JSTATE_PROCESSING) {
+        if (jobPriority > m_iHighestPriority && iState == IPP_JSTATE_PENDING) {
             m_iHighestPriority = jobPriority;
-            priorityCount++;
-        } else if(jobPriority == m_iHighestPriority && iState <= IPP_JSTATE_PROCESSING){
+            priorityCount = 1;
+        } else if(jobPriority == m_iHighestPriority && iState == IPP_JSTATE_PENDING){
             priorityCount++;
         }
     }
@@ -727,7 +737,6 @@ void JobsDataModel::slotReflushJobsList()
     if (0 != g_jobManager->getJobs(jobsmap, m_iWhichJob))
         return;
 
-    m_iHighestPriority = 51;
     m_jobs.clear();
     for (itmaps=jobsmap.begin();itmaps!=jobsmap.end();itmaps++) {
         QMap<QString, QVariant> job;
@@ -812,9 +821,24 @@ int JobsDataModel::getHighestPriority()
     return m_iHighestPriority;
 }
 
-void JobsDataModel::setHighestPriority(int iPriority)
+void JobsDataModel::setHighestPriority(int id, int iPriority)
 {
+    int index = 0;
+
+    for (;index<m_jobs.count();index++) {
+        if (id == m_jobs[index][JOB_ATTR_ID].toInt()) {
+            break;
+        }
+    }
+
+    if (index >= m_jobs.count()) return;
+
+    QMap<QString, QVariant> job = m_jobs[index];
     m_iHighestPriority = iPriority;
+    job.insert(JOB_ATTR_PRIORITY, iPriority);
+    m_jobs.removeAt(index);
+    m_jobs.insert(index, job);
+    m_reflushTimer->start();
 }
 
 unsigned int JobsDataModel::getActionStatus(int iRow) const
