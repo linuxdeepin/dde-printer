@@ -61,18 +61,29 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
 
 protected:
-    void reflushJobs(int iWhich);
     unsigned int getActionStatus(int iRow) const;
     int getJobId(int iRow);
     int getHighestPriority();
     void setHighestPriority(int iPriority);
 
+    void setWhichJob(int which);
+    void updateJobState(int id, int state, const QString &message);
+
+signals:
+    void signalJobsCountChanged(int count);
+
 private:
     void sortJobs();
+
+protected slots:
+    void slotReflushJobsList();
+    void slotReflushJobItems();
 
 private:
     QList<QMap<QString, QVariant>>   m_jobs;
     int     m_iHighestPriority;
+    QTimer*             m_reflushTimer;
+    int                 m_iWhichJob;
 
     friend class JobManagerWindow;
     friend class JobListView;
@@ -141,19 +152,17 @@ protected:
     void initConnect();
 
 protected slots:
-    void slotReflush();
+    void slotJobsCountChanged(int count);
     void slotWhichBoxClicked(QAbstractButton *whichbut);
     void slotJobStateChanged(int id, int state, const QString &message);
 
 private:
     JobListView*        m_jobsView;
     JobsDataModel*      m_jobsModel;
-    int                 m_iWhichJob;
     DIconButton*        m_reflushBut;
     DButtonBox*         m_whichButBox;
     QList<DButtonBoxButton*>    m_whichList;
     QLabel*             m_jobCountLabel;
-    QTimer*             m_reflushTimer;
 };
 
 #endif//JOBMANAGERWINDOW_H
