@@ -83,6 +83,7 @@ void InstallPrinterWindow::initUI()
     m_pStatusLabel->setAlignment(Qt::AlignCenter);
     m_pTipLabel = new QLabel("");
     m_pTipLabel->setAlignment(Qt::AlignCenter);
+    m_pTipLabel->setWordWrap(true);
 
     m_pDriverCombo = new QComboBox();
     m_pDriverCombo->setMinimumSize(300, 36);
