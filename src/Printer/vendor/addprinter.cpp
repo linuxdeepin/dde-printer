@@ -221,8 +221,13 @@ void InstallDriver::doWork()
 {
     qDebug() << "Search driver for" << m_solution;
     m_serverInterface = g_printerServer->searchDriver(m_solution[SD_KEY_sid].toInt());
-    connect(m_serverInterface, &PrinterServerInterface::signalDone, this, &InstallDriver::slotServerDone);
-    m_serverInterface->postToServer();
+
+    if (m_serverInterface) {
+        connect(m_serverInterface, &PrinterServerInterface::signalDone, this, &InstallDriver::slotServerDone);
+        m_serverInterface->postToServer();
+    } else {
+        emit signalStatus(TStat_Fail);
+    }
 }
 
 void InstallDriver::stop()

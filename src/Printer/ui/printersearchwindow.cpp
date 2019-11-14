@@ -342,6 +342,7 @@ void PrinterSearchWindow::autoInstallPrinter(int type, const TDeviceInfo &device
     task->doWork();
 }
 
+
 void PrinterSearchWindow::listWidgetClickedSlot(int row)
 {
     Q_UNUSED(row)
@@ -383,7 +384,7 @@ void PrinterSearchWindow::getDeviceResultSlot(int id, int state)
         int index = m_pPrinterListViewAuto->count();
         for (; index < deviceList.count(); index++) {
             TDeviceInfo info = deviceList[index];
-            QStandardItem *pItem = new QStandardItem(info.strName);
+
             QString strDesc = info.strInfo.isEmpty() ? info.strMakeAndModel : info.strInfo + " ";
             QString strUri = info.uriList[0];
             if (strDesc.isEmpty())
@@ -396,6 +397,7 @@ void PrinterSearchWindow::getDeviceResultSlot(int id, int state)
                 if (!protocol.isEmpty())
                     strDesc += QObject::tr("(use %1 protocol)").arg(protocol);
             }
+            QStandardItem *pItem = new QStandardItem(info.strName);
             pItem->setText(strDesc);
             pItem->setIcon(QIcon::fromTheme("dp_printer_list"));
             // 将结构体转化为QVariant,需要再转回来
@@ -443,7 +445,7 @@ void PrinterSearchWindow::getDeviceResultByManualSlot(int id, int state)
         int index = m_pPrinterListViewManual->count();
         for (; index < deviceList.count(); index++) {
             TDeviceInfo info = deviceList[index];
-            QStandardItem *pItem = new QStandardItem(info.strName);
+
             qInfo() << "Update" << info.toString();
             QString strDesc = info.strInfo.isEmpty() ? info.strMakeAndModel : info.strInfo + " ";
             QString strUri = info.uriList[0];
@@ -454,6 +456,7 @@ void PrinterSearchWindow::getDeviceResultByManualSlot(int id, int state)
                 if (!protocol.isEmpty())
                     strDesc += QObject::tr("(use %1 protocol)").arg(protocol);
             }
+            QStandardItem *pItem = new QStandardItem(info.strName);
             pItem->setText(strDesc);
             pItem->setIcon(QIcon::fromTheme("dp_printer_list"));
             // 将结构体转化为QVariant,需要再转回来

@@ -401,7 +401,9 @@ bool PrinterTestJob::isPass()
     if (!g_cupsMonitor->isRunning())
         g_cupsMonitor->start();
 
-    findRunningJob();
+    //同步模式用在故障排查中，故障排查的时候如果已经有任务，则不重新添加
+    if (m_bSync)
+        findRunningJob();
 
     if (-1 == m_jobId) {
         m_strMessage = g_jobManager->printTestPage(m_printerName.toUtf8().data(), m_jobId);

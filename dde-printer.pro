@@ -6,8 +6,8 @@
 
 TEMPLATE = subdirs
 SUBDIRS += \
-cppcups/cppcups.pro \
-Printer/Printer.pro
+src/cppcups/cppcups.pro \
+src/Printer/Printer.pro
 
 CONFIG += ordered
 DEFINES += QT_MESSAGELOGCONTEXT

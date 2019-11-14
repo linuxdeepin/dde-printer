@@ -72,6 +72,7 @@ private:
     * @date          2019-11-11
     */
     void autoInstallPrinter(int type, const TDeviceInfo &device);
+
 private slots:
     void listWidgetClickedSlot(int row);
     // 连接自动查找打印机线程信号槽

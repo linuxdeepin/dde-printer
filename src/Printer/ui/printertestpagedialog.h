@@ -38,7 +38,6 @@ public:
     PrinterTestPageDialog(const QString &printerName, QWidget *parent=nullptr);
 
 protected slots:
-    void slotPrintState(int state, const QString &message);
     void slotTroubleShootMessage(int proccess, QString messge);
     void slotTroubleShootStatus(int id, int state);
 

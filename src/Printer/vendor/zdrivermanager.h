@@ -60,6 +60,7 @@ protected slots:
 private:
     int getLocalDrivers();
     void sortDrivers();
+    void askForFinish();
 
     TDeviceInfo     m_printer;
     QList<QMap<QString, QVariant>>   m_drivers;
