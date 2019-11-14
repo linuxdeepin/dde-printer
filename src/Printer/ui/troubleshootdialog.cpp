@@ -129,8 +129,6 @@ TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *pare
     setIcon(QIcon(":/images/dde-printer.svg"));
 
     m_trobleShoot = new TroubleShoot(printerName, this);
-    TroubleShootJob* testjob = new PrinterTestJob(printerName, m_trobleShoot);
-    m_trobleShoot->addJob(testjob);
 
     QWidget* contentWidget = new ContentWidget(this);
     QLabel* title = new QLabel(tr("Trouble Shoot: ") + printerName, contentWidget);

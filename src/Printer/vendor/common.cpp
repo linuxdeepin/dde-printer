@@ -106,11 +106,7 @@ QString reslovedHost(const QString &strHost)
 {
     struct hostent *host = gethostbyname(strHost.toUtf8().data());
     if (nullptr == host && HOST_NOT_FOUND == h_errno) {
-        if (isPackageExists("avahi-daemon")) {
-            return strHost + QObject::tr(" not found, please ask the administrator for help");
-        }
-
-        return strHost + QObject::tr(" not found, please install avahi-daemon and try again");
+        return strHost + QObject::tr(" not found, please ask the administrator for help");
     }
 
     return QString();
