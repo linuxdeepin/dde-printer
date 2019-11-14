@@ -126,10 +126,10 @@ void InstallDriverWindow::initUI()
     m_pPPDPath->setWordWrap(true);
     m_pSelectPPDBtn = new QPushButton(UI_PRINTERDRIVER_PPDBTN_NORMAL);
     QVBoxLayout *pVLayout = new QVBoxLayout();
-    pVLayout->addStretch();
-    pVLayout->addWidget(m_pPPDPath, 0, Qt::AlignCenter);
-    pVLayout->addWidget(m_pSelectPPDBtn, 0, Qt::AlignCenter);
-    pVLayout->addStretch();
+    pVLayout->setContentsMargins(0, 100, 0, 100);
+    pVLayout->addWidget(m_pPPDPath, 1, Qt::AlignCenter);
+    pVLayout->addWidget(m_pSelectPPDBtn, 1, Qt::AlignCenter);
+
     QWidget *pPPDWidget = new QWidget();
     pPPDWidget->setLayout(pVLayout);
     m_pStackWidget->addWidget(pPPDWidget);
