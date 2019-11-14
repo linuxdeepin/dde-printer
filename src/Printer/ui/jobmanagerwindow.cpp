@@ -628,7 +628,7 @@ QVariant JobsDataModel::headerData(int section, Qt::Orientation orientation, int
 
 void JobsDataModel::sortJobs()
 {
-    QList<QMap<QString, QVariant>> donelist, processinglist, stoplist;
+    QList<QMap<QString, QVariant>> donelist, processinglist, holdlist;
     QMap<QString, QVariant> priorityJob;
     QMap<int, QMap<QString, QVariant>> jobHash;
 
@@ -637,22 +637,24 @@ void JobsDataModel::sortJobs()
         int jobPriority = job[JOB_ATTR_PRIORITY].toString().toInt();
 
         if (IPP_JSTATE_PENDING == iState) {
+            //等待中的任务根据优先级排序
             jobHash.insertMulti(jobPriority, job);
         } else if (iState == IPP_JSTATE_PROCESSING) {
-            processinglist.prepend(job);
-        } else if (iState == IPP_JSTATE_HELD || IPP_JSTATE_STOPPED == iState) {
-            stoplist.prepend(job);
+            processinglist.append(job);
+        } else if (iState == IPP_JSTATE_HELD) {
+            holdlist.append(job);
         } else {
-            donelist.prepend(job);
+            donelist.append(job);
         }
     }
 
     m_jobs.clear();
+    //任务列表排列顺序: 打印中任务->等待中任务(按优先级排序)->暂停任务->已完成任务
     m_jobs = processinglist;
     foreach (auto job, jobHash.values()) {
         m_jobs.insert(processinglist.count(), job);
     }
-    m_jobs += stoplist;
+    m_jobs += holdlist;
     m_jobs += donelist;
 }
 
@@ -780,7 +782,7 @@ void JobsDataModel::slotReflushJobsList()
         for (itjob=jobinfo.begin();itjob!=jobinfo.end();itjob++) {
             job.insert(STQ(itjob->first), attrValueToQString(itjob->second));
         }
-        m_jobs.append(job);
+        m_jobs.prepend(job);
     }
 
     slotReflushJobItems();
