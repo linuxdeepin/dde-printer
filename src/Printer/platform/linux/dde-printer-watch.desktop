@@ -1,0 +1,10 @@
+#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+Encoding=UTF-8
+Categories=Utility;System;
+Exec=dde-printer -m 1
+Icon=dde-printer
+Name=Deepin Printer Manager
+Name[zh_CN]=深度打印管理
+Type=Application

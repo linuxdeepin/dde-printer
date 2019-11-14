@@ -1,0 +1,194 @@
+{
+    "groups": [
+        {
+            "key": "Print_Setting",
+            "name": "Print_Setting",
+            "groups": [
+                {
+                    "key": "Driver_Lable",
+                    "name": "Driver",
+
+                    "options": [
+                        {
+                            "key": "Driver_ListView",
+                            "name": "Driver_ListView",
+                            "type": "custom-listview"
+                        }
+                    ]
+                },
+
+                {
+                    "key": "URI_Lable",
+                    "name": "URI",
+
+                    "options": [
+                        {
+                            "key": "URI_ListView",
+                            "name": "URI_ListView",
+                            "type": "custom-listview"
+                        }
+                    ]
+                },
+
+                {
+                    "key": "Location_Lable",
+                    "name": "Localtion",
+
+                    "options": [
+                        {
+                            "key": "Localtion_LineEdit",
+                            "name": "Localtion_LineEdit",
+                            "type": "custom-lineedit"
+                        }
+                    ]
+                },
+
+                {
+                    "key": "Description_Lable",
+                    "name": "Description",
+
+                    "options": [
+                        {
+                            "key": "Description_LineEdit",
+                            "name": "Description_LineEdit",
+                            "type": "custom-lineedit"
+                        }
+                    ]
+                },
+
+                {
+                    "key": "ColorMode_Label",
+                    "name": "ColorMode",
+                    "options": [
+                        {
+                            "key": "ColorMode_Combo",
+                            "name": "ColorMode_Combo",
+                            "type": "custom-combobox"
+                        }
+                    ]
+                },
+
+                {
+                    "key": "Resolution_Label",
+                    "name": "Resolution",
+                    "options": [
+                        {
+                            "key": "Resolution_Combo",
+                            "name": "Resolution_Combo",
+                            "type": "custom-combobox"
+                        }
+                    ]
+                },
+
+                {
+                    "key": "OutputQuanlity_Label",
+                    "name": "OutputQuanlity",
+                    "options": [
+                        {
+                            "key": "OutputQuanlity_Combo",
+                            "name": "OutputQuanlity_Combo",
+                            "type": "custom-combobox"
+                        }
+                    ]
+                },
+
+                {
+                    "key": "PaperOrigin_Label",
+                    "name": "PaperOrigin",
+                    "options": [
+                        {
+                            "key": "PaperOrigin_Combo",
+                            "name": "PaperOrigin_Combo",
+                            "type": "custom-combobox"
+                        }
+                    ]
+                },
+
+                {
+                    "key": "PaperType_Label",
+                    "name": "PaperType",
+                    "options": [
+                        {
+                            "key": "PaperType_Combo",
+                            "name": "PaperType_Combo",
+                            "type": "custom-combobox"
+                        }
+                    ]
+                },
+
+                {
+
+                    "key": "PageSize_Label",
+                    "name": "PageSize",
+                    "options": [
+                        {
+                            "key": "PageSize_Combo",
+                            "name": "PageSize_Combo",
+                            "type": "custom-combobox"
+                        }
+                    ]
+                },
+
+                {
+                    "key": "DuplexPrint_Label",
+                    "name": "DuplexPrint",
+                    "options": [
+                        {
+                            "key": "Duplex_Combo",
+                            "name": "Duplex_Combo",
+                            "type": "custom-combobox"
+                        }
+                    ]
+                },
+
+                {
+                    "key": "BindEdge_Label",
+                    "name": "BindEdge",
+                    "options": [
+                        {
+                            "key": "BindEdge_Combo",
+                            "name": "BindEdge_Combo",
+                            "type": "custom-combobox"
+                        }
+                    ]
+                },
+
+                {
+                    "key": "Orientation_Label",
+                    "name": "Orientation",
+                    "options": [
+                        {
+                            "key": "Orientation_Combo",
+                            "name": "Orientation_Combo",
+                            "type": "custom-combobox"
+                        }
+                    ]
+                },
+
+                {
+                    "key": "PrintOrder_Label",
+                    "name": "rintOrder",
+                    "options": [
+                        {
+                            "key": "PrintOrder_Combo",
+                            "name": "PrintOrder_Combo",
+                            "type": "custom-combobox"
+                        }
+                    ]
+                },
+
+                {
+                    "key": "Finishings",
+                    "name": "Finishings",
+                    "options": [
+                        {
+                            "key": "Finishings_Combo",
+                            "name": "Finishings_Combo",
+                            "type": "custom-combobox"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

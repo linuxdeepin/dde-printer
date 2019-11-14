@@ -1,0 +1,194 @@
+{
+    "groups": [
+        {
+            "key": "Print_Setting",
+            "name": "打印设置",
+            "groups": [
+                {
+                    "key": "Driver_Lable",
+                    "name": "驱动",
+
+                    "options": [
+                        {
+                            "key": "Driver_LineEdit",
+                            "name": "Driver_LineEdit",
+                            "type": "custom-lineedit"
+                        }
+                    ]
+                },
+
+                {
+                    "key": "URI_Lable",
+                    "name": "URI",
+
+                    "options": [
+                        {
+                            "key": "URI_LineEdit",
+                            "name": "URI_LineEdit",
+                            "type": "custom-lineedit"
+                        }
+                    ]
+                },
+
+                {
+                    "key": "Location_Lable",
+                    "name": "位置",
+
+                    "options": [
+                        {
+                            "key": "Localtion_LineEdit",
+                            "name": "Localtion_LineEdit",
+                            "type": "custom-lineedit"
+                        }
+                    ]
+                },
+
+                {
+                    "key": "Description_Lable",
+                    "name": "描述",
+
+                    "options": [
+                        {
+                            "key": "Description_LineEdit",
+                            "name": "Description_LineEdit",
+                            "type": "custom-lineedit"
+                        }
+                    ]
+                },
+
+                {
+                    "key": "ColorMode_Label",
+                    "name": "颜色",
+                    "options": [
+                        {
+                            "key": "ColorMode_Combo",
+                            "name": "ColorMode_Combo",
+                            "type": "custom-combobox"
+                        }
+                    ]
+                },
+
+                {
+                    "key": "Resolution_Label",
+                    "name": "分辨率",
+                    "options": [
+                        {
+                            "key": "Resolution_Combo",
+                            "name": "Resolution_Combo",
+                            "type": "custom-combobox"
+                        }
+                    ]
+                },
+
+                {
+                    "key": "OutputQuanlity_Label",
+                    "name": "打印质量",
+                    "options": [
+                        {
+                            "key": "OutputQuanlity_Combo",
+                            "name": "OutputQuanlity_Combo",
+                            "type": "custom-combobox"
+                        }
+                    ]
+                },
+
+                {
+                    "key": "PaperOrigin_Label",
+                    "name": "纸张来源",
+                    "options": [
+                        {
+                            "key": "PaperOrigin_Combo",
+                            "name": "PaperOrigin_Combo",
+                            "type": "custom-combobox"
+                        }
+                    ]
+                },
+
+                {
+                    "key": "PaperType_Label",
+                    "name": "纸张类型",
+                    "options": [
+                        {
+                            "key": "PaperType_Combo",
+                            "name": "PaperType_Combo",
+                            "type": "custom-combobox"
+                        }
+                    ]
+                },
+
+                {
+
+                    "key": "PageSize_Label",
+                    "name": "纸张大小",
+                    "options": [
+                        {
+                            "key": "PageSize_Combo",
+                            "name": "PageSize_Combo",
+                            "type": "custom-combobox"
+                        }
+                    ]
+                },
+
+                {
+                    "key": "DuplexPrint_Label",
+                    "name": "双面打印",
+                    "options": [
+                        {
+                            "key": "Duplex_Combo",
+                            "name": "Duplex_Combo",
+                            "type": "custom-combobox"
+                        }
+                    ]
+                },
+
+                {
+                    "key": "BindEdge_Label",
+                    "name": "页边距位置",
+                    "options": [
+                        {
+                            "key": "BindEdge_Combo",
+                            "name": "BindEdge_Combo",
+                            "type": "custom-combobox"
+                        }
+                    ]
+                },
+
+                {
+                    "key": "Orientation_Label",
+                    "name": "方向",
+                    "options": [
+                        {
+                            "key": "Orientation_Combo",
+                            "name": "Orientation_Combo",
+                            "type": "custom-combobox"
+                        }
+                    ]
+                },
+
+                {
+                    "key": "PrintOrder_Label",
+                    "name": "打印顺序",
+                    "options": [
+                        {
+                            "key": "PrintOrder_Combo",
+                            "name": "PrintOrder_Combo",
+                            "type": "custom-combobox"
+                        }
+                    ]
+                },
+
+                {
+                    "key": "Finishings",
+                    "name": "装订",
+                    "options": [
+                        {
+                            "key": "Finishings_Combo",
+                            "name": "Finishings_Combo",
+                            "type": "custom-combobox"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

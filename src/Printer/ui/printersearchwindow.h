@@ -1,0 +1,151 @@
+/*
+ * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ *
+ * Author:     liurui <liurui_cm@deepin.com>
+ *
+ * Maintainer: liurui <liurui_cm@deepin.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+#ifndef PRINTERSEARCHWINDOW_H
+#define PRINTERSEARCHWINDOW_H
+#include "zdevicemanager.h"
+#include "installdriverwindow.h"
+#include "installprinterwindow.h"
+
+#include <dtkwidget_global.h>
+#include <DMainWindow>
+
+DWIDGET_USE_NAMESPACE
+DWIDGET_BEGIN_NAMESPACE
+class DIconButton;
+class DSpinner;
+class DListView;
+class DLineEdit;
+DWIDGET_END_NAMESPACE
+
+QT_BEGIN_NAMESPACE
+class QListWidget;
+class QComboBox;
+class QPushButton;
+class QWidget;
+class QListWidgetItem;
+class QLabel;
+class QStandardItemModel;
+class QStackedWidget;
+class QStandardItem;
+QT_END_NAMESPACE
+
+class PrinterSearchWindow : public DMainWindow
+{
+    Q_OBJECT
+public:
+    explicit PrinterSearchWindow(QWidget *parent = nullptr);
+    virtual ~PrinterSearchWindow() override;
+
+private:
+    void initUi();
+    void initConnections();
+    void showEvent(QShowEvent *event) override;
+    /**
+    * @projectName   Printer
+    * @brief         获取打印机列表的checked的Item，type=0表示自动查找，type=1表示手动查找
+    * @author        liurui
+    * @date          2019-11-05
+    */
+    QStandardItem *getCheckedItem(int type);
+    /**
+    * @projectName   Printer
+    * @brief         根据不同状态选择不同的驱动自动安装打印机
+    * @author        liurui
+    * @date          2019-11-11
+    */
+    void autoInstallPrinter(int type, const TDeviceInfo &device);
+private slots:
+    void listWidgetClickedSlot(int row);
+    // 连接自动查找打印机线程信号槽
+    void getDeviceResultSlot(int id, int state);
+    // 连接手动查找打印机线程信号槽
+    void getDeviceResultByManualSlot(int id, int state);
+    // 点击打印机列表搜索驱动
+    void printerListClickedSlot(const QModelIndex &index);
+    // 获取驱动搜索结果
+    void driverAutoSearchedSlot();
+    void driverManSearchedSlot();
+    // 刷新打印机列表
+    void refreshPrinterListSlot();
+    // 手动查找
+    void searchPrintersByManual();
+    // URI输入检查
+    void lineEditURIChanged(QString uri);
+    // 响应安装打印机
+    void installDriverSlot();
+    // 驱动下拉框切换
+    void driverChangedSlot(int index);
+    // 响应smb消息
+    void smbInfomationSlot(int &ret, const QString &host, QString &group, QString &user, QString &password);
+
+
+signals:
+    void updatePrinterList(const QString &printerName);
+
+private:
+    // 左侧tab
+    QListWidget *m_pTabListWidget;
+    // 右侧打印机列表自动
+    QLabel *m_pLabelPrinter;
+    DIconButton *m_pBtnRefresh;
+    DListView *m_pPrinterListViewAuto;
+    QStandardItemModel *m_pPrinterListModel;
+    QComboBox *m_pAutoDriverCom;
+
+    DSpinner *m_pAutoSpinner;
+
+    QPushButton *m_pAutoInstallDriverBtn;
+    // 右侧打印机列表手动
+    QLabel *m_pLabelLocation;
+    QLineEdit *m_pLineEditLocation;
+    QPushButton *m_pBtnFind;
+    DListView *m_pPrinterListViewManual;
+    QStandardItemModel *m_pPrinterListModelManual;
+    QComboBox *m_pManDriverCom;
+
+    DSpinner *m_pManSpinner;
+
+    QPushButton *m_pManInstallDriverBtn;
+    // 右侧URI
+    QLabel *m_pLabelURI;
+    QLineEdit *m_pLineEditURI;
+
+    QLabel *m_pLabelTip;
+
+    QComboBox *m_pURIDriverCom;
+
+    QPushButton *m_pURIInstallDriverBtn;
+
+    // 用于查找打印机切换界面
+    QStackedWidget *m_pStackedWidget;
+
+    // 手动选择驱动界面
+    InstallDriverWindow *m_pInstallDriverWindow;
+    // 安装打印机状态界面
+    InstallPrinterWindow *m_pInstallPrinterWindow;
+
+private:
+    bool m_isAutoInstallDriver;
+    bool m_isManInstallDriver;
+    bool m_isURIInstallDriver;
+};
+
+#endif // PRINTERSEARCHWINDOW_H
