@@ -28,12 +28,7 @@
 #include "cupsattrnames.h"
 #include "printerapplication.h"
 #include "zjobmanager.h"
-
-#ifdef CONSOLE_CMD
-#include "zprintermanager.h"
-#else
 #include "dprintermanager.h"
-#endif
 
 #include <QMap>
 #include <QVariant>

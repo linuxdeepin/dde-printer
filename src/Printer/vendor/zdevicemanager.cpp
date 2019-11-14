@@ -25,12 +25,7 @@
 #include "qtconvert.h"
 #include "common.h"
 #include "config.h"
-
-#ifdef CONSOLE_CMD
-#include "zprintermanager.h"
-#else
 #include "dprintermanager.h"
-#endif
 
 #include <QProcess>
 #include <QRegularExpression>

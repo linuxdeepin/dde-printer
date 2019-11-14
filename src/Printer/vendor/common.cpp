@@ -2,12 +2,7 @@
 #include "config.h"
 #include "qtconvert.h"
 #include "cupsattrnames.h"
-
-#ifdef CONSOLE_CMD
-#include "zprintermanager.h"
-#else
 #include "dprintermanager.h"
-#endif
 
 #include <QVariant>
 #include <QJsonDocument>

@@ -29,12 +29,7 @@
 #include "printerservice.h"
 #include "zdrivermanager_p.h"
 #include "cupsppd.h"
-
-#ifdef CONSOLE_CMD
-#include "zprintermanager.h"
-#else
 #include "dprintermanager.h"
-#endif
 
 #include <QProcess>
 #include <QTcpSocket>

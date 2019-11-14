@@ -28,12 +28,7 @@
 #include "common.h"
 #include "cupsconnection.h"
 #include "qtconvert.h"
-
-#ifdef CONSOLE_CMD
-#include "zprintermanager.h"
-#else
 #include "dprintermanager.h"
-#endif
 
 #include <QRegularExpression>
 #include <QFile>
