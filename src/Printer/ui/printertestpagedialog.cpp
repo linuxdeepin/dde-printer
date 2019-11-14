@@ -45,17 +45,6 @@ PrinterTestPageDialog::PrinterTestPageDialog(const QString &printerName, QWidget
     m_trobleShoot->start();
 }
 
-void PrinterTestPageDialog::slotPrintState(int state, const QString &message)
-{
-    if (TStat_Suc == state) {
-        setButtonText(0, tr("No"));
-        setButtonText(1, tr("Yes"));
-        setMessage(tr("Print job is completed, please check the printer is print or not"));
-    } else {
-        setMessage(g_cupsMonitor->getStateString(state) + " " + message);
-    }
-}
-
 void PrinterTestPageDialog::slotTroubleShootMessage(int proccess, QString messge)
 {
     Q_UNUSED(proccess);
@@ -69,11 +58,10 @@ void PrinterTestPageDialog::slotTroubleShootStatus(int id, int state)
     Q_UNUSED(id);
 
     if (TStat_Suc == state) {
-        setMessage(tr("Start printer test page"));
-
-        g_jobManager->holdjobs(m_printerName);
         m_testJob = new PrinterTestJob(m_printerName, this, false);
-        connect(m_testJob, &PrinterTestJob::signalStateChanged, this, &PrinterTestPageDialog::slotPrintState);
-        m_testJob->isPass();
+        if (!m_testJob->isPass())
+            setMessage(m_testJob->getMessage());
+        else
+            this->done(0);
     }
 }
