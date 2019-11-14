@@ -163,12 +163,14 @@ void PrinterApplication::showTray()
                 }
                 });
     }
+
     m_systemTray->show();
 }
 
 void PrinterApplication::hideTray()
 {
-    m_systemTray->hide();
+    if (m_systemTray)
+        m_systemTray->hide();
 }
 
 PrinterApplication::PrinterApplication()
