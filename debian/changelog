@@ -1,8 +1,20 @@
-dde-printer (0.3.0-0) UNRELEASED; urgency=medium
+dde-printer (0.3.0-3) unstable; urgency=medium
+
+  * Don't reflush all jobs when job state changed
+
+ -- Wei Xie <wayne@wayne-PC>  Thu, 14 Nov 2019 14:33:11 +0800
+
+dde-printer (0.3.0-2) unstable; urgency=medium
 
   * fix some bugs
+  * Don't reflush device by samba after got more than one devices
+  * Don't search form driver server if system lang is not chinese
+  * Support luncher with no gui window
+  * add system notification
+  * Auto start watch dbus model
+  * add trouble shoot
 
- -- Wei Xie <wayne@wayne-PC>  Tue, 12 Nov 2019 09:14:44 +0800
+ -- Wei Xie <wayne@wayne-PC>  Thu, 14 Nov 2019 09:22:21 +0800
 
 dde-printer (0.2.0-3) unstable; urgency=medium
 
