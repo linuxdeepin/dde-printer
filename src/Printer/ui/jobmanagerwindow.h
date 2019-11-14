@@ -69,6 +69,10 @@ protected:
     void setWhichJob(int which);
     void updateJobState(int id, int state, const QString &message);
 
+    void deleteJobItem(int jobId);
+    void addJobItem(const QMap<QString, QVariant> &job);
+    void setJobAttributes(int index, const QMap<QString, QVariant> &job);
+    void doItemAction(int jobId, unsigned int iAction);
 signals:
     void signalJobsCountChanged(int count);
 
@@ -112,8 +116,6 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event)  Q_DECL_OVERRIDE;
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
 
-    void doItemAction(int jobId, unsigned int iAction);
-    int getJobId(int iRow);
     bool askDeleteJobs(unsigned int flag);
 
     void processAction(int index);

@@ -340,7 +340,8 @@ void JobListView::mouseReleaseEvent(QMouseEvent *event)
     foreach (unsigned int iAction, flags) {
         if (actionRects.value(iAction).contains(event->pos()) &&
              askDeleteJobs(iAction)) {
-            doItemAction(getJobId(index.row()), iAction);
+            JobsDataModel *jobModel = static_cast<JobsDataModel*>(model());
+            jobModel->doItemAction(jobModel->getJobId(index.row()), iAction);
         }
     }
 }
@@ -356,12 +357,6 @@ void JobListView::resizeEvent(QResizeEvent *event)
 void JobListView::setLabelContentVisable(bool bShow)
 {
     m_label->setHidden(!bShow);
-}
-
-int JobListView::getJobId(int iRow)
-{
-    QModelIndex idIndex = model()->index(iRow, 0);
-    return idIndex.data().toString().toInt();
 }
 
 bool JobListView::askDeleteJobs(unsigned int flag)
@@ -380,45 +375,6 @@ bool JobListView::askDeleteJobs(unsigned int flag)
     dlg.setFixedSize(422, 202);
 
     return (iAccept == dlg.exec());
-}
-
-void JobListView::doItemAction(int jobId, unsigned int iAction)
-{
-    switch (iAction) {
-    case JOB_ACTION_Cancel:
-        g_jobManager->cancelJob(jobId);
-        break;
-    case JOB_ACTION_Delete:
-            g_jobManager->deleteJob(jobId);
-        break;
-    case JOB_ACTION_Hold:
-        g_jobManager->holdJob(jobId);
-        break;
-    case JOB_ACTION_Release:
-        g_jobManager->releaseJob(jobId);
-        break;
-    case JOB_ACTION_Restart:
-        g_jobManager->restartJob(jobId);
-        break;
-    case JOB_ACTION_Priority:
-    {
-        JobsDataModel *jobModel = static_cast<JobsDataModel*>(model());
-        int iPriority = jobModel->getHighestPriority()+1;
-
-        if (HIGHEST_Priority <= iPriority){
-            iPriority = -1;
-        }
-
-        if (0 == g_jobManager->priorityJob(jobId, iPriority)) {
-            jobModel->setHighestPriority(jobId, iPriority);
-        }
-
-        break;
-    }
-    default:
-        qWarning() << "Unsupport actions: " << iAction;
-        break;
-    }
 }
 
 void JobListView::slotShowContextMenu(const QPoint &pos)
@@ -463,7 +419,7 @@ void JobListView::processAction(int index)
         int jobId = jobsModel->getJobId(modelindex.row());
 
         if (itemflag&flag) {
-            doItemAction(jobId, flag);
+            jobsModel->doItemAction(jobId, flag);
         }
     }
 }
@@ -555,6 +511,97 @@ JobsDataModel::JobsDataModel(QObject* parent)
     connect(m_reflushTimer, &QTimer::timeout, this, &JobsDataModel::slotReflushJobItems);
 }
 
+void JobsDataModel::deleteJobItem(int jobId)
+{
+    int index = 0;
+
+    qInfo() << jobId;
+
+    for (;index<m_jobs.count();index++) {
+        if (jobId == m_jobs[index][JOB_ATTR_ID].toInt()) {
+            break;
+        }
+    }
+
+    if (index >= m_jobs.count()) return;
+
+    m_jobs.removeAt(index);
+    m_reflushTimer->start();
+}
+
+void JobsDataModel::addJobItem(const QMap<QString, QVariant> &job)
+{
+    qInfo() << job[JOB_ATTR_ID].toInt();
+
+    m_jobs.append(job);
+    m_reflushTimer->start();
+}
+
+void JobsDataModel::setJobAttributes(int index, const QMap<QString, QVariant> &job)
+{
+    if (index < m_jobs.count()) return;
+
+    QMap<QString, QVariant> lastJob = m_jobs[index];
+    int lastState = lastJob[JOB_ATTR_STATE].toString().toInt();
+    int lastPriority = lastJob[JOB_ATTR_PRIORITY].toString().toInt();
+    int state = job[JOB_ATTR_STATE].toString().toInt();
+    int jobPriority = job[JOB_ATTR_PRIORITY].toString().toInt();
+
+    qInfo() << QString("(%1, %2) -> (%3, %4)").arg(lastState).arg(lastPriority).arg(state).arg(jobPriority);
+
+    m_jobs.removeAt(index);
+    m_jobs.insert(index, job);
+
+    //从其他状态变为等待、暂停、打印中等状态，重新对任务列表排序
+    //如果优先级改变,重新对任务列表进行排序
+    if ((lastState != state && state <= IPP_JSTATE_PROCESSING) || lastPriority != jobPriority) {
+        m_reflushTimer->start();
+        return;
+    }
+
+    //其他情况只用刷新当前任务
+    emit dataChanged(this->index(index, 0), this->index(index, ACTION_Column));
+}
+
+void JobsDataModel::doItemAction(int jobId, unsigned int iAction)
+{
+    switch (iAction) {
+    case JOB_ACTION_Cancel:
+        g_jobManager->cancelJob(jobId);
+        break;
+    case JOB_ACTION_Delete:
+        if (0 == g_jobManager->deleteJob(jobId))
+            deleteJobItem(jobId);
+        break;
+    case JOB_ACTION_Hold:
+        g_jobManager->holdJob(jobId);
+        break;
+    case JOB_ACTION_Release:
+        g_jobManager->releaseJob(jobId);
+        break;
+    case JOB_ACTION_Restart:
+        g_jobManager->restartJob(jobId);
+        break;
+    case JOB_ACTION_Priority:
+    {
+        int iPriority = m_iHighestPriority+1;
+
+        if (HIGHEST_Priority <= iPriority){
+            iPriority = -1;
+        }
+
+        if (0 == g_jobManager->priorityJob(jobId, iPriority)) {
+            setHighestPriority(jobId, iPriority);
+        }
+
+        break;
+    }
+    default:
+        qWarning() << "Unsupport actions: " << iAction;
+        break;
+    }
+}
+
 QVariant JobsDataModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (role == Qt::DisplayRole && orientation == Qt::Horizontal) {
@@ -632,10 +679,10 @@ void JobsDataModel::updateJobState(int id, int state, const QString &message)
     qInfo() << iState << m_iWhichJob;
 
     if (index >= m_jobs.count()) {
+        //如果已完成任务不在任务列表中,而且当前需要显示已完成任务，则将已完成任务添加到列表中
         //如果未完成任务不在任务列表中,而且当前需要显示未完成任务，则将新任务添加到任务列表中
-        //如果已完成任务不在任务列表中,而且当前只显示未完成任务，则将已完成任务添加到列表中
-        if (((IPP_JSTATE_PROCESSING <= state && m_iWhichJob != WHICH_JOB_DONE) ||
-            (IPP_JSTATE_PROCESSING > state && m_iWhichJob == WHICH_JOB_DONE))) {
+        if (((IPP_JSTATE_PROCESSING < state && m_iWhichJob != WHICH_JOB_RUNING) ||
+            (IPP_JSTATE_PROCESSING >= state && m_iWhichJob != WHICH_JOB_DONE))) {
             map<string, string> jobinfo;
             if (0 == g_jobManager->getJobById(jobinfo, id)) {
                 QMap<QString, QVariant> job;
@@ -645,8 +692,8 @@ void JobsDataModel::updateJobState(int id, int state, const QString &message)
                 for (itjob=jobinfo.begin();itjob!=jobinfo.end();itjob++) {
                     job.insert(STQ(itjob->first), attrValueToQString(itjob->second));
                 }
-                m_jobs.append(job);
-                slotReflushJobItems();
+
+                addJobItem(job);
                 return;
             }
         }
@@ -655,44 +702,30 @@ void JobsDataModel::updateJobState(int id, int state, const QString &message)
         return;
     }
 
-
     //如果已完成任务在任务列表中，而且当前只显示未完成任务，则将已完成任务从任务列表中删除
-    if (IPP_JSTATE_PROCESSING < state && m_iWhichJob == WHICH_JOB_RUNING) {
-        m_jobs.removeAt(index);
-        slotReflushJobItems();
+    //如果未完成任务在任务列表中，而且当前只显示已完成任务，则将未完成任务从任务列表中删除(重新打印的情况)
+    if ((IPP_JSTATE_PROCESSING < state && m_iWhichJob == WHICH_JOB_RUNING) ||
+        (IPP_JSTATE_PROCESSING >= state && m_iWhichJob == WHICH_JOB_DONE)) {
+        deleteJobItem(id);
         return;
     }
 
-    //其他情况只用刷新任务状态
-    if (iState != state) {
-        map<string, string> jobinfo;
-        QMap<QString, QVariant> job;
-        if (0 == g_jobManager->getJobById(jobinfo, id)) {
-            map<string, string>::const_iterator itjob;
+    //其他情况只刷新任务属性
+    map<string, string> jobinfo;
+    QMap<QString, QVariant> job;
+    if (0 == g_jobManager->getJobById(jobinfo, id)) {
+        map<string, string>::const_iterator itjob;
 
-            job.insert(JOB_ATTR_ID, id);
-            for (itjob=jobinfo.begin();itjob!=jobinfo.end();itjob++) {
-                job.insert(STQ(itjob->first), attrValueToQString(itjob->second));
-            }
-        } else {
-            job = m_jobs[index];
-            job.insert(JOB_ATTR_STATE, state);
+        job.insert(JOB_ATTR_ID, id);
+        for (itjob=jobinfo.begin();itjob!=jobinfo.end();itjob++) {
+            job.insert(STQ(itjob->first), attrValueToQString(itjob->second));
         }
-        m_jobs.removeAt(index);
-        m_jobs.insert(index, job);
-
-
-        int jobPriority = job[JOB_ATTR_PRIORITY].toString().toInt();
-        //从其他状态变为等待状态，重新对任务列表排序
-        //如果最高优先级的任务变为非等待状态,重新对任务列表进行排序
-        if (IPP_JSTATE_PENDING == state || jobPriority == m_iHighestPriority) {
-            m_reflushTimer->start();
-            return;
-        }
+    } else {
+        job = m_jobs[index];
+        job.insert(JOB_ATTR_STATE, state);
     }
-    //如果刷新的定时器已经启动，和定时器事件一起刷新
-    if (!m_reflushTimer->isActive())
-        dataChanged(this->index(index, 0), this->index(index, ACTION_Column));
+
+    setJobAttributes(index, job);
 }
 
 void JobsDataModel::slotReflushJobItems()
@@ -836,9 +869,7 @@ void JobsDataModel::setHighestPriority(int id, int iPriority)
     QMap<QString, QVariant> job = m_jobs[index];
     m_iHighestPriority = iPriority;
     job.insert(JOB_ATTR_PRIORITY, iPriority);
-    m_jobs.removeAt(index);
-    m_jobs.insert(index, job);
-    m_reflushTimer->start();
+    setJobAttributes(index, job);
 }
 
 unsigned int JobsDataModel::getActionStatus(int iRow) const
