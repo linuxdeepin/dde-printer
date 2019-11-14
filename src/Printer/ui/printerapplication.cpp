@@ -37,6 +37,13 @@
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 
+enum ApplicationModel{
+    APPMODEL_Watch = 0x1,
+    APPMODEL_TrayIcon = 0x2,
+    APPMODEL_JobsWindow = 0x4,
+    APPMODEL_MainWindow = 0x8,
+};
+
 PrinterApplication *PrinterApplication::getInstance()
 {
     static PrinterApplication *instance = nullptr;
@@ -107,6 +114,7 @@ int PrinterApplication::create()
     }
 
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::newProcessInstance, this, &PrinterApplication::slotNewProcessInstance);
+    connect(g_cupsMonitor, &CupsMonitor::signalShowTrayIcon, this, &PrinterApplication::slotShowTrayIcon);
 
     g_cupsMonitor->initSubscription();
     g_cupsMonitor->initWatcher();
@@ -153,9 +161,9 @@ int PrinterApplication::showMainWindow()
     return 0;
 }
 
-void PrinterApplication::showTray()
+void PrinterApplication::slotShowTrayIcon(bool bShow)
 {
-    if (!m_systemTray) {
+    if (bShow && !m_systemTray) {
         m_systemTray = new QSystemTrayIcon(QIcon(":/images/dde-printer.svg"));
         connect(m_systemTray, &QSystemTrayIcon::activated, [this](QSystemTrayIcon::ActivationReason reason) {
                 if (reason == QSystemTrayIcon::Trigger) {
@@ -164,12 +172,9 @@ void PrinterApplication::showTray()
                 });
     }
 
-    m_systemTray->show();
-}
-
-void PrinterApplication::hideTray()
-{
-    if (m_systemTray)
+    if (bShow)
+        m_systemTray->show();
+    else if (m_systemTray)
         m_systemTray->hide();
 }
 

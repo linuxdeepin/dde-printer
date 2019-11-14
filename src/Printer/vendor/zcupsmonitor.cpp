@@ -124,11 +124,7 @@ bool CupsMonitor::insertJobMessage(int id, int state, const QString &message)
         }
     }
 
-    if (hasRuningJobs){
-        g_printerApplication->showTray();
-    } else {
-        g_printerApplication->hideTray();
-    }
+    emit signalShowTrayIcon(hasRuningJobs);
     return times == 1;
 }
 

@@ -35,13 +35,6 @@ class PrinterApplication : public QObject
 public:
     static PrinterApplication* getInstance();
 
-    enum ApplicationModel{
-        APPMODEL_Watch = 0x1,
-        APPMODEL_TrayIcon = 0x2,
-        APPMODEL_JobsWindow = 0x4,
-        APPMODEL_MainWindow = 0x8,
-    };
-
     int create();
     int launchWithMode(const QStringList &arguments);
     int stop();
@@ -49,12 +42,9 @@ public:
     int showMainWindow();
     int showJobsWindow();
 
-public slots:
-    void showTray();
-    void hideTray();
-
 protected slots:
     void slotNewProcessInstance(qint64 pid, const QStringList &arguments);
+    void slotShowTrayIcon(bool bShow);
 
 protected:
     PrinterApplication();

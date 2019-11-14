@@ -75,6 +75,7 @@ signals:
     void signalJobStateChanged(int id, int state, QString message);
     void signalPrinterStateChanged(QString printer, int state, QString message);
     void signalPrinterDelete(QString printer);
+    void signalShowTrayIcon(bool);
 
 private:
     QMap<int, QString>  m_jobMessages;
