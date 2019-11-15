@@ -78,11 +78,11 @@ void PrinterSearchWindow::initUi()
 
     // 左侧菜单列表
     m_pTabListWidget = new QListWidget();
-    QListWidgetItem *pWidgetItemAuto = new QListWidgetItem(QIcon::fromTheme("dp_auto_searching"), tr("Automatic search"));
+    QListWidgetItem *pWidgetItemAuto = new QListWidgetItem(QIcon::fromTheme("dp_auto_searching"), tr("Discover printer"));
     pWidgetItemAuto->setSizeHint(QSize(108, 48));
-    QListWidgetItem *pWidgetItemManual = new QListWidgetItem(QIcon::fromTheme("dp_manual_search"), tr("Manual search"));
+    QListWidgetItem *pWidgetItemManual = new QListWidgetItem(QIcon::fromTheme("dp_manual_search"), tr("Find printer"));
     pWidgetItemManual->setSizeHint(QSize(108, 48));
-    QListWidgetItem *pWidgetItemURI = new QListWidgetItem(QIcon::fromTheme("dp_uri"), tr("URI search"));
+    QListWidgetItem *pWidgetItemURI = new QListWidgetItem(QIcon::fromTheme("dp_uri"), tr("Enter URI"));
     pWidgetItemURI->setSizeHint(QSize(108, 48));
     m_pTabListWidget->addItem(pWidgetItemAuto);
     m_pTabListWidget->addItem(pWidgetItemManual);
@@ -94,13 +94,14 @@ void PrinterSearchWindow::initUi()
 
     m_pStackedWidget = new QStackedWidget();
     // 右侧 自动查找
-    m_pLabelPrinter = new QLabel(tr("Select printer"));
+    m_pLabelPrinter = new QLabel(tr("Select a printer"));
     QFont font;
     font.setBold(true);
     m_pLabelPrinter->setFont(font);
     m_pBtnRefresh = new DIconButton(this);
     m_pBtnRefresh->setIcon(QIcon::fromTheme("dp_refresh"));
     m_pBtnRefresh->setFixedSize(36, 36);
+    m_pBtnRefresh->setToolTip(tr("Refresh"));
     QHBoxLayout *pHLayout1 = new QHBoxLayout();
     pHLayout1->addWidget(m_pLabelPrinter);
     pHLayout1->addWidget(m_pBtnRefresh, 0, Qt::AlignRight);
@@ -122,7 +123,7 @@ void PrinterSearchWindow::initUi()
 
     m_pAutoSpinner = new DSpinner();
     m_pAutoSpinner->setFixedSize(30, 30);
-    m_pAutoInstallDriverBtn = new QPushButton(UI_PRINTERSEARCH_INSTALLDRIVER_NEXT);
+    m_pAutoInstallDriverBtn = new QPushButton(tr("Start Installation"));
     m_pAutoInstallDriverBtn->setEnabled(false);
     m_pAutoInstallDriverBtn->setFixedHeight(30);
     QHBoxLayout *pHLayout3 = new QHBoxLayout();
@@ -141,10 +142,10 @@ void PrinterSearchWindow::initUi()
     pWidget1->setLayout(pVLayout1);
     m_pStackedWidget->addWidget(pWidget1);
     // 右侧 手动查找
-    m_pLabelLocation = new QLabel(tr("Location"));
+    m_pLabelLocation = new QLabel(tr("IP address"));
     m_pLineEditLocation = new QLineEdit();
     m_pLineEditLocation->setPlaceholderText(tr("Please enter the IP address"));
-    m_pBtnFind = new QPushButton(tr("Search"));
+    m_pBtnFind = new QPushButton(tr("Find"));
     QHBoxLayout *pHLayout4 = new QHBoxLayout();
     pHLayout4->addWidget(m_pLabelLocation);
     pHLayout4->addSpacing(26);
@@ -191,8 +192,8 @@ void PrinterSearchWindow::initUi()
     m_pLabelURI = new QLabel(tr("URI"));
     m_pLabelURI->setAlignment(Qt::AlignCenter);
     m_pLineEditURI = new QLineEdit();
-    m_pLineEditURI->setPlaceholderText(tr("Please enter the URI"));
-    m_pLabelTip = new QLabel(tr("such as\n") + UI_PRINTERSEARCH_URITIP);
+    m_pLineEditURI->setPlaceholderText(tr("Enter device URI"));
+    m_pLabelTip = new QLabel(tr("Examples:") + "\n" + UI_PRINTERSEARCH_URITIP);
     QLabel *pLabelDriver3 = new QLabel(UI_PRINTERSEARCH_DRIVER);
     m_pURIDriverCom = new QComboBox();
     m_pURIDriverCom->addItem(UI_PRINTERSEARCH_MANUAL);

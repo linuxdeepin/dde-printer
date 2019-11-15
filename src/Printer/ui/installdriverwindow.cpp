@@ -74,7 +74,7 @@ void InstallDriverWindow::initUI()
     setWindowModality(Qt::ApplicationModal);
     resize(682, 532);
     // 左侧
-    QLabel *pLabelTitle1 = new QLabel(tr("Select drive source")) ;
+    QLabel *pLabelTitle1 = new QLabel(tr("Select a driver from")) ;
     QFont font;
     font.setBold(true);
     pLabelTitle1->setFont(font);
@@ -82,7 +82,7 @@ void InstallDriverWindow::initUI()
     m_pTabListModel = new QStandardItemModel();
     m_pTabListModel->appendRow(new QStandardItem(tr("Local driver")));
     m_pTabListModel->appendRow(new QStandardItem(tr("Local PPD file")));
-    m_pTabListModel->appendRow(new QStandardItem(tr("Set up the print information search driver")));
+    m_pTabListModel->appendRow(new QStandardItem(tr("Search for a driver")));
     m_pTabListView->setModel(m_pTabListModel);
     m_pTabListView->setCurrentIndex(m_pTabListModel->index(0, 0));
     QVBoxLayout *pLeftVBoxlayout = new QVBoxLayout();
@@ -91,14 +91,14 @@ void InstallDriverWindow::initUI()
 
     // 切换控件
     m_pStackWidget = new QStackedWidget();
-    m_pRightTitleLabel = new QLabel(tr("Select local driver"));// 这个标题栏三个界面公用
+    m_pRightTitleLabel = new QLabel(tr("Choose a local driver"));// 这个标题栏三个界面公用
     m_pRightTitleLabel->setFont(font);
     //右侧 本地
-    QLabel *pLabelManufacturer = new QLabel(tr("Manufacturer"));
+    QLabel *pLabelManufacturer = new QLabel(tr("Vendor"));
     m_pManufacturerCombo = new QComboBox();
     m_pManufacturerCombo->setMaxVisibleItems(10);
     m_pManufacturerCombo->setEditable(true);
-    QLabel *pLabelType = new QLabel(tr("Type"));
+    QLabel *pLabelType = new QLabel(tr("Model"));
     m_pTypeCombo = new QComboBox();
     m_pTypeCombo->setEditable(true);
     QLabel *pLabelDriver = new QLabel(tr("Driver"));
@@ -135,10 +135,10 @@ void InstallDriverWindow::initUI()
     m_pStackWidget->addWidget(pPPDWidget);
 
     //设置打印信息搜索
-    QLabel *pMakerAndTypeLabel = new QLabel(tr("Manufacturer and model"));
+    QLabel *pMakerAndTypeLabel = new QLabel(tr("Vendor and Model"));
     m_pManuAndTypeLineEdit = new QLineEdit();
     m_pManuAndTypeLineEdit->setValidator(new QRegExpValidator(QRegExp("^[a-zA-Z0-9 ]*$")));
-    m_pSearchBtn = new QPushButton(tr("detection"));
+    m_pSearchBtn = new QPushButton(tr("Search"));
     QLabel *pDriverLabel = new QLabel(tr("Driver"));
     m_pDriverManualCombo = new QComboBox();
     QGridLayout *pGLayout1 = new QGridLayout();
@@ -153,7 +153,7 @@ void InstallDriverWindow::initUI()
     m_pStackWidget->addWidget(pSettingWidget);
 
     //安装按钮
-    m_pInstallBtn = new QPushButton(tr("Start the installation"));
+    m_pInstallBtn = new QPushButton(tr("Install Driver"));
     m_pSpinner = new DSpinner();
     m_pSpinner->setFixedSize(32, 32);
     // 右侧整体布局
@@ -295,7 +295,7 @@ void InstallDriverWindow::tabCurrentIndexChanged()
 {
     if (m_pTabListView->currentIndex().row() == 0) {
         m_pStackWidget->setCurrentIndex(0);
-        m_pRightTitleLabel->setText(tr("Select local driver"));
+        m_pRightTitleLabel->setText(tr("Choose a local driver"));
         if (m_pDriverCombo->count() == 0)
             m_pInstallBtn->setEnabled(false);
         else {
@@ -303,7 +303,7 @@ void InstallDriverWindow::tabCurrentIndexChanged()
         }
     } else if (m_pTabListView->currentIndex().row() == 1) {
         m_pStackWidget->setCurrentIndex(1);
-        m_pRightTitleLabel->setText(tr("Select the PPD file"));
+        m_pRightTitleLabel->setText(tr("Select a PPD file"));
         QFileInfo info(m_pPPDPath->text());
         if (info.exists()) {
             m_pInstallBtn->setEnabled(true);
@@ -312,7 +312,7 @@ void InstallDriverWindow::tabCurrentIndexChanged()
         }
     } else if (m_pTabListView->currentIndex().row() == 2) {
         m_pStackWidget->setCurrentIndex(2);
-        m_pRightTitleLabel->setText(tr("Set printer information"));
+        m_pRightTitleLabel->setText(tr("Search for printer driver"));
         if (m_pDriverManualCombo->count() == 0)
             m_pInstallBtn->setEnabled(false);
         else {

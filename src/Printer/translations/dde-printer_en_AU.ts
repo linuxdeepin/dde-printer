@@ -4,37 +4,37 @@
 <context>
     <name>AddPrinterTask</name>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="422"/>
+        <location filename="../vendor/addprinter.cpp" line="427"/>
         <source>Uri is empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="404"/>
+        <location filename="../vendor/addprinter.cpp" line="409"/>
         <source>Uri and driver not match.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="406"/>
+        <location filename="../vendor/addprinter.cpp" line="411"/>
         <source>Current driver need hplip, please install it and restart.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="408"/>
+        <location filename="../vendor/addprinter.cpp" line="413"/>
         <source>Current uri need hplip driver, please select an other driver and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="430"/>
+        <location filename="../vendor/addprinter.cpp" line="435"/>
         <source>not found</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="512"/>
+        <location filename="../vendor/addprinter.cpp" line="517"/>
         <source>Direct device</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="514"/>
+        <location filename="../vendor/addprinter.cpp" line="519"/>
         <source>File device</source>
         <translation type="unfinished"></translation>
     </message>
@@ -519,154 +519,151 @@
 <context>
     <name>DPrintersShowWindow</name>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="78"/>
-        <source>Print device</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="82"/>
-        <source>Click here to add a printer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="97"/>
-        <source>Share</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="100"/>
-        <source>Enable</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="103"/>
-        <source>Accept the task</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="107"/>
-        <source>Set to default printer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="119"/>
-        <source>Printless device</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="136"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="137"/>
         <source>Location:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="139"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="140"/>
         <source>Model:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="141"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="142"/>
         <source>Status:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="166"/>
-        <source>Setting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="173"/>
-        <source>Print queue</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="180"/>
-        <source>Print the test page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="209"/>
-        <source>No printer configured 
-Please click the add button (+) to add printer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="232"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="233"/>
         <source>Basic server Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="234"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="235"/>
         <source>Publish Shared printers linked to this system</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="235"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="236"/>
         <source>Allow printing from the Internet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="238"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="239"/>
         <source>Allow users to cancel all tasks (not just their own)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="239"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="240"/>
         <source>Retain debugging information for troubleshooting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="300"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="301"/>
         <source>Idle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="302"/>
-        <source>Processing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="304"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="305"/>
         <source>Stopped</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="426"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="427"/>
         <source>Are you sure you want to delete the printer &quot;%1&quot; ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="432"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="85"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="433"/>
         <source>Delete printer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="459"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="78"/>
+        <source>Printers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="82"/>
+        <source>Add printer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="98"/>
+        <source>Shared</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="101"/>
+        <source>Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="104"/>
+        <source>Accept Task</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="108"/>
+        <source>Set as default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="120"/>
+        <source>No Printers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="174"/>
+        <source>Print Queue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="181"/>
+        <source>Print Test Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="210"/>
+        <source>No printer configured 
+Click + to add printers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="303"/>
+        <source>printing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="460"/>
         <source>Renaming will cause the completed task not to be reprinted, are you sure?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="461"/>
-        <source>OK</source>
+        <location filename="../ui/dprintersshowwindow.cpp" line="462"/>
+        <source>Confirm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="508"/>
-        <source>Driver is broken,try to install the driver please.</source>
+        <location filename="../ui/dprintersshowwindow.cpp" line="509"/>
+        <source>The driver is damaged, please install it again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="511"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="578"/>
+        <source>disconnected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="512"/>
         <source>install driver</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="71"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="167"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="577"/>
-        <source>Disconnected</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -702,7 +699,7 @@ Please click the add button (+) to add printer</source>
 <context>
     <name>DriverManager</name>
     <message>
-        <location filename="../vendor/zdrivermanager.cpp" line="567"/>
+        <location filename="../vendor/zdrivermanager.cpp" line="574"/>
         <source>EveryWhere driver</source>
         <translation type="unfinished"></translation>
     </message>
@@ -710,12 +707,12 @@ Please click the add button (+) to add printer</source>
 <context>
     <name>InstallDriver</name>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="242"/>
+        <location filename="../vendor/addprinter.cpp" line="247"/>
         <source>Search driver soluton:%1 failed, error code: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="252"/>
+        <location filename="../vendor/addprinter.cpp" line="257"/>
         <source>Solution result is not valid</source>
         <translation type="unfinished"></translation>
     </message>
@@ -724,7 +721,7 @@ Please click the add button (+) to add printer</source>
     <name>InstallDriverWindow</name>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="77"/>
-        <source>Select drive source</source>
+        <source>Select a driver from</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -739,44 +736,44 @@ Please click the add button (+) to add printer</source>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="85"/>
-        <source>Set up the print information search driver</source>
+        <source>Search for a driver</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="94"/>
         <location filename="../ui/installdriverwindow.cpp" line="298"/>
-        <source>Select local driver</source>
+        <source>Choose a local driver</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="97"/>
-        <source>Manufacturer</source>
+        <source>Vendor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="101"/>
-        <source>Type</source>
+        <source>Model</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/installdriverwindow.cpp" line="138"/>
+        <source>Vendor and Model</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/installdriverwindow.cpp" line="141"/>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/installdriverwindow.cpp" line="156"/>
+        <source>Install Driver</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="104"/>
         <location filename="../ui/installdriverwindow.cpp" line="142"/>
         <source>Driver</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/installdriverwindow.cpp" line="138"/>
-        <source>Manufacturer and model</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/installdriverwindow.cpp" line="141"/>
-        <source>detection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/installdriverwindow.cpp" line="156"/>
-        <source>Start the installation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -787,13 +784,17 @@ Please click the add button (+) to add printer</source>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="306"/>
-        <location filename="../ui/installdriverwindow.cpp" line="383"/>
-        <source>Select the PPD file</source>
+        <source>Select a PPD file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="315"/>
-        <source>Set printer information</source>
+        <source>Search for printer driver</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/installdriverwindow.cpp" line="383"/>
+        <source>Select the PPD file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -828,140 +829,141 @@ Please click the add button (+) to add printer</source>
 <context>
     <name>InstallPrinterWindow</name>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="79"/>
-        <location filename="../ui/installprinterwindow.cpp" line="138"/>
-        <source>Installing drive</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/installprinterwindow.cpp" line="89"/>
-        <location filename="../ui/installprinterwindow.cpp" line="226"/>
+        <location filename="../ui/installprinterwindow.cpp" line="91"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="91"/>
-        <location filename="../ui/installprinterwindow.cpp" line="160"/>
-        <location filename="../ui/installprinterwindow.cpp" line="177"/>
-        <source>View printer</source>
+        <location filename="../ui/installprinterwindow.cpp" line="80"/>
+        <location filename="../ui/installprinterwindow.cpp" line="141"/>
+        <source>Installing driver...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="93"/>
-        <location filename="../ui/installprinterwindow.cpp" line="162"/>
-        <location filename="../ui/installprinterwindow.cpp" line="179"/>
-        <source>Print test page</source>
+        <location filename="../ui/installprinterwindow.cpp" line="163"/>
+        <location filename="../ui/installprinterwindow.cpp" line="180"/>
+        <source>View Printer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="150"/>
-        <location filename="../ui/installprinterwindow.cpp" line="167"/>
-        <source>Successful installation</source>
+        <location filename="../ui/installprinterwindow.cpp" line="95"/>
+        <location filename="../ui/installprinterwindow.cpp" line="165"/>
+        <location filename="../ui/installprinterwindow.cpp" line="182"/>
+        <source>Print Test Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="156"/>
-        <location filename="../ui/installprinterwindow.cpp" line="173"/>
-        <source>The printer has been added successfully. Please click the printer test page button to test whether the printer can print normally</source>
+        <location filename="../ui/installprinterwindow.cpp" line="153"/>
+        <source>Successfully installed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="184"/>
-        <source>Test whether the page prints successfully?</source>
+        <location filename="../ui/installprinterwindow.cpp" line="159"/>
+        <source>You have successfully added the printer.Print a test page to check if it works properly</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="190"/>
-        <source>Select yes if the print succeeds and no if it fails.</source>
+        <location filename="../ui/installprinterwindow.cpp" line="170"/>
+        <source>Printing test page...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/installprinterwindow.cpp" line="176"/>
+        <source>You have successfully added the printer. Print a test page to check if it works properly.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/installprinterwindow.cpp" line="187"/>
+        <source>Did you print the test page successfully?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="193"/>
+        <source>if succeeded, click Yes; if failed, click No.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/installprinterwindow.cpp" line="196"/>
         <source>No</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="195"/>
+        <location filename="../ui/installprinterwindow.cpp" line="198"/>
         <source>Yes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="200"/>
-        <source>Failed to print test page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/installprinterwindow.cpp" line="206"/>
-        <source>Please select the reinstall button that will install the printer again, or select troubleshooting.</source>
+        <location filename="../ui/installprinterwindow.cpp" line="203"/>
+        <location filename="../ui/installprinterwindow.cpp" line="229"/>
+        <source>Print failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="209"/>
+        <source>Click Reinstall to install the printer driver again,or click Troubleshoot to start troubleshooting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/installprinterwindow.cpp" line="214"/>
+        <location filename="../ui/installprinterwindow.cpp" line="242"/>
+        <source>Troubleshoot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/installprinterwindow.cpp" line="224"/>
+        <source>Installation failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/installprinterwindow.cpp" line="212"/>
+        <location filename="../ui/installprinterwindow.cpp" line="240"/>
         <source>Reinstall</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/installprinterwindow.cpp" line="211"/>
-        <source>Troubleshooting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/installprinterwindow.cpp" line="216"/>
-        <source>Drive installation failure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/installprinterwindow.cpp" line="228"/>
-        <source>Start the installation</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>JobListView</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="370"/>
-        <source>Are you sure to delete job</source>
+        <location filename="../ui/jobmanagerwindow.cpp" line="219"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="371"/>
+        <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="220"/>
-        <location filename="../ui/jobmanagerwindow.cpp" line="377"/>
-        <source>Delete job</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="219"/>
-        <source>Cancel job</source>
+        <location filename="../ui/jobmanagerwindow.cpp" line="372"/>
+        <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="221"/>
-        <source>Hold job</source>
+        <source>Pause</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="222"/>
-        <source>Release job</source>
+        <source>Resume</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="223"/>
-        <source>Priority job</source>
+        <source>Print first</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="224"/>
-        <source>Restart job</source>
+        <source>Reprint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="226"/>
-        <source>No jobs</source>
+        <source>No print jobs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="376"/>
-        <source>Cancel</source>
+        <location filename="../ui/jobmanagerwindow.cpp" line="365"/>
+        <source>Are you sure you want to delete this job?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -976,27 +978,27 @@ Please click the add button (+) to add printer</source>
 <context>
     <name>JobManagerWindow</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="798"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="950"/>
         <source>Reflush</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="802"/>
-        <source>All jobs</source>
+        <location filename="../ui/jobmanagerwindow.cpp" line="954"/>
+        <source>All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="803"/>
-        <source>Runing jobs</source>
+        <location filename="../ui/jobmanagerwindow.cpp" line="955"/>
+        <source>Print Queue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="804"/>
-        <source>Finished jobs</source>
+        <location filename="../ui/jobmanagerwindow.cpp" line="956"/>
+        <source>Completed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="858"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1010"/>
         <source>%1 jobs</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1004,43 +1006,43 @@ Please click the add button (+) to add printer</source>
 <context>
     <name>JobsDataModel</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="556"/>
-        <source>id</source>
+        <location filename="../ui/jobmanagerwindow.cpp" line="609"/>
+        <source>Job</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="558"/>
-        <source>user</source>
+        <location filename="../ui/jobmanagerwindow.cpp" line="611"/>
+        <source>User</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="560"/>
-        <source>job name</source>
+        <location filename="../ui/jobmanagerwindow.cpp" line="613"/>
+        <source>Document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="562"/>
-        <source>printer name</source>
+        <location filename="../ui/jobmanagerwindow.cpp" line="615"/>
+        <source>Printer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="564"/>
-        <source>size</source>
+        <location filename="../ui/jobmanagerwindow.cpp" line="617"/>
+        <source>Size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="566"/>
-        <source>create time</source>
+        <location filename="../ui/jobmanagerwindow.cpp" line="619"/>
+        <source>Time submitted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="568"/>
-        <source>job state</source>
+        <location filename="../ui/jobmanagerwindow.cpp" line="621"/>
+        <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="570"/>
-        <source>action</source>
+        <location filename="../ui/jobmanagerwindow.cpp" line="623"/>
+        <source>Action</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1048,7 +1050,7 @@ Please click the add button (+) to add printer</source>
     <name>PermissionsWindow</name>
     <message>
         <location filename="../ui/permissionswindow.cpp" line="60"/>
-        <source>To find the printer, log in %1</source>
+        <source>Connect to %1 to find a printer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1080,64 +1082,73 @@ Please click the add button (+) to add printer</source>
 <context>
     <name>PrinterSearchWindow</name>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="81"/>
-        <source>Automatic search</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/printersearchwindow.cpp" line="83"/>
-        <source>Manual search</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/printersearchwindow.cpp" line="85"/>
-        <source>URI search</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/printersearchwindow.cpp" line="97"/>
-        <source>Select printer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/printersearchwindow.cpp" line="144"/>
-        <source>Location</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/printersearchwindow.cpp" line="146"/>
+        <location filename="../ui/printersearchwindow.cpp" line="147"/>
         <source>Please enter the IP address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="147"/>
-        <source>Search</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/printersearchwindow.cpp" line="191"/>
+        <location filename="../ui/printersearchwindow.cpp" line="192"/>
         <source>URI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="194"/>
-        <source>Please enter the URI</source>
+        <location filename="../ui/printersearchwindow.cpp" line="81"/>
+        <source>Discover printer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/printersearchwindow.cpp" line="83"/>
+        <source>Find printer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/printersearchwindow.cpp" line="85"/>
+        <source>Enter URI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/printersearchwindow.cpp" line="97"/>
+        <source>Select a printer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/printersearchwindow.cpp" line="104"/>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/printersearchwindow.cpp" line="126"/>
+        <source>Start Installation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/printersearchwindow.cpp" line="145"/>
+        <source>IP address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/printersearchwindow.cpp" line="148"/>
+        <source>Find</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="195"/>
-        <source>such as
-</source>
+        <source>Enter device URI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="432"/>
+        <location filename="../ui/printersearchwindow.cpp" line="196"/>
+        <source>Examples:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/printersearchwindow.cpp" line="435"/>
         <source>Sure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="534"/>
-        <location filename="../ui/printersearchwindow.cpp" line="581"/>
+        <location filename="../ui/printersearchwindow.cpp" line="538"/>
+        <location filename="../ui/printersearchwindow.cpp" line="585"/>
         <source> (recommended)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1170,26 +1181,6 @@ Please click the add button (+) to add printer</source>
     <message>
         <location filename="../ui/printertestpagedialog.cpp" line="39"/>
         <source>sure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/printertestpagedialog.cpp" line="51"/>
-        <source>No</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/printertestpagedialog.cpp" line="52"/>
-        <source>Yes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/printertestpagedialog.cpp" line="53"/>
-        <source>Print job is completed, please check the printer is print or not</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/printertestpagedialog.cpp" line="72"/>
-        <source>Start printer test page</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1236,14 +1227,14 @@ Please click the add button (+) to add printer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="397"/>
-        <location filename="../ui/printersearchwindow.cpp" line="455"/>
+        <location filename="../ui/printersearchwindow.cpp" line="399"/>
+        <location filename="../ui/printersearchwindow.cpp" line="458"/>
         <source>(use %1 protocol)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/uisourcestring.h" line="24"/>
-        <source>Manually select the driver scheme</source>
+        <source>Select a driver</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1257,14 +1248,14 @@ Please click the add button (+) to add printer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/uisourcestring.h" line="32"/>
-        <source>Start the installation</source>
+        <location filename="../ui/uisourcestring.h" line="34"/>
+        <source>Drag a PPD file here 
+ or</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/uisourcestring.h" line="34"/>
-        <source>Please drag and drop the PPD file here 
- or</source>
+        <location filename="../ui/uisourcestring.h" line="37"/>
+        <source>Troubleshoot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1273,8 +1264,8 @@ Please click the add button (+) to add printer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/uisourcestring.h" line="37"/>
-        <source>Troubleshooting</source>
+        <location filename="../ui/uisourcestring.h" line="32"/>
+        <source>Start Installation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1283,13 +1274,8 @@ Please click the add button (+) to add printer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../vendor/common.cpp" line="110"/>
+        <location filename="../vendor/common.cpp" line="109"/>
         <source> not found, please ask the administrator for help</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../vendor/common.cpp" line="113"/>
-        <source> not found, please install avahi-daemon and try again</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1297,7 +1283,7 @@ Please click the add button (+) to add printer</source>
     <name>RenamePrinterWindow</name>
     <message>
         <location filename="../ui/renameprinterwindow.cpp" line="84"/>
-        <source>Rename printer</source>
+        <source>Rename Printer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1322,24 +1308,24 @@ Please click the add button (+) to add printer</source>
     </message>
     <message>
         <location filename="../ui/renameprinterwindow.cpp" line="107"/>
-        <source>OK</source>
+        <source>Confirm</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>TroubleShootDialog</name>
     <message>
-        <location filename="../ui/troubleshootdialog.cpp" line="136"/>
+        <location filename="../ui/troubleshootdialog.cpp" line="134"/>
         <source>Trouble Shoot: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/troubleshootdialog.cpp" line="155"/>
+        <location filename="../ui/troubleshootdialog.cpp" line="153"/>
         <source>cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/troubleshootdialog.cpp" line="167"/>
+        <location filename="../ui/troubleshootdialog.cpp" line="165"/>
         <source>sure</source>
         <translation type="unfinished"></translation>
     </message>

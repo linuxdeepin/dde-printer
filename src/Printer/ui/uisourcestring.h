@@ -21,7 +21,7 @@
 #ifndef UISOURCESTRING_H
 #define UISOURCESTRING_H
 #include <QObject>
-#define UI_PRINTERSEARCH_MANUAL QObject::tr("Manually select the driver scheme")
+#define UI_PRINTERSEARCH_MANUAL QObject::tr("Select a driver")
 #define UI_PRINTERSEARCH_URITIP    "ipp://printer.mydomain/ipp\n" \
     "ipp://cups-sever/printers/printer-queue\n" \
     "smb://workgroup/username:password@hostname/printer_name\n" \
@@ -29,11 +29,11 @@
     "socket://server[:port]"
 #define UI_PRINTERSEARCH_DRIVER QObject::tr("Driver")
 #define UI_PRINTERSEARCH_INSTALLDRIVER_NEXT QObject::tr("Next")
-#define UI_PRINTERSEARCH_INSTALLDRIVER_AUTO QObject::tr("Start the installation")
+#define UI_PRINTERSEARCH_INSTALLDRIVER_AUTO QObject::tr("Start Installation")
 
-#define UI_PRINTERDRIVER_PPDLABEL_NORMAL QObject::tr("Please drag and drop the PPD file here \n or")
+#define UI_PRINTERDRIVER_PPDLABEL_NORMAL QObject::tr("Drag a PPD file here \n or")
 #define UI_PRINTERDRIVER_PPDBTN_NORMAL QObject::tr("Select a PPD file")
 
-#define UI_PRINTERSHOW_TROUBLE QObject::tr("Troubleshooting")
+#define UI_PRINTERSHOW_TROUBLE QObject::tr("Troubleshoot")
 #define UI_PRINTERSHOW_CANCEL QObject::tr("Cancel")
 #endif // UISOURCESTRING_H
