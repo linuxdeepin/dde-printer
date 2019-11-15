@@ -370,5 +370,6 @@ void InstallPrinterWindow::receiveInstallationStatusSlot(int status)
     } else {
         m_bInstallFail = true;
         setStatus(Reinstall);
+        m_printerName.clear();
     }
 }
