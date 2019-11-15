@@ -53,27 +53,126 @@ static QMap<QString, QString>                g_textPPd;//没有找到驱动的�
 
 static int g_iStatus = TStat_None;
 
-static QList<QMap<QString, QString>> getPPDNamesFromDeviceID(const QString &strUri, const QString &strMFG, const QString &strMDL, const QString &strCMD)
+static QStringList findBestMatchPPDs(QStringList &models, QString mdl)
+{
+    QStringList list;
+    int index = 0, len = 0;
+    QString left, right;
+    int leftMatch = 0, rightMatch = 0;
+    int leftlen = 0, rightlen = 0;
+
+    //先通过字符串排序找到和mdl最相近的项
+    mdl = mdl.toLower();
+    models.append(mdl);
+    models.sort();
+    index = models.indexOf(mdl);
+    len = models.count();
+    if (index > 0)
+        left = models[index-1];
+    if (index < (len - 1))
+        right = models[index+1];
+
+
+    qDebug() << QString("Between %1 left: %2 righ: %3").arg(mdl).arg(left).arg(right);
+
+    //找出左右两边和mdl匹配的字符数目
+    len = mdl.length();
+    leftlen = left.length();
+    rightlen = right.length();
+    foreach (QChar ch, mdl) {
+        if (leftMatch > -1 && leftMatch < leftlen && left[leftMatch] == ch)
+            leftMatch++;
+        else
+            leftlen = -1;
+
+        if (rightMatch > -1 && rightMatch < rightlen && right[rightMatch] == ch)
+            rightMatch++;
+        else
+            rightlen = -1;
+
+        if (rightlen < 1 && leftlen < 1) break;
+    }
+
+    //取匹配字符数较多并且超过mdl一半的项
+    if (rightlen > leftlen && rightlen > len/2)
+        list.append(right);
+    else if (leftlen > rightlen && leftlen > len/2)
+        list.append(left);
+    else {
+        //如果没有匹配到，取字符串里面的数字进行匹配
+        models.removeAll(mdl);
+        QStringList letters = mdl.split(" ");
+        QString number;
+        foreach (QString str, letters) {
+            if (str[0].isDigit()) {
+                number = str;
+                break;
+            }
+        }
+        if (!number.isEmpty()) {
+            foreach (QString str, models) {
+                letters = str.split(" ");
+                if (letters.contains(number))
+                    list.append(str);
+            }
+        }
+    }
+
+    qDebug() << QString("Got %1").arg(list.join(","));
+    return list;
+}
+
+static QStringList getPPDNameFromCommandSet(QString strCMD)
+{
+    QStringList list, cmds;
+    QStringList models = g_ppdsDirct.value("generic").keys();
+    QStringList mdls;
+
+    strCMD = strCMD.toLower();
+    cmds = strCMD.split(",");
+    if (cmds.contains("postscript") || cmds.contains("postscript2")
+            || cmds.contains("postscript level 2 emulation"))
+        mdls << "postscript";
+    else if(cmds.contains("pclxl") || cmds.contains("pcl-xl") ||
+            cmds.contains("pcl6") || cmds.contains("pcl 6 emulation"))
+        mdls << "PCL 6/PCL XL" << "PCL Laser";
+    else if (cmds.contains("pcl5e"))
+        mdls << "PCL 5e" << "PCL Laser";
+    else if (cmds.contains("pcl5c"))
+        mdls << "PCL 5c" << "PCL Laser";
+    else if (cmds.contains("pcl5"))
+        mdls << "PCL 5" << "PCL Laser";
+    else if (cmds.contains("pcl"))
+        mdls << "PCL 3" << "PCL Laser";
+    if (cmds.contains("escpl2") || cmds.contains("esc/p2")
+            || cmds.contains("escp2e"))
+        mdls << "ESC/P Dot Matrix";
+
+    foreach (QString mdl, mdls) {
+        qDebug() << QString("Find for CMD: %1, mdl: %2").arg(strCMD).arg(mdl);
+        list += findBestMatchPPDs(models, mdl);
+    }
+
+    return list;
+}
+
+static QList<QMap<QString, QString>> getFuzzyMatchDrivers(const QString &strMake, const QString &strModel, const QString &strCMD)
 {
     QList<QMap<QString, QString>> list;
-    QString strMake, strModel;
-    QStringList strKeys;
 
-    if (strMFG.isEmpty() || strMDL.isEmpty()) return list;
+    if (strMake.isEmpty() || strModel.isEmpty()) {
+        qWarning() << "printer info is invaild";
+        return list;
+    }
 
-    qInfo() << QString("Find driver for %1, %2#%3#%4").arg(strUri)
-        .arg(strMFG).arg(strMDL).arg(strCMD);
-
-    strMake = normalize(strMFG);
-    strModel = normalize(strMDL);
-    strKeys = g_ppdsDirct.value(strMake).values(strModel);
-    if (!strKeys.isEmpty())
+    if(g_ppdsDirct.contains(strMake))
     {
-        foreach (QString strKey, strKeys) {
-            QList<QMap<QString, QString>> flist = g_ppds.values(strKey.toLower());
-            list += flist;
-            qInfo() << QString("Match %1 drivers, got %2 for %3, %4")
-                       .arg(flist.count()).arg(strKey).arg(strModel).arg(strMake);
+        QMap<QString, QString> modelMap = g_ppdsDirct.value(strMake);
+        QStringList modellist = modelMap.keys();
+        QStringList models = findBestMatchPPDs(modellist, strModel);
+        foreach (QString mdl, models) {
+            QString key = g_ppdsDirct.value(strMake).value(mdl);
+            list += g_ppds.values(key.toLower());
         }
     }
 
@@ -90,8 +189,7 @@ static QList<QMap<QString, QString>> getPPDNamesFromDeviceID(const QString &strU
             qDebug() << QString("PPD commandsets: %1").arg(strcmd);
             QStringList cmds = strcmd.split(",");
             foreach (QString cmd, cmds) {
-                if(commandsets.contains(cmd))
-                {
+                if(commandsets.contains(cmd)) {
                     templist.append(list[i]);
                     break;
                 }
@@ -99,17 +197,43 @@ static QList<QMap<QString, QString>> getPPDNamesFromDeviceID(const QString &strU
         }
 
         //如果所有的驱动都不符合，保留驱动，如果只是部分不符合，去掉不符合的驱动
-        if(!templist.isEmpty())
-        {
+        if(!templist.isEmpty()) {
             int count = list.count();
             list = templist;
             if (count != list.count())
-                qInfo() << QString("Remove some ppds, that commandsets not support %1").arg(strCMD);
+                qDebug() << QString("Remove some ppds, that commandsets not support %1").arg(strCMD);
+        }
+
+        if (list.isEmpty()) {
+            //通过commandsets查找驱动
+            QStringList models = getPPDNameFromCommandSet(strCMD);
+            foreach (QString mdl, models) {
+                QString key = g_ppdsDirct.value(strMake).value(mdl);
+                list += g_ppds.values(key.toLower());
+            }
         }
     }
 
-    if (list.isEmpty())
-        qWarning()<< QString("Not found driver %1, %2#%3#%4").arg(strUri).arg(strMFG).arg(strMDL).arg(strCMD);
+    return list;
+}
+
+static QList<QMap<QString, QString>> getExactMatchDrivers(const QString &strMFG, const QString &strMDL)
+{
+    QList<QMap<QString, QString>> list;
+    QString strMake, strModel;
+    QStringList strKeys;
+
+    if (strMFG.isEmpty() || strMDL.isEmpty()) return list;
+
+    strKeys = g_ppdsDirct.value(strMake).values(strModel);
+    if (!strKeys.isEmpty()) {
+        foreach (QString strKey, strKeys) {
+            QList<QMap<QString, QString>> flist = g_ppds.values(strKey.toLower());
+            list += flist;
+            qInfo() << QString("Match %1 drivers, got %2 for %3, %4")
+                       .arg(flist.count()).arg(strKey).arg(strModel).arg(strMake);
+        }
+    }
 
     return list;
 }
@@ -283,6 +407,22 @@ DriverSearcher::DriverSearcher(const TDeviceInfo &printer, QObject *parent)
     :QObject(parent)
 {
     m_printer = printer;
+
+    //通过device id中的MFG、MDL、CMD字段匹配
+    if (!m_printer.strDeviceId.isEmpty()) {
+        QMap<QString, QString> id_dirct;
+        id_dirct = parseDeviceID(m_printer.strDeviceId);
+        m_strCMD = id_dirct["CMD"];
+        m_strMake = id_dirct["MFG"];
+        m_strModel = id_dirct["MDL"];
+        ppdMakeModelSplit(m_strMake+" "+m_strModel, m_strMake, m_strModel);
+    } else if (!m_printer.strMakeAndModel.isEmpty()){
+        //如果没有device id,尝试通过make_and_model解析出来的make和model匹配
+        ppdMakeModelSplit(m_printer.strMakeAndModel, m_strMake, m_strModel);
+    }
+
+    m_strMake = normalize(m_strMake);
+    m_strModel = normalize(m_strModel);
 }
 
 void DriverSearcher::startSearch()
@@ -355,6 +495,11 @@ void DriverSearcher::sortDrivers()
 
     if (m_drivers.isEmpty()) return;
 
+    //没有通过精确查找本地驱动，不需要进行排序
+    if (m_localIndex < 0 || m_localIndex >= m_drivers.count()) {
+        return;
+    }
+
     //Everywhere 驱动放在第一位
     if (m_drivers[0][SD_KEY_from].toInt() == PPDFrom_EveryWhere) {
         drivers.append(m_drivers[0]);
@@ -376,13 +521,24 @@ void DriverSearcher::sortDrivers()
 void DriverSearcher::askForFinish()
 {
     //如果之前本地驱动还没有初始化完成，则等待驱动初始化完成再搜索一次
-    if (-1 == m_localIndex) {
+    if (1 == m_localIndex) {
         if (g_iStatus < TStat_Suc) {
             connect(g_driverManager, &DriverManager::signalStatus, this, &DriverSearcher::slotDriverInit);
             return;
         }
 
         getLocalDrivers();
+    }
+
+    if (m_drivers.isEmpty() && TStat_Suc == g_iStatus &&
+        (!m_strMake.isEmpty() || !m_strModel.isEmpty())) {
+        QMutexLocker locker(&g_mutex);
+
+        QList<QMap<QString, QString>> list = getFuzzyMatchDrivers(m_strMake, m_strModel, m_strCMD);
+        m_drivers = stringToVariant(list);
+
+        qInfo() << QString("Got %1 drivers").arg(m_drivers.count());
+
     }
 
     sortDrivers();
@@ -424,15 +580,12 @@ void DriverSearcher::slotDriverInit(int id, int state)
     Q_UNUSED(id);
 
     if (state >= TStat_Suc) {
-        getLocalDrivers();
-        sortDrivers();
-        emit signalDone();
+        askForFinish();
     }
 }
 
 int DriverSearcher::getLocalDrivers()
 {
-    QMap<QString, QString> id_dirct;
     QString strMake, strModel;
 
     if (g_iStatus < TStat_Suc) {
@@ -442,7 +595,7 @@ int DriverSearcher::getLocalDrivers()
     }
 
     m_localIndex = m_drivers.count();
-    if (m_printer.strMakeAndModel.isEmpty() && m_printer.strDeviceId.isEmpty()) {
+    if (m_strMake.isEmpty() || m_strModel.isEmpty()) {
         qWarning() << "printer info is invaild";
         return -2;
     }
@@ -450,32 +603,13 @@ int DriverSearcher::getLocalDrivers()
     QMutexLocker locker(&g_mutex);
     qInfo() << QString("Find driver for %1, %2, %3").arg(m_printer.uriList[0]).arg(m_printer.strMakeAndModel).arg(m_printer.strDeviceId);
 
-    if (g_ppdsDirct.isEmpty() || g_ppds.isEmpty())
-    {
+    if (g_ppdsDirct.isEmpty() || g_ppds.isEmpty()) {
         qWarning() << QString("PPD dirct is empty");
         return -3;
     }
 
-    //通过device id中的MFG、MDL、CMD字段匹配
-    if (!m_printer.strDeviceId.isEmpty())
-    {
-        QList<QMap<QString, QString>> list1;
-        id_dirct = parseDeviceID(m_printer.strDeviceId);
-        strMake = id_dirct["MFG"];
-        strModel = id_dirct["MDL"];
-        ppdMakeModelSplit(strMake+" "+strModel, strMake, strModel);
-        list1 = getPPDNamesFromDeviceID(m_printer.uriList[0], strMake, strModel, id_dirct["CMD"]);
-        m_drivers += stringToVariant(list1);
-    }
-
-    //如果没有找到再尝试通过make_and_model解析出来的make和model匹配
-    if (!m_printer.strMakeAndModel.isEmpty() && m_drivers.isEmpty())
-    {
-        QList<QMap<QString, QString>> list1;
-        ppdMakeModelSplit(m_printer.strMakeAndModel, strMake, strModel);
-        list1 = getPPDNamesFromDeviceID(m_printer.uriList[0], strMake, strModel, "");
-        m_drivers += stringToVariant(list1);
-    }
+    QList<QMap<QString, QString>> list = getExactMatchDrivers(strMake, strModel);
+    m_drivers += stringToVariant(list);
 
     qInfo() << QString("Got %1 drivers").arg(m_drivers.count());
 

@@ -86,7 +86,6 @@ QString getHostFromUri(const QString &strUri)
         QStringList strlist = QUrl::fromPercentEncoding(strUri.toUtf8()).split("/");
         strlist = strlist[2].split(" ");
         strlist = strlist.last().split(".");
-        qInfo() << strlist;
         return strlist.first() + "." + strlist.last();
     }
 
@@ -286,6 +285,8 @@ QString normalize(const QString &strin)
     bool alnumfound = false;
     enum{BLANK, LETTER, DIGIT};
     int lastchar = BLANK;
+
+    if (strin.isEmpty()) return strin;
 
     foreach (QChar ch, lstrin) {
         if (ch.isLetter())

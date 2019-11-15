@@ -88,6 +88,11 @@ PrinterService* PrinterService::getInstance()
     return instance;
 }
 
+bool PrinterService::isInvaild()
+{
+    return m_hostname.isEmpty();
+}
+
 PrinterService::PrinterService()
 {
     m_hostname = g_Settings->getHostName();
@@ -115,7 +120,7 @@ PrinterServerInterface* PrinterService::searchSolution(const QString& manufactur
         QPair<QString, QJsonValue>(SD_KEY_ieeeid, ieee1284_id),
     };
 
-    if (m_hostname.isEmpty()) return nullptr;
+    if (isInvaild()) return nullptr;
 
     qDebug() << "search solution for " << manufacturer << " " << model << " " << ieee1284_id;
     PrinterServerInterface *reply = new PrinterServerInterface(m_urlPrefix+"/search", obj);
@@ -129,7 +134,7 @@ PrinterServerInterface* PrinterService::searchDriver(int solution_id)
         QPair<QString, QJsonValue>(SD_KEY_sid, solution_id),
     };
 
-    if (m_hostname.isEmpty()) return nullptr;
+    if (isInvaild()) return nullptr;
 
     PrinterServerInterface *reply = new PrinterServerInterface(m_urlPrefix+"/driver", obj);
 
@@ -154,7 +159,7 @@ PrinterServerInterface* PrinterService::feedbackResult(int solution_id, bool suc
     if (!detail.isEmpty())
         obj.insert(SD_KEY_detail, detail);
 
-    if (m_hostname.isEmpty()) return nullptr;
+    if (isInvaild()) return nullptr;
 
     PrinterServerInterface *reply = new PrinterServerInterface(m_urlPrefix+"/report", obj);
 

@@ -65,6 +65,10 @@ private:
     TDeviceInfo     m_printer;
     QList<QMap<QString, QVariant>>   m_drivers;
     int             m_localIndex;
+
+    QString         m_strMake;
+    QString         m_strModel;
+    QString         m_strCMD;
 };
 
 class DriverManager : public QObject
