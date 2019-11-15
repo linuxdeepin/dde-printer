@@ -117,6 +117,7 @@ private:
     TDeviceInfo m_device;
     // 用于安装失败之后，返回上级界面，有两种情况
     QWidget *m_pParentWidget;
+    bool m_bInstallFail;
 };
 
 #endif // INSTALLPRINTERWINDOW_H

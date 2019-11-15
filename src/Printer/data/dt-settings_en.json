@@ -2,7 +2,7 @@
     "groups": [
         {
             "key": "Print_Setting",
-            "name": "Print_Setting",
+            "name": "Print Settings",
             "groups": [
                 {
                     "key": "Driver_Lable",

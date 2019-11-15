@@ -81,7 +81,7 @@ void RenamePrinterWindow::setDescription(const QString &description)
 void RenamePrinterWindow::initUI()
 {
     titlebar()->setMenuVisible(false);
-    titlebar()->setTitle(tr("Rename printer"));
+    titlebar()->setTitle(tr("Rename Printer"));
     titlebar()->setIcon(QIcon(":/images/dde-printer.svg"));
     // 去掉最大最小按钮
     setWindowFlags(windowFlags() & ~Qt::WindowMinMaxButtonsHint);
@@ -104,7 +104,7 @@ void RenamePrinterWindow::initUI()
     pGridLayout->addWidget(m_pDescriptionEdit, 2, 1);
 
     m_pCancelBtn = new DPushButton(tr("Cancel"));
-    m_pOKBtn = new DPushButton(tr("OK"));
+    m_pOKBtn = new DPushButton(tr("Confirm"));
     QHBoxLayout *pHLayout = new QHBoxLayout();
     pHLayout->addWidget(m_pCancelBtn);
     pHLayout->addWidget(m_pOKBtn);

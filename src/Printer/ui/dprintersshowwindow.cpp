@@ -75,13 +75,14 @@ void DPrintersShowWindow::initUI()
     QFont font;
     font.setBold(true);
     // 左边上面的控制栏
-    QLabel *pLabel = new QLabel(tr("Print device"));
+    QLabel *pLabel = new QLabel(tr("Printers"));
     pLabel->setFont(font);
     m_pBtnAddPrinter = new DIconButton(DStyle::SP_IncreaseElement);
     m_pBtnAddPrinter->setFixedSize(36, 36);
-    m_pBtnAddPrinter->setToolTip(tr("Click here to add a printer"));
+    m_pBtnAddPrinter->setToolTip(tr("Add printer"));
     m_pBtnDeletePrinter = new DIconButton(DStyle::SP_DecreaseElement);
     m_pBtnDeletePrinter->setFixedSize(36, 36);
+    m_pBtnDeletePrinter->setToolTip(tr("Delete printer"));
     QHBoxLayout *pLeftTopHLayout = new QHBoxLayout();
     pLeftTopHLayout->addWidget(pLabel, 6, Qt::AlignLeft);
     pLeftTopHLayout->addWidget(m_pBtnAddPrinter, 1);
@@ -94,17 +95,17 @@ void DPrintersShowWindow::initUI()
 //    m_pPrinterListView->itemDelegate()->installEventFilter(this);
     // 列表的右键菜单
     m_pListViewMenu = new QMenu();
-    m_pShareAction = new QAction(tr("Share"), m_pListViewMenu);
+    m_pShareAction = new QAction(tr("Shared"), m_pListViewMenu);
     m_pShareAction->setObjectName("Share");
     m_pShareAction->setCheckable(true);
-    m_pEnableAction = new QAction(tr("Enable"), m_pListViewMenu);
+    m_pEnableAction = new QAction(tr("Enabled"), m_pListViewMenu);
     m_pEnableAction->setObjectName("Enable");
     m_pEnableAction->setCheckable(true);
-    m_pRejectAction = new QAction(tr("Accept the task"), m_pListViewMenu);
+    m_pRejectAction = new QAction(tr("Accept Task"), m_pListViewMenu);
     m_pRejectAction->setObjectName("Accept");
     m_pRejectAction->setCheckable(true);
 
-    m_pDefaultAction = new QAction(tr("Set to default printer"), m_pListViewMenu);
+    m_pDefaultAction = new QAction(tr("Set as default"), m_pListViewMenu);
     m_pDefaultAction->setObjectName("Default");
     m_pDefaultAction->setCheckable(true);
 
@@ -116,7 +117,7 @@ void DPrintersShowWindow::initUI()
 
 
     // 没有打印机时的提示
-    m_pLeftTipLabel = new QLabel(tr("Printless device"));
+    m_pLeftTipLabel = new QLabel(tr("No Printers"));
     m_pLeftTipLabel->setVisible(false);
     m_pLeftTipLabel->setFont(font);
     // 左侧布局
@@ -163,21 +164,21 @@ void DPrintersShowWindow::initUI()
     m_pTBtnSetting->setIconSize(QSize(32, 32));
 
     QLabel *pLabelSetting = new QLabel();
-    pLabelSetting->setText(tr("Setting"));
+    pLabelSetting->setText(tr("Settings"));
     pLabelSetting->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
 
     m_pTBtnPrintQueue = new DIconButton(this);
     m_pTBtnPrintQueue->setIcon(QIcon::fromTheme("dp_print_queue"));
     m_pTBtnPrintQueue->setIconSize(QSize(32, 32));
     QLabel *pLabelPrintQueue = new QLabel();
-    pLabelPrintQueue->setText(tr("Print queue"));
+    pLabelPrintQueue->setText(tr("Print Queue"));
     pLabelPrintQueue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
 
     m_pTBtnPrintTest = new DIconButton(this);
     m_pTBtnPrintTest->setIcon(QIcon::fromTheme("dp_test_page"));
     m_pTBtnPrintTest->setIconSize(QSize(32, 32));
     QLabel *pLabelPrintTest = new QLabel();
-    pLabelPrintTest->setText(tr("Print the test page"));
+    pLabelPrintTest->setText(tr("Print Test Page"));
     pLabelPrintTest->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
 
     m_pTBtnFault = new DIconButton(this);
@@ -206,7 +207,7 @@ void DPrintersShowWindow::initUI()
 
     m_pPrinterInfoWidget = new QWidget();
     m_pPrinterInfoWidget->setLayout(pRightVLayout);
-    m_pPRightTipLabel = new QLabel(tr("No printer configured \nPlease click the add button (+) to add printer"));
+    m_pPRightTipLabel = new QLabel(tr("No printer configured \nClick + to add printers"));
     m_pPRightTipLabel->setAlignment(Qt::AlignCenter);
     m_pPRightTipLabel->setVisible(false);
     m_pPRightTipLabel->setFont(font);
@@ -299,7 +300,7 @@ void DPrintersShowWindow::initConnections()
             if (state == 3) {
                 stateStr = tr("Idle");
             } else if (state == 4) {
-                stateStr = tr("Processing");
+                stateStr = tr("printing");
             } else {
                 stateStr = tr("Stopped");
             }
@@ -458,7 +459,7 @@ void DPrintersShowWindow::renamePrinterSlot(QListWidgetItem *pItem)
             pDialog->setIcon(QIcon(":/images/warning_logo.svg"));
             pDialog->setMessage(tr("Renaming will cause the completed task not to be reprinted, are you sure?"));
             pDialog->addButton(UI_PRINTERSHOW_CANCEL);
-            int okIndex = pDialog->addButton(tr("OK"));
+            int okIndex = pDialog->addButton(tr("Confirm"));
 
             int ret = pDialog->exec();
             pDialog->deleteLater();
@@ -505,7 +506,7 @@ void DPrintersShowWindow::printSettingClickSlot()
     if (dlg.isDriveBroken()) {
         DDialog dialog;
         dialog.setFixedSize(QSize(400, 150));
-        dialog.setMessage(tr("Driver is broken,try to install the driver please."));
+        dialog.setMessage(tr("The driver is damaged, please install it again."));
         dialog.addSpacing(10);
         dialog.addButton(UI_PRINTERSHOW_CANCEL);
         int iIndex = dialog.addButton(tr("install driver"));
@@ -574,7 +575,7 @@ void DPrintersShowWindow::printerListWidgetItemChangedSlot(int row)
         ConnectedTask *pTask = new ConnectedTask(printerName);
         connect(pTask, &ConnectedTask::signalResult, this, [&](bool connected, const QString & signalPrinterName) {
             if ((!connected) && (m_pPrinterListView->currentItem()->text() == signalPrinterName)) {
-                m_pLabelStatusShow->setText(tr("Disconnected"));
+                m_pLabelStatusShow->setText(tr("disconnected"));
             }
         });
         //将线程对象的释放与更新状态分开

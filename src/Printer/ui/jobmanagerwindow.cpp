@@ -216,14 +216,14 @@ JobListView::JobListView(QWidget* parent)
     connect(m_tipsTimer, &QTimer::timeout, this, &JobListView::slotShowTips);
     connect(this, &QWidget::customContextMenuRequested, this, &JobListView::slotShowContextMenu);
 
-    m_actionNames << tr("Cancel job");
-    m_actionNames << tr("Delete job");
-    m_actionNames << tr("Hold job");
-    m_actionNames << tr("Release job");
-    m_actionNames << tr("Priority job");
-    m_actionNames << tr("Restart job");
+    m_actionNames << tr("Cancel");
+    m_actionNames << tr("Delete");
+    m_actionNames << tr("Pause");
+    m_actionNames << tr("Resume");
+    m_actionNames << tr("Print first");
+    m_actionNames << tr("Reprint");
 
-    m_label = new QLabel(tr("No jobs"), this);
+    m_label = new QLabel(tr("No print jobs"), this);
     m_label->setAlignment(Qt::AlignCenter);
 }
 
@@ -362,14 +362,14 @@ void JobListView::setLabelContentVisable(bool bShow)
 bool JobListView::askDeleteJobs(unsigned int flag)
 {
     int iAccept;
-    DDialog dlg("", tr("Are you sure to delete job"), this);
+    DDialog dlg("", tr("Are you sure you want to delete this job?"), this);
 
     if (JOB_ACTION_Delete != flag)
         return true;
 
     dlg.setIcon(QIcon(":/images/warning_logo.svg"));
     dlg.addButton(tr("Cancel"), true);
-    iAccept = dlg.addButton(tr("Delete job"), false, DDialog::ButtonWarning);
+    iAccept = dlg.addButton(tr("Delete"), false, DDialog::ButtonWarning);
     dlg.setContentsMargins(10, 15, 10, 15);
     dlg.setModal(true);
     dlg.setFixedSize(422, 202);
@@ -606,21 +606,21 @@ QVariant JobsDataModel::headerData(int section, Qt::Orientation orientation, int
 {
     if (role == Qt::DisplayRole && orientation == Qt::Horizontal) {
         if (section == 0) {
-            return tr("id");
+            return tr("Job");
         } else if (section == 1) {
-            return tr("user");
+            return tr("User");
         } else if (section == 2) {
-            return tr("job name");
+            return tr("Document");
         } else if (section == 3) {
-            return tr("printer name");
+            return tr("Printer");
         } else if (section == 4) {
-            return tr("size");
+            return tr("Size");
         } else if (section == 5) {
-            return tr("create time");
+            return tr("Time submitted");
         } else if (section == 6) {
-            return tr("job state");
+            return tr("Status");
         } else if (section == 7) {
-            return tr("action");
+            return tr("Action");
         }
     }
     return QVariant();
@@ -951,9 +951,9 @@ void JobManagerWindow::initUi()
 
     m_whichButBox->setButtonList(m_whichList, true);
     m_whichList[WHICH_JOB_RUNING]->setChecked(true);
-    m_whichList[WHICH_JOB_ALL]->setToolTip(tr("All jobs"));
-    m_whichList[WHICH_JOB_RUNING]->setToolTip(tr("Runing jobs"));
-    m_whichList[WHICH_JOB_DONE]->setToolTip(tr("Finished jobs"));
+    m_whichList[WHICH_JOB_ALL]->setToolTip(tr("All"));
+    m_whichList[WHICH_JOB_RUNING]->setToolTip(tr("Print Queue"));
+    m_whichList[WHICH_JOB_DONE]->setToolTip(tr("Completed"));
     foreach (DButtonBoxButton* but, m_whichList) {
         but->setFocusPolicy(Qt::NoFocus);
     }
