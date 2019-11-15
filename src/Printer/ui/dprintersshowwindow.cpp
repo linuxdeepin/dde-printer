@@ -499,6 +499,8 @@ void DPrintersShowWindow::renamePrinterSlot(QListWidgetItem *pItem)
 void DPrintersShowWindow::printSettingClickSlot()
 {
     QListWidgetItem *pItem = m_pPrinterListView->currentItem();
+    if (!pItem)
+        return ;
     QString strPrinterName = pItem->text();
     DPropertySetDlg dlg(this);
     dlg.setPrinterName(strPrinterName);
