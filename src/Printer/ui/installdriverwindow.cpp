@@ -132,6 +132,8 @@ void InstallDriverWindow::initUI()
     pVLayout->addWidget(m_pSelectPPDBtn, 1, Qt::AlignCenter);
 
     QWidget *pPPDWidget = new QWidget();
+    pPPDWidget->setObjectName("ppdWidget");
+
     pPPDWidget->setLayout(pVLayout);
     m_pStackWidget->addWidget(pPPDWidget);
 
