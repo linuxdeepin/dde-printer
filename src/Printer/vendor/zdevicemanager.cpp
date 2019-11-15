@@ -207,6 +207,9 @@ int ReflushDevicesByBackendTask::addDevices(const map<string, map<string, string
         info.strDeviceId = attrValueToQString(infomap[CUPS_DEV_ID]);
         info.strLocation = attrValueToQString(infomap[CUPS_DEV_LOCATION]);
         info.iType = InfoFrom_Detect;
+        if (uri.startsWith("dnssd://")) {
+            info.strName = info.strInfo.split("@").first().trimmed();
+        }
 
         if (0 != mergeDevice(info, backend))
             continue;
