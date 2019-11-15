@@ -29,7 +29,7 @@
     "socket://server[:port]"
 #define UI_PRINTERSEARCH_DRIVER QObject::tr("Driver")
 #define UI_PRINTERSEARCH_INSTALLDRIVER_NEXT QObject::tr("Next")
-#define UI_PRINTERSEARCH_INSTALLDRIVER_AUTO QObject::tr("Start the installation")
+#define UI_PRINTERSEARCH_INSTALLDRIVER_AUTO QObject::tr("Start Installation")
 
 #define UI_PRINTERDRIVER_PPDLABEL_NORMAL QObject::tr("Drag a PPD file here \n or")
 #define UI_PRINTERDRIVER_PPDBTN_NORMAL QObject::tr("Select a PPD file")

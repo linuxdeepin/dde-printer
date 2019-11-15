@@ -741,6 +741,7 @@ Click + to add printers</source>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="94"/>
+        <location filename="../ui/installdriverwindow.cpp" line="298"/>
         <source>Choose a local driver</source>
         <translation type="unfinished"></translation>
     </message>
@@ -767,11 +768,6 @@ Click + to add printers</source>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="156"/>
         <source>Install Driver</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/installdriverwindow.cpp" line="298"/>
-        <source>Select local driver</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -839,89 +835,89 @@ Click + to add printers</source>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="80"/>
-        <location filename="../ui/installprinterwindow.cpp" line="140"/>
+        <location filename="../ui/installprinterwindow.cpp" line="141"/>
         <source>Installing driver...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="93"/>
-        <location filename="../ui/installprinterwindow.cpp" line="162"/>
-        <location filename="../ui/installprinterwindow.cpp" line="179"/>
+        <location filename="../ui/installprinterwindow.cpp" line="163"/>
+        <location filename="../ui/installprinterwindow.cpp" line="180"/>
         <source>View Printer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="95"/>
-        <location filename="../ui/installprinterwindow.cpp" line="164"/>
-        <location filename="../ui/installprinterwindow.cpp" line="181"/>
+        <location filename="../ui/installprinterwindow.cpp" line="165"/>
+        <location filename="../ui/installprinterwindow.cpp" line="182"/>
         <source>Print Test Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="152"/>
+        <location filename="../ui/installprinterwindow.cpp" line="153"/>
         <source>Successfully installed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="158"/>
+        <location filename="../ui/installprinterwindow.cpp" line="159"/>
         <source>You have successfully added the printer.Print a test page to check if it works properly</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="169"/>
+        <location filename="../ui/installprinterwindow.cpp" line="170"/>
         <source>Printing test page...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="175"/>
+        <location filename="../ui/installprinterwindow.cpp" line="176"/>
         <source>You have successfully added the printer. Print a test page to check if it works properly.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="186"/>
+        <location filename="../ui/installprinterwindow.cpp" line="187"/>
         <source>Did you print the test page successfully?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="192"/>
+        <location filename="../ui/installprinterwindow.cpp" line="193"/>
         <source>if succeeded, click Yes; if failed, click No.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="195"/>
+        <location filename="../ui/installprinterwindow.cpp" line="196"/>
         <source>No</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="197"/>
+        <location filename="../ui/installprinterwindow.cpp" line="198"/>
         <source>Yes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="202"/>
-        <location filename="../ui/installprinterwindow.cpp" line="227"/>
+        <location filename="../ui/installprinterwindow.cpp" line="203"/>
+        <location filename="../ui/installprinterwindow.cpp" line="229"/>
         <source>Print failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="208"/>
-        <source>Click Reinstall to install the printer driver again, or click Troubleshoot to start troubleshooting.</source>
+        <location filename="../ui/installprinterwindow.cpp" line="209"/>
+        <source>Click Reinstall to install the printer driver again,or click Troubleshoot to start troubleshooting.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="213"/>
-        <location filename="../ui/installprinterwindow.cpp" line="241"/>
+        <location filename="../ui/installprinterwindow.cpp" line="214"/>
+        <location filename="../ui/installprinterwindow.cpp" line="242"/>
         <source>Troubleshoot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="223"/>
+        <location filename="../ui/installprinterwindow.cpp" line="224"/>
         <source>Installation failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="211"/>
-        <location filename="../ui/installprinterwindow.cpp" line="239"/>
+        <location filename="../ui/installprinterwindow.cpp" line="212"/>
+        <location filename="../ui/installprinterwindow.cpp" line="240"/>
         <source>Reinstall</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1252,11 +1248,6 @@ Click + to add printers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/uisourcestring.h" line="32"/>
-        <source>Start the installation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../ui/uisourcestring.h" line="34"/>
         <source>Drag a PPD file here 
  or</source>
@@ -1270,6 +1261,11 @@ Click + to add printers</source>
     <message>
         <location filename="../ui/uisourcestring.h" line="35"/>
         <source>Select a PPD file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/uisourcestring.h" line="32"/>
+        <source>Start Installation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

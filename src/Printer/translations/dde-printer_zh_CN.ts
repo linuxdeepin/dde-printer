@@ -224,7 +224,7 @@
     <message>
         <location filename="../util/ddestination.cpp" line="169"/>
         <source>Idle</source>
-        <translation type="unfinished">空闲</translation>
+        <translation>空闲</translation>
     </message>
     <message>
         <location filename="../util/ddestination.cpp" line="172"/>
@@ -242,13 +242,13 @@
     <message>
         <location filename="../util/dprintertanslator.cpp" line="12"/>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>彩色</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="13"/>
         <location filename="../util/dprintertanslator.cpp" line="14"/>
         <source>Grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation>灰度</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="17"/>
@@ -257,263 +257,263 @@
         <location filename="../util/dprintertanslator.cpp" line="86"/>
         <location filename="../util/dprintertanslator.cpp" line="95"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>无</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="18"/>
         <source>Draft</source>
-        <translation type="unfinished"></translation>
+        <translation>草稿</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="19"/>
         <location filename="../util/dprintertanslator.cpp" line="82"/>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>从前向后</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="22"/>
         <source>InputSlot</source>
-        <translation type="unfinished"></translation>
+        <translation>纸张来源</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="23"/>
         <location filename="../util/dprintertanslator.cpp" line="24"/>
         <source>Auto-Select</source>
-        <translation type="unfinished"></translation>
+        <translation>自动</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="25"/>
         <location filename="../util/dprintertanslator.cpp" line="26"/>
         <source>Manual Feeder</source>
-        <translation type="unfinished"></translation>
+        <translation>多功能托盘</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="27"/>
         <location filename="../util/dprintertanslator.cpp" line="40"/>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation>自动</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="28"/>
         <source>Manual</source>
-        <translation type="unfinished"></translation>
+        <translation>手动</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="29"/>
         <source>Drawer 1</source>
-        <translation type="unfinished"></translation>
+        <translation>纸盒1</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="30"/>
         <source>Drawer 2</source>
-        <translation type="unfinished"></translation>
+        <translation>纸盒2</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="31"/>
         <source>Drawer 3</source>
-        <translation type="unfinished"></translation>
+        <translation>纸盒3</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="32"/>
         <source>Drawer 4</source>
-        <translation type="unfinished"></translation>
+        <translation>纸盒4</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="33"/>
         <source>Drawer 5</source>
-        <translation type="unfinished"></translation>
+        <translation>纸盒5</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="34"/>
         <source>Envelope Feeder</source>
-        <translation type="unfinished"></translation>
+        <translation>信封输送器</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="35"/>
         <source>Tray1</source>
-        <translation type="unfinished"></translation>
+        <translation>托盘1</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="36"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>未定义的</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="39"/>
         <source>MediaType</source>
-        <translation type="unfinished"></translation>
+        <translation>纸张类型</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="41"/>
         <source>Plain Paper</source>
-        <translation type="unfinished"></translation>
+        <translation>普通纸</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="42"/>
         <source>Recycled Paper</source>
-        <translation type="unfinished"></translation>
+        <translation>再生纸</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="43"/>
         <source>Color Paper</source>
-        <translation type="unfinished"></translation>
+        <translation>彩色纸</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="44"/>
         <source>Bond Paper</source>
-        <translation type="unfinished"></translation>
+        <translation>证券纸</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="45"/>
         <source>Heavy Paper 1</source>
-        <translation type="unfinished"></translation>
+        <translation>重磅芪1</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="46"/>
         <source>Heavy Paper 2</source>
-        <translation type="unfinished"></translation>
+        <translation>重磅芪2</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="47"/>
         <source>Heavy Paper 3</source>
-        <translation type="unfinished"></translation>
+        <translation>重磅芪3</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="48"/>
         <location filename="../util/dprintertanslator.cpp" line="49"/>
         <source>OHP</source>
-        <translation type="unfinished"></translation>
+        <translation>胶片</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="50"/>
         <source>Labels</source>
-        <translation type="unfinished"></translation>
+        <translation>标签</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="51"/>
         <source>Envelope</source>
-        <translation type="unfinished"></translation>
+        <translation>信封</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="52"/>
         <source>Photo Paper</source>
-        <translation type="unfinished"></translation>
+        <translation>照片</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="56"/>
         <source>PageSize</source>
-        <translation type="unfinished"></translation>
+        <translation>纸张大小</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="57"/>
         <source>Custom</source>
-        <translation type="unfinished"></translation>
+        <translation>自定义</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="60"/>
         <source>Duplex</source>
-        <translation type="unfinished"></translation>
+        <translation>双面打印</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="61"/>
         <source>DuplexTumble</source>
-        <translation type="unfinished"></translation>
+        <translation>长边缘(竖直)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="62"/>
         <source>DuplexNoTumble</source>
-        <translation type="unfinished"></translation>
+        <translation>短边缘(水平)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="63"/>
         <source>ON (Long-edged Binding)</source>
-        <translation type="unfinished"></translation>
+        <translation>（双面，长边）</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="64"/>
         <source>ON (Short-edged Binding)</source>
-        <translation type="unfinished"></translation>
+        <translation>（双面，短边)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="65"/>
         <location filename="../util/dprintertanslator.cpp" line="66"/>
         <source>OFF</source>
-        <translation type="unfinished"></translation>
+        <translation>（单面）</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="69"/>
         <source>BindEdge</source>
-        <translation type="unfinished"></translation>
+        <translation>页边距位置</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="71"/>
         <source>Left</source>
-        <translation type="unfinished"></translation>
+        <translation>左侧</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="72"/>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation>顶部</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="75"/>
         <source>Portrait (no rotation)</source>
-        <translation type="unfinished"></translation>
+        <translation>纵向（无旋转）</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="76"/>
         <source>Landscape (90 degrees)</source>
-        <translation type="unfinished"></translation>
+        <translation>横向（90 度）</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="77"/>
         <source>Reverse landscape (270 degrees)</source>
-        <translation type="unfinished"></translation>
+        <translation>反横向（270 度）</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="78"/>
         <source>Reverse portrait (180 degrees)</source>
-        <translation type="unfinished"></translation>
+        <translation>反纵向（180 度）</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="79"/>
         <source>Auto Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>自动旋转</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="83"/>
         <source>Reverse</source>
-        <translation type="unfinished"></translation>
+        <translation>从后面前</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="87"/>
         <source>Bind</source>
-        <translation type="unfinished"></translation>
+        <translation>装订</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="88"/>
         <source>Bind(none)</source>
-        <translation type="unfinished"></translation>
+        <translation>无</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="89"/>
         <source>Bind (bottom)</source>
-        <translation type="unfinished"></translation>
+        <translation>装订（下）</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="90"/>
         <source>Bind (left)</source>
-        <translation type="unfinished"></translation>
+        <translation>装订（左）</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="91"/>
         <source>Bind (right)</source>
-        <translation type="unfinished"></translation>
+        <translation>装订（右）</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="92"/>
         <source>Bind (top)</source>
-        <translation type="unfinished"></translation>
+        <translation>装订（上）</translation>
     </message>
 </context>
 <context>
@@ -588,7 +588,7 @@
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="181"/>
         <source>Print Test Page</source>
-        <translation>Print Test Page</translation>
+        <translation>打印测试页</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="210"/>
@@ -682,7 +682,7 @@ Click + to add printers</source>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="578"/>
         <source>Conflict:</source>
-        <translation type="unfinished"></translation>
+        <translation>冲突项:</translation>
     </message>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="589"/>
@@ -693,7 +693,7 @@ Click + to add printers</source>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="974"/>
         <source>Invalid URI</source>
-        <translation type="unfinished"></translation>
+        <translation>URI格式不正确</translation>
     </message>
 </context>
 <context>
@@ -741,6 +741,7 @@ Click + to add printers</source>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="94"/>
+        <location filename="../ui/installdriverwindow.cpp" line="298"/>
         <source>Choose a local driver</source>
         <translation>选择本地驱动</translation>
     </message>
@@ -780,11 +781,6 @@ Click + to add printers</source>
         <location filename="../ui/installdriverwindow.cpp" line="386"/>
         <source>Reselect</source>
         <translation>重新选择</translation>
-    </message>
-    <message>
-        <location filename="../ui/installdriverwindow.cpp" line="298"/>
-        <source>Select local driver</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="306"/>
@@ -839,89 +835,104 @@ Click + to add printers</source>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="80"/>
-        <location filename="../ui/installprinterwindow.cpp" line="140"/>
+        <location filename="../ui/installprinterwindow.cpp" line="141"/>
         <source>Installing driver...</source>
         <translation>正在安装驱动...</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="152"/>
+        <location filename="../ui/installprinterwindow.cpp" line="153"/>
         <source>Successfully installed</source>
         <translation>安装成功</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="158"/>
+        <location filename="../ui/installprinterwindow.cpp" line="159"/>
         <source>You have successfully added the printer.Print a test page to check if it works properly</source>
         <translation>添加打印机成功.请打印测试页测试打印机是否能够正常打印.</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="93"/>
-        <location filename="../ui/installprinterwindow.cpp" line="162"/>
-        <location filename="../ui/installprinterwindow.cpp" line="179"/>
+        <location filename="../ui/installprinterwindow.cpp" line="163"/>
+        <location filename="../ui/installprinterwindow.cpp" line="180"/>
         <source>View Printer</source>
         <translation>查看打印机</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="95"/>
-        <location filename="../ui/installprinterwindow.cpp" line="164"/>
-        <location filename="../ui/installprinterwindow.cpp" line="181"/>
+        <location filename="../ui/installprinterwindow.cpp" line="165"/>
+        <location filename="../ui/installprinterwindow.cpp" line="182"/>
         <source>Print Test Page</source>
         <translation>打印测试页</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="169"/>
+        <location filename="../ui/installprinterwindow.cpp" line="170"/>
         <source>Printing test page...</source>
         <translation>测试页打印中...</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="186"/>
+        <location filename="../ui/installprinterwindow.cpp" line="187"/>
         <source>Did you print the test page successfully?</source>
         <translation>测试页是否打印成功?</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="192"/>
+        <location filename="../ui/installprinterwindow.cpp" line="193"/>
         <source>if succeeded, click Yes; if failed, click No.</source>
         <translation>如果打印成功请选择是，如果失败请选择否.</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="195"/>
+        <location filename="../ui/installprinterwindow.cpp" line="196"/>
         <source>No</source>
         <translation>否</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="197"/>
+        <location filename="../ui/installprinterwindow.cpp" line="198"/>
         <source>Yes</source>
         <translation>是</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="208"/>
-        <source>Click Reinstall to install the printer driver again, or click Troubleshoot to start troubleshooting.</source>
+        <location filename="../ui/installprinterwindow.cpp" line="209"/>
+        <source>Click Reinstall to install the printer driver again,or click Troubleshoot to start troubleshooting.</source>
         <translation>选择重新安装将再次安装打印机驱动，选择故障排查将进行打印机故障诊断.</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="211"/>
-        <location filename="../ui/installprinterwindow.cpp" line="239"/>
+        <source>Click Reinstall to install the printer driver again,
+ or click Troubleshoot to start troubleshooting.</source>
+        <translation type="obsolete">选择重新安装将再次安装打印机驱动，
+选择故障排查将进行打印机故障诊断.</translation>
+    </message>
+    <message>
+        <source>Click Reinstall to install the printer driver again, or click Troubleshoot to start troubleshooting.</source>
+        <translation type="vanished">选择重新安装将再次安装打印机驱动，选择故障排查将进行打印机故障诊断.</translation>
+    </message>
+    <message>
+        <location filename="../ui/installprinterwindow.cpp" line="212"/>
+        <location filename="../ui/installprinterwindow.cpp" line="240"/>
         <source>Reinstall</source>
         <translation>重新安装</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="223"/>
+        <location filename="../ui/installprinterwindow.cpp" line="224"/>
         <source>Installation failed</source>
         <translation>安装失败</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="202"/>
-        <location filename="../ui/installprinterwindow.cpp" line="227"/>
+        <location filename="../ui/installprinterwindow.cpp" line="203"/>
+        <location filename="../ui/installprinterwindow.cpp" line="229"/>
         <source>Print failed</source>
         <translation>打印失败</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="175"/>
+        <location filename="../ui/installprinterwindow.cpp" line="176"/>
         <source>You have successfully added the printer. Print a test page to check if it works properly.</source>
         <translation>添加打印机成功,请打印测试页测试打印机是否能够正常打印.</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="213"/>
-        <location filename="../ui/installprinterwindow.cpp" line="241"/>
+        <source>Click Reinstall to install the printer driver again, 
+or click Troubleshoot to start troubleshooting.</source>
+        <translation type="vanished">选择重新安装将再次安装打印机驱动，选择故障排查将进行打印机故障诊断.</translation>
+    </message>
+    <message>
+        <location filename="../ui/installprinterwindow.cpp" line="214"/>
+        <location filename="../ui/installprinterwindow.cpp" line="242"/>
         <source>Troubleshoot</source>
         <translation>故障排查</translation>
     </message>
@@ -1004,7 +1015,7 @@ Click + to add printers</source>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="1010"/>
         <source>%1 jobs</source>
-        <translation>%项任务</translation>
+        <translation>%1项任务</translation>
     </message>
 </context>
 <context>
@@ -1047,7 +1058,7 @@ Click + to add printers</source>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="623"/>
         <source>Action</source>
-        <translation>Action</translation>
+        <translation>操作</translation>
     </message>
 </context>
 <context>
@@ -1128,7 +1139,7 @@ Click + to add printers</source>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="148"/>
         <source>Find</source>
-        <translation type="unfinished"></translation>
+        <translation>查找</translation>
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="192"/>
@@ -1253,14 +1264,15 @@ Click + to add printers</source>
     </message>
     <message>
         <location filename="../ui/uisourcestring.h" line="32"/>
-        <source>Start the installation</source>
-        <translation type="unfinished"></translation>
+        <source>Start Installation</source>
+        <translation>开始安装</translation>
     </message>
     <message>
         <location filename="../ui/uisourcestring.h" line="34"/>
         <source>Drag a PPD file here 
  or</source>
-        <translation>请拖放PDD文件到此处或</translation>
+        <translation>请拖放PDD文件到此处
+或</translation>
     </message>
     <message>
         <location filename="../ui/uisourcestring.h" line="35"/>
@@ -1326,7 +1338,7 @@ Click + to add printers</source>
     <message>
         <location filename="../ui/troubleshootdialog.cpp" line="153"/>
         <source>cancel</source>
-        <translation type="unfinished">取消</translation>
+        <translation>取消</translation>
     </message>
     <message>
         <location filename="../ui/troubleshootdialog.cpp" line="165"/>

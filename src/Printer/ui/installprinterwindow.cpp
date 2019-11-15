@@ -107,9 +107,10 @@ void InstallPrinterWindow::initUI()
     pMainLayout->addWidget(m_pStatusImageLabel, 0, Qt::AlignCenter);
 
     pMainLayout->addWidget(m_pStatusLabel, 0, Qt::AlignCenter);
-    pMainLayout->addWidget(m_pTipLabel, 0, Qt::AlignCenter);
+    pMainLayout->addWidget(m_pTipLabel);
     pMainLayout->addWidget(m_pDriverCombo, 0, Qt::AlignCenter);
     pMainLayout->addStretch();
+//    pMainLayout->addSpacing(130);
     pMainLayout->addWidget(m_pCancelInstallBtn, 0, Qt::AlignCenter);
     pMainLayout->addLayout(pHLayout);
     pMainLayout->setContentsMargins(0, 66, 0, 20);
@@ -205,7 +206,7 @@ void InstallPrinterWindow::setStatus(InstallationStatus status)
             m_pStatusImageLabel->setVisible(true);
             m_pStatusImageLabel->setPixmap(QPixmap(":/images/fail.svg"));
             m_pTipLabel->setVisible(true);
-            m_pTipLabel->setText(tr("Click Reinstall to install the printer driver again, or click Troubleshoot to start troubleshooting."));
+            m_pTipLabel->setText(tr("Click Reinstall to install the printer driver again,or click Troubleshoot to start troubleshooting."));
             m_pDriverCombo->setVisible(false);
             m_pCheckPrinterListBtn->setVisible(true);
             m_pCheckPrinterListBtn->setText(tr("Reinstall"));
@@ -221,20 +222,20 @@ void InstallPrinterWindow::setStatus(InstallationStatus status)
             if(m_bInstallFail)
             {
                 m_pStatusLabel->setText(tr("Installation failed"));
+                m_pDriverCombo->setVisible(false);
             }
             else
             {
                 m_pStatusLabel->setText(tr("Print failed"));
+                m_pDriverCombo->setVisible(true);
             }
 
             m_pCancelInstallBtn->setVisible(false);
-
             m_pStatusImageLabel->setVisible(true);
             m_pStatusImageLabel->setPixmap(QPixmap(":/images/fail.svg"));
             m_pTipLabel->setVisible(true);
             if (m_pAddPrinterTask)
                 m_pTipLabel->setText(m_pAddPrinterTask->getErrorMassge());
-            m_pDriverCombo->setVisible(true);
             m_pCheckPrinterListBtn->setVisible(true);
             m_pCheckPrinterListBtn->setText(tr("Reinstall"));
             m_pPrinterTestPageBtn->setVisible(true);
@@ -364,10 +365,10 @@ void InstallPrinterWindow::receiveInstallationStatusSlot(int status)
 
     setDefaultPrinterName(task->getPrinterInfo().strName);
     if (status == TStat_Suc) {
-        setStatus(Installed);
         m_bInstallFail = false;
+        setStatus(Installed);
     } else {
-        setStatus(Reinstall);
         m_bInstallFail = true;
+        setStatus(Reinstall);
     }
 }

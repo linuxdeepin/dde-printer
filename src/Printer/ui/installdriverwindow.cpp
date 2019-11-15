@@ -295,7 +295,7 @@ void InstallDriverWindow::tabCurrentIndexChanged()
 {
     if (m_pTabListView->currentIndex().row() == 0) {
         m_pStackWidget->setCurrentIndex(0);
-        m_pRightTitleLabel->setText(tr("Select local driver"));
+        m_pRightTitleLabel->setText(tr("Choose a local driver"));
         if (m_pDriverCombo->count() == 0)
             m_pInstallBtn->setEnabled(false);
         else {
