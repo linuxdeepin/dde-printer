@@ -126,15 +126,25 @@ QString InstallInterface::getErrorString()
 void InstallInterface::startInstallPackages()
 {
     qInfo() << "install packages:" << m_packages;
+    bool bNeedInstall = false;
+
     QDBusInterface *interface = getPackageInterface();
     for (auto package : m_packages) {
-        QDBusReply<bool> installable = interface->call("PackageInstallable", package);
+        if (!isPackageExists(package)) {
+            QDBusReply<bool> installable = interface->call("PackageInstallable", package);
 
-        if (!installable.isValid() || !installable) {
-            m_strErr = package  + tr("is not installable");
-            emit signalStatus(TStat_Fail);
-            return;
+            bNeedInstall = true;
+            if (!installable.isValid() || !installable) {
+                m_strErr = package  + tr("is not installable");
+                emit signalStatus(TStat_Fail);
+                return;
+            }
         }
+    }
+
+    if (!bNeedInstall) {
+        emit signalStatus(TStat_Suc);
+        return;
     }
 
     QDBusReply<QDBusObjectPath> objPath = interface->call("InstallPackage", "", m_packages.join(" "));
@@ -488,13 +498,8 @@ int AddPrinterTask::fixDriverDepends()
 
 int AddPrinterTask::installDriver()
 {
-    if (m_solution[SD_KEY_from].toInt() == PPDFrom_EveryWhere)
-        return 0;
-
-    QString ppd_name = m_solution[CUPS_PPD_NAME].toString();
-    if (m_solution[SD_KEY_from].toInt() != PPDFrom_File && !isPPDExist(ppd_name)) {
+    if (m_solution[SD_KEY_from].toInt() == PPDFrom_Server) {
         m_installDriver = new InstallDriver(m_solution, this);
-        qInfo() << "need install for " << ppd_name;
         connect(m_installDriver, &InstallDriver::signalStatus, this, &AddPrinterTask::slotInstallStatus);
         m_installDriver->doWork();
 
