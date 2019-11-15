@@ -24,6 +24,9 @@
 #include "printersearchwindow.h"
 #include "installdriverwindow.h"
 #include "troubleshootdialog.h"
+#include "ztroubleshoot.h"
+#include "printerservice.h"
+#include "zdrivermanager.h"
 
 #include <DTitlebar>
 #include <DSpinner>
@@ -41,6 +44,7 @@ InstallPrinterWindow::InstallPrinterWindow(QWidget *parennt)
     : DMainWindow(parennt)
     , m_pParentWidget(parennt)
     , m_bInstallFail(false)
+    , m_testJob(nullptr)
 {
     initUI();
     initConnections();
@@ -288,11 +292,29 @@ void InstallPrinterWindow::cancelBtnClickedSlot()
     }
 }
 
+void InstallPrinterWindow::feedbackPrintTestPage()
+{
+    if (m_pAddPrinterTask) {
+        QMap<QString, QVariant> driver = m_pAddPrinterTask->getDriverInfo();
+
+        if (driver[SD_KEY_from].toInt() == PPDFrom_Server) {
+            int sid = driver[SD_KEY_sid].toInt();
+            QString strReason = m_testJob?m_testJob->getMessage():"User feedback";
+            QString strFeedback = QString("Uri: %1, device: %2").arg(m_device.uriList.join(" "))
+                    .arg(m_device.strDeviceId.isEmpty()?m_device.strMakeAndModel:m_device.strDeviceId);
+            PrinterServerInterface* server = g_printerServer->feedbackResult(sid, false, strReason, strFeedback);
+            if (server)
+                server->postToServer();
+        }
+    }
+}
+
 void InstallPrinterWindow::leftBtnClickedSlot()
 {
     if (m_status == Installed) {
         close();
     } else if (m_status == Printed) {
+        feedbackPrintTestPage();
         setStatus(PrintFailed);
     } else if (m_status == PrintFailed) {
         if (m_pDriverCombo->count() == 0) {
@@ -331,8 +353,12 @@ void InstallPrinterWindow::rightBtnClickedSlot()
 {
     if (m_status == Installed) {
         // 打印测试页
-        int jobid = 0;
-        g_jobManager->printTestPage(m_printerName.toStdString().data(), jobid, nullptr);
+        if (m_testJob) {
+            m_testJob->stop();
+            m_testJob->deleteLater();
+        }
+        m_testJob = new PrinterTestJob(m_printerName, this, false);
+        m_testJob->isPass();
         setStatus(Printed);
     } else if (m_status == Printed) {
         close();
@@ -340,7 +366,6 @@ void InstallPrinterWindow::rightBtnClickedSlot()
         TroubleShootDialog dlg(m_printerName, this);
         dlg.setModal(true);
         dlg.exec();
-
     } else if (m_status == Reinstall) {
         if (m_pDriverCombo->count() <= 0)
             return;

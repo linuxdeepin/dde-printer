@@ -462,6 +462,11 @@ TDeviceInfo AddPrinterTask::getPrinterInfo()
     return m_printer;
 }
 
+QMap<QString, QVariant> AddPrinterTask::getDriverInfo()
+{
+    return m_solution;
+}
+
 int AddPrinterTask::fixDriverDepends()
 {
     if (m_solution[SD_KEY_from].toInt() == PPDFrom_EveryWhere)

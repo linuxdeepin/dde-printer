@@ -436,16 +436,7 @@ void DriverSearcher::startSearch()
 
     getLocalDrivers();
 
-    if(m_printer.strDeviceId.isEmpty())
-        ppdMakeModelSplit(m_printer.strMakeAndModel, strMake, strModel);
-    else
-    {
-        QMap<QString, QString> dirct = parseDeviceID(m_printer.strDeviceId);
-        strMake = dirct.value("MFG");
-        strModel = dirct.value("MDL");
-    }
-
-    PrinterServerInterface *search = g_printerServer->searchSolution(strMake, strModel, m_printer.strDeviceId);
+    PrinterServerInterface *search = g_printerServer->searchSolution(m_strMake, m_strModel, m_printer.strDeviceId);
     if (search) {
         connect(search, &PrinterServerInterface::signalDone, this, &DriverSearcher::slotDone);
         search->postToServer();
