@@ -166,6 +166,8 @@ void DPropertySetDlg::initUI()
     updateSettings(settings);
     resize(682, 546);
     m_bShow = false;
+    setResetVisible(false);
+    setWindowIcon(QIcon(":/images/dde-printer.svg"));
 }
 
 void DPropertySetDlg::initConnection()
