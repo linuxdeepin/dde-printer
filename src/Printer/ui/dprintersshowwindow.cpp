@@ -601,7 +601,8 @@ void DPrintersShowWindow::printerListWidgetItemChangedSlot(int row)
     if (basePrinterInfo.count() == 3) {
         QString showPrinter = printerName;
         //如果文字超出了显示范围，那么就用省略号代替，并且设置tip提示
-        geteElidedText(m_pLabelPrinterName->font(), showPrinter, int(180.0 / 942 * this->width()));
+        int textWidth = int(240.0 / 942 * this->width());
+        geteElidedText(m_pLabelPrinterName->font(), showPrinter, textWidth);
         m_pLabelPrinterName->setText(showPrinter);
         m_pLabelPrinterName->setToolTip(printerName);
         m_pLabelLocationShow->setText(basePrinterInfo.at(0));
