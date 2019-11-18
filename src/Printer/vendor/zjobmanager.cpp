@@ -4,6 +4,7 @@
 #include "cupsconnection.h"
 #include "qtconvert.h"
 #include "dprintermanager.h"
+#include "zcupsmonitor.h"
 
 #include <QMap>
 #include <QVariant>
@@ -50,6 +51,10 @@ int JobManager::getJobs(map<int, map<string, string>>& jobs, int which, int myJo
     for (itJobs=jobs.begin();itJobs!=jobs.end();itJobs++) {
         map<string, string> info = itJobs->second;
         qDebug() << JOB_ATTR_ID <<  itJobs->first;
+        if (g_cupsMonitor->isJobPurged(itJobs->first)) {
+            jobs.erase(itJobs);
+            qInfo() << itJobs->first << "is purged";
+        }
         dumpStdMapValue(info);
     }
 

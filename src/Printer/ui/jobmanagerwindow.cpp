@@ -677,7 +677,7 @@ void JobsDataModel::updateJobState(int id, int state, const QString &message)
     qInfo() << iState << m_iWhichJob;
 
     //如果是因为删除触发的状态改变，则从列表中删除
-    if (message.startsWith("Job purged")) {
+    if (g_cupsMonitor->isJobPurged(id)) {
         if (index < m_jobs.count())
             deleteJobItem(id);
         return;

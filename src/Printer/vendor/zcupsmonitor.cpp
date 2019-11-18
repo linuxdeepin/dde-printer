@@ -123,6 +123,13 @@ bool CupsMonitor::insertJobMessage(int id, int state, const QString &message)
     return times == 1;
 }
 
+bool CupsMonitor::isJobPurged(int id)
+{
+    QString str = getJobMessage(id);
+
+    return str.indexOf(" Job purged") > 0;
+}
+
 QString CupsMonitor::getJobMessage(int id)
 {
     QString str;
