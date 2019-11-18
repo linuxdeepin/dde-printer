@@ -166,6 +166,8 @@ void DPropertySetDlg::initUI()
     updateSettings(settings);
     resize(682, 546);
     m_bShow = false;
+    setResetVisible(false);
+    setWindowIcon(QIcon(":/images/dde-printer.svg"));
 }
 
 void DPropertySetDlg::initConnection()
@@ -587,7 +589,7 @@ void DPropertySetDlg::showConflictDlg(const vector<CONFLICTPAIR>& vecConflictPai
     //dialog.setFixedSize(450, 172);
     dialog.addContent(pWidget);
     dialog.addButton(tr("Confirm"));
-    dialog.setIconPixmap(QPixmap(":/images/warning_logo.svg"));
+    dialog.setIcon(QPixmap(":/images/warning_logo.svg"));
     dialog.exec();
 }
 
