@@ -559,22 +559,25 @@ void JobsDataModel::setJobAttributes(int index, const QMap<QString, QVariant> &j
 
 void JobsDataModel::doItemAction(int jobId, unsigned int iAction)
 {
+    int iRet = 0;
+
     switch (iAction) {
     case JOB_ACTION_Cancel:
-        g_jobManager->cancelJob(jobId);
+        iRet = g_jobManager->cancelJob(jobId);
         break;
     case JOB_ACTION_Delete:
-        if (0 == g_jobManager->deleteJob(jobId))
+        iRet = g_jobManager->deleteJob(jobId);
+        if (0 == iRet)
             deleteJobItem(jobId);
         break;
     case JOB_ACTION_Hold:
-        g_jobManager->holdJob(jobId);
+        iRet = g_jobManager->holdJob(jobId);
         break;
     case JOB_ACTION_Release:
-        g_jobManager->releaseJob(jobId);
+        iRet = g_jobManager->releaseJob(jobId);
         break;
     case JOB_ACTION_Restart:
-        g_jobManager->restartJob(jobId);
+        iRet = g_jobManager->restartJob(jobId);
         break;
     case JOB_ACTION_Priority:
     {
@@ -584,7 +587,8 @@ void JobsDataModel::doItemAction(int jobId, unsigned int iAction)
             iPriority = -1;
         }
 
-        if (0 == g_jobManager->priorityJob(jobId, iPriority)) {
+        iRet = g_jobManager->priorityJob(jobId, iPriority);
+        if (0 == iRet) {
             setHighestPriority(jobId, iPriority);
         }
 
@@ -594,6 +598,9 @@ void JobsDataModel::doItemAction(int jobId, unsigned int iAction)
         qWarning() << "Unsupport actions: " << iAction;
         break;
     }
+
+    if (0 != iRet)
+        emit signalDoActionFailed(jobId, iAction);
 }
 
 QVariant JobsDataModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -987,6 +994,20 @@ void JobManagerWindow::initConnect()
     connect(m_whichButBox, &DButtonBox::buttonClicked, this, &JobManagerWindow::slotWhichBoxClicked);
     connect(g_cupsMonitor, &CupsMonitor::signalJobStateChanged, this, &JobManagerWindow::slotJobStateChanged);
     connect(m_jobsModel, &JobsDataModel::signalJobsCountChanged, this, &JobManagerWindow::slotJobsCountChanged);
+    connect(m_jobsModel, &JobsDataModel::signalDoActionFailed, this, &JobManagerWindow::slotDoActionFailed);
+}
+
+void JobManagerWindow::slotDoActionFailed(int jobId, unsigned int iAction)
+{
+    Q_UNUSED(jobId);
+
+    QString strTips = m_jobsView->getActionName(iAction) + tr(" failed");
+    QPoint tipsPos = QCursor::pos();
+
+    //右键菜单可能关闭导致tooltips没有显示，延时处理
+    QTimer::singleShot(100, this, [=](){
+        QToolTip::showText(tipsPos, strTips, this);
+    });
 }
 
 void JobManagerWindow::slotWhichBoxClicked(QAbstractButton *whichbut)

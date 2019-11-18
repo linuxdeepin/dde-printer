@@ -73,8 +73,10 @@ protected:
     void addJobItem(const QMap<QString, QVariant> &job);
     void setJobAttributes(int index, const QMap<QString, QVariant> &job);
     void doItemAction(int jobId, unsigned int iAction);
+
 signals:
     void signalJobsCountChanged(int count);
+    void signalDoActionFailed(int jobId, unsigned int iAction);
 
 private:
     void sortJobs();
@@ -157,6 +159,7 @@ protected slots:
     void slotJobsCountChanged(int count);
     void slotWhichBoxClicked(QAbstractButton *whichbut);
     void slotJobStateChanged(int id, int state, const QString &message);
+    void slotDoActionFailed(int jobId, unsigned int iAction);
 
 private:
     JobListView*        m_jobsView;
