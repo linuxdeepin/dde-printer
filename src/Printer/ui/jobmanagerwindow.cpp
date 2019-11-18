@@ -547,9 +547,8 @@ void JobsDataModel::setJobAttributes(int index, const QMap<QString, QVariant> &j
 
     m_jobs[index] = job;
 
-    //从其他状态变为等待、暂停、打印中等状态，重新对任务列表排序
-    //如果优先级改变,重新对任务列表进行排序
-    if ((lastState != state && state <= IPP_JSTATE_PROCESSING) || lastPriority != jobPriority) {
+    //状态或者优先级改变都需要进行排序
+    if (lastState != state || lastPriority != jobPriority) {
         m_reflushTimer->start();
         return;
     }
