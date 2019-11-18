@@ -535,7 +535,7 @@ void JobsDataModel::addJobItem(const QMap<QString, QVariant> &job)
 
 void JobsDataModel::setJobAttributes(int index, const QMap<QString, QVariant> &job)
 {
-    if (index < m_jobs.count()) return;
+    if (index >= m_jobs.count()) return;
 
     QMap<QString, QVariant> lastJob = m_jobs[index];
     int lastState = lastJob[JOB_ATTR_STATE].toString().toInt();
