@@ -75,18 +75,6 @@ static bool isCanonCAPTDrv(const QString &ppd_name)
     return match.hasMatch();
 }
 
-static bool isPPDExist(const QString &ppd_name)
-{
-    QProcess proc;
-    proc.start("/usr/lib/cups/daemon/cups-driverd", QStringList{"cat", ppd_name});
-    if (proc.waitForFinished()) {
-        if (proc.exitStatus() == QProcess::NormalExit && !proc.exitCode()) {
-            return true;
-        }
-    }
-    return false;
-}
-
 static bool isHplipDrv(const QString &ppd_name)
 {
     return (ppd_name.startsWith("drv:///hpcups.drv") ||
