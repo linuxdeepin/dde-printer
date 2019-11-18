@@ -510,7 +510,7 @@ void DPrintersShowWindow::printSettingClickSlot()
         dialog.addSpacing(10);
         dialog.addButton(UI_PRINTERSHOW_CANCEL);
         int iIndex = dialog.addButton(tr("install driver"));
-        dialog.setIconPixmap(QPixmap(":/images/warning_logo.svg"));
+        dialog.setIcon(QPixmap(":/images/warning_logo.svg"));
         QAbstractButton *pBtn = dialog.getButton(iIndex);
         connect(pBtn, &QAbstractButton::clicked, this, &DPrintersShowWindow::printDriveInstall);
         dialog.exec();

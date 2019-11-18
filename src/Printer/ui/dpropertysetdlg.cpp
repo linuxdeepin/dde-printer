@@ -589,7 +589,7 @@ void DPropertySetDlg::showConflictDlg(const vector<CONFLICTPAIR>& vecConflictPai
     //dialog.setFixedSize(450, 172);
     dialog.addContent(pWidget);
     dialog.addButton(tr("Confirm"));
-    dialog.setIconPixmap(QPixmap(":/images/warning_logo.svg"));
+    dialog.setIcon(QPixmap(":/images/warning_logo.svg"));
     dialog.exec();
 }
 
