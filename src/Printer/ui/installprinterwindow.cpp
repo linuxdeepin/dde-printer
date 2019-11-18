@@ -212,22 +212,15 @@ void InstallPrinterWindow::setStatus(InstallationStatus status)
             m_pCheckPrinterListBtn->setText(tr("Reinstall"));
             m_pPrinterTestPageBtn->setVisible(true);
             m_pPrinterTestPageBtn->setText(tr("Troubleshoot"));
-        }
-        else if (m_status == Reinstall)
-        {
+        } else if (m_status == Reinstall) {
             m_pSpinner->setVisible(false);
             m_pSpinner->stop();
             m_pStatusLabel->setVisible(true);
 
-            if(m_bInstallFail)
-            {
+            if (m_bInstallFail) {
                 m_pStatusLabel->setText(tr("Installation failed"));
-                m_pDriverCombo->setVisible(false);
-            }
-            else
-            {
+            } else {
                 m_pStatusLabel->setText(tr("Print failed"));
-                m_pDriverCombo->setVisible(true);
             }
 
             m_pCancelInstallBtn->setVisible(false);
@@ -370,5 +363,6 @@ void InstallPrinterWindow::receiveInstallationStatusSlot(int status)
     } else {
         m_bInstallFail = true;
         setStatus(Reinstall);
+        m_printerName.clear();
     }
 }

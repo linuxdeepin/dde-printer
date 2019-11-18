@@ -85,6 +85,7 @@ void InstallDriverWindow::initUI()
     m_pTabListModel->appendRow(new QStandardItem(tr("Search for a driver")));
     m_pTabListView->setModel(m_pTabListModel);
     m_pTabListView->setCurrentIndex(m_pTabListModel->index(0, 0));
+    m_pTabListView->setEditTriggers(QListView::EditTrigger::NoEditTriggers);
     QVBoxLayout *pLeftVBoxlayout = new QVBoxLayout();
     pLeftVBoxlayout->addWidget(pLabelTitle1);
     pLeftVBoxlayout->addWidget(m_pTabListView);
@@ -131,6 +132,8 @@ void InstallDriverWindow::initUI()
     pVLayout->addWidget(m_pSelectPPDBtn, 1, Qt::AlignCenter);
 
     QWidget *pPPDWidget = new QWidget();
+    pPPDWidget->setObjectName("ppdWidget");
+
     pPPDWidget->setLayout(pVLayout);
     m_pStackWidget->addWidget(pPPDWidget);
 
