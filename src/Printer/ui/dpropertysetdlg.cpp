@@ -975,7 +975,7 @@ void DPropertySetDlg::printUriUI_EditFinished()
         dialog.setFixedSize(QSize(400, 150));
         dialog.setMessage(tr("Invalid URI"));
         dialog.addButton(tr("Confirm"));
-        dialog.setIconPixmap(QPixmap(":/images/warning_logo.svg"));
+        dialog.setIcon(QPixmap(":/images/warning_logo.svg"));
         dialog.exec();
         return;
     }
