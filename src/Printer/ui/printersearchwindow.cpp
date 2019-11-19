@@ -80,16 +80,20 @@ void PrinterSearchWindow::initUi()
     m_pTabListView = new DListView();
     QStandardItemModel *pTabModel = new QStandardItemModel(m_pTabListView);
     QStandardItem *pWidgetItemAuto = new QStandardItem(QIcon::fromTheme("dp_auto_searching"), tr("Discover printer"));
+    pWidgetItemAuto->setSizeHint(QSize(108, 48));
     QStandardItem *pWidgetItemManual = new QStandardItem(QIcon::fromTheme("dp_manual_search"), tr("Find printer"));
+    pWidgetItemManual->setSizeHint(QSize(108, 48));
     QStandardItem *pWidgetItemURI = new QStandardItem(QIcon::fromTheme("dp_uri"), tr("Enter URI"));
+    pWidgetItemURI->setSizeHint(QSize(108, 48));
     pTabModel->appendRow(pWidgetItemAuto);
     pTabModel->appendRow(pWidgetItemManual);
     pTabModel->appendRow(pWidgetItemURI);
     m_pTabListView->setModel(pTabModel);
     m_pTabListView->setCurrentIndex(pTabModel->index(0, 0));
-//    m_pTabListView->setFocusPolicy(Qt::NoFocus);
+    m_pTabListView->setFocusPolicy(Qt::NoFocus);
     m_pTabListView->setTextElideMode(Qt::TextElideMode::ElideRight);
     m_pTabListView->setEditTriggers(DListView::NoEditTriggers);
+    m_pTabListView->setFixedWidth(128);
 
     m_pStackedWidget = new QStackedWidget();
     // 右侧 自动查找
@@ -148,11 +152,12 @@ void PrinterSearchWindow::initUi()
     m_pLineEditLocation = new QLineEdit();
     m_pLineEditLocation->setPlaceholderText(tr("Please enter the IP address"));
     m_pBtnFind = new QPushButton(tr("Find"));
+    m_pBtnFind->setFixedSize(60, 36);
     QHBoxLayout *pHLayout4 = new QHBoxLayout();
+    pHLayout4->setSpacing(10);
     pHLayout4->addWidget(m_pLabelLocation);
-    pHLayout4->addSpacing(26);
+    pHLayout4->addSpacing(16);
     pHLayout4->addWidget(m_pLineEditLocation);
-    pHLayout4->addSpacing(10);
     pHLayout4->addWidget(m_pBtnFind);
 
     m_pPrinterListViewManual = new DListView();
@@ -198,6 +203,13 @@ void PrinterSearchWindow::initUi()
     m_pLineEditURI = new QLineEdit();
     m_pLineEditURI->setPlaceholderText(tr("Enter device URI"));
     m_pLabelTip = new QLabel(tr("Examples:") + "\n" + UI_PRINTERSEARCH_URITIP);
+    QFont tipFont;
+    tipFont.setPixelSize(12);
+    m_pLabelTip->setFont(tipFont);
+    QPalette pe;
+    pe.setColor(QPalette::WindowText, QColor("#92A8BA"));
+    m_pLabelTip->setPalette(pe);
+
     QLabel *pLabelDriver3 = new QLabel(UI_PRINTERSEARCH_DRIVER);
     m_pURIDriverCom = new QComboBox();
     m_pURIDriverCom->addItem(UI_PRINTERSEARCH_MANUAL);
@@ -546,6 +558,7 @@ void PrinterSearchWindow::driverAutoSearchedSlot()
             strDesc += strReplace;
             m_pAutoDriverCom->addItem(strDesc, QVariant::fromValue(driver));
         }
+//        m_pAutoDriverCom->insertSeparator(m_pAutoDriverCom->count() - 1);
         m_pAutoDriverCom->addItem(UI_PRINTERSEARCH_MANUAL);
     }
     m_pAutoSpinner->stop();
