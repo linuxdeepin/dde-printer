@@ -349,7 +349,7 @@ void DPropertySetDlg::updateViews()
             DPrinter *pPrinter = static_cast<DPrinter *>(pDest);
 
             //Update Driver UI
-            QString strDriver = pPrinter->getDriverName();
+            QString strDriver = pPrinter->getPrinterMakeAndModel();
             updateDriverUI(strDriver);
 
             //Update Uri UI

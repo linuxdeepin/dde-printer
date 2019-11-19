@@ -239,6 +239,29 @@ QString DPrinter::getDriverName()
     return QFile::symLinkTarget(QString::fromStdString(strLinkPath));
 }
 
+QString DPrinter::getPrinterMakeAndModel()
+{
+    QString strMakeAndModel= "";
+
+    try {
+        vector<string> requestAttrs;
+        requestAttrs.push_back("printer-make-and-model");
+        map<string, string> attrs = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(),
+                                                                 nullptr, &requestAttrs);
+
+        for (auto iter = attrs.begin(); iter != attrs.end(); iter++)
+        {
+            strMakeAndModel = QString::fromStdString(iter->second.data());
+            strMakeAndModel = strMakeAndModel.remove(0, 1);
+        }
+    } catch (const std::runtime_error &e) {
+        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        strMakeAndModel.clear();
+    }
+
+    return strMakeAndModel;
+}
+
 QString DPrinter::getPrinterUri()
 {
     QString strUri= "";

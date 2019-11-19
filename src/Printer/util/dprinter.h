@@ -116,6 +116,7 @@ public:
 
     //Driver
     QString getDriverName();
+    QString getPrinterMakeAndModel();
     //URI
     QString getPrinterUri();
     void setPrinterUri(const QString& strValue);

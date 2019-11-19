@@ -646,17 +646,17 @@ Click + to add printers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="509"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="511"/>
         <source>The driver is damaged, please install it again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="578"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="580"/>
         <source>disconnected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="512"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="514"/>
         <source>install driver</source>
         <translation type="unfinished"></translation>
     </message>
@@ -670,28 +670,28 @@ Click + to add printers</source>
 <context>
     <name>DPropertySetDlg</name>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="569"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="571"/>
         <source>Find Conflict Option!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="572"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="574"/>
         <source>Changes will be saved only all the conflict resolved!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="578"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="580"/>
         <source>Conflict:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="589"/>
-        <location filename="../ui/dpropertysetdlg.cpp" line="975"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="591"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="977"/>
         <source>Confirm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="974"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="976"/>
         <source>Invalid URI</source>
         <translation type="unfinished"></translation>
     </message>
@@ -740,70 +740,70 @@ Click + to add printers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="94"/>
-        <location filename="../ui/installdriverwindow.cpp" line="298"/>
+        <location filename="../ui/installdriverwindow.cpp" line="95"/>
+        <location filename="../ui/installdriverwindow.cpp" line="301"/>
         <source>Choose a local driver</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="97"/>
+        <location filename="../ui/installdriverwindow.cpp" line="98"/>
         <source>Vendor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="101"/>
+        <location filename="../ui/installdriverwindow.cpp" line="102"/>
         <source>Model</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="138"/>
+        <location filename="../ui/installdriverwindow.cpp" line="141"/>
         <source>Vendor and Model</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="141"/>
+        <location filename="../ui/installdriverwindow.cpp" line="144"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="156"/>
+        <location filename="../ui/installdriverwindow.cpp" line="159"/>
         <source>Install Driver</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="104"/>
-        <location filename="../ui/installdriverwindow.cpp" line="142"/>
+        <location filename="../ui/installdriverwindow.cpp" line="105"/>
+        <location filename="../ui/installdriverwindow.cpp" line="145"/>
         <source>Driver</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="280"/>
-        <location filename="../ui/installdriverwindow.cpp" line="386"/>
+        <location filename="../ui/installdriverwindow.cpp" line="283"/>
+        <location filename="../ui/installdriverwindow.cpp" line="389"/>
         <source>Reselect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="306"/>
+        <location filename="../ui/installdriverwindow.cpp" line="309"/>
         <source>Select a PPD file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="315"/>
+        <location filename="../ui/installdriverwindow.cpp" line="318"/>
         <source>Search for printer driver</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="383"/>
+        <location filename="../ui/installdriverwindow.cpp" line="386"/>
         <source>Select the PPD file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="368"/>
+        <location filename="../ui/installdriverwindow.cpp" line="371"/>
         <source>(recommended)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="489"/>
+        <location filename="../ui/installdriverwindow.cpp" line="492"/>
         <source> (recommended)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -895,7 +895,7 @@ Click + to add printers</source>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="203"/>
-        <location filename="../ui/installprinterwindow.cpp" line="229"/>
+        <location filename="../ui/installprinterwindow.cpp" line="223"/>
         <source>Print failed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -906,18 +906,18 @@ Click + to add printers</source>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="214"/>
-        <location filename="../ui/installprinterwindow.cpp" line="242"/>
+        <location filename="../ui/installprinterwindow.cpp" line="235"/>
         <source>Troubleshoot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="224"/>
+        <location filename="../ui/installprinterwindow.cpp" line="221"/>
         <source>Installation failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="212"/>
-        <location filename="../ui/installprinterwindow.cpp" line="240"/>
+        <location filename="../ui/installprinterwindow.cpp" line="233"/>
         <source>Reinstall</source>
         <translation type="unfinished"></translation>
     </message>
