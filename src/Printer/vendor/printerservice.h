@@ -53,6 +53,8 @@ class PrinterService : public QObject
 public:
     static PrinterService* getInstance();
 
+    bool isInvaild();
+
     PrinterServerInterface* searchSolution(const QString& manufacturer, const QString& model,
             const QString& ieee1284_id = "");
 

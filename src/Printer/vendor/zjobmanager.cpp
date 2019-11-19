@@ -3,12 +3,8 @@
 #include "config.h"
 #include "cupsconnection.h"
 #include "qtconvert.h"
-
-#ifdef CONSOLE_CMD
-#include "zprintermanager.h"
-#else
 #include "dprintermanager.h"
-#endif
+#include "zcupsmonitor.h"
 
 #include <QMap>
 #include <QVariant>
@@ -55,6 +51,10 @@ int JobManager::getJobs(map<int, map<string, string>>& jobs, int which, int myJo
     for (itJobs=jobs.begin();itJobs!=jobs.end();itJobs++) {
         map<string, string> info = itJobs->second;
         qDebug() << JOB_ATTR_ID <<  itJobs->first;
+        if (g_cupsMonitor->isJobPurged(itJobs->first)) {
+            jobs.erase(itJobs);
+            qInfo() << itJobs->first << "is purged";
+        }
         dumpStdMapValue(info);
     }
 
@@ -64,6 +64,7 @@ int JobManager::getJobs(map<int, map<string, string>>& jobs, int which, int myJo
 int JobManager::getJobById(map<string, string>& job, int jobId)
 {
     map<int, map<string, string>> jobs;
+    map<int, map<string, string>>::iterator itJobs;
     vector<string> requst;
 
     for (int i=0;jattrs[i];i++) {
@@ -77,8 +78,15 @@ int JobManager::getJobById(map<string, string>& job, int jobId)
         return -1;
     }
 
-    job = jobs[jobId];
-    return 0;
+    for (itJobs=jobs.begin();itJobs!=jobs.end();itJobs++) {
+        if (itJobs->first == jobId) {
+            job = itJobs->second;
+            return 0;
+        }
+    }
+
+    qInfo() << "Not found " << jobId;
+    return -2;
 }
 
 int JobManager::cancelJob(int job_id)

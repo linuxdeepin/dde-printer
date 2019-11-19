@@ -46,6 +46,7 @@ public:
 
     QString getJobMessage(int id);
     QString getStateString(int iState);
+    bool isJobPurged(int id);
 
     void stop() Q_DECL_OVERRIDE;
 

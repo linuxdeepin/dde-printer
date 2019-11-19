@@ -100,7 +100,7 @@ QMAKE_CXXFLAGS += -Wall -Wextra -Wformat=2 -Wno-format-nonliteral -Wshadow
 QMAKE_LFLAGS += -Wl,-rpath=../cppcups
 
 unix:!macx:{
-LIBS += -L$$PWD/../cppcups/ -lcppcups
+LIBS += -L../cppcups/ -lcppcups
 LIBS += -lsmbclient -lcups -lcrypto++
 }
 

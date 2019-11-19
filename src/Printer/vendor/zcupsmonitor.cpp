@@ -28,12 +28,7 @@
 #include "cupsattrnames.h"
 #include "printerapplication.h"
 #include "zjobmanager.h"
-
-#ifdef CONSOLE_CMD
-#include "zprintermanager.h"
-#else
 #include "dprintermanager.h"
-#endif
 
 #include <QMap>
 #include <QVariant>
@@ -126,6 +121,13 @@ bool CupsMonitor::insertJobMessage(int id, int state, const QString &message)
 
     emit signalShowTrayIcon(hasRuningJobs);
     return times == 1;
+}
+
+bool CupsMonitor::isJobPurged(int id)
+{
+    QString str = getJobMessage(id);
+
+    return str.indexOf(" Job purged") > 0;
 }
 
 QString CupsMonitor::getJobMessage(int id)

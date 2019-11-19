@@ -43,6 +43,7 @@ public:
     virtual void stop();
 
     TDeviceInfo getPrinterInfo();
+    QMap<QString, QVariant> getDriverInfo();
 
 protected:
     virtual int fixDriverDepends();

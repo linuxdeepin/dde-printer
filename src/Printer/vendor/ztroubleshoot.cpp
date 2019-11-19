@@ -28,12 +28,7 @@
 #include "zdrivermanager.h"
 #include "zcupsmonitor.h"
 #include "zjobmanager.h"
-
-#ifdef CONSOLE_CMD
-#include "zprintermanager.h"
-#else
 #include "dprintermanager.h"
-#endif
 
 #include <QTcpSocket>
 #include <QUrl>
@@ -172,7 +167,7 @@ bool CheckDriver::isPass()
     foreach (QString package, depends) {
         if (!isPackageExists(package)) {
             qWarning() << package << "is not exists";
-            m_strMessage = tr("%1 is not install, can't printer");
+            m_strMessage = tr("%1 is not install, can't printer").arg(package);
             emit signalStateChanged(TStat_Fail, m_strMessage);
             return false;
         }
@@ -501,7 +496,7 @@ int TroubleShoot::doWork()
         bool bPass = m_jobs[i]->isPass();
         emit signalUpdateProgress(i, m_jobs[i]->getMessage());
 
-        qInfo() << m_jobs[i]->getJobName() << m_jobs[i]->getMessage();
+        qDebug() << m_jobs[i]->getJobName() << m_jobs[i]->getMessage();
         if (!bPass) {
             return -1;
         }

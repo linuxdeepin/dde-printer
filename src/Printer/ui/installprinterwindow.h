@@ -47,6 +47,8 @@ enum InstallationStatus {
     Reinstall
 };
 
+class PrinterTestJob;
+
 class InstallPrinterWindow : public DMainWindow
 {
     Q_OBJECT
@@ -70,6 +72,8 @@ private:
     void initConnections();
 
     void setStatus(InstallationStatus status);
+
+    void feedbackPrintTestPage();
 
 protected:
     void closeEvent(QCloseEvent *event) override;
@@ -118,6 +122,8 @@ private:
     // 用于安装失败之后，返回上级界面，有两种情况
     QWidget *m_pParentWidget;
     bool m_bInstallFail;
+
+    PrinterTestJob*     m_testJob;
 };
 
 #endif // INSTALLPRINTERWINDOW_H

@@ -29,6 +29,7 @@
 #include "zcupsmonitor.h"
 #include "printertestpagedialog.h"
 #include "troubleshootdialog.h"
+#include "ztroubleshoot_p.h"
 
 #include <DDialog>
 #include <DMessageBox>
@@ -46,6 +47,7 @@
 #include <QDebug>
 #include <QMenu>
 #include <QLineEdit>
+#include <QTimer>
 #include <QCheckBox>
 
 DPrintersShowWindow::DPrintersShowWindow(QWidget *parent)
@@ -314,6 +316,20 @@ void DPrintersShowWindow::showEvent(QShowEvent *event)
 {
     Q_UNUSED(event)
     reflushPrinterListView(QString());
+
+    QTimer::singleShot(10, this, [=](){
+        CheckCupsServer cups(this);
+        if (!cups.isPass()) {
+            DDialog dlg("", tr("CUPS server is not running, can't manager printers."));
+
+            dlg.setIcon(QIcon(":/images/warning_logo.svg"));
+            dlg.addButton(tr("Sure"), true);
+            dlg.setContentsMargins(10, 15, 10, 15);
+            dlg.setModal(true);
+            dlg.setFixedSize(422, 202);
+            dlg.exec();
+        }
+    });
 }
 
 void DPrintersShowWindow::selectPrinterByName(const QString &printerName)
