@@ -32,25 +32,16 @@
 #include <QCloseEvent>
 #include <QEventLoop>
 PermissionsWindow::PermissionsWindow(QWidget *parent)
-    : DMainWindow(parent)
+    : DDialog(parent)
     , m_ret(0)
 {
     initUI();
-    initConnections();
+
 }
 
 PermissionsWindow::~PermissionsWindow()
 {
 
-}
-
-int PermissionsWindow::exec()
-{
-    show();
-    QEventLoop loop;
-    connect(this, &PermissionsWindow::finished, &loop, &QEventLoop::quit);
-    loop.exec();
-    return m_ret;
 }
 
 
@@ -77,12 +68,9 @@ QString PermissionsWindow::getPassword()
 
 void PermissionsWindow::initUI()
 {
-    titlebar()->setMenuVisible(false);
-    titlebar()->setTitle(tr(""));
-    titlebar()->setIcon(QIcon(":/images/dde-printer.svg"));
-    // 去掉最大最小按钮
-    setWindowFlags(windowFlags() & ~Qt::WindowMinMaxButtonsHint);
-    setWindowModality(Qt::ApplicationModal);
+
+    setIcon(QIcon(":/images/dde-printer.svg"));
+
     resize(380, 270);
 
     m_pTipLabel = new QLabel("");
@@ -93,12 +81,6 @@ void PermissionsWindow::initUI()
     m_pPasswordEdit = new DPasswordEdit();
     QLabel *pPwdLabel = new QLabel(tr("Password"));
 
-    m_pCancelBtn = new QPushButton(tr("Cancel"));
-    m_pConnectBtn = new QPushButton(tr("Connect"));
-    QBoxLayout *pHLayout = new QHBoxLayout();
-    pHLayout->addWidget(m_pCancelBtn);
-    pHLayout->addWidget(m_pConnectBtn);
-
     QGridLayout *pGLayout = new QGridLayout();
     pGLayout->addWidget(m_pTipLabel, 0, 0, 1, 2, Qt::AlignCenter);
     pGLayout->addWidget(pUserLabel, 1, 0, 1, 1);
@@ -107,33 +89,16 @@ void PermissionsWindow::initUI()
     pGLayout->addWidget(m_pGroupEdit, 2, 1, 1, 1);
     pGLayout->addWidget(pPwdLabel, 3, 0, 1, 1);
     pGLayout->addWidget(m_pPasswordEdit, 3, 1, 1, 1);
-    QVBoxLayout *pMainLayout = new QVBoxLayout();
-    pMainLayout->addLayout(pGLayout);
-    pMainLayout->addLayout(pHLayout);
 
     QWidget *widget = new QWidget();
-    widget->setLayout(pMainLayout);
-    takeCentralWidget();
-    setCentralWidget(widget);
+    widget->setLayout(pGLayout);
+    addContent(widget);
+    addButton(tr("Cancel"));
+    addButton(tr("Connect"), true, ButtonType::ButtonRecommend);
 
-    moveToCenter(this);
+    moveToCenter();
 }
 
-void PermissionsWindow::initConnections()
-{
-    connect(m_pCancelBtn, &QPushButton::clicked, this, &PermissionsWindow::btnClickedSlot);
-    connect(m_pConnectBtn, &QPushButton::clicked, this, &PermissionsWindow::btnClickedSlot);
-}
-
-void PermissionsWindow::btnClickedSlot()
-{
-    if (sender() == m_pCancelBtn) {
-        m_ret = 0;
-    } else if (sender() == m_pConnectBtn) {
-        m_ret = 1;
-    }
-    close();
-}
 
 void PermissionsWindow::closeEvent(QCloseEvent *event)
 {

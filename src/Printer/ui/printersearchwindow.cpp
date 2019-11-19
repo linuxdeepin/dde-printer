@@ -776,15 +776,14 @@ void PrinterSearchWindow::smbInfomationSlot(int &ret, const QString &host, QStri
 {
     PermissionsWindow *pPermissionsWindow = new PermissionsWindow();
     pPermissionsWindow->setHost(host);
-//    host = m_pLineEditLocation->text();
     int result = pPermissionsWindow->exec();
-    if (result) {
+    if (result > 0) {
         ++ret;
         user = pPermissionsWindow->getUser();
         group = pPermissionsWindow->getGroup();
         password = pPermissionsWindow->getPassword();
     }
-    delete pPermissionsWindow;
+    pPermissionsWindow->deleteLater();
 }
 
 
