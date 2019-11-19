@@ -31,12 +31,12 @@ DWIDGET_BEGIN_NAMESPACE
 class DImageButton;
 class DSettingsDialog;
 class DDialog;
+class DListView;
 DWIDGET_END_NAMESPACE
 
 QT_BEGIN_NAMESPACE
-class QListWidget;
 class QLabel;
-class QListWidgetItem;
+class QStandardItemModel;
 class QMenu;
 class QCheckBox;
 QT_END_NAMESPACE
@@ -90,7 +90,7 @@ private slots:
     * @author        liurui
     * @date          2019-11-07
     */
-    void renamePrinterSlot(QListWidgetItem *pItem);
+    void renamePrinterSlot(const QModelIndex &index);
 
     void printSettingClickSlot();
     void printQueueClickSlot();
@@ -98,7 +98,7 @@ private slots:
     void printFalutClickSlot();
     void printDriveInstall();
 
-    void printerListWidgetItemChangedSlot(int row);
+    void printerListWidgetItemChangedSlot(const QModelIndex &previous);
     // 响应列表的右键菜单
     void contextMenuRequested(const QPoint &point);
     // 响应菜单栏的action
@@ -125,7 +125,8 @@ private:
     DIconButton *m_pTBtnPrintTest;
     DIconButton *m_pTBtnFault;
 
-    QListWidget *m_pPrinterListView;
+    DListView *m_pPrinterListView;
+    QStandardItemModel *m_pPrinterModel;
     QMenu *m_pListViewMenu;
     QAction *m_pShareAction;
     QAction *m_pEnableAction;

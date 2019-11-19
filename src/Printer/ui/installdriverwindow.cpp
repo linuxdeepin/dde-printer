@@ -145,6 +145,7 @@ void InstallDriverWindow::initUI()
     m_pManuAndTypeLineEdit = new QLineEdit();
     m_pManuAndTypeLineEdit->setValidator(new QRegExpValidator(QRegExp("^[a-zA-Z0-9 ]*$")));
     m_pSearchBtn = new QPushButton(tr("Search"));
+    m_pSearchBtn->setFixedSize(60, 36);
     QLabel *pDriverLabel = new QLabel(tr("Driver"));
     m_pDriverManualCombo = new QComboBox();
     QGridLayout *pGLayout1 = new QGridLayout();

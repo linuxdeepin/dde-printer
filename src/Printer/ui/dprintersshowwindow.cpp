@@ -89,12 +89,14 @@ void DPrintersShowWindow::initUI()
     pLeftTopHLayout->addWidget(pLabel, 6, Qt::AlignLeft);
     pLeftTopHLayout->addWidget(m_pBtnAddPrinter, 1);
     pLeftTopHLayout->addWidget(m_pBtnDeletePrinter, 1);
-    // 坐标下面的列表
-    m_pPrinterListView = new QListWidget();
+    // 打印机列表
+    m_pPrinterListView = new DListView();
+    m_pPrinterModel = new QStandardItemModel(m_pPrinterListView);
     m_pPrinterListView->setTextElideMode(Qt::ElideRight);
     m_pPrinterListView->setContextMenuPolicy(Qt::CustomContextMenu);
     m_pPrinterListView->setMinimumWidth(310);
-//    m_pPrinterListView->itemDelegate()->installEventFilter(this);
+    m_pPrinterListView->setModel(m_pPrinterModel);
+
     // 列表的右键菜单
     m_pListViewMenu = new QMenu();
     m_pShareAction = new QAction(tr("Shared"), m_pListViewMenu);
@@ -265,13 +267,14 @@ void DPrintersShowWindow::initConnections()
     connect(m_pTBtnPrintTest, &DIconButton::clicked, this, &DPrintersShowWindow::printTestClickSlot);
     connect(m_pTBtnFault, &DIconButton::clicked, this, &DPrintersShowWindow::printFalutClickSlot);
 
-    connect(m_pPrinterListView, &QListWidget::currentRowChanged, this, &DPrintersShowWindow::printerListWidgetItemChangedSlot);
+    connect(m_pPrinterListView, QOverload<const QModelIndex &>::of(&DListView::currentChanged), this, &DPrintersShowWindow::printerListWidgetItemChangedSlot);
     //此处修改文字和修改图标都会触发这个信号，导致bug，修改图标之前先屏蔽信号
-    connect(m_pPrinterListView, &QListWidget::itemChanged, this, &DPrintersShowWindow::renamePrinterSlot);
-    connect(m_pPrinterListView, &QListWidget::customContextMenuRequested, this, &DPrintersShowWindow::contextMenuRequested);
-    connect(m_pPrinterListView, &QListWidget::itemDoubleClicked, this, [this](QListWidgetItem * pItem) {
+    connect(m_pPrinterListView, &DListView::triggerEdit, this, &DPrintersShowWindow::renamePrinterSlot);
+    connect(m_pPrinterListView, &DListView::customContextMenuRequested, this, &DPrintersShowWindow::contextMenuRequested);
+    connect(m_pPrinterListView, &DListView::doubleClicked, this, [this](const QModelIndex & index) {
         // 存在未完成的任务无法进入编辑状态
         m_pPrinterListView->blockSignals(true);
+        QStandardItem *pItem = m_pPrinterModel->itemFromIndex(index);
         if (m_pPrinterManager->hasUnfinishedJob()) {
             pItem->setFlags(pItem->flags() & ~Qt::ItemIsEditable);
         } else {
@@ -334,10 +337,10 @@ void DPrintersShowWindow::showEvent(QShowEvent *event)
 
 void DPrintersShowWindow::selectPrinterByName(const QString &printerName)
 {
-    int rowCount = m_pPrinterListView->count();
+    int rowCount = m_pPrinterModel->rowCount();
     for (int i = 0; i < rowCount; ++i) {
-        if (m_pPrinterListView->item(i)->text() == printerName) {
-            m_pPrinterListView->setCurrentRow(i);
+        if (m_pPrinterModel->item(i)->text() == printerName) {
+            m_pPrinterListView->setCurrentIndex(m_pPrinterModel->item(i)->index());
         }
     }
 }
@@ -346,12 +349,12 @@ void DPrintersShowWindow::updateDefaultPrinterIcon()
 {
     //防止触发itemChanged信号
     m_pPrinterListView->blockSignals(true);
-    int count = m_pPrinterListView->count();
+    int count = m_pPrinterModel->rowCount();
     for (int i = 0; i < count; ++i) {
-        if (m_pPrinterManager->isDefaultPrinter(m_pPrinterListView->item(i)->text())) {
-            m_pPrinterListView->item(i)->setIcon(QIcon::fromTheme("dp_printer_default"));
+        if (m_pPrinterManager->isDefaultPrinter(m_pPrinterModel->item(i)->text())) {
+            m_pPrinterModel->item(i)->setIcon(QIcon::fromTheme("dp_printer_default"));
         } else {
-            m_pPrinterListView->item(i)->setIcon(QIcon::fromTheme("dp_printer_list"));
+            m_pPrinterModel->item(i)->setIcon(QIcon::fromTheme("dp_printer_list"));
         }
     }
     m_pPrinterListView->blockSignals(false);
@@ -362,10 +365,10 @@ void DPrintersShowWindow::updateDefaultPrinterIcon()
 void DPrintersShowWindow::reflushPrinterListView(const QString &newPrinterName)
 {
     m_pPrinterManager->updateDestinationList();
-    m_pPrinterListView->clear();
+    m_pPrinterModel->clear();
     QStringList printerList = m_pPrinterManager->getPrintersList();
     foreach (QString printerName, printerList) {
-        QListWidgetItem *pItem = new QListWidgetItem(printerName);
+        QStandardItem *pItem = new QStandardItem(printerName);
         pItem->setSizeHint(QSize(300, 50));
         pItem->setFlags(pItem->flags() | Qt::ItemIsEditable);
         pItem->setToolTip(printerName);
@@ -374,7 +377,7 @@ void DPrintersShowWindow::reflushPrinterListView(const QString &newPrinterName)
         else {
             pItem->setIcon(QIcon::fromTheme("dp_printer_list"));
         }
-        m_pPrinterListView->addItem(pItem);
+        m_pPrinterModel->appendRow(pItem);
     }
     if (m_pPrinterListView->count() > 0) {
         m_pPrinterListView->setVisible(true);
@@ -395,7 +398,7 @@ void DPrintersShowWindow::reflushPrinterListView(const QString &newPrinterName)
 
     if (newPrinterName.isEmpty()) {
         if (m_pPrinterListView->count() > 0) {
-            m_pPrinterListView->setCurrentRow(0);
+            m_pPrinterListView->setCurrentIndex(m_pPrinterModel->index(0, 0));
         }
     } else {
         selectPrinterByName(newPrinterName);
@@ -438,9 +441,9 @@ void DPrintersShowWindow::addPrinterClickSlot()
 
 void DPrintersShowWindow::deletePrinterClickSlot()
 {
-    if (!m_pPrinterListView->currentItem())
+    if (!m_pPrinterListView->currentIndex().isValid())
         return;
-    QString printerName = m_pPrinterListView->currentItem()->text();
+    QString printerName = m_pPrinterListView->currentIndex().data().toString();
     if (!printerName.isEmpty()) {
         DDialog *pDialog = new DDialog(this);
         QLabel *pMessage = new QLabel(tr("Are you sure you want to delete the printer \"%1\" ?").arg(printerName));
@@ -464,12 +467,12 @@ void DPrintersShowWindow::deletePrinterClickSlot()
     }
 }
 
-void DPrintersShowWindow::renamePrinterSlot(QListWidgetItem *pItem)
+void DPrintersShowWindow::renamePrinterSlot(const QModelIndex &index)
 {
     //过滤掉空格
-    if (!pItem)
+    if (!index.isValid())
         return;
-    QString newPrinterName = m_pPrinterManager->validataName(pItem->text());
+    QString newPrinterName = m_pPrinterManager->validataName(index.data().toString());
     if (m_pPrinterManager->hasSamePrinter(newPrinterName)) {
         DDialog *pDialog = new DDialog();
         pDialog->setIcon(QIcon(":/images/warning_logo.svg"));
@@ -481,7 +484,8 @@ void DPrintersShowWindow::renamePrinterSlot(QListWidgetItem *pItem)
         pDialog->exec();
         pDialog->deleteLater();
         m_pPrinterListView->blockSignals(true);
-        pItem->setText(m_CurPrinterName);
+//        pItem->setText(m_CurPrinterName);
+        m_pPrinterModel->itemFromIndex(index)->setText(m_CurPrinterName);
         m_pPrinterListView->blockSignals(false);
         return;
     }
@@ -502,7 +506,8 @@ void DPrintersShowWindow::renamePrinterSlot(QListWidgetItem *pItem)
             if (ret != okIndex) {
                 //避免重复触发itemchanged信号
                 m_pPrinterListView->blockSignals(true);
-                pItem->setText(m_CurPrinterName);
+//                pItem->setText(m_CurPrinterName);
+                m_pPrinterModel->itemFromIndex(index)->setText(m_CurPrinterName);
                 m_pPrinterListView->blockSignals(false);
                 return;
             }
@@ -534,10 +539,9 @@ void DPrintersShowWindow::renamePrinterSlot(QListWidgetItem *pItem)
 
 void DPrintersShowWindow::printSettingClickSlot()
 {
-    QListWidgetItem *pItem = m_pPrinterListView->currentItem();
-    if (!pItem)
+    if (!m_pPrinterListView->currentIndex().isValid())
         return ;
-    QString strPrinterName = pItem->text();
+    QString strPrinterName = m_pPrinterListView->currentIndex().data().toString();
     DPropertySetDlg dlg(this);
     dlg.setPrinterName(strPrinterName);
 
@@ -565,9 +569,9 @@ void DPrintersShowWindow::printQueueClickSlot()
 
 void DPrintersShowWindow::printTestClickSlot()
 {
-    if (!m_pPrinterListView->currentItem())
+    if (!m_pPrinterListView->currentIndex().isValid())
         return;
-    QString printerName = m_pPrinterListView->currentItem()->text();
+    QString printerName = m_pPrinterListView->currentIndex().data().toString();
 
     PrinterTestPageDialog dlg(printerName, this);
     dlg.setModal(true);
@@ -576,9 +580,9 @@ void DPrintersShowWindow::printTestClickSlot()
 
 void DPrintersShowWindow::printFalutClickSlot()
 {
-    if (!m_pPrinterListView->currentItem())
+    if (!m_pPrinterListView->currentIndex().isValid())
         return;
-    QString printerName = m_pPrinterListView->currentItem()->text();
+    QString printerName = m_pPrinterListView->currentIndex().data(Qt::DisplayRole).toString();
 
     TroubleShootDialog dlg(printerName, this);
     dlg.setModal(true);
@@ -590,12 +594,13 @@ void DPrintersShowWindow::printDriveInstall()
     m_pSearchWindow->show();
 }
 
-void DPrintersShowWindow::printerListWidgetItemChangedSlot(int row)
+void DPrintersShowWindow::printerListWidgetItemChangedSlot(const QModelIndex &previous)
 {
+    Q_UNUSED(previous)
     //在清空QListWidget的时候会触发这个槽函数，需要先判断是否这个item存在，不然会导致段错误
-    if (!m_pPrinterListView->item(row))
+    if (!m_pPrinterListView->currentIndex().isValid())
         return;
-    QString printerName = m_pPrinterListView->item(row)->text();
+    QString printerName = m_pPrinterListView->currentIndex().data(Qt::DisplayRole).toString();
     m_CurPrinterName = printerName;
     QStringList basePrinterInfo = m_pPrinterManager->getPrinterBaseInfoByName(printerName);
     if (basePrinterInfo.count() == 3) {
@@ -613,7 +618,7 @@ void DPrintersShowWindow::printerListWidgetItemChangedSlot(int row)
 
         ConnectedTask *pTask = new ConnectedTask(printerName);
         connect(pTask, &ConnectedTask::signalResult, this, [&](bool connected, const QString & signalPrinterName) {
-            if ((!connected) && (m_pPrinterListView->currentItem()->text() == signalPrinterName)) {
+            if ((!connected) && (m_pPrinterListView->currentIndex().data().toString() == signalPrinterName)) {
                 m_pLabelStatusShow->setText(tr("disconnected"));
             }
         });
@@ -625,14 +630,15 @@ void DPrintersShowWindow::printerListWidgetItemChangedSlot(int row)
 
 void DPrintersShowWindow::contextMenuRequested(const QPoint &point)
 {
-    if (m_pPrinterListView->currentItem()) {
-        bool isShared = m_pPrinterManager->isPrinterShared(m_pPrinterListView->currentItem()->text());
+    if (m_pPrinterListView->currentIndex().isValid()) {
+        QString printerName = m_pPrinterListView->currentIndex().data().toString();
+        bool isShared = m_pPrinterManager->isPrinterShared(printerName);
         m_pShareAction->setChecked(isShared);
-        bool isEnabled = m_pPrinterManager->isPrinterEnabled(m_pPrinterListView->currentItem()->text());
+        bool isEnabled = m_pPrinterManager->isPrinterEnabled(printerName);
         m_pEnableAction->setChecked(isEnabled);
-        bool isAcceptJob = m_pPrinterManager->isPrinterAcceptJob(m_pPrinterListView->currentItem()->text());
+        bool isAcceptJob = m_pPrinterManager->isPrinterAcceptJob(printerName);
         m_pRejectAction->setChecked(isAcceptJob);
-        bool isDefault = m_pPrinterManager->isDefaultPrinter(m_pPrinterListView->currentItem()->text());
+        bool isDefault = m_pPrinterManager->isDefaultPrinter(printerName);
         m_pDefaultAction->setChecked(isDefault);
         // 当打印机为默认时，不让用户取消，避免出现没有默认打印机的状态
         m_pDefaultAction->setDisabled(isDefault);
@@ -642,20 +648,21 @@ void DPrintersShowWindow::contextMenuRequested(const QPoint &point)
 
 void DPrintersShowWindow::listWidgetMenuActionSlot(bool checked)
 {
+    QString printerName = m_pPrinterListView->currentIndex().data().toString();
     if (sender()->objectName() == "Share") {
-        m_pPrinterManager->setPrinterShared(m_pPrinterListView->currentItem()->text(), checked);
+        m_pPrinterManager->setPrinterShared(printerName, checked);
     } else if (sender()->objectName() == "Enable") {
-        m_pPrinterManager->setPrinterEnabled(m_pPrinterListView->currentItem()->text(), checked);
+        m_pPrinterManager->setPrinterEnabled(printerName, checked);
         //更新打印机状态信息
-        printerListWidgetItemChangedSlot(m_pPrinterListView->currentRow());
+        printerListWidgetItemChangedSlot(m_pPrinterListView->currentIndex());
 
     } else if (sender()->objectName() == "Default") {
         if (checked) {
-            m_pPrinterManager->setPrinterDefault(m_pPrinterListView->currentItem()->text());
+            m_pPrinterManager->setPrinterDefault(printerName);
             updateDefaultPrinterIcon();
         }
     } else if (sender()->objectName() == "Accept") {
-        m_pPrinterManager->setPrinterAcceptJob(m_pPrinterListView->currentItem()->text(), checked);
+        m_pPrinterManager->setPrinterAcceptJob(printerName, checked);
     }
 }
 
