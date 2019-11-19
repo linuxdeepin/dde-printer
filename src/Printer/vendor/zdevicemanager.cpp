@@ -209,6 +209,7 @@ int ReflushDevicesByBackendTask::addDevices(const map<string, map<string, string
         info.iType = InfoFrom_Detect;
         if (uri.startsWith("dnssd://")) {
             info.strName = info.strInfo.split("@").first().trimmed();
+            info.strInfo = info.strName;
         }
 
         if (0 != mergeDevice(info, backend))
