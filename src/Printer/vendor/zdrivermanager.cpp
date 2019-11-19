@@ -421,8 +421,6 @@ DriverSearcher::DriverSearcher(const TDeviceInfo &printer, QObject *parent)
         ppdMakeModelSplit(m_printer.strMakeAndModel, m_strMake, m_strModel);
     }
 
-    m_strMake = normalize(m_strMake);
-    m_strModel = normalize(m_strModel);
 }
 
 void DriverSearcher::startSearch()
@@ -525,6 +523,8 @@ void DriverSearcher::askForFinish()
         (!m_strMake.isEmpty() || !m_strModel.isEmpty())) {
         QMutexLocker locker(&g_mutex);
 
+        m_strMake = normalize(m_strMake);
+        m_strModel = normalize(m_strModel);
         QList<QMap<QString, QString>> list = getFuzzyMatchDrivers(m_strMake, m_strModel, m_strCMD);
         m_drivers = stringToVariant(list);
 
@@ -591,6 +591,8 @@ int DriverSearcher::getLocalDrivers()
         return -2;
     }
 
+    strMake = normalize(m_strMake);
+    strModel = normalize(m_strModel);
     QMutexLocker locker(&g_mutex);
     qInfo() << QString("Find driver for %1, %2, %3").arg(m_printer.uriList[0]).arg(m_printer.strMakeAndModel).arg(m_printer.strDeviceId);
 
