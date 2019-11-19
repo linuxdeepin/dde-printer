@@ -80,19 +80,16 @@ void PrinterSearchWindow::initUi()
     m_pTabListView = new DListView();
     QStandardItemModel *pTabModel = new QStandardItemModel(m_pTabListView);
     QStandardItem *pWidgetItemAuto = new QStandardItem(QIcon::fromTheme("dp_auto_searching"), tr("Discover printer"));
-    pWidgetItemAuto->setSizeHint(QSize(108, 48));
     QStandardItem *pWidgetItemManual = new QStandardItem(QIcon::fromTheme("dp_manual_search"), tr("Find printer"));
-    pWidgetItemManual->setSizeHint(QSize(108, 48));
     QStandardItem *pWidgetItemURI = new QStandardItem(QIcon::fromTheme("dp_uri"), tr("Enter URI"));
-    pWidgetItemURI->setSizeHint(QSize(108, 48));
     pTabModel->appendRow(pWidgetItemAuto);
     pTabModel->appendRow(pWidgetItemManual);
     pTabModel->appendRow(pWidgetItemURI);
     m_pTabListView->setModel(pTabModel);
     m_pTabListView->setCurrentIndex(pTabModel->index(0, 0));
-    m_pTabListView->setFocusPolicy(Qt::NoFocus);
-    m_pTabListView->setFixedWidth(128);
-
+//    m_pTabListView->setFocusPolicy(Qt::NoFocus);
+    m_pTabListView->setTextElideMode(Qt::TextElideMode::ElideRight);
+    m_pTabListView->setEditTriggers(DListView::NoEditTriggers);
 
     m_pStackedWidget = new QStackedWidget();
     // 右侧 自动查找
@@ -112,7 +109,10 @@ void PrinterSearchWindow::initUi()
     m_pPrinterListViewAuto->setSpacing(10);
     m_pPrinterListViewAuto->setEditTriggers(DListView::NoEditTriggers);
     m_pPrinterListViewAuto->setTextElideMode(Qt::ElideRight);
+    m_pPrinterListViewAuto->setSelectionMode(QAbstractItemView::NoSelection);
+    m_pPrinterListViewAuto->setFocusPolicy(Qt::NoFocus);
     m_pPrinterListModel = new QStandardItemModel(m_pPrinterListViewAuto);
+
     m_pPrinterListViewAuto->setModel(m_pPrinterListModel);
 
     QLabel *pLabelDriver1 = new QLabel(UI_PRINTERSEARCH_DRIVER);
@@ -124,10 +124,10 @@ void PrinterSearchWindow::initUi()
     pHLayout2->setSpacing(20);
 
     m_pAutoSpinner = new DSpinner();
-    m_pAutoSpinner->setFixedSize(30, 30);
+    m_pAutoSpinner->setFixedSize(36, 36);
     m_pAutoInstallDriverBtn = new QPushButton(tr("Start Installation"));
     m_pAutoInstallDriverBtn->setEnabled(false);
-    m_pAutoInstallDriverBtn->setFixedHeight(30);
+    m_pAutoInstallDriverBtn->setFixedSize(200, 36);
     QHBoxLayout *pHLayout3 = new QHBoxLayout();
     pHLayout3->addStretch();
     pHLayout3->addWidget(m_pAutoInstallDriverBtn);
@@ -159,6 +159,8 @@ void PrinterSearchWindow::initUi()
     m_pPrinterListViewManual->setSpacing(10);
     m_pPrinterListViewManual->setEditTriggers(DListView::NoEditTriggers);
     m_pPrinterListViewManual->setTextElideMode(Qt::ElideRight);
+    m_pPrinterListViewManual->setSelectionMode(QAbstractItemView::NoSelection);
+    m_pPrinterListViewManual->setFocusPolicy(Qt::NoFocus);
     m_pPrinterListModelManual = new QStandardItemModel();
     m_pPrinterListViewManual->setModel(m_pPrinterListModelManual);
 
@@ -171,11 +173,11 @@ void PrinterSearchWindow::initUi()
     pHLayout5->setSpacing(20);
 
     m_pManSpinner = new DSpinner();
-    m_pManSpinner->setFixedSize(30, 30);
+    m_pManSpinner->setFixedSize(36, 36);
     m_pManSpinner->setVisible(false);
     m_pManInstallDriverBtn = new QPushButton(UI_PRINTERSEARCH_INSTALLDRIVER_NEXT);
     m_pManInstallDriverBtn->setEnabled(false);
-    m_pManInstallDriverBtn->setFixedHeight(30);
+    m_pManInstallDriverBtn->setFixedSize(200, 36);
     QHBoxLayout *pHLayout6 = new QHBoxLayout();
     pHLayout6->addStretch();
     pHLayout6->addWidget(m_pManInstallDriverBtn);
@@ -207,7 +209,7 @@ void PrinterSearchWindow::initUi()
 
     m_pURIInstallDriverBtn = new QPushButton(UI_PRINTERSEARCH_INSTALLDRIVER_NEXT);
     m_pURIInstallDriverBtn->setEnabled(false);
-    m_pURIInstallDriverBtn->setFixedHeight(30);
+    m_pURIInstallDriverBtn->setFixedSize(200, 36);
     QHBoxLayout *pHLayout8 = new QHBoxLayout();
     pHLayout8->addStretch();
     pHLayout8->addWidget(m_pURIInstallDriverBtn);
