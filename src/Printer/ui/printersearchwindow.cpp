@@ -142,9 +142,9 @@ void PrinterSearchWindow::initUi()
     pWidget1->setLayout(pVLayout1);
     m_pStackedWidget->addWidget(pWidget1);
     // 右侧 手动查找
-    m_pLabelLocation = new QLabel(tr("IP address"));
+    m_pLabelLocation = new QLabel(tr("address"));
     m_pLineEditLocation = new QLineEdit();
-    m_pLineEditLocation->setPlaceholderText(tr("Please enter the IP address"));
+    m_pLineEditLocation->setPlaceholderText(tr("Please enter the address"));
     m_pBtnFind = new QPushButton(tr("Find"));
     QHBoxLayout *pHLayout4 = new QHBoxLayout();
     pHLayout4->addWidget(m_pLabelLocation);
