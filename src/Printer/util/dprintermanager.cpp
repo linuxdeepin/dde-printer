@@ -23,12 +23,12 @@
 #include "dprintclass.h"
 #include "cupsattrnames.h"
 
-
-#include <assert.h>
 #include <QDebug>
 #include <QFile>
 #include <QTextCodec>
+#include <QRegularExpression>
 
+#include <assert.h>
 
 DPrinterManager *DPrinterManager::m_self = nullptr;
 
@@ -369,6 +369,29 @@ void DPrinterManager::commit()
     m_pServerSettings.commit();
 }
 
+bool DPrinterManager::hasSamePrinter(const QString &printer)
+{
+    foreach (const QString &str, m_mapDests.keys()) {
+        if (str == printer) {
+            return true;
+        }
+    }
+    return false;
+}
+
+QString DPrinterManager::validataName(const QString &oldPrinterName)
+{
+    QString newPrinterName;
+    if (oldPrinterName.length() >=  128) {
+        newPrinterName = oldPrinterName.left(120);
+    } else {
+        newPrinterName = oldPrinterName;
+    }
+    newPrinterName = newPrinterName.trimmed();
+    newPrinterName.replace(QRegularExpression("[^\\w-]"), "_");
+    return newPrinterName;
+}
+
 void  DPrinterManager::clearDestinationList()
 {
     if (m_mapDests.size() > 0) {
@@ -384,7 +407,7 @@ void DPrinterManager::initLanguageTrans()
     m_translator.init();
 }
 
-QString DPrinterManager::translateLocal(const QString &strContext,const QString &strKey)
+QString DPrinterManager::translateLocal(const QString &strContext, const QString &strKey)
 {
     QString strValue = m_translator.translateLocal(strContext, strKey);
     return strValue;

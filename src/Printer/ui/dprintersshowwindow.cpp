@@ -269,11 +269,13 @@ void DPrintersShowWindow::initConnections()
     connect(m_pPrinterListView, &QListWidget::customContextMenuRequested, this, &DPrintersShowWindow::contextMenuRequested);
     connect(m_pPrinterListView, &QListWidget::itemDoubleClicked, this, [this](QListWidgetItem * pItem) {
         // 存在未完成的任务无法进入编辑状态
+        m_pPrinterListView->blockSignals(true);
         if (m_pPrinterManager->hasUnfinishedJob()) {
             pItem->setFlags(pItem->flags() & ~Qt::ItemIsEditable);
         } else {
             pItem->setFlags(pItem->flags() | Qt::ItemIsEditable);
         }
+        m_pPrinterListView->blockSignals(false);
     });
 
     connect(m_pShareAction, &QAction::triggered, this, &DPrintersShowWindow::listWidgetMenuActionSlot);
@@ -338,6 +340,7 @@ void DPrintersShowWindow::updateDefaultPrinterIcon()
     }
     m_pPrinterListView->blockSignals(false);
 }
+
 
 
 void DPrintersShowWindow::reflushPrinterListView(const QString &newPrinterName)
@@ -448,16 +451,33 @@ void DPrintersShowWindow::deletePrinterClickSlot()
 void DPrintersShowWindow::renamePrinterSlot(QListWidgetItem *pItem)
 {
     //过滤掉空格
-    QString newPrinterName = pItem->text().remove(" ");
-    if (newPrinterName == m_CurPrinterName) {
+    if (!pItem)
+        return;
+    QString newPrinterName = m_pPrinterManager->validataName(pItem->text());
+    if (m_pPrinterManager->hasSamePrinter(newPrinterName)) {
+        DDialog *pDialog = new DDialog();
+        pDialog->setIcon(QIcon(":/images/warning_logo.svg"));
+        QLabel *pMessage = new QLabel(tr("Printer name duplicate, unable to rename printer."));
+        pMessage->setWordWrap(true);
+        pMessage->setAlignment(Qt::AlignCenter);
+        pDialog->addContent(pMessage);
+        pDialog->addButton(tr("Confirm"));
+        pDialog->exec();
+        pDialog->deleteLater();
+        m_pPrinterListView->blockSignals(true);
         pItem->setText(m_CurPrinterName);
+        m_pPrinterListView->blockSignals(false);
         return;
     }
+
     try {
         if (m_pPrinterManager->hasFinishedJob()) {
             DDialog *pDialog = new DDialog();
             pDialog->setIcon(QIcon(":/images/warning_logo.svg"));
-            pDialog->setMessage(tr("Renaming will cause the completed task not to be reprinted, are you sure?"));
+            QLabel *pMessage = new QLabel(tr("Renaming will cause the completed task not to be reprinted, are you sure?"));
+            pMessage->setWordWrap(true);
+            pMessage->setAlignment(Qt::AlignCenter);
+            pDialog->addContent(pMessage);
             pDialog->addButton(UI_PRINTERSHOW_CANCEL);
             int okIndex = pDialog->addButton(tr("Confirm"));
 

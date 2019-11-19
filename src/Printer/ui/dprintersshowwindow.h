@@ -152,6 +152,7 @@ private:
     DPrinterManager *m_pPrinterManager;
     // 当前选中的打印机名称
     QString m_CurPrinterName;
+
 };
 
 #endif // DPRINTERSSHOWWINDOW_H
