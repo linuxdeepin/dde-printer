@@ -22,6 +22,8 @@ enum {
 #define DEFAULT_Priority 50
 #define HIGHEST_Priority 100
 
+#define PrintTestTitle "Test page"
+
 class JobManager : public QObject
 {
     Q_OBJECT

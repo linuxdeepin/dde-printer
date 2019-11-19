@@ -256,7 +256,7 @@ QString JobManager::printTestPage(const char *dest, int &jobId, const char *form
     qInfo() << dest;
 
     try {
-        jobId = g_cupsConnection->printTestPage(dest, testFile, nullptr, format, nullptr);
+        jobId = g_cupsConnection->printTestPage(dest, testFile, PrintTestTitle, format, nullptr);
     }catch(const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return QString::fromUtf8(ex.what());

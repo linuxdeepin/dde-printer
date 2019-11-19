@@ -358,20 +358,22 @@ void PrinterTestJob::stop()
         m_eventLoop->exit(0);
 }
 
-void PrinterTestJob::findRunningJob()
+bool PrinterTestJob::findRunningJob()
 {
     map<int, map<string, string>> jobs;
     map<int, map<string, string>>::iterator itJobs;
 
     if (0 != g_jobManager->getJobs(jobs, WHICH_JOB_RUNING))
-        return ;
+        return false;
 
     for (itJobs=jobs.begin();itJobs!=jobs.end();itJobs++) {
         map<string, string> jobinfo = itJobs->second;
         QString uri = attrValueToQString(jobinfo[JOB_ATTR_URI]);
         int iState = attrValueToQString(jobinfo[JOB_ATTR_STATE]).toInt();
+        QString jobName = attrValueToQString(jobinfo[JOB_ATTR_NAME]);
 
-        if (IPP_JSTATE_PROCESSING == iState && m_printerName == getPrinterNameFromUri(uri)) {
+        if (IPP_JSTATE_PROCESSING == iState && m_printerName == getPrinterNameFromUri(uri) &&
+                jobName == PrintTestTitle) {
             m_jobId = itJobs->first;
             QMap<QString, QVariant> job;
             map<string, string>::const_iterator itjob;
@@ -383,9 +385,11 @@ void PrinterTestJob::findRunningJob()
 
             m_strMessage = g_cupsMonitor->getJobNotify(job);
             emit signalStateChanged(TStat_Update, m_strMessage);
-            break;
+            return true;
         }
     }
+
+    return false;
 }
 
 bool PrinterTestJob::isPass()
@@ -395,10 +399,6 @@ bool PrinterTestJob::isPass()
     connect(g_cupsMonitor, &CupsMonitor::signalJobStateChanged, this, &PrinterTestJob::slotJobStateChanged);
     if (!g_cupsMonitor->isRunning())
         g_cupsMonitor->start();
-
-    //同步模式用在故障排查中，故障排查的时候如果已经有任务，则不重新添加
-    if (m_bSync)
-        findRunningJob();
 
     if (-1 == m_jobId) {
         m_strMessage = g_jobManager->printTestPage(m_printerName.toUtf8().data(), m_jobId);

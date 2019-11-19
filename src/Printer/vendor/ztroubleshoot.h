@@ -70,8 +70,7 @@ public:
 
     void stop() Q_DECL_OVERRIDE;
 
-protected:
-    void findRunningJob();
+    bool findRunningJob();
 
 protected slots:
     void slotJobStateChanged(int id, int state, const QString &message);
