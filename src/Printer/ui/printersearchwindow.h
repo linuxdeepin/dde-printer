@@ -74,7 +74,7 @@ private:
     void autoInstallPrinter(int type, const TDeviceInfo &device);
 
 private slots:
-    void listWidgetClickedSlot(int row);
+    void listWidgetClickedSlot(const QModelIndex &previous);
     // 连接自动查找打印机线程信号槽
     void getDeviceResultSlot(int id, int state);
     // 连接手动查找打印机线程信号槽
@@ -103,7 +103,7 @@ signals:
 
 private:
     // 左侧tab
-    QListWidget *m_pTabListWidget;
+    DListView *m_pTabListView;
     // 右侧打印机列表自动
     QLabel *m_pLabelPrinter;
     DIconButton *m_pBtnRefresh;

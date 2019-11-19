@@ -4,7 +4,6 @@
         <file>actions/dp_set_24px.svg</file>
         <file>actions/dp_print_done_14px.svg</file>
         <file>actions/dp_print_all_14px.svg</file>
-        <file>actions/dp_auto_searching_16px.svg</file>
         <file>actions/dp_paper_horizontal_36px.svg</file>
         <file>actions/dp_fault_24px.svg</file>
         <file>actions/dp_arrow_left_10px.svg</file>
@@ -24,5 +23,6 @@
         <file>actions/dp_job_delete_14px.svg</file>
         <file>icons/dp_printer_default_36px.svg</file>
         <file>icons/dp_printer_list_36px.svg</file>
+        <file>actions/dp_auto_searching_16px.svg</file>
     </qresource>
 </RCC>
