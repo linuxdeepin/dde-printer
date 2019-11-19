@@ -77,20 +77,23 @@ void PrinterSearchWindow::initUi()
     resize(682, 532);
 
     // 左侧菜单列表
-    m_pTabListWidget = new QListWidget();
-    QListWidgetItem *pWidgetItemAuto = new QListWidgetItem(QIcon::fromTheme("dp_auto_searching"), tr("Discover printer"));
+    m_pTabListView = new DListView();
+    QStandardItemModel *pTabModel = new QStandardItemModel(m_pTabListView);
+    QStandardItem *pWidgetItemAuto = new QStandardItem(QIcon::fromTheme("dp_auto_searching"), tr("Discover printer"));
     pWidgetItemAuto->setSizeHint(QSize(108, 48));
-    QListWidgetItem *pWidgetItemManual = new QListWidgetItem(QIcon::fromTheme("dp_manual_search"), tr("Find printer"));
+    QStandardItem *pWidgetItemManual = new QStandardItem(QIcon::fromTheme("dp_manual_search"), tr("Find printer"));
     pWidgetItemManual->setSizeHint(QSize(108, 48));
-    QListWidgetItem *pWidgetItemURI = new QListWidgetItem(QIcon::fromTheme("dp_uri"), tr("Enter URI"));
+    QStandardItem *pWidgetItemURI = new QStandardItem(QIcon::fromTheme("dp_uri"), tr("Enter URI"));
     pWidgetItemURI->setSizeHint(QSize(108, 48));
-    m_pTabListWidget->addItem(pWidgetItemAuto);
-    m_pTabListWidget->addItem(pWidgetItemManual);
-    m_pTabListWidget->addItem(pWidgetItemURI);
-    m_pTabListWidget->setCurrentRow(0);
-    m_pTabListWidget->setFocusPolicy(Qt::NoFocus);
-    m_pTabListWidget->setFixedWidth(128);
-
+    pTabModel->appendRow(pWidgetItemAuto);
+    pTabModel->appendRow(pWidgetItemManual);
+    pTabModel->appendRow(pWidgetItemURI);
+    m_pTabListView->setModel(pTabModel);
+    m_pTabListView->setCurrentIndex(pTabModel->index(0, 0));
+    m_pTabListView->setFocusPolicy(Qt::NoFocus);
+    m_pTabListView->setTextElideMode(Qt::TextElideMode::ElideRight);
+    m_pTabListView->setEditTriggers(DListView::NoEditTriggers);
+    m_pTabListView->setFixedWidth(128);
 
     m_pStackedWidget = new QStackedWidget();
     // 右侧 自动查找
@@ -110,7 +113,10 @@ void PrinterSearchWindow::initUi()
     m_pPrinterListViewAuto->setSpacing(10);
     m_pPrinterListViewAuto->setEditTriggers(DListView::NoEditTriggers);
     m_pPrinterListViewAuto->setTextElideMode(Qt::ElideRight);
+    m_pPrinterListViewAuto->setSelectionMode(QAbstractItemView::NoSelection);
+    m_pPrinterListViewAuto->setFocusPolicy(Qt::NoFocus);
     m_pPrinterListModel = new QStandardItemModel(m_pPrinterListViewAuto);
+
     m_pPrinterListViewAuto->setModel(m_pPrinterListModel);
 
     QLabel *pLabelDriver1 = new QLabel(UI_PRINTERSEARCH_DRIVER);
@@ -122,10 +128,10 @@ void PrinterSearchWindow::initUi()
     pHLayout2->setSpacing(20);
 
     m_pAutoSpinner = new DSpinner();
-    m_pAutoSpinner->setFixedSize(30, 30);
+    m_pAutoSpinner->setFixedSize(36, 36);
     m_pAutoInstallDriverBtn = new QPushButton(tr("Start Installation"));
     m_pAutoInstallDriverBtn->setEnabled(false);
-    m_pAutoInstallDriverBtn->setFixedHeight(30);
+    m_pAutoInstallDriverBtn->setFixedSize(200, 36);
     QHBoxLayout *pHLayout3 = new QHBoxLayout();
     pHLayout3->addStretch();
     pHLayout3->addWidget(m_pAutoInstallDriverBtn);
@@ -146,17 +152,20 @@ void PrinterSearchWindow::initUi()
     m_pLineEditLocation = new QLineEdit();
     m_pLineEditLocation->setPlaceholderText(tr("Please enter the address"));
     m_pBtnFind = new QPushButton(tr("Find"));
+    m_pBtnFind->setFixedSize(60, 36);
     QHBoxLayout *pHLayout4 = new QHBoxLayout();
+    pHLayout4->setSpacing(10);
     pHLayout4->addWidget(m_pLabelLocation);
-    pHLayout4->addSpacing(26);
+    pHLayout4->addSpacing(16);
     pHLayout4->addWidget(m_pLineEditLocation);
-    pHLayout4->addSpacing(10);
     pHLayout4->addWidget(m_pBtnFind);
 
     m_pPrinterListViewManual = new DListView();
     m_pPrinterListViewManual->setSpacing(10);
     m_pPrinterListViewManual->setEditTriggers(DListView::NoEditTriggers);
     m_pPrinterListViewManual->setTextElideMode(Qt::ElideRight);
+    m_pPrinterListViewManual->setSelectionMode(QAbstractItemView::NoSelection);
+    m_pPrinterListViewManual->setFocusPolicy(Qt::NoFocus);
     m_pPrinterListModelManual = new QStandardItemModel();
     m_pPrinterListViewManual->setModel(m_pPrinterListModelManual);
 
@@ -169,11 +178,11 @@ void PrinterSearchWindow::initUi()
     pHLayout5->setSpacing(20);
 
     m_pManSpinner = new DSpinner();
-    m_pManSpinner->setFixedSize(30, 30);
+    m_pManSpinner->setFixedSize(36, 36);
     m_pManSpinner->setVisible(false);
     m_pManInstallDriverBtn = new QPushButton(UI_PRINTERSEARCH_INSTALLDRIVER_NEXT);
     m_pManInstallDriverBtn->setEnabled(false);
-    m_pManInstallDriverBtn->setFixedHeight(30);
+    m_pManInstallDriverBtn->setFixedSize(200, 36);
     QHBoxLayout *pHLayout6 = new QHBoxLayout();
     pHLayout6->addStretch();
     pHLayout6->addWidget(m_pManInstallDriverBtn);
@@ -194,6 +203,13 @@ void PrinterSearchWindow::initUi()
     m_pLineEditURI = new QLineEdit();
     m_pLineEditURI->setPlaceholderText(tr("Enter device URI"));
     m_pLabelTip = new QLabel(tr("Examples:") + "\n" + UI_PRINTERSEARCH_URITIP);
+    QFont tipFont;
+    tipFont.setPixelSize(12);
+    m_pLabelTip->setFont(tipFont);
+    QPalette pe;
+    pe.setColor(QPalette::WindowText, QColor("#92A8BA"));
+    m_pLabelTip->setPalette(pe);
+
     QLabel *pLabelDriver3 = new QLabel(UI_PRINTERSEARCH_DRIVER);
     m_pURIDriverCom = new QComboBox();
     m_pURIDriverCom->addItem(UI_PRINTERSEARCH_MANUAL);
@@ -205,7 +221,7 @@ void PrinterSearchWindow::initUi()
 
     m_pURIInstallDriverBtn = new QPushButton(UI_PRINTERSEARCH_INSTALLDRIVER_NEXT);
     m_pURIInstallDriverBtn->setEnabled(false);
-    m_pURIInstallDriverBtn->setFixedHeight(30);
+    m_pURIInstallDriverBtn->setFixedSize(200, 36);
     QHBoxLayout *pHLayout8 = new QHBoxLayout();
     pHLayout8->addStretch();
     pHLayout8->addWidget(m_pURIInstallDriverBtn);
@@ -236,7 +252,7 @@ void PrinterSearchWindow::initUi()
 
     // 整体布局
     QHBoxLayout *m_pMainHLayout = new QHBoxLayout();
-    m_pMainHLayout->addWidget(m_pTabListWidget, 1);
+    m_pMainHLayout->addWidget(m_pTabListView, 1);
     m_pMainHLayout->addLayout(pRightVLayout, 2);
     m_pMainHLayout->setContentsMargins(0, 0, 0, 0);
     QWidget *pCentralWidget = new QWidget();
@@ -252,7 +268,7 @@ void PrinterSearchWindow::initUi()
 
 void PrinterSearchWindow::initConnections()
 {
-    connect(m_pTabListWidget, &QListWidget::currentRowChanged, this, &PrinterSearchWindow::listWidgetClickedSlot);
+    connect(m_pTabListView, QOverload<const QModelIndex &>::of(&DListView::currentChanged), this, &PrinterSearchWindow::listWidgetClickedSlot);
 
     connect(m_pPrinterListViewAuto, &DListView::clicked, this, &PrinterSearchWindow::printerListClickedSlot);
 
@@ -284,7 +300,7 @@ void PrinterSearchWindow::showEvent(QShowEvent *event)
 {
     Q_UNUSED(event)
     //启动自动刷新打印机列表
-    if (m_pTabListWidget->currentRow() == 0 && m_pPrinterListViewAuto->count() == 0)
+    if (m_pTabListView->currentIndex().row() == 0 && m_pPrinterListViewAuto->count() == 0)
         refreshPrinterListSlot();
 }
 
@@ -344,19 +360,19 @@ void PrinterSearchWindow::autoInstallPrinter(int type, const TDeviceInfo &device
 }
 
 
-void PrinterSearchWindow::listWidgetClickedSlot(int row)
+void PrinterSearchWindow::listWidgetClickedSlot(const QModelIndex &previous)
 {
-    Q_UNUSED(row)
+    Q_UNUSED(previous)
     // 0 自动查找 ;1 手动；2 URI
-    if (m_pStackedWidget->count() > m_pTabListWidget->currentRow()) {
-        m_pStackedWidget->setCurrentIndex(m_pTabListWidget->currentRow());
-        if (m_pTabListWidget->currentRow() == 0) {
+    if (m_pStackedWidget->count() > m_pTabListView->currentIndex().row()) {
+        m_pStackedWidget->setCurrentIndex(m_pTabListView->currentIndex().row());
+        if (m_pTabListView->currentIndex().row() == 0) {
 
 
-        } if (m_pTabListWidget->currentRow() == 1) {
+        } if (m_pTabListView->currentIndex().row() == 1) {
 
 
-        } else if (m_pTabListWidget->currentRow() == 2) {
+        } else if (m_pTabListView->currentIndex().row() == 2) {
 
         }
     }
@@ -542,6 +558,7 @@ void PrinterSearchWindow::driverAutoSearchedSlot()
             strDesc += strReplace;
             m_pAutoDriverCom->addItem(strDesc, QVariant::fromValue(driver));
         }
+//        m_pAutoDriverCom->insertSeparator(m_pAutoDriverCom->count() - 1);
         m_pAutoDriverCom->addItem(UI_PRINTERSEARCH_MANUAL);
     }
     m_pAutoSpinner->stop();
@@ -677,7 +694,7 @@ void PrinterSearchWindow::lineEditURIChanged(QString uri)
 void PrinterSearchWindow::installDriverSlot()
 {
     TDeviceInfo device;
-    if (m_pTabListWidget->currentRow() == 0) {  // 自动
+    if (m_pTabListView->currentIndex().row() == 0) {  // 自动
         // 当前选中的row和checkeded的row已经不一致，按照checked的为准
         QStandardItem *pCheckedItem = getCheckedItem(0);
         if (!pCheckedItem) {
@@ -692,7 +709,7 @@ void PrinterSearchWindow::installDriverSlot()
             m_pInstallDriverWindow->show();
             m_pInstallDriverWindow->setDeviceInfo(device);
         }
-    } else if (m_pTabListWidget->currentRow() == 1) { //ip
+    } else if (m_pTabListView->currentIndex().row() == 1) { //ip
         QStandardItem *pCheckedItem = getCheckedItem(1);
         if (!pCheckedItem) {
             return;
@@ -706,7 +723,7 @@ void PrinterSearchWindow::installDriverSlot()
             m_pInstallDriverWindow->show();
             m_pInstallDriverWindow->setDeviceInfo(device);
         }
-    } else if (m_pTabListWidget->currentRow() == 2) { //URI 手动构造设备结构体
+    } else if (m_pTabListView->currentIndex().row() == 2) { //URI 手动构造设备结构体
         device.uriList.append(m_pLineEditURI->text());
         device.iType = InfoFrom_Manual;
         if (m_isURIInstallDriver) {
@@ -721,7 +738,7 @@ void PrinterSearchWindow::installDriverSlot()
 
 void PrinterSearchWindow::driverChangedSlot(int index)
 {
-    if (m_pTabListWidget->currentRow() == 0) {
+    if (m_pTabListView->currentIndex().row() == 0) {
         if (index == m_pAutoDriverCom->count() - 1) {
             // 手动选择驱动
             m_pAutoInstallDriverBtn->setText(UI_PRINTERSEARCH_INSTALLDRIVER_NEXT);
@@ -731,7 +748,7 @@ void PrinterSearchWindow::driverChangedSlot(int index)
             m_pAutoInstallDriverBtn->setText(UI_PRINTERSEARCH_INSTALLDRIVER_AUTO);
             m_isAutoInstallDriver = true;
         }
-    } else if (m_pTabListWidget->currentRow() == 1) {
+    } else if (m_pTabListView->currentIndex().row() == 1) {
         if (index == m_pManDriverCom->count() - 1) {
             // 手动选择驱动
             m_pManInstallDriverBtn->setText(UI_PRINTERSEARCH_INSTALLDRIVER_NEXT);
@@ -741,7 +758,7 @@ void PrinterSearchWindow::driverChangedSlot(int index)
             m_pManInstallDriverBtn->setText(UI_PRINTERSEARCH_INSTALLDRIVER_AUTO);
             m_isManInstallDriver = true;
         }
-    } else if (m_pTabListWidget->currentRow() == 2) {
+    } else if (m_pTabListView->currentIndex().row() == 2) {
         if (index == m_pURIDriverCom->count() - 1) {
             // 手动选择驱动
             m_pURIInstallDriverBtn->setText(UI_PRINTERSEARCH_INSTALLDRIVER_NEXT);
@@ -759,15 +776,14 @@ void PrinterSearchWindow::smbInfomationSlot(int &ret, const QString &host, QStri
 {
     PermissionsWindow *pPermissionsWindow = new PermissionsWindow();
     pPermissionsWindow->setHost(host);
-//    host = m_pLineEditLocation->text();
     int result = pPermissionsWindow->exec();
-    if (result) {
+    if (result > 0) {
         ++ret;
         user = pPermissionsWindow->getUser();
         group = pPermissionsWindow->getGroup();
         password = pPermissionsWindow->getPassword();
     }
-    delete pPermissionsWindow;
+    pPermissionsWindow->deleteLater();
 }
 
 

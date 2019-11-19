@@ -121,6 +121,9 @@ void InstallDriverWindow::initUI()
 
     // PPD
     m_pPPDPath = new QLabel(UI_PRINTERDRIVER_PPDLABEL_NORMAL);
+    QFont tipFont;
+    tipFont.setPixelSize(12);
+    m_pPPDPath->setFont(tipFont);
     m_pPPDPath->installEventFilter(this);
     m_pPPDPath->setAcceptDrops(true);
     m_pPPDPath->setAlignment(Qt::AlignCenter);
@@ -142,6 +145,7 @@ void InstallDriverWindow::initUI()
     m_pManuAndTypeLineEdit = new QLineEdit();
     m_pManuAndTypeLineEdit->setValidator(new QRegExpValidator(QRegExp("^[a-zA-Z0-9 ]*$")));
     m_pSearchBtn = new QPushButton(tr("Search"));
+    m_pSearchBtn->setFixedSize(60, 36);
     QLabel *pDriverLabel = new QLabel(tr("Driver"));
     m_pDriverManualCombo = new QComboBox();
     QGridLayout *pGLayout1 = new QGridLayout();
@@ -157,6 +161,7 @@ void InstallDriverWindow::initUI()
 
     //安装按钮
     m_pInstallBtn = new QPushButton(tr("Install Driver"));
+    m_pInstallBtn->setFixedSize(200, 36);
     m_pSpinner = new DSpinner();
     m_pSpinner->setFixedSize(32, 32);
     // 右侧整体布局

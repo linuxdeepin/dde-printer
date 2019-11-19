@@ -20,7 +20,7 @@
  */
 #ifndef PERMISSIONSWINDOW_H
 #define PERMISSIONSWINDOW_H
-#include <DMainWindow>
+#include <DDialog>
 
 DWIDGET_USE_NAMESPACE
 DWIDGET_BEGIN_NAMESPACE
@@ -32,20 +32,12 @@ QT_BEGIN_NAMESPACE
 class QLabel;
 class QPushButton;
 QT_END_NAMESPACE
-class PermissionsWindow : public DMainWindow
+class PermissionsWindow : public DDialog
 {
     Q_OBJECT
 public:
     explicit PermissionsWindow(QWidget *parent = nullptr);
     virtual ~PermissionsWindow() override;
-
-    /**
-    * @projectName   Printer
-    * @brief         需要阻塞式的窗口调用，配合smb
-    * @author        liurui
-    * @date          2019-10-28
-    */
-    int exec();
     void setHost(const QString &host);
     QString getUser();
     QString getGroup();
@@ -53,9 +45,7 @@ public:
 
 private:
     void initUI();
-    void initConnections();
-private slots:
-    void btnClickedSlot();
+
 
 protected:
     void closeEvent(QCloseEvent *event) override;
@@ -67,8 +57,6 @@ private:
     DLineEdit *m_pGroupEdit;
     DPasswordEdit *m_pPasswordEdit;
 
-    QPushButton *m_pCancelBtn;
-    QPushButton *m_pConnectBtn;
 private:
     QString m_host;
     QString m_user;

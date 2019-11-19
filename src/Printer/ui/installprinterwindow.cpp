@@ -93,6 +93,7 @@ void InstallPrinterWindow::initUI()
     m_pDriverCombo = new QComboBox();
     m_pDriverCombo->setMinimumSize(300, 36);
     m_pCancelInstallBtn = new QPushButton(tr("Cancel"));
+    m_pCancelInstallBtn->setFixedSize(200, 36);
 
     m_pCheckPrinterListBtn = new QPushButton(tr("View Printer"));
     m_pCheckPrinterListBtn->setFixedSize(170, 36);
@@ -107,14 +108,17 @@ void InstallPrinterWindow::initUI()
 
 
     QVBoxLayout *pMainLayout = new QVBoxLayout();
+    pMainLayout->setSpacing(0);
+    pMainLayout->addStretch();
     pMainLayout->addWidget(m_pSpinner, 0, Qt::AlignCenter);
     pMainLayout->addWidget(m_pStatusImageLabel, 0, Qt::AlignCenter);
-
+    pMainLayout->addSpacing(30);
     pMainLayout->addWidget(m_pStatusLabel, 0, Qt::AlignCenter);
+    pMainLayout->addSpacing(13);
     pMainLayout->addWidget(m_pTipLabel);
     pMainLayout->addWidget(m_pDriverCombo, 0, Qt::AlignCenter);
-    pMainLayout->addStretch();
-//    pMainLayout->addSpacing(130);
+//    pMainLayout->addStretch();
+    pMainLayout->addSpacing(146);
     pMainLayout->addWidget(m_pCancelInstallBtn, 0, Qt::AlignCenter);
     pMainLayout->addLayout(pHLayout);
     pMainLayout->setContentsMargins(0, 66, 0, 20);
