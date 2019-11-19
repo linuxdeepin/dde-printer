@@ -135,16 +135,24 @@ void DPrintersShowWindow::initUI()
     pLabelImage->setPixmap(QPixmap(":/images/printer_details.svg"));
 
     m_pLabelPrinterName = new QLabel("") ;
-    DFontSizeManager::instance()->bind(m_pLabelPrinterName, DFontSizeManager::T7);
-    m_pLabelPrinterName->setFont(font);
+    QFont printerNameFont;
+    printerNameFont.setBold(true);
+    printerNameFont.setPixelSize(20);
+    m_pLabelPrinterName->setFont(printerNameFont);
 
+    QFont printerInfoFont;
+    printerInfoFont.setBold(true);
+    printerInfoFont.setPixelSize(17);
     QLabel *pLabelLocation = new QLabel(tr("Location:"));
     pLabelLocation->setFixedWidth(60);
     m_pLabelLocationShow = new QLabel(tr(""));
+    m_pLabelLocationShow->setFont(printerInfoFont);
     QLabel *pLabelType = new QLabel(tr("Model:"));
     m_pLabelTypeShow = new QLabel(tr(""));
+    m_pLabelTypeShow->setFont(printerInfoFont);
     QLabel *pLabelStatus = new QLabel(tr("Status:"));
     m_pLabelStatusShow = new QLabel(tr(""));
+    m_pLabelStatusShow->setFont(printerInfoFont);
 
     QGridLayout *pRightGridLayout = new QGridLayout();
     pRightGridLayout->addWidget(m_pLabelPrinterName, 0, 0, 1, 2, Qt::AlignLeft);
@@ -166,31 +174,42 @@ void DPrintersShowWindow::initUI()
     m_pTBtnSetting = new DIconButton(this);
     m_pTBtnSetting->setIcon(QIcon::fromTheme("dp_set"));
     m_pTBtnSetting->setIconSize(QSize(32, 32));
+    m_pTBtnSetting->setFixedSize(60, 60);
 
     QLabel *pLabelSetting = new QLabel();
+    QFont btnFont;
+    font.setPixelSize(12);
     pLabelSetting->setText(tr("Settings"));
     pLabelSetting->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    pLabelSetting->setFont(btnFont);
 
     m_pTBtnPrintQueue = new DIconButton(this);
     m_pTBtnPrintQueue->setIcon(QIcon::fromTheme("dp_print_queue"));
     m_pTBtnPrintQueue->setIconSize(QSize(32, 32));
+    m_pTBtnPrintQueue->setFixedSize(60, 60);
     QLabel *pLabelPrintQueue = new QLabel();
     pLabelPrintQueue->setText(tr("Print Queue"));
     pLabelPrintQueue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    pLabelPrintQueue->setFont(btnFont);
 
     m_pTBtnPrintTest = new DIconButton(this);
     m_pTBtnPrintTest->setIcon(QIcon::fromTheme("dp_test_page"));
     m_pTBtnPrintTest->setIconSize(QSize(32, 32));
+    m_pTBtnPrintTest->setFixedSize(60, 60);
     QLabel *pLabelPrintTest = new QLabel();
     pLabelPrintTest->setText(tr("Print Test Page"));
     pLabelPrintTest->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    pLabelPrintTest->setFont(btnFont);
 
     m_pTBtnFault = new DIconButton(this);
     m_pTBtnFault->setIcon(QIcon::fromTheme("dp_fault"));
     m_pTBtnFault->setIconSize(QSize(32, 32));
+    m_pTBtnFault->setFixedSize(60, 60);
+
     QLabel *pLabelPrintFault = new QLabel();
     pLabelPrintFault->setText(UI_PRINTERSHOW_TROUBLE);
     pLabelPrintFault->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    pLabelPrintFault->setFont(btnFont);
 
     QGridLayout *pRightBottomGLayout = new QGridLayout();
     pRightBottomGLayout->addWidget(m_pTBtnSetting, 0, 0, Qt::AlignHCenter);
@@ -207,7 +226,7 @@ void DPrintersShowWindow::initUI()
     pRightVLayout->addLayout(pRightTopHLayout);
     pRightVLayout->addSpacing(100);
     pRightVLayout->addLayout(pRightBottomGLayout);
-    pRightVLayout->setContentsMargins(100, 100, 10, 0);
+    pRightVLayout->setContentsMargins(100, 100, 100, 181);
 
     m_pPrinterInfoWidget = new QWidget();
     m_pPrinterInfoWidget->setLayout(pRightVLayout);
@@ -320,7 +339,7 @@ void DPrintersShowWindow::showEvent(QShowEvent *event)
     Q_UNUSED(event)
     reflushPrinterListView(QString());
 
-    QTimer::singleShot(10, this, [=](){
+    QTimer::singleShot(10, this, [ = ]() {
         CheckCupsServer cups(this);
         if (!cups.isPass()) {
             DDialog dlg("", tr("CUPS server is not running, can't manager printers."));
