@@ -79,6 +79,7 @@ int JobManager::getJobById(map<string, string>& job, int jobId)
     }
 
     for (itJobs=jobs.begin();itJobs!=jobs.end();itJobs++) {
+        dumpStdMapValue(itJobs->second);
         if (itJobs->first == jobId) {
             job = itJobs->second;
             return 0;

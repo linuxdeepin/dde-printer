@@ -120,6 +120,12 @@ bool CupsMonitor::insertJobMessage(int id, int state, const QString &message)
     }
 
     emit signalShowTrayIcon(hasRuningJobs);
+
+    //只有处理中的状态才通过事件触发的次数过滤事件
+    if (IPP_JSTATE_PROCESSING != state) {
+        times = 1;
+    }
+
     return times == 1;
 }
 
