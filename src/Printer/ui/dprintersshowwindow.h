@@ -26,6 +26,12 @@
 
 #include <DMainWindow>
 #include <DListView>
+#include <DTitlebar>
+#include <DWidgetUtil>
+
+#include <QCheckBox>
+#include <QVBoxLayout>
+#include <QEventLoop>
 DWIDGET_USE_NAMESPACE
 DWIDGET_BEGIN_NAMESPACE
 class DImageButton;
@@ -39,7 +45,96 @@ class QStandardItemModel;
 class QMenu;
 class QCheckBox;
 QT_END_NAMESPACE
+class ServerSettingsWindow : public DMainWindow
+{
+    Q_OBJECT
+public:
+    explicit ServerSettingsWindow(QWidget *parent = nullptr)
+        : DMainWindow(parent)
+    {
+        initUI();
+        initConnections();
+    }
+    int exec()
+    {
+        show();
+        QEventLoop loop;
+        connect(this, &ServerSettingsWindow::finished, &loop, &QEventLoop::quit);
+        loop.exec();
+        return 1;
+    }
+private:
+    void initUI()
+    {
+        titlebar()->setMenuVisible(false);
+        titlebar()->setTitle("");
+        titlebar()->setIcon(QIcon(":/images/dde-printer.svg"));
+        setWindowFlags(windowFlags() & ~Qt::WindowMaximizeButtonHint);
+        setWindowModality(Qt::ApplicationModal);
+        setFixedWidth(480);
 
+        QFont font;
+        font.setBold(true);
+        font.setPixelSize(17);
+        QWidget *pSettingWidget = new QWidget();
+        QLabel *pBaseSettings = new QLabel(tr("Basic server Settings"));
+        pBaseSettings->setFont(font);
+        m_pCheckShared = new QCheckBox(tr("Publish Shared printers linked to this system"));
+        m_pCheckIPP = new QCheckBox(tr("Allow printing from the Internet"));
+        m_pCheckIPP->setEnabled(false);
+        m_pCheckRemote = new QCheckBox(tr("Allow remote administration"));
+//        m_pCheckCancelJobs = new QCheckBox(tr("Allow users to cancel all tasks (not just their own)"));
+        m_pCheckSaveDebugInfo = new QCheckBox(tr("Retain debugging information for troubleshooting"));
+        QVBoxLayout *pSettingsVLayout = new QVBoxLayout();
+        pSettingsVLayout->setSpacing(0);
+        pSettingsVLayout->addWidget(pBaseSettings);
+        pSettingsVLayout->addWidget(m_pCheckShared);
+        pSettingsVLayout->addSpacing(3);
+        QHBoxLayout *pSettingsHLayout = new QHBoxLayout();
+        pSettingsHLayout->addSpacing(12);
+        pSettingsHLayout->addWidget(m_pCheckIPP);
+        pSettingsVLayout->addLayout(pSettingsHLayout);
+        pSettingsVLayout->addSpacing(12);
+        pSettingsVLayout->addWidget(m_pCheckRemote);
+//        pSettingsVLayout->addWidget(m_pCheckCancelJobs);
+        pSettingsVLayout->addSpacing(12);
+        pSettingsVLayout->addWidget(m_pCheckSaveDebugInfo);
+
+        pSettingWidget->setLayout(pSettingsVLayout);
+        pSettingsVLayout->setContentsMargins(20, 10, 20, 20);
+        takeCentralWidget();
+        setCentralWidget(pSettingWidget);
+
+        moveToCenter(this);
+
+    }
+    void initConnections()
+    {
+        connect(m_pCheckShared, &QCheckBox::clicked, this, [this](bool checked) {
+            if (checked) {
+                m_pCheckIPP->setEnabled(true);
+            } else {
+                m_pCheckIPP->setEnabled(false);
+                m_pCheckIPP->setChecked(false);
+            }
+        });
+    }
+protected:
+    void closeEvent(QCloseEvent *event) override
+    {
+        emit finished();
+        event->accept();
+    }
+
+public:
+    QCheckBox *m_pCheckShared;
+    QCheckBox *m_pCheckIPP;
+    QCheckBox *m_pCheckRemote;
+//    QCheckBox *m_pCheckCancelJobs;
+    QCheckBox *m_pCheckSaveDebugInfo;
+signals:
+    void finished();
+};
 
 class DPrintersShowWindow : public DMainWindow
 {
@@ -140,12 +235,8 @@ private:
 
     PrinterSearchWindow *m_pSearchWindow;
 
-    DDialog *m_pSettingsDialog;
-    QCheckBox *m_pCheckShared;
-    QCheckBox *m_pCheckIPP;
-//    QCheckBox *m_pCheckRemote;
-    QCheckBox *m_pCheckCancelJobs;
-    QCheckBox *m_pCheckSaveDebugInfo;
+    ServerSettingsWindow *m_pSettingsDialog;
+
 
     QAction *m_pSettings;
 

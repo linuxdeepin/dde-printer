@@ -62,7 +62,10 @@ DPrintersShowWindow::DPrintersShowWindow(QWidget *parent)
 
 DPrintersShowWindow::~DPrintersShowWindow()
 {
-
+    if (m_pSearchWindow)
+        m_pSearchWindow->deleteLater();
+    if (m_pSettingsDialog)
+        m_pSettingsDialog->deleteLater();
 }
 
 void DPrintersShowWindow::initUI()
@@ -246,34 +249,12 @@ void DPrintersShowWindow::initUI()
     pCentralWidget->setLayout(pMainHLayout);
     takeCentralWidget();
     setCentralWidget(pCentralWidget);
-
+    //设置了parent会导致moveToCenter失效
     m_pSearchWindow = new PrinterSearchWindow();
 
     //设置对话框
-    m_pSettingsDialog = new DDialog();
-    m_pSettingsDialog->setIcon(QIcon(":/images/dde-printer.svg"));
-    QWidget *pSettingWidget = new QWidget();
-    QLabel *pBaseSettings = new QLabel(tr("Basic server Settings"));
-    pBaseSettings->setFont(font);
-    m_pCheckShared = new QCheckBox(tr("Publish Shared printers linked to this system"));
-    m_pCheckIPP = new QCheckBox(tr("Allow printing from the Internet"));
-    m_pCheckIPP->setEnabled(false);
-//    m_pCheckRemote = new QCheckBox(tr("Allow remote administration"));
-    m_pCheckCancelJobs = new QCheckBox(tr("Allow users to cancel all tasks (not just their own)"));
-    m_pCheckSaveDebugInfo = new QCheckBox(tr("Retain debugging information for troubleshooting"));
-    QVBoxLayout *pSettingsVLayout = new QVBoxLayout();
-    pSettingsVLayout->addWidget(pBaseSettings);
-    pSettingsVLayout->addWidget(m_pCheckShared);
-    QHBoxLayout *pSettingsHLayout = new QHBoxLayout();
-    pSettingsHLayout->addSpacing(20);
-    pSettingsHLayout->addWidget(m_pCheckIPP);
-    pSettingsVLayout->addLayout(pSettingsHLayout);
-//    pSettingsVLayout->addWidget(m_pCheckRemote);
-    pSettingsVLayout->addWidget(m_pCheckCancelJobs);
-    pSettingsVLayout->addWidget(m_pCheckSaveDebugInfo);
-    pSettingsVLayout->setSpacing(20);
-    pSettingWidget->setLayout(pSettingsVLayout);
-    m_pSettingsDialog->addContent(pSettingWidget);
+    m_pSettingsDialog = new ServerSettingsWindow();
+
 }
 
 void DPrintersShowWindow::initConnections()
@@ -313,14 +294,7 @@ void DPrintersShowWindow::initConnections()
 
     connect(m_pSearchWindow, &PrinterSearchWindow::updatePrinterList, this, &DPrintersShowWindow::reflushPrinterListView);
 
-    connect(m_pCheckShared, &QCheckBox::clicked, this, [this](bool checked) {
-        if (checked) {
-            m_pCheckIPP->setEnabled(true);
-        } else {
-            m_pCheckIPP->setEnabled(false);
-            m_pCheckIPP->setChecked(false);
-        }
-    });
+
     connect(m_pSettings, &QAction::triggered, this, &DPrintersShowWindow::serverSettingsSlot);
 
     connect(g_cupsMonitor, &CupsMonitor::signalPrinterStateChanged, this, [this](const QString & printer, int state, const QString & message) {
@@ -430,28 +404,28 @@ void DPrintersShowWindow::reflushPrinterListView(const QString &newPrinterName)
 void DPrintersShowWindow::serverSettingsSlot()
 {
     if (m_pPrinterManager->isSharePrintersEnabled()) {
-        m_pCheckShared->setChecked(true);
-        m_pCheckIPP->setChecked(m_pPrinterManager->isRemoteAnyEnabled());
-        m_pCheckIPP->setEnabled(true);
+        m_pSettingsDialog->m_pCheckShared->setChecked(true);
+        m_pSettingsDialog->m_pCheckIPP->setChecked(m_pPrinterManager->isRemoteAnyEnabled());
+        m_pSettingsDialog->m_pCheckIPP->setEnabled(true);
     } else {
-        m_pCheckShared->setChecked(false);
-        m_pCheckIPP->setChecked(false);
-        m_pCheckIPP->setEnabled(false);
+        m_pSettingsDialog->m_pCheckShared->setChecked(false);
+        m_pSettingsDialog->m_pCheckIPP->setChecked(false);
+        m_pSettingsDialog->m_pCheckIPP->setEnabled(false);
     }
-//        m_pCheckRemote->setChecked(m_pPrinterManager->isRemoteAdminEnabled());
-    m_pCheckCancelJobs->setChecked(m_pPrinterManager->isUserCancelAnyEnabled());
-    m_pCheckSaveDebugInfo->setChecked(m_pPrinterManager->isDebugLoggingEnabled());
+    m_pSettingsDialog->m_pCheckRemote->setChecked(m_pPrinterManager->isRemoteAdminEnabled());
+//    m_pSettingsDialog->m_pCheckCancelJobs->setChecked(m_pPrinterManager->isUserCancelAnyEnabled());
+    m_pSettingsDialog->m_pCheckSaveDebugInfo->setChecked(m_pPrinterManager->isDebugLoggingEnabled());
     m_pSettingsDialog->exec();
-    if (m_pCheckShared->isChecked()) {
+    if (m_pSettingsDialog->m_pCheckShared->isChecked()) {
         m_pPrinterManager->enableSharePrinters(true);
-        m_pPrinterManager->enableRemoteAny(m_pCheckIPP->isChecked());
+        m_pPrinterManager->enableRemoteAny(m_pSettingsDialog->m_pCheckIPP->isChecked());
     } else {
         m_pPrinterManager->enableSharePrinters(false);
         m_pPrinterManager->enableRemoteAny(false);
     }
-//        m_pPrinterManager->enableRemoteAdmin(m_pCheckRemote);
-    m_pPrinterManager->enableUserCancelAny(m_pCheckCancelJobs->isChecked());
-    m_pPrinterManager->enableDebugLogging(m_pCheckSaveDebugInfo->isChecked());
+    m_pPrinterManager->enableRemoteAdmin(m_pSettingsDialog->m_pCheckRemote->isChecked());
+//    m_pPrinterManager->enableUserCancelAny(m_pSettingsDialog->m_pCheckCancelJobs->isChecked());
+    m_pPrinterManager->enableDebugLogging(m_pSettingsDialog->m_pCheckSaveDebugInfo->isChecked());
     m_pPrinterManager->commit();
 }
 
