@@ -36,8 +36,8 @@
 
                     "options": [
                         {
-                            "key": "Localtion_LineEdit",
-                            "name": "Localtion_LineEdit",
+                            "key": "Location_LineEdit",
+                            "name": "Location_LineEdit",
                             "type": "custom-lineedit"
                         }
                     ]

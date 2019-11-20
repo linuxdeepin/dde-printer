@@ -471,7 +471,7 @@ void DPrintersShowWindow::deletePrinterClickSlot()
         pDialog->addContent(pMessage);
         pDialog->addButton(UI_PRINTERSHOW_CANCEL);
         pDialog->addSpacing(20);
-        pDialog->addButton(tr("Delete printer"), true, DDialog::ButtonType::ButtonWarning);
+        pDialog->addButton(tr("Delete"), true, DDialog::ButtonType::ButtonWarning);
         pDialog->setIcon(QIcon(":/images/warning_logo.svg"));
         int ret = pDialog->exec();
         if (ret > 0) {
