@@ -25,13 +25,12 @@
 #include "renameprinterwindow.h"
 
 #include <DMainWindow>
-
+#include <DListView>
 DWIDGET_USE_NAMESPACE
 DWIDGET_BEGIN_NAMESPACE
 class DImageButton;
 class DSettingsDialog;
 class DDialog;
-class DListView;
 DWIDGET_END_NAMESPACE
 
 QT_BEGIN_NAMESPACE
@@ -90,7 +89,7 @@ private slots:
     * @author        liurui
     * @date          2019-11-07
     */
-    void renamePrinterSlot(const QModelIndex &index);
+    void renamePrinterSlot(QStandardItem *pItem);
 
     void printSettingClickSlot();
     void printQueueClickSlot();
@@ -108,6 +107,8 @@ private slots:
     void reflushPrinterListView(const QString &newPrinterName);
     // 服务器设置
     void serverSettingsSlot();
+
+    bool eventFilter(QObject *watched, QEvent *event) override;
 private:
 
     // UI成员变量
