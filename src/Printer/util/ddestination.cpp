@@ -169,7 +169,7 @@ void DDestination::initPrinterAttr()
             m_printerStatus = tr("Idle");
             m_isEnabled = true;
         } else if (attrMap.at(CUPS_OP_STATE).substr(0, 2) == string("i4")) {
-            m_printerStatus = tr("printing");
+            m_printerStatus = tr("Printing");
             m_isEnabled = true;
         } else {
             m_printerStatus = tr("Stopped");

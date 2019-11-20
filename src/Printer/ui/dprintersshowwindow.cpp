@@ -330,7 +330,7 @@ void DPrintersShowWindow::initConnections()
             if (state == 3) {
                 stateStr = tr("Idle");
             } else if (state == 4) {
-                stateStr = tr("printing");
+                stateStr = tr("Printing");
             } else {
                 stateStr = tr("Stopped");
             }
@@ -651,7 +651,7 @@ void DPrintersShowWindow::printerListWidgetItemChangedSlot(const QModelIndex &pr
         ConnectedTask *pTask = new ConnectedTask(printerName);
         connect(pTask, &ConnectedTask::signalResult, this, [&](bool connected, const QString & signalPrinterName) {
             if ((!connected) && (m_pPrinterListView->currentIndex().data().toString() == signalPrinterName)) {
-                m_pLabelStatusShow->setText(tr("disconnected"));
+                m_pLabelStatusShow->setText(tr("Disconnected"));
             }
         });
         //将线程对象的释放与更新状态分开
