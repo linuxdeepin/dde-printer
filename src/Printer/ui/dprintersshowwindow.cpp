@@ -287,19 +287,23 @@ void DPrintersShowWindow::initConnections()
     connect(m_pTBtnFault, &DIconButton::clicked, this, &DPrintersShowWindow::printFalutClickSlot);
 
     connect(m_pPrinterListView, QOverload<const QModelIndex &>::of(&DListView::currentChanged), this, &DPrintersShowWindow::printerListWidgetItemChangedSlot);
-    //此处修改文字和修改图标都会触发这个信号，导致bug，修改图标之前先屏蔽信号
-    connect(m_pPrinterListView, &DListView::triggerEdit, this, &DPrintersShowWindow::renamePrinterSlot);
+//    //此处修改文字和修改图标都会触发这个信号，导致bug，修改图标之前先屏蔽信号
+    connect(m_pPrinterModel, &QStandardItemModel::itemChanged, this, &DPrintersShowWindow::renamePrinterSlot);
     connect(m_pPrinterListView, &DListView::customContextMenuRequested, this, &DPrintersShowWindow::contextMenuRequested);
     connect(m_pPrinterListView, &DListView::doubleClicked, this, [this](const QModelIndex & index) {
         // 存在未完成的任务无法进入编辑状态
         m_pPrinterListView->blockSignals(true);
+        m_pPrinterModel->blockSignals(true);
         QStandardItem *pItem = m_pPrinterModel->itemFromIndex(index);
         if (m_pPrinterManager->hasUnfinishedJob()) {
             pItem->setFlags(pItem->flags() & ~Qt::ItemIsEditable);
+
         } else {
             pItem->setFlags(pItem->flags() | Qt::ItemIsEditable);
         }
+
         m_pPrinterListView->blockSignals(false);
+        m_pPrinterModel->blockSignals(false);
     });
 
     connect(m_pShareAction, &QAction::triggered, this, &DPrintersShowWindow::listWidgetMenuActionSlot);
@@ -389,7 +393,6 @@ void DPrintersShowWindow::reflushPrinterListView(const QString &newPrinterName)
     foreach (QString printerName, printerList) {
         QStandardItem *pItem = new QStandardItem(printerName);
         pItem->setSizeHint(QSize(300, 50));
-        pItem->setFlags(pItem->flags() | Qt::ItemIsEditable);
         pItem->setToolTip(printerName);
         if (m_pPrinterManager->isDefaultPrinter(printerName))
             pItem->setIcon(QIcon::fromTheme("dp_printer_default"));
@@ -452,6 +455,14 @@ void DPrintersShowWindow::serverSettingsSlot()
     m_pPrinterManager->commit();
 }
 
+bool DPrintersShowWindow::eventFilter(QObject *watched, QEvent *event)
+{
+    if (watched == m_pPrinterListView) {
+        qInfo() << event;
+    }
+    return false;
+}
+
 void DPrintersShowWindow::addPrinterClickSlot()
 {
     if (m_pSearchWindow)
@@ -486,12 +497,12 @@ void DPrintersShowWindow::deletePrinterClickSlot()
     }
 }
 
-void DPrintersShowWindow::renamePrinterSlot(const QModelIndex &index)
+void DPrintersShowWindow::renamePrinterSlot(QStandardItem *pItem)
 {
     //过滤掉空格
-    if (!index.isValid())
+    if (!pItem)
         return;
-    QString newPrinterName = m_pPrinterManager->validataName(index.data().toString());
+    QString newPrinterName = m_pPrinterManager->validataName(pItem->text());
     if (m_pPrinterManager->hasSamePrinter(newPrinterName)) {
         DDialog *pDialog = new DDialog();
         pDialog->setIcon(QIcon(":/images/warning_logo.svg"));
@@ -503,9 +514,10 @@ void DPrintersShowWindow::renamePrinterSlot(const QModelIndex &index)
         pDialog->exec();
         pDialog->deleteLater();
         m_pPrinterListView->blockSignals(true);
-//        pItem->setText(m_CurPrinterName);
-        m_pPrinterModel->itemFromIndex(index)->setText(m_CurPrinterName);
+        m_pPrinterModel->blockSignals(true);
+        pItem->setText(m_CurPrinterName);
         m_pPrinterListView->blockSignals(false);
+        m_pPrinterModel->blockSignals(false);
         return;
     }
 
@@ -525,9 +537,10 @@ void DPrintersShowWindow::renamePrinterSlot(const QModelIndex &index)
             if (ret != okIndex) {
                 //避免重复触发itemchanged信号
                 m_pPrinterListView->blockSignals(true);
-//                pItem->setText(m_CurPrinterName);
-                m_pPrinterModel->itemFromIndex(index)->setText(m_CurPrinterName);
+                m_pPrinterModel->blockSignals(true);
+                pItem->setText(m_CurPrinterName);
                 m_pPrinterListView->blockSignals(false);
+                m_pPrinterModel->blockSignals(false);
                 return;
             }
         }
