@@ -570,13 +570,6 @@ void ppdMakeModelSplit(const QString &strMakeAndModel, QString& strMake, QString
         modell = modell.left(index);
         qDebug() << strMakeAndModel << "->" << strMake << strModel;
     }
-    //移除括号
-    index = modell.indexOf("(");
-    if (index > 0) {
-        strModel = strModel.left(index);
-        modell = modell.left(index);
-        qDebug() << strMakeAndModel << "->" << strMake << strModel;
-    }
 
     if (makel == "hp") {
         len = sizeof(_HP_MODEL_BY_NAME)/sizeof(THPMode);

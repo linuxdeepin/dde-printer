@@ -25,6 +25,7 @@
 #include "zjobmanager.h"
 
 #include <QLabel>
+#include <QTimer>
 
 PrinterTestPageDialog::PrinterTestPageDialog(const QString &printerName, QWidget *parent)
     :DDialog (parent),
@@ -39,10 +40,17 @@ PrinterTestPageDialog::PrinterTestPageDialog(const QString &printerName, QWidget
     addButton(tr("sure"), true);
     setFixedHeight(202);
 
-    m_trobleShoot = new TroubleShoot(printerName, this);
-    connect(m_trobleShoot, &TroubleShoot::signalUpdateProgress, this, &PrinterTestPageDialog::slotTroubleShootMessage);
-    connect(m_trobleShoot, &TroubleShoot::signalStatus, this, &PrinterTestPageDialog::slotTroubleShootStatus);
-    m_trobleShoot->start();
+    m_testJob = new PrinterTestJob(m_printerName, this, false);
+    if (m_testJob->findRunningJob()) {
+        QTimer::singleShot(10, this, [=](){
+            done(0);
+        });
+    } else {
+        m_trobleShoot = new TroubleShoot(printerName, this);
+        connect(m_trobleShoot, &TroubleShoot::signalUpdateProgress, this, &PrinterTestPageDialog::slotTroubleShootMessage);
+        connect(m_trobleShoot, &TroubleShoot::signalStatus, this, &PrinterTestPageDialog::slotTroubleShootStatus);
+        m_trobleShoot->start();
+    }
 }
 
 void PrinterTestPageDialog::slotTroubleShootMessage(int proccess, QString messge)
@@ -58,7 +66,6 @@ void PrinterTestPageDialog::slotTroubleShootStatus(int id, int state)
     Q_UNUSED(id);
 
     if (TStat_Suc == state) {
-        m_testJob = new PrinterTestJob(m_printerName, this, false);
         if (!m_testJob->isPass())
             setMessage(m_testJob->getMessage());
         else

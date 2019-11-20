@@ -639,7 +639,7 @@ QString AddPrinterFactory::defaultPrinterName(const TDeviceInfo &printer, const 
         strName = strName.left(120);
     }
     strName = strName.trimmed();
-    strName.replace(QRegularExpression("[^\\w-]"), "_");
+    strName.replace(QRegularExpression("[^\\w-]"), "-");
     strDefaultName = strName;
 
     //保证和已安装的打印机名字不重复

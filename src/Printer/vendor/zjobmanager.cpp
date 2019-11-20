@@ -79,6 +79,7 @@ int JobManager::getJobById(map<string, string>& job, int jobId)
     }
 
     for (itJobs=jobs.begin();itJobs!=jobs.end();itJobs++) {
+        dumpStdMapValue(itJobs->second);
         if (itJobs->first == jobId) {
             job = itJobs->second;
             return 0;
@@ -256,7 +257,7 @@ QString JobManager::printTestPage(const char *dest, int &jobId, const char *form
     qInfo() << dest;
 
     try {
-        jobId = g_cupsConnection->printTestPage(dest, testFile, nullptr, format, nullptr);
+        jobId = g_cupsConnection->printTestPage(dest, testFile, PrintTestTitle, format, nullptr);
     }catch(const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return QString::fromUtf8(ex.what());

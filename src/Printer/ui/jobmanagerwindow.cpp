@@ -404,16 +404,26 @@ void JobListView::processAction(int index)
     unsigned int flag = 1<<index;
     QModelIndexList selectList = selectionModel()->selectedRows(0);
     JobsDataModel *jobsModel = static_cast<JobsDataModel*>(model());
+    QMap<int, unsigned int> actionMap;
 
     if (selectList.isEmpty() || !askDeleteJobs(flag))
         return;
 
     foreach (auto modelindex, selectList) {
-        unsigned int itemflag = jobsModel->getActionStatus(modelindex.row());
-        int jobId = jobsModel->getJobId(modelindex.row());
+        int iRow = modelindex.row();
+        unsigned int itemflag = jobsModel->getActionStatus(iRow);
+        int jobId = jobsModel->getJobId(iRow);
+
+        actionMap.insert(jobId, itemflag);
+    }
+
+    //删除item之后其他item的行号改变，先获取所有选中项的可执行的操作
+    QList<int> jobIds = actionMap.keys();
+    foreach (int id, jobIds) {
+        unsigned int itemflag = actionMap.value(id);
 
         if (itemflag&flag) {
-            jobsModel->doItemAction(jobId, flag);
+            jobsModel->doItemAction(id, flag);
         }
     }
 }
