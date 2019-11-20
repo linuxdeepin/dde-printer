@@ -228,8 +228,12 @@
     </message>
     <message>
         <location filename="../util/ddestination.cpp" line="172"/>
-        <source>printing</source>
+        <source>Printing</source>
         <translation type="unfinished">打印中</translation>
+    </message>
+    <message>
+        <source>printing</source>
+        <translation type="obsolete">打印中</translation>
     </message>
     <message>
         <location filename="../util/ddestination.cpp" line="175"/>
@@ -483,7 +487,7 @@
     <message>
         <location filename="../util/dprintertanslator.cpp" line="83"/>
         <source>Reverse</source>
-        <translation>从后往前</translation>
+        <translation>从后向前</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="87"/>
@@ -621,53 +625,62 @@ Click + to add printers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="327"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="331"/>
         <source>Idle</source>
         <translation>空闲</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="329"/>
-        <source>printing</source>
+        <location filename="../ui/dprintersshowwindow.cpp" line="333"/>
+        <source>Printing</source>
         <translation>打印中</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="331"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="654"/>
+        <source>Disconnected</source>
+        <translation>未连接</translation>
+    </message>
+    <message>
+        <source>printing</source>
+        <translation type="vanished">打印中</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="335"/>
         <source>Stopped</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="345"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="349"/>
         <source>CUPS server is not running, can&apos;t manager printers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="348"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="352"/>
         <source>Sure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="468"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="479"/>
         <source>Are you sure you want to delete the printer &quot;%1&quot; ?</source>
         <translation>您确定要删除打印机&quot;%1&quot;吗?</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="474"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="485"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="498"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="509"/>
         <source>Printer name duplicate, unable to rename printer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="516"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="528"/>
         <source>Renaming will cause the completed task not to be reprinted, are you sure?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="502"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="521"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="513"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="533"/>
         <source>Confirm</source>
         <translation>确定</translation>
     </message>
@@ -676,19 +689,18 @@ Click + to add printers</source>
         <translation type="obsolete">型号:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="570"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="583"/>
         <source>The driver is damaged, please install it again.</source>
         <translation>驱动文件已损坏，请重新安装驱动.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="573"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="586"/>
         <source>install driver</source>
         <translation>安装驱动</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="641"/>
         <source>disconnected</source>
-        <translation>未连接</translation>
+        <translation type="vanished">未连接</translation>
     </message>
 </context>
 <context>
@@ -868,9 +880,8 @@ Click + to add printers</source>
         <translation>正在安装驱动...</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="161"/>
         <source>Successfully installed</source>
-        <translation>安装成功</translation>
+        <translation type="vanished">安装成功</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="167"/>
@@ -890,6 +901,11 @@ Click + to add printers</source>
         <location filename="../ui/installprinterwindow.cpp" line="190"/>
         <source>Print Test Page</source>
         <translation>打印测试页</translation>
+    </message>
+    <message>
+        <location filename="../ui/installprinterwindow.cpp" line="161"/>
+        <source>Successfully installed </source>
+        <translation>安装成功 </translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="178"/>
@@ -1155,17 +1171,17 @@ or click Troubleshoot to start troubleshooting.</source>
         <translation>刷新</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="132"/>
+        <location filename="../ui/printersearchwindow.cpp" line="130"/>
         <source>Start Installation</source>
         <translation>开始安装</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="151"/>
+        <location filename="../ui/printersearchwindow.cpp" line="149"/>
         <source>address</source>
         <translation>地址</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="153"/>
+        <location filename="../ui/printersearchwindow.cpp" line="151"/>
         <source>Please enter the address</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1174,33 +1190,33 @@ or click Troubleshoot to start troubleshooting.</source>
         <translation type="vanished">地址</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="154"/>
+        <location filename="../ui/printersearchwindow.cpp" line="152"/>
         <source>Find</source>
         <translation>查找</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="201"/>
+        <location filename="../ui/printersearchwindow.cpp" line="198"/>
         <source>URI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="204"/>
+        <location filename="../ui/printersearchwindow.cpp" line="201"/>
         <source>Enter device URI</source>
         <translation>请输入URI</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="205"/>
+        <location filename="../ui/printersearchwindow.cpp" line="202"/>
         <source>Examples:</source>
         <translation>例如：</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="451"/>
+        <location filename="../ui/printersearchwindow.cpp" line="448"/>
         <source>Sure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="554"/>
-        <location filename="../ui/printersearchwindow.cpp" line="602"/>
+        <location filename="../ui/printersearchwindow.cpp" line="551"/>
+        <location filename="../ui/printersearchwindow.cpp" line="599"/>
         <source> (recommended)</source>
         <translation>（推荐）</translation>
     </message>
@@ -1279,8 +1295,8 @@ or click Troubleshoot to start troubleshooting.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="415"/>
-        <location filename="../ui/printersearchwindow.cpp" line="474"/>
+        <location filename="../ui/printersearchwindow.cpp" line="412"/>
+        <location filename="../ui/printersearchwindow.cpp" line="471"/>
         <source>(use %1 protocol)</source>
         <translation type="unfinished"></translation>
     </message>

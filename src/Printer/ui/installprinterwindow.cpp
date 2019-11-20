@@ -158,7 +158,7 @@ void InstallPrinterWindow::setStatus(InstallationStatus status)
             m_pSpinner->setVisible(false);
             m_pSpinner->stop();
             m_pStatusLabel->setVisible(true);
-            m_pStatusLabel->setText(tr("Successfully installed") + m_printerName);
+            m_pStatusLabel->setText(tr("Successfully installed ") + m_printerName);
             m_pCancelInstallBtn->setVisible(false);
 
             m_pStatusImageLabel->setVisible(true);
