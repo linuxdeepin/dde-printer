@@ -289,7 +289,7 @@ void DPrintersShowWindow::initConnections()
     connect(m_pPrinterListView, QOverload<const QModelIndex &>::of(&DListView::currentChanged), this, &DPrintersShowWindow::printerListWidgetItemChangedSlot);
 //    //此处修改文字和修改图标都会触发这个信号，导致bug，修改图标之前先屏蔽信号
     connect(m_pPrinterModel, &QStandardItemModel::itemChanged, this, &DPrintersShowWindow::renamePrinterSlot);
-//    connect(m_pPrinterListView, &DListView::customContextMenuRequested, this, &DPrintersShowWindow::contextMenuRequested);
+    connect(m_pPrinterListView, &DListView::customContextMenuRequested, this, &DPrintersShowWindow::contextMenuRequested);
     connect(m_pPrinterListView, &DListView::doubleClicked, this, [this](const QModelIndex & index) {
         // 存在未完成的任务无法进入编辑状态
         m_pPrinterListView->blockSignals(true);
