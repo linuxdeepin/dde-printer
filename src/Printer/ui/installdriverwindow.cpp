@@ -156,7 +156,7 @@ void InstallDriverWindow::initUI()
     m_pStackWidget->addWidget(pSettingWidget);
 
     //安装按钮
-    m_pInstallBtn = new QPushButton(tr("Install Driver"));
+    m_pInstallBtn = new QPushButton(tr("Start Installation"));
     m_pSpinner = new DSpinner();
     m_pSpinner->setFixedSize(32, 32);
     // 右侧整体布局

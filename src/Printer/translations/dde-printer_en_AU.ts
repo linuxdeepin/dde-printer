@@ -575,7 +575,6 @@
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="87"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="452"/>
         <source>Delete printer</source>
         <translation type="unfinished"></translation>
     </message>
@@ -643,6 +642,11 @@ Click + to add printers</source>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="326"/>
         <source>Sure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="452"/>
+        <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -782,14 +786,14 @@ Click + to add printers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="159"/>
-        <source>Install Driver</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../ui/installdriverwindow.cpp" line="105"/>
         <location filename="../ui/installdriverwindow.cpp" line="145"/>
         <source>Driver</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/installdriverwindow.cpp" line="159"/>
+        <source>Start Installation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
