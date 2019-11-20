@@ -4,7 +4,6 @@
         <file>actions/dp_uri_16px.svg</file>
         <file>actions/dp_paper_vertical_36px.svg</file>
         <file>actions/dp_manual_search_16px.svg</file>
-        <file>actions/dp_print_wait_14px.svg</file>
         <file>actions/dp_check_14px.svg</file>
         <file>actions/dp_caution_14px.svg</file>
         <file>actions/dp_job_start_14px.svg</file>
@@ -24,5 +23,6 @@
         <file>texts/dp_arrow_left_10px.svg</file>
         <file>texts/dp_print_all_14px.svg</file>
         <file>texts/dp_print_done_14px.svg</file>
+        <file>texts/dp_print_wait_14px.svg</file>
     </qresource>
 </RCC>

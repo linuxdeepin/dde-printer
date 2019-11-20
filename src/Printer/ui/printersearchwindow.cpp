@@ -110,13 +110,11 @@ void PrinterSearchWindow::initUi()
     pHLayout1->addWidget(m_pBtnRefresh, 0, Qt::AlignRight);
 
     m_pPrinterListViewAuto = new DListView(this);
-    m_pPrinterListViewAuto->setSpacing(10);
     m_pPrinterListViewAuto->setEditTriggers(DListView::NoEditTriggers);
     m_pPrinterListViewAuto->setTextElideMode(Qt::ElideRight);
     m_pPrinterListViewAuto->setSelectionMode(QAbstractItemView::NoSelection);
     m_pPrinterListViewAuto->setFocusPolicy(Qt::NoFocus);
     m_pPrinterListModel = new QStandardItemModel(m_pPrinterListViewAuto);
-
     m_pPrinterListViewAuto->setModel(m_pPrinterListModel);
 
     QLabel *pLabelDriver1 = new QLabel(UI_PRINTERSEARCH_DRIVER);
@@ -161,7 +159,6 @@ void PrinterSearchWindow::initUi()
     pHLayout4->addWidget(m_pBtnFind);
 
     m_pPrinterListViewManual = new DListView();
-    m_pPrinterListViewManual->setSpacing(10);
     m_pPrinterListViewManual->setEditTriggers(DListView::NoEditTriggers);
     m_pPrinterListViewManual->setTextElideMode(Qt::ElideRight);
     m_pPrinterListViewManual->setSelectionMode(QAbstractItemView::NoSelection);
