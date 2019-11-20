@@ -114,25 +114,17 @@ QString InstallInterface::getErrorString()
 void InstallInterface::startInstallPackages()
 {
     qInfo() << "install packages:" << m_packages;
-    bool bNeedInstall = false;
 
+    //不用检查包是否已经安装，DBus的接口已经判断了包是否已经安装，并且可以进行升级
     QDBusInterface *interface = getPackageInterface();
     for (auto package : m_packages) {
-        if (!isPackageExists(package)) {
-            QDBusReply<bool> installable = interface->call("PackageInstallable", package);
+        QDBusReply<bool> installable = interface->call("PackageInstallable", package);
 
-            bNeedInstall = true;
-            if (!installable.isValid() || !installable) {
-                m_strErr = package  + tr("is invalid");
-                emit signalStatus(TStat_Fail);
-                return;
-            }
+        if (!installable.isValid() || !installable) {
+            m_strErr = package  + tr("is invalid");
+            emit signalStatus(TStat_Fail);
+            return;
         }
-    }
-
-    if (!bNeedInstall) {
-        emit signalStatus(TStat_Suc);
-        return;
     }
 
     QDBusReply<QDBusObjectPath> objPath = interface->call("InstallPackage", "", m_packages.join(" "));
