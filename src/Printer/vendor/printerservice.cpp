@@ -90,23 +90,21 @@ PrinterService* PrinterService::getInstance()
 
 bool PrinterService::isInvaild()
 {
-    return m_hostname.isEmpty();
+    return m_osVersion.split("-").count() != 2;
 }
 
 PrinterService::PrinterService()
 {
-    m_hostname = g_Settings->getHostName();
-    if (m_hostname.isEmpty()) return;
+    m_osVersion = g_Settings->getOSVersion();
+    if (isInvaild()) return;
 
+    m_hostname = g_Settings->getHostName();
     m_port = g_Settings->getHostPort();
     m_version = g_Settings->getClientVersion();
     m_code = g_Settings->getClientCode();
-    m_osVersion = g_Settings->getOSVersion();
 
-    if (m_osVersion.isEmpty())
-        m_urlPrefix = QString("http://%1:%2").arg(m_hostname).arg(m_port);
-    else
-        m_urlPrefix = QString("http://%1:%2/%3").arg(m_hostname).arg(m_port).arg(m_osVersion);
+    QStringList osargs = m_osVersion.split("-");
+    m_urlPrefix = QString("http://%1:%2/%3/%4").arg(m_hostname).arg(m_port).arg(osargs[0]).arg(osargs[1]);
 }
 
 PrinterServerInterface* PrinterService::searchSolution(const QString& manufacturer,

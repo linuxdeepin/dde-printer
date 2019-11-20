@@ -27,11 +27,35 @@
 #include <QLocale>
 #include <QDebug>
 
+#include <sys/utsname.h>
+
 #define VERSION         "1.2.0"
 #define CLIENT_CODE     "godfather"
 #define HOST_PORT       80
 #define SERVER_ADDR     "printer.deepin.com"
 #define OS_VERSION      "eagle"
+
+QString sysArch()
+{
+    struct utsname name{};
+
+    if (uname(&name) == -1) {
+        return "";
+    }
+
+    auto machine = QString::fromLatin1(name.machine);
+
+    // map arch
+    auto archMap = QMap<QString, QString>{
+        {"x86_64", "x86"},
+        {"i386", "x86"},
+        {"i686", "x86"},
+        {"mips64", "mips64"},
+        {"aarch64", "aarch64"}
+    };
+    qInfo() << machine;
+    return archMap[machine];
+}
 
 zSettings* zSettings::getInstance()
 {
@@ -61,11 +85,7 @@ const QString zSettings::getClientCode()
 
 const QString zSettings::getHostName()
 {
-    qInfo() << QLocale::languageToString(QLocale::system().language());
-    if (QLocale::system().language() == QLocale::Chinese)
-        return value("HostName", SERVER_ADDR).toString();
-    else
-        return value("HostName", "").toString();
+    return value("HostName", SERVER_ADDR).toString();
 }
 
 unsigned short zSettings::getHostPort()
@@ -80,7 +100,17 @@ const QString zSettings::getLogRules()
 
 const QString zSettings::getOSVersion()
 {
-    return value("OSVersion", OS_VERSION).toString();
+    QString defaultVersion = OS_VERSION;
+    QString archName = sysArch();
+
+    qInfo() << QLocale::languageToString(QLocale::system().language());
+
+    if (QLocale::system().language() == QLocale::Chinese && !archName.isEmpty())
+        defaultVersion += "-" + archName;
+    else
+        defaultVersion = "";
+
+    return value("OSVersion", defaultVersion).toString();
 }
 
 int zSettings::getSubscriptionId()
