@@ -222,7 +222,7 @@ void DPropertySetDlg::initConnection()
     QObject::connect(pLineEdit, SIGNAL(editingFinished()), this, SLOT(printUriUI_EditFinished()));
 
     //Location_LineEdit
-    pLineEdit = qobject_cast<QLineEdit *>(m_mapOfListWidget[QString::fromStdString("Localtion_LineEdit")]);
+    pLineEdit = qobject_cast<QLineEdit *>(m_mapOfListWidget[QString::fromStdString("Location_LineEdit")]);
     QObject::connect(pLineEdit, SIGNAL(editingFinished()), this, SLOT(printLocationUI_EditFinished()));
 
     //Description_LineEdit
@@ -277,6 +277,7 @@ void DPropertySetDlg::updateDriverUI(const QString &strDrive)
         return;
     }
 
+    /*
     int iPos = strDrive.lastIndexOf(QDir::separator());
     QString strText = strDrive.right(strDrive.length() - iPos -1);
     iPos = strText.lastIndexOf(".");
@@ -286,8 +287,9 @@ void DPropertySetDlg::updateDriverUI(const QString &strDrive)
     {
         strText = strText.left(iPos);
     }
+    */
 
-    pLineEdit->setText(strText);
+    pLineEdit->setText(strDrive);
     pLineEdit->setReadOnly(true);
 }
 
@@ -305,7 +307,7 @@ void DPropertySetDlg::updateUriUI(const QString& strUri)
 
 void DPropertySetDlg::updateLocationUI(const QString& strLocation)
 {
-    QLineEdit *pLineEdit = qobject_cast<QLineEdit *>(m_mapOfListWidget[QString::fromStdString("Localtion_LineEdit")]);
+    QLineEdit *pLineEdit = qobject_cast<QLineEdit *>(m_mapOfListWidget[QString::fromStdString("Location_LineEdit")]);
 
     if (nullptr == pLineEdit) {
         return;
@@ -997,7 +999,7 @@ void DPropertySetDlg::printLocationUI_EditFinished()
         return;
     }
 
-    QLineEdit *pLineEdit = qobject_cast<QLineEdit*>(m_mapOfListWidget[QString::fromStdString("Localtion_LineEdit")]);
+    QLineEdit *pLineEdit = qobject_cast<QLineEdit*>(m_mapOfListWidget[QString::fromStdString("Location_LineEdit")]);
 
     if (nullptr == pLineEdit) {
         return;

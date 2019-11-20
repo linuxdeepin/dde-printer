@@ -536,7 +536,6 @@
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="87"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="452"/>
         <source>Delete printer</source>
         <translation>删除打印机</translation>
     </message>
@@ -649,7 +648,12 @@ Click + to add printers</source>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="446"/>
         <source>Are you sure you want to delete the printer &quot;%1&quot; ?</source>
-        <translation>您确定要删除打印机&quot;{%1}&quot;吗?</translation>
+        <translation>您确定要删除打印机&quot;%1&quot;吗?</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="452"/>
+        <source>Delete</source>
+        <translation>删除</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="476"/>
@@ -666,6 +670,10 @@ Click + to add printers</source>
         <location filename="../ui/dprintersshowwindow.cpp" line="498"/>
         <source>Confirm</source>
         <translation>确定</translation>
+    </message>
+    <message>
+        <source>Model</source>
+        <translation type="obsolete">型号:</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="547"/>
@@ -769,7 +777,7 @@ Click + to add printers</source>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="102"/>
         <source>Model</source>
-        <translation>型号:</translation>
+        <translation>型号</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="105"/>
@@ -789,8 +797,12 @@ Click + to add printers</source>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="159"/>
+        <source>Start Installation</source>
+        <translation type="unfinished">开始安装</translation>
+    </message>
+    <message>
         <source>Install Driver</source>
-        <translation>安装驱动</translation>
+        <translation type="vanished">安装驱动</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="283"/>
@@ -1087,7 +1099,7 @@ or click Troubleshoot to start troubleshooting.</source>
     <message>
         <location filename="../ui/permissionswindow.cpp" line="60"/>
         <source>Connect to %1 to find a printer.</source>
-        <translation>查找打印机需要登录{%1}</translation>
+        <translation>查找打印机需要登录%1</translation>
     </message>
     <message>
         <location filename="../ui/permissionswindow.cpp" line="90"/>

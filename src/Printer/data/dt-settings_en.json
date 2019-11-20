@@ -10,9 +10,9 @@
 
                     "options": [
                         {
-                            "key": "Driver_ListView",
-                            "name": "Driver_ListView",
-                            "type": "custom-listview"
+                            "key": "Driver_LineEdit",
+                            "name": "Driver_LineEdit",
+                            "type": "custom-lineedit"
                         }
                     ]
                 },
@@ -23,21 +23,21 @@
 
                     "options": [
                         {
-                            "key": "URI_ListView",
-                            "name": "URI_ListView",
-                            "type": "custom-listview"
+                            "key": "URI_LineEdit",
+                            "name": "URI_LineEdit",
+                            "type": "custom-lineedit"
                         }
                     ]
                 },
 
                 {
                     "key": "Location_Lable",
-                    "name": "Localtion",
+                    "name": "Location",
 
                     "options": [
                         {
-                            "key": "Localtion_LineEdit",
-                            "name": "Localtion_LineEdit",
+                            "key": "Location_LineEdit",
+                            "name": "Location_LineEdit",
                             "type": "custom-lineedit"
                         }
                     ]
@@ -167,7 +167,7 @@
 
                 {
                     "key": "PrintOrder_Label",
-                    "name": "rintOrder",
+                    "name": "PrintOrder",
                     "options": [
                         {
                             "key": "PrintOrder_Combo",
