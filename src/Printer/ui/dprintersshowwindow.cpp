@@ -346,6 +346,7 @@ void DPrintersShowWindow::updateDefaultPrinterIcon()
 {
     //防止触发itemChanged信号
     m_pPrinterListView->blockSignals(true);
+    m_pPrinterModel->blockSignals(true);
     int count = m_pPrinterModel->rowCount();
     for (int i = 0; i < count; ++i) {
         if (m_pPrinterManager->isDefaultPrinter(m_pPrinterModel->item(i)->text())) {
@@ -355,6 +356,7 @@ void DPrintersShowWindow::updateDefaultPrinterIcon()
         }
     }
     m_pPrinterListView->blockSignals(false);
+    m_pPrinterModel->blockSignals(false);
 }
 
 
