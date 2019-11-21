@@ -347,10 +347,6 @@ int ReflushLocalPPDS::doWork()
 
     if (m_bQuit) return 0;
 
-    g_ppds.clear();
-    g_ppdsDirct.clear();
-    g_ppdsMakeModelNames.clear();
-    g_textPPd.clear();
     int count = 0;
     for (itall=allPPDS.begin();itall!=allPPDS.end();itall++) {
         qDebug() << QString("*****************************");
@@ -633,10 +629,18 @@ int DriverManager::stop()
 {
     if (m_reflushTask) {
         m_reflushTask->stop();
+        m_reflushTask->deleteLater();
         m_reflushTask = nullptr;
     }
-    g_iStatus = TStat_None;
 
+    QMutexLocker locker(&g_mutex);
+    g_iStatus = TStat_None;
+    qInfo() << "Clear local driver dirct";
+
+    g_ppds.clear();
+    g_ppdsDirct.clear();
+    g_ppdsMakeModelNames.clear();
+    g_textPPd.clear();
     return 0;
 }
 
@@ -648,11 +652,12 @@ DriverSearcher* DriverManager::createSearcher(const TDeviceInfo &device)
 
 int DriverManager::refreshPpds()
 {
+    QMutexLocker locker(&g_mutex);
     if (TStat_Running == g_iStatus || m_reflushTask)
         return 0;
 
     qInfo() << "";
-    m_reflushTask = new ReflushLocalPPDS(this);
+    m_reflushTask = new ReflushLocalPPDS();
     connect(m_reflushTask, &ReflushLocalPPDS::signalStatus, this, &DriverManager::signalStatus);
     m_reflushTask->start();
 

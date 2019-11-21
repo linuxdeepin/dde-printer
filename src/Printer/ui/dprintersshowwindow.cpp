@@ -477,7 +477,7 @@ void DPrintersShowWindow::closeEvent(QCloseEvent *event)
 {
     DMainWindow::closeEvent(event);
 
-    emit signalMainWindowClosed();
+    QTimer::singleShot(10, g_printerApplication, &PrinterApplication::slotMainWindowClosed);
 }
 
 void DPrintersShowWindow::addPrinterClickSlot()

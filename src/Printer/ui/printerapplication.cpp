@@ -151,8 +151,6 @@ int PrinterApplication::showMainWindow()
         m_mainWindow = new DPrintersShowWindow();
         Dtk::Widget::moveToCenter(m_mainWindow);
 
-        connect(m_mainWindow, &DPrintersShowWindow::signalMainWindowClosed, this, &PrinterApplication::slotMainWindowClosed);
-
         // 初始化驱动
         g_driverManager->refreshPpds();
     }

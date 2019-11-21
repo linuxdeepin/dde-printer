@@ -210,9 +210,6 @@ private slots:
 
     void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
-signals:
-    void signalMainWindowClosed();
-
 private:
 
     // UI成员变量
@@ -251,7 +248,6 @@ private:
     DPrinterManager *m_pPrinterManager;
     // 当前选中的打印机名称
     QString m_CurPrinterName;
-
 };
 
 #endif // DPRINTERSSHOWWINDOW_H
