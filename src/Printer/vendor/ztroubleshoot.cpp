@@ -88,6 +88,7 @@ static QStringList getDirectDevices()
         uris << STQ(itmap->first);
     }
 
+    qInfo() << uris;
     return uris;
 }
 

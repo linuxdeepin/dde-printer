@@ -98,6 +98,8 @@ QString getHostFromUri(const QString &strUri)
 
 QString reslovedHost(const QString &strHost)
 {
+    if (strHost.isEmpty()) return strHost;
+
     struct hostent *host = gethostbyname(strHost.toUtf8().data());
     if (nullptr == host && HOST_NOT_FOUND == h_errno) {
         return strHost + QObject::tr(" not found, please ask the administrator for help");

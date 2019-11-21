@@ -508,6 +508,7 @@ void DriverSearcher::askForFinish()
     //如果之前本地驱动还没有初始化完成，则等待驱动初始化完成再搜索一次
     if (1 == m_localIndex) {
         if (g_iStatus < TStat_Suc) {
+            qInfo() << "Wait ppd init";
             connect(g_driverManager, &DriverManager::signalStatus, this, &DriverSearcher::slotDriverInit);
             return;
         }
