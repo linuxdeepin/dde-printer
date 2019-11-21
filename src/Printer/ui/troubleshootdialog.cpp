@@ -47,14 +47,17 @@
 
 #include <DPalette>
 #include <DApplicationHelper>
-#include <DListView>
+#include <DFrame>
 #include <DWidget>
+#include <DListView>
+#include <DMainWindow>
 #include <DFontSizeManager>
+#include <DTitlebar>
 
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QGridLayout>
-#include <QAbstractButton>
+#include <QPushButton>
 #include <QPaintEvent>
 #include <QPainter>
 #include <QFont>
@@ -97,20 +100,6 @@ void TroubleShootItem::paintEvent(QPaintEvent *event)
     }
 }
 
-ContentWidget::ContentWidget(QWidget *parent) : QWidget (parent)
-{}
-
-void ContentWidget::paintEvent(QPaintEvent *event)
-{
-    QWidget::paintEvent(event);
-
-    DListView listView;
-    DPalette pl(DApplicationHelper::instance()->palette(&listView));
-    QPainter painter(this);
-
-    painter.fillRect(event->rect(), pl.brush(QPalette::Window));
-}
-
 void TroubleShootItem::slotStateChanged(int state, const QString &message)
 {
     setHidden(false);
@@ -122,38 +111,59 @@ void TroubleShootItem::slotStateChanged(int state, const QString &message)
 }
 
 TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *parent)
-    :DDialog (parent)
+    :DAbstractDialog (false, parent)
 {
     m_printerName = printerName;
 
-    setIcon(QIcon(":/images/dde-printer.svg"));
+    DTitlebar *titleBar = new DTitlebar();
+    titleBar->setIcon(QIcon(":/images/dde-printer.svg"));
+    titleBar->setMenuVisible(false);
+    titleBar->setTitle("");
 
     m_trobleShoot = new TroubleShoot(printerName, this);
 
-    QWidget* contentWidget = new ContentWidget(this);
+    setAutoFillBackground(true);
+    setAttribute(Qt::WA_TranslucentBackground, false);
+    QWidget* contentWidget = new QWidget(this);
+    contentWidget->setAutoFillBackground(true);
     QLabel* title = new QLabel(tr("Troubleshoot: ") + printerName, contentWidget);
+    DFrame* frame = new DFrame(contentWidget);
     QFont titleFont = DFontSizeManager::instance()->t5();
     titleFont.setBold(true);
     title->setFont(titleFont);
     title->setFixedHeight(30);
-    QVBoxLayout* lay = new QVBoxLayout(contentWidget);
-    lay->addWidget(title);
-
+    QVBoxLayout* itemlay = new QVBoxLayout(frame);
+    itemlay->addWidget(title);
     QList<TroubleShootJob*> jobs = m_trobleShoot->getJobs();
     for (int i=0;i<jobs.count();i++) {
         TroubleShootItem *item = new TroubleShootItem(jobs[i], i, this);
         item->hide();
-        lay->addWidget(item);
+        itemlay->addWidget(item);
     }
-    lay->addStretch(100);
+    itemlay->addStretch(100);
+    frame->setLayout(itemlay);
+
+    m_button = new QPushButton(contentWidget);
+    m_button->setFixedWidth(200);
+    m_button->setText(tr("Cancel"));
+    m_button->setFocusPolicy(Qt::NoFocus);
+    QVBoxLayout* lay = new QVBoxLayout(contentWidget);
+    lay->setContentsMargins(10, 10, 10, 10);
+    lay->addWidget(frame, 100);
+    lay->addWidget(m_button, 0, Qt::AlignCenter);
+
     contentWidget->setFixedSize(692, 432);
     contentWidget->setLayout(lay);
-    addContent(contentWidget);
 
-    addButton(tr("cancel"), true);
-    getButton(0)->setFixedWidth(200);
+    QVBoxLayout *mainlay = new QVBoxLayout(this);
+    mainlay->setContentsMargins(0, 0, 0, 0);
+    mainlay->addWidget(titleBar);
+    mainlay->addWidget(contentWidget);
+    setLayout(mainlay);
 
     connect(m_trobleShoot, &TroubleShoot::signalStatus, this, &TroubleShootDialog::slotTroubleShootStatus);
+    connect(m_button, &QPushButton::clicked, this, &DDialog::close);
+
     m_trobleShoot->start();
 }
 
@@ -162,6 +172,6 @@ void TroubleShootDialog::slotTroubleShootStatus(int id, int state)
     Q_UNUSED(id);
 
     if (TStat_Suc <= state) {
-        setButtonText(0, tr("OK"));
+        m_button->setText(tr("OK"));
     }
 }
