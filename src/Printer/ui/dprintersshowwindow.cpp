@@ -38,6 +38,8 @@
 #include <DSettingsDialog>
 #include <DTitlebar>
 #include <DApplication>
+#include <DFloatingButton>
+
 
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -174,10 +176,11 @@ void DPrintersShowWindow::initUI()
     pRightTopHLayout->addLayout(pRightGridLayout);
 
     // 右侧下方控件
-    m_pTBtnSetting = new DIconButton(this);
+    m_pTBtnSetting = new DFloatingButton(this);
     m_pTBtnSetting->setIcon(QIcon::fromTheme("dp_set"));
     m_pTBtnSetting->setIconSize(QSize(32, 32));
     m_pTBtnSetting->setFixedSize(60, 60);
+    m_pTBtnSetting->setBackgroundRole(QPalette::Button);
 
     QLabel *pLabelSetting = new QLabel();
     QFont btnFont;
@@ -186,28 +189,31 @@ void DPrintersShowWindow::initUI()
     pLabelSetting->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
     pLabelSetting->setFont(btnFont);
 
-    m_pTBtnPrintQueue = new DIconButton(this);
+    m_pTBtnPrintQueue = new DFloatingButton(this);
     m_pTBtnPrintQueue->setIcon(QIcon::fromTheme("dp_print_queue"));
     m_pTBtnPrintQueue->setIconSize(QSize(32, 32));
     m_pTBtnPrintQueue->setFixedSize(60, 60);
+    m_pTBtnPrintQueue->setBackgroundRole(QPalette::Button);
     QLabel *pLabelPrintQueue = new QLabel();
     pLabelPrintQueue->setText(tr("Print Queue"));
     pLabelPrintQueue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
     pLabelPrintQueue->setFont(btnFont);
 
-    m_pTBtnPrintTest = new DIconButton(this);
+    m_pTBtnPrintTest = new DFloatingButton(this);
     m_pTBtnPrintTest->setIcon(QIcon::fromTheme("dp_test_page"));
     m_pTBtnPrintTest->setIconSize(QSize(32, 32));
     m_pTBtnPrintTest->setFixedSize(60, 60);
+    m_pTBtnPrintTest->setBackgroundRole(QPalette::Button);
     QLabel *pLabelPrintTest = new QLabel();
     pLabelPrintTest->setText(tr("Print Test Page"));
     pLabelPrintTest->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
     pLabelPrintTest->setFont(btnFont);
 
-    m_pTBtnFault = new DIconButton(this);
+    m_pTBtnFault = new DFloatingButton(this);
     m_pTBtnFault->setIcon(QIcon::fromTheme("dp_fault"));
     m_pTBtnFault->setIconSize(QSize(32, 32));
     m_pTBtnFault->setFixedSize(60, 60);
+    m_pTBtnFault->setBackgroundRole(QPalette::Button);
 
     QLabel *pLabelPrintFault = new QLabel();
     pLabelPrintFault->setText(UI_PRINTERSHOW_TROUBLE);
@@ -640,7 +646,7 @@ void DPrintersShowWindow::printerListWidgetItemChangedSlot(const QModelIndex &pr
     if (basePrinterInfo.count() == 3) {
         QString showPrinter = printerName;
         //如果文字超出了显示范围，那么就用省略号代替，并且设置tip提示
-        int textWidth = int(240.0 / 942 * this->width());
+        int textWidth = int(180.0 / 942 * this->width());
         geteElidedText(m_pLabelPrinterName->font(), showPrinter, textWidth);
         m_pLabelPrinterName->setText(showPrinter);
         m_pLabelPrinterName->setToolTip(printerName);

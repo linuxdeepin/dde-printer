@@ -37,6 +37,7 @@ DWIDGET_BEGIN_NAMESPACE
 class DImageButton;
 class DSettingsDialog;
 class DDialog;
+class DFloatingButton;
 DWIDGET_END_NAMESPACE
 
 QT_BEGIN_NAMESPACE
@@ -216,10 +217,10 @@ private:
     QLabel *m_pLabelTypeShow;
     QLabel *m_pLabelStatusShow;
 
-    DIconButton *m_pTBtnSetting;
-    DIconButton *m_pTBtnPrintQueue;
-    DIconButton *m_pTBtnPrintTest;
-    DIconButton *m_pTBtnFault;
+    DFloatingButton *m_pTBtnSetting;
+    DFloatingButton *m_pTBtnPrintQueue;
+    DFloatingButton *m_pTBtnPrintTest;
+    DFloatingButton *m_pTBtnFault;
 
     DListView *m_pPrinterListView;
     QStandardItemModel *m_pPrinterModel;

@@ -244,12 +244,16 @@ void PrinterSearchWindow::initUi()
     // 右侧整体布局
     QVBoxLayout *pRightVLayout = new QVBoxLayout();
     pRightVLayout->addWidget(m_pStackedWidget);
-    pRightVLayout->setContentsMargins(10, 5, 10, 20);
+    pRightVLayout->setContentsMargins(10, 10, 10, 20);
 
+    QVBoxLayout *pLeftVLayout = new QVBoxLayout();
+    pLeftVLayout->addWidget(m_pTabListView);
+    pLeftVLayout->setContentsMargins(10, 10, 10, 0);
 
     // 整体布局
     QHBoxLayout *m_pMainHLayout = new QHBoxLayout();
-    m_pMainHLayout->addWidget(m_pTabListView, 1);
+    m_pMainHLayout->setSpacing(10);
+    m_pMainHLayout->addLayout(pLeftVLayout, 1);
     m_pMainHLayout->addLayout(pRightVLayout, 2);
     m_pMainHLayout->setContentsMargins(0, 0, 0, 0);
     QWidget *pCentralWidget = new QWidget();
