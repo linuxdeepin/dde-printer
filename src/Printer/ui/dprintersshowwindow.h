@@ -237,7 +237,8 @@ private:
 
 
     QWidget *m_pPrinterInfoWidget;
-    QLabel *m_pPRightTipLabel;
+    QLabel *m_pPRightTipLabel1;
+    QLabel *m_pPRightTipLabel2;
 
     PrinterSearchWindow *m_pSearchWindow;
     ServerSettingsWindow *m_pSettingsDialog;
