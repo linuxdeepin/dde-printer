@@ -128,6 +128,10 @@ void DPrintersShowWindow::initUI()
     m_pLeftTipLabel = new QLabel(tr("No Printers"));
     m_pLeftTipLabel->setVisible(false);
     m_pLeftTipLabel->setFont(font);
+    QPalette pa = m_pLeftTipLabel->palette();
+    QColor color = pa.color(QPalette::WindowText);
+    pa.setColor(QPalette::WindowText, QColor(color.red(), color.green(), color.blue(), int(255 * 0.3)));
+    m_pLeftTipLabel->setPalette(pa);
     // 左侧布局
     QVBoxLayout *pLeftVLayout = new QVBoxLayout();
     pLeftVLayout->addLayout(pLeftTopHLayout, 1);
