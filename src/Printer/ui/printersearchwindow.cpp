@@ -148,7 +148,7 @@ void PrinterSearchWindow::initUi()
     // 右侧 手动查找
     m_pLabelLocation = new QLabel(tr("address"));
     m_pLineEditLocation = new QLineEdit();
-    m_pLineEditLocation->setPlaceholderText(tr("Please enter the address"));
+    m_pLineEditLocation->setPlaceholderText(tr("Enter an address"));
     m_pBtnFind = new QPushButton(tr("Find"));
     m_pBtnFind->setFixedSize(60, 36);
     QHBoxLayout *pHLayout4 = new QHBoxLayout();
@@ -447,7 +447,7 @@ void PrinterSearchWindow::getDeviceResultByManualSlot(int id, int state)
 
             dlg.setMessage(task->getErrorString());
             dlg.setIcon(QIcon(":/images/warning_logo.svg"));
-            dlg.addButton(tr("Sure"));
+            dlg.addButton(tr("OK"));
             dlg.setContentsMargins(10, 15, 10, 15);
             dlg.setModal(true);
             dlg.setFixedSize(452, 202);

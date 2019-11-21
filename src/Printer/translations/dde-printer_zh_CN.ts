@@ -5,38 +5,38 @@
     <name>AddPrinterTask</name>
     <message>
         <location filename="../vendor/addprinter.cpp" line="402"/>
-        <source>Uri and driver not match.</source>
-        <translation type="unfinished"></translation>
+        <source>URI and driver do not match.</source>
+        <translation>URI和驱动不匹配。</translation>
     </message>
     <message>
         <location filename="../vendor/addprinter.cpp" line="404"/>
-        <source>Current driver need hplip, please install it and restart.</source>
-        <translation type="unfinished"></translation>
+        <source>Install hplip first and restart the app to install the driver again.</source>
+        <translation>请安装hplip后重新添加。</translation>
     </message>
     <message>
         <location filename="../vendor/addprinter.cpp" line="406"/>
-        <source>Current uri need hplip driver, please select an other driver and try again.</source>
-        <translation type="unfinished"></translation>
+        <source>Please select an hplip driver and try again.</source>
+        <translation>请选择其他hplip驱动后重试。</translation>
     </message>
     <message>
         <location filename="../vendor/addprinter.cpp" line="420"/>
-        <source>Uri is empty</source>
-        <translation type="unfinished"></translation>
+        <source>URI can&apos;t be empty</source>
+        <translation>URI不能为空</translation>
     </message>
     <message>
         <location filename="../vendor/addprinter.cpp" line="428"/>
-        <source>not found</source>
-        <translation type="unfinished"></translation>
+        <source> not found</source>
+        <translation>未找到</translation>
     </message>
     <message>
         <location filename="../vendor/addprinter.cpp" line="510"/>
-        <source>Direct device</source>
-        <translation type="unfinished"></translation>
+        <source>Direct attached Device</source>
+        <translation>直连设备</translation>
     </message>
     <message>
         <location filename="../vendor/addprinter.cpp" line="512"/>
         <source>File device</source>
-        <translation type="unfinished"></translation>
+        <translation>文件设备</translation>
     </message>
 </context>
 <context>
@@ -44,179 +44,179 @@
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="286"/>
         <source>Check printer settings</source>
-        <translation type="unfinished"></translation>
+        <translation>检查打印机设置</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="295"/>
-        <source>Starting check printer settings</source>
-        <translation type="unfinished"></translation>
+        <source>Checking printer settings...</source>
+        <translation>检查打印机设置中...</translation>
+    </message>
+    <message>
+        <location filename="../vendor/ztroubleshoot.cpp" line="306"/>
+        <source>Failed to get printer attributes, error: </source>
+        <translation>获取打印机属性失败。错误原因：</translation>
+    </message>
+    <message>
+        <location filename="../vendor/ztroubleshoot.cpp" line="323"/>
+        <source>is not accepting jobs</source>
+        <translation>不接收任务</translation>
+    </message>
+    <message>
+        <location filename="../vendor/ztroubleshoot.cpp" line="328"/>
+        <source>Printer settings are ok</source>
+        <translation>打印机设置正常</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="298"/>
         <source>Success</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="306"/>
-        <source>Get printer attributes failed, err: </source>
-        <translation type="unfinished"></translation>
+        <translation>成功</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="314"/>
         <source>%1 is disable</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="323"/>
-        <source>is not accept jobs</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="328"/>
-        <source>Printer settings is ok</source>
-        <translation type="unfinished"></translation>
+        <translation>%1未启用</translation>
     </message>
 </context>
 <context>
     <name>CheckConnected</name>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="192"/>
-        <source>Check connection</source>
-        <translation type="unfinished"></translation>
+        <source>Check printer connection</source>
+        <translation>检查打印机连接状态</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="204"/>
-        <source>Starting check connected</source>
-        <translation type="unfinished"></translation>
+        <source>Checking printer connection... </source>
+        <translation>检查打印机连接状态中...</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="207"/>
         <source>Success</source>
-        <translation type="unfinished"></translation>
+        <translation>成功</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="243"/>
-        <source>Can&apos;t connect printer host: %1, error string: %2</source>
-        <translation type="unfinished"></translation>
+        <source>Cannot connect to the printer host: %1, error: %2</source>
+        <translation>不能连接打印机：%1，错误原因：%2</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="251"/>
-        <source> is not connected, uri is: </source>
-        <translation type="unfinished"></translation>
+        <source> is not connected, URI: </source>
+        <translation>未连接，URI是：</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="260"/>
-        <source>It is a file printer, %1 not exists</source>
-        <translation type="unfinished"></translation>
+        <source>%1 does not exist</source>
+        <translation>%1 目录不存在</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="269"/>
-        <source>Connected to printer&apos;s %1 failed</source>
-        <translation type="unfinished"></translation>
+        <source>Failed to connect to the printer %1</source>
+        <translation>连接打印机 %1 失败</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="275"/>
-        <source>Printer connected is vaild</source>
-        <translation type="unfinished"></translation>
+        <source>The connection is valid</source>
+        <translation>打印机连接状态正常</translation>
     </message>
 </context>
 <context>
     <name>CheckCupsServer</name>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="100"/>
-        <source>Check cups server</source>
-        <translation type="unfinished"></translation>
+        <source>Check CUPS server</source>
+        <translation>检查CUPS服务是否开启</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="108"/>
-        <source>Starting check cups server</source>
-        <translation type="unfinished"></translation>
+        <source>Checking CUPS server...</source>
+        <translation>检查CUPS服务中...</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="114"/>
-        <source>Cups server is invaild, err: </source>
-        <translation type="unfinished"></translation>
+        <source>CUPS server is invalid, error: </source>
+        <translation>CUPS服务异常，错误原因：</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="119"/>
-        <source>Cups server is vaild</source>
-        <translation type="unfinished"></translation>
+        <source>CUPS server is valid</source>
+        <translation>CUPS服务正常</translation>
     </message>
 </context>
 <context>
     <name>CheckDriver</name>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="136"/>
-        <source>Starting check driver</source>
-        <translation type="unfinished"></translation>
+        <source>Checking driver...</source>
+        <translation>检查驱动文件中...</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="139"/>
         <source>Success</source>
-        <translation type="unfinished"></translation>
+        <translation>成功</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="147"/>
-        <source>Driver file %1 not found</source>
-        <translation type="unfinished"></translation>
+        <source>PPD file %1 not found</source>
+        <translation>PPD文件 %1 未找到</translation>
+    </message>
+    <message>
+        <location filename="../vendor/ztroubleshoot.cpp" line="170"/>
+        <source>%1 is not installed, cannot print now</source>
+        <translation>%1 is not installed, cannot print now</translation>
+    </message>
+    <message>
+        <location filename="../vendor/ztroubleshoot.cpp" line="176"/>
+        <source>Driver is valid</source>
+        <translation>驱动文件完好</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="159"/>
         <source>Driver filter %1 not found</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="170"/>
-        <source>%1 is not install, can&apos;t printer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="176"/>
-        <source>Driver is vaild</source>
-        <translation type="unfinished"></translation>
+        <translation>驱动Filter %1 未找到</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="182"/>
         <source>Check driver</source>
-        <translation type="unfinished"></translation>
+        <translation>检查驱动</translation>
     </message>
 </context>
 <context>
     <name>CupsMonitor</name>
     <message>
         <location filename="../vendor/zcupsmonitor.cpp" line="70"/>
-        <source>job is waiting to be printed</source>
-        <translation type="unfinished"></translation>
+        <source>Queuing</source>
+        <translation>排队中</translation>
     </message>
     <message>
         <location filename="../vendor/zcupsmonitor.cpp" line="71"/>
-        <source>job is held for printing</source>
-        <translation type="unfinished"></translation>
+        <source>Paused</source>
+        <translation>暂停</translation>
     </message>
     <message>
         <location filename="../vendor/zcupsmonitor.cpp" line="72"/>
-        <source>job is currently printing</source>
-        <translation type="unfinished"></translation>
+        <source>Printing</source>
+        <translation>打印中</translation>
     </message>
     <message>
         <location filename="../vendor/zcupsmonitor.cpp" line="73"/>
-        <source>job has been stopped</source>
-        <translation type="unfinished"></translation>
+        <source>Stopped</source>
+        <translation>停止</translation>
     </message>
     <message>
         <location filename="../vendor/zcupsmonitor.cpp" line="74"/>
-        <source>job has been canceled</source>
-        <translation type="unfinished"></translation>
+        <source>Canceled</source>
+        <translation>已取消</translation>
     </message>
     <message>
         <location filename="../vendor/zcupsmonitor.cpp" line="75"/>
-        <source>job has aborted due to error</source>
-        <translation type="unfinished"></translation>
+        <source>Error</source>
+        <translation>打印异常</translation>
     </message>
     <message>
         <location filename="../vendor/zcupsmonitor.cpp" line="76"/>
-        <source>job has completed successfully</source>
-        <translation type="unfinished"></translation>
+        <source>Completed</source>
+        <translation>已完成</translation>
     </message>
 </context>
 <context>
@@ -229,16 +229,16 @@
     <message>
         <location filename="../util/ddestination.cpp" line="172"/>
         <source>Printing</source>
-        <translation type="unfinished">打印中</translation>
+        <translation>打印中</translation>
+    </message>
+    <message>
+        <location filename="../util/ddestination.cpp" line="175"/>
+        <source>Disabled</source>
+        <translation>已停用</translation>
     </message>
     <message>
         <source>printing</source>
         <translation type="obsolete">打印中</translation>
-    </message>
-    <message>
-        <location filename="../util/ddestination.cpp" line="175"/>
-        <source>Stopped</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -523,106 +523,81 @@
 <context>
     <name>DPrintersShowWindow</name>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="73"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="182"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="76"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="185"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="80"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="83"/>
         <source>Printers</source>
         <translation>打印机设备</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="84"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="87"/>
         <source>Add printer</source>
         <translation>添加打印机</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="87"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="90"/>
         <source>Delete printer</source>
         <translation>删除打印机</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="102"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="105"/>
         <source>Shared</source>
         <translation>共享</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="105"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="108"/>
         <source>Enabled</source>
         <translation>启用</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="108"/>
-        <source>Accept Task</source>
-        <translation type="unfinished"></translation>
+        <location filename="../ui/dprintersshowwindow.cpp" line="111"/>
+        <source>Accept jobs</source>
+        <translation>接受任务</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="112"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="115"/>
         <source>Set as default</source>
         <translation>设为默认</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="124"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="127"/>
         <source>No Printers</source>
         <translation>无打印设备</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="146"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="149"/>
         <source>Location:</source>
         <translation>位置:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="150"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="153"/>
         <source>Model:</source>
         <translation>型号:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="153"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="156"/>
         <source>Status:</source>
         <translation>状态:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="191"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="194"/>
         <source>Print Queue</source>
         <translation>打印队列</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="200"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="203"/>
         <source>Print Test Page</source>
         <translation>打印测试页</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="233"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="236"/>
         <source>No printer configured 
 Click + to add printers</source>
         <translation>未配置打印机,请点击添加按钮（+），添加打印机.</translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="256"/>
-        <source>Basic server Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="258"/>
-        <source>Publish Shared printers linked to this system</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="259"/>
-        <source>Allow printing from the Internet</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="262"/>
-        <source>Allow users to cancel all tasks (not just their own)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="263"/>
-        <source>Retain debugging information for troubleshooting</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="331"/>
@@ -635,7 +610,32 @@ Click + to add printers</source>
         <translation>打印中</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="654"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="335"/>
+        <source>Disabled</source>
+        <translation>已停用</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="349"/>
+        <source>CUPS server is not running, and can’t manage printers.</source>
+        <translation>CUPS服务器未运行，不能管理打印机。</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="352"/>
+        <source>OK</source>
+        <translation>确定</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="511"/>
+        <source>The name already exists</source>
+        <translation>此名称已存在</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="530"/>
+        <source>You will not be able to reprint the completed jobs if continue. Are you sure you want to rename the printer?</source>
+        <translation>重命名会导致已完成的任务不能重复打印，您确定吗？</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="656"/>
         <source>Disconnected</source>
         <translation>未连接</translation>
     </message>
@@ -644,43 +644,18 @@ Click + to add printers</source>
         <translation type="vanished">打印中</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="335"/>
-        <source>Stopped</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="349"/>
-        <source>CUPS server is not running, can&apos;t manager printers.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="352"/>
-        <source>Sure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="479"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="481"/>
         <source>Are you sure you want to delete the printer &quot;%1&quot; ?</source>
         <translation>您确定要删除打印机&quot;%1&quot;吗?</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="485"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="487"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="509"/>
-        <source>Printer name duplicate, unable to rename printer.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="528"/>
-        <source>Renaming will cause the completed task not to be reprinted, are you sure?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="513"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="533"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="515"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="535"/>
         <source>Confirm</source>
         <translation>确定</translation>
     </message>
@@ -689,12 +664,12 @@ Click + to add printers</source>
         <translation type="obsolete">型号:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="583"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="585"/>
         <source>The driver is damaged, please install it again.</source>
         <translation>驱动文件已损坏，请重新安装驱动.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="586"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="588"/>
         <source>install driver</source>
         <translation>安装驱动</translation>
     </message>
@@ -707,13 +682,13 @@ Click + to add printers</source>
     <name>DPropertySetDlg</name>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="573"/>
-        <source>Find Conflict Option!</source>
-        <translation type="unfinished"></translation>
+        <source>Options conflict!</source>
+        <translation>有冲突选项!</translation>
     </message>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="576"/>
-        <source>Changes will be saved only all the conflict resolved!</source>
-        <translation type="unfinished"></translation>
+        <source>Please resolve the conflict first, and then save the changes.</source>
+        <translation>只有在冲突解决后才能应用所做修改!</translation>
     </message>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="582"/>
@@ -737,20 +712,20 @@ Click + to add printers</source>
     <message>
         <location filename="../vendor/zdrivermanager.cpp" line="696"/>
         <source>EveryWhere driver</source>
-        <translation type="unfinished"></translation>
+        <translation>EveryWhere 无驱方案</translation>
     </message>
 </context>
 <context>
     <name>InstallDriver</name>
     <message>
         <location filename="../vendor/addprinter.cpp" line="240"/>
-        <source>Search driver soluton:%1 failed, error code: %2</source>
-        <translation type="unfinished"></translation>
+        <source>Failed to find the driver solution:%1, error: %2</source>
+        <translation>查找驱动解决方案:%1失败，错误码:%2</translation>
     </message>
     <message>
         <location filename="../vendor/addprinter.cpp" line="250"/>
-        <source>Solution result is not valid</source>
-        <translation type="unfinished"></translation>
+        <source>The solution is invalid</source>
+        <translation>服务器的驱动数据不对</translation>
     </message>
 </context>
 <context>
@@ -824,6 +799,7 @@ Click + to add printers</source>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="314"/>
+        <location filename="../ui/installdriverwindow.cpp" line="391"/>
         <source>Select a PPD file</source>
         <translation>选择PDD文件</translation>
     </message>
@@ -838,11 +814,6 @@ Click + to add printers</source>
         <translation>（推荐）</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="391"/>
-        <source>Select the PPD file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../ui/installdriverwindow.cpp" line="497"/>
         <source> (recommended)</source>
         <translation>（推荐）</translation>
@@ -852,18 +823,18 @@ Click + to add printers</source>
     <name>InstallInterface</name>
     <message>
         <location filename="../vendor/addprinter.cpp" line="126"/>
-        <source>is not installable</source>
-        <translation type="unfinished"></translation>
+        <source>is invalid</source>
+        <translation>无法安装</translation>
     </message>
     <message>
         <location filename="../vendor/addprinter.cpp" line="151"/>
-        <source>Call dbus interface to install failed</source>
-        <translation type="unfinished"></translation>
+        <source>Failed to install the driver by calling dbus interface</source>
+        <translation>通过dbus安装驱动失败</translation>
     </message>
     <message>
         <location filename="../vendor/addprinter.cpp" line="192"/>
-        <source>Install %1 failed</source>
-        <translation type="unfinished"></translation>
+        <source>Failed to install %1</source>
+        <translation>安装%1失败</translation>
     </message>
 </context>
 <context>
@@ -1030,8 +1001,8 @@ or click Troubleshoot to start troubleshooting.</source>
     <name>JobManager</name>
     <message>
         <location filename="../vendor/zjobmanager.cpp" line="254"/>
-        <source>No found</source>
-        <translation type="unfinished"></translation>
+        <source> not found</source>
+        <translation>未找到</translation>
     </message>
 </context>
 <context>
@@ -1039,7 +1010,7 @@ or click Troubleshoot to start troubleshooting.</source>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="961"/>
         <source>Reflush</source>
-        <translation type="unfinished"></translation>
+        <translation>刷新</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="965"/>
@@ -1059,7 +1030,7 @@ or click Troubleshoot to start troubleshooting.</source>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="1014"/>
         <source> failed</source>
-        <translation type="unfinished"></translation>
+        <translation>失败</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="1035"/>
@@ -1125,7 +1096,7 @@ or click Troubleshoot to start troubleshooting.</source>
     <message>
         <location filename="../ui/permissionswindow.cpp" line="80"/>
         <source>Group</source>
-        <translation type="unfinished"></translation>
+        <translation>群组</translation>
     </message>
     <message>
         <location filename="../ui/permissionswindow.cpp" line="82"/>
@@ -1182,8 +1153,13 @@ or click Troubleshoot to start troubleshooting.</source>
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="151"/>
-        <source>Please enter the address</source>
-        <translation type="unfinished"></translation>
+        <source>Enter an address</source>
+        <translation>请输入地址</translation>
+    </message>
+    <message>
+        <location filename="../ui/printersearchwindow.cpp" line="448"/>
+        <source>OK</source>
+        <translation>确定</translation>
     </message>
     <message>
         <source>IP address</source>
@@ -1197,7 +1173,7 @@ or click Troubleshoot to start troubleshooting.</source>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="198"/>
         <source>URI</source>
-        <translation type="unfinished"></translation>
+        <translation>URI</translation>
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="201"/>
@@ -1210,11 +1186,6 @@ or click Troubleshoot to start troubleshooting.</source>
         <translation>例如：</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="448"/>
-        <source>Sure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../ui/printersearchwindow.cpp" line="551"/>
         <location filename="../ui/printersearchwindow.cpp" line="599"/>
         <source> (recommended)</source>
@@ -1225,13 +1196,13 @@ or click Troubleshoot to start troubleshooting.</source>
     <name>PrinterTestJob</name>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="349"/>
-        <source>Check print test page</source>
-        <translation type="unfinished"></translation>
+        <source>Check test page printing</source>
+        <translation>检查打印测试页</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="397"/>
-        <source>Starting check by print test page</source>
-        <translation type="unfinished"></translation>
+        <source>Printing test page...</source>
+        <translation>测试页打印中...</translation>
     </message>
 </context>
 <context>
@@ -1239,7 +1210,7 @@ or click Troubleshoot to start troubleshooting.</source>
     <message>
         <location filename="../ui/printertestpagedialog.cpp" line="38"/>
         <source>Check for </source>
-        <translation type="unfinished"></translation>
+        <translation>检查</translation>
     </message>
     <message>
         <location filename="../ui/printertestpagedialog.cpp" line="39"/>
@@ -1248,41 +1219,41 @@ or click Troubleshoot to start troubleshooting.</source>
     </message>
     <message>
         <location filename="../ui/printertestpagedialog.cpp" line="40"/>
-        <source>sure</source>
-        <translation type="unfinished"></translation>
+        <source>OK</source>
+        <translation>确定</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="100"/>
-        <source>a minute ago</source>
-        <translation type="unfinished"></translation>
+        <source>1 min ago</source>
+        <translation>一分钟以前</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="103"/>
-        <source>%1 minutes ago</source>
-        <translation type="unfinished"></translation>
+        <source>%1 mins ago</source>
+        <translation>%1 分钟以前</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="107"/>
-        <source>an hour ago</source>
-        <translation type="unfinished"></translation>
+        <source>1 hr ago</source>
+        <translation>一小时以前</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="109"/>
-        <source>%1 hours ago</source>
-        <translation type="unfinished"></translation>
+        <source>%1 hrs ago</source>
+        <translation>%1 小时以前</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="114"/>
-        <source>yesterday</source>
-        <translation type="unfinished"></translation>
+        <source>Yesterday</source>
+        <translation>昨天</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="116"/>
         <source>%1 days ago</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 天以前</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="121"/>
@@ -1298,7 +1269,7 @@ or click Troubleshoot to start troubleshooting.</source>
         <location filename="../ui/printersearchwindow.cpp" line="412"/>
         <location filename="../ui/printersearchwindow.cpp" line="471"/>
         <source>(use %1 protocol)</source>
-        <translation type="unfinished"></translation>
+        <translation>（使用%1协议）</translation>
     </message>
     <message>
         <location filename="../ui/uisourcestring.h" line="24"/>
@@ -1313,7 +1284,7 @@ or click Troubleshoot to start troubleshooting.</source>
     <message>
         <location filename="../ui/uisourcestring.h" line="31"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>下一步</translation>
     </message>
     <message>
         <location filename="../ui/uisourcestring.h" line="32"/>
@@ -1345,7 +1316,7 @@ or click Troubleshoot to start troubleshooting.</source>
     <message>
         <location filename="../vendor/common.cpp" line="103"/>
         <source> not found, please ask the administrator for help</source>
-        <translation type="unfinished"></translation>
+        <translation>无法解析，请联系管理员</translation>
     </message>
 </context>
 <context>
@@ -1382,11 +1353,39 @@ or click Troubleshoot to start troubleshooting.</source>
     </message>
 </context>
 <context>
+    <name>ServerSettingsWindow</name>
+    <message>
+        <location filename="../ui/dprintersshowwindow.h" line="80"/>
+        <source>Basic Server Settings</source>
+        <translation>基本服务器设置</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.h" line="82"/>
+        <source>Publish shared printers connected to this system</source>
+        <translation>发布连接到这个系统的共享打印机</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.h" line="83"/>
+        <source>Allow printing from the Internet</source>
+        <translation>允许从互联网打印</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.h" line="85"/>
+        <source>Allow remote administration</source>
+        <translation>允许远程管理</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.h" line="87"/>
+        <source>Save debugging information for troubleshooting</source>
+        <translation>主界面设置菜单文字</translation>
+    </message>
+</context>
+<context>
     <name>TroubleShootDialog</name>
     <message>
         <location filename="../ui/troubleshootdialog.cpp" line="134"/>
-        <source>Trouble Shoot: </source>
-        <translation type="unfinished"></translation>
+        <source>Troubleshoot: </source>
+        <translation>故障症断</translation>
     </message>
     <message>
         <location filename="../ui/troubleshootdialog.cpp" line="153"/>
@@ -1395,8 +1394,8 @@ or click Troubleshoot to start troubleshooting.</source>
     </message>
     <message>
         <location filename="../ui/troubleshootdialog.cpp" line="165"/>
-        <source>sure</source>
-        <translation type="unfinished"></translation>
+        <source>OK</source>
+        <translation>确定</translation>
     </message>
 </context>
 </TS>

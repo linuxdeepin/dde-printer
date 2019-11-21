@@ -237,10 +237,7 @@ private:
     QLabel *m_pPRightTipLabel;
 
     PrinterSearchWindow *m_pSearchWindow;
-
     ServerSettingsWindow *m_pSettingsDialog;
-
-
     QAction *m_pSettings;
 
 private:
