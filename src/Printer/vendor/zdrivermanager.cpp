@@ -505,28 +505,28 @@ void DriverSearcher::sortDrivers()
 
 void DriverSearcher::askForFinish()
 {
-    //如果之前本地驱动还没有初始化完成，则等待驱动初始化完成再搜索一次
-    if (1 == m_localIndex) {
-        if (g_iStatus < TStat_Suc) {
-            qInfo() << "Wait ppd init";
-            connect(g_driverManager, &DriverManager::signalStatus, this, &DriverSearcher::slotDriverInit);
-            return;
+    if (m_drivers.isEmpty()) {
+        //如果之前本地驱动还没有初始化完成，则等待驱动初始化完成再搜索一次
+        if (-1 == m_localIndex) {
+            if (g_iStatus < TStat_Suc) {
+                qInfo() << "Wait ppd init";
+                connect(g_driverManager, &DriverManager::signalStatus, this, &DriverSearcher::slotDriverInit);
+                return;
+            }
+
+            getLocalDrivers();
         }
 
-        getLocalDrivers();
-    }
+        if (TStat_Suc == g_iStatus && (!m_strMake.isEmpty() || !m_strModel.isEmpty())) {
+            QMutexLocker locker(&g_mutex);
 
-    if (m_drivers.isEmpty() && TStat_Suc == g_iStatus &&
-        (!m_strMake.isEmpty() || !m_strModel.isEmpty())) {
-        QMutexLocker locker(&g_mutex);
+            m_strMake = normalize(m_strMake);
+            m_strModel = normalize(m_strModel);
+            QList<QMap<QString, QString>> list = getFuzzyMatchDrivers(m_strMake, m_strModel, m_strCMD);
+            m_drivers = stringToVariant(list);
 
-        m_strMake = normalize(m_strMake);
-        m_strModel = normalize(m_strModel);
-        QList<QMap<QString, QString>> list = getFuzzyMatchDrivers(m_strMake, m_strModel, m_strCMD);
-        m_drivers = stringToVariant(list);
-
-        qInfo() << QString("Got %1 drivers").arg(m_drivers.count());
-
+            qInfo() << QString("Got %1 drivers").arg(m_drivers.count());
+        }
     }
 
     sortDrivers();
