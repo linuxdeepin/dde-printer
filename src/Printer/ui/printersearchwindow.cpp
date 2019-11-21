@@ -200,9 +200,7 @@ void PrinterSearchWindow::initUi()
     m_pLineEditURI = new QLineEdit();
     m_pLineEditURI->setPlaceholderText(tr("Enter device URI"));
     m_pLabelTip = new QLabel(tr("Examples:") + "\n" + UI_PRINTERSEARCH_URITIP);
-    QFont tipFont;
-    tipFont.setPixelSize(12);
-    m_pLabelTip->setFont(tipFont);
+    DFontSizeManager::instance()->bind(m_pLabelTip, DFontSizeManager::T8);
     QPalette pe;
     pe.setColor(QPalette::WindowText, QColor("#92A8BA"));
     m_pLabelTip->setPalette(pe);
@@ -244,12 +242,16 @@ void PrinterSearchWindow::initUi()
     // 右侧整体布局
     QVBoxLayout *pRightVLayout = new QVBoxLayout();
     pRightVLayout->addWidget(m_pStackedWidget);
-    pRightVLayout->setContentsMargins(10, 5, 10, 20);
+    pRightVLayout->setContentsMargins(10, 10, 10, 20);
 
+    QVBoxLayout *pLeftVLayout = new QVBoxLayout();
+    pLeftVLayout->addWidget(m_pTabListView);
+    pLeftVLayout->setContentsMargins(10, 10, 10, 0);
 
     // 整体布局
     QHBoxLayout *m_pMainHLayout = new QHBoxLayout();
-    m_pMainHLayout->addWidget(m_pTabListView, 1);
+    m_pMainHLayout->setSpacing(10);
+    m_pMainHLayout->addLayout(pLeftVLayout, 1);
     m_pMainHLayout->addLayout(pRightVLayout, 2);
     m_pMainHLayout->setContentsMargins(0, 0, 0, 0);
     QWidget *pCentralWidget = new QWidget();

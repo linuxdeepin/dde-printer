@@ -28,6 +28,7 @@
 #include <DListView>
 #include <DTitlebar>
 #include <DWidgetUtil>
+#include <DFontSizeManager>
 
 #include <QCheckBox>
 #include <QVBoxLayout>
@@ -37,6 +38,7 @@ DWIDGET_BEGIN_NAMESPACE
 class DImageButton;
 class DSettingsDialog;
 class DDialog;
+class DFloatingButton;
 DWIDGET_END_NAMESPACE
 
 QT_BEGIN_NAMESPACE
@@ -75,10 +77,11 @@ private:
 
         QFont font;
         font.setBold(true);
-        font.setPixelSize(17);
         QWidget *pSettingWidget = new QWidget();
         QLabel *pBaseSettings = new QLabel(tr("Basic Server Settings"));
         pBaseSettings->setFont(font);
+        DFontSizeManager::instance()->bind(pBaseSettings, DFontSizeManager::T5);
+
         m_pCheckShared = new QCheckBox(tr("Publish shared printers connected to this system"));
         m_pCheckIPP = new QCheckBox(tr("Allow printing from the Internet"));
         m_pCheckIPP->setEnabled(false);
@@ -216,10 +219,10 @@ private:
     QLabel *m_pLabelTypeShow;
     QLabel *m_pLabelStatusShow;
 
-    DIconButton *m_pTBtnSetting;
-    DIconButton *m_pTBtnPrintQueue;
-    DIconButton *m_pTBtnPrintTest;
-    DIconButton *m_pTBtnFault;
+    DFloatingButton *m_pTBtnSetting;
+    DFloatingButton *m_pTBtnPrintQueue;
+    DFloatingButton *m_pTBtnPrintTest;
+    DFloatingButton *m_pTBtnFault;
 
     DListView *m_pPrinterListView;
     QStandardItemModel *m_pPrinterModel;
