@@ -25,6 +25,7 @@ static const char *jattrs[] =     /* Attributes we need for jobs... */
         JOB_ATTR_TIME_ADD,
         JOB_ATTR_TIME_END,
         JOB_ATTR_PRIORITY,
+        JOB_ATTR_DOC_NUM,
         nullptr
       };
 

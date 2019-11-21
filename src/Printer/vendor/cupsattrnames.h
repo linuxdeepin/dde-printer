@@ -83,6 +83,7 @@
 #define JOB_ATTR_STATE      "job-state"
 #define JOB_ATTR_PRIORITY   "job-priority"
 #define JOB_ATTR_IMPRES     "job-impressions-completed"
+#define JOB_ATTR_DOC_NUM    "number-of-documents"
 
 #define CUPS_NOTIY_CHARSET  "notify-charset"
 #define CUPS_NOTIY_JOBID    "notify-job-id"

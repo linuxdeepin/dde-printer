@@ -896,6 +896,7 @@ unsigned int JobsDataModel::getActionStatus(int iRow) const
 
     QMap<QString, QVariant> job = m_jobs[iRow];
     int iState = job[JOB_ATTR_STATE].toString().toInt();
+    int docNum = job[JOB_ATTR_DOC_NUM].toString().toInt();
 
     switch (iState) {
     case IPP_JSTATE_PENDING:
@@ -920,7 +921,9 @@ unsigned int JobsDataModel::getActionStatus(int iRow) const
     case IPP_JSTATE_CANCELED:
     case IPP_JSTATE_ABORTED:
     case IPP_JSTATE_COMPLETED:
-        flag = JOB_ACTION_Delete|JOB_ACTION_Restart;
+        flag = JOB_ACTION_Delete;
+        if (docNum > 0)
+            flag |= JOB_ACTION_Restart;
         break;
     default:
         flag = JOB_ACTION_Delete;
