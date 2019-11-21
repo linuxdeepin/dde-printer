@@ -200,9 +200,7 @@ void PrinterSearchWindow::initUi()
     m_pLineEditURI = new QLineEdit();
     m_pLineEditURI->setPlaceholderText(tr("Enter device URI"));
     m_pLabelTip = new QLabel(tr("Examples:") + "\n" + UI_PRINTERSEARCH_URITIP);
-    QFont tipFont;
-    tipFont.setPixelSize(12);
-    m_pLabelTip->setFont(tipFont);
+    DFontSizeManager::instance()->bind(m_pLabelTip, DFontSizeManager::T8);
     QPalette pe;
     pe.setColor(QPalette::WindowText, QColor("#92A8BA"));
     m_pLabelTip->setPalette(pe);

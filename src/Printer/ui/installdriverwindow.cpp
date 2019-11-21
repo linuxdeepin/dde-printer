@@ -121,9 +121,7 @@ void InstallDriverWindow::initUI()
 
     // PPD
     m_pPPDPath = new QLabel(UI_PRINTERDRIVER_PPDLABEL_NORMAL);
-    QFont tipFont;
-    tipFont.setPixelSize(12);
-    m_pPPDPath->setFont(tipFont);
+    DFontSizeManager::instance()->bind(m_pPPDPath, DFontSizeManager::T8);
     m_pPPDPath->installEventFilter(this);
     m_pPPDPath->setAcceptDrops(true);
     m_pPPDPath->setAlignment(Qt::AlignCenter);

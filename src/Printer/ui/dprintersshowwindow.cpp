@@ -33,7 +33,6 @@
 
 #include <DDialog>
 #include <DMessageBox>
-#include <DFontSizeManager>
 #include <DImageButton>
 #include <DSettingsDialog>
 #include <DTitlebar>
@@ -142,23 +141,24 @@ void DPrintersShowWindow::initUI()
     m_pLabelPrinterName = new QLabel("") ;
     QFont printerNameFont;
     printerNameFont.setBold(true);
-    printerNameFont.setPixelSize(20);
     m_pLabelPrinterName->setFont(printerNameFont);
-
+    DFontSizeManager::instance()->bind(m_pLabelPrinterName, DFontSizeManager::T4);
     QFont printerInfoFont;
     printerInfoFont.setBold(true);
-    printerInfoFont.setPixelSize(17);
+
     QLabel *pLabelLocation = new QLabel(tr("Location:"));
     pLabelLocation->setFixedWidth(60);
     m_pLabelLocationShow = new QLabel(tr(""));
     m_pLabelLocationShow->setFont(printerInfoFont);
+    DFontSizeManager::instance()->bind(m_pLabelLocationShow, DFontSizeManager::T5);
     QLabel *pLabelType = new QLabel(tr("Model:"));
     m_pLabelTypeShow = new QLabel(tr(""));
     m_pLabelTypeShow->setFont(printerInfoFont);
+    DFontSizeManager::instance()->bind(m_pLabelTypeShow, DFontSizeManager::T5);
     QLabel *pLabelStatus = new QLabel(tr("Status:"));
     m_pLabelStatusShow = new QLabel(tr(""));
     m_pLabelStatusShow->setFont(printerInfoFont);
-
+    DFontSizeManager::instance()->bind(m_pLabelStatusShow, DFontSizeManager::T5);
     QGridLayout *pRightGridLayout = new QGridLayout();
     pRightGridLayout->addWidget(m_pLabelPrinterName, 0, 0, 1, 2, Qt::AlignLeft);
     pRightGridLayout->addWidget(pLabelLocation, 1, 0);
@@ -183,11 +183,9 @@ void DPrintersShowWindow::initUI()
     m_pTBtnSetting->setBackgroundRole(QPalette::Button);
 
     QLabel *pLabelSetting = new QLabel();
-    QFont btnFont;
-    font.setPixelSize(12);
     pLabelSetting->setText(tr("Settings"));
     pLabelSetting->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    pLabelSetting->setFont(btnFont);
+    DFontSizeManager::instance()->bind(pLabelSetting, DFontSizeManager::T8);
 
     m_pTBtnPrintQueue = new DFloatingButton(this);
     m_pTBtnPrintQueue->setIcon(QIcon::fromTheme("dp_print_queue"));
@@ -197,7 +195,7 @@ void DPrintersShowWindow::initUI()
     QLabel *pLabelPrintQueue = new QLabel();
     pLabelPrintQueue->setText(tr("Print Queue"));
     pLabelPrintQueue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    pLabelPrintQueue->setFont(btnFont);
+    DFontSizeManager::instance()->bind(pLabelPrintQueue, DFontSizeManager::T8);
 
     m_pTBtnPrintTest = new DFloatingButton(this);
     m_pTBtnPrintTest->setIcon(QIcon::fromTheme("dp_test_page"));
@@ -207,7 +205,7 @@ void DPrintersShowWindow::initUI()
     QLabel *pLabelPrintTest = new QLabel();
     pLabelPrintTest->setText(tr("Print Test Page"));
     pLabelPrintTest->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    pLabelPrintTest->setFont(btnFont);
+    DFontSizeManager::instance()->bind(pLabelPrintTest, DFontSizeManager::T8);
 
     m_pTBtnFault = new DFloatingButton(this);
     m_pTBtnFault->setIcon(QIcon::fromTheme("dp_fault"));
@@ -218,7 +216,7 @@ void DPrintersShowWindow::initUI()
     QLabel *pLabelPrintFault = new QLabel();
     pLabelPrintFault->setText(UI_PRINTERSHOW_TROUBLE);
     pLabelPrintFault->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    pLabelPrintFault->setFont(btnFont);
+    DFontSizeManager::instance()->bind(pLabelPrintFault, DFontSizeManager::T8);
 
     QGridLayout *pRightBottomGLayout = new QGridLayout();
     pRightBottomGLayout->addWidget(m_pTBtnSetting, 0, 0, Qt::AlignHCenter);

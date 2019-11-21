@@ -28,6 +28,7 @@
 #include <DListView>
 #include <DTitlebar>
 #include <DWidgetUtil>
+#include <DFontSizeManager>
 
 #include <QCheckBox>
 #include <QVBoxLayout>
@@ -76,10 +77,11 @@ private:
 
         QFont font;
         font.setBold(true);
-        font.setPixelSize(17);
         QWidget *pSettingWidget = new QWidget();
         QLabel *pBaseSettings = new QLabel(tr("Basic Server Settings"));
         pBaseSettings->setFont(font);
+        DFontSizeManager::instance()->bind(pBaseSettings, DFontSizeManager::T5);
+
         m_pCheckShared = new QCheckBox(tr("Publish shared printers connected to this system"));
         m_pCheckIPP = new QCheckBox(tr("Allow printing from the Internet"));
         m_pCheckIPP->setEnabled(false);
