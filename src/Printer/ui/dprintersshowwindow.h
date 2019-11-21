@@ -207,6 +207,12 @@ private slots:
     void serverSettingsSlot();
 
     bool eventFilter(QObject *watched, QEvent *event) override;
+
+    void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
+
+signals:
+    void signalMainWindowClosed();
+
 private:
 
     // UI成员变量

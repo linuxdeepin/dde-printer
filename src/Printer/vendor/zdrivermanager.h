@@ -88,7 +88,7 @@ public:
     * @brief 刷新ppd列表
     *       非阻塞，开启新的线程，getStatus可以获取当前状态
     */
-    int reflushPpds();
+    int refreshPpds();
 
     /*!
     * @brief 获取厂商和型号和名字，用来显示给用户选择

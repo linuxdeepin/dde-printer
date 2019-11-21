@@ -631,7 +631,11 @@ int DriverManager::getStatus()
 
 int DriverManager::stop()
 {
-    if (m_reflushTask) m_reflushTask->stop();
+    if (m_reflushTask) {
+        m_reflushTask->stop();
+        m_reflushTask = nullptr;
+    }
+    g_iStatus = TStat_None;
 
     return 0;
 }
@@ -642,11 +646,12 @@ DriverSearcher* DriverManager::createSearcher(const TDeviceInfo &device)
     return searcher;
 }
 
-int DriverManager::reflushPpds()
+int DriverManager::refreshPpds()
 {
     if (TStat_Running == g_iStatus || m_reflushTask)
         return 0;
 
+    qInfo() << "";
     m_reflushTask = new ReflushLocalPPDS(this);
     connect(m_reflushTask, &ReflushLocalPPDS::signalStatus, this, &DriverManager::signalStatus);
     m_reflushTask->start();

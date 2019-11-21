@@ -473,6 +473,13 @@ bool DPrintersShowWindow::eventFilter(QObject *watched, QEvent *event)
     return false;
 }
 
+void DPrintersShowWindow::closeEvent(QCloseEvent *event)
+{
+    DMainWindow::closeEvent(event);
+
+    emit signalMainWindowClosed();
+}
+
 void DPrintersShowWindow::addPrinterClickSlot()
 {
     if (m_pSearchWindow)

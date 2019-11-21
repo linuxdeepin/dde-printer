@@ -45,6 +45,7 @@ public:
 protected slots:
     void slotNewProcessInstance(qint64 pid, const QStringList &arguments);
     void slotShowTrayIcon(bool bShow);
+    void slotMainWindowClosed();
 
 protected:
     PrinterApplication();
