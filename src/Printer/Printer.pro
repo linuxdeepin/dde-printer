@@ -82,7 +82,8 @@ HEADERS += \
     vendor/zsettings.h \
     ui/printertestpagedialog.h \
     ui/troubleshootdialog.h\
-    util/dprintertanslator.h
+    util/dprintertanslator.h \
+    ui/dprinterpropertytemplate.h
 
 
 INCLUDEPATH +=  \

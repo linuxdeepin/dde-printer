@@ -67,13 +67,13 @@ void CupsMonitor::initTranslations()
         m_stateStrings.append("");
         m_stateStrings.append("");
         m_stateStrings.append("");
-        m_stateStrings.append(tr("job is waiting to be printed"));
-        m_stateStrings.append(tr("job is held for printing"));
-        m_stateStrings.append(tr("job is currently printing"));
-        m_stateStrings.append(tr("job has been stopped"));
-        m_stateStrings.append(tr("job has been canceled"));
-        m_stateStrings.append(tr("job has aborted due to error"));
-        m_stateStrings.append(tr("job has completed successfully"));
+        m_stateStrings.append(tr("Queuing"));
+        m_stateStrings.append(tr("Paused"));
+        m_stateStrings.append(tr("Printing"));
+        m_stateStrings.append(tr("Stopped"));
+        m_stateStrings.append(tr("Canceled"));
+        m_stateStrings.append(tr("Error"));
+        m_stateStrings.append(tr("Completed"));
     }
 }
 

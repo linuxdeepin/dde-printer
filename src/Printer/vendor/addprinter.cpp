@@ -123,7 +123,7 @@ void InstallInterface::startInstallPackages()
 
             bNeedInstall = true;
             if (!installable.isValid() || !installable) {
-                m_strErr = package  + tr("is not installable");
+                m_strErr = package  + tr("is invalid");
                 emit signalStatus(TStat_Fail);
                 return;
             }
@@ -148,7 +148,7 @@ void InstallInterface::startInstallPackages()
         }
     }
 
-    m_strErr = tr("Call dbus interface to install failed");
+    m_strErr = tr("Failed to install the driver by calling dbus interface");
     emit signalStatus(TStat_Fail);
 }
 
@@ -189,7 +189,7 @@ void InstallInterface::propertyChanged(const QDBusMessage &msg)
         return;
     }
 
-    m_strErr = tr("Install %1 failed").arg(m_packages.join(" "));
+    m_strErr = tr("Failed to install %1").arg(m_packages.join(" "));
     emit signalStatus(TStat_Fail);
 
 done:
@@ -237,7 +237,7 @@ void InstallDriver::slotServerDone(int iCode, const QByteArray &result)
     if (m_bQuit) return;
 
     if (iCode != QNetworkReply::NoError) {
-        m_strErr = tr("Search driver soluton:%1 failed, error code: %2")
+        m_strErr = tr("Failed to find the driver solution:%1, error: %2")
                 .arg(m_solution[SD_KEY_sid].toInt()).arg(iCode);
         qWarning() << "Request " << m_solution[SD_KEY_sid] << "failed:" << iCode;
         emit signalStatus(TStat_Fail);
@@ -247,7 +247,7 @@ void InstallDriver::slotServerDone(int iCode, const QByteArray &result)
     QJsonParseError err;
     QJsonDocument doc =  QJsonDocument::fromJson(result, &err);
     if (doc.isNull()) {
-        m_strErr = tr("Solution result is not valid");
+        m_strErr = tr("The solution is invalid");
         qWarning() << "Request " << m_solution[SD_KEY_sid] << " return nullptr";
         emit signalStatus(TStat_Fail);
         return;
@@ -399,11 +399,11 @@ int AddPrinterTask::isUriAndDriverMatched()
         }
     }
     if (m_uri.isEmpty()){
-        m_strErr = tr("Uri and driver not match.");
+        m_strErr = tr("URI and driver do not match.");
         if (is_hplip) {
-            m_strErr += tr("Current driver need hplip, please install it and restart.");
+            m_strErr += tr("Install hplip first and restart the app to install the driver again.");
         } else {
-            m_strErr += tr("Current uri need hplip driver, please select an other driver and try again.");
+            m_strErr += tr("Please select an hplip driver and try again.");
         }
         emit signalStatus(TStat_Fail);
         return -1;
@@ -417,7 +417,7 @@ int AddPrinterTask::checkUriAndDriver()
     QString ppd_name;
 
     if (m_printer.uriList.isEmpty()) {
-        m_strErr = tr("Uri is empty");
+        m_strErr = tr("URI can't be empty");
 
         emit signalStatus(TStat_Fail);
         return -1;
@@ -425,7 +425,7 @@ int AddPrinterTask::checkUriAndDriver()
 
     ppd_name = m_solution[CUPS_PPD_NAME].toString();
     if (m_solution[SD_KEY_from].toInt() == PPDFrom_File && !QFile::exists(ppd_name)) {
-        m_strErr = ppd_name + tr("not found");
+        m_strErr = ppd_name + tr(" not found");
         emit signalStatus(TStat_Fail);
     }
 
@@ -507,7 +507,7 @@ void AddPrinterTask::fillPrinterInfo()
 
         if (strHost.isEmpty()) {
            if (strUri.startsWith("hp") || strUri.startsWith("usb")) {
-               strHost = tr("Direct device");
+               strHost = tr("Direct attached Device");
            } else if (strUri.startsWith("file")) {
                strHost = tr("File device");
            }

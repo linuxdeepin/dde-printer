@@ -97,21 +97,21 @@ static QString formatDataTimeString(const QDateTime &dataTime)
     qint64 secs = dataTime.secsTo(now);
 
     if (secs < 2 * 60) {
-        return QObject::tr("a minute ago");
+        return QObject::tr("1 min ago");
     } else if (secs < 60 * 60) {
         qint64 mins = secs/60;
-        return QObject::tr("%1 minutes ago").arg(mins);
+        return QObject::tr("%1 mins ago").arg(mins);
     } else if (secs < 24 * 60 * 60) {
         qint64 hours = secs / (60*60);
         if (1 == hours) {
-            return QObject::tr("an hour ago");
+            return QObject::tr("1 hr ago");
         } else {
-            return QObject::tr("%1 hours ago").arg(hours);
+            return QObject::tr("%1 hrs ago").arg(hours);
         }
     } else if (secs < 7 * 24 * 60 * 60) {
         qint64 days = secs / (24 * 60 * 60);
         if (1 == days) {
-            return QObject::tr("yesterday");
+            return QObject::tr("Yesterday");
         } else {
             return QObject::tr("%1 days ago").arg(days);
         }
