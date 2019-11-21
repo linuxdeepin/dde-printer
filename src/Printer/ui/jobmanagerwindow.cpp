@@ -257,13 +257,17 @@ void JobListView::slotShowTips()
 
 void JobListView::mouseMoveEvent(QMouseEvent *event)
 {
+    QTableView::mouseMoveEvent(event);
+
     QModelIndex index = indexAt(event->pos());
+
+    if (index.column() != ACTION_Column)
+        return;
+
     QRect rect = visualRect(index);
     QMap<unsigned int, QRect> actionRects = getItemActionRect(rect, index);
     QList<unsigned int> flags = actionRects.keys();
     int iRow = index.row(), action = -1;
-
-    QTableView::mouseMoveEvent(event);
 
     //查找是否有按钮处于hover状态
     foreach (unsigned int iAction, flags) {
@@ -322,12 +326,16 @@ void JobListView::mouseMoveEvent(QMouseEvent *event)
 
 void JobListView::mouseReleaseEvent(QMouseEvent *event)
 {
+    QTableView::mouseReleaseEvent(event);
+
     QModelIndex index = indexAt(event->pos());
+
+    if (index.column() != ACTION_Column)
+        return;
+
     QRect rect = visualRect(index);
     QMap<unsigned int, QRect> actionRects = getItemActionRect(rect, index);
     QList<unsigned int> flags = actionRects.keys();
-
-    QTableView::mouseReleaseEvent(event);
 
     foreach (unsigned int iAction, flags) {
         if (actionRects.value(iAction).contains(event->pos()) &&
