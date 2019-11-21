@@ -172,7 +172,7 @@ void DDestination::initPrinterAttr()
             m_printerStatus = tr("Printing");
             m_isEnabled = true;
         } else {
-            m_printerStatus = tr("Stopped");
+            m_printerStatus = tr("Disabled");
             m_isEnabled = false;
         }
     } catch (const std::runtime_error &e) {

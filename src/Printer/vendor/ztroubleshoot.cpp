@@ -97,7 +97,7 @@ CheckCupsServer::CheckCupsServer(QObject *parent)
 
 QString CheckCupsServer::getJobName()
 {
-    return tr("Check cups server");
+    return tr("Check CUPS server");
 }
 
 //诊断本地Cups服务是否正常
@@ -105,18 +105,18 @@ bool CheckCupsServer::isPass()
 {
     Connection c;
 
-    emit signalStateChanged(TStat_Running, tr("Starting check cups server"));
+    emit signalStateChanged(TStat_Running, tr("Checking CUPS server..."));
 
     try {
         c.init(cupsServer(), ippPort(), 0);
     }catch(const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
-        m_strMessage = tr("Cups server is invaild, err: ") + QString::fromUtf8(ex.what());
+        m_strMessage = tr("CUPS server is invalid, error: ") + QString::fromUtf8(ex.what());
         emit signalStateChanged(TStat_Fail, m_strMessage);
         return false;
     }
 
-    emit signalStateChanged(TStat_Suc, tr("Cups server is vaild"));
+    emit signalStateChanged(TStat_Suc, tr("CUPS server is valid"));
     return true;
 }
 
@@ -133,7 +133,7 @@ bool CheckDriver::isPass()
     char buf[1024];
     QStringList depends;
 
-    emit signalStateChanged(TStat_Running, tr("Starting check driver"));
+    emit signalStateChanged(TStat_Running, tr("Checking driver..."));
 
     if (m_printerName.isEmpty()) {
         emit signalStateChanged(TStat_Suc, tr("Success"));
@@ -144,7 +144,7 @@ bool CheckDriver::isPass()
     ppdFile.setFileName(strPPD);
     if (!ppdFile.open(QFile::ReadOnly)) {
         qWarning() << strPPD << "not found";
-        m_strMessage = tr("Driver file %1 not found").arg(strPPD);
+        m_strMessage = tr("PPD file %1 not found").arg(strPPD);
         emit signalStateChanged(TStat_Fail, m_strMessage);
         return false;
     }
@@ -167,13 +167,13 @@ bool CheckDriver::isPass()
     foreach (QString package, depends) {
         if (!isPackageExists(package)) {
             qWarning() << package << "is not exists";
-            m_strMessage = tr("%1 is not install, can't printer").arg(package);
+            m_strMessage = tr("%1 is not installed, cannot print now").arg(package);
             emit signalStateChanged(TStat_Fail, m_strMessage);
             return false;
         }
     }
 
-    emit signalStateChanged(TStat_Suc, tr("Driver is vaild"));
+    emit signalStateChanged(TStat_Suc, tr("Driver is valid"));
     return true;
 }
 
@@ -189,7 +189,7 @@ CheckConnected::CheckConnected(const QString &printerName, QObject *parent)
 
 QString CheckConnected::getJobName()
 {
-    return tr("Check connection");
+    return tr("Check printer connection");
 }
 
 //检查打印机能否连接
@@ -201,7 +201,7 @@ bool CheckConnected::isPass()
     QString pingCmd, strOut, strErr, strScheme;
     QStringList uriDepends;
 
-    emit signalStateChanged(TStat_Running, tr("Starting check connected"));
+    emit signalStateChanged(TStat_Running, tr("Checking printer connection... "));
 
     if (m_printerName.isEmpty()) {
         emit signalStateChanged(TStat_Suc, tr("Success"));
@@ -240,7 +240,7 @@ bool CheckConnected::isPass()
         socket.connectToHost(strHost, iPort);
         if (!socket.waitForConnected(3000)) {
             qWarning() << "Can't connect to uri: " << strUri << socket.errorString();
-            m_strMessage = tr("Can't connect printer host: %1, error string: %2").arg(strHost).arg(socket.errorString());
+            m_strMessage = tr("Cannot connect to the printer host: %1, error: %2").arg(strHost).arg(socket.errorString());
             emit signalStateChanged(TStat_Fail, m_strMessage);
             return false;
         }
@@ -248,7 +248,7 @@ bool CheckConnected::isPass()
         QStringList uris = getDirectDevices();
         if (!uris.contains(strUri)) {
             qWarning() << "Not found" << strUri;
-            m_strMessage = m_printerName + tr(" is not connected, uri is: ") + strUri;
+            m_strMessage = m_printerName + tr(" is not connected, URI: ") + strUri;
             emit signalStateChanged(TStat_Fail, m_strMessage);
             return false;
         }
@@ -257,7 +257,7 @@ bool CheckConnected::isPass()
         QFileInfo fileInfo(filePath);
         if (!fileInfo.absoluteDir().exists()) {
             qWarning() << fileInfo.absoluteDir().path() << "not exists";
-            m_strMessage = tr("It is a file printer, %1 not exists").arg(fileInfo.absoluteDir().path());
+            m_strMessage = tr("%1 does not exist").arg(fileInfo.absoluteDir().path());
             emit signalStateChanged(TStat_Fail, m_strMessage);
             return false;
         }
@@ -266,13 +266,13 @@ bool CheckConnected::isPass()
         shellCmd(pingCmd, strOut, strErr, 5000);
         if (!strOut.contains("ttl=")) {
             qWarning() << "Can't connect printer host: " << strHost;
-            m_strMessage = tr("Connected to printer's %1 failed") + strHost;
+            m_strMessage = tr("Failed to connect to the printer %1") + strHost;
             emit signalStateChanged(TStat_Fail, m_strMessage);
             return false;
         }
     }
 
-    emit signalStateChanged(TStat_Suc, tr("Printer connected is vaild"));
+    emit signalStateChanged(TStat_Suc, tr("The connection is valid"));
     return true;
 }
 
@@ -292,7 +292,7 @@ bool CheckAttributes::isPass()
     QString strState, strIsAccept;
     vector<string> reqs{CUPS_OP_STATE, CUPS_OP_ISACCEPT};
 
-    emit signalStateChanged(TStat_Running, tr("Starting check printer settings"));
+    emit signalStateChanged(TStat_Running, tr("Checking printer settings..."));
 
     if (m_printerName.isEmpty()) {
         emit signalStateChanged(TStat_Suc, tr("Success"));
@@ -303,7 +303,7 @@ bool CheckAttributes::isPass()
         attrs = g_cupsConnection->getPrinterAttributes(m_printerName.toUtf8().data(), nullptr, &reqs);
     }catch(const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
-        emit signalStateChanged(TStat_Fail, tr("Get printer attributes failed, err: ") + QString::fromUtf8(ex.what()));
+        emit signalStateChanged(TStat_Fail, tr("Failed to get printer attributes, error: ") + QString::fromUtf8(ex.what()));
         return true;
     }
 
@@ -320,12 +320,12 @@ bool CheckAttributes::isPass()
     strIsAccept = attrs[CUPS_OP_ISACCEPT].c_str();
     if ("b0" == strIsAccept) {
         qWarning() << m_printerName << "is not accept jobs";
-        m_strMessage = m_printerName + tr("is not accept jobs");
+        m_strMessage = m_printerName + tr("is not accepting jobs");
         emit signalStateChanged(TStat_Fail, m_strMessage);
         return false;
     }
 
-    emit signalStateChanged(TStat_Suc, tr("Printer settings is ok"));
+    emit signalStateChanged(TStat_Suc, tr("Printer settings are ok"));
     return true;
 }
 
@@ -346,7 +346,7 @@ PrinterTestJob::~PrinterTestJob()
 
 QString PrinterTestJob::getJobName()
 {
-    return tr("Check print test page");
+    return tr("Check test page printing");
 }
 
 void PrinterTestJob::stop()
@@ -394,7 +394,7 @@ bool PrinterTestJob::findRunningJob()
 
 bool PrinterTestJob::isPass()
 {
-    emit signalStateChanged(TStat_Running, tr("Starting check by print test page"));
+    emit signalStateChanged(TStat_Running, tr("Printing test page..."));
 
     connect(g_cupsMonitor, &CupsMonitor::signalJobStateChanged, this, &PrinterTestJob::slotJobStateChanged);
     if (!g_cupsMonitor->isRunning())

@@ -251,7 +251,7 @@ QString JobManager::printTestPage(const char *dest, int &jobId, const char *form
 
     if (!QFile::exists(testFile)) {
         qWarning() << "No test file: " << testFile;
-        return tr("No found") + testFile;
+        return testFile + tr(" not found");
     }
 
     qInfo() << dest;

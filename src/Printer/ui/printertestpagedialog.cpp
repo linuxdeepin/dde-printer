@@ -37,7 +37,7 @@ PrinterTestPageDialog::PrinterTestPageDialog(const QString &printerName, QWidget
 
     setMessage(tr("Check for ") + m_printerName);
     addButton(tr("cancel"));
-    addButton(tr("sure"), true);
+    addButton(tr("OK"), true);
     setFixedHeight(202);
 
     m_testJob = new PrinterTestJob(m_printerName, this, false);

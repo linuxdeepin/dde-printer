@@ -131,7 +131,7 @@ TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *pare
     m_trobleShoot = new TroubleShoot(printerName, this);
 
     QWidget* contentWidget = new ContentWidget(this);
-    QLabel* title = new QLabel(tr("Trouble Shoot: ") + printerName, contentWidget);
+    QLabel* title = new QLabel(tr("Troubleshoot: ") + printerName, contentWidget);
     QFont titleFont = DFontSizeManager::instance()->t5();
     titleFont.setBold(true);
     title->setFont(titleFont);
@@ -162,6 +162,6 @@ void TroubleShootDialog::slotTroubleShootStatus(int id, int state)
     Q_UNUSED(id);
 
     if (TStat_Suc <= state) {
-        setButtonText(0, tr("sure"));
+        setButtonText(0, tr("OK"));
     }
 }

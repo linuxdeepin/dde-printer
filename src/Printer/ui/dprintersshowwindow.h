@@ -77,14 +77,14 @@ private:
         font.setBold(true);
         font.setPixelSize(17);
         QWidget *pSettingWidget = new QWidget();
-        QLabel *pBaseSettings = new QLabel(tr("Basic server Settings"));
+        QLabel *pBaseSettings = new QLabel(tr("Basic Server Settings"));
         pBaseSettings->setFont(font);
-        m_pCheckShared = new QCheckBox(tr("Publish Shared printers linked to this system"));
+        m_pCheckShared = new QCheckBox(tr("Publish shared printers connected to this system"));
         m_pCheckIPP = new QCheckBox(tr("Allow printing from the Internet"));
         m_pCheckIPP->setEnabled(false);
         m_pCheckRemote = new QCheckBox(tr("Allow remote administration"));
 //        m_pCheckCancelJobs = new QCheckBox(tr("Allow users to cancel all tasks (not just their own)"));
-        m_pCheckSaveDebugInfo = new QCheckBox(tr("Retain debugging information for troubleshooting"));
+        m_pCheckSaveDebugInfo = new QCheckBox(tr("Save debugging information for troubleshooting"));
         QVBoxLayout *pSettingsVLayout = new QVBoxLayout();
         pSettingsVLayout->setSpacing(0);
         pSettingsVLayout->addWidget(pBaseSettings);

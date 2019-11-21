@@ -108,7 +108,7 @@ void DPrintersShowWindow::initUI()
     m_pEnableAction = new QAction(tr("Enabled"), m_pListViewMenu);
     m_pEnableAction->setObjectName("Enable");
     m_pEnableAction->setCheckable(true);
-    m_pRejectAction = new QAction(tr("Accept Task"), m_pListViewMenu);
+    m_pRejectAction = new QAction(tr("Accept jobs"), m_pListViewMenu);
     m_pRejectAction->setObjectName("Accept");
     m_pRejectAction->setCheckable(true);
 
@@ -255,6 +255,32 @@ void DPrintersShowWindow::initUI()
     //设置对话框
     m_pSettingsDialog = new ServerSettingsWindow();
 
+    /*
+    m_pSettingsDialog = new DDialog();
+    m_pSettingsDialog->setIcon(QIcon(":/images/dde-printer.svg"));
+    QWidget *pSettingWidget = new QWidget();
+    QLabel *pBaseSettings = new QLabel(tr("Basic Server Settings"));
+    pBaseSettings->setFont(font);
+    m_pCheckShared = new QCheckBox(tr("Publish shared printers connected to this system"));
+    m_pCheckIPP = new QCheckBox(tr("Allow printing from the Internet"));
+    m_pCheckIPP->setEnabled(false);
+//    m_pCheckRemote = new QCheckBox(tr("Allow remote administration"));
+    m_pCheckCancelJobs = new QCheckBox(tr("Allow users to cancel any job (not just their own)"));
+    m_pCheckSaveDebugInfo = new QCheckBox(tr("Save debugging information for troubleshooting"));
+    QVBoxLayout *pSettingsVLayout = new QVBoxLayout();
+    pSettingsVLayout->addWidget(pBaseSettings);
+    pSettingsVLayout->addWidget(m_pCheckShared);
+    QHBoxLayout *pSettingsHLayout = new QHBoxLayout();
+    pSettingsHLayout->addSpacing(20);
+    pSettingsHLayout->addWidget(m_pCheckIPP);
+    pSettingsVLayout->addLayout(pSettingsHLayout);
+//    pSettingsVLayout->addWidget(m_pCheckRemote);
+    pSettingsVLayout->addWidget(m_pCheckCancelJobs);
+    pSettingsVLayout->addWidget(m_pCheckSaveDebugInfo);
+    pSettingsVLayout->setSpacing(20);
+    pSettingWidget->setLayout(pSettingsVLayout);
+    m_pSettingsDialog->addContent(pSettingWidget);
+    */
 }
 
 void DPrintersShowWindow::initConnections()
@@ -306,7 +332,7 @@ void DPrintersShowWindow::initConnections()
             } else if (state == 4) {
                 stateStr = tr("Printing");
             } else {
-                stateStr = tr("Stopped");
+                stateStr = tr("Disabled");
             }
         }
     });
@@ -482,7 +508,7 @@ void DPrintersShowWindow::renamePrinterSlot(QStandardItem *pItem)
     if (m_pPrinterManager->hasSamePrinter(newPrinterName)) {
         DDialog *pDialog = new DDialog();
         pDialog->setIcon(QIcon(":/images/warning_logo.svg"));
-        QLabel *pMessage = new QLabel(tr("Printer name duplicate, unable to rename printer."));
+        QLabel *pMessage = new QLabel(tr("The name already exists"));
         pMessage->setWordWrap(true);
         pMessage->setAlignment(Qt::AlignCenter);
         pDialog->addContent(pMessage);
@@ -501,7 +527,7 @@ void DPrintersShowWindow::renamePrinterSlot(QStandardItem *pItem)
         if (m_pPrinterManager->hasFinishedJob()) {
             DDialog *pDialog = new DDialog();
             pDialog->setIcon(QIcon(":/images/warning_logo.svg"));
-            QLabel *pMessage = new QLabel(tr("Renaming will cause the completed task not to be reprinted, are you sure?"));
+            QLabel *pMessage = new QLabel(tr("You will not be able to reprint the completed jobs if continue. Are you sure you want to rename the printer?"));
             pMessage->setWordWrap(true);
             pMessage->setAlignment(Qt::AlignCenter);
             pDialog->addContent(pMessage);

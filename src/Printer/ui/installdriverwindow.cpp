@@ -388,7 +388,7 @@ void InstallDriverWindow::currentModelChangedSlot(const QString &model)
 
 void InstallDriverWindow::getPPDFileFromLocalSlot()
 {
-    QString ppdFilePath = DFileDialog::getOpenFileName(this, tr("Select the PPD file"), "/home", "*.ppd");
+    QString ppdFilePath = DFileDialog::getOpenFileName(this, tr("Select a PPD file"), "/home", "*.ppd");
     if (!ppdFilePath.isEmpty()) {
         m_pPPDPath->setText(ppdFilePath);
         m_pSelectPPDBtn->setText(tr("Reselect"));

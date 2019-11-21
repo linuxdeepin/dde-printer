@@ -570,10 +570,10 @@ void DPropertySetDlg::showConflictDlg(const vector<CONFLICTPAIR>& vecConflictPai
     QWidget* pWidget = new QWidget;
     QFont font("SourceHanSansSC-Bold");
     font.setPixelSize(14);
-    DLabel* pLabel1 = new DLabel(tr("Find Conflict Option!"));
+    DLabel* pLabel1 = new DLabel(tr("Options conflict!"));
     pLabel1->setFont(font);
     pLabel1->setAlignment(Qt::AlignCenter);
-    DLabel* pLabel2 = new DLabel(tr("Changes will be saved only all the conflict resolved!"));
+    DLabel* pLabel2 = new DLabel(tr("Please resolve the conflict first, and then save the changes."));
     pLabel2->setFont(font);
     pLabel2->setAlignment(Qt::AlignCenter);
     DPrinterManager* pManager = DPrinterManager::getInstance();
