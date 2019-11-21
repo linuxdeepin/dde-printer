@@ -187,7 +187,7 @@ void DPrintersShowWindow::initUI()
     m_pTBtnSetting->setBackgroundRole(QPalette::Button);
 
     QLabel *pLabelSetting = new QLabel();
-    pLabelSetting->setText(tr("Settings"));
+    pLabelSetting->setText(tr("Properties"));
     pLabelSetting->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
     DFontSizeManager::instance()->bind(pLabelSetting, DFontSizeManager::T8);
 

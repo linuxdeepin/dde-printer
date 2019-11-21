@@ -89,15 +89,15 @@ int PrinterApplication::create()
 {
     if (!qApp) return -1;
 
+    qApp->loadTranslator();
     qApp->setAttribute(Qt::AA_UseHighDpiPixmaps);
     qApp->setOrganizationName("deepin");
     qApp->setApplicationName("dde-printer");
     qApp->setApplicationVersion("1.0");
     qApp->setProductIcon(QIcon(":/images/dde-printer.svg"));
-    qApp->setProductName("Deepin Printer Manager");
-    qApp->setApplicationDescription("This is a manager application of printer for deepin.");
+    qApp->setProductName(tr("Print Manager"));
+    qApp->setApplicationDescription(tr("Print Manager is a printer management tool, which supports adding and removing printers, managing print jobs and so on."));
     qApp->setApplicationLicense("GPLv3");
-    qApp->loadTranslator();
 
     DLogManager::registerConsoleAppender();
     DLogManager::registerFileAppender();
