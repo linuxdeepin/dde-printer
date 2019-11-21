@@ -111,7 +111,7 @@ bool CupsMonitor::insertJobMessage(int id, int state, const QString &message)
             if (!str.isEmpty()) {
                 int iState = str.split(" ").first().left(1).toInt();
 
-                if (iState <= IPP_JSTATE_PROCESSING) {
+                if (!g_jobManager->isCompletedState(iState)) {
                     hasRuningJobs = true;
                     break;
                 }

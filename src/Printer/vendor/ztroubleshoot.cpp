@@ -372,7 +372,7 @@ bool PrinterTestJob::findRunningJob()
         int iState = attrValueToQString(jobinfo[JOB_ATTR_STATE]).toInt();
         QString jobName = attrValueToQString(jobinfo[JOB_ATTR_NAME]);
 
-        if (IPP_JSTATE_PROCESSING == iState && m_printerName == getPrinterNameFromUri(uri) &&
+        if (!g_jobManager->isCompletedState(iState) && m_printerName == getPrinterNameFromUri(uri) &&
                 jobName == PrintTestTitle) {
             m_jobId = itJobs->first;
             QMap<QString, QVariant> job;

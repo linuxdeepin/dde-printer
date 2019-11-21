@@ -74,6 +74,8 @@ public:
     //打印测试页
     QString printTestPage(const char *dest, int &jobId, const char *format=nullptr);
 
+    bool isCompletedState(int state);
+
 protected:
     JobManager():QObject(nullptr){}
 };

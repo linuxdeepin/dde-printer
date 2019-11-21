@@ -702,8 +702,8 @@ void JobsDataModel::updateJobState(int id, int state, const QString &message)
     if (index >= m_jobs.count()) {
         //如果已完成任务不在任务列表中,而且当前需要显示已完成任务，则将已完成任务添加到列表中
         //如果未完成任务不在任务列表中,而且当前需要显示未完成任务，则将新任务添加到任务列表中
-        if (((IPP_JSTATE_PROCESSING < state && m_iWhichJob != WHICH_JOB_RUNING) ||
-            (IPP_JSTATE_PROCESSING >= state && m_iWhichJob != WHICH_JOB_DONE))) {
+        if (((g_jobManager->isCompletedState(state) && m_iWhichJob != WHICH_JOB_RUNING) ||
+            (!g_jobManager->isCompletedState(state) && m_iWhichJob != WHICH_JOB_DONE))) {
             if (0 == g_jobManager->getJobById(jobinfo, id)) {
                 map<string, string>::const_iterator itjob;
 
@@ -721,8 +721,8 @@ void JobsDataModel::updateJobState(int id, int state, const QString &message)
 
     //如果已完成任务在任务列表中，而且当前只显示未完成任务，则将已完成任务从任务列表中删除
     //如果未完成任务在任务列表中，而且当前只显示已完成任务，则将未完成任务从任务列表中删除(重新打印的情况)
-    if ((IPP_JSTATE_PROCESSING < state && m_iWhichJob == WHICH_JOB_RUNING) ||
-        (IPP_JSTATE_PROCESSING >= state && m_iWhichJob == WHICH_JOB_DONE)) {
+    if ((g_jobManager->isCompletedState(state) && m_iWhichJob == WHICH_JOB_RUNING) ||
+        (!g_jobManager->isCompletedState(state) && m_iWhichJob == WHICH_JOB_DONE)) {
         deleteJobItem(id);
         return;
     }
@@ -907,6 +907,8 @@ unsigned int JobsDataModel::getActionStatus(int iRow) const
         flag = JOB_ACTION_Cancel|JOB_ACTION_Release;
         break;
     case IPP_JSTATE_STOPPED:
+        flag = JOB_ACTION_Cancel|JOB_ACTION_Restart;
+        break;
     case IPP_JSTATE_CANCELED:
     case IPP_JSTATE_ABORTED:
     case IPP_JSTATE_COMPLETED:
