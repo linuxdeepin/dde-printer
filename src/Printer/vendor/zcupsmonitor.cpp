@@ -161,21 +161,13 @@ QString CupsMonitor::getJobNotify(const QMap<QString, QVariant> &job)
     QString strState = m_stateStrings[iState];
     int id = job[JOB_ATTR_ID].toInt();
 
-    strState += QString(" (%1)").arg(job[JOB_ATTR_PRIORITY].toString());
-
     if (IPP_JSTATE_ABORTED == iState || IPP_JSTATE_PROCESSING == iState || IPP_JSTATE_STOPPED == iState) {
-        strState += getJobMessage(id);
-        if (IPP_JSTATE_PROCESSING != iState) {
-            QString strMsg, strReason;
-
-            strReason = job[JOB_ATTR_STATE_RES].toString();
-            strMsg = job[JOB_ATTR_STATE_MEG].toString();
-            if (!strMsg.isEmpty()) {
-                strState += strMsg;
-                if (!strReason.isEmpty() && strReason != "none") {
-                    strState += QString("[%1]").arg(strReason);
-                }
-            }
+        QString jobmessage = getJobMessage(id);
+        QString printermessage = job[JOB_ATTR_STATE_MEG].toString();
+        if (!jobmessage.isEmpty()) {
+            strState += QString(" [%1]").arg(jobmessage);
+        } else if (!printermessage.isEmpty()) {
+            strState += QString(" [%1]").arg(printermessage);
         }
     }
 
@@ -270,7 +262,7 @@ int CupsMonitor::getNotifications(int& notifysSize)
                 int iState = attrValueToQString(info[JOB_ATTR_STATE]).toInt();
                 int iJob= attrValueToQString(info[CUPS_NOTIY_JOBID]).toInt();
                 QString strReason = attrValueToQString(info[CUPS_NOTIY_TEXT]);
-                qDebug() << "Got a job event: " << iJob << iState << strReason;
+                qInfo() << "Got a job event: " << iJob << iState << strReason;
 
                 if (iJob == m_jobId) {
                     skip = false;
@@ -434,7 +426,7 @@ bool CupsMonitor::initWatcher()
             for (itJobs=jobs.begin();itJobs!=jobs.end();itJobs++) {
                 map<string, string> info = itJobs->second;
                 int iState = attrValueToQString(info[JOB_ATTR_STATE]).toInt();
-                QString message = attrValueToQString(info[JOB_ATTR_STATE_RES]);
+                QString message = attrValueToQString(info[JOB_ATTR_STATE_MEG]);
                 insertJobMessage(itJobs->first, iState, message);
             }
             start();
