@@ -254,7 +254,7 @@ bool CheckConnected::isPass()
         socket.connectToHost(strHost, iPort);
         if (!socket.waitForConnected(3000)) {
             qWarning() << "Can't connect to uri: " << strUri << socket.errorString();
-            m_strMessage = tr("Cannot connect to the printer host: %1, error: %2").arg(strHost).arg(socket.errorString());
+            m_strMessage = tr("Cannot connect to the printer, error: %1").arg(socket.errorString());
             emit signalStateChanged(TStat_Fail, m_strMessage);
             return false;
         }
@@ -280,7 +280,7 @@ bool CheckConnected::isPass()
         shellCmd(pingCmd, strOut, strErr, 5000);
         if (!strOut.contains("ttl=")) {
             qWarning() << "Can't connect printer host: " << strHost;
-            m_strMessage = tr("Failed to connect to host: ") + strHost;
+            m_strMessage = tr("Cannot connect to the printer");
             emit signalStateChanged(TStat_Fail, m_strMessage);
             return false;
         }
