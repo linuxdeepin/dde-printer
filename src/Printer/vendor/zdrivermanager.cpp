@@ -724,7 +724,7 @@ QStringList DriverManager::getDriverDepends(const char* strPPD)
         } else {
             string ppdfile = g_cupsConnection->getServerPPD(strPPD);
 
-            qInfo() << strPPD << STQ(ppdfile);
+            qDebug() << strPPD << STQ(ppdfile);
             p.load(ppdfile.c_str());
         }
         attrs = p.getAttributes();

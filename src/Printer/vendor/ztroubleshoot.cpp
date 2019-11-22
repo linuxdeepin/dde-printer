@@ -29,6 +29,7 @@
 #include "zcupsmonitor.h"
 #include "zjobmanager.h"
 #include "dprintermanager.h"
+#include "cupsppd.h"
 
 #include <QTcpSocket>
 #include <QUrl>
@@ -131,8 +132,9 @@ bool CheckDriver::isPass()
 {
     QString strPPD;
     QFile ppdFile;
-    char buf[1024];
     QStringList depends;
+    PPD p;
+    std::vector<Attribute> attrs;
 
     emit signalStateChanged(TStat_Running, tr("Checking driver..."));
 
@@ -150,17 +152,28 @@ bool CheckDriver::isPass()
         return false;
     }
 
-    while (ppdFile.readLine(buf, sizeof(buf)) > 0) {
-        QString str = buf;
-        if (str.startsWith("*cupsFilter:")) {
-            str = str.trimmed();
-            QString filter = str.split(" ").last().replace("\"", "");
+    try {
+        p.load(strPPD.toUtf8().data());
+        attrs = p.getAttributes();
+    }catch(const std::exception &ex) {
+        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+        m_strMessage = tr("The driver is damaged");
+        emit signalStateChanged(TStat_Fail, m_strMessage);
+        return false;
+    };
+
+    for (size_t i=0;i<attrs.size();i++) {
+        QString strName = STQ(attrs[i].getName());
+        QString strValue = STQ(attrs[i].getValue());
+        if (strName == "cupsFilter") {
+            QString filter = strValue.split(" ").last();
             qDebug() << strPPD << " filter: " << filter;
             if (isFilterMissing(filter)) {
                 m_strMessage = tr("Driver filter %1 not found").arg(filter);
                 emit signalStateChanged(TStat_Fail, m_strMessage);
                 return false;
             }
+            break;
         }
     }
 
@@ -202,7 +215,7 @@ bool CheckConnected::isPass()
     QString pingCmd, strOut, strErr, strScheme;
     QStringList uriDepends;
 
-    emit signalStateChanged(TStat_Running, tr("Checking printer connection... "));
+    emit signalStateChanged(TStat_Running, tr("Checking printer connection..."));
 
     if (m_printerName.isEmpty()) {
         emit signalStateChanged(TStat_Suc, tr("Success"));
@@ -267,7 +280,7 @@ bool CheckConnected::isPass()
         shellCmd(pingCmd, strOut, strErr, 5000);
         if (!strOut.contains("ttl=")) {
             qWarning() << "Can't connect printer host: " << strHost;
-            m_strMessage = tr("Failed to connect to the printer %1") + strHost;
+            m_strMessage = tr("Failed to connect to host: ") + strHost;
             emit signalStateChanged(TStat_Fail, m_strMessage);
             return false;
         }
