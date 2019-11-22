@@ -83,12 +83,15 @@ void PrinterSearchWindow::initUi()
     DStandardItem *pWidgetItemAuto = new DStandardItem(QIcon::fromTheme("dp_auto_searching"), tr("Discover printer"));
     pWidgetItemAuto->setData(VListViewItemMargin, Dtk::MarginsRole);
     pWidgetItemAuto->setSizeHint(QSize(108, 48));
+    pWidgetItemAuto->setToolTip(tr("Discover printer"));
     DStandardItem *pWidgetItemManual = new DStandardItem(QIcon::fromTheme("dp_manual_search"), tr("Find printer"));
     pWidgetItemManual->setData(VListViewItemMargin, Dtk::MarginsRole);
     pWidgetItemManual->setSizeHint(QSize(108, 48));
+    pWidgetItemManual->setToolTip(tr("Find printer"));
     DStandardItem *pWidgetItemURI = new DStandardItem(QIcon::fromTheme("dp_uri"), tr("Enter URI"));
     pWidgetItemURI->setData(VListViewItemMargin, Dtk::MarginsRole);
     pWidgetItemURI->setSizeHint(QSize(108, 48));
+    pWidgetItemURI->setToolTip(tr("Enter URI"));
     pTabModel->appendRow(pWidgetItemAuto);
     pTabModel->appendRow(pWidgetItemManual);
     pTabModel->appendRow(pWidgetItemURI);
