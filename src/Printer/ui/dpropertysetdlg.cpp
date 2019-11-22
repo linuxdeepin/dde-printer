@@ -568,9 +568,10 @@ void DPropertySetDlg::initConflictMap()
 void DPropertySetDlg::showConflictDlg(const vector<CONFLICTPAIR>& vecConflictPairs)
 {
     QWidget* pWidget = new QWidget;
-    QFont font("SourceHanSansSC-Bold");
-    font.setPixelSize(14);
     DLabel* pLabel1 = new DLabel(tr("Options conflict!"));
+    DFontSizeManager::instance()->bind(pLabel1, DFontSizeManager::T6);
+    QFont font = pLabel1->font();
+    font.setFamily("SourceHanSansSC-Bold");
     pLabel1->setFont(font);
     pLabel1->setAlignment(Qt::AlignCenter);
     DLabel* pLabel2 = new DLabel(tr("Please resolve the conflict first, and then save the changes."));
@@ -1105,6 +1106,15 @@ bool DPropertySetDlg::isDriveBroken()
 
 void DPropertySetDlg::showEvent(QShowEvent *event)
 {
+    vector<CONFLICTPAIR> vecConflictOptionPairs;
+    checkAllConflicts(m_setConflictOptions, vecConflictOptionPairs);
+
+
+    if(m_setConflictOptions.size() > 0)
+    {
+        showConflictDlg(vecConflictOptionPairs);
+    }
+
     m_bShow = true;
     DSettingsDialog::showEvent(event);
 }

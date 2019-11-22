@@ -127,7 +127,7 @@ void PrinterSearchWindow::initUi()
 
     m_pAutoSpinner = new DSpinner();
     m_pAutoSpinner->setFixedSize(36, 36);
-    m_pAutoInstallDriverBtn = new QPushButton(tr("Start Installation"));
+    m_pAutoInstallDriverBtn = new QPushButton(tr("Install Driver"));
     m_pAutoInstallDriverBtn->setEnabled(false);
     m_pAutoInstallDriverBtn->setFixedSize(200, 36);
     QHBoxLayout *pHLayout3 = new QHBoxLayout();
