@@ -468,7 +468,6 @@ TroubleShoot::TroubleShoot(const QString &printerName, QObject *parent)
 
     addJob(new CheckCupsServer(this));
     addJob(new CheckDriver(m_printerName, this));
-    addJob(new CheckConnected(m_printerName, this));
     addJob(new CheckAttributes(m_printerName, this));
 }
 

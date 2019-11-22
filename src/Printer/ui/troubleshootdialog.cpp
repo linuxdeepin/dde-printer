@@ -23,6 +23,7 @@
 #include "ztroubleshoot.h"
 #include "zcupsmonitor.h"
 #include "zjobmanager.h"
+#include "ztroubleshoot_p.h"
 
 #include <DPalette>
 #include <DApplicationHelper>
@@ -100,6 +101,7 @@ TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *pare
     titleBar->setTitle("");
 
     m_trobleShoot = new TroubleShoot(printerName, this);
+    m_trobleShoot->addJob(new CheckConnected(printerName, m_trobleShoot));
 
     setAutoFillBackground(true);
     setAttribute(Qt::WA_TranslucentBackground, false);
