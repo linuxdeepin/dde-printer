@@ -38,6 +38,7 @@
 #include <DTitlebar>
 #include <DApplication>
 #include <DFloatingButton>
+#include <DFrame>
 
 
 #include <QHBoxLayout>
@@ -77,7 +78,7 @@ void DPrintersShowWindow::initUI()
     m_pSettings = new QAction(tr("Settings"));
     pMenu->addAction(m_pSettings);
     titlebar()->setMenu(pMenu);
-    resize(942, 656);
+    setMinimumSize(942, 656);
     QFont font;
     font.setBold(true);
     // 左边上面的控制栏
@@ -94,7 +95,7 @@ void DPrintersShowWindow::initUI()
     pLeftTopHLayout->addWidget(m_pBtnAddPrinter, 1);
     pLeftTopHLayout->addWidget(m_pBtnDeletePrinter, 1);
     // 打印机列表
-    m_pPrinterListView = new DListView();
+    m_pPrinterListView = new DListView(this);
     m_pPrinterModel = new QStandardItemModel(m_pPrinterListView);
     m_pPrinterListView->setTextElideMode(Qt::ElideRight);
     m_pPrinterListView->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -138,6 +139,9 @@ void DPrintersShowWindow::initUI()
     pLeftVLayout->addLayout(pLeftTopHLayout, 1);
     pLeftVLayout->addWidget(m_pPrinterListView, 4);
     pLeftVLayout->addWidget(m_pLeftTipLabel, 1, Qt::AlignCenter);
+    DFrame *pLeftWidget = new DFrame(this);
+    pLeftWidget->setAutoFillBackground(true);
+    pLeftWidget->setLayout(pLeftVLayout);
 
     // 右侧上方
     QLabel *pLabelImage = new QLabel("");
@@ -238,7 +242,7 @@ void DPrintersShowWindow::initUI()
     pRightVLayout->addLayout(pRightTopHLayout);
     pRightVLayout->addSpacing(100);
     pRightVLayout->addLayout(pRightBottomGLayout);
-    pRightVLayout->setContentsMargins(100, 100, 100, 181);
+    pRightVLayout->setContentsMargins(80, 100, 80, 181);
 
     m_pPrinterInfoWidget = new QWidget();
     m_pPrinterInfoWidget->setLayout(pRightVLayout);
@@ -260,47 +264,24 @@ void DPrintersShowWindow::initUI()
     pRightMainVLayout->addWidget(m_pPRightTipLabel1);
     pRightMainVLayout->addWidget(m_pPRightTipLabel2);
     pRightMainVLayout->addStretch();
+    //DFrame 会导致上面的QLabel显示颜色不正常
+    DFrame *pRightWidgwt = new DFrame();
+    pRightWidgwt->setLayout(pRightMainVLayout);
 
     QWidget *pCentralWidget = new QWidget(this);
     QHBoxLayout *pMainHLayout = new QHBoxLayout();
-    pMainHLayout->addLayout(pLeftVLayout, 1);
-    pMainHLayout->addLayout(pRightMainVLayout, 2);
-    pMainHLayout->setContentsMargins(10, 10, 0, 0);
+//    pMainHLayout->setSpacing(10);
+    pMainHLayout->addWidget(pLeftWidget, 1);
+    pMainHLayout->addWidget(pRightWidgwt, 2);
+    pMainHLayout->setContentsMargins(10, 10, 10, 10);
+
     pCentralWidget->setLayout(pMainHLayout);
     takeCentralWidget();
     setCentralWidget(pCentralWidget);
     //设置了parent会导致moveToCenter失效
     m_pSearchWindow = new PrinterSearchWindow();
-
     //设置对话框
     m_pSettingsDialog = new ServerSettingsWindow();
-
-    /*
-    m_pSettingsDialog = new DDialog();
-    m_pSettingsDialog->setIcon(QIcon(":/images/dde-printer.svg"));
-    QWidget *pSettingWidget = new QWidget();
-    QLabel *pBaseSettings = new QLabel(tr("Basic Server Settings"));
-    pBaseSettings->setFont(font);
-    m_pCheckShared = new QCheckBox(tr("Publish shared printers connected to this system"));
-    m_pCheckIPP = new QCheckBox(tr("Allow printing from the Internet"));
-    m_pCheckIPP->setEnabled(false);
-    //    m_pCheckRemote = new QCheckBox(tr("Allow remote administration"));
-    m_pCheckCancelJobs = new QCheckBox(tr("Allow users to cancel any job (not just their own)"));
-    m_pCheckSaveDebugInfo = new QCheckBox(tr("Save debugging information for troubleshooting"));
-    QVBoxLayout *pSettingsVLayout = new QVBoxLayout();
-    pSettingsVLayout->addWidget(pBaseSettings);
-    pSettingsVLayout->addWidget(m_pCheckShared);
-    QHBoxLayout *pSettingsHLayout = new QHBoxLayout();
-    pSettingsHLayout->addSpacing(20);
-    pSettingsHLayout->addWidget(m_pCheckIPP);
-    pSettingsVLayout->addLayout(pSettingsHLayout);
-    //    pSettingsVLayout->addWidget(m_pCheckRemote);
-    pSettingsVLayout->addWidget(m_pCheckCancelJobs);
-    pSettingsVLayout->addWidget(m_pCheckSaveDebugInfo);
-    pSettingsVLayout->setSpacing(20);
-    pSettingWidget->setLayout(pSettingsVLayout);
-    m_pSettingsDialog->addContent(pSettingWidget);
-    */
 }
 
 void DPrintersShowWindow::initConnections()
@@ -413,8 +394,9 @@ void DPrintersShowWindow::reflushPrinterListView(const QString &newPrinterName)
     m_pPrinterModel->clear();
     QStringList printerList = m_pPrinterManager->getPrintersList();
     foreach (QString printerName, printerList) {
-        QStandardItem *pItem = new QStandardItem(printerName);
-        pItem->setSizeHint(QSize(300, 50));
+        DStandardItem *pItem = new DStandardItem(printerName);
+        pItem->setData(VListViewItemMargin, Dtk::MarginsRole);
+//        pItem->setSizeHint(QSize(300, 50));
         pItem->setToolTip(printerName);
         if (m_pPrinterManager->isDefaultPrinter(printerName))
             pItem->setIcon(QIcon::fromTheme("dp_printer_default"));

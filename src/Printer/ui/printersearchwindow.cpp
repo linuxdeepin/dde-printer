@@ -37,6 +37,7 @@
 #include <DTitlebar>
 #include <DMessageManager>
 #include <DDialog>
+#include <DStandardItem>
 
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -72,16 +73,20 @@ void PrinterSearchWindow::initUi()
     // 去掉最大最小按钮
     setWindowFlags(windowFlags() & ~Qt::WindowMinMaxButtonsHint);
     setWindowModality(Qt::ApplicationModal);
-    resize(682, 532);
+    setMinimumSize(682, 532);
 
     // 左侧菜单列表
     m_pTabListView = new DListView();
+    m_pTabListView->setAutoFillBackground(true);
     QStandardItemModel *pTabModel = new QStandardItemModel(m_pTabListView);
-    QStandardItem *pWidgetItemAuto = new QStandardItem(QIcon::fromTheme("dp_auto_searching"), tr("Discover printer"));
+    DStandardItem *pWidgetItemAuto = new DStandardItem(QIcon::fromTheme("dp_auto_searching"), tr("Discover printer"));
+    pWidgetItemAuto->setData(VListViewItemMargin, Dtk::MarginsRole);
     pWidgetItemAuto->setSizeHint(QSize(108, 48));
-    QStandardItem *pWidgetItemManual = new QStandardItem(QIcon::fromTheme("dp_manual_search"), tr("Find printer"));
+    DStandardItem *pWidgetItemManual = new DStandardItem(QIcon::fromTheme("dp_manual_search"), tr("Find printer"));
+    pWidgetItemManual->setData(VListViewItemMargin, Dtk::MarginsRole);
     pWidgetItemManual->setSizeHint(QSize(108, 48));
-    QStandardItem *pWidgetItemURI = new QStandardItem(QIcon::fromTheme("dp_uri"), tr("Enter URI"));
+    DStandardItem *pWidgetItemURI = new DStandardItem(QIcon::fromTheme("dp_uri"), tr("Enter URI"));
+    pWidgetItemURI->setData(VListViewItemMargin, Dtk::MarginsRole);
     pWidgetItemURI->setSizeHint(QSize(108, 48));
     pTabModel->appendRow(pWidgetItemAuto);
     pTabModel->appendRow(pWidgetItemManual);
