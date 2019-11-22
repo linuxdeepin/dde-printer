@@ -34,6 +34,7 @@
 #include <DWidgetUtil>
 #include <DFileDialog>
 #include <DSpinner>
+#include <DFrame>
 
 #include <QStandardItemModel>
 #include <QStandardItem>
@@ -87,8 +88,11 @@ void InstallDriverWindow::initUI()
     m_pTabListView->setCurrentIndex(m_pTabListModel->index(0, 0));
     m_pTabListView->setEditTriggers(QListView::EditTrigger::NoEditTriggers);
     QVBoxLayout *pLeftVBoxlayout = new QVBoxLayout();
+    pLeftVBoxlayout->setContentsMargins(10, 20, 10, 0);
     pLeftVBoxlayout->addWidget(pLabelTitle1);
     pLeftVBoxlayout->addWidget(m_pTabListView);
+    DFrame *pLeftFrame = new DFrame();
+    pLeftFrame->setLayout(pLeftVBoxlayout);
 
     // 切换控件
     m_pStackWidget = new QStackedWidget();
@@ -115,7 +119,8 @@ void InstallDriverWindow::initUI()
     pGLayout->setColumnStretch(0, 1);
     pGLayout->setColumnStretch(1, 3);
     pGLayout->setRowStretch(3, 1);
-    QWidget *pLocalWidget = new QWidget();
+    pGLayout->setMargin(0);
+    DFrame *pLocalWidget = new DFrame();
     pLocalWidget->setLayout(pGLayout);
     m_pStackWidget->addWidget(pLocalWidget);
 
@@ -132,15 +137,15 @@ void InstallDriverWindow::initUI()
     pVLayout->addWidget(m_pPPDPath, 1, Qt::AlignCenter);
     pVLayout->addWidget(m_pSelectPPDBtn, 1, Qt::AlignCenter);
 
-    QWidget *pPPDWidget = new QWidget();
+    DFrame *pPPDWidget = new DFrame();
     pPPDWidget->setObjectName("ppdWidget");
-
     pPPDWidget->setLayout(pVLayout);
     m_pStackWidget->addWidget(pPPDWidget);
 
     //设置打印信息搜索
     QLabel *pMakerAndTypeLabel = new QLabel(tr("Vendor and Model"));
     m_pManuAndTypeLineEdit = new QLineEdit();
+    m_pManuAndTypeLineEdit->setPlaceholderText(tr("Please enter the complete vendor and model"));
     m_pManuAndTypeLineEdit->setValidator(new QRegExpValidator(QRegExp("^[a-zA-Z0-9 ]*$")));
     m_pSearchBtn = new QPushButton(tr("Search"));
     m_pSearchBtn->setFixedSize(60, 36);
@@ -152,8 +157,9 @@ void InstallDriverWindow::initUI()
     pGLayout1->addWidget(m_pSearchBtn, 0, 2);
     pGLayout1->addWidget(pDriverLabel, 1, 0);
     pGLayout1->addWidget(m_pDriverManualCombo, 1, 1, 1, 2);
+    pGLayout1->setMargin(0);
     pGLayout1->setRowStretch(2, 1);
-    QWidget *pSettingWidget = new QWidget();
+    DFrame *pSettingWidget = new DFrame();
     pSettingWidget->setLayout(pGLayout1);
     m_pStackWidget->addWidget(pSettingWidget);
 
@@ -168,12 +174,15 @@ void InstallDriverWindow::initUI()
     pRightVLayout->addWidget(m_pStackWidget);
     pRightVLayout->addWidget(m_pInstallBtn, 0, Qt::AlignCenter);
     pRightVLayout->addWidget(m_pSpinner, 0, Qt::AlignCenter);
-    pRightVLayout->addSpacing(20);
+    pRightVLayout->setContentsMargins(10, 20, 10, 10);
+    DFrame *pRightFrame1 = new DFrame();
+    pRightFrame1->setLayout(pRightVLayout);
 
     // 整体布局
     QHBoxLayout *pMainLayout = new QHBoxLayout();
-    pMainLayout->addLayout(pLeftVBoxlayout, 1);
-    pMainLayout->addLayout(pRightVLayout, 2);
+    pMainLayout->addWidget(pLeftFrame, 1);
+    pMainLayout->addWidget(pRightFrame1, 2);
+    pMainLayout->setContentsMargins(10, 10, 10, 10);
     QWidget *centralWidget = new QWidget;
     centralWidget->setLayout(pMainLayout);
     takeCentralWidget();

@@ -29,6 +29,7 @@
 #include <DTitlebar>
 #include <DWidgetUtil>
 #include <DFontSizeManager>
+#include <DFrame>
 
 #include <QCheckBox>
 #include <QVBoxLayout>
@@ -77,7 +78,7 @@ private:
 
         QFont font;
         font.setBold(true);
-        QWidget *pSettingWidget = new QWidget();
+
         QLabel *pBaseSettings = new QLabel(tr("Basic Server Settings"));
         pBaseSettings->setFont(font);
         DFontSizeManager::instance()->bind(pBaseSettings, DFontSizeManager::T5);
@@ -103,11 +104,11 @@ private:
         pSettingsVLayout->addSpacing(12);
         pSettingsVLayout->addWidget(m_pCheckSaveDebugInfo);
 
+        DFrame *pSettingWidget = new DFrame();
         pSettingWidget->setLayout(pSettingsVLayout);
-        pSettingsVLayout->setContentsMargins(20, 10, 20, 20);
+        pSettingsVLayout->setContentsMargins(10, 10, 10, 10);
         takeCentralWidget();
         setCentralWidget(pSettingWidget);
-
         moveToCenter(this);
 
     }
@@ -237,7 +238,8 @@ private:
 
 
     QWidget *m_pPrinterInfoWidget;
-    QLabel *m_pPRightTipLabel;
+    QLabel *m_pPRightTipLabel1;
+    QLabel *m_pPRightTipLabel2;
 
     PrinterSearchWindow *m_pSearchWindow;
     ServerSettingsWindow *m_pSettingsDialog;

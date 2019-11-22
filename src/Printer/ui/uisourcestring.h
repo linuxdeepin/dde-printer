@@ -21,6 +21,8 @@
 #ifndef UISOURCESTRING_H
 #define UISOURCESTRING_H
 #include <QObject>
+#include <QMargins>
+#include <QVariant>
 #define UI_PRINTERSEARCH_MANUAL QObject::tr("Select a driver")
 #define UI_PRINTERSEARCH_URITIP    "ipp://printer.mydomain/ipp\n" \
     "ipp://cups-sever/printers/printer-queue\n" \
@@ -36,4 +38,8 @@
 
 #define UI_PRINTERSHOW_TROUBLE QObject::tr("Troubleshoot")
 #define UI_PRINTERSHOW_CANCEL QObject::tr("Cancel")
+
+Q_DECLARE_METATYPE(QMargins)
+const QMargins ListViweItemMargin(10, 8, 10, 8);
+const QVariant VListViewItemMargin = QVariant::fromValue(ListViweItemMargin);
 #endif // UISOURCESTRING_H

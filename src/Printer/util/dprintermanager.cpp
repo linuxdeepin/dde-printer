@@ -366,7 +366,11 @@ bool DPrinterManager::isUserCancelAnyEnabled() const
 
 void DPrinterManager::commit()
 {
-    m_pServerSettings.commit();
+    try {
+        m_pServerSettings.commit();
+    } catch (const std::runtime_error &e) {
+        qWarning() << e.what();
+    }
 }
 
 bool DPrinterManager::hasSamePrinter(const QString &printer)
