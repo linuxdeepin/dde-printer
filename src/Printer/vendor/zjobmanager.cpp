@@ -25,6 +25,7 @@ static const char *jattrs[] =     /* Attributes we need for jobs... */
         JOB_ATTR_TIME_ADD,
         JOB_ATTR_TIME_END,
         JOB_ATTR_PRIORITY,
+        JOB_ATTR_DOC_NUM,
         nullptr
       };
 
@@ -211,6 +212,13 @@ static int setJobPriority(int job_id, int iPriority)
     }
 
     return 0;
+}
+
+bool JobManager::isCompletedState(int state)
+{
+    return (IPP_JSTATE_COMPLETED == state ||
+            IPP_JSTATE_ABORTED == state ||
+            IPP_JSTATE_CANCELED == state);
 }
 
 int JobManager::priorityJob(int job_id, int &iPriority)

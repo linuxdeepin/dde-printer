@@ -347,10 +347,6 @@ int ReflushLocalPPDS::doWork()
 
     if (m_bQuit) return 0;
 
-    g_ppds.clear();
-    g_ppdsDirct.clear();
-    g_ppdsMakeModelNames.clear();
-    g_textPPd.clear();
     int count = 0;
     for (itall=allPPDS.begin();itall!=allPPDS.end();itall++) {
         qDebug() << QString("*****************************");
@@ -509,27 +505,28 @@ void DriverSearcher::sortDrivers()
 
 void DriverSearcher::askForFinish()
 {
-    //如果之前本地驱动还没有初始化完成，则等待驱动初始化完成再搜索一次
-    if (1 == m_localIndex) {
-        if (g_iStatus < TStat_Suc) {
-            connect(g_driverManager, &DriverManager::signalStatus, this, &DriverSearcher::slotDriverInit);
-            return;
+    if (m_drivers.isEmpty()) {
+        //如果之前本地驱动还没有初始化完成，则等待驱动初始化完成再搜索一次
+        if (-1 == m_localIndex) {
+            if (g_iStatus < TStat_Suc) {
+                qInfo() << "Wait ppd init";
+                connect(g_driverManager, &DriverManager::signalStatus, this, &DriverSearcher::slotDriverInit);
+                return;
+            }
+
+            getLocalDrivers();
         }
 
-        getLocalDrivers();
-    }
+        if (TStat_Suc == g_iStatus && (!m_strMake.isEmpty() || !m_strModel.isEmpty())) {
+            QMutexLocker locker(&g_mutex);
 
-    if (m_drivers.isEmpty() && TStat_Suc == g_iStatus &&
-        (!m_strMake.isEmpty() || !m_strModel.isEmpty())) {
-        QMutexLocker locker(&g_mutex);
+            m_strMake = normalize(m_strMake);
+            m_strModel = normalize(m_strModel);
+            QList<QMap<QString, QString>> list = getFuzzyMatchDrivers(m_strMake, m_strModel, m_strCMD);
+            m_drivers = stringToVariant(list);
 
-        m_strMake = normalize(m_strMake);
-        m_strModel = normalize(m_strModel);
-        QList<QMap<QString, QString>> list = getFuzzyMatchDrivers(m_strMake, m_strModel, m_strCMD);
-        m_drivers = stringToVariant(list);
-
-        qInfo() << QString("Got %1 drivers").arg(m_drivers.count());
-
+            qInfo() << QString("Got %1 drivers").arg(m_drivers.count());
+        }
     }
 
     sortDrivers();
@@ -631,8 +628,20 @@ int DriverManager::getStatus()
 
 int DriverManager::stop()
 {
-    if (m_reflushTask) m_reflushTask->stop();
+    if (m_reflushTask) {
+        m_reflushTask->stop();
+        m_reflushTask->deleteLater();
+        m_reflushTask = nullptr;
+    }
 
+    QMutexLocker locker(&g_mutex);
+    g_iStatus = TStat_None;
+    qInfo() << "Clear local driver dirct";
+
+    g_ppds.clear();
+    g_ppdsDirct.clear();
+    g_ppdsMakeModelNames.clear();
+    g_textPPd.clear();
     return 0;
 }
 
@@ -642,12 +651,14 @@ DriverSearcher* DriverManager::createSearcher(const TDeviceInfo &device)
     return searcher;
 }
 
-int DriverManager::reflushPpds()
+int DriverManager::refreshPpds()
 {
+    QMutexLocker locker(&g_mutex);
     if (TStat_Running == g_iStatus || m_reflushTask)
         return 0;
 
-    m_reflushTask = new ReflushLocalPPDS(this);
+    qInfo() << "";
+    m_reflushTask = new ReflushLocalPPDS();
     connect(m_reflushTask, &ReflushLocalPPDS::signalStatus, this, &DriverManager::signalStatus);
     m_reflushTask->start();
 
@@ -713,7 +724,7 @@ QStringList DriverManager::getDriverDepends(const char* strPPD)
         } else {
             string ppdfile = g_cupsConnection->getServerPPD(strPPD);
 
-            qInfo() << strPPD << STQ(ppdfile);
+            qDebug() << strPPD << STQ(ppdfile);
             p.load(ppdfile.c_str());
         }
         attrs = p.getAttributes();

@@ -29,6 +29,7 @@ class TroubleShoot;
 
 QT_BEGIN_NAMESPACE
 class QLabel;
+class QPushButton;
 QT_END_NAMESPACE
 
 class TroubleShootItem : public QFrame
@@ -51,19 +52,7 @@ private:
     int                 m_index;
 };
 
-class ContentWidget : public QWidget
-{
-    Q_OBJECT
-
-public:
-    ContentWidget(QWidget *parent=nullptr);
-
-protected:
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
-
-};
-
-class TroubleShootDialog : public DDialog
+class TroubleShootDialog : public DAbstractDialog
 {
     Q_OBJECT
 
@@ -77,4 +66,5 @@ private:
     QString         m_printerName;
 
     TroubleShoot*   m_trobleShoot;
+    QPushButton*    m_button;
 };

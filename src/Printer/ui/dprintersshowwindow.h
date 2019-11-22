@@ -207,6 +207,9 @@ private slots:
     void serverSettingsSlot();
 
     bool eventFilter(QObject *watched, QEvent *event) override;
+
+    void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
+
 private:
 
     // UI成员变量
@@ -245,7 +248,6 @@ private:
     DPrinterManager *m_pPrinterManager;
     // 当前选中的打印机名称
     QString m_CurPrinterName;
-
 };
 
 #endif // DPRINTERSSHOWWINDOW_H

@@ -152,13 +152,23 @@ int PrinterApplication::showMainWindow()
         Dtk::Widget::moveToCenter(m_mainWindow);
 
         // 初始化驱动
-        g_driverManager->reflushPpds();
+        g_driverManager->refreshPpds();
     }
 
     m_mainWindow->showNormal();
     qApp->setActiveWindow(m_mainWindow);
 
     return 0;
+}
+
+void PrinterApplication::slotMainWindowClosed()
+{
+    qInfo() << "";
+    if (m_mainWindow) {
+        m_mainWindow->deleteLater();
+        m_mainWindow = nullptr;
+        g_driverManager->stop();
+    }
 }
 
 void PrinterApplication::slotShowTrayIcon(bool bShow)

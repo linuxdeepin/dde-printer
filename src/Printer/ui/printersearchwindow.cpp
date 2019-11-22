@@ -62,8 +62,6 @@ PrinterSearchWindow::~PrinterSearchWindow()
 {
     if (m_pInstallDriverWindow)
         m_pInstallDriverWindow->deleteLater();
-    if (m_pInstallPrinterWindow)
-        m_pInstallPrinterWindow->deleteLater();
 }
 
 void PrinterSearchWindow::initUi()

@@ -70,6 +70,7 @@ using namespace std;
 
 #define JOB_ITEM_ROLE_ID        Qt::UserRole+1
 #define JOB_ITEM_ROLE_STATE     Qt::UserRole+2
+#define JOB_ITEM_ROLE_ACTION    Qt::UserRole+3
 
 typedef struct tagHoverAction{
 
@@ -115,13 +116,6 @@ static QString formatDataTimeString(const QDateTime &dataTime)
         } else {
             return QObject::tr("%1 days ago").arg(days);
         }
-    } else if (secs < 6 * 7 * 24 * 60 * 60) {
-        qint64 weeks = secs / (7 * 24 * 60 * 60);
-        if (1 == weeks) {
-            return QObject::tr("last week");
-        } else {
-            return QObject::tr("%1 weeks ago").arg(weeks);
-        }
     }
 
     return dataTime.toString("yyyy:MM:dd HH::mm::ss");
@@ -157,7 +151,7 @@ static QPixmap getActionPixmap(unsigned int iAction, QIcon::Mode mode)
         break;
     }
 
-    pixmap = QIcon::fromTheme(iconpath).pixmap(QSize(14, 14), mode);
+    pixmap = QIcon::fromTheme(iconpath).pixmap(QSize(16, 16), mode);
 
 //    qInfo() << iAction << " pixmap size:"<<pixmap.size();
     return pixmap;
@@ -166,7 +160,7 @@ static QPixmap getActionPixmap(unsigned int iAction, QIcon::Mode mode)
 static QMap<unsigned int, QRect> getItemActionRect(const QRect &itemRect, const QModelIndex &index)
 {
     QMap<unsigned int, QRect> actions;
-    unsigned int flags = index.data().toUInt();
+    unsigned int flags = index.data(JOB_ITEM_ROLE_ACTION).toUInt();
     int butIndex = 0;
 
     for (int i=0;i<JOB_ACTION_Count;i++) {
@@ -225,6 +219,10 @@ JobListView::JobListView(QWidget* parent)
 
     m_label = new QLabel(tr("No print jobs"), this);
     m_label->setAlignment(Qt::AlignCenter);
+    QPalette pa = m_label->palette();
+    QColor color = pa.color(QPalette::Text);
+    pa.setColor(QPalette::WindowText, QColor(color.red(), color.green(), color.blue(), 100));
+    m_label->setPalette(pa);
 }
 
 QString JobListView::getActionName(unsigned int iAction)
@@ -259,13 +257,17 @@ void JobListView::slotShowTips()
 
 void JobListView::mouseMoveEvent(QMouseEvent *event)
 {
+    QTableView::mouseMoveEvent(event);
+
     QModelIndex index = indexAt(event->pos());
+
+    if (index.column() != ACTION_Column)
+        return;
+
     QRect rect = visualRect(index);
     QMap<unsigned int, QRect> actionRects = getItemActionRect(rect, index);
     QList<unsigned int> flags = actionRects.keys();
     int iRow = index.row(), action = -1;
-
-    QTableView::mouseMoveEvent(event);
 
     //查找是否有按钮处于hover状态
     foreach (unsigned int iAction, flags) {
@@ -324,12 +326,16 @@ void JobListView::mouseMoveEvent(QMouseEvent *event)
 
 void JobListView::mouseReleaseEvent(QMouseEvent *event)
 {
+    QTableView::mouseReleaseEvent(event);
+
     QModelIndex index = indexAt(event->pos());
+
+    if (index.column() != ACTION_Column)
+        return;
+
     QRect rect = visualRect(index);
     QMap<unsigned int, QRect> actionRects = getItemActionRect(rect, index);
     QList<unsigned int> flags = actionRects.keys();
-
-    QTableView::mouseReleaseEvent(event);
 
     foreach (unsigned int iAction, flags) {
         if (actionRects.value(iAction).contains(event->pos()) &&
@@ -364,9 +370,10 @@ bool JobListView::askDeleteJobs(unsigned int flag)
     dlg.setIcon(QIcon(":/images/warning_logo.svg"));
     dlg.addButton(tr("Cancel"), true);
     iAccept = dlg.addButton(tr("Delete"), false, DDialog::ButtonWarning);
-    dlg.setContentsMargins(10, 15, 10, 15);
+    dlg.getButton(0)->setFixedSize(170, 36);
+    dlg.getButton(1)->setFixedSize(170, 36);
     dlg.setModal(true);
-    dlg.setFixedSize(422, 202);
+    dlg.setFixedSize(372, 162);
 
     return (iAccept == dlg.exec());
 }
@@ -443,39 +450,40 @@ void JobItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &optio
 {
     QMap<unsigned int, QRect> actions;
     QList<unsigned int> flags;
+    QStyleOptionViewItem newoption = option;
 
-//    qInfo() << index;
+    if (index.column() == 0) {
+        newoption.rect.setLeft(10);
+    }
 
     if (index.row() % 2) {
         DPalette pl(DApplicationHelper::instance()->palette(option.widget));
 
-        painter->fillRect(option.rect, pl.brush(QPalette::AlternateBase));
+        painter->fillRect(newoption.rect, pl.brush(QPalette::AlternateBase));
     }
 
-    if (index.column() != ACTION_Column) {
-        QStyleOptionViewItem newoption = option;
-        int iState = index.data(JOB_ITEM_ROLE_STATE).toInt();
+    int iState = index.data(JOB_ITEM_ROLE_STATE).toInt();
 
-        if (IPP_JSTATE_ABORTED == iState || IPP_JSTATE_STOPPED == iState) {
-            newoption.palette.setColor(QPalette::Inactive, QPalette::Text, QColor(255,87,54,100));
-        }
-        QItemDelegate::paint(painter, newoption, index);
-        return;
+    if (IPP_JSTATE_ABORTED == iState || IPP_JSTATE_STOPPED == iState) {
+        newoption.palette.setColor(QPalette::Inactive, QPalette::Text, QColor(255,87,54,100));
     }
+    QItemDelegate::paint(painter, newoption, index);
 
-    actions = getItemActionRect(option.rect, index);
-    flags = actions.keys();
-    foreach (unsigned int iAction, flags) {
-        QPixmap pixmap;
+    if (index.column() == ACTION_Column) {
+        actions = getItemActionRect(newoption.rect, index);
+        flags = actions.keys();
+        foreach (unsigned int iAction, flags) {
+            QPixmap pixmap;
 
-        if (g_hoverAction.iHoverAction == static_cast<int>(iAction) &&
-            g_hoverAction.iHoverRow == index.row()) {
-            pixmap = getActionPixmap(iAction, QIcon::Active);
-        } else {
-            pixmap = getActionPixmap(iAction);
+            if (g_hoverAction.iHoverAction == static_cast<int>(iAction) &&
+                g_hoverAction.iHoverRow == index.row()) {
+                pixmap = getActionPixmap(iAction, QIcon::Active);
+            } else {
+                pixmap = getActionPixmap(iAction);
+            }
+
+            painter->drawPixmap(actions.value(iAction), pixmap);
         }
-
-        painter->drawPixmap(actions.value(iAction), pixmap);
     }
 }
 
@@ -702,8 +710,8 @@ void JobsDataModel::updateJobState(int id, int state, const QString &message)
     if (index >= m_jobs.count()) {
         //如果已完成任务不在任务列表中,而且当前需要显示已完成任务，则将已完成任务添加到列表中
         //如果未完成任务不在任务列表中,而且当前需要显示未完成任务，则将新任务添加到任务列表中
-        if (((IPP_JSTATE_PROCESSING < state && m_iWhichJob != WHICH_JOB_RUNING) ||
-            (IPP_JSTATE_PROCESSING >= state && m_iWhichJob != WHICH_JOB_DONE))) {
+        if (((g_jobManager->isCompletedState(state) && m_iWhichJob != WHICH_JOB_RUNING) ||
+            (!g_jobManager->isCompletedState(state) && m_iWhichJob != WHICH_JOB_DONE))) {
             if (0 == g_jobManager->getJobById(jobinfo, id)) {
                 map<string, string>::const_iterator itjob;
 
@@ -721,8 +729,8 @@ void JobsDataModel::updateJobState(int id, int state, const QString &message)
 
     //如果已完成任务在任务列表中，而且当前只显示未完成任务，则将已完成任务从任务列表中删除
     //如果未完成任务在任务列表中，而且当前只显示已完成任务，则将未完成任务从任务列表中删除(重新打印的情况)
-    if ((IPP_JSTATE_PROCESSING < state && m_iWhichJob == WHICH_JOB_RUNING) ||
-        (IPP_JSTATE_PROCESSING >= state && m_iWhichJob == WHICH_JOB_DONE)) {
+    if ((g_jobManager->isCompletedState(state) && m_iWhichJob == WHICH_JOB_RUNING) ||
+        (!g_jobManager->isCompletedState(state) && m_iWhichJob == WHICH_JOB_DONE)) {
         deleteJobItem(id);
         return;
     }
@@ -818,6 +826,8 @@ QVariant JobsDataModel::data(const QModelIndex &index, int role) const
             return job[JOB_ATTR_ID];
         } else if (JOB_ITEM_ROLE_STATE == role){
             return job[JOB_ATTR_STATE];
+        } else if (JOB_ITEM_ROLE_ACTION == role) {
+            return getActionStatus(iRow);
         }
         return QVariant();
     }
@@ -851,8 +861,6 @@ QVariant JobsDataModel::data(const QModelIndex &index, int role) const
         return formatDataTimeString(dateTime);
     } else if (index.column() == 6) {
         return g_cupsMonitor->getJobNotify(job);
-    } else if (index.column() == 7) {
-        return getActionStatus(iRow);
     }
     return QVariant();
 }
@@ -888,6 +896,7 @@ unsigned int JobsDataModel::getActionStatus(int iRow) const
 
     QMap<QString, QVariant> job = m_jobs[iRow];
     int iState = job[JOB_ATTR_STATE].toString().toInt();
+    int docNum = job[JOB_ATTR_DOC_NUM].toString().toInt();
 
     switch (iState) {
     case IPP_JSTATE_PENDING:
@@ -907,10 +916,14 @@ unsigned int JobsDataModel::getActionStatus(int iRow) const
         flag = JOB_ACTION_Cancel|JOB_ACTION_Release;
         break;
     case IPP_JSTATE_STOPPED:
+        flag = JOB_ACTION_Cancel|JOB_ACTION_Restart;
+        break;
     case IPP_JSTATE_CANCELED:
     case IPP_JSTATE_ABORTED:
     case IPP_JSTATE_COMPLETED:
-        flag = JOB_ACTION_Delete|JOB_ACTION_Restart;
+        flag = JOB_ACTION_Delete;
+        if (docNum > 0)
+            flag |= JOB_ACTION_Restart;
         break;
     default:
         flag = JOB_ACTION_Delete;
@@ -946,7 +959,7 @@ void JobManagerWindow::createUi()
     m_reflushBut = new DIconButton(titlebar());
     m_whichButBox = new DButtonBox(titlebar());
     m_whichList.append(new DButtonBoxButton(QIcon::fromTheme("dp_print_all")));
-    m_whichList.append(new DButtonBoxButton(QIcon::fromTheme("dp_print_queue")));
+    m_whichList.append(new DButtonBoxButton(QIcon::fromTheme("dp_print_wait")));
     m_whichList.append(new DButtonBoxButton(QIcon::fromTheme("dp_print_done")));
 
     m_jobsView = new JobListView(this);
@@ -985,15 +998,21 @@ void JobManagerWindow::initUi()
     m_jobsView->horizontalHeader()->resizeSection(6, 146);
 
     m_jobCountLabel->setAlignment(Qt::AlignCenter);
+    m_jobCountLabel->setFixedHeight(30);
+    QPalette pa = m_jobCountLabel->palette();
+    QColor color = pa.color(QPalette::Text);
+    pa.setColor(QPalette::WindowText, QColor(color.red(), color.green(), color.blue(), 75));
+    m_jobCountLabel->setPalette(pa);
 
     setMinimumSize(JOB_VIEW_WIDTH, 546);
     takeCentralWidget();
 
     QWidget* centWidget = new QWidget(this);
     QVBoxLayout *lay = new QVBoxLayout();
+    lay->setSpacing(0);
     lay->addWidget(m_jobsView);
     lay->addWidget(m_jobCountLabel);
-    lay->setContentsMargins(10, 10, 10, 10);
+    lay->setContentsMargins(10, 10, 10, 0);
     centWidget->setLayout(lay);
     setCentralWidget(centWidget);
 }
