@@ -702,28 +702,108 @@ Click + to add printers</source>
 <context>
     <name>DPropertySetDlg</name>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="571"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="169"/>
+        <source>Print Settings</source>
+        <translation>打印设置</translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="170"/>
+        <source>Driver</source>
+        <translation>驱动</translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="171"/>
+        <source>URI</source>
+        <translation>URI</translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="172"/>
+        <source>Location</source>
+        <translation>位置</translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="173"/>
+        <source>Description</source>
+        <translation>描述</translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="174"/>
+        <source>ColorMode</source>
+        <translation>颜色</translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="175"/>
+        <source>Resolution</source>
+        <translation>分辨率</translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="176"/>
+        <source>Output Quality</source>
+        <translation>打印质量</translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="177"/>
+        <source>Paper Source</source>
+        <translation>纸张来源</translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="178"/>
+        <source>Paper Type</source>
+        <translation>纸张类型</translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="179"/>
+        <source>Paper Size</source>
+        <translation>纸张大小</translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="180"/>
+        <source>Duplex</source>
+        <translation>双面打印</translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="181"/>
+        <source>Margins</source>
+        <translation>页边距位置</translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="182"/>
+        <source>Orientation</source>
+        <translation>方向</translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="183"/>
+        <source>Page Order</source>
+        <translation>打印顺序</translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="184"/>
+        <source>Staple</source>
+        <translation>装订</translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="594"/>
         <source>Options conflict!</source>
         <translation>有冲突选项!</translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="577"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="600"/>
         <source>Please resolve the conflict first, and then save the changes.</source>
         <translation>只有在冲突解决后才能应用所做修改!</translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="583"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="606"/>
         <source>Conflict:</source>
         <translation>冲突项:</translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="594"/>
-        <location filename="../ui/dpropertysetdlg.cpp" line="980"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="617"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="1009"/>
         <source>Confirm</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="979"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="1008"/>
         <source>Invalid URI</source>
         <translation>URI格式不正确</translation>
     </message>
@@ -1409,7 +1489,7 @@ or click Troubleshoot to start troubleshooting.</source>
     <message>
         <location filename="../ui/dprintersshowwindow.h" line="90"/>
         <source>Save debugging information for troubleshooting</source>
-        <translation>主界面设置菜单文字</translation>
+        <translation>保留调试信息用于故障排除</translation>
     </message>
 </context>
 <context>

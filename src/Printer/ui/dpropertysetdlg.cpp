@@ -1,4 +1,5 @@
 #include "dpropertysetdlg.h"
+#include "dprinterpropertytemplate.h"
 
 #include <qsettingbackend.h>
 #include <dsettings.h>
@@ -149,19 +150,27 @@ void DPropertySetDlg::initUI()
     tmpFile.open();
     QString strTmpFileName = tmpFile.fileName();
     auto backend = new Dtk::Core::QSettingBackend(strTmpFileName);
-    QLocale local;
-    QLocale::Language language = local.language();
     QPointer<DSettings> settings;
+    QVector<QString> vecOption;
+    vecOption.push_back(tr("Print Settings"));
+    vecOption.push_back(tr("Driver"));
+    vecOption.push_back(tr("URI"));
+    vecOption.push_back(tr("Location"));
+    vecOption.push_back(tr("Description"));
+    vecOption.push_back(tr("ColorMode"));
+    vecOption.push_back(tr("Resolution"));
+    vecOption.push_back(tr("Output Quality"));
+    vecOption.push_back(tr("Paper Source"));
+    vecOption.push_back(tr("Paper Type"));
+    vecOption.push_back(tr("Paper Size"));
+    vecOption.push_back(tr("Duplex"));
+    vecOption.push_back(tr("Margins"));
+    vecOption.push_back(tr("Orientation"));
+    vecOption.push_back(tr("Page Order"));
+    vecOption.push_back(tr("Staple"));
 
-    if(QLocale::Chinese == language)
-    {
-        settings = Dtk::Core::DSettings::fromJsonFile(":/data/dt-settings_ch.json");
-    }
-    else
-    {
-        settings = Dtk::Core::DSettings::fromJsonFile(":/data/dt-settings_en.json");
-    }
-
+    QString strJson = generatePropertyDialogJson(vecOption);
+    settings = Dtk::Core::DSettings::fromJson(strJson.toUtf8());
     settings->setBackend(backend);
     updateSettings(settings);
     resize(682, 546);
@@ -631,6 +640,12 @@ void DPropertySetDlg::checkAllConflicts(QSet<QString>& setOptions, vector<CONFLI
     for(auto iter = m_mapOfConflict.begin(); iter != m_mapOfConflict.end(); iter++)
     {
         QComboBox* pCombo = qobject_cast<QComboBox*>(m_mapOfListWidget.value(iter.value()));
+
+        if(pCombo == nullptr)
+        {
+            continue;
+        }
+
         int iCurIndex = pCombo->currentIndex();
         QString strCheckValue = pCombo->itemData(iCurIndex, COMBOITEMROLE::VALUEROLE).toString();
         QString strCheckOption = iter.key();

@@ -674,28 +674,108 @@ Click + to add printers</source>
 <context>
     <name>DPropertySetDlg</name>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="571"/>
-        <source>Options conflict!</source>
+        <location filename="../ui/dpropertysetdlg.cpp" line="169"/>
+        <source>Print Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="577"/>
-        <source>Please resolve the conflict first, and then save the changes.</source>
+        <location filename="../ui/dpropertysetdlg.cpp" line="170"/>
+        <source>Driver</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="583"/>
-        <source>Conflict:</source>
+        <location filename="../ui/dpropertysetdlg.cpp" line="171"/>
+        <source>URI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="172"/>
+        <source>Location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="173"/>
+        <source>Description</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="174"/>
+        <source>ColorMode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="175"/>
+        <source>Resolution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="176"/>
+        <source>Output Quality</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="177"/>
+        <source>Paper Source</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="178"/>
+        <source>Paper Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="179"/>
+        <source>Paper Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="180"/>
+        <source>Duplex</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="181"/>
+        <source>Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="182"/>
+        <source>Orientation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="183"/>
+        <source>Page Order</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="184"/>
+        <source>Staple</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="594"/>
-        <location filename="../ui/dpropertysetdlg.cpp" line="980"/>
+        <source>Options conflict!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="600"/>
+        <source>Please resolve the conflict first, and then save the changes.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="606"/>
+        <source>Conflict:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/dpropertysetdlg.cpp" line="617"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="1009"/>
         <source>Confirm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="979"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="1008"/>
         <source>Invalid URI</source>
         <translation type="unfinished"></translation>
     </message>

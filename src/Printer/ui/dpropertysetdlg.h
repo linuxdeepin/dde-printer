@@ -1,9 +1,9 @@
 /*
  * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
  *
- * Author:     liurui <liurui_cm@deepin.com>
+ * Author:     shenfusheng <shenfusheng_cm@deepin.com>
  *
- * Maintainer: liurui <liurui_cm@deepin.com>
+ * Maintainer: shenfusheng <shenfusheng_cm@deepin.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
