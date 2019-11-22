@@ -48,7 +48,7 @@ PermissionsWindow::~PermissionsWindow()
 void PermissionsWindow::setHost(const QString &host)
 {
     m_host = host;
-    m_pTipLabel->setText(tr("Connect to %1 to find a printer.").arg(m_host));
+    m_pTipLabel->setText(tr("Connect to %1 to find a printer").arg(m_host));
 }
 
 QString PermissionsWindow::getUser()
