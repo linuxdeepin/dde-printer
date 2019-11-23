@@ -164,7 +164,7 @@ void PrinterSearchWindow::initUi()
     pWidget1->setLayout(pVLayout1);
     m_pStackedWidget->addWidget(pWidget1);
     // 右侧 手动查找
-    m_pLabelLocation = new QLabel(tr("address"));
+    m_pLabelLocation = new QLabel(tr("Address"));
     m_pLineEditLocation = new QLineEdit();
     m_pLineEditLocation->setPlaceholderText(tr("Enter an address"));
     m_pBtnFind = new QPushButton(tr("Find"));

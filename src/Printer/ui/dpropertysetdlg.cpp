@@ -188,7 +188,7 @@ void DPropertySetDlg::initUI()
     vecOption.push_back(tr("Margins"));
     vecOption.push_back(tr("Orientation"));
     vecOption.push_back(tr("Page Order"));
-    vecOption.push_back(tr("Staple"));
+    vecOption.push_back(tr("Binding"));
 
     QString strJson = generatePropertyDialogJson(vecOption);
     settings = Dtk::Core::DSettings::fromJson(strJson.toUtf8());
@@ -1149,6 +1149,7 @@ void DPropertySetDlg::showEvent(QShowEvent *event)
     if(m_setConflictOptions.size() > 0)
     {
         showConflictDlg(vecConflictOptionPairs);
+        updateComboByConflits(m_setConflictOptions);
     }
 
     m_bShow = true;

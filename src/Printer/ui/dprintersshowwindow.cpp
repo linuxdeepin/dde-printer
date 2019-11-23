@@ -600,9 +600,16 @@ void DPrintersShowWindow::printSettingClickSlot()
         dialog.setIcon(QPixmap(":/images/warning_logo.svg"));
         QAbstractButton *pBtn = dialog.getButton(iIndex);
         connect(pBtn, &QAbstractButton::clicked, this, &DPrintersShowWindow::printDriveInstall);
+        QPoint ptCen1 = this->geometry().center();
+        QPoint ptCen2 = dialog.geometry().center();
+        QPoint mvPhasor = ptCen1 - ptCen2;
+        QRect dialogRc = dialog.geometry();
+        dialogRc.moveCenter(dialogRc.center() + mvPhasor);
+        dialog.setGeometry(dialogRc);
         dialog.exec();
     } else {
         dlg.updateViews();
+        dlg.moveToParentCenter();
         dlg.exec();
     }
 }

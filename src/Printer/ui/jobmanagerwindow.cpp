@@ -971,7 +971,7 @@ void JobManagerWindow::createUi()
 void JobManagerWindow::initUi()
 {
     m_reflushBut->setIcon(QIcon::fromTheme("dp_refresh"));
-    m_reflushBut->setToolTip(tr("Reflush"));
+    m_reflushBut->setToolTip(tr("Reflesh"));
 
     m_whichButBox->setButtonList(m_whichList, true);
     m_whichList[WHICH_JOB_RUNING]->setChecked(true);
