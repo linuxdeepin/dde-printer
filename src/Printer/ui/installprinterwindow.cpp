@@ -89,7 +89,7 @@ void InstallPrinterWindow::initUI()
     m_pTipLabel = new QLabel("");
     m_pTipLabel->setAlignment(Qt::AlignCenter);
     m_pTipLabel->setWordWrap(true);
-
+    m_pTipLabel->setMinimumHeight(50);
     m_pDriverCombo = new QComboBox();
     m_pDriverCombo->setMinimumSize(300, 36);
     m_pCancelInstallBtn = new QPushButton(tr("Cancel"));
@@ -115,7 +115,7 @@ void InstallPrinterWindow::initUI()
     pMainLayout->addSpacing(30);
     pMainLayout->addWidget(m_pStatusLabel, 0, Qt::AlignCenter);
     pMainLayout->addSpacing(13);
-    pMainLayout->addWidget(m_pTipLabel);
+    pMainLayout->addWidget(m_pTipLabel, 0, Qt::AlignCenter);
     pMainLayout->addWidget(m_pDriverCombo, 0, Qt::AlignCenter);
 //    pMainLayout->addStretch();
     pMainLayout->addSpacing(146);
@@ -303,10 +303,10 @@ void InstallPrinterWindow::feedbackPrintTestPage()
 
         if (driver[SD_KEY_from].toInt() == PPDFrom_Server) {
             int sid = driver[SD_KEY_sid].toInt();
-            QString strReason = m_testJob?m_testJob->getMessage():"User feedback";
+            QString strReason = m_testJob ? m_testJob->getMessage() : "User feedback";
             QString strFeedback = QString("Uri: %1, device: %2").arg(m_device.uriList.join(" "))
-                    .arg(m_device.strDeviceId.isEmpty()?m_device.strMakeAndModel:m_device.strDeviceId);
-            PrinterServerInterface* server = g_printerServer->feedbackResult(sid, false, strReason, strFeedback);
+                                  .arg(m_device.strDeviceId.isEmpty() ? m_device.strMakeAndModel : m_device.strDeviceId);
+            PrinterServerInterface *server = g_printerServer->feedbackResult(sid, false, strReason, strFeedback);
             if (server)
                 server->postToServer();
         }

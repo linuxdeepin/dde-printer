@@ -119,10 +119,18 @@ void InstallDriverWindow::initUI()
     pGLayout->setColumnStretch(0, 1);
     pGLayout->setColumnStretch(1, 3);
     pGLayout->setRowStretch(3, 1);
-    pGLayout->setMargin(0);
+    pGLayout->setContentsMargins(10, 10, 10, 10);
+
     DFrame *pLocalWidget = new DFrame();
     pLocalWidget->setLayout(pGLayout);
-    m_pStackWidget->addWidget(pLocalWidget);
+    pLocalWidget->setBackgroundRole(this->backgroundRole());
+    QVBoxLayout *pVLayoutLocal = new QVBoxLayout();
+    pVLayoutLocal->addWidget(pLocalWidget, 0);
+    pVLayoutLocal->addWidget(new DFrame(), 1);
+    DFrame *pLocalWidget1 = new DFrame();
+    pLocalWidget1->setLayout(pVLayoutLocal);
+    //将中间控件设置为DMainWindow的背景颜色
+    m_pStackWidget->addWidget(pLocalWidget1);
 
     // PPD
     m_pPPDPath = new QLabel(UI_PRINTERDRIVER_PPDLABEL_NORMAL);
@@ -140,6 +148,7 @@ void InstallDriverWindow::initUI()
     DFrame *pPPDWidget = new DFrame();
     pPPDWidget->setObjectName("ppdWidget");
     pPPDWidget->setLayout(pVLayout);
+    pPPDWidget->setBackgroundRole(this->backgroundRole());
     m_pStackWidget->addWidget(pPPDWidget);
 
     //设置打印信息搜索
@@ -159,9 +168,16 @@ void InstallDriverWindow::initUI()
     pGLayout1->addWidget(m_pDriverManualCombo, 1, 1, 1, 2);
     pGLayout1->setMargin(0);
     pGLayout1->setRowStretch(2, 1);
+    pGLayout1->setContentsMargins(10, 10, 10, 10);
     DFrame *pSettingWidget = new DFrame();
     pSettingWidget->setLayout(pGLayout1);
-    m_pStackWidget->addWidget(pSettingWidget);
+    pSettingWidget->setBackgroundRole(this->backgroundRole());
+    QVBoxLayout *pVLayoutMaker = new  QVBoxLayout();
+    pVLayoutMaker->addWidget(pSettingWidget, 0);
+    pVLayoutMaker->addWidget(new DFrame(), 1);
+    DFrame *pSettingWidget1 = new DFrame();
+    pSettingWidget1->setLayout(pVLayoutMaker);
+    m_pStackWidget->addWidget(pSettingWidget1);
 
     //安装按钮
     m_pInstallBtn = new QPushButton(tr("Install Driver"));

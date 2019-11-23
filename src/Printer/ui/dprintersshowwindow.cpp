@@ -396,7 +396,7 @@ void DPrintersShowWindow::reflushPrinterListView(const QString &newPrinterName)
     foreach (QString printerName, printerList) {
         DStandardItem *pItem = new DStandardItem(printerName);
         pItem->setData(VListViewItemMargin, Dtk::MarginsRole);
-//        pItem->setSizeHint(QSize(300, 50));
+        pItem->setSizeHint(QSize(300, 50));
         pItem->setToolTip(printerName);
         if (m_pPrinterManager->isDefaultPrinter(printerName))
             pItem->setIcon(QIcon::fromTheme("dp_printer_default"));
@@ -670,16 +670,15 @@ void DPrintersShowWindow::printerListWidgetItemChangedSlot(const QModelIndex &pr
         m_pLabelTypeShow->setText(basePrinterInfo.at(1));
         m_pLabelTypeShow->setToolTip(basePrinterInfo.at(1));
         m_pLabelStatusShow->setText(basePrinterInfo.at(2));
-
-        ConnectedTask *pTask = new ConnectedTask(printerName);
-        connect(pTask, &ConnectedTask::signalResult, this, [&](bool connected, const QString & signalPrinterName) {
-            if ((!connected) && (m_pPrinterListView->currentIndex().data().toString() == signalPrinterName)) {
-                m_pLabelStatusShow->setText(tr("Disconnected"));
-            }
-        });
-        //将线程对象的释放与更新状态分开
-        connect(pTask, &ConnectedTask::finished, pTask, &ConnectedTask::deleteLater);
-        pTask->start();
+//        ConnectedTask *pTask = new ConnectedTask(printerName);
+//        connect(pTask, &ConnectedTask::signalResult, this, [&](bool connected, const QString & signalPrinterName) {
+//            if ((!connected) && (m_pPrinterListView->currentIndex().data().toString() == signalPrinterName)) {
+//                m_pLabelStatusShow->setText(tr("Disconnected"));
+//            }
+//        });
+//        //将线程对象的释放与更新状态分开
+//        connect(pTask, &ConnectedTask::finished, pTask, &ConnectedTask::deleteLater);
+//        pTask->start();
     }
 }
 
