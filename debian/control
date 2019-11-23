@@ -19,5 +19,4 @@ Homepage: http://www.linuxdeepin.com/
 Package: dde-printer
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Recommends: hplip-plugin, cndrvcups-capt
-Description: dde-printer is a tool to provide printer services developed by Deepin Team. It's easy to operate with simple interface.
+Description: Print Manager is a printer management tool, which supports adding and removing printers, managing print jobs and so on.
