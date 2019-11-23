@@ -48,6 +48,7 @@ class QStandardItemModel;
 class QMenu;
 class QCheckBox;
 QT_END_NAMESPACE
+
 class ServerSettingsWindow : public DMainWindow
 {
     Q_OBJECT

@@ -523,7 +523,7 @@ void DPrintersShowWindow::renamePrinterSlot(QStandardItem *pItem)
         pMessage->setWordWrap(true);
         pMessage->setAlignment(Qt::AlignCenter);
         pDialog->addContent(pMessage);
-        pDialog->addButton(tr("Confirm"));
+        pDialog->addButton(tr("OK"));
         pDialog->exec();
         pDialog->deleteLater();
         m_pPrinterListView->blockSignals(true);

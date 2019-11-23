@@ -97,7 +97,7 @@ int PrinterApplication::create()
     qApp->setProductIcon(QIcon(":/images/dde-printer.svg"));
     qApp->setProductName(tr("Print Manager"));
     qApp->setApplicationDescription(tr("Print Manager is a printer management tool, which supports adding and removing printers, managing print jobs and so on."));
-    qApp->setApplicationLicense("GPLv3");
+    qApp->setApplicationLicense("GPLv3.");
 
     DLogManager::registerConsoleAppender();
     DLogManager::registerFileAppender();
