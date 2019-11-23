@@ -78,7 +78,7 @@ void PrinterSearchWindow::initUi()
 
     // 左侧菜单列表
     m_pTabListView = new DListView();
-    m_pTabListView->setAutoFillBackground(true);
+//    m_pTabListView->setAutoFillBackground(true);
     QStandardItemModel *pTabModel = new QStandardItemModel(m_pTabListView);
     DStandardItem *pWidgetItemAuto = new DStandardItem(QIcon::fromTheme("dp_auto_searching"), tr("Discover printer"));
     pWidgetItemAuto->setData(VListViewItemMargin, Dtk::MarginsRole);
@@ -125,7 +125,7 @@ void PrinterSearchWindow::initUi()
     m_pPrinterListViewAuto->setTextElideMode(Qt::ElideRight);
     m_pPrinterListViewAuto->setSelectionMode(QAbstractItemView::NoSelection);
     m_pPrinterListViewAuto->setFocusPolicy(Qt::NoFocus);
-    m_pPrinterListViewAuto->setAutoFillBackground(true);
+//    m_pPrinterListViewAuto->setAutoFillBackground(true);
     m_pPrinterListModel = new QStandardItemModel(m_pPrinterListViewAuto);
     m_pPrinterListViewAuto->setModel(m_pPrinterListModel);
 

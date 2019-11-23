@@ -140,7 +140,6 @@ void DPrintersShowWindow::initUI()
     pLeftVLayout->addWidget(m_pPrinterListView, 4);
     pLeftVLayout->addWidget(m_pLeftTipLabel, 1, Qt::AlignCenter);
     DFrame *pLeftWidget = new DFrame(this);
-    pLeftWidget->setAutoFillBackground(true);
     pLeftWidget->setLayout(pLeftVLayout);
 
     // 右侧上方
@@ -627,7 +626,7 @@ void DPrintersShowWindow::printTestClickSlot()
     QString printerName = m_pPrinterListView->currentIndex().data().toString();
 
     PrinterTestPageDialog *dlg = new PrinterTestPageDialog(printerName, this);
-    connect(dlg, &PrinterTestPageDialog::signalFinished, this, [=](){
+    connect(dlg, &PrinterTestPageDialog::signalFinished, this, [ = ]() {
         m_pTBtnPrintTest->blockSignals(false);
     });
     dlg->printTestPage();
