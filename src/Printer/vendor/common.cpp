@@ -56,8 +56,10 @@ QString getPrinterPPD(const char *name)
 
 QString getPrinterNameFromUri(const QString &uri)
 {
-    int index = uri.indexOf("printers/");
-    return uri.right(uri.length()-index-9);
+    QUrl url = QUrl::fromEncoded(uri.toUtf8());
+    QString strurl = url.toDisplayString();
+    int index = strurl.indexOf("printers/");
+    return strurl.mid(index+9);
 }
 
 QString getPrinterUri(const char *name)
