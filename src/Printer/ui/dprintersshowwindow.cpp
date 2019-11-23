@@ -39,6 +39,7 @@
 #include <DApplication>
 #include <DFloatingButton>
 #include <DFrame>
+#include <DBackgroundGroup>
 
 
 #include <QHBoxLayout>
@@ -139,7 +140,7 @@ void DPrintersShowWindow::initUI()
     pLeftVLayout->addLayout(pLeftTopHLayout, 1);
     pLeftVLayout->addWidget(m_pPrinterListView, 4);
     pLeftVLayout->addWidget(m_pLeftTipLabel, 1, Qt::AlignCenter);
-    DFrame *pLeftWidget = new DFrame(this);
+    QWidget *pLeftWidget = new QWidget(this);
     pLeftWidget->setLayout(pLeftVLayout);
 
     // 右侧上方
@@ -264,19 +265,25 @@ void DPrintersShowWindow::initUI()
     pRightMainVLayout->addWidget(m_pPRightTipLabel2);
     pRightMainVLayout->addStretch();
     //DFrame 会导致上面的QLabel显示颜色不正常
-    DFrame *pRightWidgwt = new DFrame();
+    QWidget *pRightWidgwt = new QWidget();
     pRightWidgwt->setLayout(pRightMainVLayout);
 
-    QWidget *pCentralWidget = new QWidget(this);
+
     QHBoxLayout *pMainHLayout = new QHBoxLayout();
-//    pMainHLayout->setSpacing(10);
+    pMainHLayout->setSpacing(2);
     pMainHLayout->addWidget(pLeftWidget, 1);
     pMainHLayout->addWidget(pRightWidgwt, 2);
-    pMainHLayout->setContentsMargins(10, 10, 10, 10);
-
+//    pMainHLayout->setContentsMargins(10, 10, 10, 10);
+    //阴影分割布局控件
+    DBackgroundGroup *pCentralWidget = new DBackgroundGroup();
     pCentralWidget->setLayout(pMainHLayout);
+
+    QHBoxLayout *pMainLayout1 = new QHBoxLayout();
+    pMainLayout1->addWidget(pCentralWidget);
+    QWidget *pCentralWidget1 = new QWidget();
+    pCentralWidget1->setLayout(pMainLayout1);
     takeCentralWidget();
-    setCentralWidget(pCentralWidget);
+    setCentralWidget(pCentralWidget1);
     //设置了parent会导致moveToCenter失效
     m_pSearchWindow = new PrinterSearchWindow();
     //设置对话框

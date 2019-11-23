@@ -76,22 +76,25 @@ void PrinterSearchWindow::initUi()
     setWindowModality(Qt::ApplicationModal);
     setMinimumSize(682, 532);
 
+    DFrame *pLeftWidget = new DFrame();
     // 左侧菜单列表
     m_pTabListView = new DListView();
-//    m_pTabListView->setAutoFillBackground(true);
     QStandardItemModel *pTabModel = new QStandardItemModel(m_pTabListView);
     DStandardItem *pWidgetItemAuto = new DStandardItem(QIcon::fromTheme("dp_auto_searching"), tr("Discover printer"));
     pWidgetItemAuto->setData(VListViewItemMargin, Dtk::MarginsRole);
     pWidgetItemAuto->setSizeHint(QSize(108, 48));
     pWidgetItemAuto->setToolTip(tr("Discover printer"));
+    pWidgetItemAuto->setBackgroundRole(pLeftWidget->backgroundRole());
     DStandardItem *pWidgetItemManual = new DStandardItem(QIcon::fromTheme("dp_manual_search"), tr("Find printer"));
     pWidgetItemManual->setData(VListViewItemMargin, Dtk::MarginsRole);
     pWidgetItemManual->setSizeHint(QSize(108, 48));
     pWidgetItemManual->setToolTip(tr("Find printer"));
+    pWidgetItemManual->setBackgroundRole(pLeftWidget->backgroundRole());
     DStandardItem *pWidgetItemURI = new DStandardItem(QIcon::fromTheme("dp_uri"), tr("Enter URI"));
     pWidgetItemURI->setData(VListViewItemMargin, Dtk::MarginsRole);
     pWidgetItemURI->setSizeHint(QSize(108, 48));
     pWidgetItemURI->setToolTip(tr("Enter URI"));
+    pWidgetItemURI->setBackgroundRole(pLeftWidget->backgroundRole());
     pTabModel->appendRow(pWidgetItemAuto);
     pTabModel->appendRow(pWidgetItemManual);
     pTabModel->appendRow(pWidgetItemURI);
@@ -101,6 +104,13 @@ void PrinterSearchWindow::initUi()
     m_pTabListView->setTextElideMode(Qt::TextElideMode::ElideRight);
     m_pTabListView->setEditTriggers(DListView::NoEditTriggers);
     m_pTabListView->setFixedWidth(128);
+    m_pTabListView->setItemSpacing(0);
+
+    QVBoxLayout *pLeftVLayout = new QVBoxLayout();
+    pLeftVLayout->addWidget(m_pTabListView);
+    pLeftVLayout->setContentsMargins(10, 10, 10, 0);
+    pLeftWidget->setFixedWidth(148);
+    pLeftWidget->setLayout(pLeftVLayout);
 
     m_pStackedWidget = new QStackedWidget();
     // 右侧 自动查找
@@ -302,12 +312,7 @@ void PrinterSearchWindow::initUi()
     pRightVLayout->addWidget(m_pStackedWidget);
     pRightVLayout->setContentsMargins(0, 10, 10, 10);
 
-    QVBoxLayout *pLeftVLayout = new QVBoxLayout();
-    pLeftVLayout->addWidget(m_pTabListView);
-    pLeftVLayout->setContentsMargins(10, 10, 10, 0);
-    DFrame *pLeftWidget = new DFrame();
-    pLeftWidget->setFixedWidth(148);
-    pLeftWidget->setLayout(pLeftVLayout);
+
 
     // 整体布局
     QHBoxLayout *m_pMainHLayout = new QHBoxLayout();
