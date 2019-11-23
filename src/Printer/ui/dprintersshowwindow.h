@@ -91,19 +91,39 @@ private:
 //        m_pCheckCancelJobs = new QCheckBox(tr("Allow users to cancel all tasks (not just their own)"));
         m_pCheckSaveDebugInfo = new QCheckBox(tr("Save debugging information for troubleshooting"));
         QVBoxLayout *pSettingsVLayout = new QVBoxLayout();
-        pSettingsVLayout->setSpacing(0);
+        pSettingsVLayout->setSpacing(1);
         pSettingsVLayout->addWidget(pBaseSettings);
-        pSettingsVLayout->addWidget(m_pCheckShared);
-        pSettingsVLayout->addSpacing(3);
+
+        QVBoxLayout *pSettingsVLayout1 = new QVBoxLayout();
+        pSettingsVLayout1->addWidget(m_pCheckShared);
+        pSettingsVLayout1->addSpacing(3);
         QHBoxLayout *pSettingsHLayout = new QHBoxLayout();
         pSettingsHLayout->addSpacing(12);
         pSettingsHLayout->addWidget(m_pCheckIPP);
-        pSettingsVLayout->addLayout(pSettingsHLayout);
-        pSettingsVLayout->addSpacing(12);
-        pSettingsVLayout->addWidget(m_pCheckRemote);
+        pSettingsVLayout1->addLayout(pSettingsHLayout);
+        DFrame *pFrame1 = new DFrame();
+        pFrame1->setFixedHeight(64);
+        pFrame1->setBackgroundRole(this->backgroundRole());
+        pFrame1->setLayout(pSettingsVLayout1);
+
+        pSettingsVLayout->addWidget(pFrame1);
+
+        QVBoxLayout *pSettingsVLayout2 = new QVBoxLayout();
+        pSettingsVLayout2->addWidget(m_pCheckRemote);
+        DFrame *pFrame2 = new DFrame();
+        pFrame2->setLayout(pSettingsVLayout2);
+        pFrame2->setFixedHeight(36);
+        pFrame2->setBackgroundRole(this->backgroundRole());
+        pSettingsVLayout->addWidget(pFrame2);
 //        pSettingsVLayout->addWidget(m_pCheckCancelJobs);
-        pSettingsVLayout->addSpacing(12);
-        pSettingsVLayout->addWidget(m_pCheckSaveDebugInfo);
+
+        QVBoxLayout *pSettingsVLayout3 = new QVBoxLayout();
+        pSettingsVLayout3->addWidget(m_pCheckSaveDebugInfo);
+        DFrame *pFrame3 = new DFrame();
+        pFrame3->setFixedHeight(36);
+        pFrame3->setBackgroundRole(this->backgroundRole());
+        pFrame3->setLayout(pSettingsVLayout3);
+        pSettingsVLayout->addWidget(pFrame3);
 
         DFrame *pSettingWidget = new DFrame();
         pSettingWidget->setLayout(pSettingsVLayout);
