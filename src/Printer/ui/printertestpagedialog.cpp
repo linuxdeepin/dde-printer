@@ -26,39 +26,51 @@
 
 #include <QLabel>
 #include <QTimer>
+#include <QAbstractButton>
 
 PrinterTestPageDialog::PrinterTestPageDialog(const QString &printerName, QWidget *parent)
-    :DDialog (parent),
-      m_testJob(nullptr)
+    :QObject(nullptr),
+      m_printerName(printerName),
+      m_testJob(nullptr),
+      m_trobleShoot(nullptr),
+      m_parent(parent)
 {
-    m_printerName = printerName;
+    connect(this, &PrinterTestPageDialog::signalFinished, this, &QObject::deleteLater);
+}
 
-    setIcon(QIcon(":/images/dde-printer.svg"));
-
-    setMessage(tr("Check for ") + m_printerName);
-    addButton(tr("cancel"));
-    addButton(tr("OK"), true);
-    setFixedHeight(202);
-
+void PrinterTestPageDialog::printTestPage()
+{
+    qInfo() << m_printerName;
     m_testJob = new PrinterTestJob(m_printerName, this, false);
     if (m_testJob->findRunningJob()) {
-        QTimer::singleShot(10, this, [=](){
-            done(0);
-        });
-    } else {
-        m_trobleShoot = new TroubleShoot(printerName, this);
-        connect(m_trobleShoot, &TroubleShoot::signalUpdateProgress, this, &PrinterTestPageDialog::slotTroubleShootMessage);
-        connect(m_trobleShoot, &TroubleShoot::signalStatus, this, &PrinterTestPageDialog::slotTroubleShootStatus);
-        m_trobleShoot->start();
+        emit signalFinished();
+        return;
     }
+
+    m_trobleShoot = new TroubleShoot(m_printerName, this);
+    connect(m_trobleShoot, &TroubleShoot::signalUpdateProgress, this, &PrinterTestPageDialog::slotTroubleShootMessage);
+    connect(m_trobleShoot, &TroubleShoot::signalStatus, this, &PrinterTestPageDialog::slotTroubleShootStatus);
+    m_trobleShoot->start();
+}
+
+void PrinterTestPageDialog::showErrorMessage(const QString &message)
+{
+    DDialog dlg(m_parent);
+
+    dlg.setIcon(QIcon(":/images/dde-printer.svg"));
+
+    dlg.setMessage(message);
+    dlg.addButton(tr("OK"), true);
+    dlg.getButton(0)->setFixedWidth(200);
+    dlg.setFixedHeight(202);
+    dlg.exec();
 }
 
 void PrinterTestPageDialog::slotTroubleShootMessage(int proccess, QString messge)
 {
     Q_UNUSED(proccess);
 
-    if (!messge.isEmpty())
-        setMessage(messge);
+    m_message = messge;
 }
 
 void PrinterTestPageDialog::slotTroubleShootStatus(int id, int state)
@@ -67,8 +79,11 @@ void PrinterTestPageDialog::slotTroubleShootStatus(int id, int state)
 
     if (TStat_Suc == state) {
         if (!m_testJob->isPass())
-            setMessage(m_testJob->getMessage());
-        else
-            this->done(0);
+            showErrorMessage(m_testJob->getMessage());
+    } else if (TStat_Fail == state) {
+        showErrorMessage(m_message);
     }
+
+    if (TStat_Suc == state || TStat_Fail == state)
+        emit signalFinished();
 }

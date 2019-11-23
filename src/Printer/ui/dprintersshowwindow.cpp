@@ -623,11 +623,14 @@ void DPrintersShowWindow::printTestClickSlot()
 {
     if (!m_pPrinterListView->currentIndex().isValid())
         return;
+    m_pTBtnPrintTest->blockSignals(true);
     QString printerName = m_pPrinterListView->currentIndex().data().toString();
 
-    PrinterTestPageDialog dlg(printerName, this);
-    dlg.setModal(true);
-    dlg.exec();
+    PrinterTestPageDialog *dlg = new PrinterTestPageDialog(printerName, this);
+    connect(dlg, &PrinterTestPageDialog::signalFinished, this, [=](){
+        m_pTBtnPrintTest->blockSignals(false);
+    });
+    dlg->printTestPage();
 }
 
 void DPrintersShowWindow::printFalutClickSlot()

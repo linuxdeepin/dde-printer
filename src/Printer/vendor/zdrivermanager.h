@@ -61,6 +61,7 @@ private:
     int getLocalDrivers();
     void sortDrivers();
     void askForFinish();
+    bool hasExcatDriver();
 
     TDeviceInfo     m_printer;
     QList<QMap<QString, QVariant>>   m_drivers;

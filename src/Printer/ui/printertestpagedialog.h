@@ -30,21 +30,30 @@ QT_BEGIN_NAMESPACE
 class QLabel;
 QT_END_NAMESPACE
 
-class PrinterTestPageDialog : public DDialog
+class PrinterTestPageDialog : public QObject
 {
     Q_OBJECT
 
 public:
     PrinterTestPageDialog(const QString &printerName, QWidget *parent=nullptr);
 
+    void printTestPage();
+
 protected slots:
     void slotTroubleShootMessage(int proccess, QString messge);
     void slotTroubleShootStatus(int id, int state);
+
+protected:
+    void showErrorMessage(const QString &message);
+
+signals:
+    void signalFinished();
 
 private:
     QString         m_printerName;
 
     PrinterTestJob* m_testJob;
     TroubleShoot*   m_trobleShoot;
-    QLabel*         m_contentLable;
+    QString         m_message;
+    QWidget*        m_parent;
 };
