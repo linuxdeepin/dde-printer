@@ -392,7 +392,7 @@ QString DPrinterManager::validataName(const QString &oldPrinterName)
         newPrinterName = oldPrinterName;
     }
     newPrinterName = newPrinterName.trimmed();
-    newPrinterName.replace(QRegularExpression("[#/]"), "");
+    newPrinterName.replace(QRegularExpression("[# /]"), "-");
     return newPrinterName;
 }
 
