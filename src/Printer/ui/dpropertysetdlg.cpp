@@ -173,12 +173,12 @@ void DPropertySetDlg::initUI()
     auto backend = new Dtk::Core::QSettingBackend(strTmpFileName);
     QPointer<DSettings> settings;
     QVector<QString> vecOption;
-    vecOption.push_back(tr("Print Settings"));
+    vecOption.push_back(tr("Print Properties"));
     vecOption.push_back(tr("Driver"));
     vecOption.push_back(tr("URI"));
     vecOption.push_back(tr("Location"));
     vecOption.push_back(tr("Description"));
-    vecOption.push_back(tr("ColorMode"));
+    vecOption.push_back(tr("Color Mode"));
     vecOption.push_back(tr("Resolution"));
     vecOption.push_back(tr("Output Quality"));
     vecOption.push_back(tr("Paper Source"));
@@ -621,8 +621,14 @@ void DPropertySetDlg::showConflictDlg(const vector<CONFLICTPAIR>& vecConflictPai
     DDialog dialog(this);
     //dialog.setFixedSize(450, 172);
     dialog.addContent(pWidget);
-    dialog.addButton(tr("Confirm"));
+    dialog.addButton(tr("OK"));
     dialog.setIcon(QPixmap(":/images/warning_logo.svg"));
+    QPoint ptCen1 = this->geometry().center();
+    QPoint ptCen2 = dialog.geometry().center();
+    QPoint mvPhasor = ptCen1 - ptCen2;
+    QRect geo = dialog.geometry();
+    geo.moveCenter(mvPhasor + geo.center());
+    dialog.setGeometry(geo);
     dialog.exec();
 }
 
@@ -1013,7 +1019,7 @@ void DPropertySetDlg::printUriUI_EditFinished()
         DDialog dialog;
         dialog.setFixedSize(QSize(400, 150));
         dialog.setMessage(tr("Invalid URI"));
-        dialog.addButton(tr("Confirm"));
+        dialog.addButton(tr("OK"));
         dialog.setIcon(QPixmap(":/images/warning_logo.svg"));
         dialog.exec();
         return;

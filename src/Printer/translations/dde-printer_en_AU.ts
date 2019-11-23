@@ -609,12 +609,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="674"/>
-        <source>Disconnected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="526"/>
         <location filename="../ui/dprintersshowwindow.cpp" line="546"/>
         <source>Confirm</source>
         <translation type="unfinished"></translation>
@@ -646,6 +640,7 @@
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="353"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="526"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
@@ -679,7 +674,7 @@
     <name>DPropertySetDlg</name>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="176"/>
-        <source>Print Settings</source>
+        <source>Print Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -704,7 +699,7 @@
     </message>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="181"/>
-        <source>ColorMode</source>
+        <source>Color Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -774,12 +769,12 @@
     </message>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="624"/>
-        <location filename="../ui/dpropertysetdlg.cpp" line="1016"/>
-        <source>Confirm</source>
+        <location filename="../ui/dpropertysetdlg.cpp" line="1022"/>
+        <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="1015"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="1021"/>
         <source>Invalid URI</source>
         <translation type="unfinished"></translation>
     </message>
@@ -787,7 +782,7 @@
 <context>
     <name>DriverManager</name>
     <message>
-        <location filename="../vendor/zdrivermanager.cpp" line="707"/>
+        <location filename="../vendor/zdrivermanager.cpp" line="738"/>
         <source>EveryWhere driver</source>
         <translation type="unfinished"></translation>
     </message>
@@ -829,7 +824,7 @@
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="99"/>
-        <location filename="../ui/installdriverwindow.cpp" line="313"/>
+        <location filename="../ui/installdriverwindow.cpp" line="329"/>
         <source>Choose a local driver</source>
         <translation type="unfinished"></translation>
     </message>
@@ -844,55 +839,55 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="146"/>
+        <location filename="../ui/installdriverwindow.cpp" line="155"/>
         <source>Vendor and Model</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="148"/>
-        <source>Please enter the complete vendor and model</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/installdriverwindow.cpp" line="150"/>
+        <location filename="../ui/installdriverwindow.cpp" line="159"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="167"/>
+        <location filename="../ui/installdriverwindow.cpp" line="183"/>
         <source>Install Driver</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="109"/>
-        <location filename="../ui/installdriverwindow.cpp" line="152"/>
+        <location filename="../ui/installdriverwindow.cpp" line="161"/>
         <source>Driver</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="295"/>
-        <location filename="../ui/installdriverwindow.cpp" line="401"/>
+        <location filename="../ui/installdriverwindow.cpp" line="157"/>
+        <source>Enter a complete vendor and model</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/installdriverwindow.cpp" line="311"/>
+        <location filename="../ui/installdriverwindow.cpp" line="417"/>
         <source>Reselect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="321"/>
-        <location filename="../ui/installdriverwindow.cpp" line="398"/>
+        <location filename="../ui/installdriverwindow.cpp" line="337"/>
+        <location filename="../ui/installdriverwindow.cpp" line="414"/>
         <source>Select a PPD file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="330"/>
+        <location filename="../ui/installdriverwindow.cpp" line="346"/>
         <source>Search for printer driver</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="383"/>
+        <location filename="../ui/installdriverwindow.cpp" line="399"/>
         <source>(recommended)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="504"/>
+        <location filename="../ui/installdriverwindow.cpp" line="520"/>
         <source> (recommended)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1068,7 +1063,7 @@
     <name>JobManagerWindow</name>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="974"/>
-        <source>Reflesh</source>
+        <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1189,7 +1184,7 @@
 <context>
     <name>PrinterSearchWindow</name>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="230"/>
+        <location filename="../ui/printersearchwindow.cpp" line="231"/>
         <source>URI</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1222,43 +1217,43 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="142"/>
+        <location filename="../ui/printersearchwindow.cpp" line="143"/>
         <source>Install Driver</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="167"/>
+        <location filename="../ui/printersearchwindow.cpp" line="168"/>
         <source>Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="169"/>
+        <location filename="../ui/printersearchwindow.cpp" line="170"/>
         <source>Enter an address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="493"/>
+        <location filename="../ui/printersearchwindow.cpp" line="494"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="170"/>
+        <location filename="../ui/printersearchwindow.cpp" line="171"/>
         <source>Find</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="233"/>
+        <location filename="../ui/printersearchwindow.cpp" line="234"/>
         <source>Enter device URI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="234"/>
+        <location filename="../ui/printersearchwindow.cpp" line="235"/>
         <source>Examples:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="596"/>
-        <location filename="../ui/printersearchwindow.cpp" line="644"/>
+        <location filename="../ui/printersearchwindow.cpp" line="597"/>
+        <location filename="../ui/printersearchwindow.cpp" line="645"/>
         <source> (recommended)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1279,17 +1274,7 @@
 <context>
     <name>PrinterTestPageDialog</name>
     <message>
-        <location filename="../ui/printertestpagedialog.cpp" line="38"/>
-        <source>Check for </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/printertestpagedialog.cpp" line="39"/>
-        <source>cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/printertestpagedialog.cpp" line="40"/>
+        <location filename="../ui/printertestpagedialog.cpp" line="63"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1327,8 +1312,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="457"/>
-        <location filename="../ui/printersearchwindow.cpp" line="516"/>
+        <location filename="../ui/printersearchwindow.cpp" line="458"/>
+        <location filename="../ui/printersearchwindow.cpp" line="517"/>
         <source>(use %1 protocol)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1443,17 +1428,17 @@
 <context>
     <name>TroubleShootDialog</name>
     <message>
-        <location filename="../ui/troubleshootdialog.cpp" line="108"/>
+        <location filename="../ui/troubleshootdialog.cpp" line="110"/>
         <source>Troubleshoot: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/troubleshootdialog.cpp" line="127"/>
+        <location filename="../ui/troubleshootdialog.cpp" line="129"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/troubleshootdialog.cpp" line="154"/>
+        <location filename="../ui/troubleshootdialog.cpp" line="156"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>

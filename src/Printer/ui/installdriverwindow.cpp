@@ -154,7 +154,7 @@ void InstallDriverWindow::initUI()
     //设置打印信息搜索
     QLabel *pMakerAndTypeLabel = new QLabel(tr("Vendor and Model"));
     m_pManuAndTypeLineEdit = new QLineEdit();
-    m_pManuAndTypeLineEdit->setPlaceholderText(tr("Please enter the complete vendor and model"));
+    m_pManuAndTypeLineEdit->setPlaceholderText(tr("Enter a complete vendor and model"));
     m_pManuAndTypeLineEdit->setValidator(new QRegExpValidator(QRegExp("^[a-zA-Z0-9 ]*$")));
     m_pSearchBtn = new QPushButton(tr("Search"));
     m_pSearchBtn->setFixedSize(60, 36);
