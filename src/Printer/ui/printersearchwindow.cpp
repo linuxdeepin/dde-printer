@@ -421,6 +421,28 @@ void PrinterSearchWindow::listWidgetClickedSlot(const QModelIndex &previous)
     }
 }
 
+QString PrinterSearchWindow::printerDescription(const TDeviceInfo& info, bool manual)
+{
+    QString strDesc = !info.strName.isEmpty() ?
+        info.strName : !info.strInfo.isEmpty() ?
+        info.strInfo + " " : info.strMakeAndModel;
+    QString strUri = info.uriList[0];
+    if (strDesc.isEmpty())
+        strDesc = strUri;
+    else {
+        if (!manual) {
+            QString strHost = getHostFromUri(strUri);
+            if (!strHost.isEmpty())
+                strDesc += QString(" (%1)").arg(strHost);
+        }
+        QString protocol = strUri.left(strUri.indexOf(":/"));
+        if (!protocol.isEmpty())
+            strDesc += QObject::tr("(use %1 protocol)").arg(protocol);
+    }
+
+    return strDesc;
+}
+
 void PrinterSearchWindow::getDeviceResultSlot(int id, int state)
 {
     Q_UNUSED(id)
@@ -443,22 +465,10 @@ void PrinterSearchWindow::getDeviceResultSlot(int id, int state)
         QList<TDeviceInfo> deviceList = task->getResult();
         int index = m_pPrinterListViewAuto->count();
         for (; index < deviceList.count(); index++) {
-            TDeviceInfo info = deviceList[index];
+            const TDeviceInfo& info = deviceList[index];
 
-            QString strDesc = info.strInfo.isEmpty() ? info.strMakeAndModel : info.strInfo + " ";
-            QString strUri = info.uriList[0];
-            if (strDesc.isEmpty())
-                strDesc = strUri;
-            else {
-                QString strHost = getHostFromUri(strUri);
-                QString protocol = strUri.left(strUri.indexOf(":/"));
-                if (!strHost.isEmpty())
-                    strDesc += QString(" (%1)").arg(strHost);
-                if (!protocol.isEmpty())
-                    strDesc += QObject::tr("(use %1 protocol)").arg(protocol);
-            }
             QStandardItem *pItem = new QStandardItem(info.strName);
-            pItem->setText(strDesc);
+            pItem->setText(printerDescription(info));
             pItem->setIcon(QIcon::fromTheme("dp_printer_list"));
             // 将结构体转化为QVariant,需要再转回来
             pItem->setData(QVariant::fromValue(info), Qt::UserRole + 1);
@@ -504,20 +514,11 @@ void PrinterSearchWindow::getDeviceResultByManualSlot(int id, int state)
         QList<TDeviceInfo> deviceList = task->getResult();
         int index = m_pPrinterListViewManual->count();
         for (; index < deviceList.count(); index++) {
-            TDeviceInfo info = deviceList[index];
+            const TDeviceInfo& info = deviceList[index];
 
             qInfo() << "Update" << info.toString();
-            QString strDesc = info.strInfo.isEmpty() ? info.strMakeAndModel : info.strInfo + " ";
-            QString strUri = info.uriList[0];
-            if (strDesc.isEmpty())
-                strDesc = strUri;
-            else {
-                QString protocol = strUri.left(strUri.indexOf(":/"));
-                if (!protocol.isEmpty())
-                    strDesc += QObject::tr("(use %1 protocol)").arg(protocol);
-            }
             QStandardItem *pItem = new QStandardItem(info.strName);
-            pItem->setText(strDesc);
+            pItem->setText(printerDescription(info, true));
             pItem->setIcon(QIcon::fromTheme("dp_printer_list"));
             // 将结构体转化为QVariant,需要再转回来
             pItem->setData(QVariant::fromValue(info), Qt::UserRole + 1);
@@ -573,6 +574,24 @@ void PrinterSearchWindow::printerListClickedSlot(const QModelIndex &index)
 
 }
 
+QString PrinterSearchWindow::driverDescription(const QMap<QString, QVariant>& driver)
+{
+    QString strDesc;
+    if (driver.value("ppd-make-and-model").isNull())
+        strDesc = driver.value("ppd-make").toString() + " " + driver.value("ppd-model").toString();
+    else
+        strDesc = driver.value("ppd-make-and-model").toString();
+
+    //去掉自带的recommended字段
+    strDesc.replace("(recommended)", "");
+
+    //如果是精确匹配添加 推荐 字段
+    bool isExcat = driver.value("excat").toBool();
+    if (isExcat) strDesc += tr(" (recommended)");
+
+    return strDesc;
+}
+
 void PrinterSearchWindow::driverAutoSearchedSlot()
 {
     DriverSearcher *pDriverSearcher = static_cast<DriverSearcher *>(sender());
@@ -580,26 +599,9 @@ void PrinterSearchWindow::driverAutoSearchedSlot()
         m_pAutoDriverCom->clear();
         QList<QMap<QString, QVariant>> drivers = pDriverSearcher->getDrivers();
         pDriverSearcher->deleteLater();
-        foreach (auto driver, drivers) {
+        foreach (const auto& driver, drivers) {
             //将驱动结构体存在item中，方便后续安装打印机
-            QString strDesc;
-            if (driver.value("ppd-make-and-model").isNull())
-                strDesc = driver.value("ppd-make").toString() + " " + driver.value("ppd-model").toString();
-            else
-                strDesc = driver.value("ppd-make-and-model").toString();
-
-            bool isExcat = true;
-            QString strReplace;
-            //本地都是精确匹配，服务器获取可能不是精确匹配
-            if (driver.value(SD_KEY_from).toInt() == PPDFrom_Server) {
-                isExcat = driver.value("excat").toBool();
-            }
-            if (isExcat) strReplace = tr(" (recommended)");
-            //去掉自带的recommended字段
-            strDesc.replace("(recommended)", "");
-            //如果是精确匹配添加 推荐 字段
-            strDesc += strReplace;
-            m_pAutoDriverCom->addItem(strDesc, QVariant::fromValue(driver));
+            m_pAutoDriverCom->addItem(driverDescription(driver), QVariant::fromValue(driver));
         }
 //        m_pAutoDriverCom->insertSeparator(m_pAutoDriverCom->count() - 1);
         m_pAutoDriverCom->addItem(UI_PRINTERSEARCH_MANUAL);
@@ -628,26 +630,9 @@ void PrinterSearchWindow::driverManSearchedSlot()
         m_pManDriverCom->clear();
         QList<QMap<QString, QVariant>> drivers = pDriverSearcher->getDrivers();
         pDriverSearcher->deleteLater();
-        foreach (auto driver, drivers) {
+        foreach (const auto& driver, drivers) {
             //将驱动结构体存在item中，方便后续安装打印机
-            QString strDesc;
-            if (driver.value("ppd-make-and-model").isNull())
-                strDesc = driver.value("ppd-make").toString() + " " + driver.value("ppd-model").toString();
-            else
-                strDesc = driver.value("ppd-make-and-model").toString();
-
-            bool isExcat = true;
-            QString strReplace;
-            //本地都是精确匹配，服务器获取可能不是精确匹配
-            if (driver.value(SD_KEY_from).toInt() == PPDFrom_Server) {
-                isExcat = driver.value("excat").toBool();
-            }
-            if (isExcat) strReplace = tr(" (recommended)");
-            //去掉自带的recommended字段
-            strDesc.replace("(recommended)", "");
-            //如果是精确匹配添加 推荐 字段
-            strDesc += strReplace;
-            m_pManDriverCom->addItem(strDesc, QVariant::fromValue(driver));
+            m_pManDriverCom->addItem(driverDescription(driver), QVariant::fromValue(driver));
         }
         m_pManDriverCom->addItem(UI_PRINTERSEARCH_MANUAL);
     }
