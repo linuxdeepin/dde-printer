@@ -39,6 +39,7 @@
 #include <DDialog>
 #include <DStandardItem>
 #include <DFrame>
+#include <DBackgroundGroup>
 
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -140,7 +141,7 @@ void PrinterSearchWindow::initUi()
     pVlayoutAuto1->addLayout(pHLayout1);
     pVlayoutAuto1->addWidget(m_pPrinterListViewAuto);
     pVlayoutAuto1->setContentsMargins(10, 10, 10, 10);
-    DFrame *pAutoFrame1 = new DFrame();
+    QWidget *pAutoFrame1 = new QWidget();
     pAutoFrame1->setLayout(pVlayoutAuto1);
 
     QLabel *pLabelDriver1 = new QLabel(UI_PRINTERSEARCH_DRIVER);
@@ -161,7 +162,7 @@ void PrinterSearchWindow::initUi()
     pHLayout3->addStretch();
     pHLayout3->addWidget(m_pAutoInstallDriverBtn);
     pHLayout3->addStretch();
-    DFrame *pAutoFrame2 = new DFrame();
+    QWidget *pAutoFrame2 = new QWidget();
     QVBoxLayout *pVLayoutSub1 = new QVBoxLayout();
     pVLayoutSub1->addLayout(pHLayout2);
     pVLayoutSub1->addWidget(m_pAutoSpinner, 0, Qt::AlignCenter);
@@ -175,7 +176,7 @@ void PrinterSearchWindow::initUi()
     pVLayout1->addWidget(pAutoFrame1);
     pVLayout1->addWidget(pAutoFrame2);
     pVLayout1->setMargin(0);
-    QWidget *pWidget1 = new QWidget();
+    DBackgroundGroup *pWidget1 = new DBackgroundGroup();
     pWidget1->setLayout(pVLayout1);
     m_pStackedWidget->addWidget(pWidget1);
     // 右侧 手动查找
@@ -191,7 +192,7 @@ void PrinterSearchWindow::initUi()
     pHLayout4->addWidget(m_pLineEditLocation);
     pHLayout4->addWidget(m_pBtnFind);
     pHLayout4->setContentsMargins(20, 20, 10, 20);
-    DFrame *pManFrame1 = new DFrame();
+    QWidget *pManFrame1 = new QWidget();
     pManFrame1->setLayout(pHLayout4);
 
     m_pPrinterListViewManual = new DListView();
@@ -204,7 +205,7 @@ void PrinterSearchWindow::initUi()
     QVBoxLayout *pVLayoutMan2 = new QVBoxLayout();
     pVLayoutMan2->addWidget(m_pPrinterListViewManual);
     pVLayoutMan2->setContentsMargins(10, 10, 10, 10);
-    DFrame *pManFrame2 = new DFrame();
+    QWidget *pManFrame2 = new QWidget();
     pManFrame2->setLayout(pVLayoutMan2);
 
     QLabel *pLabelDriver2 = new QLabel(UI_PRINTERSEARCH_DRIVER);
@@ -233,7 +234,7 @@ void PrinterSearchWindow::initUi()
     pVLayoutSub2->addWidget(m_pManSpinner, 0, Qt::AlignCenter);
     pVLayoutSub2->addLayout(pHLayout6);
     pVLayoutSub2->setContentsMargins(10, 10, 10, 10);
-    DFrame *pManFrame3 = new DFrame();
+    QWidget *pManFrame3 = new QWidget();
     pManFrame3->setLayout(pVLayoutSub2);
 
     QVBoxLayout *pVLayout2 = new QVBoxLayout();
@@ -242,7 +243,7 @@ void PrinterSearchWindow::initUi()
     pVLayout2->addWidget(pManFrame2);
     pVLayout2->addWidget(pManFrame3);
     pVLayout2->setMargin(0);
-    QWidget *pWidget2 = new QWidget();
+    DBackgroundGroup *pWidget2 = new DBackgroundGroup();
     pWidget2->setLayout(pVLayout2);
     m_pStackedWidget->addWidget(pWidget2);
 
@@ -256,7 +257,7 @@ void PrinterSearchWindow::initUi()
     pHLayoutURI1->addWidget(m_pLabelURI);
     pHLayoutURI1->addWidget(m_pLineEditURI);
     pHLayoutURI1->setContentsMargins(20, 20, 10, 20);
-    DFrame *pURIFrame1 = new DFrame();
+    QWidget *pURIFrame1 = new QWidget();
     pURIFrame1->setLayout(pHLayoutURI1);
     pURIFrame1->setFixedHeight(76);
 
@@ -268,7 +269,7 @@ void PrinterSearchWindow::initUi()
     QVBoxLayout *pURIVLayout2 = new QVBoxLayout();
     pURIVLayout2->addWidget(m_pLabelTip);
     pURIVLayout2->setContentsMargins(80, 10, 10, 10);
-    DFrame *pURIFrame2 = new DFrame();
+    QWidget *pURIFrame2 = new QWidget();
     pURIFrame2->setLayout(pURIVLayout2);
     pURIFrame2->setFixedHeight(284);
 
@@ -292,7 +293,7 @@ void PrinterSearchWindow::initUi()
     pURIVLayoutSub->addLayout(pHLayout7);
     pURIVLayoutSub->addLayout(pHLayout8);
     pURIVLayoutSub->setContentsMargins(10, 10, 10, 10);
-    DFrame *pURIFrame3 = new DFrame();
+    QWidget *pURIFrame3 = new QWidget();
     pURIFrame3->setLayout(pURIVLayoutSub);
 
     QVBoxLayout *pURIVLayout = new QVBoxLayout();
@@ -302,7 +303,7 @@ void PrinterSearchWindow::initUi()
     pURIVLayout->addWidget(pURIFrame3);
     pURIVLayout->setMargin(0);
 
-    QWidget *pWidget3 = new QWidget();
+    DBackgroundGroup *pWidget3 = new DBackgroundGroup();
     pWidget3->setLayout(pURIVLayout);
     m_pStackedWidget->addWidget(pWidget3);
 
