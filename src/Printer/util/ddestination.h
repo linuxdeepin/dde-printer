@@ -85,9 +85,9 @@ protected:
     bool m_isEnabled;
     QString m_printerLocation;
     QString m_printerStatus;
-    QString m_printerInfo; //打印机描述,和型号共用
+    QString m_printerInfo; //打印机描述
+    QString m_printerModel;
     QString m_printerURI;
-    QString m_strPrinterModel;
     QString m_ppdFile;
 };
 

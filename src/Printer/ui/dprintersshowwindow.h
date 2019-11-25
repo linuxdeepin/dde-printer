@@ -30,6 +30,8 @@
 #include <DWidgetUtil>
 #include <DFontSizeManager>
 #include <DFrame>
+#include <DBackgroundGroup>
+#include <DGroupBox>
 
 #include <QCheckBox>
 #include <QVBoxLayout>
@@ -92,24 +94,52 @@ private:
         m_pCheckSaveDebugInfo = new QCheckBox(tr("Save debugging information for troubleshooting"));
         QVBoxLayout *pSettingsVLayout = new QVBoxLayout();
         pSettingsVLayout->setSpacing(0);
-        pSettingsVLayout->addWidget(pBaseSettings);
-        pSettingsVLayout->addWidget(m_pCheckShared);
-        pSettingsVLayout->addSpacing(3);
+        pSettingsVLayout->setContentsMargins(0, 0, 0, 0);
+
+        QVBoxLayout *pSettingsVLayout1 = new QVBoxLayout();
+        pSettingsVLayout1->addWidget(m_pCheckShared);
+        pSettingsVLayout1->addSpacing(3);
         QHBoxLayout *pSettingsHLayout = new QHBoxLayout();
         pSettingsHLayout->addSpacing(12);
         pSettingsHLayout->addWidget(m_pCheckIPP);
-        pSettingsVLayout->addLayout(pSettingsHLayout);
-        pSettingsVLayout->addSpacing(12);
-        pSettingsVLayout->addWidget(m_pCheckRemote);
-//        pSettingsVLayout->addWidget(m_pCheckCancelJobs);
-        pSettingsVLayout->addSpacing(12);
-        pSettingsVLayout->addWidget(m_pCheckSaveDebugInfo);
+        pSettingsVLayout1->addLayout(pSettingsHLayout);
+        QWidget *pFrame1 = new QWidget();
+        pFrame1->setFixedHeight(64);
+        pFrame1->setLayout(pSettingsVLayout1);
 
-        DFrame *pSettingWidget = new DFrame();
+        pSettingsVLayout->addWidget(pFrame1);
+
+        QVBoxLayout *pSettingsVLayout2 = new QVBoxLayout();
+        pSettingsVLayout2->addWidget(m_pCheckRemote);
+        QWidget *pFrame2 = new QWidget();
+        pFrame2->setLayout(pSettingsVLayout2);
+        pFrame2->setFixedHeight(36);
+
+        pSettingsVLayout->addWidget(pFrame2);
+
+//        pSettingsVLayout->addWidget(m_pCheckCancelJobs);
+
+        QVBoxLayout *pSettingsVLayout3 = new QVBoxLayout();
+        pSettingsVLayout3->addWidget(m_pCheckSaveDebugInfo);
+        QWidget *pFrame3 = new QWidget();
+        pFrame3->setFixedHeight(36);
+        pFrame3->setLayout(pSettingsVLayout3);
+        pSettingsVLayout->addWidget(pFrame3);
+
+        DBackgroundGroup *pSettingWidget = new DBackgroundGroup();
         pSettingWidget->setLayout(pSettingsVLayout);
-        pSettingsVLayout->setContentsMargins(10, 10, 10, 10);
+        pSettingWidget->setItemSpacing(1);
+        pSettingWidget->setBackgroundRole(this->backgroundRole());
+
+        DFrame *pSettingWidget1 = new DFrame();
+        QVBoxLayout *pMainVlaout1 = new QVBoxLayout();
+        pMainVlaout1->addWidget(pBaseSettings);
+        pMainVlaout1->addWidget(pSettingWidget);
+        pMainVlaout1->setContentsMargins(10, 10, 10, 10);
+        pSettingWidget1->setLayout(pMainVlaout1);
+
         takeCentralWidget();
-        setCentralWidget(pSettingWidget);
+        setCentralWidget(pSettingWidget1);
         moveToCenter(this);
 
     }
@@ -160,7 +190,7 @@ private:
     * @author        liurui
     * @date          2019-11-08
     */
-//    bool eventFilter(QObject *watched, QEvent *event) override;
+
 
     void showEvent(QShowEvent *event) override;
 
@@ -208,7 +238,7 @@ private slots:
     // 服务器设置
     void serverSettingsSlot();
 
-    bool eventFilter(QObject *watched, QEvent *event) override;
+//    bool eventFilter(QObject *watched, QEvent *event) override;
 
     void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 

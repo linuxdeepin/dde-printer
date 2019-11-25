@@ -39,6 +39,7 @@
 #include <DApplication>
 #include <DFloatingButton>
 #include <DFrame>
+#include <DBackgroundGroup>
 
 
 #include <QHBoxLayout>
@@ -139,8 +140,7 @@ void DPrintersShowWindow::initUI()
     pLeftVLayout->addLayout(pLeftTopHLayout, 1);
     pLeftVLayout->addWidget(m_pPrinterListView, 4);
     pLeftVLayout->addWidget(m_pLeftTipLabel, 1, Qt::AlignCenter);
-    DFrame *pLeftWidget = new DFrame(this);
-    pLeftWidget->setAutoFillBackground(true);
+    QWidget *pLeftWidget = new QWidget(this);
     pLeftWidget->setLayout(pLeftVLayout);
 
     // 右侧上方
@@ -148,6 +148,7 @@ void DPrintersShowWindow::initUI()
     pLabelImage->setPixmap(QPixmap(":/images/printer_details.svg"));
 
     m_pLabelPrinterName = new QLabel("") ;
+    m_pLabelPrinterName->setMinimumWidth(200);
     QFont printerNameFont;
     printerNameFont.setBold(true);
     m_pLabelPrinterName->setFont(printerNameFont);
@@ -181,7 +182,7 @@ void DPrintersShowWindow::initUI()
 
     QHBoxLayout *pRightTopHLayout = new QHBoxLayout();
     pRightTopHLayout->addWidget(pLabelImage, 0, Qt::AlignHCenter);
-    pRightTopHLayout->addSpacing(60);
+    pRightTopHLayout->addSpacing(30);
     pRightTopHLayout->addLayout(pRightGridLayout);
 
     // 右侧下方控件
@@ -242,7 +243,7 @@ void DPrintersShowWindow::initUI()
     pRightVLayout->addLayout(pRightTopHLayout);
     pRightVLayout->addSpacing(100);
     pRightVLayout->addLayout(pRightBottomGLayout);
-    pRightVLayout->setContentsMargins(80, 100, 80, 181);
+    pRightVLayout->setContentsMargins(60, 100, 60, 181);
 
     m_pPrinterInfoWidget = new QWidget();
     m_pPrinterInfoWidget->setLayout(pRightVLayout);
@@ -265,19 +266,26 @@ void DPrintersShowWindow::initUI()
     pRightMainVLayout->addWidget(m_pPRightTipLabel2);
     pRightMainVLayout->addStretch();
     //DFrame 会导致上面的QLabel显示颜色不正常
-    DFrame *pRightWidgwt = new DFrame();
+    QWidget *pRightWidgwt = new QWidget();
     pRightWidgwt->setLayout(pRightMainVLayout);
 
-    QWidget *pCentralWidget = new QWidget(this);
+
     QHBoxLayout *pMainHLayout = new QHBoxLayout();
-//    pMainHLayout->setSpacing(10);
+    pMainHLayout->setSpacing(2);
     pMainHLayout->addWidget(pLeftWidget, 1);
     pMainHLayout->addWidget(pRightWidgwt, 2);
-    pMainHLayout->setContentsMargins(10, 10, 10, 10);
-
+//    pMainHLayout->setContentsMargins(10, 10, 10, 10);
+    //阴影分割布局控件
+    DBackgroundGroup *pCentralWidget = new DBackgroundGroup();
     pCentralWidget->setLayout(pMainHLayout);
+
+    QHBoxLayout *pMainLayout1 = new QHBoxLayout();
+    pMainLayout1->addWidget(pCentralWidget);
+    pMainLayout1->setContentsMargins(10, 10, 10, 10);
+    QWidget *pCentralWidget1 = new QWidget();
+    pCentralWidget1->setLayout(pMainLayout1);
     takeCentralWidget();
-    setCentralWidget(pCentralWidget);
+    setCentralWidget(pCentralWidget1);
     //设置了parent会导致moveToCenter失效
     m_pSearchWindow = new PrinterSearchWindow();
     //设置对话框
@@ -461,13 +469,17 @@ void DPrintersShowWindow::serverSettingsSlot()
     m_pPrinterManager->commit();
 }
 
-bool DPrintersShowWindow::eventFilter(QObject *watched, QEvent *event)
-{
-    if (watched == m_pPrinterListView) {
-        qInfo() << event;
-    }
-    return false;
-}
+//bool DPrintersShowWindow::eventFilter(QObject *watched, QEvent *event)
+//{
+//    if (watched == m_pPrinterListView) {
+//        if (event->type() == QEvent::MouseButtonRelease) {
+//            if (m_pPrinterListView->isPersistentEditorOpen(m_pPrinterListView->currentIndex())) {
+//                m_pPrinterListView->closePersistentEditor(m_pPrinterListView->currentIndex());
+//            }
+//        }
+//    }
+//    return false;
+//}
 
 void DPrintersShowWindow::closeEvent(QCloseEvent *event)
 {
@@ -627,7 +639,7 @@ void DPrintersShowWindow::printTestClickSlot()
     QString printerName = m_pPrinterListView->currentIndex().data().toString();
 
     PrinterTestPageDialog *dlg = new PrinterTestPageDialog(printerName, this);
-    connect(dlg, &PrinterTestPageDialog::signalFinished, this, [=](){
+    connect(dlg, &PrinterTestPageDialog::signalFinished, this, [ = ]() {
         m_pTBtnPrintTest->blockSignals(false);
     });
     dlg->printTestPage();
@@ -661,13 +673,19 @@ void DPrintersShowWindow::printerListWidgetItemChangedSlot(const QModelIndex &pr
     if (basePrinterInfo.count() == 3) {
         QString showPrinter = printerName;
         //如果文字超出了显示范围，那么就用省略号代替，并且设置tip提示
-        int textWidth = int(180.0 / 942 * this->width());
-        geteElidedText(m_pLabelPrinterName->font(), showPrinter, textWidth);
+//        int textWidth = int(180.0 / 942 * this->width());
+        geteElidedText(m_pLabelPrinterName->font(), showPrinter, m_pLabelPrinterName->width());
         m_pLabelPrinterName->setText(showPrinter);
         m_pLabelPrinterName->setToolTip(printerName);
-        m_pLabelLocationShow->setText(basePrinterInfo.at(0));
+
+        QString location = basePrinterInfo.at(0);
+        geteElidedText(m_pLabelLocationShow->font(), location, m_pLabelLocationShow->width());
+        m_pLabelLocationShow->setText(location);
         m_pLabelLocationShow->setToolTip(basePrinterInfo.at(0));
-        m_pLabelTypeShow->setText(basePrinterInfo.at(1));
+
+        QString model = basePrinterInfo.at(1);
+        geteElidedText(m_pLabelTypeShow->font(), model, m_pLabelTypeShow->width());
+        m_pLabelTypeShow->setText(model);
         m_pLabelTypeShow->setToolTip(basePrinterInfo.at(1));
         m_pLabelStatusShow->setText(basePrinterInfo.at(2));
 //        ConnectedTask *pTask = new ConnectedTask(printerName);
