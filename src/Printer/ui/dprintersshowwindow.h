@@ -30,6 +30,8 @@
 #include <DWidgetUtil>
 #include <DFontSizeManager>
 #include <DFrame>
+#include <DBackgroundGroup>
+#include <DGroupBox>
 
 #include <QCheckBox>
 #include <QVBoxLayout>
@@ -91,8 +93,8 @@ private:
 //        m_pCheckCancelJobs = new QCheckBox(tr("Allow users to cancel all tasks (not just their own)"));
         m_pCheckSaveDebugInfo = new QCheckBox(tr("Save debugging information for troubleshooting"));
         QVBoxLayout *pSettingsVLayout = new QVBoxLayout();
-        pSettingsVLayout->setSpacing(1);
-        pSettingsVLayout->addWidget(pBaseSettings);
+        pSettingsVLayout->setSpacing(0);
+        pSettingsVLayout->setContentsMargins(0, 0, 0, 0);
 
         QVBoxLayout *pSettingsVLayout1 = new QVBoxLayout();
         pSettingsVLayout1->addWidget(m_pCheckShared);
@@ -101,35 +103,43 @@ private:
         pSettingsHLayout->addSpacing(12);
         pSettingsHLayout->addWidget(m_pCheckIPP);
         pSettingsVLayout1->addLayout(pSettingsHLayout);
-        DFrame *pFrame1 = new DFrame();
+        QWidget *pFrame1 = new QWidget();
         pFrame1->setFixedHeight(64);
-        pFrame1->setBackgroundRole(this->backgroundRole());
         pFrame1->setLayout(pSettingsVLayout1);
 
         pSettingsVLayout->addWidget(pFrame1);
 
         QVBoxLayout *pSettingsVLayout2 = new QVBoxLayout();
         pSettingsVLayout2->addWidget(m_pCheckRemote);
-        DFrame *pFrame2 = new DFrame();
+        QWidget *pFrame2 = new QWidget();
         pFrame2->setLayout(pSettingsVLayout2);
         pFrame2->setFixedHeight(36);
-        pFrame2->setBackgroundRole(this->backgroundRole());
+
         pSettingsVLayout->addWidget(pFrame2);
+
 //        pSettingsVLayout->addWidget(m_pCheckCancelJobs);
 
         QVBoxLayout *pSettingsVLayout3 = new QVBoxLayout();
         pSettingsVLayout3->addWidget(m_pCheckSaveDebugInfo);
-        DFrame *pFrame3 = new DFrame();
+        QWidget *pFrame3 = new QWidget();
         pFrame3->setFixedHeight(36);
-        pFrame3->setBackgroundRole(this->backgroundRole());
         pFrame3->setLayout(pSettingsVLayout3);
         pSettingsVLayout->addWidget(pFrame3);
 
-        DFrame *pSettingWidget = new DFrame();
+        DBackgroundGroup *pSettingWidget = new DBackgroundGroup();
         pSettingWidget->setLayout(pSettingsVLayout);
-        pSettingsVLayout->setContentsMargins(10, 10, 10, 10);
+        pSettingWidget->setItemSpacing(1);
+        pSettingWidget->setBackgroundRole(this->backgroundRole());
+
+        DFrame *pSettingWidget1 = new DFrame();
+        QVBoxLayout *pMainVlaout1 = new QVBoxLayout();
+        pMainVlaout1->addWidget(pBaseSettings);
+        pMainVlaout1->addWidget(pSettingWidget);
+        pMainVlaout1->setContentsMargins(10, 10, 10, 10);
+        pSettingWidget1->setLayout(pMainVlaout1);
+
         takeCentralWidget();
-        setCentralWidget(pSettingWidget);
+        setCentralWidget(pSettingWidget1);
         moveToCenter(this);
 
     }

@@ -175,7 +175,7 @@ void InstallDriverWindow::initUI()
     //设置打印信息搜索
     QLabel *pMakerAndTypeLabel = new QLabel(tr("Vendor and Model"));
     m_pManuAndTypeLineEdit = new QLineEdit();
-    m_pManuAndTypeLineEdit->setPlaceholderText(tr("Enter a complete vendor and model"));
+    m_pManuAndTypeLineEdit->setToolTip(tr("Enter a complete vendor and model"));
     m_pManuAndTypeLineEdit->setValidator(new QRegExpValidator(QRegExp("^[a-zA-Z0-9 ]*$")));
     m_pSearchBtn = new QPushButton(tr("Search"));
     m_pSearchBtn->setFixedSize(60, 36);
@@ -193,7 +193,7 @@ void InstallDriverWindow::initUI()
     m_pDriverManualCombo = new QComboBox();
     QHBoxLayout *pMakerHL2 = new QHBoxLayout;
     pMakerHL2->addWidget(pDriverLabel, 1);
-    pMakerHL2->addWidget(m_pDriverManualCombo, 3);
+    pMakerHL2->addWidget(m_pDriverManualCombo, 4);
     pMakerHL2->setContentsMargins(20, 10, 10, 10);
     QWidget *pMakerWidget2 = new QWidget();
     pMakerWidget2->setLayout(pMakerHL2);
@@ -206,13 +206,13 @@ void InstallDriverWindow::initUI()
 
     DBackgroundGroup *pSettingWidget = new DBackgroundGroup();
     pSettingWidget->setLayout(pMakerVLayout1);
-    pSettingWidget->setBackgroundRole(this->backgroundRole());
     pSettingWidget->setItemSpacing(1);
     pSettingWidget->setItemMargins(QMargins(0, 0, 0, 0));
+    pSettingWidget->setBackgroundRole(this->backgroundRole());
     QVBoxLayout *pVLayoutMaker = new  QVBoxLayout();
     pVLayoutMaker->addWidget(pSettingWidget, 0);
     pVLayoutMaker->addStretch();
-    pVLayoutLocal->setContentsMargins(0, 0, 0, 0);
+    pVLayoutMaker->setMargin(0);
     QWidget *pSettingWidget1 = new QWidget();
     pSettingWidget1->setLayout(pVLayoutMaker);
     m_pStackWidget->addWidget(pSettingWidget1);
@@ -229,7 +229,7 @@ void InstallDriverWindow::initUI()
     pRightVLayout->addSpacing(20);
     pRightVLayout->addWidget(m_pInstallBtn, 0, Qt::AlignCenter);
     pRightVLayout->addWidget(m_pSpinner, 0, Qt::AlignCenter);
-    pRightVLayout->setContentsMargins(0, 20, 0, 0);
+    pRightVLayout->setContentsMargins(10, 20, 10, 0);
     QWidget *pRightFrame1 = new QWidget();
     pRightFrame1->setLayout(pRightVLayout);
 
@@ -237,7 +237,7 @@ void InstallDriverWindow::initUI()
     QHBoxLayout *pMainLayout = new QHBoxLayout();
     pMainLayout->addWidget(pLeftFrame, 1);
     pMainLayout->addWidget(pRightFrame1, 2);
-    pSettingWidget->setContentsMargins(0, 0, 0, 0);
+    pMainLayout->setContentsMargins(0, 0, 0, 0);
     DBackgroundGroup *pCentralWidget = new DBackgroundGroup;
     pCentralWidget->setLayout(pMainLayout);
 

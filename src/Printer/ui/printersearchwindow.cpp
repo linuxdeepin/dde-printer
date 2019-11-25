@@ -88,6 +88,7 @@ void PrinterSearchWindow::initUi()
     pWidgetItemAuto->setData(VListViewItemMargin, Dtk::MarginsRole);
     pWidgetItemAuto->setSizeHint(QSize(108, 48));
     pWidgetItemAuto->setToolTip(tr("Discover printer"));
+    //把Item的颜色和view的颜色设置一致
     pWidgetItemAuto->setBackgroundRole(pLeftWidget->backgroundRole());
     DStandardItem *pWidgetItemManual = new DStandardItem(QIcon::fromTheme("dp_manual_search"), tr("Find printer"));
     pWidgetItemManual->setData(VListViewItemMargin, Dtk::MarginsRole);
