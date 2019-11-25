@@ -37,7 +37,7 @@ QMap<QString, QString> parseDeviceID(const QString &strId);
 
 //替换厂商名字，统一不同写法
 //如果传入len，len返回被替换名字的长度
-QString replaceMakeName(const QString &make_and_model, int* len);
+QString replaceMakeName(QString &make_and_model, int* len);
 
 //移除model中的make信息
 void removeMakeInModel(QString& strMake, QString& strModel);

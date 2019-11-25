@@ -386,6 +386,7 @@ int RefreshLocalPPDS::doWork()
                 continue;
             } else if (addToDirct(strMake, strModel, key)) {
                 strMake = toNormalName(strMake);
+                strModel = toNormalName(strModel);
                 list.insert(CUPS_PPD_MODEL, strModel);
                 list.insert(CUPS_PPD_MAKE, strMake);
 

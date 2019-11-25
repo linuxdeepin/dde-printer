@@ -367,26 +367,25 @@ static const char* g_replaceMap[][2] = {{"lexmark international", "Lexmark"},
                               {"fuji xerox", "fuji xerox"},
                               {"konica minolta", "konica minolta"}
                               };
-QString replaceMakeName(const QString &make_and_model, int* len)
+QString replaceMakeName(QString &make_and_model, int* len)
 {
-    QString strMake = make_and_model;
+    if (make_and_model.isEmpty()) return make_and_model;
+
+    make_and_model = make_and_model.replace(QRegularExpression("_|-|\'"), "");
     QString strMM = make_and_model.toLower();
 
     int size = sizeof(g_replaceMap)/sizeof(g_replaceMap[0]);
-    for(int i=0;i<size;i++)
-    {
+    for(int i=0;i<size;i++) {
         QString str = g_replaceMap[i][0];
 
-        if (strMM.startsWith(str))
-        {
-            strMake = g_replaceMap[i][1];
+        if (strMM.startsWith(str)) {
             if (len) *len = str.length();
 
-            break;
+            return g_replaceMap[i][1];
         }
     }
 
-    return strMake;
+    return make_and_model.split(" ").first();
 }
 
 typedef struct tagMakeRegular{
@@ -472,8 +471,7 @@ THPMode _HP_MODEL_BY_NAME[] = {{"dj", "DeskJet"},
                                 {"ps ", "PhotoSmart"}
 };
 
-
-void removeMakeInModel(QString& strMake, QString& strModel)
+void removeMakeInModel(const QString& strMake, QString& strModel)
 {
     QString modell = strModel.toLower();
     QString makel = strMake.toLower();
@@ -484,88 +482,9 @@ void removeMakeInModel(QString& strMake, QString& strModel)
     }
 }
 
-static bool remapMakeModel(const QString &strMakeAndModel, QString& strMake, QString& strModel)
+void formatModelName(const QString &strMake, QString &strModel)
 {
     int len = 0;
-    QString strMM = strMakeAndModel;
-    strMM = strMM.replace(QRegularExpression("_|-|\'"), "");
-    QString str = replaceMakeName(strMM, &len);
-    if (len > 0)
-    {
-        strMake = str;
-        strModel = strMM.right(strMM.length()-len);
-        strModel = strModel.trimmed();
-        return true;
-    }
-    return false;
-}
-
-void ppdMakeModelSplit(const QString &strMakeAndModel, QString& strMake, QString& strModel)
-{
-    int len = 0;
-
-    QString Make_And_Model = strMakeAndModel.trimmed();
-    QString make_and_model = Make_And_Model.toLower();
-
-    //通过model名字自动填充厂商名
-    // If the string starts with a known model name (like "LaserJet") assume
-    // that the manufacturer name is missing and add the manufacturer name
-    // corresponding to the model name
-    len = sizeof(_MFR_BY_RANGE)/sizeof(TMakeRegular);
-    for(int i=0;i<len;i++) {
-        if(make_and_model.indexOf(QRegularExpression(_MFR_BY_RANGE[i].strRegular)) == 0) {
-            strMake = _MFR_BY_RANGE[i].strMake;
-            strModel = strMakeAndModel;
-            qInfo() << strMake << strModel;
-            break;
-        }
-    }
-
-    //Handle PPDs provided by Turboprint
-    if (make_and_model.contains("turboprint")) {
-        int start = strMakeAndModel.indexOf(" TurboPrint");
-        if(start > -1) {
-            start += 12;
-            int end = strMakeAndModel.indexOf(" TurboPrint", start);
-            if (end > start)
-                Make_And_Model = Make_And_Model.mid(start, end-start);
-            else
-                Make_And_Model = Make_And_Model.left(start-12);
-
-            Make_And_Model = Make_And_Model.trimmed();
-            QStringList list = strMakeAndModel.split("_");
-            if(list.count() > 1) {
-                strMake = list[0];
-                list.removeFirst();
-                strModel = list.join("_");
-            } else {
-                strMake = strMakeAndModel;
-            }
-        }
-
-        strMake.replace(QRegularExpression("(?<=[a-z])(?=[0-9])"), " ");
-        strMake.replace(QRegularExpression("(?<=[a-z])(?=[A-Z])"), " ");
-        strModel.replace(QRegularExpression("(?<=[a-z])(?=[0-9])"), " ");
-        strModel.replace(QRegularExpression("(?<=[a-z])(?=[A-Z])"), " ");
-        strModel.replace(" Jet", "Jet");
-        strModel.replace("Photo Smart", "PhotoSmart");
-
-        qInfo() << strMakeAndModel << "->" << strMake << strModel;
-        // Special handling for two-word manufacturers
-    } else if (remapMakeModel(strMakeAndModel, strMake, strModel)) {
-        qDebug() << strMakeAndModel << "->" << strMake << strModel;
-        // Finally, take the first word as the name of the manufacturer.
-    } else {
-        QStringList list = strMakeAndModel.split(" ");
-        if(list.count() > 1) {
-            strMake = list[0];
-            list.removeFirst();
-            strModel = list.join(" ");
-        } else {
-            strMake = strMakeAndModel;
-        }
-    }
-
     QString makel = strMake.toLower();
     QString modell = strModel.toLower();
     /*# HP and Canon PostScript PPDs give NickNames like:
@@ -585,7 +504,6 @@ void ppdMakeModelSplit(const QString &strMakeAndModel, QString& strMake, QString
             strModel = strModel.left(index);
             modell = modell.left(index);
         }
-        qDebug() << strMakeAndModel << "->" << strMake << strModel;
     }
 
     //remove right string contains ignores suffix
@@ -593,7 +511,6 @@ void ppdMakeModelSplit(const QString &strMakeAndModel, QString& strMake, QString
     if (index > 0) {
         strModel = strModel.left(index);
         modell = modell.left(index);
-        qDebug() << strMakeAndModel << "->" << strMake << strModel;
     }
 
     if (makel == "hp") {
@@ -603,7 +520,6 @@ void ppdMakeModelSplit(const QString &strMakeAndModel, QString& strMake, QString
                 strModel = _HP_MODEL_BY_NAME[i].strFullName +
                         strModel.right(strModel.length()-_HP_MODEL_BY_NAME[i].strShortName.length());
                 modell = strModel.toLower();
-                qDebug() << strMakeAndModel << "->" << strMake << strModel;
                 break;
             }
         }
@@ -612,4 +528,20 @@ void ppdMakeModelSplit(const QString &strMakeAndModel, QString& strMake, QString
     removeMakeInModel(strMake, strModel);
     strModel = strModel.replace(QRegularExpression("_|-|\'"), " ");
     strModel = strModel.trimmed();
+}
+
+void ppdMakeModelSplit(const QString &strMakeAndModel, QString& strMake, QString& strModel)
+{
+    QString Make_And_Model = strMakeAndModel;
+    int len = 0;
+    strMake = replaceMakeName(Make_And_Model, &len);
+    if (strModel.isEmpty()) {
+        if (len <= 0) {
+            len = strMake.length();
+        }
+
+        strModel = Make_And_Model.mid(len+1);
+    }
+
+    formatModelName(strMake, strModel);
 }
