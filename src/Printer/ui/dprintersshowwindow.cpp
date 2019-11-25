@@ -40,6 +40,7 @@
 #include <DFloatingButton>
 #include <DFrame>
 #include <DBackgroundGroup>
+#include <DErrorMessage>
 
 
 #include <QHBoxLayout>
@@ -312,8 +313,16 @@ void DPrintersShowWindow::initConnections()
         m_pPrinterModel->blockSignals(true);
         QStandardItem *pItem = m_pPrinterModel->itemFromIndex(index);
         if (m_pPrinterManager->hasUnfinishedJob()) {
+            DDialog *pDialog = new DDialog();
+            pDialog->setIcon(QIcon(":/images/warning_logo.svg"));
+            QLabel *pMessage = new QLabel(tr("There are currently some unfinished print tasks that the printer cannot be renamed."));
+            pMessage->setWordWrap(true);
+            pMessage->setAlignment(Qt::AlignCenter);
+            pDialog->addContent(pMessage);
+            pDialog->addButton(tr("OK"));
+            pDialog->exec();
+            pDialog->deleteLater();
             pItem->setFlags(pItem->flags() & ~Qt::ItemIsEditable);
-
         } else {
             pItem->setFlags(pItem->flags() | Qt::ItemIsEditable);
         }
