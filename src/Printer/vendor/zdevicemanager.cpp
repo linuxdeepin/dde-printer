@@ -126,9 +126,11 @@ RefreshDevicesByBackendTask::RefreshDevicesByBackendTask(int id, QObject* parent
 
 int RefreshDevicesByBackendTask::mergeDevice(TDeviceInfo &device, const char * backend)
 {
+    QMutexLocker locker(&m_mutex);
+
     QString uri = device.uriList[0];
     //排除重复的URI
-    for (auto item : getResult()) {
+    for (auto item : m_devices) {
         if (item.uriList.contains(uri)) {
             qInfo() << "remove same uri";
             return -1;
@@ -142,7 +144,7 @@ int RefreshDevicesByBackendTask::mergeDevice(TDeviceInfo &device, const char * b
         if (match.hasMatch()) {
             QString serial = match.captured(1).toLower();
             device.serial = serial;
-            for (auto &item : getResult())
+            for (auto &item : m_devices)
                 if (!device.strClass.compare(item.strClass) &&
                         (item.uriList[0].startsWith("usb:") ||
                         item.uriList[0].startsWith("hp:")) &&
@@ -156,7 +158,7 @@ int RefreshDevicesByBackendTask::mergeDevice(TDeviceInfo &device, const char * b
 
     //排除三星后端找到重复设备的情况
     if (backend && 0 == strcmp(backend, "smfpnetdiscovery")) {
-        for (auto &item : getResult()) {
+        for (auto &item : m_devices) {
             if (item.strInfo == device.strInfo) {
                 if (item.uriList[0].startsWith("ipp:")) {
                     item.uriList.clear();
