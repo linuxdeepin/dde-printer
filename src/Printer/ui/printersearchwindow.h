@@ -73,6 +73,9 @@ private:
     */
     void autoInstallPrinter(int type, const TDeviceInfo &device);
 
+    QString printerDescription(const TDeviceInfo& info, bool manual = false);
+    QString driverDescription(const QMap<QString, QVariant>& driver);
+
 private slots:
     void listWidgetClickedSlot(const QModelIndex &previous);
     // 连接自动查找打印机线程信号槽
