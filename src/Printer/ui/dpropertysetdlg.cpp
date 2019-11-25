@@ -1134,8 +1134,7 @@ bool DPropertySetDlg::isDriveBroken()
         if (DESTTYPE::PRINTER == pDest->getType())
         {
             DPrinter *pPrinter = static_cast<DPrinter *>(pDest);
-            bRet = pPrinter->initPrinterPPD();
-            bRet = !bRet;
+            bRet = pPrinter->isPpdFileBroken();
         }
         else
         {

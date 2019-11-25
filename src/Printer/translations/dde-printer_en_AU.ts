@@ -227,17 +227,22 @@
 <context>
     <name>DDestination</name>
     <message>
-        <location filename="../util/ddestination.cpp" line="169"/>
+        <location filename="../util/ddestination.cpp" line="215"/>
+        <source>UNKOWN</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../util/ddestination.cpp" line="222"/>
         <source>Idle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="172"/>
+        <location filename="../util/ddestination.cpp" line="225"/>
         <source>Printing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="175"/>
+        <location filename="../util/ddestination.cpp" line="228"/>
         <source>Disabled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -257,10 +262,11 @@
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="38"/>
-        <location filename="../util/dprintertanslator.cpp" line="74"/>
-        <location filename="../util/dprintertanslator.cpp" line="91"/>
-        <location filename="../util/dprintertanslator.cpp" line="107"/>
-        <location filename="../util/dprintertanslator.cpp" line="116"/>
+        <location filename="../util/dprintertanslator.cpp" line="58"/>
+        <location filename="../util/dprintertanslator.cpp" line="75"/>
+        <location filename="../util/dprintertanslator.cpp" line="92"/>
+        <location filename="../util/dprintertanslator.cpp" line="108"/>
+        <location filename="../util/dprintertanslator.cpp" line="117"/>
         <source>None</source>
         <translation type="unfinished"></translation>
     </message>
@@ -271,7 +277,7 @@
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="40"/>
-        <location filename="../util/dprintertanslator.cpp" line="103"/>
+        <location filename="../util/dprintertanslator.cpp" line="104"/>
         <source>Normal</source>
         <translation type="unfinished"></translation>
     </message>
@@ -294,7 +300,7 @@
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="48"/>
-        <location filename="../util/dprintertanslator.cpp" line="61"/>
+        <location filename="../util/dprintertanslator.cpp" line="62"/>
         <source>Auto</source>
         <translation type="unfinished"></translation>
     </message>
@@ -344,179 +350,179 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="60"/>
+        <location filename="../util/dprintertanslator.cpp" line="61"/>
         <source>MediaType</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="62"/>
+        <location filename="../util/dprintertanslator.cpp" line="63"/>
         <source>Plain Paper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="63"/>
+        <location filename="../util/dprintertanslator.cpp" line="64"/>
         <source>Recycled Paper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="64"/>
+        <location filename="../util/dprintertanslator.cpp" line="65"/>
         <source>Color Paper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="65"/>
+        <location filename="../util/dprintertanslator.cpp" line="66"/>
         <source>Bond Paper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="66"/>
+        <location filename="../util/dprintertanslator.cpp" line="67"/>
         <source>Heavy Paper 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="67"/>
+        <location filename="../util/dprintertanslator.cpp" line="68"/>
         <source>Heavy Paper 2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="68"/>
+        <location filename="../util/dprintertanslator.cpp" line="69"/>
         <source>Heavy Paper 3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="69"/>
         <location filename="../util/dprintertanslator.cpp" line="70"/>
+        <location filename="../util/dprintertanslator.cpp" line="71"/>
         <source>OHP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="71"/>
+        <location filename="../util/dprintertanslator.cpp" line="72"/>
         <source>Labels</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="72"/>
+        <location filename="../util/dprintertanslator.cpp" line="73"/>
         <source>Envelope</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="73"/>
+        <location filename="../util/dprintertanslator.cpp" line="74"/>
         <source>Photo Paper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="77"/>
+        <location filename="../util/dprintertanslator.cpp" line="78"/>
         <source>PageSize</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="78"/>
+        <location filename="../util/dprintertanslator.cpp" line="79"/>
         <source>Custom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="81"/>
+        <location filename="../util/dprintertanslator.cpp" line="82"/>
         <source>Duplex</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="82"/>
+        <location filename="../util/dprintertanslator.cpp" line="83"/>
         <source>DuplexTumble</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="83"/>
+        <location filename="../util/dprintertanslator.cpp" line="84"/>
         <source>DuplexNoTumble</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="84"/>
+        <location filename="../util/dprintertanslator.cpp" line="85"/>
         <source>ON (Long-edged Binding)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="85"/>
+        <location filename="../util/dprintertanslator.cpp" line="86"/>
         <source>ON (Short-edged Binding)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="86"/>
         <location filename="../util/dprintertanslator.cpp" line="87"/>
+        <location filename="../util/dprintertanslator.cpp" line="88"/>
         <source>OFF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="90"/>
+        <location filename="../util/dprintertanslator.cpp" line="91"/>
         <source>BindEdge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="92"/>
+        <location filename="../util/dprintertanslator.cpp" line="93"/>
         <source>Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="93"/>
+        <location filename="../util/dprintertanslator.cpp" line="94"/>
         <source>Top</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="96"/>
+        <location filename="../util/dprintertanslator.cpp" line="97"/>
         <source>Portrait (no rotation)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="97"/>
+        <location filename="../util/dprintertanslator.cpp" line="98"/>
         <source>Landscape (90 degrees)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="98"/>
+        <location filename="../util/dprintertanslator.cpp" line="99"/>
         <source>Reverse landscape (270 degrees)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="99"/>
+        <location filename="../util/dprintertanslator.cpp" line="100"/>
         <source>Reverse portrait (180 degrees)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="100"/>
+        <location filename="../util/dprintertanslator.cpp" line="101"/>
         <source>Auto Rotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="104"/>
+        <location filename="../util/dprintertanslator.cpp" line="105"/>
         <source>Reverse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="108"/>
+        <location filename="../util/dprintertanslator.cpp" line="109"/>
         <source>Bind</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="109"/>
+        <location filename="../util/dprintertanslator.cpp" line="110"/>
         <source>Bind(none)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="110"/>
+        <location filename="../util/dprintertanslator.cpp" line="111"/>
         <source>Bind (bottom)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="111"/>
+        <location filename="../util/dprintertanslator.cpp" line="112"/>
         <source>Bind (left)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="112"/>
+        <location filename="../util/dprintertanslator.cpp" line="113"/>
         <source>Bind (right)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="113"/>
+        <location filename="../util/dprintertanslator.cpp" line="114"/>
         <source>Bind (top)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1400,27 +1406,27 @@
 <context>
     <name>ServerSettingsWindow</name>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="82"/>
+        <location filename="../ui/dprintersshowwindow.h" line="83"/>
         <source>Basic Server Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="86"/>
+        <location filename="../ui/dprintersshowwindow.h" line="87"/>
         <source>Publish shared printers connected to this system</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="87"/>
+        <location filename="../ui/dprintersshowwindow.h" line="88"/>
         <source>Allow printing from the Internet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="89"/>
+        <location filename="../ui/dprintersshowwindow.h" line="90"/>
         <source>Allow remote administration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="91"/>
+        <location filename="../ui/dprintersshowwindow.h" line="92"/>
         <source>Save debugging information for troubleshooting</source>
         <translation type="unfinished"></translation>
     </message>
