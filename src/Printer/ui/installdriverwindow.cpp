@@ -35,6 +35,7 @@
 #include <DFileDialog>
 #include <DSpinner>
 #include <DFrame>
+#include <DBackgroundGroup>
 
 #include <QStandardItemModel>
 #include <QStandardItem>
@@ -88,10 +89,10 @@ void InstallDriverWindow::initUI()
     m_pTabListView->setCurrentIndex(m_pTabListModel->index(0, 0));
     m_pTabListView->setEditTriggers(QListView::EditTrigger::NoEditTriggers);
     QVBoxLayout *pLeftVBoxlayout = new QVBoxLayout();
-    pLeftVBoxlayout->setContentsMargins(10, 20, 10, 0);
+    pLeftVBoxlayout->setContentsMargins(0, 20, 0, 0);
     pLeftVBoxlayout->addWidget(pLabelTitle1);
     pLeftVBoxlayout->addWidget(m_pTabListView);
-    DFrame *pLeftFrame = new DFrame();
+    QWidget *pLeftFrame = new QWidget();
     pLeftFrame->setLayout(pLeftVBoxlayout);
 
     // 切换控件
@@ -103,34 +104,54 @@ void InstallDriverWindow::initUI()
     m_pManufacturerCombo = new QComboBox();
     m_pManufacturerCombo->setMaxVisibleItems(10);
     m_pManufacturerCombo->setEditable(true);
+    QHBoxLayout *pLocalHL1 = new QHBoxLayout;
+    pLocalHL1->addWidget(pLabelManufacturer, 1);
+    pLocalHL1->addWidget(m_pManufacturerCombo, 3);
+    pLocalHL1->setContentsMargins(20, 10, 10, 10);
+    QWidget *pLocalWidget1 = new QWidget();
+    pLocalWidget1->setLayout(pLocalHL1);
+
     QLabel *pLabelType = new QLabel(tr("Model"));
     m_pTypeCombo = new QComboBox();
     m_pTypeCombo->setEditable(true);
+    QHBoxLayout *pLocalHL2 = new QHBoxLayout;
+    pLocalHL2->addWidget(pLabelType, 1);
+    pLocalHL2->addWidget(m_pTypeCombo, 3);
+    pLocalHL2->setContentsMargins(20, 10, 10, 10);
+    QWidget *pLocalWidget2 = new QWidget();
+    pLocalWidget2->setLayout(pLocalHL2);
+
     QLabel *pLabelDriver = new QLabel(tr("Driver"));
     m_pDriverCombo = new QComboBox();
     m_pDriverCombo->setEditable(true);
-    QGridLayout *pGLayout = new QGridLayout();
-    pGLayout->addWidget(pLabelManufacturer, 0, 0);
-    pGLayout->addWidget(m_pManufacturerCombo, 0, 1);
-    pGLayout->addWidget(pLabelType, 1, 0);
-    pGLayout->addWidget(m_pTypeCombo, 1, 1);
-    pGLayout->addWidget(pLabelDriver, 2, 0);
-    pGLayout->addWidget(m_pDriverCombo, 2, 1);
-    pGLayout->setColumnStretch(0, 1);
-    pGLayout->setColumnStretch(1, 3);
-    pGLayout->setRowStretch(3, 1);
-    pGLayout->setContentsMargins(10, 10, 10, 10);
+    QHBoxLayout *pLocalHL3 = new QHBoxLayout;
+    pLocalHL3->addWidget(pLabelDriver, 1);
+    pLocalHL3->addWidget(m_pDriverCombo, 3);
+    pLocalHL3->setContentsMargins(20, 10, 10, 10);
+    QWidget *pLocalWidget3 = new QWidget();
+    pLocalWidget3->setLayout(pLocalHL3);
+    pLocalWidget3->setFixedHeight(56);
 
-    DFrame *pLocalWidget = new DFrame();
-    pLocalWidget->setLayout(pGLayout);
+    QVBoxLayout *pLocalVLayout = new QVBoxLayout();
+    pLocalVLayout->addWidget(pLocalWidget1);
+    pLocalVLayout->addWidget(pLocalWidget2);
+    pLocalVLayout->addWidget(pLocalWidget3);
+    pLocalVLayout->setContentsMargins(0, 0, 0, 0);
+
+    DBackgroundGroup *pLocalWidget = new DBackgroundGroup();
+    pLocalWidget->setLayout(pLocalVLayout);
+    pLocalWidget->setItemSpacing(1);
+    pLocalWidget->setItemMargins(QMargins(0, 0, 0, 0));
     pLocalWidget->setBackgroundRole(this->backgroundRole());
+
     QVBoxLayout *pVLayoutLocal = new QVBoxLayout();
     pVLayoutLocal->addWidget(pLocalWidget, 0);
-    pVLayoutLocal->addWidget(new DFrame(), 1);
-    DFrame *pLocalWidget1 = new DFrame();
-    pLocalWidget1->setLayout(pVLayoutLocal);
+    pVLayoutLocal->addStretch();
+    pVLayoutLocal->setMargin(0);
+    QWidget *pLocalWidget4 = new QWidget();
+    pLocalWidget4->setLayout(pVLayoutLocal);
     //将中间控件设置为DMainWindow的背景颜色
-    m_pStackWidget->addWidget(pLocalWidget1);
+    m_pStackWidget->addWidget(pLocalWidget4);
 
     // PPD
     m_pPPDPath = new QLabel(UI_PRINTERDRIVER_PPDLABEL_NORMAL);
@@ -158,24 +179,41 @@ void InstallDriverWindow::initUI()
     m_pManuAndTypeLineEdit->setValidator(new QRegExpValidator(QRegExp("^[a-zA-Z0-9 ]*$")));
     m_pSearchBtn = new QPushButton(tr("Search"));
     m_pSearchBtn->setFixedSize(60, 36);
+    QHBoxLayout *pMakerHL1 = new QHBoxLayout;
+    pMakerHL1->addWidget(pMakerAndTypeLabel, 1);
+    pMakerHL1->addWidget(m_pManuAndTypeLineEdit, 3);
+    pMakerHL1->addWidget(m_pSearchBtn, 1);
+    pMakerHL1->setContentsMargins(20, 10, 10, 10);
+    QWidget *pMakerWidget1 = new QWidget();
+    pMakerWidget1->setLayout(pMakerHL1);
+    pMakerWidget1->setFixedHeight(56);
+
+
     QLabel *pDriverLabel = new QLabel(tr("Driver"));
     m_pDriverManualCombo = new QComboBox();
-    QGridLayout *pGLayout1 = new QGridLayout();
-    pGLayout1->addWidget(pMakerAndTypeLabel, 0, 0);
-    pGLayout1->addWidget(m_pManuAndTypeLineEdit, 0, 1);
-    pGLayout1->addWidget(m_pSearchBtn, 0, 2);
-    pGLayout1->addWidget(pDriverLabel, 1, 0);
-    pGLayout1->addWidget(m_pDriverManualCombo, 1, 1, 1, 2);
-    pGLayout1->setMargin(0);
-    pGLayout1->setRowStretch(2, 1);
-    pGLayout1->setContentsMargins(10, 10, 10, 10);
-    DFrame *pSettingWidget = new DFrame();
-    pSettingWidget->setLayout(pGLayout1);
+    QHBoxLayout *pMakerHL2 = new QHBoxLayout;
+    pMakerHL2->addWidget(pDriverLabel, 1);
+    pMakerHL2->addWidget(m_pDriverManualCombo, 3);
+    pMakerHL2->setContentsMargins(20, 10, 10, 10);
+    QWidget *pMakerWidget2 = new QWidget();
+    pMakerWidget2->setLayout(pMakerHL2);
+
+
+    QVBoxLayout *pMakerVLayout1 = new QVBoxLayout();
+    pMakerVLayout1->addWidget(pMakerWidget1);
+    pMakerVLayout1->addWidget(pMakerWidget2);
+    pMakerVLayout1->setContentsMargins(0, 0, 0, 0);
+
+    DBackgroundGroup *pSettingWidget = new DBackgroundGroup();
+    pSettingWidget->setLayout(pMakerVLayout1);
     pSettingWidget->setBackgroundRole(this->backgroundRole());
+    pSettingWidget->setItemSpacing(1);
+    pSettingWidget->setItemMargins(QMargins(0, 0, 0, 0));
     QVBoxLayout *pVLayoutMaker = new  QVBoxLayout();
     pVLayoutMaker->addWidget(pSettingWidget, 0);
-    pVLayoutMaker->addWidget(new DFrame(), 1);
-    DFrame *pSettingWidget1 = new DFrame();
+    pVLayoutMaker->addStretch();
+    pVLayoutLocal->setContentsMargins(0, 0, 0, 0);
+    QWidget *pSettingWidget1 = new QWidget();
     pSettingWidget1->setLayout(pVLayoutMaker);
     m_pStackWidget->addWidget(pSettingWidget1);
 
@@ -188,21 +226,29 @@ void InstallDriverWindow::initUI()
     QVBoxLayout *pRightVLayout = new QVBoxLayout();
     pRightVLayout->addWidget(m_pRightTitleLabel);
     pRightVLayout->addWidget(m_pStackWidget);
+    pRightVLayout->addSpacing(20);
     pRightVLayout->addWidget(m_pInstallBtn, 0, Qt::AlignCenter);
     pRightVLayout->addWidget(m_pSpinner, 0, Qt::AlignCenter);
-    pRightVLayout->setContentsMargins(10, 20, 10, 10);
-    DFrame *pRightFrame1 = new DFrame();
+    pRightVLayout->setContentsMargins(0, 20, 0, 0);
+    QWidget *pRightFrame1 = new QWidget();
     pRightFrame1->setLayout(pRightVLayout);
 
     // 整体布局
     QHBoxLayout *pMainLayout = new QHBoxLayout();
     pMainLayout->addWidget(pLeftFrame, 1);
     pMainLayout->addWidget(pRightFrame1, 2);
-    pMainLayout->setContentsMargins(10, 10, 10, 10);
-    QWidget *centralWidget = new QWidget;
-    centralWidget->setLayout(pMainLayout);
+    pSettingWidget->setContentsMargins(0, 0, 0, 0);
+    DBackgroundGroup *pCentralWidget = new DBackgroundGroup;
+    pCentralWidget->setLayout(pMainLayout);
+
+    QHBoxLayout *pMainLayout1 = new QHBoxLayout();
+    pMainLayout1->addWidget(pCentralWidget);
+    pMainLayout1->setContentsMargins(10, 10, 10, 10);
+    QWidget *pCentralWidget1 = new QWidget();
+    pCentralWidget1->setLayout(pMainLayout1);
+
     takeCentralWidget();
-    setCentralWidget(centralWidget);
+    setCentralWidget(pCentralWidget1);
 
     moveToCenter(this);
 }

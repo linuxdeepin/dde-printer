@@ -77,7 +77,10 @@ void PrinterSearchWindow::initUi()
     setWindowModality(Qt::ApplicationModal);
     setMinimumSize(682, 532);
 
+
     DFrame *pLeftWidget = new DFrame();
+    //自动填充背景之后就去掉了DTK的圆角边框，变成了默认的直角边框（UI设计）
+    pLeftWidget->setAutoFillBackground(true);
     // 左侧菜单列表
     m_pTabListView = new DListView();
     QStandardItemModel *pTabModel = new QStandardItemModel(m_pTabListView);

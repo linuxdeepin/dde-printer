@@ -280,6 +280,7 @@ void DPrintersShowWindow::initUI()
 
     QHBoxLayout *pMainLayout1 = new QHBoxLayout();
     pMainLayout1->addWidget(pCentralWidget);
+    pMainLayout1->setContentsMargins(10, 10, 10, 10);
     QWidget *pCentralWidget1 = new QWidget();
     pCentralWidget1->setLayout(pMainLayout1);
     takeCentralWidget();
