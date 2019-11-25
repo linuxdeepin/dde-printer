@@ -138,6 +138,8 @@ void PrinterSearchWindow::initUi()
     m_pPrinterListViewAuto->setTextElideMode(Qt::ElideRight);
     m_pPrinterListViewAuto->setSelectionMode(QAbstractItemView::NoSelection);
     m_pPrinterListViewAuto->setFocusPolicy(Qt::NoFocus);
+    //当前DTK控件滚动条导致覆盖了checked图标
+    m_pPrinterListViewAuto->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_pPrinterListModel = new QStandardItemModel(m_pPrinterListViewAuto);
     m_pPrinterListViewAuto->setModel(m_pPrinterListModel);
 
@@ -204,6 +206,7 @@ void PrinterSearchWindow::initUi()
     m_pPrinterListViewManual->setTextElideMode(Qt::ElideRight);
     m_pPrinterListViewManual->setSelectionMode(QAbstractItemView::NoSelection);
     m_pPrinterListViewManual->setFocusPolicy(Qt::NoFocus);
+    m_pPrinterListViewManual->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_pPrinterListModelManual = new QStandardItemModel();
     m_pPrinterListViewManual->setModel(m_pPrinterListModelManual);
     QVBoxLayout *pVLayoutMan2 = new QVBoxLayout();
@@ -449,11 +452,11 @@ void PrinterSearchWindow::listWidgetClickedSlot(const QModelIndex &previous)
     }
 }
 
-QString PrinterSearchWindow::printerDescription(const TDeviceInfo& info, bool manual)
+QString PrinterSearchWindow::printerDescription(const TDeviceInfo &info, bool manual)
 {
     QString strDesc = !info.strName.isEmpty() ?
-        info.strName : !info.strInfo.isEmpty() ?
-        info.strInfo + " " : info.strMakeAndModel;
+                      info.strName : !info.strInfo.isEmpty() ?
+                      info.strInfo + " " : info.strMakeAndModel;
     QString strUri = info.uriList[0];
     if (strDesc.isEmpty())
         strDesc = strUri;
@@ -493,7 +496,7 @@ void PrinterSearchWindow::getDeviceResultSlot(int id, int state)
         QList<TDeviceInfo> deviceList = task->getResult();
         int index = m_pPrinterListViewAuto->count();
         for (; index < deviceList.count(); index++) {
-            const TDeviceInfo& info = deviceList[index];
+            const TDeviceInfo &info = deviceList[index];
 
             QStandardItem *pItem = new QStandardItem(info.strName);
             pItem->setText(printerDescription(info));
@@ -542,7 +545,7 @@ void PrinterSearchWindow::getDeviceResultByManualSlot(int id, int state)
         QList<TDeviceInfo> deviceList = task->getResult();
         int index = m_pPrinterListViewManual->count();
         for (; index < deviceList.count(); index++) {
-            const TDeviceInfo& info = deviceList[index];
+            const TDeviceInfo &info = deviceList[index];
 
             qInfo() << "Update" << info.toString();
             QStandardItem *pItem = new QStandardItem(info.strName);
@@ -602,7 +605,7 @@ void PrinterSearchWindow::printerListClickedSlot(const QModelIndex &index)
 
 }
 
-QString PrinterSearchWindow::driverDescription(const QMap<QString, QVariant>& driver)
+QString PrinterSearchWindow::driverDescription(const QMap<QString, QVariant> &driver)
 {
     QString strDesc;
     if (driver.value("ppd-make-and-model").isNull())
@@ -627,7 +630,7 @@ void PrinterSearchWindow::driverAutoSearchedSlot()
         m_pAutoDriverCom->clear();
         QList<QMap<QString, QVariant>> drivers = pDriverSearcher->getDrivers();
         pDriverSearcher->deleteLater();
-        foreach (const auto& driver, drivers) {
+        foreach (const auto &driver, drivers) {
             //将驱动结构体存在item中，方便后续安装打印机
             m_pAutoDriverCom->addItem(driverDescription(driver), QVariant::fromValue(driver));
         }
@@ -658,7 +661,7 @@ void PrinterSearchWindow::driverManSearchedSlot()
         m_pManDriverCom->clear();
         QList<QMap<QString, QVariant>> drivers = pDriverSearcher->getDrivers();
         pDriverSearcher->deleteLater();
-        foreach (const auto& driver, drivers) {
+        foreach (const auto &driver, drivers) {
             //将驱动结构体存在item中，方便后续安装打印机
             m_pManDriverCom->addItem(driverDescription(driver), QVariant::fromValue(driver));
         }
