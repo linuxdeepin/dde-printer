@@ -207,9 +207,9 @@ int RefreshDevicesByBackendTask::addDevices(const map<string, map<string, string
         info.strDeviceId = attrValueToQString(infomap[CUPS_DEV_ID]);
         info.strLocation = attrValueToQString(infomap[CUPS_DEV_LOCATION]);
         info.iType = InfoFrom_Detect;
-        if (uri.startsWith("dnssd://")) {
-            info.strName = info.strInfo.split("@").first().trimmed();
-            info.strInfo = info.strName;
+        info.strName = info.strInfo;
+        if (uri.startsWith("dnssd://") && !info.strName.isEmpty()) {
+            info.strName = info.strName.split("@").first().trimmed();
         }
 
         if (0 != mergeDevice(info, backend))
@@ -301,7 +301,7 @@ int RefreshDevicesByHostTask::probe_snmp(const QString &strHost)
             info.iType = InfoFrom_Detect;
             info.strClass = list[0];
             info.uriList<<list[1];
-            info.strMakeAndModel = list[2];
+            info.strName = info.strMakeAndModel = list[2];
             info.strInfo = list[3];
             if (list.count() > 4)
                 info.strDeviceId = list[4];
@@ -376,7 +376,7 @@ int RefreshDevicesByHostTask::probe_ipp(const QString &strHost)
         dumpStdMapValue(infomap);
         info.strName = STQ(itPrinters->first);
         info.strInfo = attrValueToQString(infomap[CUPS_OP_INFO]);
-        info.strLocation = attrValueToQString(infomap[CUPS_OP_LOCATION]);
+        info.strLocation = strHost;
         info.strMakeAndModel = attrValueToQString(infomap[CUPS_OP_MAKE_MODEL]);
         info.uriList << attrValueToQString(infomap[CUPS_OP_URI_SUP]);
 
@@ -469,7 +469,7 @@ int RefreshDevicesByHostTask::probe_smb(const QString &strHost)
         info.uriList << url.toEncoded();
 
         info.strMakeAndModel = dirent->comment;
-        info.strInfo = info.strMakeAndModel;
+        info.strName = info.strInfo = info.strMakeAndModel;
         info.iType = InfoFrom_Guess;
         addDevice(info);
     }

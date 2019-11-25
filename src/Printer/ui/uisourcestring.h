@@ -26,7 +26,7 @@
 #define UI_PRINTERSEARCH_MANUAL QObject::tr("Select a driver")
 #define UI_PRINTERSEARCH_URITIP    "ipp://printer.mydomain/ipp\n" \
     "ipp://cups-sever/printers/printer-queue\n" \
-    "smb://workgroup/username:password@hostname/printer_name\n" \
+    "smb://[username:password@][workgroup/]server/printer\n" \
     "lpd://sever/printer-queue\n" \
     "socket://server[:port]"
 #define UI_PRINTERSEARCH_DRIVER QObject::tr("Driver")

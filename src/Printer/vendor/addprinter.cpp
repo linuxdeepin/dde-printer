@@ -630,8 +630,11 @@ QString AddPrinterFactory::defaultPrinterName(const TDeviceInfo &printer, const 
     if (strName.length() >=  128) {
         strName = strName.left(120);
     }
-    strName = strName.trimmed();
-    strName.replace(QRegularExpression("[^\\w-]"), "-");
+    strName.replace(QRegularExpression("[^\\w-]"), " ");
+    QStringList list = strName.split(" ");
+    list.removeAll("");
+    strName = list.join(" ");
+    strName.replace(" ", "-");
     strDefaultName = strName;
 
     //保证和已安装的打印机名字不重复
