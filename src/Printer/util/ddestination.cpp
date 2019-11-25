@@ -72,7 +72,7 @@ QStringList DDestination::getPrinterBaseInfo()
     initPrinterAttr();
     QStringList baseInfo;
     baseInfo.append(m_printerLocation);
-    baseInfo.append(m_strPrinterModel);
+    baseInfo.append(m_printerModel.isEmpty() ? m_printerInfo : m_printerModel);
     baseInfo.append(m_printerStatus);
     return baseInfo;
 }
@@ -140,14 +140,11 @@ QString DDestination::printerModel()
     requestAttr.push_back(CUPS_OP_MAKE_MODEL);
 
     try {
-        if(isPpdFileBroken())
-        {
+        if (isPpdFileBroken()) {
             map<string, string> attr = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(), nullptr, &requestAttr);
             strPrintModel = QString::fromStdString(attr[CUPS_OP_MAKE_MODEL].data());
             strPrintModel = strPrintModel.remove(0, 1);
-        }
-        else
-        {
+        } else {
             strPrintModel = tr("UNKOWN");
         }
     } catch (const std::runtime_error &e) {
@@ -182,6 +179,7 @@ void DDestination::initPrinterAttr()
     printerAttrs.push_back(CUPS_OP_ISSHAED);
     printerAttrs.push_back(CUPS_OP_ISACCEPT);
     printerAttrs.push_back(CUPS_OP_LOCATION);
+    printerAttrs.push_back(CUPS_OP_MAKE_MODEL);
     printerAttrs.push_back(CUPS_OP_STATE);
     printerAttrs.push_back(CUPS_OP_INFO);
     printerAttrs.push_back(CUPS_DEV_URI);
@@ -199,13 +197,10 @@ void DDestination::initPrinterAttr()
         m_printerLocation = attrMap.at(CUPS_OP_LOCATION).substr(1).data();
         m_printerInfo = attrMap.at(CUPS_OP_INFO).substr(1).data();
 
-        if(!isPpdFileBroken())
-        {
-            m_strPrinterModel = attrMap.at(CUPS_OP_MAKE_MODEL).substr(1).data();
-        }
-        else
-        {
-            m_strPrinterModel = tr("UNKOWN");
+        if (!isPpdFileBroken()) {
+            m_printerModel = attrMap.at(CUPS_OP_MAKE_MODEL).substr(1).data();
+        } else {
+            m_printerModel = tr("UNKOWN");
         }
 
         m_printerURI = attrMap.at(CUPS_DEV_URI).substr(1).data();
