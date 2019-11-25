@@ -104,9 +104,9 @@ static QStringList findBestMatchPPDs(QStringList &models, QString mdl)
     }
 
     //取匹配字符数较多并且超过mdl一半的项
-    if (rightlen > leftlen && rightlen > len/2)
+    if (rightMatch > leftMatch && rightMatch > len/2)
         list.append(right);
-    else if (leftlen > rightlen && leftlen > len/2)
+    else if (leftMatch > rightMatch && leftMatch > len/2)
         list.append(left);
     else {
         //如果没有匹配到，取字符串里面的数字进行匹配
@@ -355,6 +355,7 @@ int RefreshLocalPPDS::doWork()
     if (m_bQuit) return 0;
 
     int count = 0;
+    qInfo() << "format ppd info";
     for (itall=allPPDS.begin();itall!=allPPDS.end();itall++) {
         qDebug() << QString("*****************************");
         QMap<QString, QString> list;
