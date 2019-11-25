@@ -38,8 +38,8 @@ typedef enum enumTaskStat{
 typedef enum enumTaskType
 {
     TASK_NULL = 0,
-    TASK_ReflushKnownDev,/*刷新自动发现的设备列表*/
-    TASK_ReflushNetDev,/*刷新网络打印机列表*/
+    TASK_RefreshKnownDev,/*刷新自动发现的设备列表*/
+    TASK_RefreshNetDev,/*刷新网络打印机列表*/
     TASK_InitPPD,/*初始化本地PPD列表信息*/
     TASK_FindLocalDriver,/*查找本地驱动*/
     TASK_FindNetDriver,/*从服务器查找驱动*/

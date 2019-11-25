@@ -204,7 +204,7 @@ private slots:
     void listWidgetMenuActionSlot(bool checked);
 
     // 初始化左侧打印机列表
-    void reflushPrinterListView(const QString &newPrinterName);
+    void refreshPrinterListView(const QString &newPrinterName);
     // 服务器设置
     void serverSettingsSlot();
 

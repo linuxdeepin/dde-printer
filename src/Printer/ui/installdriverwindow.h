@@ -123,7 +123,7 @@ private slots:
     */
     void driverSearchedSlot();
     // 响应本地驱动初始化完成
-    void driverReflushSlot(int id, int iState);
+    void driverRefreshSlot(int id, int iState);
 
 signals:
     void updatePrinterList();

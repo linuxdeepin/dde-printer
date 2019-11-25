@@ -35,7 +35,7 @@ enum{
     PPDFrom_EveryWhere
 };
 
-class ReflushLocalPPDS;
+class RefreshLocalPPDS;
 
 class DriverSearcher : public QObject
 {
@@ -91,15 +91,13 @@ public:
     */
     int refreshPpds();
 
-    /*!
-    * @brief 获取厂商和型号和名字，用来显示给用户选择
-    */
-    QMap<QString, QMap<QString, QString>>* getMakeModelNames();
+    QStringList getAllMakes();
+    const QMap<QString, QString>* getModelsByMake(const QString &strMake);
 
     /*!
     * @brief 获取所有ppd文件的信息
     */
-    QMap<QString, QMap<QString, QString>>* getPPDs();
+    const QMap<QString, QMap<QString, QString>>* getPPDs();
 
     /*!
     * @brief 获取Generic Text-Only Printer，作为默认驱动
@@ -127,7 +125,7 @@ protected:
     DriverManager(QObject *parent=nullptr);
 
 private:
-    ReflushLocalPPDS*   m_reflushTask;
+    RefreshLocalPPDS*   m_refreshTask;
 };
 
 #define g_driverManager DriverManager::getInstance()

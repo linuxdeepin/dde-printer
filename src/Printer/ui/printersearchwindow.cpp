@@ -459,7 +459,7 @@ void PrinterSearchWindow::getDeviceResultSlot(int id, int state)
         m_pBtnRefresh->blockSignals(false);
         m_pPrinterListViewAuto->blockSignals(false);
     } else if (state == ETaskStatus::TStat_Update) {
-        ReflushDevicesByBackendTask *task = static_cast<ReflushDevicesByBackendTask *>(sender());
+        RefreshDevicesByBackendTask *task = static_cast<RefreshDevicesByBackendTask *>(sender());
         if (!task)
             return;
         QList<TDeviceInfo> deviceList = task->getResult();
@@ -508,7 +508,7 @@ void PrinterSearchWindow::getDeviceResultByManualSlot(int id, int state)
             dlg.exec();
         }
     } else if (state == ETaskStatus::TStat_Update) {
-        ReflushDevicesByHostTask *task = static_cast<ReflushDevicesByHostTask *>(sender());
+        RefreshDevicesByHostTask *task = static_cast<RefreshDevicesByHostTask *>(sender());
         if (!task)
             return;
         QList<TDeviceInfo> deviceList = task->getResult();
@@ -663,9 +663,9 @@ void PrinterSearchWindow::refreshPrinterListSlot()
     m_pAutoInstallDriverBtn->setEnabled(false);
     //屏蔽点击信号，避免未刷新完打印机就开始刷新驱动，目前只有一个loading动画
     m_pPrinterListViewAuto->blockSignals(true);
-    ReflushDevicesByBackendTask *task = new ReflushDevicesByBackendTask();
+    RefreshDevicesByBackendTask *task = new RefreshDevicesByBackendTask();
     //lambda表达式使用directConnection,这里需要在UI线程执行槽函数
-    connect(task, &ReflushDevicesByBackendTask::signalStatus, this, &PrinterSearchWindow::getDeviceResultSlot);
+    connect(task, &RefreshDevicesByBackendTask::signalStatus, this, &PrinterSearchWindow::getDeviceResultSlot);
     task->start();
 
     m_pAutoInstallDriverBtn->setVisible(false);
@@ -685,10 +685,10 @@ void PrinterSearchWindow::searchPrintersByManual()
     m_pBtnFind->blockSignals(true);
     m_pLineEditLocation->blockSignals(true);
     m_pPrinterListViewManual->blockSignals(true);
-    ReflushDevicesByHostTask *task = new ReflushDevicesByHostTask(location);
-    connect(task, &ReflushDevicesByHostTask::signalStatus, this, &PrinterSearchWindow::getDeviceResultByManualSlot);
+    RefreshDevicesByHostTask *task = new RefreshDevicesByHostTask(location);
+    connect(task, &RefreshDevicesByHostTask::signalStatus, this, &PrinterSearchWindow::getDeviceResultByManualSlot);
     // 当使用ip查找打印机的时候，smb协议流程会出现用户名和密码的输入提示框
-    connect(task, &ReflushDevicesByHostTask::signalSmbPassWord, this, &PrinterSearchWindow::smbInfomationSlot, Qt::BlockingQueuedConnection);
+    connect(task, &RefreshDevicesByHostTask::signalSmbPassWord, this, &PrinterSearchWindow::smbInfomationSlot, Qt::BlockingQueuedConnection);
     task->start();
 
     m_pManInstallDriverBtn->setVisible(false);

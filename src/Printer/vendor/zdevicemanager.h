@@ -68,12 +68,12 @@ typedef struct tagDeviceInfo {
 
 Q_DECLARE_METATYPE(TDeviceInfo)
 
-class ReflushDevicesTask : public TaskInterface
+class RefreshDevicesTask : public TaskInterface
 {
     Q_OBJECT
 
 public:
-    ReflushDevicesTask(int id, QObject* parent=nullptr);
+    RefreshDevicesTask(int id, QObject* parent=nullptr);
 
     QList<TDeviceInfo> getResult();
 
@@ -86,12 +86,12 @@ private:
     QMutex  m_mutex;
 };
 
-class ReflushDevicesByBackendTask : public ReflushDevicesTask
+class RefreshDevicesByBackendTask : public RefreshDevicesTask
 {
     Q_OBJECT
 
 public:
-    ReflushDevicesByBackendTask(int id = TASK_ReflushKnownDev, QObject *parent = nullptr);
+    RefreshDevicesByBackendTask(int id = TASK_RefreshKnownDev, QObject *parent = nullptr);
 
 protected:
     int doWork();
@@ -100,12 +100,12 @@ protected:
     int addDevices(const map<string, map<string, string>> &devs, const char *backend);
 };
 
-class ReflushDevicesByHostTask : public ReflushDevicesTask
+class RefreshDevicesByHostTask : public RefreshDevicesTask
 {
     Q_OBJECT
 
 public:
-    ReflushDevicesByHostTask(const QString &strHost, int id = TASK_ReflushNetDev, QObject *parent = nullptr);
+    RefreshDevicesByHostTask(const QString &strHost, int id = TASK_RefreshNetDev, QObject *parent = nullptr);
 
 signals:
     //必须以Qt::BlockingQueuedConnection方式connect，保证阻塞住emit线程

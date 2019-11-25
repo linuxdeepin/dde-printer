@@ -319,7 +319,7 @@ void DPrintersShowWindow::initConnections()
     connect(m_pDefaultAction, &QAction::triggered, this, &DPrintersShowWindow::listWidgetMenuActionSlot);
     connect(m_pRejectAction, &QAction::triggered, this, &DPrintersShowWindow::listWidgetMenuActionSlot);
 
-    connect(m_pSearchWindow, &PrinterSearchWindow::updatePrinterList, this, &DPrintersShowWindow::reflushPrinterListView);
+    connect(m_pSearchWindow, &PrinterSearchWindow::updatePrinterList, this, &DPrintersShowWindow::refreshPrinterListView);
 
 
     connect(m_pSettings, &QAction::triggered, this, &DPrintersShowWindow::serverSettingsSlot);
@@ -342,7 +342,7 @@ void DPrintersShowWindow::initConnections()
 void DPrintersShowWindow::showEvent(QShowEvent *event)
 {
     Q_UNUSED(event)
-    reflushPrinterListView(QString());
+    refreshPrinterListView(QString());
 
     QTimer::singleShot(10, this, [ = ]() {
         CheckCupsServer cups(this);
@@ -388,7 +388,7 @@ void DPrintersShowWindow::updateDefaultPrinterIcon()
 
 
 
-void DPrintersShowWindow::reflushPrinterListView(const QString &newPrinterName)
+void DPrintersShowWindow::refreshPrinterListView(const QString &newPrinterName)
 {
     m_pPrinterManager->updateDestinationList();
     m_pPrinterModel->clear();
@@ -503,7 +503,7 @@ void DPrintersShowWindow::deletePrinterClickSlot()
             if (suc) {
                 // 刷新打印机列表
                 m_CurPrinterName = "";
-                reflushPrinterListView(m_CurPrinterName);
+                refreshPrinterListView(m_CurPrinterName);
             }
         }
         pDialog->deleteLater();
@@ -576,7 +576,7 @@ void DPrintersShowWindow::renamePrinterSlot(QStandardItem *pItem)
 
         m_CurPrinterName = newPrinterName;
         // 刷新完成选中重命名的打印机
-        reflushPrinterListView(m_CurPrinterName);
+        refreshPrinterListView(m_CurPrinterName);
     } catch (const std::runtime_error &e) {
         qWarning() << e.what();
     }

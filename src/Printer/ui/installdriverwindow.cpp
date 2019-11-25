@@ -230,9 +230,8 @@ void InstallDriverWindow::initConnections()
 
 void InstallDriverWindow::initMakerAndType()
 {
-    QMap<QString, QMap<QString, QString>> *pMakerModelMap = g_driverManager->getMakeModelNames();
-    if (pMakerModelMap) {
-        QStringList makerList = pMakerModelMap->keys();
+    QStringList makerList = g_driverManager->getAllMakes();
+    if (!makerList.isEmpty()) {
         int index = -1;
         makerList.sort(Qt::CaseInsensitive);
         m_pManufacturerCombo->addItems(makerList);
@@ -269,7 +268,7 @@ void InstallDriverWindow::showEvent(QShowEvent *event)
     Q_UNUSED(event)
     if (g_driverManager->getStatus() < TStat_Suc) {
         //提示本地驱动没有初始化完成
-        connect(g_driverManager, &DriverManager::signalStatus, this, &InstallDriverWindow::driverReflushSlot);
+        connect(g_driverManager, &DriverManager::signalStatus, this, &InstallDriverWindow::driverRefreshSlot);
         m_pInstallBtn->setVisible(false);
         m_pSpinner->setVisible(true);
         m_pSpinner->start();
@@ -354,12 +353,11 @@ void InstallDriverWindow::tabCurrentIndexChanged()
 
 void InstallDriverWindow::currentMakerChangedSlot(const QString &maker)
 {
-    QMap<QString, QMap<QString, QString>> *pMakerModelMap = g_driverManager->getMakeModelNames();
-    if (pMakerModelMap) {
+    const QMap<QString, QString>* modelset = g_driverManager->getModelsByMake(maker);
+    if (modelset) {
         m_pTypeCombo->clear();
         // 去掉重复项
-        auto modelSet = pMakerModelMap->value(maker).keys().toSet();
-        QStringList modelList = modelSet.toList();
+        QStringList modelList = modelset->keys().toSet().toList();
         modelList.sort(Qt::CaseInsensitive);
         m_pTypeCombo->addItems(modelList);
         int index = -1;
@@ -382,11 +380,12 @@ void InstallDriverWindow::currentMakerChangedSlot(const QString &maker)
 
 void InstallDriverWindow::currentModelChangedSlot(const QString &model)
 {
-    QMap<QString, QMap<QString, QString>> *pMakerModelMap = g_driverManager->getMakeModelNames();
-    if (pMakerModelMap) {
+    const QMap<QString, QString>* modelset = g_driverManager->getModelsByMake(m_pManufacturerCombo->currentText());
+    if (modelset) {
         m_pDriverCombo->clear();
-        QStringList ppdKeys = pMakerModelMap->value(m_pManufacturerCombo->currentText()).values(model);
-        QMap<QString, QMap<QString, QString>> *ppds = g_driverManager->getPPDs();
+
+        QStringList ppdKeys = modelset->values(model);
+        const QMap<QString, QMap<QString, QString>> *ppds = g_driverManager->getPPDs();
         foreach (QString key, ppdKeys) {
             QList<QMap<QString, QString>> list = ppds->values(key.toLower());
             for (int i = 0; i < list.count(); i++) {
@@ -485,7 +484,7 @@ void InstallDriverWindow::searchDriverSlot()
     pDriverSearcher->startSearch();
 }
 
-void InstallDriverWindow::driverReflushSlot(int id, int iState)
+void InstallDriverWindow::driverRefreshSlot(int id, int iState)
 {
     Q_UNUSED(id)
     if (iState == TStat_Suc) {
