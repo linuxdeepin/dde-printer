@@ -55,6 +55,7 @@ void DPrinterTanslator::init()
     addTranslate("PaperOrigin_Combo", "Envelope Feeder", tr("Envelope Feeder"));
     addTranslate("PaperOrigin_Combo", "Tray1", tr("Tray1"));
     addTranslate("PaperOrigin_Combo", "Unknown", tr("Unknown"));
+    addTranslate("PaperOrigin_Combo", "None", tr("None"));
 
     //PaperType_Combo
     addTranslate("PaperType_Combo", "MediaType", tr("MediaType"));
