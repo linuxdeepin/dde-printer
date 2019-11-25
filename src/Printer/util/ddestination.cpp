@@ -137,12 +137,19 @@ QString DDestination::printerModel()
 {
     QString strPrintModel;
     vector<string> requestAttr;
-    requestAttr.push_back(CUPS_OP_INFO);
+    requestAttr.push_back(CUPS_OP_MAKE_MODEL);
 
     try {
-        map<string, string> attr = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(), nullptr, &requestAttr);
-        strPrintModel = QString::fromStdString(attr[CUPS_OP_MAKE_MODEL].data());
-        strPrintModel = strPrintModel.remove(0, 1);
+        if(isPpdFileBroken())
+        {
+            map<string, string> attr = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(), nullptr, &requestAttr);
+            strPrintModel = QString::fromStdString(attr[CUPS_OP_MAKE_MODEL].data());
+            strPrintModel = strPrintModel.remove(0, 1);
+        }
+        else
+        {
+            strPrintModel = tr("UNKOWN");
+        }
     } catch (const std::runtime_error &e) {
         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
     }

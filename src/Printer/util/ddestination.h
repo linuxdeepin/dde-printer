@@ -60,6 +60,7 @@ public:
 
     QString printerModel();
 
+    //Due to ppd file may been modify out the program,it need to call it again rather than save the status of it.
     virtual bool initPrinterPPD();
     virtual bool isPpdFileBroken();
 
