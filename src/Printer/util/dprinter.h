@@ -75,7 +75,8 @@ public:
     DPrinter(Connection *con);
 
     //operator ppd
-    bool initPrinterPPD();
+    virtual bool initPrinterPPD() override;
+    virtual bool isPpdFileBroken() override;
 
     //PageSize PPDFILE
     void setPageSize(const QString &strValue);

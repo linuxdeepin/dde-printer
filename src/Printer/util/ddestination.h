@@ -57,6 +57,13 @@ public:
 
     QString printerLocation();
     void setPrinterLocation(const QString &location);
+
+    QString printerModel();
+
+    //Due to ppd file may been modify out the program,it need to call it again rather than save the status of it.
+    virtual bool initPrinterPPD();
+    virtual bool isPpdFileBroken();
+
     /**
     * @projectName   Printer
     * @brief         复制信息用于创建新的打印机
@@ -80,6 +87,7 @@ protected:
     QString m_printerStatus;
     QString m_printerInfo; //打印机描述,和型号共用
     QString m_printerURI;
+    QString m_strPrinterModel;
     QString m_ppdFile;
 };
 

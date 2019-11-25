@@ -58,6 +58,12 @@ bool DPrinter::initPrinterPPD()
     return bRet;
 }
 
+bool DPrinter::isPpdFileBroken()
+{
+    bool bRet = initPrinterPPD();
+    return !bRet;
+}
+
 void DPrinter::setPageSize(const QString &strValue)
 {
     setOptionValue("PageSize", strValue);
