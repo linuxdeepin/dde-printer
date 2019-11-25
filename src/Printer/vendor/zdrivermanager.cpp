@@ -335,7 +335,7 @@ static void getPpdMakeModel(QString &strMake, QString &strModel, QMap<QString, Q
     }
 }
 
-int ReflushLocalPPDS::doWork()
+int RefreshLocalPPDS::doWork()
 {
     map<string, map<string, string>> allPPDS;
     map<string, map<string, string>>::iterator itall;
@@ -649,7 +649,7 @@ DriverManager* DriverManager::getInstance()
 
 DriverManager::DriverManager(QObject *parent) : QObject(parent)
 {
-    m_reflushTask = nullptr;
+    m_refreshTask = nullptr;
 }
 
 int DriverManager::getStatus()
@@ -659,10 +659,10 @@ int DriverManager::getStatus()
 
 int DriverManager::stop()
 {
-    if (m_reflushTask) {
-        m_reflushTask->stop();
-        m_reflushTask->deleteLater();
-        m_reflushTask = nullptr;
+    if (m_refreshTask) {
+        m_refreshTask->stop();
+        m_refreshTask->deleteLater();
+        m_refreshTask = nullptr;
     }
 
     QMutexLocker locker(&g_mutex);
@@ -685,13 +685,13 @@ DriverSearcher* DriverManager::createSearcher(const TDeviceInfo &device)
 int DriverManager::refreshPpds()
 {
     QMutexLocker locker(&g_mutex);
-    if (TStat_Running == g_iStatus || m_reflushTask)
+    if (TStat_Running == g_iStatus || m_refreshTask)
         return 0;
 
     qInfo() << "";
-    m_reflushTask = new ReflushLocalPPDS();
-    connect(m_reflushTask, &ReflushLocalPPDS::signalStatus, this, &DriverManager::signalStatus);
-    m_reflushTask->start();
+    m_refreshTask = new RefreshLocalPPDS();
+    connect(m_refreshTask, &RefreshLocalPPDS::signalStatus, this, &DriverManager::signalStatus);
+    m_refreshTask->start();
 
     return 0;
 }

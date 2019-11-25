@@ -82,13 +82,13 @@ private:
     void sortJobs();
 
 protected slots:
-    void slotReflushJobsList();
-    void slotReflushJobItems();
+    void slotRefreshJobsList();
+    void slotRefreshJobItems();
 
 private:
     QList<QMap<QString, QVariant>>   m_jobs;
     int     m_iHighestPriority;
-    QTimer*             m_reflushTimer;
+    QTimer*             m_refreshTimer;
     int                 m_iWhichJob;
 
     friend class JobManagerWindow;
@@ -164,7 +164,7 @@ protected slots:
 private:
     JobListView*        m_jobsView;
     JobsDataModel*      m_jobsModel;
-    DIconButton*        m_reflushBut;
+    DIconButton*        m_refreshBut;
     DButtonBox*         m_whichButBox;
     QList<DButtonBoxButton*>    m_whichList;
     QLabel*             m_jobCountLabel;

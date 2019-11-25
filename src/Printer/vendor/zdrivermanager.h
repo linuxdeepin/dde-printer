@@ -35,7 +35,7 @@ enum{
     PPDFrom_EveryWhere
 };
 
-class ReflushLocalPPDS;
+class RefreshLocalPPDS;
 
 class DriverSearcher : public QObject
 {
@@ -127,7 +127,7 @@ protected:
     DriverManager(QObject *parent=nullptr);
 
 private:
-    ReflushLocalPPDS*   m_reflushTask;
+    RefreshLocalPPDS*   m_refreshTask;
 };
 
 #define g_driverManager DriverManager::getInstance()

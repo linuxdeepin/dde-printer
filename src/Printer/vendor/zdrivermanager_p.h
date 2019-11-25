@@ -24,12 +24,12 @@
 
 #include "ztaskinterface.h"
 
-class ReflushLocalPPDS : public TaskInterface
+class RefreshLocalPPDS : public TaskInterface
 {
     Q_OBJECT
 
 protected:
-    explicit ReflushLocalPPDS(QObject* parent=nullptr):TaskInterface(TASK_InitPPD, parent){}
+    explicit RefreshLocalPPDS(QObject* parent=nullptr):TaskInterface(TASK_InitPPD, parent){}
 
     int doWork();
 

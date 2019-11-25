@@ -89,18 +89,18 @@ static void smb_auth_func(SMBCCTX *c,
         strncpy(pw, g_smbpassword.toUtf8().constData(), pwlen);
 }
 
-ReflushDevicesTask::ReflushDevicesTask(int id, QObject* parent)
+RefreshDevicesTask::RefreshDevicesTask(int id, QObject* parent)
     :TaskInterface (id, parent)
 {}
 
-QList<TDeviceInfo> ReflushDevicesTask::getResult()
+QList<TDeviceInfo> RefreshDevicesTask::getResult()
 {
     QMutexLocker locker(&m_mutex);
 
     return m_devices;
 }
 
-int ReflushDevicesTask::addDevice(const TDeviceInfo &dev)
+int RefreshDevicesTask::addDevice(const TDeviceInfo &dev)
 {
     {
         QMutexLocker locker(&m_mutex);
@@ -113,18 +113,18 @@ int ReflushDevicesTask::addDevice(const TDeviceInfo &dev)
     return 0;
 }
 
-void ReflushDevicesTask::clearDevices()
+void RefreshDevicesTask::clearDevices()
 {
     QMutexLocker locker(&m_mutex);
 
     m_devices.clear();
 }
 
-ReflushDevicesByBackendTask::ReflushDevicesByBackendTask(int id, QObject* parent)
-    :ReflushDevicesTask(id, parent)
+RefreshDevicesByBackendTask::RefreshDevicesByBackendTask(int id, QObject* parent)
+    :RefreshDevicesTask(id, parent)
 {}
 
-int ReflushDevicesByBackendTask::mergeDevice(TDeviceInfo &device, const char * backend)
+int RefreshDevicesByBackendTask::mergeDevice(TDeviceInfo &device, const char * backend)
 {
     QString uri = device.uriList[0];
     //排除重复的URI
@@ -172,7 +172,7 @@ int ReflushDevicesByBackendTask::mergeDevice(TDeviceInfo &device, const char * b
     return 0;
 }
 
-int ReflushDevicesByBackendTask::addDevices(const map<string, map<string, string>> &devs, const char * backend)
+int RefreshDevicesByBackendTask::addDevices(const map<string, map<string, string>> &devs, const char * backend)
 {
     map<string, map<string, string>>::const_iterator itmap;
 
@@ -222,7 +222,7 @@ int ReflushDevicesByBackendTask::addDevices(const map<string, map<string, string
     return 0;
 }
 
-int ReflushDevicesByBackendTask::doWork()
+int RefreshDevicesByBackendTask::doWork()
 {
     int sechCount = sizeof(g_backendSchemes)/sizeof(g_backendSchemes[0]);
     int snmpCount = 0;
@@ -276,13 +276,13 @@ int ReflushDevicesByBackendTask::doWork()
     return 0;
 }
 
-ReflushDevicesByHostTask::ReflushDevicesByHostTask(const QString &strHost, int id, QObject* parent)
-    :ReflushDevicesTask (id, parent)
+RefreshDevicesByHostTask::RefreshDevicesByHostTask(const QString &strHost, int id, QObject* parent)
+    :RefreshDevicesTask (id, parent)
 {
     m_strHost = strHost;
 }
 
-int ReflushDevicesByHostTask::probe_snmp(const QString &strHost)
+int RefreshDevicesByHostTask::probe_snmp(const QString &strHost)
 {
     qDebug() << strHost;
     QString strRet, strErr;
@@ -315,7 +315,7 @@ int ReflushDevicesByHostTask::probe_snmp(const QString &strHost)
     return iRet;
 }
 
-int ReflushDevicesByHostTask::probe_hplip(const QString &strHost)
+int RefreshDevicesByHostTask::probe_hplip(const QString &strHost)
 {
     QString strRet;
     QString strErr;
@@ -333,7 +333,7 @@ int ReflushDevicesByHostTask::probe_hplip(const QString &strHost)
     return iRet;
 }
 
-int ReflushDevicesByHostTask::probe_jetdirect(const QString &strHost)
+int RefreshDevicesByHostTask::probe_jetdirect(const QString &strHost)
 {
     qDebug() << "probe_jetdirect" << strHost;
     QTcpSocket socket;
@@ -352,7 +352,7 @@ int ReflushDevicesByHostTask::probe_jetdirect(const QString &strHost)
     return -1;
 }
 
-int ReflushDevicesByHostTask::probe_ipp(const QString &strHost)
+int RefreshDevicesByHostTask::probe_ipp(const QString &strHost)
 {
     map<string, map<string,string>> printersMap;
     map<string, map<string,string>>::iterator itPrinters;
@@ -387,7 +387,7 @@ int ReflushDevicesByHostTask::probe_ipp(const QString &strHost)
 }
 
 #define LPD_MAX 1
-int ReflushDevicesByHostTask::probe_lpd(const QString &strHost)
+int RefreshDevicesByHostTask::probe_lpd(const QString &strHost)
 {
     qDebug() << "probe_lpd" << strHost;
     QTcpSocket socket;
@@ -404,7 +404,7 @@ int ReflushDevicesByHostTask::probe_lpd(const QString &strHost)
     return -1;
 }
 
-int ReflushDevicesByHostTask::probe_smb(const QString &strHost)
+int RefreshDevicesByHostTask::probe_smb(const QString &strHost)
 {
     qDebug() << "probe_smb" << strHost;
     int ret = 0;
@@ -483,7 +483,7 @@ done:
     return ret;
 }
 
-int ReflushDevicesByHostTask::doWork()
+int RefreshDevicesByHostTask::doWork()
 {
     clearDevices();
 

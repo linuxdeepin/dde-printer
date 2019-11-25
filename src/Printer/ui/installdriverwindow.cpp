@@ -269,7 +269,7 @@ void InstallDriverWindow::showEvent(QShowEvent *event)
     Q_UNUSED(event)
     if (g_driverManager->getStatus() < TStat_Suc) {
         //提示本地驱动没有初始化完成
-        connect(g_driverManager, &DriverManager::signalStatus, this, &InstallDriverWindow::driverReflushSlot);
+        connect(g_driverManager, &DriverManager::signalStatus, this, &InstallDriverWindow::driverRefreshSlot);
         m_pInstallBtn->setVisible(false);
         m_pSpinner->setVisible(true);
         m_pSpinner->start();
@@ -485,7 +485,7 @@ void InstallDriverWindow::searchDriverSlot()
     pDriverSearcher->startSearch();
 }
 
-void InstallDriverWindow::driverReflushSlot(int id, int iState)
+void InstallDriverWindow::driverRefreshSlot(int id, int iState)
 {
     Q_UNUSED(id)
     if (iState == TStat_Suc) {

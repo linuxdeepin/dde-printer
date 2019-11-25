@@ -25,8 +25,8 @@
 #include <QTimer>
 
 static const char* g_taskText[] = {"null",
-                                 "Reflush devices by backends",
-                                 "Reflush devices by host",
+                                 "Refresh devices by backends",
+                                 "Refresh devices by host",
                                  "Init ppds",
                                  "not use",
                                  "not use",

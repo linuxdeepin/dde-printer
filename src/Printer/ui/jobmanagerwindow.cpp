@@ -517,10 +517,10 @@ JobsDataModel::JobsDataModel(QObject* parent)
       m_iHighestPriority(50),
     m_iWhichJob(WHICH_JOB_RUNING)
 {
-    m_reflushTimer = new QTimer(this);
-    m_reflushTimer->setInterval(100);
-    m_reflushTimer->setSingleShot(true);
-    connect(m_reflushTimer, &QTimer::timeout, this, &JobsDataModel::slotReflushJobItems);
+    m_refreshTimer = new QTimer(this);
+    m_refreshTimer->setInterval(100);
+    m_refreshTimer->setSingleShot(true);
+    connect(m_refreshTimer, &QTimer::timeout, this, &JobsDataModel::slotRefreshJobItems);
 }
 
 void JobsDataModel::deleteJobItem(int jobId)
@@ -538,7 +538,7 @@ void JobsDataModel::deleteJobItem(int jobId)
     if (index >= m_jobs.count()) return;
 
     m_jobs.removeAt(index);
-    m_reflushTimer->start();
+    m_refreshTimer->start();
 }
 
 void JobsDataModel::addJobItem(const QMap<QString, QVariant> &job)
@@ -548,7 +548,7 @@ void JobsDataModel::addJobItem(const QMap<QString, QVariant> &job)
     qInfo() << job[JOB_ATTR_ID].toInt();
 
     m_jobs.append(job);
-    m_reflushTimer->start();
+    m_refreshTimer->start();
 }
 
 void JobsDataModel::setJobAttributes(int index, const QMap<QString, QVariant> &job)
@@ -567,7 +567,7 @@ void JobsDataModel::setJobAttributes(int index, const QMap<QString, QVariant> &j
 
     //状态或者优先级改变都需要进行排序
     if (lastState != state || lastPriority != jobPriority) {
-        m_reflushTimer->start();
+        m_refreshTimer->start();
         return;
     }
 
@@ -681,7 +681,7 @@ void JobsDataModel::setWhichJob(int which)
 {
     m_iWhichJob = which;
 
-    slotReflushJobsList();
+    slotRefreshJobsList();
 }
 
 void JobsDataModel::updateJobState(int id, int state, const QString &message)
@@ -742,12 +742,12 @@ void JobsDataModel::updateJobState(int id, int state, const QString &message)
     setJobAttributes(index, job);
 }
 
-void JobsDataModel::slotReflushJobItems()
+void JobsDataModel::slotRefreshJobItems()
 {
     int jobPriority, iState;
     int priorityCount = 0;
 
-    m_reflushTimer->stop();
+    m_refreshTimer->stop();
     beginResetModel();
 
     m_iHighestPriority = 50;
@@ -774,7 +774,7 @@ void JobsDataModel::slotReflushJobItems()
     qInfo() << "Current highest priorty" << m_iHighestPriority;
 }
 
-void JobsDataModel::slotReflushJobsList()
+void JobsDataModel::slotRefreshJobsList()
 {
     map<int, map<string, string>> jobsmap;
     map<int, map<string, string>>::const_iterator itmaps;
@@ -797,7 +797,7 @@ void JobsDataModel::slotReflushJobsList()
         m_jobs.prepend(job);
     }
 
-    slotReflushJobItems();
+    slotRefreshJobItems();
 }
 
 int JobsDataModel::rowCount(const QModelIndex &parent) const
@@ -944,7 +944,7 @@ JobManagerWindow::JobManagerWindow(QWidget* parent)
     : DMainWindow (parent),
       m_jobsView(nullptr),
       m_jobsModel(nullptr),
-      m_reflushBut(nullptr),
+      m_refreshBut(nullptr),
       m_whichButBox(nullptr),
       m_jobCountLabel(nullptr)
 {
@@ -956,7 +956,7 @@ JobManagerWindow::JobManagerWindow(QWidget* parent)
 
 void JobManagerWindow::createUi()
 {
-    m_reflushBut = new DIconButton(titlebar());
+    m_refreshBut = new DIconButton(titlebar());
     m_whichButBox = new DButtonBox(titlebar());
     m_whichList.append(new DButtonBoxButton(QIcon::fromTheme("dp_print_all")));
     m_whichList.append(new DButtonBoxButton(QIcon::fromTheme("dp_print_wait")));
@@ -970,8 +970,8 @@ void JobManagerWindow::createUi()
 
 void JobManagerWindow::initUi()
 {
-    m_reflushBut->setIcon(QIcon::fromTheme("dp_refresh"));
-    m_reflushBut->setToolTip(tr("Refresh"));
+    m_refreshBut->setIcon(QIcon::fromTheme("dp_refresh"));
+    m_refreshBut->setToolTip(tr("Refresh"));
 
     m_whichButBox->setButtonList(m_whichList, true);
     m_whichList[WHICH_JOB_RUNING]->setChecked(true);
@@ -983,7 +983,7 @@ void JobManagerWindow::initUi()
     }
 
     titlebar()->addWidget(m_whichButBox, Qt::AlignLeft);
-    titlebar()->addWidget(m_reflushBut, Qt::AlignLeft);
+    titlebar()->addWidget(m_refreshBut, Qt::AlignLeft);
     titlebar()->setIcon(QIcon(":/images/dde-printer.svg"));
     titlebar()->setTitle("");
     titlebar()->setMenuVisible(false);
@@ -1019,7 +1019,7 @@ void JobManagerWindow::initUi()
 
 void JobManagerWindow::initConnect()
 {
-    connect(m_reflushBut, &QAbstractButton::clicked, m_jobsModel, &JobsDataModel::slotReflushJobsList);
+    connect(m_refreshBut, &QAbstractButton::clicked, m_jobsModel, &JobsDataModel::slotRefreshJobsList);
     connect(m_whichButBox, &DButtonBox::buttonClicked, this, &JobManagerWindow::slotWhichBoxClicked);
     connect(g_cupsMonitor, &CupsMonitor::signalJobStateChanged, this, &JobManagerWindow::slotJobStateChanged);
     connect(m_jobsModel, &JobsDataModel::signalJobsCountChanged, this, &JobManagerWindow::slotJobsCountChanged);
