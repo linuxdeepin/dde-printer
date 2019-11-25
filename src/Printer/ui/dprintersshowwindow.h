@@ -180,7 +180,7 @@ private:
     * @author        liurui
     * @date          2019-11-08
     */
-//    bool eventFilter(QObject *watched, QEvent *event) override;
+
 
     void showEvent(QShowEvent *event) override;
 
@@ -228,7 +228,7 @@ private slots:
     // 服务器设置
     void serverSettingsSlot();
 
-    bool eventFilter(QObject *watched, QEvent *event) override;
+//    bool eventFilter(QObject *watched, QEvent *event) override;
 
     void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 

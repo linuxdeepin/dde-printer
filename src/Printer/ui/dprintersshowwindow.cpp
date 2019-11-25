@@ -148,6 +148,7 @@ void DPrintersShowWindow::initUI()
     pLabelImage->setPixmap(QPixmap(":/images/printer_details.svg"));
 
     m_pLabelPrinterName = new QLabel("") ;
+    m_pLabelPrinterName->setMinimumWidth(200);
     QFont printerNameFont;
     printerNameFont.setBold(true);
     m_pLabelPrinterName->setFont(printerNameFont);
@@ -181,7 +182,7 @@ void DPrintersShowWindow::initUI()
 
     QHBoxLayout *pRightTopHLayout = new QHBoxLayout();
     pRightTopHLayout->addWidget(pLabelImage, 0, Qt::AlignHCenter);
-    pRightTopHLayout->addSpacing(60);
+    pRightTopHLayout->addSpacing(30);
     pRightTopHLayout->addLayout(pRightGridLayout);
 
     // 右侧下方控件
@@ -242,7 +243,7 @@ void DPrintersShowWindow::initUI()
     pRightVLayout->addLayout(pRightTopHLayout);
     pRightVLayout->addSpacing(100);
     pRightVLayout->addLayout(pRightBottomGLayout);
-    pRightVLayout->setContentsMargins(80, 100, 80, 181);
+    pRightVLayout->setContentsMargins(60, 100, 60, 181);
 
     m_pPrinterInfoWidget = new QWidget();
     m_pPrinterInfoWidget->setLayout(pRightVLayout);
@@ -468,13 +469,17 @@ void DPrintersShowWindow::serverSettingsSlot()
     m_pPrinterManager->commit();
 }
 
-bool DPrintersShowWindow::eventFilter(QObject *watched, QEvent *event)
-{
-    if (watched == m_pPrinterListView) {
-        qInfo() << event;
-    }
-    return false;
-}
+//bool DPrintersShowWindow::eventFilter(QObject *watched, QEvent *event)
+//{
+//    if (watched == m_pPrinterListView) {
+//        if (event->type() == QEvent::MouseButtonRelease) {
+//            if (m_pPrinterListView->isPersistentEditorOpen(m_pPrinterListView->currentIndex())) {
+//                m_pPrinterListView->closePersistentEditor(m_pPrinterListView->currentIndex());
+//            }
+//        }
+//    }
+//    return false;
+//}
 
 void DPrintersShowWindow::closeEvent(QCloseEvent *event)
 {
@@ -668,13 +673,19 @@ void DPrintersShowWindow::printerListWidgetItemChangedSlot(const QModelIndex &pr
     if (basePrinterInfo.count() == 3) {
         QString showPrinter = printerName;
         //如果文字超出了显示范围，那么就用省略号代替，并且设置tip提示
-        int textWidth = int(180.0 / 942 * this->width());
-        geteElidedText(m_pLabelPrinterName->font(), showPrinter, textWidth);
+//        int textWidth = int(180.0 / 942 * this->width());
+        geteElidedText(m_pLabelPrinterName->font(), showPrinter, m_pLabelPrinterName->width());
         m_pLabelPrinterName->setText(showPrinter);
         m_pLabelPrinterName->setToolTip(printerName);
-        m_pLabelLocationShow->setText(basePrinterInfo.at(0));
+
+        QString location = basePrinterInfo.at(0);
+        geteElidedText(m_pLabelLocationShow->font(), location, m_pLabelLocationShow->width());
+        m_pLabelLocationShow->setText(location);
         m_pLabelLocationShow->setToolTip(basePrinterInfo.at(0));
-        m_pLabelTypeShow->setText(basePrinterInfo.at(1));
+
+        QString model = basePrinterInfo.at(1);
+        geteElidedText(m_pLabelTypeShow->font(), model, m_pLabelTypeShow->width());
+        m_pLabelTypeShow->setText(model);
         m_pLabelTypeShow->setToolTip(basePrinterInfo.at(1));
         m_pLabelStatusShow->setText(basePrinterInfo.at(2));
 //        ConnectedTask *pTask = new ConnectedTask(printerName);
