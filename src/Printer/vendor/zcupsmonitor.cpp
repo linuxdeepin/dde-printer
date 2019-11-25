@@ -133,7 +133,7 @@ bool CupsMonitor::isJobPurged(int id)
 {
     QString str = getJobMessage(id);
 
-    return str.indexOf(" Job purged") > 0;
+    return str.indexOf("Job purged") >= 0;
 }
 
 QString CupsMonitor::getJobMessage(int id)
