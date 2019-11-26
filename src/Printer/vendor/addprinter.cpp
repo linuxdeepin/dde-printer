@@ -666,7 +666,7 @@ QString AddPrinterFactory::defaultPrinterName(const TDeviceInfo &printer, const 
 
         //EveryWhere 不用makeandmodel作为名称，因为会包含中文
         if (strMM.isEmpty() || PPDFrom_EveryWhere == solution[SD_KEY_from].toInt()) {
-            strName = printer.uriList[0].split("/").last();
+            strName = getPrinterNameFromUri(printer.uriList[0]);
         } else {
             QString strModel;
             ppdMakeModelSplit(strMM, strMake, strModel);
