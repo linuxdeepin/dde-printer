@@ -205,17 +205,20 @@ QVariant ipp_attribute_value (ipp_attribute_t *attr, int i)
 
 int shellCmd(const QString &cmd, QString& out, QString& strErr, int timeout)
 {
-    qDebug() << "Start command: " << cmd;
+    qInfo() << "Start command: " << cmd;
     QProcess proc;
     proc.start(cmd);
     if (proc.waitForFinished(timeout)) {
         out = proc.readAll();
         if (proc.exitCode() != 0 || proc.exitStatus() != QProcess::NormalExit) {
             strErr = QString("err %1, string: %2").arg(proc.exitCode()).arg(QString::fromUtf8(proc.readAllStandardError()));
+            qWarning() << cmd << " exit with err: " << strErr;
             return -1;
         }
+    } else {
+        qWarning() << cmd << " timeout";
+        return -2;
     }
-    else return -2;
 
     return 0;
 }

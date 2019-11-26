@@ -43,6 +43,19 @@
 
 static QString g_captexec = "/opt/cndrvcups-capt/addprinter.sh";
 
+static QString getPackageVersion(const QString &package)
+{
+    QString strOut, strErr;
+    if (0 == shellCmd(QString("dpkg -l %1").arg(package), strOut, strErr)){
+        strOut = strOut.split("\n", QString::SkipEmptyParts).last();
+        qDebug() << strOut ;
+        QStringList list = strOut.split(" ", QString::SkipEmptyParts);
+        return list.count()>2?list[2]:QString();
+    }
+
+    return QString();
+}
+
 static QString probeDevName(const QString &serial)
 {
     for (int i = 0; i < 10; ++i) {
@@ -101,7 +114,7 @@ InstallInterface::InstallInterface(QObject *parent)
       m_bQuit(false)
 {}
 
-void InstallInterface::setPackages(const QStringList &packages)
+void InstallInterface::setPackages(const QList<TPackageInfo> &packages)
 {
     m_packages = packages;
 }
@@ -113,21 +126,43 @@ QString InstallInterface::getErrorString()
 
 void InstallInterface::startInstallPackages()
 {
-    qInfo() << "install packages:" << m_packages;
-
-    //不用检查包是否已经安装，DBus的接口已经判断了包是否已经安装，并且可以进行升级
+    /*检查包是否安装，并且校验版本，只有需要安装的时候才调用dbus接口安装
+     * 防止驱动已经安装的情况因为apt报错导致添加打印机失败
+     * TODO dbus安装没有执行apt update，可能存在更新不成功或者安装失败的问题
+     * 目前依赖系统自动执行的apt update
+    */
     QDBusInterface *interface = getPackageInterface();
     for (auto package : m_packages) {
-        QDBusReply<bool> installable = interface->call("PackageInstallable", package);
+        qInfo() << "install package:" << package.toString();
+        if (isPackageExists(package.packageName)){
+            QString strVer = getPackageVersion(package.packageName);
+            if (!package.packageVer.isEmpty() && strVer != package.packageVer) {
+                qInfo() << package.packageName << "need update";
+                m_installPackages.append(package.packageName);
+            } else {
+                qInfo() << package.packageName << "is exists: " << strVer;
+                continue;
+            }
+        } else {
+            m_installPackages.append(package.packageName);
+            qInfo() << package.packageName << "need install";
+        }
+        QDBusReply<bool> installable = interface->call("PackageInstallable", package.packageName);
 
         if (!installable.isValid() || !installable) {
-            m_strErr = package  + tr("is invalid");
+            m_strErr = package.packageName  + tr("is invalid");
             emit signalStatus(TStat_Fail);
             return;
         }
     }
 
-    QDBusReply<QDBusObjectPath> objPath = interface->call("InstallPackage", "", m_packages.join(" "));
+    if (m_installPackages.isEmpty()){
+        emit signalStatus(TStat_Suc);
+        return;
+    }
+
+    QDBusReply<QDBusObjectPath> objPath = interface->call("InstallPackage", "", m_installPackages.join(" "));
+
     if (objPath.isValid()) {
         m_jobPath = objPath.value().path();
         if (QDBusConnection::systemBus().connect("com.deepin.lastore",
@@ -135,7 +170,7 @@ void InstallInterface::startInstallPackages()
                     "org.freedesktop.DBus.Properties",
                     "PropertiesChanged",
                     this, SLOT(propertyChanged(QDBusMessage)))) {
-            qDebug() << "Start install " << m_packages;
+            qDebug() << "Start install " << m_installPackages;
             return;
         }
     }
@@ -176,12 +211,15 @@ void InstallInterface::propertyChanged(const QDBusMessage &msg)
         if (m_strType == "install" && m_strStatus == "succeed") {
             emit signalStatus(TStat_Suc);
             goto  done;
+        } else if (m_strStatus == "failed") {
+            emit signalStatus(TStat_Fail);
+            goto done;
         }
 
         return;
     }
 
-    m_strErr = tr("Failed to install %1").arg(m_packages.join(" "));
+    m_strErr = tr("Failed to install %1").arg(m_installPackages.join(" "));
     emit signalStatus(TStat_Fail);
 
 done:
@@ -248,9 +286,13 @@ void InstallDriver::slotServerDone(int iCode, const QByteArray &result)
     qDebug() << doc.toJson();
     QJsonObject obj = doc.object();
     QJsonArray package_array = obj[SD_KEY_package].toArray();
+    QJsonArray ver_array = obj[SD_KEY_ver].toArray();
 
-    for (auto it : package_array) {
-        m_packages << it.toString();
+    for (int i=0;i<package_array.size();i++) {
+        TPackageInfo info;
+        info.packageName = package_array.at(i).toString();
+        info.packageVer = ver_array.at(i).isUndefined()?QString():ver_array.at(i).toString();
+        m_packages.append(info);
     }
 
     startInstallPackages();
@@ -337,7 +379,7 @@ int DefaultAddPrinter::addPrinter()
     if (!m_printer.strLocation.isEmpty())
         args << "-L" << m_printer.strLocation;
 
-    qInfo() << args ;
+    qInfo() << args.join(" ") ;
     m_proc.start("/usr/sbin/lpadmin", args);
 
     return 0;
@@ -466,7 +508,13 @@ int AddPrinterTask::fixDriverDepends()
     QStringList depends = g_driverManager->getDriverDepends(ppd_name.toUtf8().data());
     if (!depends.isEmpty()) {
         m_installDepends = new InstallInterface(this);
-        m_installDepends->setPackages(depends);
+        QList<TPackageInfo> packages;
+        foreach (const QString& package, depends) {
+            TPackageInfo info;
+            info.packageName = package;
+            packages.append(info);
+        }
+        m_installDepends->setPackages(packages);
         connect(m_installDepends, &InstallInterface::signalStatus, this, &AddPrinterTask::slotDependsStatus);
         m_installDepends->startInstallPackages();
 
