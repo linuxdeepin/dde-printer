@@ -457,6 +457,8 @@ void DriverSearcher::startSearch()
     QMap<QString, QVariant> driver = g_driverManager->getEveryWhereDriver(m_printer.uriList[0]);
     if (!driver.isEmpty()) {
         m_drivers.append(driver);
+        qInfo() << "Got EveryWhere driver";
+        emit signalDone();
     }
 
     /*等待服务器查找结果返回之后再开始查找本地驱动

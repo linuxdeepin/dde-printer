@@ -56,10 +56,14 @@ QString getPrinterPPD(const char *name)
 
 QString getPrinterNameFromUri(const QString &uri)
 {
-    QUrl url = QUrl::fromEncoded(uri.toUtf8());
-    QString strurl = url.toDisplayString();
-    int index = strurl.indexOf("printers/");
-    return strurl.mid(index+9);
+    QByteArray bytes  = QByteArray::fromPercentEncoding(uri.toUtf8());
+    QString strurl = QString::fromUtf8(bytes);
+    if (strurl.startsWith("dnssd://")) {
+        QString strInfo = strurl.split("/", QString::SkipEmptyParts).at(1);
+        return strInfo.split("@").first().trimmed();
+    }
+
+    return strurl.split("/").last();
 }
 
 QString getPrinterUri(const char *name)
@@ -205,17 +209,20 @@ QVariant ipp_attribute_value (ipp_attribute_t *attr, int i)
 
 int shellCmd(const QString &cmd, QString& out, QString& strErr, int timeout)
 {
-    qDebug() << "Start command: " << cmd;
+    qInfo() << "Start command: " << cmd;
     QProcess proc;
     proc.start(cmd);
     if (proc.waitForFinished(timeout)) {
         out = proc.readAll();
         if (proc.exitCode() != 0 || proc.exitStatus() != QProcess::NormalExit) {
             strErr = QString("err %1, string: %2").arg(proc.exitCode()).arg(QString::fromUtf8(proc.readAllStandardError()));
+            qWarning() << cmd << " exit with err: " << strErr;
             return -1;
         }
+    } else {
+        qWarning() << cmd << " timeout";
+        return -2;
     }
-    else return -2;
 
     return 0;
 }

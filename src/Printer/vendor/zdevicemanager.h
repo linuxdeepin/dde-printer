@@ -84,6 +84,8 @@ protected:
 private:
     QList<TDeviceInfo>  m_devices;
     QMutex  m_mutex;
+
+    friend class RefreshDevicesByBackendTask;
 };
 
 class RefreshDevicesByBackendTask : public RefreshDevicesTask

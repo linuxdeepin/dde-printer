@@ -29,6 +29,13 @@
 
 class PrinterServerInterface;
 
+typedef struct tagPackageInfo {
+    QString toString() {return packageName + ": " + packageVer;}
+
+    QString packageName;
+    QString packageVer;
+}TPackageInfo;
+
 class InstallInterface : public QObject
 {
     Q_OBJECT
@@ -36,7 +43,7 @@ class InstallInterface : public QObject
 public:
     explicit InstallInterface(QObject *parent=nullptr);
 
-    void setPackages(const QStringList &packages);
+    void setPackages(const QList<TPackageInfo> &packages);
     void startInstallPackages();
 
     QString getErrorString();
@@ -50,7 +57,8 @@ protected slots:
     void propertyChanged(const QDBusMessage &msg);
 
 protected:
-    QStringList     m_packages;
+    QList<TPackageInfo>     m_packages;
+    QStringList             m_installPackages;
     bool            m_bQuit;
     QString         m_jobPath;
     QString         m_strType;

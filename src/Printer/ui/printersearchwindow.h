@@ -71,7 +71,7 @@ private:
     * @author        liurui
     * @date          2019-11-11
     */
-    void autoInstallPrinter(int type, const TDeviceInfo &device);
+    bool autoInstallPrinter(int type, const TDeviceInfo &device);
 
     QString printerDescription(const TDeviceInfo& info, bool manual = false);
     QString driverDescription(const QMap<QString, QVariant>& driver);
@@ -146,10 +146,6 @@ private:
     // 安装打印机状态界面
     InstallPrinterWindow *m_pInstallPrinterWindow;
 
-private:
-    bool m_isAutoInstallDriver;
-    bool m_isManInstallDriver;
-    bool m_isURIInstallDriver;
 };
 
 #endif // PRINTERSEARCHWINDOW_H

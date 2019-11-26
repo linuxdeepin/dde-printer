@@ -53,9 +53,6 @@
 
 PrinterSearchWindow::PrinterSearchWindow(QWidget *parent)
     : DMainWindow(parent)
-    , m_isAutoInstallDriver(false)
-    , m_isManInstallDriver(false)
-    , m_isURIInstallDriver(false)
 {
     initUi();
     initConnections();
@@ -403,7 +400,7 @@ QStandardItem *PrinterSearchWindow::getCheckedItem(int type)
     return pCheckedItem;
 }
 
-void PrinterSearchWindow::autoInstallPrinter(int type, const TDeviceInfo &device)
+bool PrinterSearchWindow::autoInstallPrinter(int type, const TDeviceInfo &device)
 {
     QComboBox *pDriverCombo = nullptr;
     if (type == 0) {
@@ -414,6 +411,8 @@ void PrinterSearchWindow::autoInstallPrinter(int type, const TDeviceInfo &device
         pDriverCombo = m_pURIDriverCom;
     }
     QMap<QString, QVariant> solution = pDriverCombo->currentData().value<QMap<QString, QVariant>>();
+    if (solution.isEmpty()) return false;
+
     AddPrinterTask *task = g_addPrinterFactoty->createAddPrinterTask(device, solution);
     close();
     m_pInstallPrinterWindow = new InstallPrinterWindow(this);
@@ -431,6 +430,7 @@ void PrinterSearchWindow::autoInstallPrinter(int type, const TDeviceInfo &device
     connect(task, &AddPrinterTask::signalStatus, m_pInstallPrinterWindow, &InstallPrinterWindow::receiveInstallationStatusSlot);
     connect(m_pInstallPrinterWindow, &InstallPrinterWindow::updatePrinterList, this, &PrinterSearchWindow::updatePrinterList);
     task->doWork();
+    return true;
 }
 
 
@@ -643,10 +643,8 @@ void PrinterSearchWindow::driverAutoSearchedSlot()
     m_pAutoInstallDriverBtn->setEnabled(true);
     if (m_pAutoDriverCom->count() >= 2) {
         m_pAutoInstallDriverBtn->setText(UI_PRINTERSEARCH_INSTALLDRIVER_AUTO);
-        m_isAutoInstallDriver = true;
     } else {
         m_pAutoInstallDriverBtn->setText(UI_PRINTERSEARCH_INSTALLDRIVER_NEXT);
-        m_isAutoInstallDriver = false;
     }
     //解除信号阻塞，重新响应列表的点击事件
 
@@ -673,10 +671,8 @@ void PrinterSearchWindow::driverManSearchedSlot()
     m_pManInstallDriverBtn->setEnabled(true);
     if (m_pManDriverCom->count() >= 2) {
         m_pManInstallDriverBtn->setText(UI_PRINTERSEARCH_INSTALLDRIVER_AUTO);
-        m_isManInstallDriver = true;
     } else {
         m_pManInstallDriverBtn->setText(UI_PRINTERSEARCH_INSTALLDRIVER_NEXT);
-        m_isManInstallDriver = false;
     }
     //解除信号阻塞，重新响应列表的点击事件
 
@@ -740,9 +736,11 @@ void PrinterSearchWindow::lineEditURIChanged(QString uri)
         QMap<QString, QVariant> driver = g_driverManager->getEveryWhereDriver(uri);
         if (m_pURIDriverCom->count() < 2 && !driver.isEmpty()) {
             m_pURIDriverCom->clear();
-            m_pURIDriverCom->addItem(driver[CUPS_PPD_MAKE_MODEL].toString(), driver);
+            m_pURIDriverCom->addItem(driver[CUPS_PPD_MAKE_MODEL].toString(), QVariant::fromValue(driver));
             m_pURIDriverCom->addItem(UI_PRINTERSEARCH_MANUAL);
-            m_isAutoInstallDriver = true;
+        } else if (m_pURIDriverCom->count() > 1 && driver.isEmpty()) {
+            m_pURIDriverCom->clear();
+            m_pURIDriverCom->addItem(UI_PRINTERSEARCH_MANUAL);
         }
         m_pURIInstallDriverBtn->setEnabled(true);
     } else {
@@ -761,13 +759,6 @@ void PrinterSearchWindow::installDriverSlot()
         }
         QVariant temp = pCheckedItem->data(Qt::UserRole + 1);
         device = temp.value<TDeviceInfo>();
-        if (m_isAutoInstallDriver) {
-            autoInstallPrinter(0, device);
-        } else {
-            close();
-            m_pInstallDriverWindow->show();
-            m_pInstallDriverWindow->setDeviceInfo(device);
-        }
     } else if (m_pTabListView->currentIndex().row() == 1) { //ip
         QStandardItem *pCheckedItem = getCheckedItem(1);
         if (!pCheckedItem) {
@@ -775,23 +766,15 @@ void PrinterSearchWindow::installDriverSlot()
         }
         QVariant temp = pCheckedItem->data(Qt::UserRole + 1);
         device = temp.value<TDeviceInfo>();
-        if (m_isManInstallDriver) {
-            autoInstallPrinter(1, device);
-        } else {
-            close();
-            m_pInstallDriverWindow->show();
-            m_pInstallDriverWindow->setDeviceInfo(device);
-        }
     } else if (m_pTabListView->currentIndex().row() == 2) { //URI 手动构造设备结构体
         device.uriList.append(m_pLineEditURI->text());
         device.iType = InfoFrom_Manual;
-        if (m_isURIInstallDriver) {
-            autoInstallPrinter(2, device);
-        } else {
-            close();
-            m_pInstallDriverWindow->show();
-            m_pInstallDriverWindow->setDeviceInfo(device);
-        }
+    }
+
+    if (!autoInstallPrinter(m_pTabListView->currentIndex().row(), device)) {
+        close();
+        m_pInstallDriverWindow->show();
+        m_pInstallDriverWindow->setDeviceInfo(device);
     }
 }
 
@@ -801,31 +784,25 @@ void PrinterSearchWindow::driverChangedSlot(int index)
         if (index == m_pAutoDriverCom->count() - 1) {
             // 手动选择驱动
             m_pAutoInstallDriverBtn->setText(UI_PRINTERSEARCH_INSTALLDRIVER_NEXT);
-            m_isAutoInstallDriver = false;
         } else {
             // 自动安装驱动
             m_pAutoInstallDriverBtn->setText(UI_PRINTERSEARCH_INSTALLDRIVER_AUTO);
-            m_isAutoInstallDriver = true;
         }
     } else if (m_pTabListView->currentIndex().row() == 1) {
         if (index == m_pManDriverCom->count() - 1) {
             // 手动选择驱动
             m_pManInstallDriverBtn->setText(UI_PRINTERSEARCH_INSTALLDRIVER_NEXT);
-            m_isManInstallDriver = false;
         } else {
             // 自动安装驱动
             m_pManInstallDriverBtn->setText(UI_PRINTERSEARCH_INSTALLDRIVER_AUTO);
-            m_isManInstallDriver = true;
         }
     } else if (m_pTabListView->currentIndex().row() == 2) {
         if (index == m_pURIDriverCom->count() - 1) {
             // 手动选择驱动
             m_pURIInstallDriverBtn->setText(UI_PRINTERSEARCH_INSTALLDRIVER_NEXT);
-            m_isURIInstallDriver = false;
         } else {
             // 自动安装驱动
             m_pURIInstallDriverBtn->setText(UI_PRINTERSEARCH_INSTALLDRIVER_AUTO);
-            m_isURIInstallDriver = true;
         }
     }
 
