@@ -40,6 +40,7 @@
 #include <DFloatingButton>
 #include <DFrame>
 #include <DBackgroundGroup>
+#include <DErrorMessage>
 
 
 #include <QHBoxLayout>
@@ -96,7 +97,7 @@ void DPrintersShowWindow::initUI()
     pLeftTopHLayout->addWidget(m_pBtnAddPrinter, 1);
     pLeftTopHLayout->addWidget(m_pBtnDeletePrinter, 1);
     // 打印机列表
-    m_pPrinterListView = new DListView(this);
+    m_pPrinterListView = new PrinterListView(this);
     m_pPrinterModel = new QStandardItemModel(m_pPrinterListView);
     m_pPrinterListView->setTextElideMode(Qt::ElideRight);
     m_pPrinterListView->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -312,8 +313,16 @@ void DPrintersShowWindow::initConnections()
         m_pPrinterModel->blockSignals(true);
         QStandardItem *pItem = m_pPrinterModel->itemFromIndex(index);
         if (m_pPrinterManager->hasUnfinishedJob()) {
+            DDialog *pDialog = new DDialog();
+            pDialog->setIcon(QIcon(":/images/warning_logo.svg"));
+            QLabel *pMessage = new QLabel(tr("As print jobs are in process, you cannot rename the printer now, please try later"));
+            pMessage->setWordWrap(true);
+            pMessage->setAlignment(Qt::AlignCenter);
+            pDialog->addContent(pMessage);
+            pDialog->addButton(tr("OK"));
+            pDialog->exec();
+            pDialog->deleteLater();
             pItem->setFlags(pItem->flags() & ~Qt::ItemIsEditable);
-
         } else {
             pItem->setFlags(pItem->flags() | Qt::ItemIsEditable);
         }
@@ -673,8 +682,7 @@ void DPrintersShowWindow::printerListWidgetItemChangedSlot(const QModelIndex &pr
     if (basePrinterInfo.count() == 3) {
         QString showPrinter = printerName;
         //如果文字超出了显示范围，那么就用省略号代替，并且设置tip提示
-//        int textWidth = int(180.0 / 942 * this->width());
-        geteElidedText(m_pLabelPrinterName->font(), showPrinter, m_pLabelPrinterName->width());
+        geteElidedText(m_pLabelPrinterName->font(), showPrinter, 60 + m_pLabelLocationShow->width());
         m_pLabelPrinterName->setText(showPrinter);
         m_pLabelPrinterName->setToolTip(printerName);
 

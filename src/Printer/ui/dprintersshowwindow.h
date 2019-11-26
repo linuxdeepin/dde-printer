@@ -171,6 +171,29 @@ signals:
     void finished();
 };
 
+class PrinterListView : public DListView
+{
+    Q_OBJECT
+public:
+    explicit PrinterListView(QWidget *parent = nullptr)
+        : DListView(parent) {}
+    virtual ~PrinterListView() override {}
+
+protected:
+    void mousePressEvent(QMouseEvent *e) override
+    {
+        QModelIndex index = indexAt(e->pos());
+        if (!index.isValid()) {
+            if (currentIndex().isValid() && isPersistentEditorOpen(currentIndex())) {
+                if (indexWidget(currentIndex()))
+                    commitData(indexWidget(currentIndex()));
+                closePersistentEditor(currentIndex());
+            }
+        }
+        DListView::mousePressEvent(e);
+    }
+};
+
 class DPrintersShowWindow : public DMainWindow
 {
     Q_OBJECT
@@ -259,7 +282,7 @@ private:
     DFloatingButton *m_pTBtnPrintTest;
     DFloatingButton *m_pTBtnFault;
 
-    DListView *m_pPrinterListView;
+    PrinterListView *m_pPrinterListView;
     QStandardItemModel *m_pPrinterModel;
     QMenu *m_pListViewMenu;
     QAction *m_pShareAction;
