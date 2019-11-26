@@ -185,7 +185,6 @@ protected:
         QModelIndex index = indexAt(e->pos());
         if (!index.isValid()) {
             if (currentIndex().isValid() && isPersistentEditorOpen(currentIndex())) {
-                QString name = currentIndex().data().toString();
                 if (indexWidget(currentIndex()))
                     commitData(indexWidget(currentIndex()));
                 closePersistentEditor(currentIndex());
