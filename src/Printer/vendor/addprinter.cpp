@@ -47,9 +47,10 @@ static QString getPackageVersion(const QString &package)
 {
     QString strOut, strErr;
     if (0 == shellCmd(QString("dpkg -l %1").arg(package), strOut, strErr)){
-        strOut = strOut.split("\n", QString::SkipEmptyParts).last();
+        QStringList list = strOut.split("\n", QString::SkipEmptyParts);
+        strOut = list.isEmpty()?"":list.last();
         qDebug() << strOut ;
-        QStringList list = strOut.split(" ", QString::SkipEmptyParts);
+        list = strOut.split(" ", QString::SkipEmptyParts);
         return list.count()>2?list[2]:QString();
     }
 
@@ -656,6 +657,10 @@ QString AddPrinterFactory::defaultPrinterName(const TDeviceInfo &printer, const 
     QString strName = printer.strName;
     QStringList installedPrinters = GetSystemPrinterNames();
 
+    //提前替换一次，防止替换之后变为空字符串
+    strName.replace(QRegularExpression("[^\\w-]"), " ");
+    QStringList list = strName.split(" ", QString::SkipEmptyParts);
+    strName = list.join(" ");
     if(strName.isEmpty()) {
         QString strMM = printer.strMakeAndModel.isEmpty()?solution.value(CUPS_PPD_MAKE_MODEL).toString():printer.strMakeAndModel;
         QString strMake = solution.value(CUPS_PPD_MAKE).toString();
@@ -679,8 +684,8 @@ QString AddPrinterFactory::defaultPrinterName(const TDeviceInfo &printer, const 
         strName = strName.left(120);
     }
     strName.replace(QRegularExpression("[^\\w-]"), " ");
-    QStringList list = strName.split(" ");
-    list.removeAll("");
+    //去掉多个连续空格的情况
+    list = strName.split(" ", QString::SkipEmptyParts);
     strName = list.join(" ");
     strName.replace(" ", "-");
     strDefaultName = strName;

@@ -56,6 +56,9 @@ QString getPrinterPPD(const char *name)
 
 QString getPrinterNameFromUri(const QString &uri)
 {
+    if (uri.split("/", QString::SkipEmptyParts).count() < 2)
+        return QString();
+
     QByteArray bytes  = QByteArray::fromPercentEncoding(uri.toUtf8());
     QString strurl = QString::fromUtf8(bytes);
     if (strurl.startsWith("dnssd://")) {
@@ -102,17 +105,26 @@ QString getHostFromUri(const QString &strUri)
 
     //smb格式uri：smb://[username:password@][workgroup/]server/printer
     if (strUri.startsWith("smb://")) {
-        QStringList strlist = strUri.split("/");
-        QString str = strlist.count()>3 ? strlist[strlist.count()-2] : strlist[strlist.count()-1];
+        QStringList strlist = strUri.split("/", QString::SkipEmptyParts);
+        QString str = strlist.count()>3 ? strlist[strlist.count()-1] : "";
+
+        if (str.isEmpty()) return QString();
+
         strlist = str.split("@");
         return strlist.last();
     }
 
     //dnssd格式uri: dnssd://printername @ host.*.*.local/*
     if (strUri.startsWith("dnssd://")) {
-        QStringList strlist = QUrl::fromPercentEncoding(strUri.toUtf8()).split("/");
-        strlist = strlist[2].split(" ");
-        strlist = strlist.last().split(".");
+        QStringList strlist = QUrl::fromPercentEncoding(strUri.toUtf8()).split("/", QString::SkipEmptyParts);
+        if (strlist.count() < 2) return QString();
+
+        strlist = strlist[1].split(" ", QString::SkipEmptyParts);
+        if (strlist.isEmpty()) return QString();
+
+        strlist = strlist.last().split(".", QString::SkipEmptyParts);
+        if (strlist.count() < 2) return QString();
+
         return strlist.first() + "." + strlist.last();
     }
 
@@ -376,9 +388,9 @@ static const char* g_replaceMap[][2] = {{"lexmark international", "Lexmark"},
                               };
 QString replaceMakeName(QString &make_and_model, int* len)
 {
+    make_and_model = make_and_model.replace(QRegularExpression("_|-|\'"), "");
     if (make_and_model.isEmpty()) return make_and_model;
 
-    make_and_model = make_and_model.replace(QRegularExpression("_|-|\'"), "");
     QString strMM = make_and_model.toLower();
 
     int size = sizeof(g_replaceMap)/sizeof(g_replaceMap[0]);
