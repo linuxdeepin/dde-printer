@@ -837,7 +837,8 @@ QVariant JobsDataModel::data(const QModelIndex &index, int role) const
     } else if (index.column() == 1) {
         return job[JOB_ATTR_USER].toString();
     } else if (index.column() == 2) {
-        return job[JOB_ATTR_NAME].toString();
+        QStringList list = job[JOB_ATTR_NAME].toString().split("/", QString::SkipEmptyParts);
+        return list.isEmpty()?"":list.last();
     } else if (index.column() == 3) {
         QString uri = job[JOB_ATTR_URI].toString();
         return getPrinterNameFromUri(uri);

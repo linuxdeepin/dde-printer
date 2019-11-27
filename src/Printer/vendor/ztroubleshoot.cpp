@@ -113,7 +113,7 @@ bool CheckCupsServer::isPass()
         c.init(cupsServer(), ippPort(), 0);
     }catch(const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
-        m_strMessage = tr("CUPS server is invalid, error: ") + QString::fromUtf8(ex.what());
+        m_strMessage = tr("CUPS server is invalid");
         emit signalStateChanged(TStat_Fail, m_strMessage);
         return false;
     }
@@ -166,7 +166,10 @@ bool CheckDriver::isPass()
         QString strName = STQ(attrs[i].getName());
         QString strValue = STQ(attrs[i].getValue());
         if (strName == "cupsFilter") {
-            QString filter = strValue.split(" ").last();
+            QStringList list = strValue.split(" ", QString::SkipEmptyParts);
+            if (list.isEmpty()) break;
+
+            QString filter = list.last();
             qDebug() << strPPD << " filter: " << filter;
             if (isFilterMissing(filter)) {
                 m_strMessage = tr("Driver filter %1 not found").arg(filter);

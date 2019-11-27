@@ -107,7 +107,7 @@ TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *pare
     setAttribute(Qt::WA_TranslucentBackground, false);
     QWidget* contentWidget = new QWidget(this);
     contentWidget->setAutoFillBackground(true);
-    QLabel* title = new QLabel(tr("Troubleshoot: ") + printerName, contentWidget);
+    QLabel* title = new QLabel(tr("Troubleshoot: "), contentWidget);
     DFrame* frame = new DFrame(contentWidget);
     QFont titleFont = DFontSizeManager::instance()->t5();
     titleFont.setBold(true);
