@@ -30,6 +30,8 @@
 #include "zjobmanager.h"
 #include "dprintermanager.h"
 
+#include <DApplication>
+
 #include <QMap>
 #include <QVariant>
 #include <QDBusPendingReply>
@@ -37,9 +39,11 @@
 #include <DNotifySender>
 #include <QDBusConnection>
 
+DWIDGET_USE_NAMESPACE
+
 #define SUB_URI "/"
 #define IDLEEXIT 1000 * 60 * 5
-#define PROCESSINGTIP 1000 * 5
+#define PROCESSINGTIP 1000 * 60
 
 DCORE_USE_NAMESPACE
 
@@ -109,7 +113,7 @@ bool CupsMonitor::insertJobMessage(int id, int state, const QString &message)
         QStringList msglist = m_jobMessages.values();
         foreach (str, msglist) {
             if (!str.isEmpty()) {
-                int iState = str.split(" ").first().left(1).toInt();
+                int iState = str.left(1).toInt();
 
                 if (!g_jobManager->isCompletedState(iState)) {
                     hasRuningJobs = true;
@@ -262,6 +266,8 @@ int CupsMonitor::getNotifications(int& notifysSize)
                 int iState = attrValueToQString(info[JOB_ATTR_STATE]).toInt();
                 int iJob= attrValueToQString(info[CUPS_NOTIY_JOBID]).toInt();
                 QString strReason = attrValueToQString(info[CUPS_NOTIY_TEXT]);
+                QStringList list = attrValueToQString(info[JOB_ATTR_NAME]).split("/", QString::SkipEmptyParts);
+                QString strJobName = list.isEmpty()?"":list.last();
                 qInfo() << "Got a job event: " << iJob << iState << strReason;
 
                 if (iJob == m_jobId) {
@@ -282,7 +288,8 @@ int CupsMonitor::getNotifications(int& notifysSize)
                         if (m_processingJob.contains(iJob)) {
                             const QTime& t = m_processingJob[iJob];
                             if (!t.isNull() && t.elapsed() > PROCESSINGTIP) {
-                                sendDesktopNotification(0, getStateString(iState), strReason, 3000);
+                                strReason = tr("%1 is timeout, reason: %2").arg(strJobName).arg(strReason);
+                                sendDesktopNotification(0, qApp->productName(), strReason, 3000);
                                 m_processingJob[iJob] = QTime();
                             }
                         } else {
@@ -294,9 +301,18 @@ int CupsMonitor::getNotifications(int& notifysSize)
                     case IPP_JSTATE_COMPLETED:
                     case IPP_JSTATE_STOPPED:
                     case IPP_JSTATE_ABORTED:
+                    {
+                        if (IPP_JSTATE_COMPLETED == iState) {
+                            strReason = tr("%1 printed successfully, please take away the paper in time!").arg(strJobName);
+                        } else {
+                            strReason = tr("%1 %2, reason: %3")
+                                    .arg(strJobName).arg(getStateString(iState).toLower()).arg(strReason);
+                        }
+                        sendDesktopNotification(0, qApp->productName(), strReason, 3000);
+
+                        Q_FALLTHROUGH();
+                    }
                     case IPP_JOB_CANCELLED:
-                        if (iState != IPP_JOB_CANCELLED)
-                            sendDesktopNotification(0, getStateString(iState), strReason, 3000);
                         m_processingJob.remove(iJob);
                         break;
                     default:
