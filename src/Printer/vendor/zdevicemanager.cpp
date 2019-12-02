@@ -51,8 +51,8 @@ typedef struct tagBackendSchemes{
    const char* excludeSchemes;
 }TBackendSchemes;
 
-TBackendSchemes g_backendSchemes[] = {{"hp", CUPS_EXCLUDE_NONE},
-                                     {"usb", CUPS_EXCLUDE_NONE},
+TBackendSchemes g_backendSchemes[] = {{"usb", CUPS_EXCLUDE_NONE},
+                                     {"hp", CUPS_EXCLUDE_NONE},
                                       {"snmp", CUPS_EXCLUDE_NONE},
                                       {"smfpnetdiscovery", CUPS_EXCLUDE_NONE},
                                      {CUPS_INCLUDE_ALL, "cups-brf,dcp,parallel,serial"}};
@@ -151,6 +151,7 @@ int RefreshDevicesByBackendTask::mergeDevice(TDeviceInfo &device, const char * b
                         !serial.compare(item.serial)) {
                     item.uriList << uri;
                     qInfo() << "merge uri " << item.uriList;
+                    emit signalStatus(m_iTaskId, TStat_Update);
                     return 1;
                 }
         }
@@ -164,6 +165,7 @@ int RefreshDevicesByBackendTask::mergeDevice(TDeviceInfo &device, const char * b
                     item.uriList.clear();
                     item.uriList = device.uriList;
                     qInfo() << item.strInfo + "change uri to" + uri;
+                    emit signalStatus(m_iTaskId, TStat_Update);
                 }
                 qInfo() << "remove same device use samsung_schemes";
                 return 1;

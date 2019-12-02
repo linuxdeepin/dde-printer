@@ -495,6 +495,15 @@ void PrinterSearchWindow::getDeviceResultSlot(int id, int state)
             return;
         QList<TDeviceInfo> deviceList = task->getResult();
         int index = m_pPrinterListViewAuto->count();
+        //更新打印机数据
+        for (int i=0;i<index;i++) {
+            const TDeviceInfo &info = deviceList[i];
+            QAbstractItemModel *model = m_pPrinterListViewAuto->model();
+            if (model) {
+                QModelIndex itemIndex = model->index(i, 0);
+                model->setData(itemIndex, QVariant::fromValue(info), Qt::UserRole + 1);
+            }
+        }
         for (; index < deviceList.count(); index++) {
             const TDeviceInfo &info = deviceList[index];
 
