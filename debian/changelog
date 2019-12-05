@@ -1,3 +1,9 @@
+dde-printer (0.4.3-1) unstable; urgency=medium
+
+  * beta version
+
+ -- Wei Xie <wayne@wayne-PC>  Wed, 04 Dec 2019 20:07:52 +0800
+
 dde-printer (0.3.0-3) unstable; urgency=medium
 
   * Don't reflush all jobs when job state changed
