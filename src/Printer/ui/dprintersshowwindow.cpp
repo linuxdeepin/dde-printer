@@ -537,6 +537,14 @@ void DPrintersShowWindow::renamePrinterSlot(QStandardItem *pItem)
     if (!pItem)
         return;
     QString newPrinterName = m_pPrinterManager->validataName(pItem->text());
+    if (newPrinterName.isEmpty()) {
+        m_pPrinterListView->blockSignals(true);
+        m_pPrinterModel->blockSignals(true);
+        pItem->setText(m_CurPrinterName);
+        m_pPrinterListView->blockSignals(false);
+        m_pPrinterModel->blockSignals(false);
+        return;
+    }
     if (m_pPrinterManager->hasSamePrinter(newPrinterName)) {
         DDialog *pDialog = new DDialog();
         pDialog->setIcon(QIcon(":/images/warning_logo.svg"));

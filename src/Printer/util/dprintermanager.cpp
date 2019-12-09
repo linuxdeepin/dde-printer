@@ -385,13 +385,12 @@ bool DPrinterManager::hasSamePrinter(const QString &printer)
 
 QString DPrinterManager::validataName(const QString &oldPrinterName)
 {
-    QString newPrinterName;
-    if (oldPrinterName.length() >=  128) {
-        newPrinterName = oldPrinterName.left(120);
-    } else {
-        newPrinterName = oldPrinterName;
+    QString newPrinterName = oldPrinterName.trimmed();
+    if (newPrinterName.isEmpty())
+        return QString();
+    if (newPrinterName.length() >=  128) {
+        newPrinterName = newPrinterName.left(120);
     }
-    newPrinterName = newPrinterName.trimmed();
     newPrinterName.replace(QRegularExpression("[# /]"), "-");
     return newPrinterName;
 }
