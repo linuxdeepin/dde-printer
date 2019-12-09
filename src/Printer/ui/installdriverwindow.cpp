@@ -229,7 +229,7 @@ void InstallDriverWindow::initUI()
     pRightVLayout->addSpacing(20);
     pRightVLayout->addWidget(m_pInstallBtn, 0, Qt::AlignCenter);
     pRightVLayout->addWidget(m_pSpinner, 0, Qt::AlignCenter);
-    pRightVLayout->setContentsMargins(10, 20, 10, 0);
+    pRightVLayout->setContentsMargins(10, 20, 10, 10);
     QWidget *pRightFrame1 = new QWidget();
     pRightFrame1->setLayout(pRightVLayout);
 
@@ -399,7 +399,7 @@ void InstallDriverWindow::tabCurrentIndexChanged()
 
 void InstallDriverWindow::currentMakerChangedSlot(const QString &maker)
 {
-    const QMap<QString, QString>* modelset = g_driverManager->getModelsByMake(maker);
+    const QMap<QString, QString> *modelset = g_driverManager->getModelsByMake(maker);
     if (modelset) {
         m_pTypeCombo->clear();
         // 去掉重复项
@@ -426,7 +426,7 @@ void InstallDriverWindow::currentMakerChangedSlot(const QString &maker)
 
 void InstallDriverWindow::currentModelChangedSlot(const QString &model)
 {
-    const QMap<QString, QString>* modelset = g_driverManager->getModelsByMake(m_pManufacturerCombo->currentText());
+    const QMap<QString, QString> *modelset = g_driverManager->getModelsByMake(m_pManufacturerCombo->currentText());
     if (modelset) {
         m_pDriverCombo->clear();
 
