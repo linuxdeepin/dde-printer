@@ -413,17 +413,17 @@
     <message>
         <location filename="../util/dprintertanslator.cpp" line="67"/>
         <source>Heavy Paper 1</source>
-        <translation>重磅芪1</translation>
+        <translation>重磅纸1</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="68"/>
         <source>Heavy Paper 2</source>
-        <translation>重磅芪2</translation>
+        <translation>重磅纸2</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="69"/>
         <source>Heavy Paper 3</source>
-        <translation>重磅芪3</translation>
+        <translation>重磅纸3</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="70"/>
