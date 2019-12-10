@@ -1,0 +1,10 @@
+[main]
+host = https://www.transifex.com
+minimum_perc = 80
+mode = developer
+
+[dde-printer.dde-printer]
+file_filter = src/Printer/translations/dde-printer_<lang>.ts
+source_file = src/Printer/translations/dde-printer_en_US.ts
+source_lang = en
+type = QT
