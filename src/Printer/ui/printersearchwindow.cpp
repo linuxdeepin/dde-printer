@@ -117,9 +117,8 @@ void PrinterSearchWindow::initUi()
     m_pStackedWidget = new QStackedWidget();
     // 右侧 自动查找
     m_pLabelPrinter = new QLabel(tr("Select a printer"));
-    QFont font;
-    font.setBold(true);
-    m_pLabelPrinter->setFont(font);
+    DFontSizeManager::instance()->bind(m_pLabelPrinter, DFontSizeManager::T5, QFont::DemiBold);
+
     m_pBtnRefresh = new DIconButton(this);
     m_pBtnRefresh->setIcon(QIcon::fromTheme("dp_refresh"));
     m_pBtnRefresh->setFixedSize(36, 36);

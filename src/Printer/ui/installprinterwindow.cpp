@@ -32,6 +32,7 @@
 #include <DSpinner>
 #include <DIconButton>
 #include <DWidgetUtil>
+#include <DFontSizeManager>
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -82,9 +83,7 @@ void InstallPrinterWindow::initUI()
     m_pStatusImageLabel->setFixedSize(128, 128);
     m_pStatusImageLabel->setAlignment(Qt::AlignCenter);
     m_pStatusLabel = new QLabel(tr("Installing driver..."));
-    QFont font;
-    font.setBold(true);
-    m_pStatusLabel->setFont(font);
+    DFontSizeManager::instance()->bind(m_pStatusLabel, DFontSizeManager::T5, QFont::DemiBold);
     m_pStatusLabel->setAlignment(Qt::AlignCenter);
     m_pTipLabel = new QLabel("无");
     m_pTipLabel->setAlignment(Qt::AlignCenter);

@@ -36,6 +36,7 @@
 #include <DSpinner>
 #include <DFrame>
 #include <DBackgroundGroup>
+#include <DComboBox>
 
 #include <QStandardItemModel>
 #include <QStandardItem>
@@ -43,13 +44,13 @@
 #include <QVBoxLayout>
 #include <QGridLayout>
 #include <QLabel>
-#include <QComboBox>
 #include <QStackedWidget>
 #include <QPushButton>
 #include <QDragEnterEvent>
 #include <QDropEvent>
 #include <QMimeData>
 #include <QCompleter>
+#include <DButtonBox>
 
 InstallDriverWindow::InstallDriverWindow(QWidget *parent)
     : DMainWindow(parent)
@@ -68,18 +69,20 @@ void InstallDriverWindow::initUI()
     titlebar()->setMenuVisible(false);
     titlebar()->setTitle("");
     titlebar()->setIcon(QIcon(":/images/dde-printer.svg"));
-    m_pPreBtn = new DIconButton(this);
-    m_pPreBtn->setIcon(QIcon::fromTheme("dp_arrow_left"));
-    titlebar()->addWidget(m_pPreBtn, Qt::AlignLeft);
+    m_pPreBtn = new DButtonBoxButton(QIcon::fromTheme("dp_arrow_left"));
+    m_pPreBtn->setIconSize(QSize(7, 10));
+    DButtonBox *pBtnBox = new DButtonBox(titlebar());
+    QList<DButtonBoxButton *> btnList;
+    btnList.append(m_pPreBtn);
+    pBtnBox->setButtonList(btnList, false);
+    titlebar()->addWidget(pBtnBox, Qt::AlignLeft);
     // 去掉最大最小按钮
     setWindowFlags(windowFlags() & ~Qt::WindowMinMaxButtonsHint);
     setWindowModality(Qt::ApplicationModal);
     resize(682, 532);
     // 左侧
     QLabel *pLabelTitle1 = new QLabel(tr("Select a driver from")) ;
-    QFont font;
-    font.setBold(true);
-    pLabelTitle1->setFont(font);
+    DFontSizeManager::instance()->bind(pLabelTitle1, DFontSizeManager::T5, QFont::DemiBold);
     m_pTabListView = new DListView();
     m_pTabListModel = new QStandardItemModel();
     m_pTabListModel->appendRow(new QStandardItem(tr("Local driver")));
@@ -88,8 +91,9 @@ void InstallDriverWindow::initUI()
     m_pTabListView->setModel(m_pTabListModel);
     m_pTabListView->setCurrentIndex(m_pTabListModel->index(0, 0));
     m_pTabListView->setEditTriggers(QListView::EditTrigger::NoEditTriggers);
+    m_pTabListView->setItemSpacing(4);
     QVBoxLayout *pLeftVBoxlayout = new QVBoxLayout();
-    pLeftVBoxlayout->setContentsMargins(0, 20, 0, 0);
+    pLeftVBoxlayout->setContentsMargins(10, 20, 10, 0);
     pLeftVBoxlayout->addWidget(pLabelTitle1);
     pLeftVBoxlayout->addWidget(m_pTabListView);
     QWidget *pLeftFrame = new QWidget();
@@ -98,10 +102,10 @@ void InstallDriverWindow::initUI()
     // 切换控件
     m_pStackWidget = new QStackedWidget();
     m_pRightTitleLabel = new QLabel(tr("Choose a local driver"));// 这个标题栏三个界面公用
-    m_pRightTitleLabel->setFont(font);
+    DFontSizeManager::instance()->bind(m_pRightTitleLabel, DFontSizeManager::T5, QFont::DemiBold);
     //右侧 本地
     QLabel *pLabelManufacturer = new QLabel(tr("Vendor"));
-    m_pManufacturerCombo = new QComboBox();
+    m_pManufacturerCombo = new DComboBox();
     m_pManufacturerCombo->setMaxVisibleItems(10);
     m_pManufacturerCombo->setEditable(true);
     QHBoxLayout *pLocalHL1 = new QHBoxLayout;
@@ -112,7 +116,7 @@ void InstallDriverWindow::initUI()
     pLocalWidget1->setLayout(pLocalHL1);
 
     QLabel *pLabelType = new QLabel(tr("Model"));
-    m_pTypeCombo = new QComboBox();
+    m_pTypeCombo = new DComboBox();
     m_pTypeCombo->setEditable(true);
     QHBoxLayout *pLocalHL2 = new QHBoxLayout;
     pLocalHL2->addWidget(pLabelType, 1);
@@ -122,7 +126,7 @@ void InstallDriverWindow::initUI()
     pLocalWidget2->setLayout(pLocalHL2);
 
     QLabel *pLabelDriver = new QLabel(tr("Driver"));
-    m_pDriverCombo = new QComboBox();
+    m_pDriverCombo = new DComboBox();
     m_pDriverCombo->setEditable(true);
     QHBoxLayout *pLocalHL3 = new QHBoxLayout;
     pLocalHL3->addWidget(pLabelDriver, 1);
@@ -155,12 +159,13 @@ void InstallDriverWindow::initUI()
 
     // PPD
     m_pPPDPath = new QLabel(UI_PRINTERDRIVER_PPDLABEL_NORMAL);
-    DFontSizeManager::instance()->bind(m_pPPDPath, DFontSizeManager::T8);
+    DFontSizeManager::instance()->bind(m_pPPDPath, DFontSizeManager::T8, QFont::Normal);
     m_pPPDPath->installEventFilter(this);
     m_pPPDPath->setAcceptDrops(true);
     m_pPPDPath->setAlignment(Qt::AlignCenter);
     m_pPPDPath->setWordWrap(true);
     m_pSelectPPDBtn = new QPushButton(UI_PRINTERDRIVER_PPDBTN_NORMAL);
+    DFontSizeManager::instance()->bind(m_pPPDPath, DFontSizeManager::T6, QFont::Medium);
     QVBoxLayout *pVLayout = new QVBoxLayout();
     pVLayout->setContentsMargins(0, 100, 0, 100);
     pVLayout->addWidget(m_pPPDPath, 1, Qt::AlignCenter);
@@ -190,7 +195,7 @@ void InstallDriverWindow::initUI()
 
 
     QLabel *pDriverLabel = new QLabel(tr("Driver"));
-    m_pDriverManualCombo = new QComboBox();
+    m_pDriverManualCombo = new DComboBox();
     QHBoxLayout *pMakerHL2 = new QHBoxLayout;
     pMakerHL2->addWidget(pDriverLabel, 1);
     pMakerHL2->addWidget(m_pDriverManualCombo, 4);

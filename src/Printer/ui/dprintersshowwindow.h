@@ -79,12 +79,10 @@ private:
         setWindowModality(Qt::ApplicationModal);
         setFixedSize(480, 250);
 
-        QFont font;
-        font.setBold(true);
+
 
         QLabel *pBaseSettings = new QLabel(tr("Basic Server Settings"));
-        pBaseSettings->setFont(font);
-        DFontSizeManager::instance()->bind(pBaseSettings, DFontSizeManager::T5);
+        DFontSizeManager::instance()->bind(pBaseSettings, DFontSizeManager::T5, QFont::DemiBold);
 
         m_pCheckShared = new QCheckBox(tr("Publish shared printers connected to this system"));
         m_pCheckIPP = new QCheckBox(tr("Allow printing from the Internet"));
