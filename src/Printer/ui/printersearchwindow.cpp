@@ -496,7 +496,7 @@ void PrinterSearchWindow::getDeviceResultSlot(int id, int state)
         QList<TDeviceInfo> deviceList = task->getResult();
         int index = m_pPrinterListViewAuto->count();
         //更新打印机数据
-        for (int i=0;i<index;i++) {
+        for (int i = 0; i < index; i++) {
             const TDeviceInfo &info = deviceList[i];
             QAbstractItemModel *model = m_pPrinterListViewAuto->model();
             if (model) {
@@ -782,8 +782,8 @@ void PrinterSearchWindow::installDriverSlot()
 
     if (!autoInstallPrinter(m_pTabListView->currentIndex().row(), device)) {
         close();
-        m_pInstallDriverWindow->show();
         m_pInstallDriverWindow->setDeviceInfo(device);
+        m_pInstallDriverWindow->show();
     }
 }
 

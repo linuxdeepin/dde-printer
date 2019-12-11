@@ -307,11 +307,13 @@ void InstallDriverWindow::clearUserInfo()
 
     m_pManuAndTypeLineEdit->clear();
     m_pDriverManualCombo->clear();
+
 }
 
 void InstallDriverWindow::showEvent(QShowEvent *event)
 {
     Q_UNUSED(event)
+    clearUserInfo();
     if (g_driverManager->getStatus() < TStat_Suc) {
         //提示本地驱动没有初始化完成
         connect(g_driverManager, &DriverManager::signalStatus, this, &InstallDriverWindow::driverRefreshSlot);
@@ -321,10 +323,9 @@ void InstallDriverWindow::showEvent(QShowEvent *event)
     } else {
         m_pSpinner->setVisible(false);
         m_pInstallBtn->setVisible(true);
-        if (m_pManufacturerCombo->count() == 0)
-            initMakerAndType();
+        initMakerAndType();
     }
-    clearUserInfo();
+
 }
 
 bool InstallDriverWindow::eventFilter(QObject *watched, QEvent *event)
