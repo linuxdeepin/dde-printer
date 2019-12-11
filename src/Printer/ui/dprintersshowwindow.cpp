@@ -96,6 +96,7 @@ void DPrintersShowWindow::initUI()
     pLeftTopHLayout->addWidget(pLabel, 6, Qt::AlignLeft);
     pLeftTopHLayout->addWidget(m_pBtnAddPrinter, 1);
     pLeftTopHLayout->addWidget(m_pBtnDeletePrinter, 1);
+    pLeftTopHLayout->setContentsMargins(0, 0, 0, 0);
     // 打印机列表
     m_pPrinterListView = new PrinterListView(this);
     m_pPrinterModel = new QStandardItemModel(m_pPrinterListView);
@@ -141,6 +142,7 @@ void DPrintersShowWindow::initUI()
     pLeftVLayout->addLayout(pLeftTopHLayout, 1);
     pLeftVLayout->addWidget(m_pPrinterListView, 4);
     pLeftVLayout->addWidget(m_pLeftTipLabel, 1, Qt::AlignCenter);
+    pLeftVLayout->setContentsMargins(0, 0, 0, 0);
     QWidget *pLeftWidget = new QWidget(this);
     pLeftWidget->setLayout(pLeftVLayout);
 
