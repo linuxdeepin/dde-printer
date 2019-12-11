@@ -135,7 +135,7 @@ void PrinterSearchWindow::initUi()
     m_pPrinterListViewAuto->setSelectionMode(QAbstractItemView::NoSelection);
     m_pPrinterListViewAuto->setFocusPolicy(Qt::NoFocus);
     //当前DTK控件滚动条导致覆盖了checked图标
-    m_pPrinterListViewAuto->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+//    m_pPrinterListViewAuto->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_pPrinterListModel = new QStandardItemModel(m_pPrinterListViewAuto);
     m_pPrinterListViewAuto->setModel(m_pPrinterListModel);
 
@@ -203,7 +203,7 @@ void PrinterSearchWindow::initUi()
     m_pPrinterListViewManual->setTextElideMode(Qt::ElideRight);
     m_pPrinterListViewManual->setSelectionMode(QAbstractItemView::NoSelection);
     m_pPrinterListViewManual->setFocusPolicy(Qt::NoFocus);
-    m_pPrinterListViewManual->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+//    m_pPrinterListViewManual->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_pPrinterListModelManual = new QStandardItemModel();
     m_pPrinterListViewManual->setModel(m_pPrinterListModelManual);
     QVBoxLayout *pVLayoutMan2 = new QVBoxLayout();
