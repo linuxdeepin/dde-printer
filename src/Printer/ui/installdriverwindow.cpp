@@ -240,7 +240,7 @@ void InstallDriverWindow::initUI()
     pMainLayout->setContentsMargins(0, 0, 0, 0);
     DBackgroundGroup *pCentralWidget = new DBackgroundGroup;
     pCentralWidget->setLayout(pMainLayout);
-
+    pCentralWidget->setItemSpacing(2);
     QHBoxLayout *pMainLayout1 = new QHBoxLayout();
     pMainLayout1->addWidget(pCentralWidget);
     pMainLayout1->setContentsMargins(10, 10, 10, 10);

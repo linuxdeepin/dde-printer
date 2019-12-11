@@ -281,7 +281,7 @@ void DPrintersShowWindow::initUI()
     //阴影分割布局控件
     DBackgroundGroup *pCentralWidget = new DBackgroundGroup();
     pCentralWidget->setLayout(pMainHLayout);
-
+    pCentralWidget->setItemSpacing(2);
     QHBoxLayout *pMainLayout1 = new QHBoxLayout();
     pMainLayout1->addWidget(pCentralWidget);
     pMainLayout1->setContentsMargins(10, 10, 10, 10);

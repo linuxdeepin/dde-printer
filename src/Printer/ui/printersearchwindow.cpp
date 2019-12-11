@@ -181,6 +181,7 @@ void PrinterSearchWindow::initUi()
     pVLayout1->setMargin(0);
     DBackgroundGroup *pWidget1 = new DBackgroundGroup();
     pWidget1->setLayout(pVLayout1);
+    pWidget1->setItemSpacing(2);
     m_pStackedWidget->addWidget(pWidget1);
     // 右侧 手动查找
     m_pLabelLocation = new QLabel(tr("Address"));
@@ -249,6 +250,7 @@ void PrinterSearchWindow::initUi()
     pVLayout2->setMargin(0);
     DBackgroundGroup *pWidget2 = new DBackgroundGroup();
     pWidget2->setLayout(pVLayout2);
+    pWidget2->setItemSpacing(2);
     m_pStackedWidget->addWidget(pWidget2);
 
     // 右侧 URI
@@ -309,6 +311,7 @@ void PrinterSearchWindow::initUi()
 
     DBackgroundGroup *pWidget3 = new DBackgroundGroup();
     pWidget3->setLayout(pURIVLayout);
+    pWidget3->setItemSpacing(2);
     m_pStackedWidget->addWidget(pWidget3);
 
 
