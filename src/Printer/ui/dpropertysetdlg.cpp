@@ -51,8 +51,7 @@
 #define ITEMHEIGHT 56
 #define UNSUPPORTED "-1"
 
-enum COMBOITEMROLE
-{
+enum COMBOITEMROLE {
     VALUEROLE = Qt::UserRole + 1,
     BACKCOLORROLE
 };
@@ -81,7 +80,7 @@ void DPropertySetDlg::initUI()
         if (DSettingsOption *option = qobject_cast<DSettingsOption *>(obj))
         {
             QString strName = option->name();
-            QLineEdit* pLineEdit = new QLineEdit;
+            QLineEdit *pLineEdit = new QLineEdit;
             pLineEdit->setObjectName(strName);
             m_mapOfListWidget[strName] = pLineEdit;
             return pLineEdit;
@@ -102,12 +101,10 @@ void DPropertySetDlg::initUI()
 
             auto itemdata = option->data(QString::fromStdString("items"));
 
-            if(itemdata.type() == QVariant::StringList)
-            {
+            if (itemdata.type() == QVariant::StringList) {
                 QStringList strItems = itemdata.toStringList();
 
-                for(int i = 0 ; i< strItems.size(); i++)
-                {
+                for (int i = 0 ; i < strItems.size(); i++) {
                     QString strItem = strItems[i];
                     QStandardItem *pItem = new QStandardItem(FLAGITEMSPACE + strItem);
                     pItem->setSizeHint(QSize(ITEMWIDTH, ITEMHEIGHT));
@@ -141,18 +138,16 @@ void DPropertySetDlg::initUI()
         if (DSettingsOption *option = qobject_cast<DSettingsOption *>(obj))
         {
             qDebug() << "create custom button:" << option->value();
-            QWidget* pWidget = new QWidget;
+            QWidget *pWidget = new QWidget;
             auto itemdata = option->data(QString::fromStdString("items"));
 
-            if(itemdata.type() == QVariant::StringList)
-            {
+            if (itemdata.type() == QVariant::StringList) {
                 QStringList strItems = itemdata.toStringList();
-                QHBoxLayout* pHlayout = new QHBoxLayout;
+                QHBoxLayout *pHlayout = new QHBoxLayout;
 
-                for(int i = 0; i < strItems.size(); i++)
-                {
+                for (int i = 0; i < strItems.size(); i++) {
                     QString strItem = strItems[i];
-                    DPushButton* pBtn = new DPushButton(strItem);
+                    DPushButton *pBtn = new DPushButton(strItem);
                     pBtn->setObjectName(strItem);
                     m_mapOfListWidget[strItem] = pBtn;
                     pHlayout->addWidget(pBtn);
@@ -248,7 +243,7 @@ void DPropertySetDlg::initConnection()
     QObject::connect(pCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(printResolutionCombo_clicked(int)));
 
     //Uri_LineEdit
-    QLineEdit* pLineEdit = qobject_cast<QLineEdit *>(m_mapOfListWidget[QString::fromStdString("URI_LineEdit")]);
+    QLineEdit *pLineEdit = qobject_cast<QLineEdit *>(m_mapOfListWidget[QString::fromStdString("URI_LineEdit")]);
     QObject::connect(pLineEdit, SIGNAL(editingFinished()), this, SLOT(printUriUI_EditFinished()));
 
     //Location_LineEdit
@@ -262,20 +257,20 @@ void DPropertySetDlg::initConnection()
 
 void DPropertySetDlg::updateComboByName(const QString &strWidgetName, const QString &strDefault, const QVector<QMap<QString, QString>> &vecChoices)
 {
-    QComboBox *pCombo = qobject_cast<DComboBox*>(m_mapOfListWidget[strWidgetName]);
+    QComboBox *pCombo = qobject_cast<DComboBox *>(m_mapOfListWidget[strWidgetName]);
 
     if (nullptr == pCombo) {
         return;
     }
 
-    if(vecChoices.size() > 0){
+    if (vecChoices.size() > 0) {
         int iIndex = -1;
 
         for (int i = 0; i < vecChoices.size(); i++) {
             QMap<QString, QString> mapValues = vecChoices[i];
             QString strText = mapValues[QString::fromStdString("text")];
             QString strChoice = mapValues[QString::fromStdString("choice")];
-            DPrinterManager* pManger = DPrinterManager::getInstance();
+            DPrinterManager *pManger = DPrinterManager::getInstance();
             strText =  strText.trimmed();
             strText = pManger->translateLocal(strWidgetName, strText);
 
@@ -290,9 +285,8 @@ void DPropertySetDlg::updateComboByName(const QString &strWidgetName, const QStr
         }
 
         pCombo->setCurrentIndex(iIndex);
-    }
-    else{
-        DPrinterManager* pManger = DPrinterManager::getInstance();
+    } else {
+        DPrinterManager *pManger = DPrinterManager::getInstance();
         QString strText = pManger->translateLocal(strWidgetName, "None");
         pCombo->addItem(strText);
         pCombo->setItemData(0, UNSUPPORTED, COMBOITEMROLE::VALUEROLE);
@@ -301,7 +295,7 @@ void DPropertySetDlg::updateComboByName(const QString &strWidgetName, const QStr
 
 void DPropertySetDlg::updateDriverUI(const QString &strDrive)
 {
-    QLineEdit *pLineEdit = qobject_cast<QLineEdit*>(m_mapOfListWidget[QString::fromStdString("Driver_LineEdit")]);
+    QLineEdit *pLineEdit = qobject_cast<QLineEdit *>(m_mapOfListWidget[QString::fromStdString("Driver_LineEdit")]);
 
     if (nullptr == pLineEdit) {
         return;
@@ -323,7 +317,7 @@ void DPropertySetDlg::updateDriverUI(const QString &strDrive)
     pLineEdit->setReadOnly(true);
 }
 
-void DPropertySetDlg::updateUriUI(const QString& strUri)
+void DPropertySetDlg::updateUriUI(const QString &strUri)
 {
     QLineEdit *pLineEdit = qobject_cast<QLineEdit *>(m_mapOfListWidget[QString::fromStdString("URI_LineEdit")]);
 
@@ -335,7 +329,7 @@ void DPropertySetDlg::updateUriUI(const QString& strUri)
     pLineEdit->setReadOnly(false);
 }
 
-void DPropertySetDlg::updateLocationUI(const QString& strLocation)
+void DPropertySetDlg::updateLocationUI(const QString &strLocation)
 {
     QLineEdit *pLineEdit = qobject_cast<QLineEdit *>(m_mapOfListWidget[QString::fromStdString("Location_LineEdit")]);
 
@@ -347,7 +341,7 @@ void DPropertySetDlg::updateLocationUI(const QString& strLocation)
     pLineEdit->setReadOnly(false);
 }
 
-void DPropertySetDlg::updateDescriptionUI(const QString& strDescription)
+void DPropertySetDlg::updateDescriptionUI(const QString &strDescription)
 {
     QLineEdit *pLineEdit = qobject_cast<QLineEdit *>(m_mapOfListWidget[QString::fromStdString("Description_LineEdit")]);
 
@@ -455,7 +449,7 @@ void DPropertySetDlg::updateViews()
     }
 }
 
-void DPropertySetDlg::updateOrientationCombo(const QString & strDefault, const QVector<QMap<QString, QString>> &vecChoices)
+void DPropertySetDlg::updateOrientationCombo(const QString &strDefault, const QVector<QMap<QString, QString>> &vecChoices)
 {
     updateComboByName(QString::fromStdString("Orientation_Combo"), strDefault, vecChoices);
 }
@@ -467,7 +461,7 @@ void DPropertySetDlg::updateDuplexPrintCombo(const QString &strDefault, const QV
     updateComboByName(QString::fromStdString("Duplex_Combo"), strDefault, vecChoices);
 }
 
-void DPropertySetDlg::updateColorModeCombo(const QString& strDefault, const QVector<QMap<QString, QString>>& vecChoices)
+void DPropertySetDlg::updateColorModeCombo(const QString &strDefault, const QVector<QMap<QString, QString>> &vecChoices)
 {
     m_mapInitUIValue[QString::fromStdString("ColorMode_Combo")] = strDefault;
     m_mapDynamicUIValue[QString::fromStdString("ColorMode_Combo")] = strDefault;
@@ -500,19 +494,19 @@ void DPropertySetDlg::updateOutputQuanlityCombo(const QString &strDefault, const
     updateComboByName(QString::fromStdString("OutputQuanlity_Combo"), strDefault, vecChoices);
 }
 
-void DPropertySetDlg::updateFinishingsCombo(const QString& strDefault, const QVector<QMap<QString, QString>>& vecChoices)
+void DPropertySetDlg::updateFinishingsCombo(const QString &strDefault, const QVector<QMap<QString, QString>> &vecChoices)
 {
     updateComboByName(QString::fromStdString("Finishings_Combo"), strDefault, vecChoices);
 }
 
-void DPropertySetDlg::updateBindEdgeCombo(const QString& strDefault, const QVector<QMap<QString, QString>>& vecChoices)
+void DPropertySetDlg::updateBindEdgeCombo(const QString &strDefault, const QVector<QMap<QString, QString>> &vecChoices)
 {
     m_mapInitUIValue[QString::fromStdString("BindEdge_Combo")] = strDefault;
     m_mapDynamicUIValue[QString::fromStdString("BindEdge_Combo")] = strDefault;
     updateComboByName(QString::fromStdString("BindEdge_Combo"), strDefault, vecChoices);
 }
 
-void DPropertySetDlg::updateResolutionCombo(const QString& strDefault, const QVector<QMap<QString, QString>>& vecChoices)
+void DPropertySetDlg::updateResolutionCombo(const QString &strDefault, const QVector<QMap<QString, QString>> &vecChoices)
 {
     m_mapInitUIValue[QString::fromStdString("Resolution_Combo")] = strDefault;
     m_mapDynamicUIValue[QString::fromStdString("Resolution_Combo")] = strDefault;
@@ -521,7 +515,7 @@ void DPropertySetDlg::updateResolutionCombo(const QString& strDefault, const QVe
 
 QString DPropertySetDlg::changeComboSelectionByName(const QString &strComboName, int iIndex)
 {
-    DComboBox *pCombo = qobject_cast<DComboBox*>(m_mapOfListWidget[strComboName]);
+    DComboBox *pCombo = qobject_cast<DComboBox *>(m_mapOfListWidget[strComboName]);
 
     if (nullptr == pCombo) {
         return UNSUPPORTED;
@@ -530,8 +524,7 @@ QString DPropertySetDlg::changeComboSelectionByName(const QString &strComboName,
     QString strChoice = pCombo->itemData(iIndex, COMBOITEMROLE::VALUEROLE).toString();
     QString strText = pCombo->currentText();
 
-    if(strChoice == UNSUPPORTED)
-    {
+    if (strChoice == UNSUPPORTED) {
         return UNSUPPORTED;
     }
 
@@ -540,12 +533,10 @@ QString DPropertySetDlg::changeComboSelectionByName(const QString &strComboName,
     checkAllConflicts(m_setConflictOptions, vecConflictOptionPairs);
 
 
-    if(m_setConflictOptions.size() > 0)
-    {
+    if (m_setConflictOptions.size() > 0) {
         showConflictDlg(vecConflictOptionPairs);
         strChoice = UNSUPPORTED;
-    }
-    else {
+    } else {
         m_mapDynamicUIValue[strComboName] = strChoice;
     }
 
@@ -553,15 +544,14 @@ QString DPropertySetDlg::changeComboSelectionByName(const QString &strComboName,
     return strChoice;
 }
 
-bool DPropertySetDlg::haveConflict(const QString& strModule, const QString& strValue,
-                                 QVector<CONFLICTNODE>& vecConflictNode)
+bool DPropertySetDlg::haveConflict(const QString &strModule, const QString &strValue,
+                                   QVector<CONFLICTNODE> &vecConflictNode)
 {
     bool bRet = true;
     DPrinterManager *pManager = DPrinterManager::getInstance();
     DDestination *pDest = pManager->getDestinationByName(m_strPrinterName);
 
-    if (DESTTYPE::PRINTER == pDest->getType())
-    {
+    if (DESTTYPE::PRINTER == pDest->getType()) {
         DPrinter *pPrinter = static_cast<DPrinter *>(pDest);
         bRet = pPrinter->isConflict(strModule, strValue, vecConflictNode);
     }
@@ -569,17 +559,16 @@ bool DPropertySetDlg::haveConflict(const QString& strModule, const QString& strV
     return bRet;
 }
 
-bool DPropertySetDlg::isConflict(const QString& strConflictOption, const QString& strConflictValue)
+bool DPropertySetDlg::isConflict(const QString &strConflictOption, const QString &strConflictValue)
 {
     QString strWidgetName = m_mapOfConflict.value(strConflictOption);
 
-    if(strWidgetName.isEmpty())
-    {
+    if (strWidgetName.isEmpty()) {
         return false;
     }
 
     QString strCurrentValue;
-    QComboBox* pCombo = qobject_cast<QComboBox*>(m_mapOfListWidget[strWidgetName]);
+    QComboBox *pCombo = qobject_cast<QComboBox *>(m_mapOfListWidget[strWidgetName]);
     int iIndex = pCombo->currentIndex();
     strCurrentValue = pCombo->itemData(iIndex, COMBOITEMROLE::VALUEROLE).toString();
     return (strCurrentValue == strConflictValue);
@@ -595,25 +584,22 @@ void DPropertySetDlg::initConflictMap()
     m_mapOfConflict.insert(QString::fromStdString("BindEdge"), QString::fromStdString("BindEdge_Combo"));
 }
 
-void DPropertySetDlg::showConflictDlg(const vector<CONFLICTPAIR>& vecConflictPairs)
+void DPropertySetDlg::showConflictDlg(const vector<CONFLICTPAIR> &vecConflictPairs)
 {
-    QWidget* pWidget = new QWidget;
-    DLabel* pLabel1 = new DLabel(tr("Options conflict!"));
-    DFontSizeManager::instance()->bind(pLabel1, DFontSizeManager::T6);
-    QFont font = pLabel1->font();
-    font.setFamily("SourceHanSansSC-Bold");
-    pLabel1->setFont(font);
+    QWidget *pWidget = new QWidget;
+    DLabel *pLabel1 = new DLabel(tr("Options conflict!"));
+    DFontSizeManager::instance()->bind(pLabel1, DFontSizeManager::T6, QFont::DemiBold);
     pLabel1->setAlignment(Qt::AlignCenter);
-    DLabel* pLabel2 = new DLabel(tr("Please resolve the conflict first, and then save the changes."));
-    pLabel2->setFont(font);
+    DLabel *pLabel2 = new DLabel(tr("Please resolve the conflict first, and then save the changes."));
+    DFontSizeManager::instance()->bind(pLabel2, DFontSizeManager::T6, QFont::DemiBold);
     pLabel2->setAlignment(Qt::AlignCenter);
-    DPrinterManager* pManager = DPrinterManager::getInstance();
+    DPrinterManager *pManager = DPrinterManager::getInstance();
     QString strOpt1 = pManager->translateLocal(m_mapOfConflict.value(vecConflictPairs[0].strOpt1), vecConflictPairs[0].strOpt1);
     QString strOpt2 = pManager->translateLocal(m_mapOfConflict.value(vecConflictPairs[0].strOpt2), vecConflictPairs[0].strOpt2);
-    QLabel* pLabel3 = new DLabel(tr("Conflict:") + strOpt1 + "\t,\t" + strOpt2);
-    pLabel3->setFont(font);
+    QLabel *pLabel3 = new DLabel(tr("Conflict:") + strOpt1 + "\t,\t" + strOpt2);
+    DFontSizeManager::instance()->bind(pLabel3, DFontSizeManager::T6, QFont::DemiBold);
     pLabel3->setAlignment(Qt::AlignCenter);
-    QVBoxLayout* pLayout = new QVBoxLayout;
+    QVBoxLayout *pLayout = new QVBoxLayout;
     pLayout->addWidget(pLabel1);
     pLayout->addWidget(pLabel2);
     pLayout->addWidget(pLabel3);
@@ -632,44 +618,40 @@ void DPropertySetDlg::showConflictDlg(const vector<CONFLICTPAIR>& vecConflictPai
     dialog.exec();
 }
 
-void DPropertySetDlg::updateComboByConflits(const QSet<QString>& nodes)
+void DPropertySetDlg::updateComboByConflits(const QSet<QString> &nodes)
 {
     for (auto iter = m_mapOfConflict.begin(); iter != m_mapOfConflict.end(); iter++) {
 
-        if(nodes.contains(iter.key()))
-        {
+        if (nodes.contains(iter.key())) {
             continue;
         }
 
         QString strWidgetName = iter.value();
-        QComboBox* pCombo = qobject_cast<QComboBox*>(m_mapOfListWidget.value(strWidgetName));
+        QComboBox *pCombo = qobject_cast<QComboBox *>(m_mapOfListWidget.value(strWidgetName));
         QPalette pal = pCombo->palette();
         pal.setColor(QPalette::ButtonText, Qt::black);
         pCombo->setPalette(pal);
     }
 
-    foreach(QString strOpt, nodes)
-    {
+    foreach (QString strOpt, nodes) {
         QString strWidgetName = m_mapOfConflict.value(strOpt);
-        QComboBox* pCombo = qobject_cast<QComboBox*>(m_mapOfListWidget.value(strWidgetName));
+        QComboBox *pCombo = qobject_cast<QComboBox *>(m_mapOfListWidget.value(strWidgetName));
         QPalette pal = pCombo->palette();
         pal.setColor(QPalette::ButtonText, Qt::red);
         pCombo->setPalette(pal);
     }
 }
 
-void DPropertySetDlg::checkAllConflicts(QSet<QString>& setOptions, vector<CONFLICTPAIR>& vecOptionPairs)
+void DPropertySetDlg::checkAllConflicts(QSet<QString> &setOptions, vector<CONFLICTPAIR> &vecOptionPairs)
 {
     bool bHaveConflict = false;
     CONFLICTNODE node;
     m_setConflictOptions.clear();
 
-    for(auto iter = m_mapOfConflict.begin(); iter != m_mapOfConflict.end(); iter++)
-    {
-        QComboBox* pCombo = qobject_cast<QComboBox*>(m_mapOfListWidget.value(iter.value()));
+    for (auto iter = m_mapOfConflict.begin(); iter != m_mapOfConflict.end(); iter++) {
+        QComboBox *pCombo = qobject_cast<QComboBox *>(m_mapOfListWidget.value(iter.value()));
 
-        if(pCombo == nullptr)
-        {
+        if (pCombo == nullptr) {
             continue;
         }
 
@@ -679,17 +661,14 @@ void DPropertySetDlg::checkAllConflicts(QSet<QString>& setOptions, vector<CONFLI
         QVector<CONFLICTNODE> vecConflicts;
         bHaveConflict = haveConflict(strCheckOption, strCheckValue, vecConflicts);
 
-        if(bHaveConflict)
-        {
+        if (bHaveConflict) {
             bHaveConflict = false;
 
-            for(int i = 0; i < vecConflicts.size(); i++)
-            {
+            for (int i = 0; i < vecConflicts.size(); i++) {
                 node = vecConflicts[i];
                 bHaveConflict = isConflict(node.strOption, node.strValue);
 
-                if(bHaveConflict)
-                {
+                if (bHaveConflict) {
                     setOptions.insert(strCheckOption);
                     setOptions.insert(node.strOption);
                     CONFLICTPAIR pair;
@@ -710,7 +689,7 @@ void DPropertySetDlg::pageSizeCombo_clicked(int iIndex)
 
     QString strChoice = changeComboSelectionByName(QString::fromStdString("PageSize_Combo"), iIndex);
 
-    if(strChoice == UNSUPPORTED){
+    if (strChoice == UNSUPPORTED) {
         return;
     }
 
@@ -735,8 +714,7 @@ void DPropertySetDlg::paperOrientation_clicked(int index)
 
     QString strChoice = changeComboSelectionByName(QString::fromStdString("Orientation_Combo"), index);
 
-    if(strChoice == UNSUPPORTED)
-    {
+    if (strChoice == UNSUPPORTED) {
         return;
     }
 
@@ -763,8 +741,7 @@ void DPropertySetDlg::duplexPrintCombo_clicked(int index)
 
     QString strChoice = changeComboSelectionByName(QString::fromStdString("Duplex_Combo"), index);
 
-    if(strChoice == UNSUPPORTED)
-    {
+    if (strChoice == UNSUPPORTED) {
         return;
     }
 
@@ -789,8 +766,7 @@ void DPropertySetDlg::colorModeCombo_clicked(int index)
 
     QString strChoice = changeComboSelectionByName(QString::fromStdString("ColorMode_Combo"), index);
 
-    if(strChoice == UNSUPPORTED)
-    {
+    if (strChoice == UNSUPPORTED) {
         return;
     }
 
@@ -815,8 +791,7 @@ void DPropertySetDlg::printOrderCombo_clicked(int index)
 
     QString strChoice = changeComboSelectionByName(QString::fromStdString("PrintOrder_Combo"), index);
 
-    if(strChoice == UNSUPPORTED)
-    {
+    if (strChoice == UNSUPPORTED) {
         return;
     }
 
@@ -842,8 +817,7 @@ void DPropertySetDlg::paperOriginCombo_clicked(int index)
 
     QString strChoice = changeComboSelectionByName(QString::fromStdString("PaperOrigin_Combo"), index);
 
-    if(strChoice == UNSUPPORTED)
-    {
+    if (strChoice == UNSUPPORTED) {
         return;
     }
 
@@ -868,8 +842,7 @@ void DPropertySetDlg::paperTypeCombo_clicked(int index)
 
     QString strChoice = changeComboSelectionByName(QString::fromStdString("PaperType_Combo"), index);
 
-    if(strChoice == UNSUPPORTED)
-    {
+    if (strChoice == UNSUPPORTED) {
         return;
     }
 
@@ -894,8 +867,7 @@ void DPropertySetDlg::printFinishingsCombo_clicked(int index)
 
     QString strChoice = changeComboSelectionByName(QString::fromStdString("Finishings_Combo"), index);
 
-    if(strChoice == UNSUPPORTED)
-    {
+    if (strChoice == UNSUPPORTED) {
         return;
     }
 
@@ -920,8 +892,7 @@ void DPropertySetDlg::printBindEdgeCombo_clicked(int index)
 
     QString strChoice = changeComboSelectionByName(QString::fromStdString("BindEdge_Combo"), index);
 
-    if(strChoice == UNSUPPORTED)
-    {
+    if (strChoice == UNSUPPORTED) {
         return;
     }
 
@@ -946,8 +917,7 @@ void DPropertySetDlg::printResolutionCombo_clicked(int index)
 
     QString strChoice = changeComboSelectionByName(QString::fromStdString("Resolution_Combo"), index);
 
-    if(strChoice == UNSUPPORTED)
-    {
+    if (strChoice == UNSUPPORTED) {
         return;
     }
 
@@ -972,8 +942,7 @@ void DPropertySetDlg::outputQuanlity_clicked(int index)
 
     QString strChoice = changeComboSelectionByName(QString::fromStdString("OutputQuanlity_Combo"), index);
 
-    if(strChoice == UNSUPPORTED)
-    {
+    if (strChoice == UNSUPPORTED) {
         return;
     }
 
@@ -992,11 +961,11 @@ void DPropertySetDlg::outputQuanlity_clicked(int index)
 
 void DPropertySetDlg::printUriUI_EditFinished()
 {
-    if(!m_bShow){
+    if (!m_bShow) {
         return;
     }
 
-    QLineEdit *pLineEdit = qobject_cast<QLineEdit*>(m_mapOfListWidget[QString::fromStdString("URI_LineEdit")]);
+    QLineEdit *pLineEdit = qobject_cast<QLineEdit *>(m_mapOfListWidget[QString::fromStdString("URI_LineEdit")]);
 
     if (nullptr == pLineEdit) {
         return;
@@ -1004,8 +973,7 @@ void DPropertySetDlg::printUriUI_EditFinished()
 
     QString strVal = pLineEdit->text();
 
-    if(strVal.isEmpty())
-    {
+    if (strVal.isEmpty()) {
         return;
     }
 
@@ -1014,8 +982,7 @@ void DPropertySetDlg::printUriUI_EditFinished()
     int pos = 0;
     QValidator::State state = v.validate(strVal, pos);
 
-    if (state != QValidator::Acceptable)
-    {
+    if (state != QValidator::Acceptable) {
         DDialog dialog;
         dialog.setFixedSize(QSize(400, 150));
         dialog.setMessage(tr("Invalid URI"));
@@ -1038,11 +1005,11 @@ void DPropertySetDlg::printUriUI_EditFinished()
 
 void DPropertySetDlg::printLocationUI_EditFinished()
 {
-    if(!m_bShow){
+    if (!m_bShow) {
         return;
     }
 
-    QLineEdit *pLineEdit = qobject_cast<QLineEdit*>(m_mapOfListWidget[QString::fromStdString("Location_LineEdit")]);
+    QLineEdit *pLineEdit = qobject_cast<QLineEdit *>(m_mapOfListWidget[QString::fromStdString("Location_LineEdit")]);
 
     if (nullptr == pLineEdit) {
         return;
@@ -1050,8 +1017,7 @@ void DPropertySetDlg::printLocationUI_EditFinished()
 
     QString strVal = pLineEdit->text();
 
-    if(strVal.isEmpty())
-    {
+    if (strVal.isEmpty()) {
         return;
     }
 
@@ -1068,11 +1034,11 @@ void DPropertySetDlg::printLocationUI_EditFinished()
 
 void DPropertySetDlg::printDescriptionUI_EditFinished()
 {
-    if(!m_bShow){
+    if (!m_bShow) {
         return;
     }
 
-    QLineEdit *pLineEdit = qobject_cast<QLineEdit*>(m_mapOfListWidget[QString::fromStdString("Description_LineEdit")]);
+    QLineEdit *pLineEdit = qobject_cast<QLineEdit *>(m_mapOfListWidget[QString::fromStdString("Description_LineEdit")]);
 
     if (nullptr == pLineEdit) {
         return;
@@ -1080,8 +1046,7 @@ void DPropertySetDlg::printDescriptionUI_EditFinished()
 
     QString strVal = pLineEdit->text();
 
-    if(strVal.isEmpty())
-    {
+    if (strVal.isEmpty()) {
         return;
     }
 
@@ -1129,15 +1094,11 @@ bool DPropertySetDlg::isDriveBroken()
     DPrinterManager *pManager = DPrinterManager::getInstance();
     DDestination *pDest = pManager->getDestinationByName(m_strPrinterName);
 
-    if (pDest != nullptr)
-    {
-        if (DESTTYPE::PRINTER == pDest->getType())
-        {
+    if (pDest != nullptr) {
+        if (DESTTYPE::PRINTER == pDest->getType()) {
             DPrinter *pPrinter = static_cast<DPrinter *>(pDest);
             bRet = pPrinter->isPpdFileBroken();
-        }
-        else
-        {
+        } else {
             bRet = false;
         }
     }
@@ -1151,8 +1112,7 @@ void DPropertySetDlg::showEvent(QShowEvent *event)
     checkAllConflicts(m_setConflictOptions, vecConflictOptionPairs);
 
 
-    if(m_setConflictOptions.size() > 0)
-    {
+    if (m_setConflictOptions.size() > 0) {
         showConflictDlg(vecConflictOptionPairs);
         updateComboByConflits(m_setConflictOptions);
     }
@@ -1167,34 +1127,26 @@ void DPropertySetDlg::closeEvent(QCloseEvent *event)
     DDestination *pDest = pManager->getDestinationByName(m_strPrinterName);
     DPrinter *pPrinter = nullptr;
 
-    if (pDest != nullptr)
-    {
-        if (DESTTYPE::PRINTER == pDest->getType())
-        {
+    if (pDest != nullptr) {
+        if (DESTTYPE::PRINTER == pDest->getType()) {
             pPrinter = static_cast<DPrinter *>(pDest);
 
-            if(!pPrinter->needSavePpd())
-            {
+            if (!pPrinter->needSavePpd()) {
                 return;
-            }
-            else
-            {
+            } else {
                 bool bSame = true;
 
-                for(auto iter = m_mapInitUIValue.begin(); iter != m_mapInitUIValue.end(); iter++)
-                {
+                for (auto iter = m_mapInitUIValue.begin(); iter != m_mapInitUIValue.end(); iter++) {
                     QString strValue1 = iter.value();
                     QString strValue2 = m_mapDynamicUIValue[iter.key()];
 
-                    if(strValue1 != strValue2)
-                    {
+                    if (strValue1 != strValue2) {
                         bSame = false;
                         break;
                     }
                 }
-\
-                if((!bSame) && (0 == m_setConflictOptions.size()))
-                {
+                \
+                if ((!bSame) && (0 == m_setConflictOptions.size())) {
                     pPrinter->saveModify();
                 }
             }
