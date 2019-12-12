@@ -102,6 +102,7 @@ void DPrintersShowWindow::initUI()
     m_pPrinterListView->setTextElideMode(Qt::ElideRight);
     m_pPrinterListView->setContextMenuPolicy(Qt::CustomContextMenu);
     m_pPrinterListView->setMinimumWidth(310);
+    m_pPrinterListView->setItemSpacing(10);
     m_pPrinterListView->setModel(m_pPrinterModel);
 
     // 列表的右键菜单
