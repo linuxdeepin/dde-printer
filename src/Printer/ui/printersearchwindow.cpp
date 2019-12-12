@@ -189,10 +189,11 @@ void PrinterSearchWindow::initUi()
     m_pBtnFind = new QPushButton(tr("Find"));
     m_pBtnFind->setFixedSize(60, 36);
     QHBoxLayout *pHLayout4 = new QHBoxLayout();
-    pHLayout4->setSpacing(10);
+    pHLayout4->setSpacing(0);
     pHLayout4->addWidget(m_pLabelLocation);
-    pHLayout4->addSpacing(16);
+    pHLayout4->addSpacing(26);
     pHLayout4->addWidget(m_pLineEditLocation);
+    pHLayout4->addSpacing(10);
     pHLayout4->addWidget(m_pBtnFind);
     pHLayout4->setContentsMargins(20, 20, 10, 20);
     QWidget *pManFrame1 = new QWidget();
