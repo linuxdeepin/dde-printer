@@ -37,6 +37,7 @@
 #include <DFrame>
 #include <DBackgroundGroup>
 #include <DComboBox>
+#include <DButtonBox>
 
 #include <QStandardItemModel>
 #include <QStandardItem>
@@ -50,7 +51,7 @@
 #include <QDropEvent>
 #include <QMimeData>
 #include <QCompleter>
-#include <DButtonBox>
+#include <QKeyEvent>
 
 InstallDriverWindow::InstallDriverWindow(QWidget *parent)
     : DMainWindow(parent)
@@ -108,6 +109,7 @@ void InstallDriverWindow::initUI()
     m_pManufacturerCombo = new DComboBox();
     m_pManufacturerCombo->setMaxVisibleItems(10);
     m_pManufacturerCombo->setEditable(true);
+    m_pManufacturerCombo->setInsertPolicy(QComboBox::NoInsert);
     QHBoxLayout *pLocalHL1 = new QHBoxLayout;
     pLocalHL1->addWidget(pLabelManufacturer, 1);
     pLocalHL1->addWidget(m_pManufacturerCombo, 3);
@@ -118,6 +120,7 @@ void InstallDriverWindow::initUI()
     QLabel *pLabelType = new QLabel(tr("Model"));
     m_pTypeCombo = new DComboBox();
     m_pTypeCombo->setEditable(true);
+    m_pTypeCombo->setInsertPolicy(QComboBox::NoInsert);
     QHBoxLayout *pLocalHL2 = new QHBoxLayout;
     pLocalHL2->addWidget(pLabelType, 1);
     pLocalHL2->addWidget(m_pTypeCombo, 3);
@@ -128,6 +131,7 @@ void InstallDriverWindow::initUI()
     QLabel *pLabelDriver = new QLabel(tr("Driver"));
     m_pDriverCombo = new DComboBox();
     m_pDriverCombo->setEditable(true);
+    m_pDriverCombo->setInsertPolicy(QComboBox::NoInsert);
     QHBoxLayout *pLocalHL3 = new QHBoxLayout;
     pLocalHL3->addWidget(pLabelDriver, 1);
     pLocalHL3->addWidget(m_pDriverCombo, 3);
