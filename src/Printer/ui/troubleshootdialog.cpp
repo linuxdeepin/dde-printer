@@ -42,8 +42,8 @@
 #include <QPainter>
 #include <QFont>
 
-TroubleShootItem::TroubleShootItem(TroubleShootJob* job, int index, QWidget* parent)
-    :QFrame (parent),
+TroubleShootItem::TroubleShootItem(TroubleShootJob *job, int index, QWidget *parent)
+    : QFrame(parent),
       m_job(job),
       m_index(index)
 {
@@ -56,11 +56,11 @@ TroubleShootItem::TroubleShootItem(TroubleShootJob* job, int index, QWidget* par
     m_messageLabel->setFont(DFontSizeManager::instance()->t7());
 
     QGridLayout *lay = new QGridLayout(this);
-    lay->setContentsMargins(10, 5 ,10, 5);
+    lay->setContentsMargins(10, 5, 10, 5);
     lay->setColumnStretch(1, 100);
     lay->addWidget(m_iconLabel, 0, 0, Qt::AlignCenter);
-    lay->addWidget(m_titleLabel, 0, 1, Qt::AlignLeft|Qt::AlignHCenter);
-    lay->addWidget(m_messageLabel, 1, 1, Qt::AlignLeft|Qt::AlignHCenter);
+    lay->addWidget(m_titleLabel, 0, 1, Qt::AlignLeft | Qt::AlignHCenter);
+    lay->addWidget(m_messageLabel, 1, 1, Qt::AlignLeft | Qt::AlignHCenter);
     setLayout(lay);
     setFixedHeight(60);
 
@@ -91,7 +91,7 @@ void TroubleShootItem::slotStateChanged(int state, const QString &message)
 }
 
 TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *parent)
-    :DAbstractDialog (false, parent)
+    : DAbstractDialog(false, parent)
 {
     m_printerName = printerName;
 
@@ -105,18 +105,18 @@ TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *pare
 
     setAutoFillBackground(true);
     setAttribute(Qt::WA_TranslucentBackground, false);
-    QWidget* contentWidget = new QWidget(this);
+    QWidget *contentWidget = new QWidget(this);
     contentWidget->setAutoFillBackground(true);
-    QLabel* title = new QLabel(tr("Troubleshoot: "), contentWidget);
-    DFrame* frame = new DFrame(contentWidget);
+    QLabel *title = new QLabel(tr("Troubleshoot: "), contentWidget);
+    DFrame *frame = new DFrame(contentWidget);
     QFont titleFont = DFontSizeManager::instance()->t5();
-    titleFont.setBold(true);
+    titleFont.setWeight(QFont::DemiBold);
     title->setFont(titleFont);
     title->setFixedHeight(30);
-    QVBoxLayout* itemlay = new QVBoxLayout(frame);
+    QVBoxLayout *itemlay = new QVBoxLayout(frame);
     itemlay->addWidget(title);
-    QList<TroubleShootJob*> jobs = m_trobleShoot->getJobs();
-    for (int i=0;i<jobs.count();i++) {
+    QList<TroubleShootJob *> jobs = m_trobleShoot->getJobs();
+    for (int i = 0; i < jobs.count(); i++) {
         TroubleShootItem *item = new TroubleShootItem(jobs[i], i, this);
         item->hide();
         itemlay->addWidget(item);
@@ -128,7 +128,7 @@ TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *pare
     m_button->setFixedWidth(200);
     m_button->setText(tr("Cancel"));
     m_button->setFocusPolicy(Qt::NoFocus);
-    QVBoxLayout* lay = new QVBoxLayout(contentWidget);
+    QVBoxLayout *lay = new QVBoxLayout(contentWidget);
     lay->setContentsMargins(10, 10, 10, 10);
     lay->addWidget(frame, 100);
     lay->addWidget(m_button, 0, Qt::AlignCenter);

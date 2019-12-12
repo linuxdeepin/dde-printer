@@ -117,9 +117,8 @@ void PrinterSearchWindow::initUi()
     m_pStackedWidget = new QStackedWidget();
     // 右侧 自动查找
     m_pLabelPrinter = new QLabel(tr("Select a printer"));
-    QFont font;
-    font.setBold(true);
-    m_pLabelPrinter->setFont(font);
+    DFontSizeManager::instance()->bind(m_pLabelPrinter, DFontSizeManager::T5, QFont::DemiBold);
+
     m_pBtnRefresh = new DIconButton(this);
     m_pBtnRefresh->setIcon(QIcon::fromTheme("dp_refresh"));
     m_pBtnRefresh->setFixedSize(36, 36);
@@ -136,7 +135,7 @@ void PrinterSearchWindow::initUi()
     m_pPrinterListViewAuto->setSelectionMode(QAbstractItemView::NoSelection);
     m_pPrinterListViewAuto->setFocusPolicy(Qt::NoFocus);
     //当前DTK控件滚动条导致覆盖了checked图标
-    m_pPrinterListViewAuto->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+//    m_pPrinterListViewAuto->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_pPrinterListModel = new QStandardItemModel(m_pPrinterListViewAuto);
     m_pPrinterListViewAuto->setModel(m_pPrinterListModel);
 
@@ -181,6 +180,7 @@ void PrinterSearchWindow::initUi()
     pVLayout1->setMargin(0);
     DBackgroundGroup *pWidget1 = new DBackgroundGroup();
     pWidget1->setLayout(pVLayout1);
+    pWidget1->setItemSpacing(2);
     m_pStackedWidget->addWidget(pWidget1);
     // 右侧 手动查找
     m_pLabelLocation = new QLabel(tr("Address"));
@@ -203,7 +203,7 @@ void PrinterSearchWindow::initUi()
     m_pPrinterListViewManual->setTextElideMode(Qt::ElideRight);
     m_pPrinterListViewManual->setSelectionMode(QAbstractItemView::NoSelection);
     m_pPrinterListViewManual->setFocusPolicy(Qt::NoFocus);
-    m_pPrinterListViewManual->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+//    m_pPrinterListViewManual->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_pPrinterListModelManual = new QStandardItemModel();
     m_pPrinterListViewManual->setModel(m_pPrinterListModelManual);
     QVBoxLayout *pVLayoutMan2 = new QVBoxLayout();
@@ -249,6 +249,7 @@ void PrinterSearchWindow::initUi()
     pVLayout2->setMargin(0);
     DBackgroundGroup *pWidget2 = new DBackgroundGroup();
     pWidget2->setLayout(pVLayout2);
+    pWidget2->setItemSpacing(2);
     m_pStackedWidget->addWidget(pWidget2);
 
     // 右侧 URI
@@ -309,6 +310,7 @@ void PrinterSearchWindow::initUi()
 
     DBackgroundGroup *pWidget3 = new DBackgroundGroup();
     pWidget3->setLayout(pURIVLayout);
+    pWidget3->setItemSpacing(2);
     m_pStackedWidget->addWidget(pWidget3);
 
 
@@ -496,7 +498,7 @@ void PrinterSearchWindow::getDeviceResultSlot(int id, int state)
         QList<TDeviceInfo> deviceList = task->getResult();
         int index = m_pPrinterListViewAuto->count();
         //更新打印机数据
-        for (int i=0;i<index;i++) {
+        for (int i = 0; i < index; i++) {
             const TDeviceInfo &info = deviceList[i];
             QAbstractItemModel *model = m_pPrinterListViewAuto->model();
             if (model) {
@@ -782,8 +784,8 @@ void PrinterSearchWindow::installDriverSlot()
 
     if (!autoInstallPrinter(m_pTabListView->currentIndex().row(), device)) {
         close();
-        m_pInstallDriverWindow->show();
         m_pInstallDriverWindow->setDeviceInfo(device);
+        m_pInstallDriverWindow->show();
     }
 }
 

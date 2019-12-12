@@ -81,11 +81,10 @@ void DPrintersShowWindow::initUI()
     pMenu->addAction(m_pSettings);
     titlebar()->setMenu(pMenu);
     setMinimumSize(942, 656);
-    QFont font;
-    font.setBold(true);
+
     // 左边上面的控制栏
     QLabel *pLabel = new QLabel(tr("Printers"));
-    pLabel->setFont(font);
+    DFontSizeManager::instance()->bind(pLabel, DFontSizeManager::T5, int(QFont::DemiBold));
     m_pBtnAddPrinter = new DIconButton(DStyle::SP_IncreaseElement);
     m_pBtnAddPrinter->setFixedSize(36, 36);
     m_pBtnAddPrinter->setToolTip(tr("Add printer"));
@@ -96,12 +95,14 @@ void DPrintersShowWindow::initUI()
     pLeftTopHLayout->addWidget(pLabel, 6, Qt::AlignLeft);
     pLeftTopHLayout->addWidget(m_pBtnAddPrinter, 1);
     pLeftTopHLayout->addWidget(m_pBtnDeletePrinter, 1);
+    pLeftTopHLayout->setContentsMargins(0, 0, 0, 0);
     // 打印机列表
     m_pPrinterListView = new PrinterListView(this);
     m_pPrinterModel = new QStandardItemModel(m_pPrinterListView);
     m_pPrinterListView->setTextElideMode(Qt::ElideRight);
     m_pPrinterListView->setContextMenuPolicy(Qt::CustomContextMenu);
     m_pPrinterListView->setMinimumWidth(310);
+    m_pPrinterListView->setItemSpacing(10);
     m_pPrinterListView->setModel(m_pPrinterModel);
 
     // 列表的右键菜单
@@ -130,17 +131,17 @@ void DPrintersShowWindow::initUI()
     // 没有打印机时的提示
     m_pLeftTipLabel = new QLabel(tr("No Printers"));
     m_pLeftTipLabel->setVisible(false);
-    m_pLeftTipLabel->setFont(font);
     QPalette pa = m_pLeftTipLabel->palette();
     QColor color = pa.color(QPalette::WindowText);
     pa.setColor(QPalette::WindowText, QColor(color.red(), color.green(), color.blue(), int(255 * 0.3)));
     m_pLeftTipLabel->setPalette(pa);
-    DFontSizeManager::instance()->bind(m_pLeftTipLabel, DFontSizeManager::T5);
+    DFontSizeManager::instance()->bind(m_pLeftTipLabel, DFontSizeManager::T5, QFont::DemiBold);
     // 左侧布局
     QVBoxLayout *pLeftVLayout = new QVBoxLayout();
     pLeftVLayout->addLayout(pLeftTopHLayout, 1);
     pLeftVLayout->addWidget(m_pPrinterListView, 4);
     pLeftVLayout->addWidget(m_pLeftTipLabel, 1, Qt::AlignCenter);
+    pLeftVLayout->setContentsMargins(0, 0, 0, 0);
     QWidget *pLeftWidget = new QWidget(this);
     pLeftWidget->setLayout(pLeftVLayout);
 
@@ -150,26 +151,19 @@ void DPrintersShowWindow::initUI()
 
     m_pLabelPrinterName = new QLabel("") ;
     m_pLabelPrinterName->setMinimumWidth(200);
-    QFont printerNameFont;
-    printerNameFont.setBold(true);
-    m_pLabelPrinterName->setFont(printerNameFont);
-    DFontSizeManager::instance()->bind(m_pLabelPrinterName, DFontSizeManager::T4);
-    QFont printerInfoFont;
-    printerInfoFont.setBold(true);
+    DFontSizeManager::instance()->bind(m_pLabelPrinterName, DFontSizeManager::T4, QFont::DemiBold);
+
 
     QLabel *pLabelLocation = new QLabel(tr("Location:"));
     pLabelLocation->setFixedWidth(60);
     m_pLabelLocationShow = new QLabel(tr(""));
-    m_pLabelLocationShow->setFont(printerInfoFont);
-    DFontSizeManager::instance()->bind(m_pLabelLocationShow, DFontSizeManager::T5);
+    DFontSizeManager::instance()->bind(m_pLabelLocationShow, DFontSizeManager::T5, QFont::DemiBold);
     QLabel *pLabelType = new QLabel(tr("Model:"));
     m_pLabelTypeShow = new QLabel(tr(""));
-    m_pLabelTypeShow->setFont(printerInfoFont);
-    DFontSizeManager::instance()->bind(m_pLabelTypeShow, DFontSizeManager::T5);
+    DFontSizeManager::instance()->bind(m_pLabelTypeShow, DFontSizeManager::T5, QFont::DemiBold);
     QLabel *pLabelStatus = new QLabel(tr("Status:"));
     m_pLabelStatusShow = new QLabel(tr(""));
-    m_pLabelStatusShow->setFont(printerInfoFont);
-    DFontSizeManager::instance()->bind(m_pLabelStatusShow, DFontSizeManager::T5);
+    DFontSizeManager::instance()->bind(m_pLabelStatusShow, DFontSizeManager::T5, QFont::DemiBold);
     QGridLayout *pRightGridLayout = new QGridLayout();
     pRightGridLayout->addWidget(m_pLabelPrinterName, 0, 0, 1, 2, Qt::AlignLeft);
     pRightGridLayout->addWidget(pLabelLocation, 1, 0);
@@ -251,15 +245,13 @@ void DPrintersShowWindow::initUI()
     m_pPRightTipLabel1 = new QLabel(tr("No printer configured"));
     m_pPRightTipLabel1->setAlignment(Qt::AlignCenter);
     m_pPRightTipLabel1->setVisible(false);
-    m_pPRightTipLabel1->setFont(font);
     m_pPRightTipLabel1->setPalette(pa);
-    DFontSizeManager::instance()->bind(m_pPRightTipLabel1, DFontSizeManager::T5);
+    DFontSizeManager::instance()->bind(m_pPRightTipLabel1, DFontSizeManager::T5, QFont::DemiBold);
     m_pPRightTipLabel2 = new QLabel(tr("Click + to add printers"));
     m_pPRightTipLabel2->setAlignment(Qt::AlignCenter);
     m_pPRightTipLabel2->setVisible(false);
-    m_pPRightTipLabel2->setFont(font);
     m_pPRightTipLabel2->setPalette(pa);
-    DFontSizeManager::instance()->bind(m_pPRightTipLabel2, DFontSizeManager::T6);
+    DFontSizeManager::instance()->bind(m_pPRightTipLabel2, DFontSizeManager::T6, QFont::DemiBold);
     QVBoxLayout *pRightMainVLayout = new QVBoxLayout();
     pRightMainVLayout->addWidget(m_pPrinterInfoWidget);
     pRightMainVLayout->addStretch();
@@ -279,7 +271,7 @@ void DPrintersShowWindow::initUI()
     //阴影分割布局控件
     DBackgroundGroup *pCentralWidget = new DBackgroundGroup();
     pCentralWidget->setLayout(pMainHLayout);
-
+    pCentralWidget->setItemSpacing(2);
     QHBoxLayout *pMainLayout1 = new QHBoxLayout();
     pMainLayout1->addWidget(pCentralWidget);
     pMainLayout1->setContentsMargins(10, 10, 10, 10);

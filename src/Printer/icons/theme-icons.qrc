@@ -20,9 +20,9 @@
         <file>texts/dp_print_queue_24px.svg</file>
         <file>texts/dp_test_page_24px.svg</file>
         <file>texts/dp_refresh_14px.svg</file>
-        <file>texts/dp_arrow_left_10px.svg</file>
         <file>texts/dp_print_all_14px.svg</file>
         <file>texts/dp_print_done_14px.svg</file>
         <file>texts/dp_print_wait_14px.svg</file>
+        <file>texts/dp_arrow_left_7px.svg</file>
     </qresource>
 </RCC>

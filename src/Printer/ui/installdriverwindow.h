@@ -23,6 +23,7 @@
 #include "zdevicemanager.h"
 
 #include <DMainWindow>
+#include <DComboBox>
 DWIDGET_USE_NAMESPACE
 DWIDGET_BEGIN_NAMESPACE
 class DIconButton;
@@ -30,11 +31,11 @@ class DSpinner;
 class DListView;
 class DLineEdit;
 class DSpinner;
+class DButtonBoxButton;
 DWIDGET_END_NAMESPACE
 
 QT_BEGIN_NAMESPACE
 class QLineEdit;
-class QComboBox;
 class QPushButton;
 class QWidget;
 class QLabel;
@@ -134,9 +135,9 @@ private:
 
     QLabel *m_pRightTitleLabel;
     // 本地驱动
-    QComboBox *m_pManufacturerCombo;
-    QComboBox *m_pTypeCombo;
-    QComboBox *m_pDriverCombo;
+    DComboBox *m_pManufacturerCombo;
+    DComboBox *m_pTypeCombo;
+    DComboBox *m_pDriverCombo;
     // 本地PPD
     QLabel *m_pPPDPath;
     QPushButton *m_pSelectPPDBtn;
@@ -144,14 +145,14 @@ private:
     // 设置打印信息搜索
     QLineEdit *m_pManuAndTypeLineEdit;
     QPushButton *m_pSearchBtn;
-    QComboBox *m_pDriverManualCombo;
+    DComboBox *m_pDriverManualCombo;
     // 安装驱动
     QPushButton *m_pInstallBtn;
     DSpinner *m_pSpinner;
     // 切换打印机
     QStackedWidget *m_pStackWidget;
     // 返回上级按钮
-    DIconButton *m_pPreBtn;
+    DButtonBoxButton *m_pPreBtn;
     // 上级界面
     QWidget *m_pParentWidget;
 

@@ -32,6 +32,7 @@
 #include <DSpinner>
 #include <DIconButton>
 #include <DWidgetUtil>
+#include <DFontSizeManager>
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -82,14 +83,13 @@ void InstallPrinterWindow::initUI()
     m_pStatusImageLabel->setFixedSize(128, 128);
     m_pStatusImageLabel->setAlignment(Qt::AlignCenter);
     m_pStatusLabel = new QLabel(tr("Installing driver..."));
-    QFont font;
-    font.setBold(true);
-    m_pStatusLabel->setFont(font);
+    DFontSizeManager::instance()->bind(m_pStatusLabel, DFontSizeManager::T5, QFont::DemiBold);
     m_pStatusLabel->setAlignment(Qt::AlignCenter);
     m_pTipLabel = new QLabel("");
-    m_pTipLabel->setAlignment(Qt::AlignCenter);
+    m_pTipLabel->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
     m_pTipLabel->setWordWrap(true);
-    m_pTipLabel->setMinimumHeight(50);
+    m_pTipLabel->setMinimumHeight(120);
+
     m_pDriverCombo = new QComboBox();
     m_pDriverCombo->setMinimumSize(300, 36);
     m_pCancelInstallBtn = new QPushButton(tr("Cancel"));
@@ -109,7 +109,8 @@ void InstallPrinterWindow::initUI()
 
     QVBoxLayout *pMainLayout = new QVBoxLayout();
     pMainLayout->setSpacing(0);
-    pMainLayout->addStretch();
+    QSpacerItem *pSpaceItem = new QSpacerItem(300, 52, QSizePolicy::Preferred, QSizePolicy::Preferred);
+    pMainLayout->addItem(pSpaceItem);
     pMainLayout->addWidget(m_pSpinner, 0, Qt::AlignCenter);
     pMainLayout->addWidget(m_pStatusImageLabel, 0, Qt::AlignCenter);
     pMainLayout->addSpacing(30);
@@ -117,18 +118,18 @@ void InstallPrinterWindow::initUI()
     pMainLayout->addSpacing(13);
     pMainLayout->addWidget(m_pTipLabel, 0, Qt::AlignCenter);
     pMainLayout->addWidget(m_pDriverCombo, 0, Qt::AlignCenter);
-//    pMainLayout->addStretch();
-    pMainLayout->addSpacing(146);
+    QSpacerItem *pSpaceItem1 = new QSpacerItem(300, 146, QSizePolicy::Minimum, QSizePolicy::Preferred);
+    pMainLayout->addItem(pSpaceItem1);
     pMainLayout->addWidget(m_pCancelInstallBtn, 0, Qt::AlignCenter);
     pMainLayout->addLayout(pHLayout);
     pMainLayout->setContentsMargins(0, 66, 0, 20);
-
     QWidget *widget = new QWidget;
     widget->setLayout(pMainLayout);
     takeCentralWidget();
     setCentralWidget(widget);
 
     moveToCenter(this);
+
 }
 
 void InstallPrinterWindow::initConnections()
@@ -166,6 +167,7 @@ void InstallPrinterWindow::setStatus(InstallationStatus status)
             m_pTipLabel->setVisible(true);
             m_pTipLabel->setText(tr("You have successfully added the printer."
                                     "Print a test page to check if it works properly"));
+
             m_pDriverCombo->setVisible(false);
             m_pCheckPrinterListBtn->setVisible(true);
             m_pCheckPrinterListBtn->setText(tr("View Printer"));

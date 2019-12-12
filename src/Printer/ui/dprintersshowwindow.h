@@ -77,14 +77,12 @@ private:
         titlebar()->setIcon(QIcon(":/images/dde-printer.svg"));
         setWindowFlags(windowFlags() & ~Qt::WindowMaximizeButtonHint);
         setWindowModality(Qt::ApplicationModal);
-        setFixedWidth(480);
+        setFixedSize(480, 250);
 
-        QFont font;
-        font.setBold(true);
+
 
         QLabel *pBaseSettings = new QLabel(tr("Basic Server Settings"));
-        pBaseSettings->setFont(font);
-        DFontSizeManager::instance()->bind(pBaseSettings, DFontSizeManager::T5);
+        DFontSizeManager::instance()->bind(pBaseSettings, DFontSizeManager::T5, QFont::DemiBold);
 
         m_pCheckShared = new QCheckBox(tr("Publish shared printers connected to this system"));
         m_pCheckIPP = new QCheckBox(tr("Allow printing from the Internet"));
@@ -131,15 +129,21 @@ private:
         pSettingWidget->setItemSpacing(1);
         pSettingWidget->setBackgroundRole(this->backgroundRole());
 
-        DFrame *pSettingWidget1 = new DFrame();
+        DFrame *pSettingWidget1 = new DFrame(this);
         QVBoxLayout *pMainVlaout1 = new QVBoxLayout();
         pMainVlaout1->addWidget(pBaseSettings);
         pMainVlaout1->addWidget(pSettingWidget);
         pMainVlaout1->setContentsMargins(10, 10, 10, 10);
         pSettingWidget1->setLayout(pMainVlaout1);
 
+        QHBoxLayout *pMainLayout1 = new QHBoxLayout();
+        pMainLayout1->addWidget(pSettingWidget1);
+        pMainLayout1->setContentsMargins(10, 10, 10, 10);
+        QWidget *pCentralWidget = new QWidget();
+        pCentralWidget->setLayout(pMainLayout1);
+
         takeCentralWidget();
-        setCentralWidget(pSettingWidget1);
+        setCentralWidget(pCentralWidget);
         moveToCenter(this);
 
     }
