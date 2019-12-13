@@ -34,13 +34,17 @@
         <translation>直连设备</translation>
     </message>
     <message>
+        <location filename="../vendor/addprinter.cpp" line="553"/>
+        <source>File</source>
+        <translation>文件</translation>
+    </message>
+    <message>
         <source>Direct attached Device</source>
         <translation type="vanished">直连设备</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="553"/>
         <source>File device</source>
-        <translation>文件设备</translation>
+        <translation type="vanished">文件设备</translation>
     </message>
 </context>
 <context>
@@ -1575,27 +1579,27 @@ or click Troubleshoot to start troubleshooting.</source>
 <context>
     <name>ServerSettingsWindow</name>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="84"/>
+        <location filename="../ui/dprintersshowwindow.h" line="82"/>
         <source>Basic Server Settings</source>
         <translation>基本服务器设置</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="87"/>
+        <location filename="../ui/dprintersshowwindow.h" line="85"/>
         <source>Publish shared printers connected to this system</source>
         <translation>发布连接到这个系统的共享打印机</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="88"/>
+        <location filename="../ui/dprintersshowwindow.h" line="86"/>
         <source>Allow printing from the Internet</source>
         <translation>允许从互联网打印</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="90"/>
+        <location filename="../ui/dprintersshowwindow.h" line="88"/>
         <source>Allow remote administration</source>
         <translation>允许远程管理</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="92"/>
+        <location filename="../ui/dprintersshowwindow.h" line="90"/>
         <source>Save debugging information for troubleshooting</source>
         <translation>保留调试信息用于故障排除</translation>
     </message>
