@@ -201,7 +201,9 @@ void InstallDriverWindow::initUI()
     QLabel *pDriverLabel = new QLabel(tr("Driver"));
     m_pDriverManualCombo = new DComboBox();
     QHBoxLayout *pMakerHL2 = new QHBoxLayout;
+    pMakerHL2->setSpacing(0);
     pMakerHL2->addWidget(pDriverLabel, 1);
+    pMakerHL2->addSpacing(10);
     pMakerHL2->addWidget(m_pDriverManualCombo, 4);
     pMakerHL2->setContentsMargins(20, 10, 10, 10);
     QWidget *pMakerWidget2 = new QWidget();
