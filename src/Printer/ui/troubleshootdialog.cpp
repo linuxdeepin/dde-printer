@@ -75,8 +75,9 @@ void TroubleShootItem::paintEvent(QPaintEvent *event)
         DListView listView;
         DPalette pl(DApplicationHelper::instance()->palette(&listView));
         QPainter painter(this);
-
-        painter.fillRect(event->rect(), pl.brush(QPalette::AlternateBase));
+        painter.setBrush(pl.brush(QPalette::AlternateBase));
+        painter.setPen(Qt::NoPen);
+        painter.drawRoundedRect(event->rect(), 10, 10);
     }
 }
 
@@ -103,18 +104,24 @@ TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *pare
     m_trobleShoot = new TroubleShoot(printerName, this);
     m_trobleShoot->addJob(new CheckConnected(printerName, m_trobleShoot));
 
-    setAutoFillBackground(true);
+
     setAttribute(Qt::WA_TranslucentBackground, false);
     QWidget *contentWidget = new QWidget(this);
-    contentWidget->setAutoFillBackground(true);
+
     QLabel *title = new QLabel(tr("Troubleshoot: "), contentWidget);
-    DFrame *frame = new DFrame(contentWidget);
-    QFont titleFont = DFontSizeManager::instance()->t5();
-    titleFont.setWeight(QFont::DemiBold);
-    title->setFont(titleFont);
     title->setFixedHeight(30);
+    DFontSizeManager::instance()->bind(title, DFontSizeManager::T5, QFont::DemiBold);
+    QHBoxLayout *pHLayout = new QHBoxLayout();
+    pHLayout->setContentsMargins(0, 0, 0, 0);
+    pHLayout->setSpacing(0);
+    pHLayout->addSpacing(10);
+    pHLayout->addWidget(title);
+    DFrame *frame = new DFrame(contentWidget);
     QVBoxLayout *itemlay = new QVBoxLayout(frame);
-    itemlay->addWidget(title);
+    itemlay->setContentsMargins(10, 10, 10, 10);
+    itemlay->setSpacing(0);
+    itemlay->addLayout(pHLayout);
+    itemlay->addSpacing(10);
     QList<TroubleShootJob *> jobs = m_trobleShoot->getJobs();
     for (int i = 0; i < jobs.count(); i++) {
         TroubleShootItem *item = new TroubleShootItem(jobs[i], i, this);
@@ -129,8 +136,10 @@ TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *pare
     m_button->setText(tr("Cancel"));
     m_button->setFocusPolicy(Qt::NoFocus);
     QVBoxLayout *lay = new QVBoxLayout(contentWidget);
+    lay->setSpacing(0);
     lay->setContentsMargins(10, 10, 10, 10);
     lay->addWidget(frame, 100);
+    lay->addSpacing(10);
     lay->addWidget(m_button, 0, Qt::AlignCenter);
 
     contentWidget->setFixedSize(692, 432);

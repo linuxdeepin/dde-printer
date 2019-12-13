@@ -124,7 +124,8 @@ void PrinterSearchWindow::initUi()
     m_pBtnRefresh->setFixedSize(36, 36);
     m_pBtnRefresh->setToolTip(tr("Refresh"));
     QHBoxLayout *pHLayout1 = new QHBoxLayout();
-    pHLayout1->addSpacing(18);
+    pHLayout1->setSpacing(0);
+    pHLayout1->addSpacing(8);
     pHLayout1->addWidget(m_pLabelPrinter);
     pHLayout1->addWidget(m_pBtnRefresh, 0, Qt::AlignRight);
     pHLayout1->setMargin(0);
@@ -134,8 +135,8 @@ void PrinterSearchWindow::initUi()
     m_pPrinterListViewAuto->setTextElideMode(Qt::ElideRight);
     m_pPrinterListViewAuto->setSelectionMode(QAbstractItemView::NoSelection);
     m_pPrinterListViewAuto->setFocusPolicy(Qt::NoFocus);
-    //当前DTK控件滚动条导致覆盖了checked图标
-//    m_pPrinterListViewAuto->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    m_pPrinterListViewAuto->setItemSpacing(10);
+
     m_pPrinterListModel = new QStandardItemModel(m_pPrinterListViewAuto);
     m_pPrinterListViewAuto->setModel(m_pPrinterListModel);
 
@@ -198,9 +199,9 @@ void PrinterSearchWindow::initUi()
     QHBoxLayout *pHLayout4 = new QHBoxLayout();
     pHLayout4->setSpacing(0);
     pHLayout4->addWidget(m_pLabelLocation);
-    pHLayout4->addSpacing(26);
+    pHLayout4->addSpacing(20);
     pHLayout4->addWidget(m_pLineEditLocation);
-    pHLayout4->addSpacing(10);
+    pHLayout4->addSpacing(8);
     pHLayout4->addWidget(m_pBtnFind);
     pHLayout4->setContentsMargins(20, 20, 10, 20);
     QWidget *pManFrame1 = new QWidget();
@@ -211,7 +212,7 @@ void PrinterSearchWindow::initUi()
     m_pPrinterListViewManual->setTextElideMode(Qt::ElideRight);
     m_pPrinterListViewManual->setSelectionMode(QAbstractItemView::NoSelection);
     m_pPrinterListViewManual->setFocusPolicy(Qt::NoFocus);
-//    m_pPrinterListViewManual->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    m_pPrinterListViewManual->setItemSpacing(10);
     m_pPrinterListModelManual = new QStandardItemModel();
     m_pPrinterListViewManual->setModel(m_pPrinterListModelManual);
     QVBoxLayout *pVLayoutMan2 = new QVBoxLayout();
@@ -275,7 +276,7 @@ void PrinterSearchWindow::initUi()
     QHBoxLayout *pHLayoutURI1 = new QHBoxLayout();
     pHLayoutURI1->setSpacing(0);
     pHLayoutURI1->addWidget(m_pLabelURI);
-    pHLayoutURI1->addSpacing(26);
+    pHLayoutURI1->addSpacing(20);
     pHLayoutURI1->addWidget(m_pLineEditURI);
     pHLayoutURI1->setContentsMargins(20, 20, 10, 20);
     QWidget *pURIFrame1 = new QWidget();
@@ -525,17 +526,18 @@ void PrinterSearchWindow::getDeviceResultSlot(int id, int state)
             QAbstractItemModel *model = m_pPrinterListViewAuto->model();
             if (model) {
                 QModelIndex itemIndex = model->index(i, 0);
-                model->setData(itemIndex, QVariant::fromValue(info), Qt::UserRole + 1);
+                model->setData(itemIndex, QVariant::fromValue(info), Dtk::UserRole + 1);
             }
         }
         for (; index < deviceList.count(); index++) {
             const TDeviceInfo &info = deviceList[index];
-
-            QStandardItem *pItem = new QStandardItem(info.strName);
+            DStandardItem *pItem = new DStandardItem(info.strName);
+            // 设置item的margin，这两个dataRole的枚举值一样，需要区分开
+            pItem->setData(VListViewItemMargin, Dtk::MarginsRole);
             pItem->setText(printerDescription(info));
             pItem->setIcon(QIcon::fromTheme("dp_printer_list"));
             // 将结构体转化为QVariant,需要再转回来
-            pItem->setData(QVariant::fromValue(info), Qt::UserRole + 1);
+            pItem->setData(QVariant::fromValue(info), Dtk::UserRole + 1);
             pItem->setSizeHint(QSize(480, 50));
             m_pPrinterListModel->appendRow(pItem);
         }
@@ -581,11 +583,13 @@ void PrinterSearchWindow::getDeviceResultByManualSlot(int id, int state)
             const TDeviceInfo &info = deviceList[index];
 
             qInfo() << "Update" << info.toString();
-            QStandardItem *pItem = new QStandardItem(info.strName);
+            DStandardItem *pItem = new DStandardItem(info.strName);
+            // 设置item的margin，这两个dataRole的枚举值一样，需要区分开
+            pItem->setData(VListViewItemMargin, Dtk::MarginsRole);
             pItem->setText(printerDescription(info, true));
             pItem->setIcon(QIcon::fromTheme("dp_printer_list"));
             // 将结构体转化为QVariant,需要再转回来
-            pItem->setData(QVariant::fromValue(info), Qt::UserRole + 1);
+            pItem->setData(QVariant::fromValue(info), Dtk::UserRole + 1);
             pItem->setSizeHint(QSize(480, 50));
             m_pPrinterListModelManual->appendRow(pItem);
         }
@@ -598,7 +602,7 @@ void PrinterSearchWindow::printerListClickedSlot(const QModelIndex &index)
     QList<QMap<QString, QString>> driverList;
     QVariant temp ;
     if (sender() == m_pPrinterListViewAuto) {
-        temp = m_pPrinterListViewAuto->currentIndex().data(Qt::UserRole + 1);
+        temp = m_pPrinterListViewAuto->currentIndex().data(Dtk::UserRole + 1);
         for (int row = 0; row < m_pPrinterListModel->rowCount(); ++row) {
             if (row != index.row())
                 m_pPrinterListModel->item(row)->setCheckState(Qt::Unchecked);
@@ -615,7 +619,7 @@ void PrinterSearchWindow::printerListClickedSlot(const QModelIndex &index)
         connect(pDriverSearcher, &DriverSearcher::signalDone, this, &PrinterSearchWindow::driverAutoSearchedSlot);
         pDriverSearcher->startSearch();
     } else {
-        temp = m_pPrinterListViewManual->currentIndex().data(Qt::UserRole + 1);
+        temp = m_pPrinterListViewManual->currentIndex().data(Dtk::UserRole + 1);
         for (int row = 0; row < m_pPrinterListModelManual->rowCount(); ++row) {
             if (row != index.row())
                 m_pPrinterListModelManual->item(row)->setCheckState(Qt::Unchecked);
@@ -790,14 +794,14 @@ void PrinterSearchWindow::installDriverSlot()
         if (!pCheckedItem) {
             return;
         }
-        QVariant temp = pCheckedItem->data(Qt::UserRole + 1);
+        QVariant temp = pCheckedItem->data(Dtk::UserRole + 1);
         device = temp.value<TDeviceInfo>();
     } else if (m_pTabListView->currentIndex().row() == 1) { //ip
         QStandardItem *pCheckedItem = getCheckedItem(1);
         if (!pCheckedItem) {
             return;
         }
-        QVariant temp = pCheckedItem->data(Qt::UserRole + 1);
+        QVariant temp = pCheckedItem->data(Dtk::UserRole + 1);
         device = temp.value<TDeviceInfo>();
     } else if (m_pTabListView->currentIndex().row() == 2) { //URI 手动构造设备结构体
         device.uriList.append(m_pLineEditURI->text());
