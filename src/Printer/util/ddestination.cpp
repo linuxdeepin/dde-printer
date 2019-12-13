@@ -140,12 +140,12 @@ QString DDestination::printerModel()
     requestAttr.push_back(CUPS_OP_MAKE_MODEL);
 
     try {
-        if (isPpdFileBroken()) {
+        if (!isPpdFileBroken()) {
             map<string, string> attr = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(), nullptr, &requestAttr);
             strPrintModel = QString::fromStdString(attr[CUPS_OP_MAKE_MODEL].data());
             strPrintModel = strPrintModel.remove(0, 1);
         } else {
-            strPrintModel = tr("UNKOWN");
+            strPrintModel = tr("Unknown");
         }
     } catch (const std::runtime_error &e) {
         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
@@ -200,7 +200,7 @@ void DDestination::initPrinterAttr()
         if (!isPpdFileBroken()) {
             m_printerModel = attrMap.at(CUPS_OP_MAKE_MODEL).substr(1).data();
         } else {
-            m_printerModel = tr("UNKOWN");
+            m_printerModel = tr("Unknown");
         }
 
         m_printerURI = attrMap.at(CUPS_DEV_URI).substr(1).data();

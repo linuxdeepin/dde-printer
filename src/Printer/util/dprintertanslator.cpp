@@ -107,7 +107,7 @@ void DPrinterTanslator::init()
     //Finishings_Combo
     addTranslate("Finishings_Combo", "None", tr("None"));
     addTranslate("Finishings_Combo", "Bind", tr("Bind"));
-    addTranslate("Finishings_Combo", "Bind(none)", tr("Bind(none)"));
+    addTranslate("Finishings_Combo", "Bind (none)", tr("Bind (none)"));
     addTranslate("Finishings_Combo", "Bind (bottom)", tr("Bind (bottom)"));
     addTranslate("Finishings_Combo", "Bind (left)", tr("Bind (left)"));
     addTranslate("Finishings_Combo", "Bind (right)", tr("Bind (right)"));

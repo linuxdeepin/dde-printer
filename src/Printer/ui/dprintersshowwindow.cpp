@@ -617,7 +617,7 @@ void DPrintersShowWindow::printSettingClickSlot()
         dialog.setMessage(tr("The driver is damaged, please install it again."));
         dialog.addSpacing(10);
         dialog.addButton(UI_PRINTERSHOW_CANCEL);
-        int iIndex = dialog.addButton(tr("install driver"));
+        int iIndex = dialog.addButton(tr("Install Driver"));
         dialog.setIcon(QPixmap(":/images/warning_logo.svg"));
         QAbstractButton *pBtn = dialog.getButton(iIndex);
         connect(pBtn, &QAbstractButton::clicked, this, &DPrintersShowWindow::printDriveInstall);
@@ -632,6 +632,7 @@ void DPrintersShowWindow::printSettingClickSlot()
         dlg.updateViews();
         dlg.moveToParentCenter();
         dlg.exec();
+        this->printerListWidgetItemChangedSlot(m_pPrinterListView->currentIndex());
     }
 }
 

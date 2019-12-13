@@ -328,7 +328,7 @@ bool CheckAttributes::isPass()
     strState = attrValueToQString(attrs[CUPS_OP_STATE]);
     if (IPP_PRINTER_STOPPED == strState.toInt()) {
         qWarning() << m_printerName << "is disable";
-        m_strMessage = tr("%1 is disable").arg(m_printerName);
+        m_strMessage = tr("%1 is disabled").arg(m_printerName);
         emit signalStateChanged(TStat_Fail, m_strMessage);
         return false;
     }

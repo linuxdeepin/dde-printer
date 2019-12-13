@@ -648,7 +648,7 @@ QVector<QMap<QString, QString>> DPrinter::getFinishingsChooses()
 
                 if(0 == strTemp.compare("3"))
                 {
-                    choose[QString::fromStdString("text")] = pManger->translateLocal("Finishings_Combo", "Bind(none)");
+                    choose[QString::fromStdString("text")] = pManger->translateLocal("Finishings_Combo", "Bind (none)");
                     choose[QString::fromStdString("choice")] = "none";
                 }
                 else if(0 == strTemp.compare("50"))

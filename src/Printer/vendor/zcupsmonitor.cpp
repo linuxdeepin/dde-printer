@@ -288,7 +288,7 @@ int CupsMonitor::getNotifications(int& notifysSize)
                         if (m_processingJob.contains(iJob)) {
                             const QTime& t = m_processingJob[iJob];
                             if (!t.isNull() && t.elapsed() > PROCESSINGTIP) {
-                                strReason = tr("%1 is timeout, reason: %2").arg(strJobName).arg(strReason);
+                                strReason = tr("%1 timed out, reason: %2").arg(strJobName).arg(strReason);
                                 sendDesktopNotification(0, qApp->productName(), strReason, 3000);
                                 m_processingJob[iJob] = QTime();
                             }

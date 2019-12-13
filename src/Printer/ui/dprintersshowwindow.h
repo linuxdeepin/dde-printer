@@ -79,8 +79,6 @@ private:
         setWindowModality(Qt::ApplicationModal);
         setFixedSize(480, 250);
 
-
-
         QLabel *pBaseSettings = new QLabel(tr("Basic Server Settings"));
         DFontSizeManager::instance()->bind(pBaseSettings, DFontSizeManager::T5, QFont::DemiBold);
 
