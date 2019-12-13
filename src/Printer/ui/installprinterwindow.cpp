@@ -200,7 +200,7 @@ void InstallPrinterWindow::setStatus(InstallationStatus status)
             m_pStatusImageLabel->setVisible(true);
             m_pStatusImageLabel->setPixmap(QPixmap(":/images/success.svg"));
             m_pTipLabel->setVisible(true);
-            m_pTipLabel->setText(tr("if succeeded, click Yes; if failed, click No."));
+            m_pTipLabel->setText(tr("If succeeded, click Yes; if failed, click No"));
             m_pDriverCombo->setVisible(false);
             m_pCheckPrinterListBtn->setVisible(true);
             m_pCheckPrinterListBtn->setText(tr("No"));
@@ -216,7 +216,7 @@ void InstallPrinterWindow::setStatus(InstallationStatus status)
             m_pStatusImageLabel->setVisible(true);
             m_pStatusImageLabel->setPixmap(QPixmap(":/images/fail.svg"));
             m_pTipLabel->setVisible(true);
-            m_pTipLabel->setText(tr("Click Reinstall to install the printer driver again,or click Troubleshoot to start troubleshooting."));
+            m_pTipLabel->setText(tr("Click Reinstall to install the printer driver again, or click Troubleshoot to start troubleshooting."));
             m_pDriverCombo->setVisible(false);
             m_pCheckPrinterListBtn->setVisible(true);
             m_pCheckPrinterListBtn->setText(tr("Reinstall"));

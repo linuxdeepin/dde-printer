@@ -268,7 +268,7 @@ void InstallDriver::slotServerDone(int iCode, const QByteArray &result)
     if (m_bQuit) return;
 
     if (iCode != QNetworkReply::NoError) {
-        m_strErr = tr("Failed to find the driver solution:%1, error: %2")
+        m_strErr = tr("Failed to find the driver solution: %1, error: %2")
                 .arg(m_solution[SD_KEY_sid].toInt()).arg(iCode);
         qWarning() << "Request " << m_solution[SD_KEY_sid] << "failed:" << iCode;
         emit signalStatus(TStat_Fail);
@@ -548,9 +548,9 @@ void AddPrinterTask::fillPrinterInfo()
 
         if (strHost.isEmpty()) {
            if (strUri.startsWith("hp") || strUri.startsWith("usb")) {
-               strHost = tr("Direct attached Device");
+               strHost = tr("Direct-attached Device");
            } else if (strUri.startsWith("file")) {
-               strHost = tr("File device");
+               strHost = tr("File");
            }
         }
 
