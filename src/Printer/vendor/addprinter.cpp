@@ -670,7 +670,8 @@ QString AddPrinterFactory::defaultPrinterName(const TDeviceInfo &printer, const 
         }
 
         //EveryWhere 不用makeandmodel作为名称，因为会包含中文
-        if (strMM.isEmpty() || PPDFrom_EveryWhere == solution[SD_KEY_from].toInt()) {
+        //优先用打印机信息中包含的型号信息，URI中的打印机名字可能是中文
+        if (printer.strMakeAndModel.isEmpty() && (strMM.isEmpty() || PPDFrom_EveryWhere == solution[SD_KEY_from].toInt())) {
             strName = getPrinterNameFromUri(printer.uriList[0]);
         } else {
             QString strModel;
@@ -687,8 +688,12 @@ QString AddPrinterFactory::defaultPrinterName(const TDeviceInfo &printer, const 
     //去掉多个连续空格的情况
     list = strName.split(" ", QString::SkipEmptyParts);
     strName = list.join(" ");
-    strName.replace(" ", "-");
-    strDefaultName = strName;
+    if (strName.isEmpty()) {
+        strDefaultName = "printer";
+    } else {
+        strName.replace(" ", "-");
+        strDefaultName = strName;
+    }
 
     //保证和已安装的打印机名字不重复
     int i = 1;
