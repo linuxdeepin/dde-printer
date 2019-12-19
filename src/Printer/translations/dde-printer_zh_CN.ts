@@ -196,7 +196,7 @@
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="187"/>
         <source>%1 is not installed, cannot print now</source>
-        <translation>%1未安装，打印异常。</translation>
+        <translation>%1未安装， 打印异常</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="193"/>
