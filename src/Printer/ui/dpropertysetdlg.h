@@ -62,7 +62,7 @@ private:
     void updatePaperOriginCombo(const QString&, const QVector<QMap<QString, QString>>&);
     void updatePaperTypeCombo(const QString&, const QVector<QMap<QString, QString>>&);
     void updateOutputQuanlityCombo(const QString&, const QVector<QMap<QString, QString>>&);
-    void updateFinishingsCombo(const QString&, const QVector<QMap<QString, QString>>&);
+    void updateStapleLocationCombo(const QString&, const QVector<QMap<QString, QString>>&);
     void updateBindEdgeCombo(const QString&, const QVector<QMap<QString, QString>>&);
     void updateResolutionCombo(const QString&, const QVector<QMap<QString, QString>>&);
     QString changeComboSelectionByName(const QString& strComboName, int index);
@@ -81,7 +81,7 @@ private slots:
     void printOrderCombo_clicked(int iIndex);
     void paperOriginCombo_clicked(int iIndex);
     void paperTypeCombo_clicked(int iIndex);
-    void printFinishingsCombo_clicked(int index);
+    void printStapleLocationCombo_clicked(int index);
     void printBindEdgeCombo_clicked(int index);
     void printResolutionCombo_clicked(int index);
     void outputQuanlity_clicked(int index);

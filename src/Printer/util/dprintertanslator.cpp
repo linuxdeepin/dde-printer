@@ -104,14 +104,15 @@ void DPrinterTanslator::init()
     addTranslate("PrintOrder_Combo", "Normal", tr("Normal"));
     addTranslate("PrintOrder_Combo", "Reverse", tr("Reverse"));
 
-    //Finishings_Combo
-    addTranslate("Finishings_Combo", "None", tr("None"));
-    addTranslate("Finishings_Combo", "Bind", tr("Bind"));
-    addTranslate("Finishings_Combo", "Bind (none)", tr("Bind (none)"));
-    addTranslate("Finishings_Combo", "Bind (bottom)", tr("Bind (bottom)"));
-    addTranslate("Finishings_Combo", "Bind (left)", tr("Bind (left)"));
-    addTranslate("Finishings_Combo", "Bind (right)", tr("Bind (right)"));
-    addTranslate("Finishings_Combo", "Bind (top)", tr("Bind (top)"));
+    //StapleLocation_Combo
+    addTranslate("StapleLocation_Combo", "StapleLocation", tr("StapleLocation"));
+    addTranslate("StapleLocation_Combo", "None", tr("None"));
+    addTranslate("StapleLocation_Combo", "Bind", tr("Bind"));
+    addTranslate("StapleLocation_Combo", "Bind (none)", tr("Bind (none)"));
+    addTranslate("StapleLocation_Combo", "Bind (bottom)", tr("Bind (bottom)"));
+    addTranslate("StapleLocation_Combo", "Bind (left)", tr("Bind (left)"));
+    addTranslate("StapleLocation_Combo", "Bind (right)", tr("Bind (right)"));
+    addTranslate("StapleLocation_Combo", "Bind (top)", tr("Bind (top)"));
 
     //Resolution_Combo
     addTranslate("Resolution_Combo", "None", tr("None"));

@@ -142,6 +142,11 @@ public:
     void setFinishings(const QString& strValue);
     QVector<QMap<QString, QString>> getFinishingsChooses();
 
+    //stapleLocation
+    QString getStapleLocation();
+    void setStapleLoaction(const QString& strVal);
+    QVector<QMap<QString, QString>> getStapLocationChooses();
+
     //print Resolution
     QString getResolution();
     void setResolution(const QString& strValue);
