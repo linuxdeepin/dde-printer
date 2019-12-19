@@ -268,7 +268,7 @@
     <message>
         <location filename="../vendor/zcupsmonitor.cpp" line="308"/>
         <source>%1 %2, reason: %3</source>
-        <translation>%1 %2， 原因： %3</translation>
+        <translation>%1 %2，原因：%3</translation>
     </message>
 </context>
 <context>
