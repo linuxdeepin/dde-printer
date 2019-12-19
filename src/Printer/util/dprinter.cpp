@@ -648,17 +648,17 @@ QVector<QMap<QString, QString>> DPrinter::getFinishingsChooses()
 
                 if(0 == strTemp.compare("3"))
                 {
-                    choose[QString::fromStdString("text")] = pManger->translateLocal("Finishings_Combo", "Bind (none)");
+                    choose[QString::fromStdString("text")] = pManger->translateLocal("StapleLocation_Combo", "Bind (none)");
                     choose[QString::fromStdString("choice")] = "none";
                 }
                 else if(0 == strTemp.compare("50"))
                 {
-                    choose[QString::fromStdString("text")] = pManger->translateLocal("Finishings_Combo", "Bind (top)");
+                    choose[QString::fromStdString("text")] = pManger->translateLocal("StapleLocation_Combo", "Bind (top)");
                     choose[QString::fromStdString("choice")] = "top";
                 }
                 else if(0 == strTemp.compare("51"))
                 {
-                    choose[QString::fromStdString("text")] = pManger->translateLocal("Finishings_Combo", "Bind (left)");
+                    choose[QString::fromStdString("text")] = pManger->translateLocal("StapleLocation_Combo", "Bind (left)");
                     choose[QString::fromStdString("choice")] = "left";
                 }
                 else
@@ -677,6 +677,21 @@ QVector<QMap<QString, QString>> DPrinter::getFinishingsChooses()
     }
 
     return vecChoose;
+}
+
+QString DPrinter::getStapleLocation()
+{
+    return getOptionValue("StapleLocation");
+}
+
+void DPrinter::setStapleLoaction(const QString& strVal)
+{
+    setOptionValue("StapleLocation", strVal);
+}
+
+QVector<QMap<QString, QString>> DPrinter::getStapLocationChooses()
+{
+    return getOptionChooses("StapleLocation");
 }
 
 QString DPrinter::getResolution()

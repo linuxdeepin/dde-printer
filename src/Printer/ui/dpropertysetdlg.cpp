@@ -180,10 +180,11 @@ void DPropertySetDlg::initUI()
     vecOption.push_back(tr("Paper Type"));
     vecOption.push_back(tr("Paper Size"));
     vecOption.push_back(tr("Duplex"));
-    vecOption.push_back(tr("Margins"));
+    vecOption.push_back(tr("Binding Edge"));
+    vecOption.push_back(tr("Staple Location"));
     vecOption.push_back(tr("Orientation"));
     vecOption.push_back(tr("Page Order"));
-    vecOption.push_back(tr("Binding"));
+
 
     QString strJson = generatePropertyDialogJson(vecOption);
     settings = Dtk::Core::DSettings::fromJson(strJson.toUtf8());
@@ -230,9 +231,9 @@ void DPropertySetDlg::initConnection()
     pCombo = qobject_cast<DComboBox *>(m_mapOfListWidget[QString::fromStdString("OutputQuanlity_Combo")]);
     QObject::connect(pCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(outputQuanlity_clicked(int)));
 
-    //Finishings_Combo
-    pCombo = qobject_cast<DComboBox *>(m_mapOfListWidget[QString::fromStdString("Finishings_Combo")]);
-    QObject::connect(pCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(printFinishingsCombo_clicked(int)));
+    //StapleLocation_Combo
+    pCombo = qobject_cast<DComboBox *>(m_mapOfListWidget[QString::fromStdString("StapleLocation_Combo")]);
+    QObject::connect(pCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(printStapleLocationCombo_clicked(int)));
 
     //BindEdge_Combo
     pCombo = qobject_cast<DComboBox *>(m_mapOfListWidget[QString::fromStdString("BindEdge_Combo")]);
@@ -430,10 +431,10 @@ void DPropertySetDlg::updateViews()
             strDefault = pPrinter->getPrintQuality();
             updateOutputQuanlityCombo(strDefault, vecChoice);
 
-            //Update Finishings_Combo UI
-            vecChoice = pPrinter->getFinishingsChooses();
-            strDefault = pPrinter->getFinishings();
-            updateFinishingsCombo(strDefault, vecChoice);
+            //Update StapleLocation_Combo UI
+            vecChoice = pPrinter->getStapLocationChooses();
+            strDefault = pPrinter->getStapleLocation();
+            updateStapleLocationCombo(strDefault, vecChoice);
 
             //Update BindEdge UI
             vecChoice = pPrinter->getBindEdgeChooses();
@@ -494,9 +495,9 @@ void DPropertySetDlg::updateOutputQuanlityCombo(const QString &strDefault, const
     updateComboByName(QString::fromStdString("OutputQuanlity_Combo"), strDefault, vecChoices);
 }
 
-void DPropertySetDlg::updateFinishingsCombo(const QString &strDefault, const QVector<QMap<QString, QString>> &vecChoices)
+void DPropertySetDlg::updateStapleLocationCombo(const QString &strDefault, const QVector<QMap<QString, QString>> &vecChoices)
 {
-    updateComboByName(QString::fromStdString("Finishings_Combo"), strDefault, vecChoices);
+    updateComboByName(QString::fromStdString("StapleLocation_Combo"), strDefault, vecChoices);
 }
 
 void DPropertySetDlg::updateBindEdgeCombo(const QString &strDefault, const QVector<QMap<QString, QString>> &vecChoices)
@@ -582,6 +583,7 @@ void DPropertySetDlg::initConflictMap()
     m_mapOfConflict.insert(QString::fromStdString("PageSize"), QString::fromStdString("PageSize_Combo"));
     m_mapOfConflict.insert(QString::fromStdString("InputSlot"), QString::fromStdString("PaperOrigin_Combo"));
     m_mapOfConflict.insert(QString::fromStdString("BindEdge"), QString::fromStdString("BindEdge_Combo"));
+    m_mapOfConflict.insert(QString::fromStdString("StapleLocation"), QString::fromStdString("StapleLocation_Combo"));
 }
 
 void DPropertySetDlg::showConflictDlg(const vector<CONFLICTPAIR> &vecConflictPairs)
@@ -859,13 +861,13 @@ void DPropertySetDlg::paperTypeCombo_clicked(int index)
     }
 }
 
-void DPropertySetDlg::printFinishingsCombo_clicked(int index)
+void DPropertySetDlg::printStapleLocationCombo_clicked(int index)
 {
     if (!m_bShow) {
         return;
     }
 
-    QString strChoice = changeComboSelectionByName(QString::fromStdString("Finishings_Combo"), index);
+    QString strChoice = changeComboSelectionByName(QString::fromStdString("StapleLocation_Combo"), index);
 
     if (strChoice == UNSUPPORTED) {
         return;

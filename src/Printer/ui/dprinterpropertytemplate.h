@@ -189,9 +189,21 @@ const QString generatePropertyDialogJson(const QVector<QString>& vecOption)
                     },\
 \
                     {\
-                      \"key\": \"Orientation_Label\",\
+                      \"key\": \"StapleLocation\",\
                       \"name\": \"%14\",\
                       \"options\": [\
+                           {\
+                               \"key\": \"StapleLocation_Combo\",\
+                               \"name\": \"StapleLocation_Combo\",\
+                               \"type\": \"custom-combobox\"\
+                           }\
+                       ]\
+                     },\
+\
+                     {\
+                       \"key\": \"Orientation_Label\",\
+                       \"name\": \"%15\",\
+                       \"options\": [\
                           {\
                               \"key\": \"Orientation_Combo\",\
                               \"name\": \"Orientation_Combo\",\
@@ -202,7 +214,7 @@ const QString generatePropertyDialogJson(const QVector<QString>& vecOption)
 \
                     {\
                       \"key\": \"PrintOrder_Label\",\
-                      \"name\": \"%15\",\
+                      \"name\": \"%16\",\
                       \"options\": [\
                           {\
                               \"key\": \"PrintOrder_Combo\",\
@@ -210,18 +222,6 @@ const QString generatePropertyDialogJson(const QVector<QString>& vecOption)
                               \"type\": \"custom-combobox\"\
                           }\
                       ]\
-                    },\
-\
-                    {\
-                        \"key\": \"Finishings\",\
-                        \"name\": \"%16\",\
-                        \"options\": [\
-                            {\
-                                \"key\": \"Finishings_Combo\",\
-                                \"name\": \"Finishings_Combo\",\
-                                \"type\": \"custom-combobox\"\
-                            }\
-                        ]\
                     }\
                 ]\
             }\
