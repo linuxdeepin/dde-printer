@@ -183,8 +183,8 @@ void InstallPrinterWindow::setStatus(InstallationStatus status)
             m_pStatusImageLabel->setVisible(true);
             m_pStatusImageLabel->setPixmap(QPixmap(":/images/success.svg"));
             m_pTipLabel->setVisible(true);
-            m_pTipLabel->setText(tr("You have successfully added the printer. "
-                                    "Print a test page to check if it works properly."));
+            m_pTipLabel->setText(tr("You have successfully added the printer."
+                                    "Print a test page to check if it works properly"));
             m_pDriverCombo->setVisible(false);
             m_pCheckPrinterListBtn->setVisible(true);
             m_pCheckPrinterListBtn->setText(tr("View Printer"));
