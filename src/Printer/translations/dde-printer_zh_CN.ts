@@ -850,8 +850,7 @@ Click + to add printers</source>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="184"/>
         <source>Staple Location</source>
-        <translatorcomment>装订位置</translatorcomment>
-        <translation></translation>
+        <translation>装订位置</translation>
     </message>
     <message>
         <source>Margins</source>
