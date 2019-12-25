@@ -1064,8 +1064,8 @@ Click + to add printers</source>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="168"/>
         <location filename="../ui/installprinterwindow.cpp" line="186"/>
-        <source>You have successfully added the printer.Print a test page to check if it works properly</source>
-        <translation>添加打印机成功。请打印测试页测试打印机是否能够正常打印</translation>
+        <source>You have successfully added the printer.Print a test page to check if it works properly.</source>
+        <translation>添加打印机成功，请打印测试页测试打印机是否能够正常打印。</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="98"/>
@@ -1146,10 +1146,6 @@ Click + to add printers</source>
         <location filename="../ui/installprinterwindow.cpp" line="233"/>
         <source>Print failed</source>
         <translation>打印失败</translation>
-    </message>
-    <message>
-        <source>You have successfully added the printer. Print a test page to check if it works properly.</source>
-        <translation type="vanished">添加打印机成功，请打印测试页测试打印机是否能够正常打印。</translation>
     </message>
     <message>
         <source>Click Reinstall to install the printer driver again, 
