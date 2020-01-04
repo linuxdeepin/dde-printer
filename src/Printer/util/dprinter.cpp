@@ -47,6 +47,7 @@ bool DPrinter::initPrinterPPD()
         time_t tm = 0;
         string strPPDName = m_pCon->getPPD3(m_strName.toStdString().c_str(), &tm, nullptr);
         m_ppd.load(strPPDName.c_str());
+        m_ppd.localize();
         bRet = true;
     }
     catch (const std::runtime_error &e)
