@@ -907,10 +907,11 @@ unsigned int JobsDataModel::getActionStatus(int iRow) const
             flag = JOB_ACTION_Priority;
         }
 
+        flag |= JOB_ACTION_Hold;
         Q_FALLTHROUGH();
     }
     case IPP_JSTATE_PROCESSING:
-        flag |= JOB_ACTION_Cancel | JOB_ACTION_Hold;
+        flag |= JOB_ACTION_Cancel;
         break;
     case IPP_JSTATE_HELD:
         flag = JOB_ACTION_Cancel | JOB_ACTION_Release;
