@@ -689,7 +689,7 @@ void DPrintersShowWindow::printerListWidgetItemChangedSlot(const QModelIndex &pr
 
         QString location = basePrinterInfo.at(0);
         geteElidedText(m_pLabelLocationShow->font(), location, m_pLabelLocationShow->width());
-        m_pLabelLocationShow->setText(location);
+        m_pLabelLocationShow->setText(QObject::tr(location.toUtf8()));
         m_pLabelLocationShow->setToolTip(basePrinterInfo.at(0));
 
         QString model = basePrinterInfo.at(1);
