@@ -548,9 +548,9 @@ void AddPrinterTask::fillPrinterInfo()
 
         if (strHost.isEmpty()) {
            if (strUri.startsWith("hp") || strUri.startsWith("usb")) {
-               strHost = tr("Direct-attached Device");
+               strHost = "Direct-attached Device";
            } else if (strUri.startsWith("file")) {
-               strHost = tr("File");
+               strHost = "File";
            }
         }
 
