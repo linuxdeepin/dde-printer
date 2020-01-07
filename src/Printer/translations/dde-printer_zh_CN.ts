@@ -28,24 +28,6 @@
         <source> not found</source>
         <translation> 未找到</translation>
     </message>
-    <message>
-        <location filename="../vendor/addprinter.cpp" line="551"/>
-        <source>Direct-attached Device</source>
-        <translation>直连设备</translation>
-    </message>
-    <message>
-        <location filename="../vendor/addprinter.cpp" line="553"/>
-        <source>File</source>
-        <translation>文件</translation>
-    </message>
-    <message>
-        <source>Direct attached Device</source>
-        <translation type="vanished">直连设备</translation>
-    </message>
-    <message>
-        <source>File device</source>
-        <translation type="vanished">文件设备</translation>
-    </message>
 </context>
 <context>
     <name>CheckAttributes</name>
@@ -1223,32 +1205,32 @@ or click Troubleshoot to start troubleshooting.</source>
         <translation type="vanished">刷新</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="974"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="975"/>
         <source>Refresh</source>
         <translation>刷新</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="978"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="979"/>
         <source>All</source>
         <translation>全部</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="979"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="980"/>
         <source>Print Queue</source>
         <translation>打印队列</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="980"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="981"/>
         <source>Completed</source>
         <translation>已完成</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1033"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1034"/>
         <source> failed</source>
         <translation> 失败</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1054"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1055"/>
         <source>%1 jobs</source>
         <translation>%1项任务</translation>
     </message>
@@ -1550,6 +1532,16 @@ or click Troubleshoot to start troubleshooting.</source>
         <location filename="../vendor/common.cpp" line="144"/>
         <source> not found, please ask the administrator for help</source>
         <translation> 无法解析，请联系管理员</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerapplication.cpp" line="108"/>
+        <source>Direct-attached Device</source>
+        <translation>直连设备</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerapplication.cpp" line="109"/>
+        <source>File</source>
+        <translation>文件</translation>
     </message>
 </context>
 <context>
