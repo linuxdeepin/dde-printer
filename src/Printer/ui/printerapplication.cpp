@@ -105,6 +105,8 @@ int PrinterApplication::create()
     QLoggingCategory::setFilterRules(logRules);
     qInfo() << "save log to:" << DLogManager::getlogFilePath();
 
+    QObject::tr("Direct-attached Device");
+    QObject::tr("File");
     g_cupsMonitor->initTranslations();
     DPrinterManager::getInstance()->initLanguageTrans();
 
