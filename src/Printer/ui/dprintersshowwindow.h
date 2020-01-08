@@ -81,6 +81,11 @@ private:
 
         QLabel *pBaseSettings = new QLabel(tr("Basic Server Settings"));
         DFontSizeManager::instance()->bind(pBaseSettings, DFontSizeManager::T5, QFont::DemiBold);
+        QHBoxLayout *pHLayout = new QHBoxLayout();
+        pHLayout->setSpacing(0);
+        pHLayout->setContentsMargins(0, 0, 0, 0);
+        pHLayout->addSpacing(10);
+        pHLayout->addWidget(pBaseSettings);
 
         m_pCheckShared = new QCheckBox(tr("Publish shared printers connected to this system"));
         m_pCheckIPP = new QCheckBox(tr("Allow printing from the Internet"));
@@ -129,7 +134,7 @@ private:
 
         DFrame *pSettingWidget1 = new DFrame(this);
         QVBoxLayout *pMainVlaout1 = new QVBoxLayout();
-        pMainVlaout1->addWidget(pBaseSettings);
+        pMainVlaout1->addLayout(pHLayout);
         pMainVlaout1->addWidget(pSettingWidget);
         pMainVlaout1->setContentsMargins(10, 10, 10, 10);
         pSettingWidget1->setLayout(pMainVlaout1);

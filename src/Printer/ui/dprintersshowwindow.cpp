@@ -344,6 +344,7 @@ void DPrintersShowWindow::initConnections()
             } else {
                 stateStr = tr("Disabled");
             }
+            m_pLabelStatusShow->setText(stateStr);
         }
     });
 }
