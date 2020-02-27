@@ -609,8 +609,7 @@ void DPrintersShowWindow::printSettingClickSlot()
     if (!m_pPrinterListView->currentIndex().isValid())
         return ;
     QString strPrinterName = m_pPrinterListView->currentIndex().data().toString();
-    DPropertySetDlg dlg(this);
-    dlg.setPrinterName(strPrinterName);
+    DPropertySetDlg dlg(strPrinterName, this);
 
     if (dlg.isDriveBroken()) {
         DDialog dialog;
@@ -630,6 +629,8 @@ void DPrintersShowWindow::printSettingClickSlot()
         dialog.setGeometry(dialogRc);
         dialog.exec();
     } else {
+        dlg.initUI();
+        dlg.initConnection();
         dlg.updateViews();
         dlg.moveToParentCenter();
         dlg.exec();

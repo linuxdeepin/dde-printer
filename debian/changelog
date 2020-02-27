@@ -1,3 +1,10 @@
+dde-printer (0.4.9-1) unstable; urgency=medium
+
+  * add installed option
+
+ -- Wei Xie <wayne@wayne-PC>  Mon, 24 Feb 2020 20:07:52 +0800
+
+
 dde-printer (0.4.3-1) unstable; urgency=medium
 
   * beta version

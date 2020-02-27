@@ -69,6 +69,19 @@ typedef struct conflictPair
     QString strOpt2;
 } CONFLICTPAIR;
 
+
+
+typedef struct  OptNode
+{
+    QString strOptName;
+    QString strOptText;
+    QString strDefaultValue;
+    QVector<QMap<QString, QString>> vecChooseableValues;
+} OPTNODE;
+
+typedef OPTNODE INSTALLABLEOPTNODE;
+typedef OPTNODE GENERALOPTNODE;
+
 class DPrinter : public DDestination
 {
 public:
@@ -160,6 +173,14 @@ public:
 
     //conflicts check
     bool isConflict(const QString&, const QString&, QVector<CONFLICTNODE>&);
+
+    //读取可安装选项
+    QVector<INSTALLABLEOPTNODE> getInstallableNodes();
+    void setInstallableNodeValue(const QString& strOpt, const QString& strValue);
+
+    //读取常规选项
+    QVector<GENERALOPTNODE> getGeneralNodes();
+    void setGeneralNodeValue(const QString& strOpt, const QString& strValue);
 
 private:
     QString getOptionValue(const QString &strOptName);
