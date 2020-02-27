@@ -23,8 +23,13 @@
 #include <QString>
 #include <QVector>
 #include <QObject>
+#include <QDebug>
+#include <QFile>
 
-#define PROPERTYOPTIONNUM 16
+#include "util/dprinter.h"
+#include "util/dprintermanager.h"
+
+#define PROPERTYOPTIONNUM 8
 
 const QString generatePropertyDialogJson(const QVector<QString>& vecOption)
 {
@@ -104,105 +109,9 @@ const QString generatePropertyDialogJson(const QVector<QString>& vecOption)
                       ]\
                     },\
 \
-                    {\
-                      \"key\": \"Resolution_Label\",\
-                      \"name\": \"%7\",\
-                      \"options\": [\
-                          {\
-                              \"key\": \"Resolution_Combo\",\
-                              \"name\": \"Resolution_Combo\",\
-                              \"type\": \"custom-combobox\"\
-                          }\
-                      ]\
-                    },\
-\
-                    {\
-                      \"key\": \"OutputQuanlity_Label\",\
-                      \"name\": \"%8\",\
-                      \"options\": [\
-                          {\
-                              \"key\": \"OutputQuanlity_Combo\",\
-                              \"name\": \"OutputQuanlity_Combo\",\
-                              \"type\": \"custom-combobox\"\
-                          }\
-                      ]\
-                    },\
-\
-                    {\
-                      \"key\": \"PaperOrigin_Label\",\
-                      \"name\": \"%9\",\
-                      \"options\": [\
-                          {\
-                              \"key\": \"PaperOrigin_Combo\",\
-                              \"name\": \"PaperOrigin_Combo\",\
-                              \"type\": \"custom-combobox\"\
-                          }\
-                      ]\
-                    },\
-\
-                    {\
-                      \"key\": \"PaperType_Label\",\
-                      \"name\": \"%10\",\
-                      \"options\": [\
-                          {\
-                              \"key\": \"PaperType_Combo\",\
-                              \"name\": \"PaperType_Combo\",\
-                              \"type\": \"custom-combobox\"\
-                          }\
-                      ]\
-                    },\
-\
-                    {\
-                      \"key\": \"PageSize_Label\",\
-                      \"name\": \"%11\",\
-                      \"options\": [\
-                          {\
-                              \"key\": \"PageSize_Combo\",\
-                              \"name\": \"PageSize_Combo\",\
-                              \"type\": \"custom-combobox\"\
-                          }\
-                      ]\
-                    },\
-\
-                    {\
-                      \"key\": \"DuplexPrint_Label\",\
-                      \"name\": \"%12\",\
-                      \"options\": [\
-                          {\
-                              \"key\": \"Duplex_Combo\",\
-                              \"name\": \"Duplex_Combo\",\
-                              \"type\": \"custom-combobox\"\
-                          }\
-                      ]\
-                    },\
-\
-                    {\
-                      \"key\": \"BindEdge_Label\",\
-                      \"name\": \"%13\",\
-                      \"options\": [\
-                          {\
-                              \"key\": \"BindEdge_Combo\",\
-                              \"name\": \"BindEdge_Combo\",\
-                              \"type\": \"custom-combobox\"\
-                          }\
-                      ]\
-                    },\
-\
-                    {\
-                      \"key\": \"StapleLocation\",\
-                      \"name\": \"%14\",\
-                      \"options\": [\
-                           {\
-                               \"key\": \"StapleLocation_Combo\",\
-                               \"name\": \"StapleLocation_Combo\",\
-                               \"type\": \"custom-combobox\"\
-                           }\
-                       ]\
-                     },\
-\
                      {\
                        \"key\": \"Orientation_Label\",\
-                       \"name\": \"%15\",\
+                       \"name\": \"%7\",\
                        \"options\": [\
                           {\
                               \"key\": \"Orientation_Combo\",\
@@ -214,7 +123,7 @@ const QString generatePropertyDialogJson(const QVector<QString>& vecOption)
 \
                     {\
                       \"key\": \"PrintOrder_Label\",\
-                      \"name\": \"%16\",\
+                      \"name\": \"%8\",\
                       \"options\": [\
                           {\
                               \"key\": \"PrintOrder_Combo\",\
@@ -229,9 +138,56 @@ const QString generatePropertyDialogJson(const QVector<QString>& vecOption)
     }\
                                   ")\
   .arg(vecOption[0]).arg(vecOption[1]).arg(vecOption[2]).arg(vecOption[3]).arg(vecOption[4])\
-  .arg(vecOption[5]).arg(vecOption[6]).arg(vecOption[7]).arg(vecOption[8]).arg(vecOption[9])\
-   .arg(vecOption[10]).arg(vecOption[11]).arg(vecOption[12]).arg(vecOption[13])\
-    .arg(vecOption[14]).arg(vecOption[15]);
+  .arg(vecOption[5]).arg(vecOption[6]).arg(vecOption[7]);
+}
+
+
+const QString formatGroupString(const QVector<OptNode>& nodes)
+{
+    QString strAll;
+    DPrinterManager* pManager = DPrinterManager::getInstance();
+
+    for (int i = 0; i < nodes.size(); i++) {
+        QString strOptName = nodes[i].strOptName;
+        QString strOptText = nodes[i].strOptText;
+        QString strComboName = strOptName + QString::fromStdString("_Combo");
+        QString strLableText = pManager->translateLocal(strComboName, strOptText);
+        QString strNode = QString("\
+          {\
+            \"key\": \"%1_Label\",\
+            \"name\": \"%2\",\
+            \"options\": [\
+                {\
+                    \"key\": \"%3_Combo\",\
+                    \"name\": \"%4_Combo\",\
+                    \"type\": \"custom-combobox\"\
+                }\
+            ]\
+          }\
+        ").arg(strOptName).arg(strLableText).arg(strOptName).arg(strOptName);
+
+        strAll += ",";
+        strAll+= strNode;
+    }
+
+    qDebug() << strAll;
+    return strAll;
+}
+
+const QString appendGroupString(QString& strBase, const QString& strGroup)
+{
+    int iIndex = strBase.lastIndexOf("]");
+
+    if(iIndex < 0)
+        return "";
+
+    iIndex = strBase.lastIndexOf("]",iIndex - 1);
+
+    if(iIndex < 0)
+        return "";
+
+    strBase.insert(iIndex, strGroup);
+    return strBase;
 }
 
 #endif

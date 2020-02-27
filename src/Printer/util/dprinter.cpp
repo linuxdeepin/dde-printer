@@ -779,6 +779,95 @@ bool DPrinter::isConflict(const QString& strModule, const QString& strValue, QVe
     return bRet;
 }
 
+ QVector<INSTALLABLEOPTNODE> DPrinter::getInstallableNodes()
+ {
+     QVector<INSTALLABLEOPTNODE> nodes;
+
+     try {
+         vector<Group> groups = m_ppd.getOptionGroups();
+
+         for (unsigned int i = 0; i < groups.size(); i++) {
+             Group grp = groups[i];
+             QString strName = QString(grp.getName().data());
+
+             if(strName == QString::fromStdString("InstallableOptions"))
+             {
+                 vector<Option>  opts = grp.getOptions();
+
+                 for (unsigned int i = 0; i < opts.size(); i++) {
+                     Option opt = opts[i];
+                     INSTALLABLEOPTNODE node;
+                     node.strOptName = QString(opt.getKeyword().data());
+                     node.strOptText = QString(opt.getText().data());
+                     node.strDefaultValue = getOptionValue(node.strOptName);
+                     node.vecChooseableValues = getOptionChooses(node.strOptName);
+                     nodes.push_back(node);
+                 }
+             }
+         }
+     } catch (const std::runtime_error &e) {
+         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+     }
+     return nodes;
+ }
+
+ void DPrinter::setInstallableNodeValue(const QString& strOpt, const QString& strValue)
+ {
+     try {
+         setOptionValue(strOpt, strValue);
+     } catch (const std::runtime_error &e) {
+         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+     }
+ }
+
+ QVector<GENERALOPTNODE> DPrinter::getGeneralNodes()
+ {
+     QVector<GENERALOPTNODE> nodes;
+
+     try {
+         vector<Group> groups = m_ppd.getOptionGroups();
+
+         for (unsigned int i = 0; i < groups.size(); i++) {
+             Group grp = groups[i];
+             QString strName = QString(grp.getName().data());
+
+             if(strName == QString::fromStdString("General"))
+             {
+                 vector<Option>  opts = grp.getOptions();
+
+                 for (unsigned int i = 0; i < opts.size(); i++) {
+                     Option opt = opts[i];
+                     GENERALOPTNODE node;
+                     node.strOptName = QString::fromStdString(opt.getKeyword());
+
+                     if(node.strOptName == QString("ColorModel")||(node.strOptName == QString("PageRegion")))
+                     {
+                         continue;
+                     }
+
+                     node.strOptText = QString::fromStdString(opt.getText());
+                     node.strOptText = node.strOptText.trimmed();
+                     node.strDefaultValue = getOptionValue(node.strOptName);
+                     node.vecChooseableValues = getOptionChooses(node.strOptName);
+                     nodes.push_back(node);
+                 }
+             }
+         }
+     } catch (const std::runtime_error &e) {
+         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+     }
+     return nodes;
+ }
+
+ void DPrinter::setGeneralNodeValue(const QString& strOpt, const QString& strValue)
+ {
+     try {
+         setOptionValue(strOpt, strValue);
+     } catch (const std::runtime_error &e) {
+         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+     }
+ }
+
 QString DPrinter::getOptionValue(const QString &strOptName)
 {
     QString strDefault;

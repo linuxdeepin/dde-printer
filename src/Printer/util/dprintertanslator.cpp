@@ -35,51 +35,68 @@ void DPrinterTanslator::init()
     addTranslate("ColorMode_Combo", "None", tr("Grayscale"));
 
     //OutputQuanlity_Combo
-    addTranslate("OutputQuanlity_Combo", "None", tr("None"));
-    addTranslate("OutputQuanlity_Combo", "Draft", tr("Draft"));
-    addTranslate("OutputQuanlity_Combo", "Normal", tr("Normal"));
+    addTranslate("OutputMode_Combo", "None", tr("None"));
+    addTranslate("OutputMode_Combo", "Draft", tr("Draft"));
+    addTranslate("OutputMode_Combo", "Normal", tr("Normal"));
+
+    //PrintQuality_Combo
+    addTranslate("PrintQuality_Combo", "Printout Quality", tr("PrintoutQuality"));
+
+    //StpQuality_Combo
+    addTranslate("StpQuality_Combo", "Print Quality", tr("PrintoutQuality"));
+    addTranslate("StpQuality_Combo", "Manual Control", tr("Manual"));
+    addTranslate("StpQuality_Combo", "Draft", tr("Draft"));
 
     //PaperOrigin_Combo
-    addTranslate("PaperOrigin_Combo", "InputSlot", tr("InputSlot"));
-    addTranslate("PaperOrigin_Combo", "Auto-Select", tr("Auto-Select"));
-    addTranslate("PaperOrigin_Combo", "Automatic Selection", tr("Auto-Select"));
-    addTranslate("PaperOrigin_Combo", "Manual Feeder", tr("Manual Feeder"));
-    addTranslate("PaperOrigin_Combo", "Manual Feed", tr("Manual Feeder"));
-    addTranslate("PaperOrigin_Combo", "Auto", tr("Auto"));
-    addTranslate("PaperOrigin_Combo", "Manual", tr("Manual"));
-    addTranslate("PaperOrigin_Combo", "Drawer 1", tr("Drawer 1"));
-    addTranslate("PaperOrigin_Combo", "Drawer 2", tr("Drawer 2"));
-    addTranslate("PaperOrigin_Combo", "Drawer 3", tr("Drawer 3"));
-    addTranslate("PaperOrigin_Combo", "Drawer 4", tr("Drawer 4"));
-    addTranslate("PaperOrigin_Combo", "Drawer 5", tr("Drawer 5"));
-    addTranslate("PaperOrigin_Combo", "Envelope Feeder", tr("Envelope Feeder"));
-    addTranslate("PaperOrigin_Combo", "Tray1", tr("Tray1"));
-    addTranslate("PaperOrigin_Combo", "Unknown", tr("Unknown"));
-    addTranslate("PaperOrigin_Combo", "None", tr("None"));
+    addTranslate("InputSlot_Combo", "Paper Source", tr("Paper Source"));
+    addTranslate("InputSlot_Combo", "Media Source", tr("Paper Source"));
+    addTranslate("InputSlot_Combo", "InputSlot", tr("Paper Source"));
+    addTranslate("InputSlot_Combo", "Auto-Select", tr("Auto-Select"));
+    addTranslate("InputSlot_Combo", "Automatic Selection", tr("Auto-Select"));
+    addTranslate("InputSlot_Combo", "Manual Feeder", tr("Manual Feeder"));
+    addTranslate("InputSlot_Combo", "Manual Feed", tr("Manual Feeder"));
+    addTranslate("InputSlot_Combo", "Auto", tr("Auto"));
+    addTranslate("InputSlot_Combo", "Manual", tr("Manual"));
+    addTranslate("InputSlot_Combo", "Drawer 1", tr("Drawer 1"));
+    addTranslate("InputSlot_Combo", "Drawer 2", tr("Drawer 2"));
+    addTranslate("InputSlot_Combo", "Drawer 3", tr("Drawer 3"));
+    addTranslate("InputSlot_Combo", "Drawer 4", tr("Drawer 4"));
+    addTranslate("InputSlot_Combo", "Drawer 5", tr("Drawer 5"));
+    addTranslate("InputSlot_Combo", "Envelope Feeder", tr("Envelope Feeder"));
+    addTranslate("InputSlot_Combo", "Tray1", tr("Tray1"));
+    addTranslate("InputSlot_Combo", "Unknown", tr("Unknown"));
+    addTranslate("InputSlot_Combo", "None", tr("None"));
 
     //PaperType_Combo
-    addTranslate("PaperType_Combo", "MediaType", tr("MediaType"));
-    addTranslate("PaperType_Combo", "Auto", tr("Auto"));
-    addTranslate("PaperType_Combo", "Plain Paper", tr("Plain Paper"));
-    addTranslate("PaperType_Combo", "Recycled Paper", tr("Recycled Paper"));
-    addTranslate("PaperType_Combo", "Color Paper", tr("Color Paper"));
-    addTranslate("PaperType_Combo", "Bond Paper", tr("Bond Paper"));
-    addTranslate("PaperType_Combo", "Heavy Paper 1", tr("Heavy Paper 1"));
-    addTranslate("PaperType_Combo", "Heavy Paper 2", tr("Heavy Paper 2"));
-    addTranslate("PaperType_Combo", "Heavy Paper 3", tr("Heavy Paper 3"));
-    addTranslate("PaperType_Combo", "OHP", tr("OHP"));
-    addTranslate("PaperType_Combo", "CLEARFILM", tr("OHP"));
-    addTranslate("PaperType_Combo", "Labels", tr("Labels"));
-    addTranslate("PaperType_Combo", "Envelope", tr("Envelope"));
-    addTranslate("PaperType_Combo", "Photo Paper", tr("Photo Paper"));
-    addTranslate("PaperType_Combo", "None", tr("None"));
+    addTranslate("MediaType_Combo", "Media Type", tr("MediaType"));
+    addTranslate("MediaType_Combo", "Auto", tr("Auto"));
+    addTranslate("MediaType_Combo", "Plain Paper", tr("Plain Paper"));
+    addTranslate("MediaType_Combo", "Recycled Paper", tr("Recycled Paper"));
+    addTranslate("MediaType_Combo", "Color Paper", tr("Color Paper"));
+    addTranslate("MediaType_Combo", "Bond Paper", tr("Bond Paper"));
+    addTranslate("MediaType_Combo", "Heavy Paper 1", tr("Heavy Paper 1"));
+    addTranslate("MediaType_Combo", "Heavy Paper 2", tr("Heavy Paper 2"));
+    addTranslate("MediaType_Combo", "Heavy Paper 3", tr("Heavy Paper 3"));
+    addTranslate("MediaType_Combo", "OHP", tr("OHP"));
+    addTranslate("MediaType_Combo", "CLEARFILM", tr("OHP"));
+    addTranslate("MediaType_Combo", "Labels", tr("Labels"));
+    addTranslate("MediaType_Combo", "Envelope", tr("Envelope"));
+    addTranslate("MediaType_Combo", "Photo Paper", tr("Photo Paper"));
+    addTranslate("MediaType_Combo", "None", tr("None"));
 
     //PageSize_Combo
+    addTranslate("PageSize_Combo", "Media Size", tr("PageSize"));
+    addTranslate("PageSize_Combo", "Page Size", tr("PageSize"));
     addTranslate("PageSize_Combo", "PageSize", tr("PageSize"));
     addTranslate("PageSize_Combo", "Custom", tr("Custom"));
 
+    //PageRegion_Combo
+    addTranslate("PageRegion_Combo", "MediaSize", tr("PageRegion"));
+
     //Duplex_Combo
     addTranslate("Duplex_Combo", "Duplex", tr("Duplex"));
+    addTranslate("Duplex_Combo", "2-Sided Printing", tr("Duplex"));
+    addTranslate("Duplex_Combo", "Double-Sided Printing", tr("Duplex"));
     addTranslate("Duplex_Combo", "DuplexTumble", tr("DuplexTumble"));
     addTranslate("Duplex_Combo", "DuplexNoTumble", tr("DuplexNoTumble"));
     addTranslate("Duplex_Combo", "ON (Long-edged Binding)", tr("ON (Long-edged Binding)"));
@@ -88,7 +105,7 @@ void DPrinterTanslator::init()
     addTranslate("Duplex_Combo", "None", tr("OFF"));
 
     //BindEdge_Combo
-    addTranslate("BindEdge_Combo", "BindEdge", tr("BindEdge"));
+    addTranslate("BindEdge_Combo", "BindingEdge", tr("Binding Edge"));
     addTranslate("BindEdge_Combo", "None", tr("None"));
     addTranslate("BindEdge_Combo", "Left", tr("Left"));
     addTranslate("BindEdge_Combo", "Top", tr("Top"));
@@ -106,6 +123,7 @@ void DPrinterTanslator::init()
 
     //StapleLocation_Combo
     addTranslate("StapleLocation_Combo", "StapleLocation", tr("StapleLocation"));
+    addTranslate("StapleLocation_Combo", "Staple Location", tr("StapleLocation"));
     addTranslate("StapleLocation_Combo", "None", tr("None"));
     addTranslate("StapleLocation_Combo", "Bind", tr("Bind"));
     addTranslate("StapleLocation_Combo", "Bind (none)", tr("Bind (none)"));
@@ -116,6 +134,8 @@ void DPrinterTanslator::init()
 
     //Resolution_Combo
     addTranslate("Resolution_Combo", "None", tr("None"));
+    addTranslate("Resolution_Combo", "Resolution", tr("Resolution"));
+    addTranslate("Resolution_Combo", "Output Resolution", tr("Resolution"));
 }
 
 void DPrinterTanslator::addTranslate(const QString& strContext, const QString& strKey, const QString& strValue)
