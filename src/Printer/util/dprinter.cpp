@@ -381,22 +381,22 @@ QVector<QMap<QString, QString>> DPrinter::getPageOrientationChooses()
 
                     if(0 == strTemp.compare("3"))
                     {
-                        choose[QString::fromStdString("text")] = pManger->translateLocal("Orientation_Combo", "Portrait (no rotation)");
+                        choose[QString::fromStdString("text")] = pManger->translateLocal("Orientation_Combo", "Portrait (no rotation)", "Portrait (no rotation)");
                         choose[QString::fromStdString("choice")] = strTemp;
                     }
                     else if(0 == strTemp.compare("4"))
                     {
-                        choose[QString::fromStdString("text")] = pManger->translateLocal("Orientation_Combo", "Landscape (90 degrees)");
+                        choose[QString::fromStdString("text")] = pManger->translateLocal("Orientation_Combo", "Landscape (90 degrees)", "Landscape (90 degrees)");
                         choose[QString::fromStdString("choice")] = strTemp;
                     }
                     else if(0 == strTemp.compare("5"))
                     {
-                        choose[QString::fromStdString("text")] = pManger->translateLocal("Orientation_Combo", "Reverse landscape (270 degrees)");
+                        choose[QString::fromStdString("text")] = pManger->translateLocal("Orientation_Combo", "Reverse landscape (270 degrees)", "Reverse landscape (270 degrees)");
                         choose[QString::fromStdString("choice")] = strTemp;
                     }
                     else if(0 == strTemp.compare("6"))
                     {
-                        choose[QString::fromStdString("text")] = pManger->translateLocal("Orientation_Combo", "Reverse portrait (180 degrees)");
+                        choose[QString::fromStdString("text")] = pManger->translateLocal("Orientation_Combo", "Reverse portrait (180 degrees)", "Reverse portrait (180 degrees)");
                         choose[QString::fromStdString("choice")] = strTemp;
                     }
                     else
@@ -484,11 +484,11 @@ QVector<QMap<QString, QString>> DPrinter::getPageOutputOrderChooses()
     QVector<QMap<QString, QString>> vecChoose;
     //normal,reverse
     QMap<QString,QString> choose;
-    choose[QString::fromStdString("text")] = pManger->translateLocal("PrintOrder_Combo", "Normal");
+    choose[QString::fromStdString("text")] = pManger->translateLocal("PrintOrder_Combo", "Normal", "Normal");
     choose[QString::fromStdString("choice")] = QString::fromStdString("normal");
     vecChoose.push_back(choose);
     choose.clear();
-    choose[QString::fromStdString("text")] = pManger->translateLocal("PrintOrder_Combo", "Reverse");
+    choose[QString::fromStdString("text")] = pManger->translateLocal("PrintOrder_Combo", "Reverse", "Reverse");
     choose[QString::fromStdString("choice")] = QString::fromStdString("reverse");
     vecChoose.push_back(choose);
     return vecChoose;
@@ -649,17 +649,17 @@ QVector<QMap<QString, QString>> DPrinter::getFinishingsChooses()
 
                 if(0 == strTemp.compare("3"))
                 {
-                    choose[QString::fromStdString("text")] = pManger->translateLocal("StapleLocation_Combo", "Bind (none)");
+                    choose[QString::fromStdString("text")] = pManger->translateLocal("StapleLocation_Combo", "Bind (none)", "Bind (none)");
                     choose[QString::fromStdString("choice")] = "none";
                 }
                 else if(0 == strTemp.compare("50"))
                 {
-                    choose[QString::fromStdString("text")] = pManger->translateLocal("StapleLocation_Combo", "Bind (top)");
+                    choose[QString::fromStdString("text")] = pManger->translateLocal("StapleLocation_Combo", "Bind (top)",  "Bind (top)");
                     choose[QString::fromStdString("choice")] = "top";
                 }
                 else if(0 == strTemp.compare("51"))
                 {
-                    choose[QString::fromStdString("text")] = pManger->translateLocal("StapleLocation_Combo", "Bind (left)");
+                    choose[QString::fromStdString("text")] = pManger->translateLocal("StapleLocation_Combo", "Bind (left)", "Bind (left)");
                     choose[QString::fromStdString("choice")] = "left";
                 }
                 else

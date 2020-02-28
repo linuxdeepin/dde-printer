@@ -410,8 +410,8 @@ void DPrinterManager::initLanguageTrans()
     m_translator.init();
 }
 
-QString DPrinterManager::translateLocal(const QString &strContext, const QString &strKey)
+QString DPrinterManager::translateLocal(const QString &strContext, const QString &strKey,const QString& strDefault)
 {
-    QString strValue = m_translator.translateLocal(strContext, strKey);
+    QString strValue = m_translator.translateLocal(strContext, strKey, strDefault);
     return strValue;
 }
