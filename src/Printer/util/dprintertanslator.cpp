@@ -29,6 +29,7 @@ DPrinterTanslator::DPrinterTanslator()
 void DPrinterTanslator::init()
 {
     m_mapTrans.clear();
+    /*
     //ColorMode_Combo
     addTranslate("ColorMode_Combo", "Color", tr("Color"));
     addTranslate("ColorMode_Combo", "Grayscale", tr("Grayscale"));
@@ -41,6 +42,7 @@ void DPrinterTanslator::init()
 
     //PrintQuality_Combo
     addTranslate("PrintQuality_Combo", "Printout Quality", tr("PrintoutQuality"));
+    addTranslate("PrintQuality_Combo", "PrintQuality", tr("PrintoutQuality"));
 
     //StpQuality_Combo
     addTranslate("StpQuality_Combo", "Print Quality", tr("PrintoutQuality"));
@@ -86,7 +88,7 @@ void DPrinterTanslator::init()
 
     //PageSize_Combo
     addTranslate("PageSize_Combo", "Media Size", tr("PageSize"));
-    addTranslate("PageSize_Combo", "Page Size", tr("PageSize"));
+    addTranslate("PageSize_Combo", "PageSize", tr("PageSize"));
     addTranslate("PageSize_Combo", "PageSize", tr("PageSize"));
     addTranslate("PageSize_Combo", "Custom", tr("Custom"));
 
@@ -136,6 +138,13 @@ void DPrinterTanslator::init()
     addTranslate("Resolution_Combo", "None", tr("None"));
     addTranslate("Resolution_Combo", "Resolution", tr("Resolution"));
     addTranslate("Resolution_Combo", "Output Resolution", tr("Resolution"));
+    */
+
+    //Duplex_Combo
+    addTranslate("Duplex_Combo", "Duplex", tr("Duplex"));
+    addTranslate("Duplex_Combo", "DuplexNoTumble", tr("DuplexNoTumble"));
+    addTranslate("Duplex_Combo", "DuplexTumble", tr("DuplexTumble"));
+    addTranslate("Duplex_Combo", "None", tr("OFF"));
 }
 
 void DPrinterTanslator::addTranslate(const QString& strContext, const QString& strKey, const QString& strValue)
@@ -152,15 +161,15 @@ void DPrinterTanslator::addTranslate(const QString& strContext, const QString& s
     }
 }
 
-QString DPrinterTanslator::translateLocal(const QString & strContext, const QString& strKey)
+QString DPrinterTanslator::translateLocal(const QString & strContext, const QString& strKey, const QString& strDefault)
 {
     QMap<QString,QString> mapNode = m_mapTrans.value(strContext);
 
     if(mapNode.isEmpty())
     {
-        return strKey;
+        return strDefault;
     }
 
     QString strValue = mapNode.value(strKey);
-    return strValue.isEmpty() ? strKey : strValue;
+    return strValue.isEmpty() ? strDefault : strValue;
 }

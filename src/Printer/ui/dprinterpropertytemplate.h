@@ -149,9 +149,8 @@ const QString formatGroupString(const QVector<OptNode>& nodes)
 
     for (int i = 0; i < nodes.size(); i++) {
         QString strOptName = nodes[i].strOptName;
-        QString strOptText = nodes[i].strOptText;
         QString strComboName = strOptName + QString::fromStdString("_Combo");
-        QString strLableText = pManager->translateLocal(strComboName, strOptText);
+        QString strLableText = pManager->translateLocal(strComboName, strOptName, nodes[i].strOptText);
         QString strNode = QString("\
           {\
             \"key\": \"%1_Label\",\

@@ -304,7 +304,7 @@ void DPropertySetDlg::updateComboByName(const QString &strWidgetName, const QStr
             QString strChoice = mapValues[QString::fromStdString("choice")];
             DPrinterManager *pManger = DPrinterManager::getInstance();
             strText =  strText.trimmed();
-            strText = pManger->translateLocal(strWidgetName, strText);
+            strText = pManger->translateLocal(strWidgetName, strChoice, strText);
 
             if ((!strText.isEmpty()) && (!strChoice.isEmpty())) {
                 if (strChoice == strDefault) {
@@ -319,7 +319,7 @@ void DPropertySetDlg::updateComboByName(const QString &strWidgetName, const QStr
         pCombo->setCurrentIndex(iIndex);
     } else {
         DPrinterManager *pManger = DPrinterManager::getInstance();
-        QString strText = pManger->translateLocal(strWidgetName, "None");
+        QString strText = pManger->translateLocal(strWidgetName, "None", "None");
         pCombo->addItem(strText);
         pCombo->setItemData(0, UNSUPPORTED, COMBOITEMROLE::VALUEROLE);
     }
@@ -635,8 +635,8 @@ void DPropertySetDlg::showConflictDlg(const vector<CONFLICTPAIR> &vecConflictPai
     DFontSizeManager::instance()->bind(pLabel2, DFontSizeManager::T6, QFont::DemiBold);
     pLabel2->setAlignment(Qt::AlignCenter);
     DPrinterManager *pManager = DPrinterManager::getInstance();
-    QString strOpt1 = pManager->translateLocal(m_mapOfConflict.value(vecConflictPairs[0].strOpt1), vecConflictPairs[0].strOpt1);
-    QString strOpt2 = pManager->translateLocal(m_mapOfConflict.value(vecConflictPairs[0].strOpt2), vecConflictPairs[0].strOpt2);
+    QString strOpt1 = pManager->translateLocal(m_mapOfConflict.value(vecConflictPairs[0].strOpt1), vecConflictPairs[0].strOpt1, vecConflictPairs[0].strOpt1);
+    QString strOpt2 = pManager->translateLocal(m_mapOfConflict.value(vecConflictPairs[0].strOpt2), vecConflictPairs[0].strOpt2, vecConflictPairs[0].strOpt1);
     QLabel *pLabel3 = new DLabel(tr("Conflict:") + strOpt1 + "\t,\t" + strOpt2);
     DFontSizeManager::instance()->bind(pLabel3, DFontSizeManager::T6, QFont::DemiBold);
     pLabel3->setAlignment(Qt::AlignCenter);
