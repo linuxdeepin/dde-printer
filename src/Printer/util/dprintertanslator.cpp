@@ -145,6 +145,9 @@ void DPrinterTanslator::init()
     addTranslate("Duplex_Combo", "DuplexNoTumble", tr("DuplexNoTumble"));
     addTranslate("Duplex_Combo", "DuplexTumble", tr("DuplexTumble"));
     addTranslate("Duplex_Combo", "None", tr("OFF"));
+
+    //BindEdge_Combo
+    addTranslate("BindEdge_Combo", "BindEdge", tr("Binding Edge"));
 }
 
 void DPrinterTanslator::addTranslate(const QString& strContext, const QString& strKey, const QString& strValue)
