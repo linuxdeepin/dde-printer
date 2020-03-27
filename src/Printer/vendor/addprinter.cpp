@@ -322,26 +322,25 @@ int AddCanonCAPTPrinter::addPrinter()
 
     if (!QFile::exists(g_captexec)) {
         qWarning() << g_captexec << "not found";
-        emit signalStatus(TStat_Fail);
         return -1;
     }
 
-    if (m_bQuit) return 0;
+    if (m_bQuit) return -1;
 
     m_proc.start("pkexec", QStringList{g_captexec, m_printer.strName, ppd_name, m_uri});
 
-    return 0;
+    return 1;
 }
 
 void AddCanonCAPTPrinter::slotProcessFinished(int iCode, QProcess::ExitStatus exitStatus)
 {
     qInfo() << iCode << exitStatus;
-    if (exitStatus == QProcess::NormalExit && 0 == iCode) {
-        emit signalStatus(TStat_Suc);
-    } else {
+    if (exitStatus != QProcess::NormalExit || 0 != iCode) {
         m_strErr = m_proc.readAllStandardError();
-        emit signalStatus(TStat_Fail);
+        m_iStep = STEP_Failed;
     }
+
+    nextStep();
 }
 
 DefaultAddPrinter::DefaultAddPrinter(const TDeviceInfo &printer, const QMap<QString, QVariant> &solution, const QString &uri, QObject *parent)
@@ -365,7 +364,7 @@ int DefaultAddPrinter::addPrinter()
     int driverType = m_solution[SD_KEY_from].toInt();
     ppd_name = m_solution[CUPS_PPD_NAME].toString();
 
-    if (m_bQuit) return 0;
+    if (m_bQuit) return -1;
 
     args << "-p" << m_printer.strName << "-E" << "-v" << m_uri;
     if (PPDFrom_EveryWhere == driverType)
@@ -383,29 +382,31 @@ int DefaultAddPrinter::addPrinter()
     qInfo() << args.join(" ") ;
     m_proc.start("/usr/sbin/lpadmin", args);
 
-    return 0;
+    return 1;
 }
 
 void DefaultAddPrinter::slotProcessFinished(int iCode, QProcess::ExitStatus exitStatus)
 {
     qInfo() << iCode << exitStatus;
-    if (exitStatus == QProcess::NormalExit && 0 == iCode) {
-        emit signalStatus(TStat_Suc);
-    } else {
+    if (exitStatus != QProcess::NormalExit || 0 != iCode) {
         int index;
         m_strErr = m_proc.readAllStandardError();
         index = m_strErr.indexOf("\n")+1;
         if (index < m_strErr.length())
             m_strErr = m_strErr.mid(index);
-        emit signalStatus(TStat_Fail);
+
+        m_iStep = STEP_Failed;
     }
+
+    nextStep();
 }
 
 AddPrinterTask::AddPrinterTask(const TDeviceInfo &printer, const QMap<QString, QVariant> &solution, const QString &uri, QObject *parent)
     :QObject(parent),
       m_installDepends(nullptr),
       m_installDriver(nullptr),
-      m_bQuit(false)
+      m_bQuit(false),
+      m_iStep(STEP_Start)
 {
     m_printer = printer;
     m_solution = solution;
@@ -440,7 +441,6 @@ int AddPrinterTask::isUriAndDriverMatched()
         } else {
             m_strErr += tr("Please select an hplip driver and try again.");
         }
-        emit signalStatus(TStat_Fail);
         return -1;
     }
 
@@ -454,14 +454,14 @@ int AddPrinterTask::checkUriAndDriver()
     if (m_printer.uriList.isEmpty()) {
         m_strErr = tr("URI can't be empty");
 
-        emit signalStatus(TStat_Fail);
         return -1;
     }
 
     ppd_name = m_solution[CUPS_PPD_NAME].toString();
     if (m_solution[SD_KEY_from].toInt() == PPDFrom_File && !QFile::exists(ppd_name)) {
         m_strErr = ppd_name + tr(" not found");
-        emit signalStatus(TStat_Fail);
+
+        return -2;
     }
 
     return isUriAndDriverMatched();
@@ -471,18 +471,51 @@ int AddPrinterTask::doWork()
 {
     qInfo() << m_printer.uriList << m_solution[CUPS_PPD_NAME].toString();
 
-    if (0 != checkUriAndDriver())
-        return -1;
-
-    fillPrinterInfo();
-
-    if (0 == fixDriverDepends()) {
-        if (0 ==installDriver()) {
-            addPrinter();
-        }
-    }
+    nextStep();
 
     return 0;
+}
+
+void AddPrinterTask::nextStep()
+{
+    int iRet = 0;
+
+    qInfo() << m_iStep;
+
+    //每一步执行如果返回0则说明执行完，直接执行下一步
+    //如果返回大于0则说明有异步的操作在执行，直接返回，等待异步操作执行完调用nextStep
+    //如果返回小于0则说明执行失败，将标志设置为失败执行nextStep触发失败的信号
+    switch (m_iStep++) {
+    case STEP_Start:
+        iRet = checkUriAndDriver();
+        break;
+    case STEP_FillInfo:
+        iRet = fillPrinterInfo();
+        break;
+    case STEP_FixDriver:
+        iRet = fixDriverDepends();
+        break;
+    case STEP_InstallDriver:
+        iRet = installDriver();
+        break;
+    case STEP_AddPrinter:
+        iRet = addPrinter();
+        break;
+    case STEP_Finished:
+        emit signalStatus(TStat_Suc);
+        return;
+    default:
+        emit signalStatus(TStat_Fail);
+        return;
+    }
+
+    if (0 > iRet) {
+        m_iStep = STEP_Failed;
+    } else if(iRet > 0) {
+        return;
+    }
+
+    nextStep();
 }
 
 QString AddPrinterTask::getErrorMassge()
@@ -538,7 +571,7 @@ int AddPrinterTask::installDriver()
     return 0;
 }
 
-void AddPrinterTask::fillPrinterInfo()
+int AddPrinterTask::fillPrinterInfo()
 {
     m_printer.strName = g_addPrinterFactoty->defaultPrinterName(m_printer, m_solution);
 
@@ -562,6 +595,8 @@ void AddPrinterTask::fillPrinterInfo()
 
         m_printer.strInfo = strModel.isEmpty()?m_solution[CUPS_PPD_MAKE_MODEL].toString() : strModel;
     }
+
+    return 0;
 }
 
 void AddPrinterTask::stop()
@@ -598,26 +633,22 @@ void AddPrinterTask::slotDependsStatus(int iStatus)
 {
     if(m_bQuit) return;
 
-    if (TStat_Suc == iStatus) {
-        if (0 ==installDriver()) {
-            addPrinter();
-        }
-    } else {
+    if (TStat_Fail == iStatus) {
         m_strErr = m_installDepends->getErrorString();
-        emit signalStatus(iStatus);
+        m_iStep = STEP_Failed;
     }
+    nextStep();
 }
 
 void AddPrinterTask::slotInstallStatus(int iStatus)
 {
     if(m_bQuit) return;
 
-    if (TStat_Suc == iStatus) {
-        addPrinter();
-    } else {
+    if (TStat_Fail == iStatus) {
         m_strErr = m_installDriver->getErrorString();
-        emit signalStatus(iStatus);
+        m_iStep = STEP_Failed;
     }
+    nextStep();
 }
 
 
