@@ -110,6 +110,109 @@ static QDBusInterface* getPackageInterface()
     return &interface;
 }
 
+FixHplipBackend::FixHplipBackend(QObject *parent):QObject(parent)
+{
+    m_deviceTask = nullptr;
+    m_installer = nullptr;
+}
+
+int FixHplipBackend::startFixed()
+{
+    qInfo() << "";
+
+    if (!m_installer) {
+        m_installer = new InstallInterface(this);
+
+        QList<TPackageInfo> packages;
+        TPackageInfo info;
+        info.packageName = "hplip";
+        packages.append(info);
+        m_installer->setPackages(packages);
+
+        connect(m_installer, &InstallInterface::signalStatus, this, &FixHplipBackend::slotInstallStatus);
+
+    }
+
+    m_installer->startInstallPackages();
+    return 0;
+}
+
+void FixHplipBackend::stop()
+{
+    if (m_installer)
+        m_installer->stop();
+
+    if (m_deviceTask)
+        m_deviceTask->stop();
+}
+
+QString FixHplipBackend::getErrorString()
+{
+    return m_strError;
+}
+
+QString FixHplipBackend::getMatchHplipUri(const QString& strUri)
+{
+    QString strMatch;
+
+    qInfo() << strUri;
+
+    if (m_deviceTask) {
+        QList<TDeviceInfo> devices = m_deviceTask->getResult();
+
+        QRegularExpression re("serial=([^&]*)");
+        QRegularExpressionMatch match = re.match(strUri);
+        if (match.hasMatch()) {
+            QString serial = match.captured(1).toLower();
+
+            for (int i=0;i<devices.count();i++) {
+                QRegularExpressionMatch devMatch = re.match(devices[i].uriList[0]);
+                QString devSerial = devMatch.hasMatch() ? match.captured(1).toLower() : "";
+
+                if (!devSerial.isEmpty() && devSerial == serial) {
+                    qInfo() << "Got " << devices[i].uriList[0];
+                    return devices[i].uriList[0];
+                }
+            }
+        }
+    }
+
+    return strMatch;
+}
+
+void FixHplipBackend::slotDeviceStatus(int id, int status)
+{
+    Q_UNUSED(id);
+
+    qInfo() << status;
+
+    if (TStat_Suc == status || TStat_Fail == status) {
+        if (TStat_Fail == status) {
+            m_strError = m_deviceTask->getErrorString();
+        }
+        emit signalStatus(status);
+    }
+}
+
+void FixHplipBackend::slotInstallStatus(int status)
+{
+    qInfo() << status;
+
+    if (TStat_Suc == status) {
+        if (nullptr == m_deviceTask) {
+            m_hplipBackend.excludeSchemes = CUPS_EXCLUDE_NONE;
+            m_hplipBackend.includeSchemes = "hp";
+            m_deviceTask = new RefreshDevicesByBackendTask(&m_hplipBackend);
+            connect(m_deviceTask, &RefreshDevicesByBackendTask::signalStatus, this, &FixHplipBackend::slotDeviceStatus);
+        }
+
+        m_deviceTask->start();
+    } else {
+        m_strError = m_installer->getErrorString();
+        emit signalStatus(TStat_Fail);
+    }
+}
+
 InstallInterface::InstallInterface(QObject *parent)
     :QObject (parent),
       m_bQuit(false)
@@ -406,7 +509,8 @@ AddPrinterTask::AddPrinterTask(const TDeviceInfo &printer, const QMap<QString, Q
       m_installDepends(nullptr),
       m_installDriver(nullptr),
       m_bQuit(false),
-      m_iStep(STEP_Start)
+      m_iStep(STEP_Start),
+      m_fixHplip(nullptr)
 {
     m_printer = printer;
     m_solution = solution;
@@ -438,6 +542,12 @@ int AddPrinterTask::isUriAndDriverMatched()
         m_strErr = tr("URI and driver do not match.");
         if (is_hplip) {
             m_strErr += tr("Install hplip first and restart the app to install the driver again.");
+            if (!m_fixHplip) {
+                m_fixHplip = new FixHplipBackend(this);
+                connect(m_fixHplip, &FixHplipBackend::signalStatus, this, &AddPrinterTask::slotFixHplipStatus);
+                m_fixHplip->startFixed();
+                return 1;
+            }
         } else {
             m_strErr += tr("Please select an hplip driver and try again.");
         }
@@ -651,6 +761,22 @@ void AddPrinterTask::slotInstallStatus(int iStatus)
     nextStep();
 }
 
+void AddPrinterTask::slotFixHplipStatus(int iStatus)
+{
+    if(m_bQuit) return;
+
+    if (TStat_Fail == iStatus) {
+        m_strErr = m_fixHplip->getErrorString();
+        m_iStep = STEP_Failed;
+    } else if (TStat_Suc == iStatus) {
+        QString strUri = m_fixHplip->getMatchHplipUri(m_printer.uriList[0]);
+
+        if(!strUri.isEmpty()) {
+            m_uri = strUri;
+        }
+    }
+    nextStep();
+}
 
 AddPrinterFactory* AddPrinterFactory::getInstance()
 {

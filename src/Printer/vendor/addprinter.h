@@ -28,6 +28,7 @@
 
 class InstallInterface;
 class InstallDriver;
+class FixHplipBackend;
 
 class AddPrinterTask : public QObject
 {
@@ -72,6 +73,7 @@ signals:
 protected slots:
     void slotInstallStatus(int iStatus);
     void slotDependsStatus(int iStatus);
+    void slotFixHplipStatus(int iStatus);
 
 protected:
     TDeviceInfo     m_printer;
@@ -83,6 +85,8 @@ protected:
     QString         m_strErr;
 
     int             m_iStep;
+
+    FixHplipBackend*    m_fixHplip;
 };
 
 class AddPrinterFactory
