@@ -88,18 +88,27 @@ private:
     friend class RefreshDevicesByBackendTask;
 };
 
+typedef struct tagBackendSchemes{
+   const char* includeSchemes;
+   const char* excludeSchemes;
+}TBackendSchemes;
+
 class RefreshDevicesByBackendTask : public RefreshDevicesTask
 {
     Q_OBJECT
 
 public:
-    RefreshDevicesByBackendTask(int id = TASK_RefreshKnownDev, QObject *parent = nullptr);
+    //支持传入查找规则，如果sechemes不为空，则认为传入一个TBackendSchemes结构体
+    RefreshDevicesByBackendTask(TBackendSchemes* sechemes = nullptr, int id = TASK_RefreshKnownDev, QObject *parent = nullptr);
 
 protected:
     int doWork();
 
     int mergeDevice(TDeviceInfo &device, const char * backend);
     int addDevices(const map<string, map<string, string>> &devs, const char *backend);
+
+private:
+    TBackendSchemes *m_sechemes;
 };
 
 class RefreshDevicesByHostTask : public RefreshDevicesTask
