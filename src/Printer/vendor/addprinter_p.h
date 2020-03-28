@@ -23,6 +23,7 @@
 #define ADDPRINTER_P_H
 
 #include "addprinter.h"
+#include "zdevicemanager.h"
 
 #include <QProcess>
 #include <QDBusMessage>
@@ -121,6 +122,36 @@ protected slots:
 
 private:
     QProcess    m_proc;
+};
+
+class FixHplipBackend : public QObject
+{
+    Q_OBJECT
+
+public:
+    FixHplipBackend(QObject *parent=nullptr);
+
+    int startFixed();
+    QString getMatchHplipUri(const QString& strUri);
+
+    void stop();
+
+    QString getErrorString();
+
+signals:
+    void signalStatus(int);
+
+protected slots:
+    void slotDeviceStatus(int id, int status);
+    void slotInstallStatus(int status);
+
+private:
+    RefreshDevicesByBackendTask*    m_deviceTask;
+    TBackendSchemes                 m_hplipBackend;
+
+    InstallInterface*               m_installer;
+
+    QString     m_strError;
 };
 
 #endif//ADDPRINTER_P_H

@@ -46,11 +46,6 @@ QString     g_smbpassword;
 #define ERR_SocketBase      1000
 #define SOCKET_Timeout      3000
 
-typedef struct tagBackendSchemes{
-   const char* includeSchemes;
-   const char* excludeSchemes;
-}TBackendSchemes;
-
 TBackendSchemes g_backendSchemes[] = {{"usb", CUPS_EXCLUDE_NONE},
                                      {"hp", CUPS_EXCLUDE_NONE},
                                       {"snmp", CUPS_EXCLUDE_NONE},
@@ -120,8 +115,9 @@ void RefreshDevicesTask::clearDevices()
     m_devices.clear();
 }
 
-RefreshDevicesByBackendTask::RefreshDevicesByBackendTask(int id, QObject* parent)
-    :RefreshDevicesTask(id, parent)
+RefreshDevicesByBackendTask::RefreshDevicesByBackendTask(TBackendSchemes* sechemes, int id, QObject* parent)
+    :RefreshDevicesTask(id, parent),
+      m_sechemes(sechemes)
 {}
 
 int RefreshDevicesByBackendTask::mergeDevice(TDeviceInfo &device, const char * backend)
@@ -228,13 +224,19 @@ int RefreshDevicesByBackendTask::addDevices(const map<string, map<string, string
 
 int RefreshDevicesByBackendTask::doWork()
 {
-    int sechCount = sizeof(g_backendSchemes)/sizeof(g_backendSchemes[0]);
+    int sechCount = 1;
     int snmpCount = 0;
+
+    //传入为空的时候用默认的规则查找
+    if (!m_sechemes) {
+        m_sechemes = g_backendSchemes;
+        sechCount = sizeof(g_backendSchemes)/sizeof(g_backendSchemes[0]);
+    }
 
     clearDevices();
 
     for (int i=0;i<sechCount;i++) {
-        const char *inSech = g_backendSchemes[i].includeSchemes;
+        const char *inSech = m_sechemes[i].includeSchemes;
         vector<string> inSechemes, exSechemes;
         map<string, map<string, string>> devs;
 
@@ -246,11 +248,11 @@ int RefreshDevicesByBackendTask::doWork()
 
         int lastPrinterCount = getResult().count();
         if (inSech == CUPS_INCLUDE_ALL) {
-            QStringList exlist = QString(g_backendSchemes[i].excludeSchemes).split(",");
+            QStringList exlist = QString(m_sechemes[i].excludeSchemes).split(",");
 
             //CUPS_INCLUDE_ALL的情况排除之前已经查找的后端
             for(int j=0;j<i;j++) {
-                exlist.append(g_backendSchemes[j].includeSchemes);
+                exlist.append(m_sechemes[j].includeSchemes);
             }
 
             exSechemes = qStringListStdVector(exlist);

@@ -28,6 +28,7 @@
 
 class InstallInterface;
 class InstallDriver;
+class FixHplipBackend;
 
 class AddPrinterTask : public QObject
 {
@@ -46,11 +47,23 @@ public:
     QMap<QString, QVariant> getDriverInfo();
 
 protected:
+    enum {
+        STEP_Start = 0,
+        STEP_FillInfo,
+        STEP_FixDriver,
+        STEP_InstallDriver,
+        STEP_AddPrinter,
+        STEP_Finished,
+        STEP_Failed
+    };
+
     virtual int fixDriverDepends();
     virtual int installDriver();
     virtual int addPrinter() = 0;
 
-    void fillPrinterInfo();
+    void nextStep();
+
+    int fillPrinterInfo();
     int checkUriAndDriver();
     int isUriAndDriverMatched();
 
@@ -60,6 +73,7 @@ signals:
 protected slots:
     void slotInstallStatus(int iStatus);
     void slotDependsStatus(int iStatus);
+    void slotFixHplipStatus(int iStatus);
 
 protected:
     TDeviceInfo     m_printer;
@@ -69,6 +83,10 @@ protected:
     InstallDriver*  m_installDriver;
     bool            m_bQuit;
     QString         m_strErr;
+
+    int             m_iStep;
+
+    FixHplipBackend*    m_fixHplip;
 };
 
 class AddPrinterFactory
