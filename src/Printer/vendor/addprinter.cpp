@@ -276,7 +276,11 @@ void InstallInterface::startInstallPackages()
                     this, SLOT(propertyChanged(QDBusMessage)))) {
             qDebug() << "Start install " << m_installPackages;
             return;
+        } else {
+            qWarning() << "Connect dbus signal failed";
         }
+    } else {
+        qWarning() << "DBus error: " << objPath.error().message();
     }
 
     m_strErr = tr("Failed to install the driver by calling dbus interface");
