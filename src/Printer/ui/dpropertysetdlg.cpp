@@ -636,7 +636,7 @@ void DPropertySetDlg::showConflictDlg(const vector<CONFLICTPAIR> &vecConflictPai
     pLabel2->setAlignment(Qt::AlignCenter);
     DPrinterManager *pManager = DPrinterManager::getInstance();
     QString strOpt1 = pManager->translateLocal(m_mapOfConflict.value(vecConflictPairs[0].strOpt1), vecConflictPairs[0].strOpt1, vecConflictPairs[0].strOpt1);
-    QString strOpt2 = pManager->translateLocal(m_mapOfConflict.value(vecConflictPairs[0].strOpt2), vecConflictPairs[0].strOpt2, vecConflictPairs[0].strOpt1);
+    QString strOpt2 = pManager->translateLocal(m_mapOfConflict.value(vecConflictPairs[0].strOpt2), vecConflictPairs[0].strOpt2, vecConflictPairs[0].strOpt2);
     QLabel *pLabel3 = new DLabel(tr("Conflict:") + strOpt1 + "\t,\t" + strOpt2);
     DFontSizeManager::instance()->bind(pLabel3, DFontSizeManager::T6, QFont::DemiBold);
     pLabel3->setAlignment(Qt::AlignCenter);
