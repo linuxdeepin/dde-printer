@@ -182,6 +182,9 @@ public:
     QVector<GENERALOPTNODE> getGeneralNodes();
     void setGeneralNodeValue(const QString& strOpt, const QString& strValue);
 
+    //通过关键词读取选项
+    OPTNODE getOptionNodeByKeyword(const QString& strKey);
+
 private:
     QString getOptionValue(const QString &strOptName);
     void setOptionValue(const QString &strOptName, const QString &strValue);
