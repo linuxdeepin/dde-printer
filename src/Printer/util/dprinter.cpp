@@ -868,6 +868,36 @@ bool DPrinter::isConflict(const QString& strModule, const QString& strValue, QVe
      }
  }
 
+ OPTNODE DPrinter::getOptionNodeByKeyword(const QString& strKey)
+ {
+    OPTNODE node;
+
+     try {
+         vector<Group> groups = m_ppd.getOptionGroups();
+
+         for (unsigned int i = 0; i < groups.size(); i++) {
+                 Group grp = groups[i];
+                 vector<Option>  opts = grp.getOptions();
+
+                 for (unsigned int i = 0; i < opts.size(); i++) {
+                     Option opt = opts[i];
+                     QString strTempKey = QString(opt.getKeyword().data());
+
+                     if(strTempKey == strKey)
+                     {
+                         node.strOptName = strKey;
+                         node.strOptText = QString(opt.getText().data());
+                         node.strDefaultValue = getOptionValue(node.strOptName);
+                         node.vecChooseableValues = getOptionChooses(node.strOptName);
+                     }
+                 }
+             }
+     } catch (const std::runtime_error &e) {
+         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+     }
+     return node;
+ }
+
 QString DPrinter::getOptionValue(const QString &strOptName)
 {
     QString strDefault;

@@ -29,7 +29,7 @@ DPrinterTanslator::DPrinterTanslator()
 void DPrinterTanslator::init()
 {
     m_mapTrans.clear();
-    /*
+
     //ColorMode_Combo
     addTranslate("ColorMode_Combo", "Color", tr("Color"));
     addTranslate("ColorMode_Combo", "Grayscale", tr("Grayscale"));
@@ -111,6 +111,7 @@ void DPrinterTanslator::init()
     addTranslate("BindEdge_Combo", "None", tr("None"));
     addTranslate("BindEdge_Combo", "Left", tr("Left"));
     addTranslate("BindEdge_Combo", "Top", tr("Top"));
+    addTranslate("BindEdge_Combo", "BindEdge", tr("Binding Edge"));
 
     //Orientation_Combo
     addTranslate("Orientation_Combo", "Portrait (no rotation)", tr("Portrait (no rotation)"));
@@ -138,16 +139,6 @@ void DPrinterTanslator::init()
     addTranslate("Resolution_Combo", "None", tr("None"));
     addTranslate("Resolution_Combo", "Resolution", tr("Resolution"));
     addTranslate("Resolution_Combo", "Output Resolution", tr("Resolution"));
-    */
-
-    //Duplex_Combo
-    addTranslate("Duplex_Combo", "Duplex", tr("Duplex"));
-    addTranslate("Duplex_Combo", "DuplexNoTumble", tr("DuplexNoTumble"));
-    addTranslate("Duplex_Combo", "DuplexTumble", tr("DuplexTumble"));
-    addTranslate("Duplex_Combo", "None", tr("OFF"));
-
-    //BindEdge_Combo
-    addTranslate("BindEdge_Combo", "BindEdge", tr("Binding Edge"));
 }
 
 void DPrinterTanslator::addTranslate(const QString& strContext, const QString& strKey, const QString& strValue)

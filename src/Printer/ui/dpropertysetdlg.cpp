@@ -635,8 +635,21 @@ void DPropertySetDlg::showConflictDlg(const vector<CONFLICTPAIR> &vecConflictPai
     DFontSizeManager::instance()->bind(pLabel2, DFontSizeManager::T6, QFont::DemiBold);
     pLabel2->setAlignment(Qt::AlignCenter);
     DPrinterManager *pManager = DPrinterManager::getInstance();
-    QString strOpt1 = pManager->translateLocal(m_mapOfConflict.value(vecConflictPairs[0].strOpt1), vecConflictPairs[0].strOpt1, vecConflictPairs[0].strOpt1);
-    QString strOpt2 = pManager->translateLocal(m_mapOfConflict.value(vecConflictPairs[0].strOpt2), vecConflictPairs[0].strOpt2, vecConflictPairs[0].strOpt2);
+    DDestination *pDest = pManager->getDestinationByName(m_strPrinterName);
+    DPrinter* pPrinter = nullptr;
+    QString strValue1, strValue2;
+
+    if (pDest != nullptr) {
+        if (DESTTYPE::PRINTER == pDest->getType()) {
+            pPrinter = static_cast<DPrinter *>(pDest);
+            OPTNODE node= pPrinter->getOptionNodeByKeyword(vecConflictPairs[0].strOpt1);
+            strValue1 = node.strOptText;
+            node = pPrinter->getOptionNodeByKeyword(vecConflictPairs[0].strOpt2);
+            strValue2 = node.strOptText;
+        }
+    }
+    QString strOpt1 = pManager->translateLocal(m_mapOfConflict.value(vecConflictPairs[0].strOpt1), vecConflictPairs[0].strOpt1, strValue1);
+    QString strOpt2 = pManager->translateLocal(m_mapOfConflict.value(vecConflictPairs[0].strOpt2), vecConflictPairs[0].strOpt2, strValue2);
     QLabel *pLabel3 = new DLabel(tr("Conflict:") + strOpt1 + "\t,\t" + strOpt2);
     DFontSizeManager::instance()->bind(pLabel3, DFontSizeManager::T6, QFont::DemiBold);
     pLabel3->setAlignment(Qt::AlignCenter);
