@@ -135,15 +135,16 @@ int RefreshDevicesByBackendTask::mergeDevice(TDeviceInfo &device, const char * b
 
     //合并hplip和usb后端发现的同一台打印机
     if (uri.startsWith("usb:") || uri.startsWith("hp:")) {
+        bool isHP = uri.startsWith("hp");
         QRegularExpression re("serial=([^&]*)");
         QRegularExpressionMatch match = re.match(uri);
         if (match.hasMatch()) {
             QString serial = match.captured(1).toLower();
             device.serial = serial;
             for (auto &item : m_devices)
+                //只合并不同后端发现的uri，相同后端发现的URI应该对应不同设备，比如打印机和传真
                 if (!device.strClass.compare(item.strClass) &&
-                        (item.uriList[0].startsWith("usb:") ||
-                        item.uriList[0].startsWith("hp:")) &&
+                        (item.uriList[0].startsWith("hp:") != isHP) &&
                         !serial.compare(item.serial)) {
                     item.uriList << uri;
                     qInfo() << "merge uri " << item.uriList;
