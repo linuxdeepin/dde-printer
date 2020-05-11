@@ -289,6 +289,13 @@
         <translation>从前向后</translation>
     </message>
     <message>
+        <location filename="../util/dprintertanslator.cpp" line="44"/>
+        <location filename="../util/dprintertanslator.cpp" line="45"/>
+        <location filename="../util/dprintertanslator.cpp" line="48"/>
+        <source>Print Quality</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../util/dprintertanslator.cpp" line="56"/>
         <location filename="../util/dprintertanslator.cpp" line="57"/>
         <source>Auto-Select</source>
@@ -313,11 +320,8 @@
         <translation>手动</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="44"/>
-        <location filename="../util/dprintertanslator.cpp" line="45"/>
-        <location filename="../util/dprintertanslator.cpp" line="48"/>
         <source>PrintoutQuality</source>
-        <translation>打印质量</translation>
+        <translation type="vanished">打印质量</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="53"/>
@@ -479,6 +483,12 @@
         <translation>页边距位置</translation>
     </message>
     <message>
+        <location filename="../util/dprintertanslator.cpp" line="125"/>
+        <location filename="../util/dprintertanslator.cpp" line="126"/>
+        <source>Staple Location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../util/dprintertanslator.cpp" line="137"/>
         <location filename="../util/dprintertanslator.cpp" line="138"/>
         <source>Resolution</source>
@@ -525,10 +535,8 @@
         <translation>从后向前</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="125"/>
-        <location filename="../util/dprintertanslator.cpp" line="126"/>
         <source>StapleLocation</source>
-        <translation>装订位置</translation>
+        <translation type="vanished">装订位置</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="128"/>
@@ -930,10 +938,8 @@
         <translation>正在安装驱动...</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="168"/>
-        <location filename="../ui/installprinterwindow.cpp" line="186"/>
         <source>You have successfully added the printer.Print a test page to check if it works properly.</source>
-        <translation>添加打印机成功，请打印测试页测试打印机是否能够正常打印。</translation>
+        <translation type="vanished">添加打印机成功，请打印测试页测试打印机是否能够正常打印。</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="98"/>
@@ -953,6 +959,12 @@
         <location filename="../ui/installprinterwindow.cpp" line="162"/>
         <source>Successfully installed </source>
         <translation>安装成功 </translation>
+    </message>
+    <message>
+        <location filename="../ui/installprinterwindow.cpp" line="168"/>
+        <location filename="../ui/installprinterwindow.cpp" line="186"/>
+        <source>You have successfully added the printer. Print a test page to check if it works properly.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="180"/>
