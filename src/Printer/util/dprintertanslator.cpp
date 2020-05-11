@@ -41,11 +41,11 @@ void DPrinterTanslator::init()
     addTranslate("OutputMode_Combo", "Normal", tr("Normal"));
 
     //PrintQuality_Combo
-    addTranslate("PrintQuality_Combo", "Printout Quality", tr("PrintoutQuality"));
-    addTranslate("PrintQuality_Combo", "PrintQuality", tr("PrintoutQuality"));
+    addTranslate("PrintQuality_Combo", "Printout Quality", tr("Print Quality"));
+    addTranslate("PrintQuality_Combo", "PrintQuality", tr("Print Quality"));
 
     //StpQuality_Combo
-    addTranslate("StpQuality_Combo", "Print Quality", tr("PrintoutQuality"));
+    addTranslate("StpQuality_Combo", "Print Quality", tr("Print Quality"));
     addTranslate("StpQuality_Combo", "Manual Control", tr("Manual"));
     addTranslate("StpQuality_Combo", "Draft", tr("Draft"));
 
@@ -122,8 +122,8 @@ void DPrinterTanslator::init()
     addTranslate("PrintOrder_Combo", "Reverse", tr("Reverse"));
 
     //StapleLocation_Combo
-    addTranslate("StapleLocation_Combo", "StapleLocation", tr("StapleLocation"));
-    addTranslate("StapleLocation_Combo", "Staple Location", tr("StapleLocation"));
+    addTranslate("StapleLocation_Combo", "StapleLocation", tr("Staple Location"));
+    addTranslate("StapleLocation_Combo", "Staple Location", tr("Staple Location"));
     addTranslate("StapleLocation_Combo", "None", tr("None"));
     addTranslate("StapleLocation_Combo", "Bind", tr("Bind"));
     addTranslate("StapleLocation_Combo", "Bind (none)", tr("Bind (none)"));
