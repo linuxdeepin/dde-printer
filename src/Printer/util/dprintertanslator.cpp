@@ -92,9 +92,6 @@ void DPrinterTanslator::init()
     addTranslate("PageSize_Combo", "PageSize", tr("PageSize"));
     addTranslate("PageSize_Combo", "Custom", tr("Custom"));
 
-    //PageRegion_Combo
-    addTranslate("PageRegion_Combo", "MediaSize", tr("PageRegion"));
-
     //Duplex_Combo
     addTranslate("Duplex_Combo", "Duplex", tr("Duplex"));
     addTranslate("Duplex_Combo", "2-Sided Printing", tr("Duplex"));
