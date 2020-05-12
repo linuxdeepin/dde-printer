@@ -1,30 +1,30 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="ar" version="2.1">
 <context>
     <name>AddPrinterTask</name>
     <message>
         <location filename="../vendor/addprinter.cpp" line="546"/>
         <source>URI and driver do not match.</source>
-        <translation>URI和驱动不匹配。</translation>
+        <translation>الرابط URI و المشغل غير متوافقان.</translation>
     </message>
     <message>
         <location filename="../vendor/addprinter.cpp" line="548"/>
         <source>Install hplip first and restart the app to install the driver again.</source>
-        <translation>请安装hplip后重新添加。</translation>
+        <translation>ثبت hplip أولا ثم أعد تشغيل البرنامج لتثبيت المشغل مجددا.</translation>
     </message>
     <message>
         <location filename="../vendor/addprinter.cpp" line="556"/>
         <source>Please select an hplip driver and try again.</source>
-        <translation>请选择其他hplip驱动后重试。</translation>
+        <translation>الرجاء تعيين مشغل hplip ثم إعادة المحاولة.</translation>
     </message>
     <message>
         <location filename="../vendor/addprinter.cpp" line="569"/>
         <source>URI can&apos;t be empty</source>
-        <translation>URI不能为空</translation>
+        <translation>الرابط URI لا يمكن أن يكون فارغ</translation>
     </message>
     <message>
         <location filename="../vendor/addprinter.cpp" line="576"/>
         <source> not found</source>
-        <translation>未找到</translation>
+        <translation>غير موجود</translation>
     </message>
 </context>
 <context>
@@ -32,37 +32,37 @@
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="303"/>
         <source>Check printer settings</source>
-        <translation>检查打印机设置</translation>
+        <translation>تأكد من تعديلات الطابعة</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="312"/>
         <source>Checking printer settings...</source>
-        <translation>检查打印机设置中...</translation>
+        <translation>التأكد من تعديلات الطابعة</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="315"/>
         <source>Success</source>
-        <translation>成功</translation>
+        <translation>تم بنجاح</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="323"/>
         <source>Failed to get printer attributes, error: </source>
-        <translation>获取打印机属性失败。错误原因：</translation>
+        <translation>لم يتم الحصول على خصائص الطابعة، الخطأ:</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="331"/>
         <source>%1 is disabled</source>
-        <translation>%1未启用</translation>
+        <translation>تم تعطيل %1</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="340"/>
         <source>is not accepting jobs</source>
-        <translation>不接收任务</translation>
+        <translation>لا يقبل عمليات طبع</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="345"/>
         <source>Printer settings are ok</source>
-        <translation>打印机设置正常</translation>
+        <translation>تعديلات الطابعة مناسبة</translation>
     </message>
 </context>
 <context>
@@ -70,42 +70,42 @@
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="209"/>
         <source>Check printer connection</source>
-        <translation>检查打印机连接状态</translation>
+        <translation>تأكد من ربط الطابعة</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="221"/>
         <source>Checking printer connection...</source>
-        <translation>检查打印机连接状态中...</translation>
+        <translation>التأكد من ربط الطابعة</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="224"/>
         <source>Success</source>
-        <translation>成功</translation>
+        <translation>تم بنجاح</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="260"/>
         <source>Cannot connect to the printer, error: %1</source>
-        <translation>连接打印机失败，错误原因：%1</translation>
+        <translation>لا يمكن الإتصال بالطابعة، خطأ: 1%</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="268"/>
         <source> is not connected, URI: </source>
-        <translation>未连接，URI：</translation>
+        <translation>غير متصل، الرابط URI:</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="277"/>
         <source>%1 does not exist</source>
-        <translation>%1 目录不存在</translation>
+        <translation>%1 غير موجود</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="286"/>
         <source>Cannot connect to the printer</source>
-        <translation>连接打印机失败</translation>
+        <translation>لا يمكن الإتصال بالطابعة</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="292"/>
         <source>The connection is valid</source>
-        <translation>打印机连接状态正常</translation>
+        <translation>الإتصال مقبول</translation>
     </message>
 </context>
 <context>
@@ -113,22 +113,22 @@
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="102"/>
         <source>Check CUPS server</source>
-        <translation>检查CUPS服务是否开启</translation>
+        <translation>تأكد من الخادم CUPS</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="110"/>
         <source>Checking CUPS server...</source>
-        <translation>检查CUPS服务中...</translation>
+        <translation>التأكد من الخادم CUPS...</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="116"/>
         <source>CUPS server is invalid</source>
-        <translation>CUPS服务异常</translation>
+        <translation>الخادم CUPS غير مقبول</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="121"/>
         <source>CUPS server is valid</source>
-        <translation>CUPS服务正常</translation>
+        <translation>الخادم CUPS مقبول</translation>
     </message>
 </context>
 <context>
@@ -136,42 +136,42 @@
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="139"/>
         <source>Checking driver...</source>
-        <translation>检查驱动文件中...</translation>
+        <translation>التأكد من المشغل...</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="142"/>
         <source>Success</source>
-        <translation>成功</translation>
+        <translation>تم بنجاح</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="150"/>
         <source>PPD file %1 not found</source>
-        <translation>PPD文件 %1 未找到</translation>
+        <translation>ملف PPD %1 غير موجود</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="160"/>
         <source>The driver is damaged</source>
-        <translation>驱动文件已损坏</translation>
+        <translation>التعريف معطوب</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="175"/>
         <source>Driver filter %1 not found</source>
-        <translation>驱动Filter %1 未找到</translation>
+        <translation>لم يتم العثور على عامل تصفية محرك الأقراص %1</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="187"/>
         <source>%1 is not installed, cannot print now</source>
-        <translation>%1 未安装，打印异常</translation>
+        <translation>%1 غير مثبت، لا يمكن الطبع حاليا</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="193"/>
         <source>Driver is valid</source>
-        <translation>驱动文件完好</translation>
+        <translation>المشغل مقبول</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="199"/>
         <source>Check driver</source>
-        <translation>检查驱动</translation>
+        <translation>تأكد من المشغل</translation>
     </message>
 </context>
 <context>
@@ -179,52 +179,52 @@
     <message>
         <location filename="../vendor/zcupsmonitor.cpp" line="74"/>
         <source>Queuing</source>
-        <translation>排队中</translation>
+        <translation>ترتيب</translation>
     </message>
     <message>
         <location filename="../vendor/zcupsmonitor.cpp" line="75"/>
         <source>Paused</source>
-        <translation>暂停</translation>
+        <translation>توقف مؤقت</translation>
     </message>
     <message>
         <location filename="../vendor/zcupsmonitor.cpp" line="76"/>
         <source>Printing</source>
-        <translation>打印中</translation>
+        <translation>طبع</translation>
     </message>
     <message>
         <location filename="../vendor/zcupsmonitor.cpp" line="77"/>
         <source>Stopped</source>
-        <translation>已停止</translation>
+        <translation>متوقف</translation>
     </message>
     <message>
         <location filename="../vendor/zcupsmonitor.cpp" line="78"/>
         <source>Canceled</source>
-        <translation>已取消</translation>
+        <translation>ملغى</translation>
     </message>
     <message>
         <location filename="../vendor/zcupsmonitor.cpp" line="79"/>
         <source>Error</source>
-        <translation>打印异常</translation>
+        <translation>خطأ</translation>
     </message>
     <message>
         <location filename="../vendor/zcupsmonitor.cpp" line="80"/>
         <source>Completed</source>
-        <translation>已完成</translation>
+        <translation>تمت العملية</translation>
     </message>
     <message>
         <location filename="../vendor/zcupsmonitor.cpp" line="291"/>
         <source>%1 timed out, reason: %2</source>
-        <translation>%1打印超时，原因：%2</translation>
+        <translation>إنتهى وقت %1، والسبب هو %2</translation>
     </message>
     <message>
         <location filename="../vendor/zcupsmonitor.cpp" line="306"/>
         <source>%1 printed successfully, please take away the paper in time!</source>
-        <translation>%1打印完成，请及时取走纸质文件！</translation>
+        <translation>تم طباعة %1 بنجاح، يرجى سحب الأوراق  المطبوعة في الوقت المحدد!</translation>
     </message>
     <message>
         <location filename="../vendor/zcupsmonitor.cpp" line="308"/>
         <source>%1 %2, reason: %3</source>
-        <translation>%1%2，原因：%3</translation>
+        <translation>%1 %2، السبب: 3%</translation>
     </message>
 </context>
 <context>
@@ -233,22 +233,22 @@
         <location filename="../util/ddestination.cpp" line="148"/>
         <location filename="../util/ddestination.cpp" line="203"/>
         <source>Unknown</source>
-        <translation>未知</translation>
+        <translation>غير معروف</translation>
     </message>
     <message>
         <location filename="../util/ddestination.cpp" line="210"/>
         <source>Idle</source>
-        <translation>空闲</translation>
+        <translation>قيد اﻹسبات</translation>
     </message>
     <message>
         <location filename="../util/ddestination.cpp" line="213"/>
         <source>Printing</source>
-        <translation>打印中</translation>
+        <translation>طبع</translation>
     </message>
     <message>
         <location filename="../util/ddestination.cpp" line="216"/>
         <source>Disabled</source>
-        <translation>已停用</translation>
+        <translation>معطل</translation>
     </message>
 </context>
 <context>
@@ -256,13 +256,13 @@
     <message>
         <location filename="../util/dprintertanslator.cpp" line="34"/>
         <source>Color</source>
-        <translation>彩色</translation>
+        <translation>لون</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="35"/>
         <location filename="../util/dprintertanslator.cpp" line="36"/>
         <source>Grayscale</source>
-        <translation>灰度</translation>
+        <translation>سلم الرمادي</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="39"/>
@@ -272,291 +272,291 @@
         <location filename="../util/dprintertanslator.cpp" line="127"/>
         <location filename="../util/dprintertanslator.cpp" line="136"/>
         <source>None</source>
-        <translation>无</translation>
+        <translation>لا شيء</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="40"/>
         <location filename="../util/dprintertanslator.cpp" line="50"/>
         <source>Draft</source>
-        <translation>草稿</translation>
+        <translation>مسودة</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="41"/>
         <location filename="../util/dprintertanslator.cpp" line="121"/>
         <source>Normal</source>
-        <translation>从前向后</translation>
+        <translation>عادي</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="44"/>
         <location filename="../util/dprintertanslator.cpp" line="45"/>
         <location filename="../util/dprintertanslator.cpp" line="48"/>
         <source>Print Quality</source>
-        <translation>打印质量</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="56"/>
         <location filename="../util/dprintertanslator.cpp" line="57"/>
         <source>Auto-Select</source>
-        <translation>自动</translation>
+        <translation>تحديد أوتوماتيكي</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="58"/>
         <location filename="../util/dprintertanslator.cpp" line="59"/>
         <source>Manual Feeder</source>
-        <translation>多功能托盘</translation>
+        <translation>وحدة التغذية اليدوية</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="60"/>
         <location filename="../util/dprintertanslator.cpp" line="74"/>
         <source>Auto</source>
-        <translation>自动</translation>
+        <translation>أوتوماتيكي</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="49"/>
         <location filename="../util/dprintertanslator.cpp" line="61"/>
         <source>Manual</source>
-        <translation>手动</translation>
+        <translation>يدوي</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="53"/>
         <location filename="../util/dprintertanslator.cpp" line="54"/>
         <location filename="../util/dprintertanslator.cpp" line="55"/>
         <source>Paper Source</source>
-        <translation>纸张来源</translation>
+        <translation>مصدر الورق</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="62"/>
         <source>Drawer 1</source>
-        <translation>纸盒1</translation>
+        <translation>الراسم 1</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="63"/>
         <source>Drawer 2</source>
-        <translation>纸盒2</translation>
+        <translation>الراسم 2</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="64"/>
         <source>Drawer 3</source>
-        <translation>纸盒3</translation>
+        <translation>الراسم 3</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="65"/>
         <source>Drawer 4</source>
-        <translation>纸盒4</translation>
+        <translation>الراسم 4</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="66"/>
         <source>Drawer 5</source>
-        <translation>纸盒5</translation>
+        <translation>الراسم 5</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="67"/>
         <source>Envelope Feeder</source>
-        <translation>信封输送器</translation>
+        <translation>مغلف التغذية</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="68"/>
         <source>Tray1</source>
-        <translation>托盘1</translation>
+        <translation>الدرج1</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="69"/>
         <source>Unknown</source>
-        <translation>未定义的</translation>
+        <translation>مجهول</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="73"/>
         <source>MediaType</source>
-        <translation>纸张类型</translation>
+        <translation>نوع الوسائط</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="75"/>
         <source>Plain Paper</source>
-        <translation>普通纸</translation>
+        <translation>ورقة فارغة</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="76"/>
         <source>Recycled Paper</source>
-        <translation>再生纸</translation>
+        <translation>ورق معاد تكوينه</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="77"/>
         <source>Color Paper</source>
-        <translation>彩色纸</translation>
+        <translation>لون الورق</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="78"/>
         <source>Bond Paper</source>
-        <translation>铜版纸</translation>
+        <translation>ورق السندات (متين)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="79"/>
         <source>Heavy Paper 1</source>
-        <translation>重磅纸1</translation>
+        <translation>ورق ثقيل 1</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="80"/>
         <source>Heavy Paper 2</source>
-        <translation>重磅纸2</translation>
+        <translation>ورق ثقيل 2</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="81"/>
         <source>Heavy Paper 3</source>
-        <translation>重磅纸3</translation>
+        <translation>ورق ثقيل 3</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="82"/>
         <location filename="../util/dprintertanslator.cpp" line="83"/>
         <source>OHP</source>
-        <translation>胶片</translation>
+        <translation>جهاز العرض العلوي</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="84"/>
         <source>Labels</source>
-        <translation>标签</translation>
+        <translation>المسميات</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="85"/>
         <source>Envelope</source>
-        <translation>信封</translation>
+        <translation>غطاء</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="86"/>
         <source>Photo Paper</source>
-        <translation>照片纸</translation>
+        <translation>ورق للصور</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="90"/>
         <location filename="../util/dprintertanslator.cpp" line="91"/>
         <location filename="../util/dprintertanslator.cpp" line="92"/>
         <source>PageSize</source>
-        <translation>纸张大小</translation>
+        <translation>أبعاد الصفحة</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="93"/>
         <source>Custom</source>
-        <translation>自定义</translation>
+        <translation>معدل</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="96"/>
         <location filename="../util/dprintertanslator.cpp" line="97"/>
         <location filename="../util/dprintertanslator.cpp" line="98"/>
         <source>Duplex</source>
-        <translation>双面打印</translation>
+        <translation>الطباعة على وجهين</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="99"/>
         <source>DuplexTumble</source>
-        <translation>双面，短边</translation>
+        <translation>تراجع مزدوج</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="100"/>
         <source>DuplexNoTumble</source>
-        <translation>双面，长边</translation>
+        <translation>DuplexNoTumble</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="101"/>
         <source>ON (Long-edged Binding)</source>
-        <translation>双面，长边</translation>
+        <translation>تشغيل (ربط طويل الحافة)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="102"/>
         <source>ON (Short-edged Binding)</source>
-        <translation>双面，短边</translation>
+        <translation>تشغيل (ربط قصير الحافة)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="103"/>
         <location filename="../util/dprintertanslator.cpp" line="104"/>
         <source>OFF</source>
-        <translation>单面</translation>
+        <translation>ايقاف</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="107"/>
         <location filename="../util/dprintertanslator.cpp" line="111"/>
         <source>Binding Edge</source>
-        <translation>装订边</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="125"/>
         <location filename="../util/dprintertanslator.cpp" line="126"/>
         <source>Staple Location</source>
-        <translation>装订位置</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="137"/>
         <location filename="../util/dprintertanslator.cpp" line="138"/>
         <source>Resolution</source>
-        <translation>分辨率</translation>
+        <translation>الدقة</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="109"/>
         <source>Left</source>
-        <translation>左侧</translation>
+        <translation>اليسار</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="110"/>
         <source>Top</source>
-        <translation>顶部</translation>
+        <translation>الأعلى</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="114"/>
         <source>Portrait (no rotation)</source>
-        <translation>纵向（无旋转）</translation>
+        <translation>عمودي (بدون دوران)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="115"/>
         <source>Landscape (90 degrees)</source>
-        <translation>横向（90 度）</translation>
+        <translation>أفقي (90 درجة)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="116"/>
         <source>Reverse landscape (270 degrees)</source>
-        <translation>反横向（270 度）</translation>
+        <translation>أفقي عكسي (270 درجة)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="117"/>
         <source>Reverse portrait (180 degrees)</source>
-        <translation>反纵向（180 度）</translation>
+        <translation> عمودي عكسي (180 درجة)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="118"/>
         <source>Auto Rotation</source>
-        <translation>自动旋转</translation>
+        <translation>تدوير أوتوماتيكي</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="122"/>
         <source>Reverse</source>
-        <translation>从后往前</translation>
+        <translation>مقلوب</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="128"/>
         <source>Bind</source>
-        <translation>装订</translation>
+        <translation>ربط</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="129"/>
         <source>Bind (none)</source>
-        <translation>无</translation>
+        <translation>ربط (بلا)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="130"/>
         <source>Bind (bottom)</source>
-        <translation>装订（下）</translation>
+        <translation>ربط (من ألاسفل)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="131"/>
         <source>Bind (left)</source>
-        <translation>装订（左）</translation>
+        <translation>ربط (من اليسار)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="132"/>
         <source>Bind (right)</source>
-        <translation>装订（右）</translation>
+        <translation>ربط (من اليمين)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="133"/>
         <source>Bind (top)</source>
-        <translation>装订（上）</translation>
+        <translation>ربط (من فوق)</translation>
     </message>
 </context>
 <context>
@@ -564,154 +564,154 @@
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="80"/>
         <source>Settings</source>
-        <translation>设置</translation>
+        <translation>التعديلات</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="86"/>
         <source>Printers</source>
-        <translation>打印机设备</translation>
+        <translation>الطابعات</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="90"/>
         <source>Add printer</source>
-        <translation>添加打印机</translation>
+        <translation>إضافة طابعة</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="93"/>
         <source>Delete printer</source>
-        <translation>删除打印机</translation>
+        <translation>حذف طابعة</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="110"/>
         <source>Shared</source>
-        <translation>共享</translation>
+        <translation>مشترك</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="113"/>
         <source>Enabled</source>
-        <translation>启用</translation>
+        <translation>ممكّن</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="116"/>
         <source>Accept jobs</source>
-        <translation>接受任务</translation>
+        <translation>قبول العمليات</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="120"/>
         <source>Set as default</source>
-        <translation>设为默认</translation>
+        <translation>تعيين كافتراضي</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="132"/>
         <source>No Printers</source>
-        <translation>无打印设备</translation>
+        <translation>عدم وجود الطابعات</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="157"/>
         <source>Location:</source>
-        <translation>位置：</translation>
+        <translation>المكان:</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="161"/>
         <source>Model:</source>
-        <translation>型号：</translation>
+        <translation>نموذج:</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="164"/>
         <source>Status:</source>
-        <translation>状态：</translation>
+        <translation>الحالة :</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="191"/>
         <source>Properties</source>
-        <translation>属性</translation>
+        <translation>الخاصيات</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="201"/>
         <source>Print Queue</source>
-        <translation>打印队列</translation>
+        <translation>قائمة الطبع</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="211"/>
         <source>Print Test Page</source>
-        <translation>打印测试页</translation>
+        <translation>طبع صفحة مسودة</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="245"/>
         <source>No printer configured</source>
-        <translation>未配置打印机</translation>
+        <translation>لا توجد طابعة مبرمجة</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="250"/>
         <source>Click + to add printers</source>
-        <translation>请点击添加按钮（+），添加打印机</translation>
+        <translation>إضغط على + لإضافة طابعات</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="310"/>
         <source>As print jobs are in process, you cannot rename the printer now, please try later</source>
-        <translation>有正在进行的打印任务，无法重命名，请稍后再试</translation>
+        <translation>لا يمكن تغيير إسم الطابعة لأن عملية الطبع جارية، حاول لاحقا</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="314"/>
         <location filename="../ui/dprintersshowwindow.cpp" line="363"/>
         <location filename="../ui/dprintersshowwindow.cpp" line="548"/>
         <source>OK</source>
-        <translation>确定</translation>
+        <translation>جيد</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="341"/>
         <source>Idle</source>
-        <translation>空闲</translation>
+        <translation>قيد اﻹسبات</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="343"/>
         <source>Printing</source>
-        <translation>打印中</translation>
+        <translation>طبع</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="345"/>
         <source>Disabled</source>
-        <translation>未启用</translation>
+        <translation>معطل</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="360"/>
         <source>CUPS server is not running, and can’t manage printers.</source>
-        <translation>CUPS服务器未运行，不能管理打印机。</translation>
+        <translation>خادم CUPS ليس قيد التشغيل ولا يمكنه إدارة الطابعات.</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="506"/>
         <source>Are you sure you want to delete the printer &quot;%1&quot; ?</source>
-        <translation>您确定要删除打印机“%1”吗？</translation>
+        <translation>هل أنت متأكد من حذف الطابعة &quot;1%&quot; ؟</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="512"/>
         <source>Delete</source>
-        <translation>删除</translation>
+        <translation>حذف</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="544"/>
         <source>The name already exists</source>
-        <translation>此名称已存在</translation>
+        <translation>الإسم موجود</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="563"/>
         <source>You will not be able to reprint the completed jobs if continue. Are you sure you want to rename the printer?</source>
-        <translation>重命名会导致已完成的任务不能重复打印，您确定要重命名吗？</translation>
+        <translation>لن تتمكن من تكرار عمليات الطبع التامة إن واصلت. هل أنت متأكد من تغيير إسم الطابعة ؟</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="568"/>
         <source>Confirm</source>
-        <translation>确定</translation>
+        <translation>تأكيد</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="617"/>
         <source>The driver is damaged, please install it again.</source>
-        <translation>驱动文件已损坏，请重新安装驱动。</translation>
+        <translation>ملف التعريف تالف ، يرجى تثبيته مرة أخرى.</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="620"/>
         <source>Install Driver</source>
-        <translation>安装驱动</translation>
+        <translation>تثبيت محرك الأقراص</translation>
     </message>
 </context>
 <context>
@@ -719,68 +719,68 @@
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="171"/>
         <source>Print Properties</source>
-        <translation>打印属性</translation>
+        <translation>خصائص الطابعة</translation>
     </message>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="172"/>
         <source>Driver</source>
-        <translation>驱动</translation>
+        <translation>المشغل أو برنامج التعريف</translation>
     </message>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="173"/>
         <source>URI</source>
-        <translation>URI</translation>
+        <translation>الرابط URI</translation>
     </message>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="174"/>
         <source>Location</source>
-        <translation>位置</translation>
+        <translation>المكان</translation>
     </message>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="175"/>
         <source>Description</source>
-        <translation>描述</translation>
+        <translation>الوصف</translation>
     </message>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="176"/>
         <source>Color Mode</source>
-        <translation>颜色</translation>
+        <translation>وضع اللون</translation>
     </message>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="177"/>
         <source>Orientation</source>
-        <translation>方向</translation>
+        <translation>الاتجاه</translation>
     </message>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="178"/>
         <source>Page Order</source>
-        <translation>打印顺序</translation>
+        <translation>ترتيب الصفحات</translation>
     </message>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="631"/>
         <source>Options conflict!</source>
-        <translation>选项冲突!</translation>
+        <translation>هنالك تعارض في الخيارات!</translation>
     </message>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="634"/>
         <source>Please resolve the conflict first, and then save the changes.</source>
-        <translation>只有在冲突解决后才能应用所做修改!</translation>
+        <translation>يُرجى حل التعارض أولاً ، ثم حفظ التغييرات.</translation>
     </message>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="653"/>
         <source>Conflict:</source>
-        <translation>冲突项：</translation>
+        <translation>التعارض:</translation>
     </message>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="664"/>
         <location filename="../ui/dpropertysetdlg.cpp" line="1156"/>
         <source>OK</source>
-        <translation>确定</translation>
+        <translation>جيد</translation>
     </message>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="1155"/>
         <source>Invalid URI</source>
-        <translation>URI格式不正确</translation>
+        <translation>الرابط URI غير مقبول</translation>
     </message>
 </context>
 <context>
@@ -788,7 +788,7 @@
     <message>
         <location filename="../vendor/zdrivermanager.cpp" line="782"/>
         <source>EveryWhere driver</source>
-        <translation>EveryWhere 无驱方案</translation>
+        <translation>ملف تعريف EveryWhere</translation>
     </message>
 </context>
 <context>
@@ -796,12 +796,12 @@
     <message>
         <location filename="../vendor/addprinter.cpp" line="378"/>
         <source>Failed to find the driver solution: %1, error: %2</source>
-        <translation>查找驱动解决方案：%1失败，错误码：%2</translation>
+        <translation>لم يتم إيجاد حل لملف التعريف: 1%، خطأ: 2%</translation>
     </message>
     <message>
         <location filename="../vendor/addprinter.cpp" line="388"/>
         <source>The solution is invalid</source>
-        <translation>服务器的驱动数据不对</translation>
+        <translation>الحل غير مقبول</translation>
     </message>
 </context>
 <context>
@@ -809,91 +809,91 @@
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="85"/>
         <source>Select a driver from</source>
-        <translation>选择驱动来源</translation>
+        <translation>تعيين مشغل من</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="89"/>
         <source>Local driver</source>
-        <translation>本地驱动</translation>
+        <translation>ملف التعريف المحلي</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="90"/>
         <source>Local PPD file</source>
-        <translation>本地PPD文件</translation>
+        <translation>ملف PPD محلي</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="91"/>
         <source>Search for a driver</source>
-        <translation>搜索打印机驱动</translation>
+        <translation>البحث عن مشغل</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="105"/>
         <location filename="../ui/installdriverwindow.cpp" line="386"/>
         <source>Choose a local driver</source>
-        <translation>选择本地驱动</translation>
+        <translation>اختار ملف تعريف محلي</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="108"/>
         <source>Vendor</source>
-        <translation>厂商</translation>
+        <translation>البائع</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="120"/>
         <source>Model</source>
-        <translation>型号</translation>
+        <translation>النموذج</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="131"/>
         <location filename="../ui/installdriverwindow.cpp" line="201"/>
         <source>Driver</source>
-        <translation>驱动</translation>
+        <translation>المشغل أو برنامج التعريف</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="185"/>
         <source>Vendor and Model</source>
-        <translation>厂商和型号</translation>
+        <translation>البائع أو النموذج</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="187"/>
         <source>Enter a complete vendor and model</source>
-        <translation>请输入完整的厂商和型号</translation>
+        <translation>أدخل الإسم الكامل للبائع أو النموذج</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="189"/>
         <source>Search</source>
-        <translation>搜索</translation>
+        <translation>البحث</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="232"/>
         <source>Install Driver</source>
-        <translation>安装驱动</translation>
+        <translation>تثبيت مشغل</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="368"/>
         <location filename="../ui/installdriverwindow.cpp" line="474"/>
         <source>Reselect</source>
-        <translation>重新选择</translation>
+        <translation>إعادة تعيين</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="394"/>
         <location filename="../ui/installdriverwindow.cpp" line="471"/>
         <source>Select a PPD file</source>
-        <translation>选择PPD文件</translation>
+        <translation>اختيار ملف PPD</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="403"/>
         <source>Search for printer driver</source>
-        <translation>搜索打印机驱动</translation>
+        <translation>البحث عن مشغل الطابعة</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="456"/>
         <source>(recommended)</source>
-        <translation>（推荐）</translation>
+        <translation>(موصى به)</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="577"/>
         <source> (recommended)</source>
-        <translation>（推荐）</translation>
+        <translation>(موصى به)</translation>
     </message>
 </context>
 <context>
@@ -901,17 +901,17 @@
     <message>
         <location filename="../vendor/addprinter.cpp" line="257"/>
         <source>is invalid</source>
-        <translation>无法安装</translation>
+        <translation>غير مقبول</translation>
     </message>
     <message>
         <location filename="../vendor/addprinter.cpp" line="286"/>
         <source>Failed to install the driver by calling dbus interface</source>
-        <translation>通过dbus安装驱动失败</translation>
+        <translation>لم يتم تثبيت مشغل بالإتصال بالواجهة dbus</translation>
     </message>
     <message>
         <location filename="../vendor/addprinter.cpp" line="330"/>
         <source>Failed to install %1</source>
-        <translation>安装%1失败</translation>
+        <translation>فشل في تثبيت ٪ 1</translation>
     </message>
 </context>
 <context>
@@ -920,90 +920,90 @@
         <location filename="../ui/installprinterwindow.cpp" line="85"/>
         <location filename="../ui/installprinterwindow.cpp" line="150"/>
         <source>Installing driver...</source>
-        <translation>正在安装驱动...</translation>
+        <translation>تثبيت المشغل...</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="95"/>
         <source>Cancel</source>
-        <translation>取消</translation>
+        <translation>إلغاء</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="98"/>
         <location filename="../ui/installprinterwindow.cpp" line="173"/>
         <location filename="../ui/installprinterwindow.cpp" line="190"/>
         <source>View Printer</source>
-        <translation>查看打印机</translation>
+        <translation>إظهار الطابعة</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="100"/>
         <location filename="../ui/installprinterwindow.cpp" line="175"/>
         <location filename="../ui/installprinterwindow.cpp" line="192"/>
         <source>Print Test Page</source>
-        <translation>打印测试页</translation>
+        <translation>طبع صفحة مسودة</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="162"/>
         <source>Successfully installed </source>
-        <translation>安装成功</translation>
+        <translation>عملية التثبيت تمت بنجاح</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="168"/>
         <location filename="../ui/installprinterwindow.cpp" line="186"/>
         <source>You have successfully added the printer. Print a test page to check if it works properly.</source>
-        <translation>添加打印机成功。请打印测试页测试打印机是否能够正常打印。</translation>
+        <translation>إضافة الطابعة تمت بنجاح. إطبع صفحة مسودة للتأكد من إشتغالها</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="180"/>
         <source>Printing test page...</source>
-        <translation>测试页打印中...</translation>
+        <translation>طبع صفحة مسودة...</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="197"/>
         <source>Did you print the test page successfully?</source>
-        <translation>测试页是否打印成功?</translation>
+        <translation>هل طبعت صفحة مسودة بنجاح؟</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="203"/>
         <source>If succeeded, click Yes; if failed, click No</source>
-        <translation>如果打印成功，请选择是；如果打印失败，请选择否</translation>
+        <translation>في حالة النجاح، انقر فوق &quot;نعم&quot; ؛ في حالة الفشل ، انقر فوق &quot;لا&quot;</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="206"/>
         <source>No</source>
-        <translation>否</translation>
+        <translation>نعم</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="208"/>
         <source>Yes</source>
-        <translation>是</translation>
+        <translation>لا</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="213"/>
         <location filename="../ui/installprinterwindow.cpp" line="233"/>
         <source>Print failed</source>
-        <translation>打印失败</translation>
+        <translation>الطبع لم يتم</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="219"/>
         <source>Click Reinstall to install the printer driver again, or click Troubleshoot to start troubleshooting.</source>
-        <translation>选择重新安装将再次安装打印机驱动，选择故障排查将进行打印机故障诊断</translation>
+        <translation>انقر فوق &quot;إعادة التثبيت&quot; لتثبيت ملف تعريف الطابعة مرة أخرى ، أو انقر فوق &quot;استكشاف الأخطاء&quot; لبدء استكشاف الأخطاء وإصلاحها.</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="222"/>
         <location filename="../ui/installprinterwindow.cpp" line="243"/>
         <source>Reinstall</source>
-        <translation>重新安装</translation>
+        <translation>إعادة تثبيت</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="224"/>
         <location filename="../ui/installprinterwindow.cpp" line="245"/>
         <source>Troubleshoot</source>
-        <translation>故障排查</translation>
+        <translation>إستكشاف الأخطاء</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="231"/>
         <source>Installation failed</source>
-        <translation>安装失败</translation>
+        <translation>التثبيت لم يتم</translation>
     </message>
 </context>
 <context>
@@ -1012,43 +1012,43 @@
         <location filename="../ui/jobmanagerwindow.cpp" line="214"/>
         <location filename="../ui/jobmanagerwindow.cpp" line="372"/>
         <source>Cancel</source>
-        <translation>取消打印</translation>
+        <translation>إلغاء</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="215"/>
         <location filename="../ui/jobmanagerwindow.cpp" line="373"/>
         <source>Delete</source>
-        <translation>删除任务</translation>
+        <translation>حذف</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="216"/>
         <source>Pause</source>
-        <translation>暂停打印</translation>
+        <translation>مقاطعة</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="217"/>
         <source>Resume</source>
-        <translation>恢复打印</translation>
+        <translation>مواصلة</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="218"/>
         <source>Print first</source>
-        <translation>优先打印</translation>
+        <translation>الطبع أولا</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="219"/>
         <source>Reprint</source>
-        <translation>重新打印</translation>
+        <translation>إعادة الطبع</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="221"/>
         <source>No print jobs</source>
-        <translation>暂无打印任务</translation>
+        <translation>لا توجد عمليات طبع</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="366"/>
         <source>Are you sure you want to delete this job?</source>
-        <translation>您确定要删除此打印任务吗？</translation>
+        <translation>هل أنت متأكد من حذف هذه العملية؟</translation>
     </message>
 </context>
 <context>
@@ -1056,7 +1056,7 @@
     <message>
         <location filename="../vendor/zjobmanager.cpp" line="283"/>
         <source> not found</source>
-        <translation>未找到</translation>
+        <translation>غير موجود</translation>
     </message>
 </context>
 <context>
@@ -1064,32 +1064,32 @@
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="975"/>
         <source>Refresh</source>
-        <translation>刷新</translation>
+        <translation>تحيين</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="979"/>
         <source>All</source>
-        <translation>全部</translation>
+        <translation>الكل</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="980"/>
         <source>Print Queue</source>
-        <translation>打印队列</translation>
+        <translation>قائمة الطبع</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="981"/>
         <source>Completed</source>
-        <translation>已完成</translation>
+        <translation>تمت العملية</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="1034"/>
         <source> failed</source>
-        <translation>失败</translation>
+        <translation>العملية لم تتم</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="1055"/>
         <source>%1 jobs</source>
-        <translation>%1项任务</translation>
+        <translation>%1 عمليات</translation>
     </message>
 </context>
 <context>
@@ -1097,42 +1097,42 @@
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="628"/>
         <source>Job</source>
-        <translation>任务</translation>
+        <translation>العملية</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="630"/>
         <source>User</source>
-        <translation>用户</translation>
+        <translation>المستخدم</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="632"/>
         <source>Document</source>
-        <translation>文档</translation>
+        <translation>المستند</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="634"/>
         <source>Printer</source>
-        <translation>打印机</translation>
+        <translation>الطابعة</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="636"/>
         <source>Size</source>
-        <translation>大小</translation>
+        <translation>الأبعاد</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="638"/>
         <source>Time submitted</source>
-        <translation>提交时间</translation>
+        <translation>تم إرسال الوقت</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="640"/>
         <source>Status</source>
-        <translation>状态</translation>
+        <translation>الحالة</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="642"/>
         <source>Action</source>
-        <translation>操作</translation>
+        <translation>اجراء</translation>
     </message>
 </context>
 <context>
@@ -1140,32 +1140,32 @@
     <message>
         <location filename="../ui/permissionswindow.cpp" line="51"/>
         <source>Connect to %1 to find a printer</source>
-        <translation>查找打印机需要登录%1</translation>
+        <translation>إتصل ب‍ 1% لإيجاد طابعة</translation>
     </message>
     <message>
         <location filename="../ui/permissionswindow.cpp" line="78"/>
         <source>Username</source>
-        <translation>用户名</translation>
+        <translation>إسم المستخدم</translation>
     </message>
     <message>
         <location filename="../ui/permissionswindow.cpp" line="80"/>
         <source>Group</source>
-        <translation>群组</translation>
+        <translation>المجموعة</translation>
     </message>
     <message>
         <location filename="../ui/permissionswindow.cpp" line="82"/>
         <source>Password</source>
-        <translation>密码</translation>
+        <translation>كلمة السر</translation>
     </message>
     <message>
         <location filename="../ui/permissionswindow.cpp" line="96"/>
         <source>Cancel</source>
-        <translation>取消</translation>
+        <translation>إلغاء</translation>
     </message>
     <message>
         <location filename="../ui/permissionswindow.cpp" line="97"/>
         <source>Connect</source>
-        <translation>连接</translation>
+        <translation>إتصال</translation>
     </message>
 </context>
 <context>
@@ -1173,12 +1173,12 @@
     <message>
         <location filename="../ui/printerapplication.cpp" line="98"/>
         <source>Print Manager</source>
-        <translation>打印管理器</translation>
+        <translation>مدير الطباعة</translation>
     </message>
     <message>
         <location filename="../ui/printerapplication.cpp" line="99"/>
         <source>Print Manager is a printer management tool, which supports adding and removing printers, managing print jobs and so on.</source>
-        <translation>打印管理器是一款基于CUPS的打印机管理工具，支持打印机管理，打印任务管理等。</translation>
+        <translation>إدارة الطباعة هي أداة إدارة الطابعة ، والتي تدعم إضافة وإزالة الطابعات ، وإدارة مهام الطباعة وما إلى ذلك.</translation>
     </message>
 </context>
 <context>
@@ -1187,74 +1187,74 @@
         <location filename="../ui/printersearchwindow.cpp" line="84"/>
         <location filename="../ui/printersearchwindow.cpp" line="87"/>
         <source>Discover printer</source>
-        <translation>自动查找</translation>
+        <translation>إكتشاف الطابعة</translation>
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="90"/>
         <location filename="../ui/printersearchwindow.cpp" line="93"/>
         <source>Find printer</source>
-        <translation>手动查找</translation>
+        <translation>إيجاد الطابعة</translation>
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="95"/>
         <location filename="../ui/printersearchwindow.cpp" line="98"/>
         <source>Enter URI</source>
-        <translation>URI查找</translation>
+        <translation>إدخال الرابط URI</translation>
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="119"/>
         <source>Select a printer</source>
-        <translation>选择打印机</translation>
+        <translation>تعيين طابعة</translation>
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="125"/>
         <source>Refresh</source>
-        <translation>刷新</translation>
+        <translation>تحيين</translation>
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="164"/>
         <source>Install Driver</source>
-        <translation>安装驱动</translation>
+        <translation>تثبيت مشغل</translation>
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="193"/>
         <source>Address</source>
-        <translation>地址</translation>
+        <translation>العنوان</translation>
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="196"/>
         <source>Enter an address</source>
-        <translation>请输入地址</translation>
+        <translation>إدخال عنوان</translation>
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="197"/>
         <source>Find</source>
-        <translation>查找</translation>
+        <translation>إيجاد</translation>
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="271"/>
         <source>URI</source>
-        <translation>URI</translation>
+        <translation>الرابط URI</translation>
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="275"/>
         <source>Enter device URI</source>
-        <translation>请输入URI</translation>
+        <translation>إدخال URI التابع لجهازك</translation>
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="286"/>
         <source>Examples:</source>
-        <translation>例如：</translation>
+        <translation>أمثلة:</translation>
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="570"/>
         <source>OK</source>
-        <translation>确定</translation>
+        <translation>جيد</translation>
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="658"/>
         <source> (recommended)</source>
-        <translation>（推荐）</translation>
+        <translation>(موصى به)</translation>
     </message>
 </context>
 <context>
@@ -1262,12 +1262,12 @@
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="366"/>
         <source>Check test page printing</source>
-        <translation>检查测试页打印情况</translation>
+        <translation>تأكد من طبع الصفحة المسودة</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="414"/>
         <source>Printing test page...</source>
-        <translation>测试页打印中...</translation>
+        <translation>طبع الصفحة المسودة...</translation>
     </message>
 </context>
 <context>
@@ -1275,7 +1275,7 @@
     <message>
         <location filename="../ui/printertestpagedialog.cpp" line="63"/>
         <source>OK</source>
-        <translation>确定</translation>
+        <translation>جيد</translation>
     </message>
 </context>
 <context>
@@ -1283,94 +1283,94 @@
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="102"/>
         <source>1 min ago</source>
-        <translation>1分钟以前</translation>
+        <translation>منذ دقيقة</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="105"/>
         <source>%1 mins ago</source>
-        <translation>%1分钟以前</translation>
+        <translation>منذ 1% دقيقة</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="109"/>
         <source>1 hr ago</source>
-        <translation>1小时以前</translation>
+        <translation>منذ ساعة</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="111"/>
         <source>%1 hrs ago</source>
-        <translation>%1小时以前</translation>
+        <translation>منذ 1% ساعات</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="116"/>
         <source>Yesterday</source>
-        <translation>昨天</translation>
+        <translation>الأمس</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="118"/>
         <source>%1 days ago</source>
-        <translation>%1天以前</translation>
+        <translation>منذ 1% أيام</translation>
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="496"/>
         <source>(use %1 protocol)</source>
-        <translation>（使用%1协议）</translation>
+        <translation>(استخدم ٪ 1 بروتوكول)</translation>
     </message>
     <message>
         <location filename="../ui/uisourcestring.h" line="26"/>
         <source>Select a driver</source>
-        <translation>手动选择驱动方案</translation>
+        <translation>تعيين مشغل</translation>
     </message>
     <message>
         <location filename="../ui/uisourcestring.h" line="32"/>
         <source>Driver</source>
-        <translation>驱动</translation>
+        <translation>المشغل أو برنامج التعريف</translation>
     </message>
     <message>
         <location filename="../ui/uisourcestring.h" line="33"/>
         <source>Next</source>
-        <translation>下一步</translation>
+        <translation>التالي</translation>
     </message>
     <message>
         <location filename="../ui/uisourcestring.h" line="34"/>
         <source>Install Driver</source>
-        <translation>安装驱动</translation>
+        <translation>تثبيت المشغل</translation>
     </message>
     <message>
         <location filename="../ui/uisourcestring.h" line="36"/>
         <source>Drag a PPD file here 
  or</source>
-        <translation>请拖放PPD文件到此处
-或</translation>
+        <translation>اسحب ملف PPD هنا
+أو</translation>
     </message>
     <message>
         <location filename="../ui/uisourcestring.h" line="37"/>
         <source>Select a PPD file</source>
-        <translation>选择一个PPD文件</translation>
+        <translation>اختيار ملف PPD</translation>
     </message>
     <message>
         <location filename="../ui/uisourcestring.h" line="39"/>
         <source>Troubleshoot</source>
-        <translation>故障排查</translation>
+        <translation>إستكشاف الأخطاء</translation>
     </message>
     <message>
         <location filename="../ui/uisourcestring.h" line="40"/>
         <source>Cancel</source>
-        <translation>取消</translation>
+        <translation>إلغاء</translation>
     </message>
     <message>
         <location filename="../vendor/common.cpp" line="144"/>
         <source> not found, please ask the administrator for help</source>
-        <translation>无法解析，请联系管理员</translation>
+        <translation>غير موجود ، الرجاء طلب المساعدة من المسؤول</translation>
     </message>
     <message>
         <location filename="../ui/printerapplication.cpp" line="108"/>
         <source>Direct-attached Device</source>
-        <translation>直连设备</translation>
+        <translation>جهاز متصل مباشرة</translation>
     </message>
     <message>
         <location filename="../ui/printerapplication.cpp" line="109"/>
         <source>File</source>
-        <translation>文件</translation>
+        <translation>ملف</translation>
     </message>
 </context>
 <context>
@@ -1378,32 +1378,32 @@
     <message>
         <location filename="../ui/renameprinterwindow.cpp" line="84"/>
         <source>Rename Printer</source>
-        <translation>重命名打印机</translation>
+        <translation>تغيير إسم الطابعة</translation>
     </message>
     <message>
         <location filename="../ui/renameprinterwindow.cpp" line="91"/>
         <source>Name</source>
-        <translation>名称</translation>
+        <translation>الإسم</translation>
     </message>
     <message>
         <location filename="../ui/renameprinterwindow.cpp" line="93"/>
         <source>Location</source>
-        <translation>位置</translation>
+        <translation>المكان</translation>
     </message>
     <message>
         <location filename="../ui/renameprinterwindow.cpp" line="95"/>
         <source>Description</source>
-        <translation>描述</translation>
+        <translation>الوصف</translation>
     </message>
     <message>
         <location filename="../ui/renameprinterwindow.cpp" line="106"/>
         <source>Cancel</source>
-        <translation>取消</translation>
+        <translation>إلغاء</translation>
     </message>
     <message>
         <location filename="../ui/renameprinterwindow.cpp" line="107"/>
         <source>Confirm</source>
-        <translation>确定</translation>
+        <translation>تأكيد</translation>
     </message>
 </context>
 <context>
@@ -1411,27 +1411,27 @@
     <message>
         <location filename="../ui/dprintersshowwindow.h" line="82"/>
         <source>Basic Server Settings</source>
-        <translation>基本服务器设置</translation>
+        <translation>تعديلات الخادم الأساسية</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.h" line="90"/>
         <source>Publish shared printers connected to this system</source>
-        <translation>发布连接到这个系统的共享打印机</translation>
+        <translation>انشر الطابعات المشتركة المتصلة بهذا النظام</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.h" line="91"/>
         <source>Allow printing from the Internet</source>
-        <translation>允许从互联网打印</translation>
+        <translation>السماح للطباعة من اﻹنترنت</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.h" line="93"/>
         <source>Allow remote administration</source>
-        <translation>允许远程管理</translation>
+        <translation>السماح للإدارة عن بعد</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.h" line="95"/>
         <source>Save debugging information for troubleshooting</source>
-        <translation>保留调试信息用于故障排除</translation>
+        <translation>حفظ معلومات التصحيح لاستكشاف الأخطاء وإصلاحها</translation>
     </message>
 </context>
 <context>
@@ -1439,17 +1439,17 @@
     <message>
         <location filename="../ui/troubleshootdialog.cpp" line="111"/>
         <source>Troubleshoot: </source>
-        <translation>故障排查：</translation>
+        <translation>استكشاف الأخطاء</translation>
     </message>
     <message>
         <location filename="../ui/troubleshootdialog.cpp" line="136"/>
         <source>Cancel</source>
-        <translation>取消</translation>
+        <translation>إلغاء</translation>
     </message>
     <message>
         <location filename="../ui/troubleshootdialog.cpp" line="165"/>
         <source>OK</source>
-        <translation>确定</translation>
+        <translation>جيد</translation>
     </message>
 </context>
 </TS>
