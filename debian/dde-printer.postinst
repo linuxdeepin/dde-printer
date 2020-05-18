@@ -17,5 +17,14 @@ fi
 if [ -x /usr/bin/apt-key ]; then
     /usr/bin/apt-key add $GPG
 fi
-
+# restart process after updating
+ProcessName="dde-printer -m 1"    #进程
+ID=`ps -ef | grep "$ProcessName" | grep -v "grep" | awk '{print $2}'`  #注意此shell脚本的名称，避免自杀
+if [ -z "$ID" ];then
+    echo "process id is empty, process is not existed..."
+else
+    echo "$ID process will restart..."
+    kill -USR1 $ID  #通知进程重启
+    echo "process has restart..."
+fi
 exit 0

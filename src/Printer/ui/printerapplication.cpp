@@ -34,10 +34,11 @@
 #include <DGuiApplicationHelper>
 #include <QTranslator>
 
+#include <signal.h>
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 
-enum ApplicationModel{
+enum ApplicationModel {
     APPMODEL_Watch = 0x1,
     APPMODEL_TrayIcon = 0x2,
     APPMODEL_JobsWindow = 0x4,
@@ -68,7 +69,7 @@ int PrinterApplication::launchWithMode(const QStringList &arguments)
         appModel = arguments[2].toInt() & allModel;
     }
 
-    appModel = appModel>0?appModel:APPMODEL_MainWindow;
+    appModel = appModel > 0 ? appModel : APPMODEL_MainWindow;
 
     if (appModel & APPMODEL_Watch) {
         qApp->setQuitOnLastWindowClosed(false);
@@ -83,6 +84,17 @@ int PrinterApplication::launchWithMode(const QStringList &arguments)
     }
 
     return 0;
+}
+
+void handler(int signo)
+{
+    //默认终止的自定义信号，此处作为重启通知
+    if (signo == SIGUSR1) {
+        pid_t pid = getpid();
+        QProcess process;
+        QString cmd = QString("dde-printer -m 1 -r %1").arg(pid);
+        process.startDetached(cmd);
+    }
 }
 
 int PrinterApplication::create()
@@ -109,10 +121,32 @@ int PrinterApplication::create()
     QObject::tr("File");
     g_cupsMonitor->initTranslations();
     DPrinterManager::getInstance()->initLanguageTrans();
-
+    // 绑定SIGUSR1信号
+    if (signal(SIGUSR1, handler) == SIG_ERR) {
+        qWarning("Can't set handler for SIGUSR1\n");
+    }
     if (!DGuiApplicationHelper::setSingleInstance("dde-printer")) {
-        qWarning() << "dde-printer is running";
-        return -2;
+        if (qApp->arguments().contains("-r")) {
+            //重启模式先kill原始进程
+            QString originPid = qApp->arguments().at(4).toLocal8Bit();
+            QProcess process;
+            QString cmd = "kill";
+            QStringList args;
+            args << "-9" << originPid;
+            process.start(cmd, args);
+            process.waitForFinished();
+            qInfo() << "kill origin process " << originPid;
+            if (!DGuiApplicationHelper::setSingleInstance("dde-printer")) {
+                qWarning() << "restart process failed";
+                return -3;
+            } else {
+                qInfo() << "restart process success";
+            }
+        } else {
+            qWarning() << "dde-printer is running";
+            return -2;
+        }
+
     }
 
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::newProcessInstance, this, &PrinterApplication::slotNewProcessInstance);
@@ -123,6 +157,7 @@ int PrinterApplication::create()
 
     return 0;
 }
+
 
 int PrinterApplication::stop()
 {
@@ -178,10 +213,10 @@ void PrinterApplication::slotShowTrayIcon(bool bShow)
     if (bShow && !m_systemTray) {
         m_systemTray = new QSystemTrayIcon(QIcon(":/images/dde-printer.svg"));
         connect(m_systemTray, &QSystemTrayIcon::activated, [this](QSystemTrayIcon::ActivationReason reason) {
-                if (reason == QSystemTrayIcon::Trigger) {
-                    showJobsWindow();
-                }
-                });
+            if (reason == QSystemTrayIcon::Trigger) {
+                showJobsWindow();
+            }
+        });
     }
 
     if (bShow)
