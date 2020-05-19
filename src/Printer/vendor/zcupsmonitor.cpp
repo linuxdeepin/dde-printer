@@ -47,7 +47,7 @@ DWIDGET_USE_NAMESPACE
 
 DCORE_USE_NAMESPACE
 
-CupsMonitor* CupsMonitor::getInstance()
+CupsMonitor *CupsMonitor::getInstance()
 {
     static CupsMonitor *instance = nullptr;
     if (nullptr == instance) {
@@ -59,7 +59,7 @@ CupsMonitor* CupsMonitor::getInstance()
 
 CupsMonitor::CupsMonitor(QObject *parent)
     : TaskInterface(Task_CupsMonitor, parent),
-    m_jobId(0)
+      m_jobId(0)
 {
     m_subId = -1;
     m_seqNumber = -1;
@@ -107,7 +107,7 @@ bool CupsMonitor::insertJobMessage(int id, int state, const QString &message)
         }
         times++;
 
-        str = QString::number(state)+QString::number(times)+" "+message;
+        str = QString::number(state) + QString::number(times) + " " + message;
         m_jobMessages.insert(id, str);
 
         QStringList msglist = m_jobMessages.values();
@@ -182,12 +182,12 @@ void CupsMonitor::clearSubscriptions()
 {
     try {
         vector<map<string, string>> subs = g_cupsConnection->getSubscriptions(SUB_URI, true, -1);
-        for (size_t i=0;i<subs.size();i++) {
+        for (size_t i = 0; i < subs.size(); i++) {
             dumpStdMapValue(subs[i]);
             m_subId = attrValueToQString(subs[i]["notify-subscription-id"]).toInt();
             g_cupsConnection->cancelSubscription(m_subId);
         }
-    }catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return ;
     }
@@ -201,7 +201,7 @@ int CupsMonitor::createSubscription()
         if (-1 != m_subId) {
             bool isExists = false;
             vector<map<string, string>> subs = g_cupsConnection->getSubscriptions(SUB_URI, true, -1);
-            for (size_t i=0;i<subs.size();i++) {
+            for (size_t i = 0; i < subs.size(); i++) {
                 dumpStdMapValue(subs[i]);
 
                 if (m_subId == attrValueToQString(subs[i]["notify-subscription-id"]).toInt()) {
@@ -213,12 +213,12 @@ int CupsMonitor::createSubscription()
 
             if (!isExists) m_subId = -1;
         }
-    }catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         m_subId = -1;
     }
 
-    try{
+    try {
         if (-1 == m_subId) {
             vector<string> events = {"printer-deleted", "printer-state-changed", "job-progress", "job-state-changed"};
             m_subId = g_cupsConnection->createSubscription(SUB_URI, &events, 0, nullptr, 86400, 0, nullptr);
@@ -226,7 +226,7 @@ int CupsMonitor::createSubscription()
             g_Settings->setSequenceNumber(0);
             qDebug() << "createSubscription id: " << m_subId;
         }
-    }catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         m_subId = -1;
     }
@@ -234,7 +234,7 @@ int CupsMonitor::createSubscription()
     return m_subId;
 }
 
-int CupsMonitor::getNotifications(int& notifysSize)
+int CupsMonitor::getNotifications(int &notifysSize)
 {
     if (-1 == m_subId) return -1;
 
@@ -247,7 +247,7 @@ int CupsMonitor::getNotifications(int& notifysSize)
         if (notifysSize)
             qDebug() << "Got number:" << notifysSize << "after sequence:" << m_seqNumber;
 
-        for(int i=0;i<notifysSize;i++) {
+        for (int i = 0; i < notifysSize; i++) {
             map<string, string> info = notifys.at(i);
             int number = attrValueToQString(info[CUPS_NOTIY_SEQ_NUM]).toInt();
             QString strevent = attrValueToQString(info[CUPS_NOTIY_EVENT]);
@@ -257,17 +257,17 @@ int CupsMonitor::getNotifications(int& notifysSize)
             dumpStdMapValue(info);
 
             if (number >= m_seqNumber) {
-                m_seqNumber = number+1;
+                m_seqNumber = number + 1;
                 g_Settings->setSequenceNumber(m_seqNumber);
             }
 
 
             if (strevent.startsWith("job-")) {
                 int iState = attrValueToQString(info[JOB_ATTR_STATE]).toInt();
-                int iJob= attrValueToQString(info[CUPS_NOTIY_JOBID]).toInt();
+                int iJob = attrValueToQString(info[CUPS_NOTIY_JOBID]).toInt();
                 QString strReason = attrValueToQString(info[CUPS_NOTIY_TEXT]);
                 QStringList list = attrValueToQString(info[JOB_ATTR_NAME]).split("/", QString::SkipEmptyParts);
-                QString strJobName = list.isEmpty()?"":list.last();
+                QString strJobName = list.isEmpty() ? "" : list.last();
                 qInfo() << "Got a job event: " << iJob << iState << strReason;
 
                 if (iJob == m_jobId) {
@@ -284,39 +284,38 @@ int CupsMonitor::getNotifications(int& notifysSize)
                 }
 
                 switch (iState) {
-                    case IPP_JSTATE_PROCESSING:
-                        if (m_processingJob.contains(iJob)) {
-                            const QTime& t = m_processingJob[iJob];
-                            if (!t.isNull() && t.elapsed() > PROCESSINGTIP) {
-                                strReason = tr("%1 timed out, reason: %2").arg(strJobName).arg(strReason);
-                                sendDesktopNotification(0, qApp->productName(), strReason, 3000);
-                                m_processingJob[iJob] = QTime();
-                            }
-                        } else {
-                            QTime t;
-                            t.start();
-                            m_processingJob.insert(iJob, t);
+                case IPP_JSTATE_PROCESSING:
+                    if (m_processingJob.contains(iJob)) {
+                        const QTime &t = m_processingJob[iJob];
+                        if (!t.isNull() && t.elapsed() > PROCESSINGTIP) {
+                            strReason = tr("%1 timed out, reason: %2").arg(strJobName).arg(strReason);
+                            sendDesktopNotification(0, qApp->productName(), strReason, 3000);
+                            m_processingJob[iJob] = QTime();
                         }
-                        break;
-                    case IPP_JSTATE_COMPLETED:
-                    case IPP_JSTATE_STOPPED:
-                    case IPP_JSTATE_ABORTED:
-                    {
-                        if (IPP_JSTATE_COMPLETED == iState) {
-                            strReason = tr("%1 printed successfully, please take away the paper in time!").arg(strJobName);
-                        } else {
-                            strReason = tr("%1 %2, reason: %3")
-                                    .arg(strJobName).arg(getStateString(iState).toLower()).arg(strReason);
-                        }
-                        sendDesktopNotification(0, qApp->productName(), strReason, 3000);
-
-                        Q_FALLTHROUGH();
+                    } else {
+                        QTime t;
+                        t.start();
+                        m_processingJob.insert(iJob, t);
                     }
-                    case IPP_JOB_CANCELLED:
-                        m_processingJob.remove(iJob);
-                        break;
-                    default:
-                        break;
+                    break;
+                case IPP_JSTATE_COMPLETED:
+                case IPP_JSTATE_STOPPED:
+                case IPP_JSTATE_ABORTED: {
+                    if (IPP_JSTATE_COMPLETED == iState) {
+                        strReason = tr("%1 printed successfully, please take away the paper in time!").arg(strJobName);
+                    } else {
+                        strReason = tr("%1 %2, reason: %3")
+                                    .arg(strJobName).arg(getStateString(iState).toLower()).arg(strReason);
+                    }
+                    sendDesktopNotification(0, qApp->productName(), strReason, 3000);
+
+                    Q_FALLTHROUGH();
+                }
+                case IPP_JOB_CANCELLED:
+                    m_processingJob.remove(iJob);
+                    break;
+                default:
+                    break;
                 }
             } else {
                 if (skip) continue;
@@ -347,7 +346,7 @@ int CupsMonitor::getNotifications(int& notifysSize)
 
         if (notifysSize)
             qDebug() << "------------------------------------------------------------";
-    }catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
     }
@@ -360,7 +359,7 @@ int CupsMonitor::cancelSubscription()
     try {
         if (-1 != m_subId)
             g_cupsConnection->cancelSubscription(m_subId);
-    }catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
     }
@@ -428,6 +427,11 @@ void CupsMonitor::stop()
     TaskInterface::stop();
 }
 
+int CupsMonitor::getPrinterState(const QString &printer)
+{
+    return  m_printersState.value(printer, -1);
+}
+
 bool CupsMonitor::initWatcher()
 {
     QDBusConnection conn = QDBusConnection::systemBus();
@@ -439,7 +443,7 @@ bool CupsMonitor::initWatcher()
         map<int, map<string, string>>::iterator itJobs;
 
         if (jobs.size() > 0) {
-            for (itJobs=jobs.begin();itJobs!=jobs.end();itJobs++) {
+            for (itJobs = jobs.begin(); itJobs != jobs.end(); itJobs++) {
                 map<string, string> info = itJobs->second;
                 int iState = attrValueToQString(info[JOB_ATTR_STATE]).toInt();
                 QString message = attrValueToQString(info[JOB_ATTR_STATE_MEG]);
@@ -455,18 +459,18 @@ bool CupsMonitor::initWatcher()
     return success;
 }
 
-int CupsMonitor::sendDesktopNotification(int replaceId, const QString& summary, const QString& body, int expired)
+int CupsMonitor::sendDesktopNotification(int replaceId, const QString &summary, const QString &body, int expired)
 {
     int ret = 0;
 
     QDBusPendingReply<unsigned int> reply = DUtil::DNotifySender(summary)
-        .appName("dde-printer")
-        .appIcon(":/images/printer.svg")
-        .appBody(body)
-        .replaceId(replaceId)
-        .timeOut(expired)
-        .actions(QStringList() << "default")
-        .call();
+                                            .appName("dde-printer")
+                                            .appIcon(":/images/printer.svg")
+                                            .appBody(body)
+                                            .replaceId(replaceId)
+                                            .timeOut(expired)
+                                            .actions(QStringList() << "default")
+                                            .call();
 
     reply.waitForFinished();
     if (!reply.isError())

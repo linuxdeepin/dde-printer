@@ -34,7 +34,7 @@ class CupsMonitor : public TaskInterface
     Q_OBJECT
 
 public:
-    static CupsMonitor* getInstance();
+    static CupsMonitor *getInstance();
 
     QString getJobNotify(const QMap<QString, QVariant> &job);
 
@@ -50,8 +50,10 @@ public:
 
     void stop() Q_DECL_OVERRIDE;
 
+    int  getPrinterState(const QString &printer);
+
 protected:
-    CupsMonitor(QObject *parent=nullptr);
+    CupsMonitor(QObject *parent = nullptr);
 
     int doWork() Q_DECL_OVERRIDE;
 
@@ -59,13 +61,13 @@ protected:
 
     int cancelSubscription();
     int createSubscription();
-    int getNotifications(int& notifysSize);
+    int getNotifications(int &notifysSize);
     int resetSubscription();
 
     // expired: timeout in millisecond
     //           0 - never expired
     //          -1 - server dependent
-    int sendDesktopNotification(int replaceId, const QString& summary, const QString& body, int expired);
+    int sendDesktopNotification(int replaceId, const QString &summary, const QString &body, int expired);
 
 protected slots:
     void notificationInvoke(unsigned int, QString);

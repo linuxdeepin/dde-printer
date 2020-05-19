@@ -73,10 +73,12 @@ public:
     //初始化语方翻译
     void initLanguageTrans();
     //文件翻译
-    QString translateLocal(const QString &strContext, const QString &strKey, const QString& strDefault);
+    QString translateLocal(const QString &strContext, const QString &strKey, const QString &strDefault);
     DDestination *getDestinationByName(const QString &strName);
-    // 判断存在未完成的打印任务
+    // 判断存在所有未完成的打印任务
     bool hasUnfinishedJob();
+    // 判断该打印机是否存在未完成的任务
+    bool hasUnfinishedJob(const QString &printer);
     // 判断存在完成的打印任务
     bool hasFinishedJob();
 
