@@ -301,10 +301,13 @@ void DPrintersShowWindow::initConnections()
     connect(m_pPrinterListView, &DListView::customContextMenuRequested, this, &DPrintersShowWindow::contextMenuRequested);
     connect(m_pPrinterListView, &DListView::doubleClicked, this, [this](const QModelIndex & index) {
         // 存在未完成的任务无法进入编辑状态
+        if (!index.isValid())
+            return ;
         m_pPrinterListView->blockSignals(true);
         m_pPrinterModel->blockSignals(true);
         QStandardItem *pItem = m_pPrinterModel->itemFromIndex(index);
-        if (m_pPrinterManager->hasUnfinishedJob()) {
+        // 判断当前打印机的状态
+        if (m_pPrinterManager->hasUnfinishedJob(pItem->text())) {
             DDialog *pDialog = new DDialog();
             pDialog->setIcon(QIcon(":/images/warning_logo.svg"));
             QLabel *pMessage = new QLabel(tr("As print jobs are in process, you cannot rename the printer now, please try later"));

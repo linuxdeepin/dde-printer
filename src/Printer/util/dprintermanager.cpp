@@ -22,6 +22,7 @@
 #include "dprinter.h"
 #include "dprintclass.h"
 #include "cupsattrnames.h"
+#include "zcupsmonitor.h"
 
 #include <QDebug>
 #include <QFile>
@@ -300,6 +301,30 @@ bool DPrinterManager::hasUnfinishedJob()
     }
 }
 
+bool DPrinterManager::hasUnfinishedJob(const QString &printer)
+{
+    //先获取所有的未完成任务，查找指定打印机任务
+    try {
+        vector<string> jobAttrs{"job-id", "job-printer-uri", "job-name"};
+        map<int, map<string, string>> unfinishedJobs = m_conn->getJobs(nullptr, 0, 0, 0, &jobAttrs);
+        if (unfinishedJobs.size() == 0)
+            return false;
+        map<int, map<string, string>>::iterator iter;
+        for (iter = unfinishedJobs.begin(); iter != unfinishedJobs.end(); iter++) {
+            map<string, string> attr = iter->second;
+            QString uri = QString::fromStdString(attr.at("job-printer-uri").data()).simplified();
+            QString curPrinter = uri.replace("sipp://localhost/printers/", "");
+            if (curPrinter == printer) {
+                return true;
+            }
+        }
+        return false;
+    } catch (const std::runtime_error &e) {
+        qWarning() << e.what();
+        return false;
+    }
+}
+
 bool DPrinterManager::hasFinishedJob()
 {
     try {
@@ -410,7 +435,7 @@ void DPrinterManager::initLanguageTrans()
     m_translator.init();
 }
 
-QString DPrinterManager::translateLocal(const QString &strContext, const QString &strKey,const QString& strDefault)
+QString DPrinterManager::translateLocal(const QString &strContext, const QString &strKey, const QString &strDefault)
 {
     QString strValue = m_translator.translateLocal(strContext, strKey, strDefault);
     return strValue;
