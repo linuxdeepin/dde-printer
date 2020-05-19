@@ -764,7 +764,8 @@ void PrinterSearchWindow::searchPrintersByManual()
 
 void PrinterSearchWindow::lineEditURIChanged(QString uri)
 {
-    QRegExp reg("(\\S+)(://)(\\S+)");
+    //QRegExp reg("(\\S+)(://)(\\S+)");
+    QRegExp reg("(\\S{0,})([a-zA-Z]+)(:[/]{1,2})(\\w{1,})(\\S{0,})");
     QRegExpValidator v(reg);
     int pos = 0;
     QValidator::State state = v.validate(uri, pos);

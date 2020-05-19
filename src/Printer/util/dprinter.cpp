@@ -710,6 +710,26 @@ QVector<QMap<QString,QString>> DPrinter::getResolutionChooses()
     return getOptionChooses("Resolution");
 }
 
+void DPrinter::getWastes()
+{
+    QString strWasters= "";
+    try {
+        vector<string> requestAttrs;
+        requestAttrs.push_back("marker-names");
+        map<string, string> attrs = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(),
+                                                                 nullptr, &requestAttrs);
+
+        for (auto iter = attrs.begin(); iter != attrs.end(); iter++)
+        {
+            strWasters = QString::fromStdString(iter->second.data());
+            strWasters = strWasters.remove(0, 1);
+        }
+    } catch (const std::runtime_error &e) {
+        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        strWasters.clear();
+    }
+}
+
 QStringList DPrinter::getDefaultPpdOpts()
 {
     QStringList strDefaultOptions;
