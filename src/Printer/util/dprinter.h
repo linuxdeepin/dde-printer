@@ -165,6 +165,9 @@ public:
     void setResolution(const QString& strValue);
     QVector<QMap<QString,QString>> getResolutionChooses();
 
+    //read waste
+    void getWastes();
+
     QStringList getDefaultPpdOpts();
 
     //Save Modify

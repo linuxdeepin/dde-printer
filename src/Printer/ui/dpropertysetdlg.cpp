@@ -437,6 +437,9 @@ void DPropertySetDlg::updateViews()
             vecChoice = pPrinter->getPageOutputOrderChooses();
             updatePrintOrderCombo(strDefault, vecChoice);
 
+            //waste
+            pPrinter->getWastes();
+
             //Update Installable UI
             QVector<INSTALLABLEOPTNODE> nodes = pPrinter->getInstallableNodes();
             updateInstallAbleNodeCombo(nodes);
@@ -1138,13 +1141,13 @@ void DPropertySetDlg::printUriUI_EditFinished()
         return;
     }
 
-    QString strVal = pLineEdit->text();
+    QString strVal = pLineEdit->text().trimmed();
 
     if (strVal.isEmpty()) {
         return;
     }
 
-    QRegExp reg("(\\S+)(://)(\\S+)");
+    QRegExp reg("([^# ]{1,})(:[/]{1,})([^# ]{1,})");
     QRegExpValidator v(reg);
     int pos = 0;
     QValidator::State state = v.validate(strVal, pos);
