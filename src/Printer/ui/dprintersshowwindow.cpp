@@ -472,6 +472,8 @@ void DPrintersShowWindow::serverSettingsSlot()
 //    m_pPrinterManager->enableUserCancelAny(m_pSettingsDialog->m_pCheckCancelJobs->isChecked());
     m_pPrinterManager->enableDebugLogging(m_pSettingsDialog->m_pCheckSaveDebugInfo->isChecked());
     m_pPrinterManager->commit();
+    //触发本地cups服务启动
+    m_pPrinterManager->isPrinterShared(m_pPrinterListView->currentIndex().data().toString());
 }
 
 //bool DPrintersShowWindow::eventFilter(QObject *watched, QEvent *event)
