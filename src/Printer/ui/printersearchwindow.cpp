@@ -765,10 +765,11 @@ void PrinterSearchWindow::searchPrintersByManual()
 void PrinterSearchWindow::lineEditURIChanged(QString uri)
 {
     //QRegExp reg("(\\S+)(://)(\\S+)");
-    QRegExp reg("(\\S{0,})([a-zA-Z]+)(:[/]{1,2})(\\w{1,})(\\S{0,})");
+    QString strVal = uri.trimmed();
+    QRegExp reg("([^# ]{1,})(:[/]{1,})([^# ]{1,})");
     QRegExpValidator v(reg);
     int pos = 0;
-    QValidator::State state = v.validate(uri, pos);
+    QValidator::State state = v.validate(strVal, pos);
     if (state == QValidator::Acceptable) {
         QMap<QString, QVariant> driver = g_driverManager->getEveryWhereDriver(uri);
         if (m_pURIDriverCom->count() < 2 && !driver.isEmpty()) {

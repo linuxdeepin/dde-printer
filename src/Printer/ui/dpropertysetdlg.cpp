@@ -1141,13 +1141,13 @@ void DPropertySetDlg::printUriUI_EditFinished()
         return;
     }
 
-    QString strVal = pLineEdit->text();
+    QString strVal = pLineEdit->text().trimmed();
 
     if (strVal.isEmpty()) {
         return;
     }
 
-    QRegExp reg("(\\S{0,})([a-zA-Z]+)(:[/]{1,2})(\\w{1,})(\\S{0,})");
+    QRegExp reg("([^# ]{1,})(:[/]{1,})([^# ]{1,})");
     QRegExpValidator v(reg);
     int pos = 0;
     QValidator::State state = v.validate(strVal, pos);
