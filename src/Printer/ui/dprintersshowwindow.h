@@ -75,7 +75,7 @@ private:
         titlebar()->setMenuVisible(false);
         titlebar()->setTitle("");
         titlebar()->setIcon(QIcon(":/images/dde-printer.svg"));
-        setWindowFlags(windowFlags() & ~Qt::WindowMaximizeButtonHint);
+        setWindowFlags(windowFlags() & ~Qt::WindowMinMaxButtonsHint);
         setWindowModality(Qt::ApplicationModal);
         setFixedSize(480, 250);
 
