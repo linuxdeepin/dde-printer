@@ -49,6 +49,7 @@ class QLabel;
 class QStandardItemModel;
 class QMenu;
 class QCheckBox;
+class QLineEdit;
 QT_END_NAMESPACE
 
 class ServerSettingsWindow : public DMainWindow
@@ -176,6 +177,27 @@ public:
     QCheckBox *m_pCheckSaveDebugInfo;
 signals:
     void finished();
+};
+
+
+class ItemDelegate : public QStyledItemDelegate
+{
+    Q_OBJECT
+public:
+    ItemDelegate(QObject *parent = nullptr);
+    virtual ~ItemDelegate() override;
+
+    void setEnabled(bool enabled);
+protected:
+    QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const  override;
+
+
+//    virtual void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+
+
+private:
+    bool m_isEnabled;
+
 };
 
 class PrinterListView : public DListView
