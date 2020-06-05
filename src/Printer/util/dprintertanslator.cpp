@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     shenfusheng_cm <shenfusheng_cm@deepin.com>
  *

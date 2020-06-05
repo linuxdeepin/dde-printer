@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     liurui <liurui_cm@deepin.com>
  *
@@ -300,7 +300,7 @@ void DPrintersShowWindow::initConnections()
     //    //此处修改文字和修改图标都会触发这个信号，导致bug，修改图标之前先屏蔽信号
     connect(m_pPrinterModel, &QStandardItemModel::itemChanged, this, &DPrintersShowWindow::renamePrinterSlot);
     connect(m_pPrinterListView, &DListView::customContextMenuRequested, this, &DPrintersShowWindow::contextMenuRequested);
-    connect(m_pPrinterListView, &DListView::doubleClicked, this, [this](const QModelIndex &index) {
+    connect(m_pPrinterListView, &DListView::doubleClicked, this, [this](const QModelIndex & index) {
         // 存在未完成的任务无法进入编辑状态
         if (!index.isValid())
             return;
@@ -336,7 +336,7 @@ void DPrintersShowWindow::initConnections()
 
     connect(m_pSettings, &QAction::triggered, this, &DPrintersShowWindow::serverSettingsSlot);
 
-    connect(g_cupsMonitor, &CupsMonitor::signalPrinterStateChanged, this, [this](const QString &printer, int state, const QString &message) {
+    connect(g_cupsMonitor, &CupsMonitor::signalPrinterStateChanged, this, [this](const QString & printer, int state, const QString & message) {
         Q_UNUSED(message)
         if (printer == m_CurPrinterName) {
             QString stateStr;
@@ -357,7 +357,7 @@ void DPrintersShowWindow::showEvent(QShowEvent *event)
     Q_UNUSED(event)
     refreshPrinterListView(QString());
 
-    QTimer::singleShot(10, this, [=]() {
+    QTimer::singleShot(10, this, [ = ]() {
         CheckCupsServer cups(this);
         if (!cups.isPass()) {
             DDialog dlg("", tr("CUPS server is not running, and can’t manage printers."));
@@ -653,7 +653,7 @@ void DPrintersShowWindow::printTestClickSlot()
     QString printerName = m_pPrinterListView->currentIndex().data().toString();
 
     PrinterTestPageDialog *dlg = new PrinterTestPageDialog(printerName, this);
-    connect(dlg, &PrinterTestPageDialog::signalFinished, this, [=]() {
+    connect(dlg, &PrinterTestPageDialog::signalFinished, this, [ = ]() {
         m_pTBtnPrintTest->blockSignals(false);
     });
     dlg->printTestPage();
