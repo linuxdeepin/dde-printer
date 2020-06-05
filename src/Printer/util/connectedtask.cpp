@@ -39,4 +39,3 @@ void ConnectedTask::run()
     //用printerName区分信号的来源
     emit signalResult(passed, m_printerName);
 }
-

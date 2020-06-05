@@ -42,7 +42,6 @@
 #include <DBackgroundGroup>
 #include <DErrorMessage>
 
-
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QGridLayout>
@@ -132,7 +131,6 @@ void DPrintersShowWindow::initUI()
     m_pListViewMenu->addSeparator();
     m_pListViewMenu->addAction(m_pDefaultAction);
 
-
     // 没有打印机时的提示
     m_pLeftTipLabel = new QLabel(tr("No Printers"));
     m_pLeftTipLabel->setVisible(false);
@@ -154,10 +152,9 @@ void DPrintersShowWindow::initUI()
     QLabel *pLabelImage = new QLabel("");
     pLabelImage->setPixmap(QPixmap(":/images/printer_details.svg"));
 
-    m_pLabelPrinterName = new QLabel("") ;
+    m_pLabelPrinterName = new QLabel("");
     m_pLabelPrinterName->setMinimumWidth(200);
     DFontSizeManager::instance()->bind(m_pLabelPrinterName, DFontSizeManager::T4, QFont::DemiBold);
-
 
     QLabel *pLabelLocation = new QLabel(tr("Location:"));
     pLabelLocation->setFixedWidth(60);
@@ -267,13 +264,11 @@ void DPrintersShowWindow::initUI()
     QWidget *pRightWidgwt = new QWidget();
     pRightWidgwt->setLayout(pRightMainVLayout);
 
-
-
     QHBoxLayout *pMainHLayout = new QHBoxLayout();
     pMainHLayout->setSpacing(2);
     pMainHLayout->addWidget(pLeftWidget, 1);
     pMainHLayout->addWidget(pRightWidgwt, 2);
-//    pMainHLayout->setContentsMargins(10, 10, 10, 10);
+    //    pMainHLayout->setContentsMargins(10, 10, 10, 10);
     //阴影分割布局控件
     DBackgroundGroup *pCentralWidget = new DBackgroundGroup();
     pCentralWidget->setLayout(pMainHLayout);
@@ -302,13 +297,13 @@ void DPrintersShowWindow::initConnections()
     connect(m_pTBtnFault, &DIconButton::clicked, this, &DPrintersShowWindow::printFalutClickSlot);
 
     connect(m_pPrinterListView, QOverload<const QModelIndex &>::of(&DListView::currentChanged), this, &DPrintersShowWindow::printerListWidgetItemChangedSlot);
-//    //此处修改文字和修改图标都会触发这个信号，导致bug，修改图标之前先屏蔽信号
+    //    //此处修改文字和修改图标都会触发这个信号，导致bug，修改图标之前先屏蔽信号
     connect(m_pPrinterModel, &QStandardItemModel::itemChanged, this, &DPrintersShowWindow::renamePrinterSlot);
     connect(m_pPrinterListView, &DListView::customContextMenuRequested, this, &DPrintersShowWindow::contextMenuRequested);
-    connect(m_pPrinterListView, &DListView::doubleClicked, this, [this](const QModelIndex & index) {
+    connect(m_pPrinterListView, &DListView::doubleClicked, this, [this](const QModelIndex &index) {
         // 存在未完成的任务无法进入编辑状态
         if (!index.isValid())
-            return ;
+            return;
         m_pPrinterListView->blockSignals(true);
         m_pPrinterModel->blockSignals(true);
         QStandardItem *pItem = m_pPrinterModel->itemFromIndex(index);
@@ -339,10 +334,9 @@ void DPrintersShowWindow::initConnections()
 
     connect(m_pSearchWindow, &PrinterSearchWindow::updatePrinterList, this, &DPrintersShowWindow::refreshPrinterListView);
 
-
     connect(m_pSettings, &QAction::triggered, this, &DPrintersShowWindow::serverSettingsSlot);
 
-    connect(g_cupsMonitor, &CupsMonitor::signalPrinterStateChanged, this, [this](const QString & printer, int state, const QString & message) {
+    connect(g_cupsMonitor, &CupsMonitor::signalPrinterStateChanged, this, [this](const QString &printer, int state, const QString &message) {
         Q_UNUSED(message)
         if (printer == m_CurPrinterName) {
             QString stateStr;
@@ -363,17 +357,7 @@ void DPrintersShowWindow::showEvent(QShowEvent *event)
     Q_UNUSED(event)
     refreshPrinterListView(QString());
 
-//    for (int i = 0; i < m_pPrinterModel->rowCount(); i++) {
-//        QString printerName = m_pPrinterModel->item(i)->data(Qt::DisplayRole).toString();
-//        bool isEnabled = m_pPrinterManager->isPrinterEnabled(printerName);
-//        m_pPrinterModel->blockSignals(true);
-//        m_pPrinterListView->blockSignals(true);
-////        m_pPrinterModel->item(i)->setEnabled(isEnabled);
-//        m_pPrinterModel->blockSignals(false);
-//        m_pPrinterListView->blockSignals(false);
-//    }
-
-    QTimer::singleShot(10, this, [ = ]() {
+    QTimer::singleShot(10, this, [=]() {
         CheckCupsServer cups(this);
         if (!cups.isPass()) {
             DDialog dlg("", tr("CUPS server is not running, and can’t manage printers."));
@@ -415,8 +399,6 @@ void DPrintersShowWindow::updateDefaultPrinterIcon()
     m_pPrinterModel->blockSignals(false);
 }
 
-
-
 void DPrintersShowWindow::refreshPrinterListView(const QString &newPrinterName)
 {
     m_pPrinterManager->updateDestinationList();
@@ -452,7 +434,6 @@ void DPrintersShowWindow::refreshPrinterListView(const QString &newPrinterName)
         m_pBtnDeletePrinter->setEnabled(false);
     }
 
-
     if (newPrinterName.isEmpty()) {
         if (m_pPrinterListView->count() > 0) {
             m_pPrinterListView->setCurrentIndex(m_pPrinterModel->index(0, 0));
@@ -474,7 +455,7 @@ void DPrintersShowWindow::serverSettingsSlot()
         m_pSettingsDialog->m_pCheckIPP->setEnabled(false);
     }
     m_pSettingsDialog->m_pCheckRemote->setChecked(m_pPrinterManager->isRemoteAdminEnabled());
-//    m_pSettingsDialog->m_pCheckCancelJobs->setChecked(m_pPrinterManager->isUserCancelAnyEnabled());
+    //    m_pSettingsDialog->m_pCheckCancelJobs->setChecked(m_pPrinterManager->isUserCancelAnyEnabled());
     m_pSettingsDialog->m_pCheckSaveDebugInfo->setChecked(m_pPrinterManager->isDebugLoggingEnabled());
     m_pSettingsDialog->exec();
     if (m_pSettingsDialog->m_pCheckShared->isChecked()) {
@@ -485,7 +466,7 @@ void DPrintersShowWindow::serverSettingsSlot()
         m_pPrinterManager->enableRemoteAny(false);
     }
     m_pPrinterManager->enableRemoteAdmin(m_pSettingsDialog->m_pCheckRemote->isChecked());
-//    m_pPrinterManager->enableUserCancelAny(m_pSettingsDialog->m_pCheckCancelJobs->isChecked());
+    //    m_pPrinterManager->enableUserCancelAny(m_pSettingsDialog->m_pCheckCancelJobs->isChecked());
     m_pPrinterManager->enableDebugLogging(m_pSettingsDialog->m_pCheckSaveDebugInfo->isChecked());
     m_pPrinterManager->commit();
     //触发本地cups服务启动
@@ -628,7 +609,7 @@ void DPrintersShowWindow::renamePrinterSlot(QStandardItem *pItem)
 void DPrintersShowWindow::printSettingClickSlot()
 {
     if (!m_pPrinterListView->currentIndex().isValid())
-        return ;
+        return;
     QString strPrinterName = m_pPrinterListView->currentIndex().data().toString();
     DPropertySetDlg dlg(strPrinterName, this);
 
@@ -672,7 +653,7 @@ void DPrintersShowWindow::printTestClickSlot()
     QString printerName = m_pPrinterListView->currentIndex().data().toString();
 
     PrinterTestPageDialog *dlg = new PrinterTestPageDialog(printerName, this);
-    connect(dlg, &PrinterTestPageDialog::signalFinished, this, [ = ]() {
+    connect(dlg, &PrinterTestPageDialog::signalFinished, this, [=]() {
         m_pTBtnPrintTest->blockSignals(false);
     });
     dlg->printTestPage();
@@ -750,17 +731,6 @@ void DPrintersShowWindow::listWidgetMenuActionSlot(bool checked)
         m_pPrinterManager->setPrinterEnabled(printerName, checked);
         //更新打印机状态信息
         printerListWidgetItemChangedSlot(m_pPrinterListView->currentIndex());
-//        m_pPrinterListView->blockSignals(true);
-//        m_pPrinterModel->blockSignals(true);
-//        QAbstractItemDelegate *pDelegate = m_pPrinterListView->itemDelegate(m_pPrinterListView->currentIndex());
-//        ItemDelegate *pItemOrigin = static_cast<ItemDelegate *>(pDelegate);
-//        pItemOrigin->setEnabled(checked);
-//        m_pPrinterListView->repaint();
-//        m_pPrinterModel->item(m_pPrinterListView->currentIndex().row())->setEnabled(checked);
-//        m_pPrinterListView->blockSignals(false);
-//        m_pPrinterModel->blockSignals(false);
-//        m_pPrinterListView->repaint();
-
     } else if (sender()->objectName() == "Default") {
         if (checked) {
             m_pPrinterManager->setPrinterDefault(printerName);
@@ -771,23 +741,13 @@ void DPrintersShowWindow::listWidgetMenuActionSlot(bool checked)
     }
 }
 
-
-
-
 ItemDelegate::ItemDelegate(QObject *parent)
     : QStyledItemDelegate(parent)
 {
-
 }
 
 ItemDelegate::~ItemDelegate()
 {
-
-}
-
-void ItemDelegate::setEnabled(bool enabled)
-{
-    m_isEnabled = enabled;
 }
 
 QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
@@ -800,18 +760,3 @@ QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
     pLineEdit->setMaxLength(127);
     return pLineEdit;
 }
-
-//void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
-//{
-//    QColor shadowColor = QColor(255, 0, 0, 10);
-////    QBrush *brush = new QBrush();
-////    brush->setColor(shadowColor);
-////    painter->setBrush(shadowColor);
-//    painter->fillRect(0, 0, 100, 100, shadowColor);
-
-//    if (m_isEnabled) {
-
-//    } else {
-
-//    }
-//}

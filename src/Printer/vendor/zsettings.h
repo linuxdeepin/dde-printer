@@ -27,7 +27,7 @@
 class zSettings : public QSettings
 {
 public:
-    static zSettings* getInstance();
+    static zSettings *getInstance();
 
     const QString getClientVersion();
     const QString getClientCode();
@@ -44,7 +44,7 @@ public:
 
 protected:
     zSettings(const QString &fileName);
-    ~zSettings(){}
+    ~zSettings() {}
 };
 
 #define g_Settings zSettings::getInstance()

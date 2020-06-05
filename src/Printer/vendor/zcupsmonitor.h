@@ -50,7 +50,7 @@ public:
 
     void stop() Q_DECL_OVERRIDE;
 
-    int  getPrinterState(const QString &printer);
+    int getPrinterState(const QString &printer);
 
 protected:
     CupsMonitor(QObject *parent = nullptr);
@@ -81,16 +81,16 @@ signals:
     void signalShowTrayIcon(bool);
 
 private:
-    QMap<int, QString>  m_jobMessages;
-    QMap<QString, int>  m_printersState;
-    QStringList         m_stateStrings;
-    QMutex              m_mutex;
+    QMap<int, QString> m_jobMessages;
+    QMap<QString, int> m_printersState;
+    QStringList m_stateStrings;
+    QMutex m_mutex;
 
-    int                 m_subId;
-    int                 m_seqNumber;
-    int                 m_jobId;
-    QSet<unsigned int>  m_pendingNotification;
-    QMap<int, QTime>    m_processingJob;
+    int m_subId;
+    int m_seqNumber;
+    int m_jobId;
+    QSet<unsigned int> m_pendingNotification;
+    QMap<int, QTime> m_processingJob;
 };
 
 #define g_cupsMonitor CupsMonitor::getInstance()

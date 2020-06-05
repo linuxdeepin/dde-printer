@@ -30,7 +30,6 @@
 #include <QObject>
 #include <QLocale>
 
-
 using namespace std;
 
 class DPrinterManager : public QObject
@@ -103,6 +102,7 @@ public:
     void commit();
     bool hasSamePrinter(const QString &printer);
     QString validataName(const QString &oldPrinterName);
+
 private:
     DPrinterManager();
     Q_DISABLE_COPY(DPrinterManager)

@@ -54,9 +54,9 @@
 #include <QKeyEvent>
 #include <QAbstractItemView>
 
-QtCompleterDelegate::QtCompleterDelegate(QObject* pParent): QStyledItemDelegate(pParent)
+QtCompleterDelegate::QtCompleterDelegate(QObject *pParent)
+    : QStyledItemDelegate(pParent)
 {
-
 }
 
 QSize QtCompleterDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
@@ -71,15 +71,13 @@ void QtCompleterDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
     painter->save();
     QRect rc = QRect(option.rect.left() + 2, option.rect.top() + 2,
                      option.rect.width() - 4, option.rect.height() - 4);
-    painter->setRenderHints(QPainter::Antialiasing|QPainter::TextAntialiasing);
+    painter->setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing);
 
-    if(option.state.testFlag(QStyle::State_MouseOver))
-    {
+    if (option.state.testFlag(QStyle::State_MouseOver)) {
         painter->setPen(QPen(Qt::blue));
         painter->setBrush(Qt::NoBrush);
         painter->drawRoundedRect(rc, 8, 8);
-    }
-    else {
+    } else {
         painter->setPen(QPen(Qt::white));
         painter->setBrush(Qt::NoBrush);
         painter->drawRoundedRect(rc, 8, 8);
@@ -87,15 +85,15 @@ void QtCompleterDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
 
     painter->setPen(Qt::black);
     QString strText = index.data(Qt::DisplayRole).toString();
-    painter->drawText(rc, Qt::AlignLeft|Qt::AlignVCenter, strText);
+    painter->drawText(rc, Qt::AlignLeft | Qt::AlignVCenter, strText);
     painter->restore();
 }
 
 InstallDriverWindow::InstallDriverWindow(QWidget *parent)
     : DMainWindow(parent)
-    ,m_pManufactureCompleter(nullptr)
-    ,m_pTypeCompleter(nullptr)
-    ,m_pDriverCompleter(nullptr)
+    , m_pManufactureCompleter(nullptr)
+    , m_pTypeCompleter(nullptr)
+    , m_pDriverCompleter(nullptr)
 {
     initUI();
     initConnections();
@@ -103,7 +101,6 @@ InstallDriverWindow::InstallDriverWindow(QWidget *parent)
 
 InstallDriverWindow::~InstallDriverWindow()
 {
-
 }
 
 void InstallDriverWindow::initUI()
@@ -123,7 +120,7 @@ void InstallDriverWindow::initUI()
     setWindowModality(Qt::ApplicationModal);
     resize(682, 532);
     // 左侧
-    QLabel *pLabelTitle1 = new QLabel(tr("Select a driver from")) ;
+    QLabel *pLabelTitle1 = new QLabel(tr("Select a driver from"));
     DFontSizeManager::instance()->bind(pLabelTitle1, DFontSizeManager::T5, QFont::DemiBold);
     m_pTabListView = new DListView();
     m_pTabListModel = new QStandardItemModel();
@@ -143,7 +140,7 @@ void InstallDriverWindow::initUI()
 
     // 切换控件
     m_pStackWidget = new QStackedWidget();
-    m_pRightTitleLabel = new QLabel(tr("Choose a local driver"));// 这个标题栏三个界面公用
+    m_pRightTitleLabel = new QLabel(tr("Choose a local driver")); // 这个标题栏三个界面公用
     DFontSizeManager::instance()->bind(m_pRightTitleLabel, DFontSizeManager::T5, QFont::DemiBold);
     //右侧 本地
     QLabel *pLabelManufacturer = new QLabel(tr("Vendor"));
@@ -238,7 +235,6 @@ void InstallDriverWindow::initUI()
     pMakerWidget1->setLayout(pMakerHL1);
     pMakerWidget1->setFixedHeight(56);
 
-
     QLabel *pDriverLabel = new QLabel(tr("Driver"));
     m_pDriverManualCombo = new DComboBox();
     QHBoxLayout *pMakerHL2 = new QHBoxLayout;
@@ -250,7 +246,6 @@ void InstallDriverWindow::initUI()
     QWidget *pMakerWidget2 = new QWidget();
     pMakerWidget2->setLayout(pMakerHL2);
 
-
     QVBoxLayout *pMakerVLayout1 = new QVBoxLayout();
     pMakerVLayout1->addWidget(pMakerWidget1);
     pMakerVLayout1->addWidget(pMakerWidget2);
@@ -261,7 +256,7 @@ void InstallDriverWindow::initUI()
     pSettingWidget->setItemSpacing(1);
     pSettingWidget->setItemMargins(QMargins(0, 0, 0, 0));
     pSettingWidget->setBackgroundRole(this->backgroundRole());
-    QVBoxLayout *pVLayoutMaker = new  QVBoxLayout();
+    QVBoxLayout *pVLayoutMaker = new QVBoxLayout();
     pVLayoutMaker->addWidget(pSettingWidget, 0);
     pVLayoutMaker->addStretch();
     pVLayoutMaker->setMargin(0);
@@ -319,7 +314,7 @@ void InstallDriverWindow::initConnections()
     connect(m_pTypeCombo, &QComboBox::currentTextChanged, this, &InstallDriverWindow::currentModelChangedSlot);
     connect(m_pSearchBtn, &QPushButton::clicked, this, &InstallDriverWindow::searchDriverSlot);
 
-    connect(m_pManuAndTypeLineEdit, &QLineEdit::editingFinished, this, [ this ]() {
+    connect(m_pManuAndTypeLineEdit, &QLineEdit::editingFinished, this, [this]() {
         // 按下enter会触发两次信号，需要过滤掉失去焦点之后的信号 并且判断校验结果
         if (m_pManuAndTypeLineEdit->hasFocus())
             searchDriverSlot();
@@ -355,12 +350,11 @@ void InstallDriverWindow::initMakerAndType()
 
 void InstallDriverWindow::clearUserInfo()
 {
-    m_pPPDPath ->setText(UI_PRINTERDRIVER_PPDLABEL_NORMAL);
-    m_pSelectPPDBtn ->setText(UI_PRINTERDRIVER_PPDBTN_NORMAL);
+    m_pPPDPath->setText(UI_PRINTERDRIVER_PPDLABEL_NORMAL);
+    m_pSelectPPDBtn->setText(UI_PRINTERDRIVER_PPDBTN_NORMAL);
 
     m_pManuAndTypeLineEdit->clear();
     m_pDriverManualCombo->clear();
-
 }
 
 void InstallDriverWindow::showEvent(QShowEvent *event)
@@ -378,7 +372,6 @@ void InstallDriverWindow::showEvent(QShowEvent *event)
         m_pInstallBtn->setVisible(true);
         initMakerAndType();
     }
-
 }
 
 bool InstallDriverWindow::eventFilter(QObject *watched, QEvent *event)
@@ -601,42 +594,34 @@ void InstallDriverWindow::driverRefreshSlot(int id, int iState)
     }
 }
 
-QCompleter* InstallDriverWindow::initCompleter(COMPLETERNAME name, const QStringList& strList)
+QCompleter *InstallDriverWindow::initCompleter(COMPLETERNAME name, const QStringList &strList)
 {
-    QCompleter* pCompleter = new QCompleter(strList, this);
+    QCompleter *pCompleter = new QCompleter(strList, this);
     pCompleter->setCaseSensitivity(Qt::CaseInsensitive);
     pCompleter->setFilterMode(Qt::MatchContains);
     pCompleter->setCompletionMode(QCompleter::PopupCompletion);
     pCompleter->popup()->setItemDelegate(new QtCompleterDelegate(pCompleter));
 
-    if(MANUFACTURER == name)
-    {
+    if (MANUFACTURER == name) {
         m_pManufacturerCombo->setCompleter(pCompleter);
 
-        if(m_pManufactureCompleter != nullptr)
-        {
+        if (m_pManufactureCompleter != nullptr) {
             delete m_pManufactureCompleter;
         }
 
         m_pManufactureCompleter = pCompleter;
-    }
-    else if(TYPE == name)
-    {
+    } else if (TYPE == name) {
         m_pTypeCombo->setCompleter(pCompleter);
 
-        if(m_pTypeCompleter != nullptr)
-        {
+        if (m_pTypeCompleter != nullptr) {
             delete m_pTypeCompleter;
         }
 
         m_pTypeCompleter = pCompleter;
-    }
-    else if(DRIVER == name)
-    {
+    } else if (DRIVER == name) {
         m_pDriverCombo->setCompleter(pCompleter);
 
-        if(m_pDriverCompleter != nullptr)
-        {
+        if (m_pDriverCompleter != nullptr) {
             delete m_pDriverCompleter;
         }
 
@@ -667,7 +652,8 @@ void InstallDriverWindow::driverSearchedSlot()
             if (driver.value(SD_KEY_from).toInt() == PPDFrom_Server) {
                 isExcat = driver.value("excat").toBool();
             }
-            if (isExcat) strReplace = tr(" (recommended)");
+            if (isExcat)
+                strReplace = tr(" (recommended)");
             //去掉自带的recommended字段
             strDesc.replace("(recommended)", "");
             //如果是精确匹配添加 推荐 字段

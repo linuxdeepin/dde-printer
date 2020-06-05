@@ -31,8 +31,7 @@
 #include <QString>
 #include <QMap>
 
-typedef struct conflictNode
-{
+typedef struct conflictNode {
     QString strOption;
     QString strValue;
 
@@ -42,19 +41,17 @@ typedef struct conflictNode
         strValue = "";
     }
 
-    conflictNode(const conflictNode& other)
+    conflictNode(const conflictNode &other)
     {
-        if(this != &other)
-        {
+        if (this != &other) {
             strOption = other.strOption;
             strValue = other.strValue;
         }
     }
 
-    conflictNode& operator=(const conflictNode& other)
+    conflictNode &operator=(const conflictNode &other)
     {
-        if(this != &other)
-        {
+        if (this != &other) {
             strOption = other.strOption;
             strValue = other.strValue;
         }
@@ -63,16 +60,12 @@ typedef struct conflictNode
     }
 } CONFLICTNODE;
 
-typedef struct conflictPair
-{
+typedef struct conflictPair {
     QString strOpt1;
     QString strOpt2;
 } CONFLICTPAIR;
 
-
-
-typedef struct  OptNode
-{
+typedef struct OptNode {
     QString strOptName;
     QString strOptText;
     QString strDefaultValue;
@@ -102,13 +95,13 @@ public:
     QVector<QMap<QString, QString>> getPageRegionChooses();
 
     //MediaType PPDFILE
-    void setMediaType(const QString& strValue);
+    void setMediaType(const QString &strValue);
     QString getMediaType();
     QVector<QMap<QString, QString>> getMediaTypeChooses();
 
     //ColorModel PPDFILE
     bool canSetColorModel();
-    void setColorModel(const QString& strColorMode);
+    void setColorModel(const QString &strColorMode);
     QString getColorModel();
     QVector<QMap<QString, QString>> getColorModelChooses();
 
@@ -133,16 +126,16 @@ public:
     QString getPrinterMakeAndModel();
     //URI
     QString getPrinterUri();
-    void setPrinterUri(const QString& strValue);
+    void setPrinterUri(const QString &strValue);
 
     //page orientation  ATTRIBUTES
     QString getPageOrientation();
-    void setPageOrientationChoose(const QString& strValue);
+    void setPageOrientationChoose(const QString &strValue);
     QVector<QMap<QString, QString>> getPageOrientationChooses();
 
     //page reverse ATTRIBUTES
     QString getPageOutputOrder();
-    void setPageOutputOrder(const QString& strValue);
+    void setPageOutputOrder(const QString &strValue);
     QVector<QMap<QString, QString>> getPageOutputOrderChooses();
 
     //page BindEdge ATTRIBUTES
@@ -152,18 +145,18 @@ public:
 
     //page Finishings
     QString getFinishings();
-    void setFinishings(const QString& strValue);
+    void setFinishings(const QString &strValue);
     QVector<QMap<QString, QString>> getFinishingsChooses();
 
     //stapleLocation
     QString getStapleLocation();
-    void setStapleLoaction(const QString& strVal);
+    void setStapleLoaction(const QString &strVal);
     QVector<QMap<QString, QString>> getStapLocationChooses();
 
     //print Resolution
     QString getResolution();
-    void setResolution(const QString& strValue);
-    QVector<QMap<QString,QString>> getResolutionChooses();
+    void setResolution(const QString &strValue);
+    QVector<QMap<QString, QString>> getResolutionChooses();
 
     //read waste
     void getWastes();
@@ -175,18 +168,18 @@ public:
     bool needSavePpd();
 
     //conflicts check
-    bool isConflict(const QString&, const QString&, QVector<CONFLICTNODE>&);
+    bool isConflict(const QString &, const QString &, QVector<CONFLICTNODE> &);
 
     //读取可安装选项
     QVector<INSTALLABLEOPTNODE> getInstallableNodes();
-    void setInstallableNodeValue(const QString& strOpt, const QString& strValue);
+    void setInstallableNodeValue(const QString &strOpt, const QString &strValue);
 
     //读取常规选项
     QVector<GENERALOPTNODE> getGeneralNodes();
-    void setGeneralNodeValue(const QString& strOpt, const QString& strValue);
+    void setGeneralNodeValue(const QString &strOpt, const QString &strValue);
 
     //通过关键词读取选项
-    OPTNODE getOptionNodeByKeyword(const QString& strKey);
+    OPTNODE getOptionNodeByKeyword(const QString &strKey);
 
 private:
     QString getOptionValue(const QString &strOptName);

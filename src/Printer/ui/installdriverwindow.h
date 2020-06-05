@@ -46,8 +46,7 @@ class QStackedWidget;
 class QCompleter;
 QT_END_NAMESPACE
 
-enum COMPLETERNAME
-{
+enum COMPLETERNAME {
     MANUFACTURER,
     TYPE,
     DRIVER
@@ -56,7 +55,7 @@ enum COMPLETERNAME
 class QtCompleterDelegate : public QStyledItemDelegate
 {
 public:
-    QtCompleterDelegate(QObject* pParent = nullptr);
+    QtCompleterDelegate(QObject *pParent = nullptr);
 
 protected:
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
@@ -84,6 +83,7 @@ public:
     * @date          2019-10-28
     */
     void setPreWidget(QWidget *parent);
+
 private:
     void initUI();
     void initConnections();
@@ -95,6 +95,7 @@ private:
     * @date          2019-11-05
     */
     void clearUserInfo();
+
 protected:
     void showEvent(QShowEvent *event) override;
     /**
@@ -146,10 +147,11 @@ private slots:
     void driverSearchedSlot();
     // 响应本地驱动初始化完成
     void driverRefreshSlot(int id, int iState);
-    QCompleter* initCompleter(COMPLETERNAME name, const QStringList& strList);
+    QCompleter *initCompleter(COMPLETERNAME name, const QStringList &strList);
 
 signals:
     void updatePrinterList();
+
 private:
     // 左侧选项列表
     DListView *m_pTabListView;
@@ -160,9 +162,9 @@ private:
     DComboBox *m_pManufacturerCombo;
     DComboBox *m_pTypeCombo;
     DComboBox *m_pDriverCombo;
-    QCompleter* m_pManufactureCompleter;
-    QCompleter* m_pTypeCompleter;
-    QCompleter* m_pDriverCompleter;
+    QCompleter *m_pManufactureCompleter;
+    QCompleter *m_pTypeCompleter;
+    QCompleter *m_pDriverCompleter;
     // 本地PPD
     QLabel *m_pPPDPath;
     QPushButton *m_pSelectPPDBtn;

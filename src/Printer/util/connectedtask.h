@@ -33,6 +33,7 @@ public:
     virtual ~ConnectedTask() override;
 
     void setSuspended(bool suspended);
+
 protected:
     void run() override;
 

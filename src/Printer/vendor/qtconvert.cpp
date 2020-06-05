@@ -96,9 +96,8 @@ void dumpStdMapValue(const map<string, string> &mapValue)
 void geteElidedText(const QFont &font, QString &str, int maxWidth)
 {
     QFontMetrics fontWidth(font);
-    int width = fontWidth.width(str);  //计算字符串宽度
+    int width = fontWidth.width(str); //计算字符串宽度
     if (width >= maxWidth) { //当字符串宽度大于最大宽度时进行转换
         str = fontWidth.elidedText(str, Qt::ElideRight, maxWidth); //右部显示省略号
     }
 }
-

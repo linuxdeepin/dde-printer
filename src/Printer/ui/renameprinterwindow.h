@@ -47,6 +47,7 @@ public:
     void setLocation(const QString &location);
     QString getDescription();
     void setDescription(const QString &description);
+
 private:
     void initUI();
     void initConnections();

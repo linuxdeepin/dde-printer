@@ -32,11 +32,11 @@ public:
 
 public:
     void init();
-    void addTranslate(const QString&, const QString&, const QString&);
-    QString translateLocal(const QString&, const QString&, const QString&);
+    void addTranslate(const QString &, const QString &, const QString &);
+    QString translateLocal(const QString &, const QString &, const QString &);
 
 private:
-    QMap<QString,QMap<QString,QString>> m_mapTrans;
+    QMap<QString, QMap<QString, QString>> m_mapTrans;
 };
 
 #endif // DPRINTERTANSLATOR_H

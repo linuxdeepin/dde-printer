@@ -46,7 +46,7 @@ QString getPrinterPPD(const char *name)
 
     try {
         strPPD = STQ(g_cupsConnection->getPPD(name));
-    }catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return QString();
     };
@@ -59,7 +59,7 @@ QString getPrinterNameFromUri(const QString &uri)
     if (uri.split("/", QString::SkipEmptyParts).count() < 2)
         return QString();
 
-    QByteArray bytes  = QByteArray::fromPercentEncoding(uri.toUtf8());
+    QByteArray bytes = QByteArray::fromPercentEncoding(uri.toUtf8());
     QString strurl = QString::fromUtf8(bytes);
     if (strurl.startsWith("dnssd://")) {
         QString strInfo = strurl.split("/", QString::SkipEmptyParts).at(1);
@@ -78,7 +78,7 @@ QString getPrinterUri(const char *name)
     try {
         requestList.push_back(CUPS_DEV_URI);
         attrs = g_cupsConnection->getPrinterAttributes(name, nullptr, &requestList);
-    }catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return QString();
     };
@@ -106,9 +106,10 @@ QString getHostFromUri(const QString &strUri)
     //smb格式uri：smb://[username:password@][workgroup/]server/printer
     if (strUri.startsWith("smb://")) {
         QStringList strlist = strUri.split("/", QString::SkipEmptyParts);
-        QString str = strlist.count()>3 ? strlist[strlist.count()-1] : "";
+        QString str = strlist.count() > 3 ? strlist[strlist.count() - 1] : "";
 
-        if (str.isEmpty()) return QString();
+        if (str.isEmpty())
+            return QString();
 
         strlist = str.split("@");
         return strlist.last();
@@ -117,13 +118,16 @@ QString getHostFromUri(const QString &strUri)
     //dnssd格式uri: dnssd://printername @ host.*.*.local/*
     if (strUri.startsWith("dnssd://")) {
         QStringList strlist = QUrl::fromPercentEncoding(strUri.toUtf8()).split("/", QString::SkipEmptyParts);
-        if (strlist.count() < 2) return QString();
+        if (strlist.count() < 2)
+            return QString();
 
         strlist = strlist[1].split(" ", QString::SkipEmptyParts);
-        if (strlist.isEmpty()) return QString();
+        if (strlist.isEmpty())
+            return QString();
 
         strlist = strlist.last().split(".", QString::SkipEmptyParts);
-        if (strlist.count() < 2) return QString();
+        if (strlist.count() < 2)
+            return QString();
 
         return strlist.first() + "." + strlist.last();
     }
@@ -137,7 +141,8 @@ QString getHostFromUri(const QString &strUri)
 
 QString reslovedHost(const QString &strHost)
 {
-    if (strHost.isEmpty()) return strHost;
+    if (strHost.isEmpty())
+        return strHost;
 
     struct hostent *host = gethostbyname(strHost.toUtf8().data());
     if (nullptr == host && HOST_NOT_FOUND == h_errno) {
@@ -147,27 +152,26 @@ QString reslovedHost(const QString &strHost)
     return QString();
 }
 
-bool isPackageExists(const QString& package)
+bool isPackageExists(const QString &package)
 {
     QDBusInterface interface {
         "com.deepin.lastore",
         "/com/deepin/lastore",
         "com.deepin.lastore.Manager",
-        QDBusConnection::systemBus()
-    };
+        QDBusConnection::systemBus()};
 
     QDBusReply<bool> isExists = interface.call("PackageExists", package);
 
-    return  isExists.isValid() && isExists;
+    return isExists.isValid() && isExists;
 }
 
-QVariant ipp_attribute_value (ipp_attribute_t *attr, int i)
+QVariant ipp_attribute_value(ipp_attribute_t *attr, int i)
 {
     QVariant val;
-//    char unknown[100];
-//    int lower, upper;
-//    int xres, yres;
-//    ipp_res_t units;
+    //    char unknown[100];
+    //    int lower, upper;
+    //    int xres, yres;
+    //    ipp_res_t units;
 
     switch (ippGetValueTag(attr)) {
     case IPP_TAG_NAME:
@@ -186,40 +190,40 @@ QVariant ipp_attribute_value (ipp_attribute_t *attr, int i)
         val = QVariant(ippGetInteger(attr, i));
         break;
     case IPP_TAG_BOOLEAN:
-        qDebug() << QString("Got %1 : %2").arg(UTF8_T_S(ippGetName(attr))).arg(ippGetBoolean(attr, i)?"true":"false");
+        qDebug() << QString("Got %1 : %2").arg(UTF8_T_S(ippGetName(attr))).arg(ippGetBoolean(attr, i) ? "true" : "false");
         val = QVariant(ippGetBoolean(attr, i));
         break;
-//    case IPP_TAG_RANGE:
-//        lower = ippGetRange (attr, i, &upper);
-//        val = Py_BuildValue ("(ii)",
-//                 lower,
-//                 upper);
-//        break;
-//    case IPP_TAG_NOVALUE:
-//        Py_RETURN_NONE;
-//        break;
-//    // TODO:
-//    case IPP_TAG_DATE:
-//        val = PyUnicode_FromString ("(IPP_TAG_DATE)");
-//        break;
-//    case IPP_TAG_RESOLUTION:
-//        xres = ippGetResolution(attr, i, &yres, &units);
-//        val = Py_BuildValue ("(iii)",
-//                 xres,
-//                 yres,
-//                 units);
-//        break;
+        //    case IPP_TAG_RANGE:
+        //        lower = ippGetRange (attr, i, &upper);
+        //        val = Py_BuildValue ("(ii)",
+        //                 lower,
+        //                 upper);
+        //        break;
+        //    case IPP_TAG_NOVALUE:
+        //        Py_RETURN_NONE;
+        //        break;
+        //    // TODO:
+        //    case IPP_TAG_DATE:
+        //        val = PyUnicode_FromString ("(IPP_TAG_DATE)");
+        //        break;
+        //    case IPP_TAG_RESOLUTION:
+        //        xres = ippGetResolution(attr, i, &yres, &units);
+        //        val = Py_BuildValue ("(iii)",
+        //                 xres,
+        //                 yres,
+        //                 units);
+        //        break;
     default:
-//        snprintf (unknown, sizeof (unknown),
-//              "(unknown IPP value tag 0x%x)", ippGetValueTag(attr));
-//        val = PyUnicode_FromString (unknown);
+        //        snprintf (unknown, sizeof (unknown),
+        //              "(unknown IPP value tag 0x%x)", ippGetValueTag(attr));
+        //        val = PyUnicode_FromString (unknown);
         break;
     }
 
     return val;
 }
 
-int shellCmd(const QString &cmd, QString& out, QString& strErr, int timeout)
+int shellCmd(const QString &cmd, QString &out, QString &strErr, int timeout)
 {
     qInfo() << "Start command: " << cmd;
     QProcess proc;
@@ -290,8 +294,7 @@ QStringList splitStdoutString(const QString &str)
         } else {
             if (*it == QChar('\\')) {
                 auto next = it + 1;
-                if (next != str.end() &&
-                        (*next == QChar('\\') || *next == QChar('"')))
+                if (next != str.end() && (*next == QChar('\\') || *next == QChar('"')))
                     ++it;
             }
             filed += *it;
@@ -327,28 +330,27 @@ QString normalize(const QString &strin)
     QString normalized;
     QString lstrin = strin.trimmed().toLower();
     bool alnumfound = false;
-    enum{BLANK, LETTER, DIGIT};
+    enum { BLANK,
+           LETTER,
+           DIGIT };
     int lastchar = BLANK;
 
-    if (strin.isEmpty()) return strin;
+    if (strin.isEmpty())
+        return strin;
 
     foreach (QChar ch, lstrin) {
-        if (ch.isLetter())
-        {
+        if (ch.isLetter()) {
             if (LETTER != lastchar && alnumfound)
                 normalized += " ";
             lastchar = LETTER;
-        }
-        else if (ch.isDigit())
-        {
+        } else if (ch.isDigit()) {
             if (DIGIT != lastchar && alnumfound)
                 normalized += " ";
             lastchar = DIGIT;
-        }
-        else lastchar = BLANK;
+        } else
+            lastchar = BLANK;
 
-        if (ch.isLetterOrNumber())
-        {
+        if (ch.isLetterOrNumber()) {
             normalized += ch;
             alnumfound = true;
         }
@@ -363,7 +365,7 @@ QMap<QString, QString> parseDeviceID(const QString &strId)
     QStringList list = strId.split(";");
     foreach (QString str, list) {
         QStringList val = str.split(":");
-        if(val.count() > 1)
+        if (val.count() > 1)
             map.insert(val[0].trimmed(), val[1].trimmed());
     }
 
@@ -377,28 +379,29 @@ QMap<QString, QString> parseDeviceID(const QString &strId)
     return map;
 }
 
-static const char* g_replaceMap[][2] = {{"lexmark international", "Lexmark"},
-                              {"kyocera mita", "Kyocera"},
-                              {"hewlettpackard", "HP"},
-                              {"minoltaqms", "minolta"},
-                              {"datamaxoneil", "datamax"},
-                              {"eastman kodak company", "kodak"},
-                              {"fuji xerox", "fuji xerox"},
-                              {"konica minolta", "konica minolta"}
-                              };
-QString replaceMakeName(QString &make_and_model, int* len)
+static const char *g_replaceMap[][2] = {{"lexmark international", "Lexmark"},
+                                        {"kyocera mita", "Kyocera"},
+                                        {"hewlettpackard", "HP"},
+                                        {"minoltaqms", "minolta"},
+                                        {"datamaxoneil", "datamax"},
+                                        {"eastman kodak company", "kodak"},
+                                        {"fuji xerox", "fuji xerox"},
+                                        {"konica minolta", "konica minolta"}};
+QString replaceMakeName(QString &make_and_model, int *len)
 {
     make_and_model = make_and_model.replace(QRegularExpression("_|-|\'"), "");
-    if (make_and_model.isEmpty()) return make_and_model;
+    if (make_and_model.isEmpty())
+        return make_and_model;
 
     QString strMM = make_and_model.toLower();
 
-    int size = sizeof(g_replaceMap)/sizeof(g_replaceMap[0]);
-    for(int i=0;i<size;i++) {
+    int size = sizeof(g_replaceMap) / sizeof(g_replaceMap[0]);
+    for (int i = 0; i < size; i++) {
         QString str = g_replaceMap[i][0];
 
         if (strMM.startsWith(str)) {
-            if (len) *len = str.length();
+            if (len)
+                *len = str.length();
 
             return g_replaceMap[i][1];
         }
@@ -407,54 +410,53 @@ QString replaceMakeName(QString &make_and_model, int* len)
     return make_and_model.split(" ").first();
 }
 
-typedef struct tagMakeRegular{
-    QString     strMake;
-    QString     strRegular;
-}TMakeRegular;
+typedef struct tagMakeRegular {
+    QString strMake;
+    QString strRegular;
+} TMakeRegular;
 
 TMakeRegular _MFR_BY_RANGE[] = {
     // Fill in missing manufacturer names based on model name
     {"HP", QString("deskjet"
-                      "|dj[ 0-9]?"
-                      "|laserjet"
-                      "|lj"
-                      "|color laserjet"
-                      "|color lj"
-                      "|designjet"
-                      "|officejet"
-                      "|oj"
-                      "|photosmart"
-                      "|ps "
-                      "|psc"
-                      "|edgeline")},
+                   "|dj[ 0-9]?"
+                   "|laserjet"
+                   "|lj"
+                   "|color laserjet"
+                   "|color lj"
+                   "|designjet"
+                   "|officejet"
+                   "|oj"
+                   "|photosmart"
+                   "|ps "
+                   "|psc"
+                   "|edgeline")},
     {"Epson", QString("stylus|aculaser")},
     {"Apple", QString("stylewriter"
-                         "|imagewriter"
-                         "|deskwriter"
-                         "|laserwriter")},
+                      "|imagewriter"
+                      "|deskwriter"
+                      "|laserwriter")},
     {"Canon", QString("pixus"
-                         "|pixma"
-                         "|selphy"
-                         "|imagerunner"
-                         "|bj"
-                         "|lbp")},
+                      "|pixma"
+                      "|selphy"
+                      "|imagerunner"
+                      "|bj"
+                      "|lbp")},
     {"Brother", QString("hl|dcp|mfc")},
     {"Xerox", QString("docuprint"
-                         "|docupage"
-                         "|phaser"
-                         "|workcentre"
-                         "|homecentre")},
+                      "|docupage"
+                      "|phaser"
+                      "|workcentre"
+                      "|homecentre")},
     {"Lexmark", QString("optra|(:color )?jetprinter")},
     {"KONICA MINOLTA", QString("magicolor"
-                                  "|pageworks"
-                                  "|pagepro")},
+                               "|pageworks"
+                               "|pagepro")},
     {"Kyocera", QString("fs-"
-                           "|km-"
-                           "|taskalfa")},
+                        "|km-"
+                        "|taskalfa")},
     {"Ricoh", QString("aficio")},
     {"Oce", QString("varioprint")},
-    {"Oki", QString("okipage|microline")}
-    };
+    {"Oki", QString("okipage|microline")}};
 
 QString _RE_ignore_suffix = QString(","
                                     "| hpijs"
@@ -475,27 +477,24 @@ QString _RE_ignore_suffix = QString(","
                                     "| br-script"
                                     "| for cups"
                                     "| series"
-                                    "| all-in-one"
-                                    );
+                                    "| all-in-one");
 
-typedef struct tagHPMode{
-    QString     strShortName;
-    QString     strFullName;
-}THPMode;
+typedef struct tagHPMode {
+    QString strShortName;
+    QString strFullName;
+} THPMode;
 
 THPMode _HP_MODEL_BY_NAME[] = {{"dj", "DeskJet"},
-                                {"lj", "LaserJet"},
-                                {"oj", "OfficeJet"},
-                                {"color lj", "Color LaserJet"},
-                                {"ps ", "PhotoSmart"}
-};
+                               {"lj", "LaserJet"},
+                               {"oj", "OfficeJet"},
+                               {"color lj", "Color LaserJet"},
+                               {"ps ", "PhotoSmart"}};
 
-void removeMakeInModel(const QString& strMake, QString& strModel)
+void removeMakeInModel(const QString &strMake, QString &strModel)
 {
     QString modell = strModel.toLower();
     QString makel = strMake.toLower();
-    if (modell.startsWith(makel))
-    {
+    if (modell.startsWith(makel)) {
         strModel = strModel.right(strModel.length() - makel.length());
         strModel = strModel.trimmed();
     }
@@ -533,11 +532,10 @@ void formatModelName(const QString &strMake, QString &strModel)
     }
 
     if (makel == "hp") {
-        len = sizeof(_HP_MODEL_BY_NAME)/sizeof(THPMode);
-        for(int i=0;i<len;i++) {
+        len = sizeof(_HP_MODEL_BY_NAME) / sizeof(THPMode);
+        for (int i = 0; i < len; i++) {
             if (modell.startsWith(_HP_MODEL_BY_NAME[i].strShortName)) {
-                strModel = _HP_MODEL_BY_NAME[i].strFullName +
-                        strModel.right(strModel.length()-_HP_MODEL_BY_NAME[i].strShortName.length());
+                strModel = _HP_MODEL_BY_NAME[i].strFullName + strModel.right(strModel.length() - _HP_MODEL_BY_NAME[i].strShortName.length());
                 modell = strModel.toLower();
                 break;
             }
@@ -549,7 +547,7 @@ void formatModelName(const QString &strMake, QString &strModel)
     strModel = strModel.trimmed();
 }
 
-void ppdMakeModelSplit(const QString &strMakeAndModel, QString& strMake, QString& strModel)
+void ppdMakeModelSplit(const QString &strMakeAndModel, QString &strMake, QString &strModel)
 {
     QString Make_And_Model = strMakeAndModel;
     int len = 0;
@@ -559,7 +557,7 @@ void ppdMakeModelSplit(const QString &strMakeAndModel, QString& strMake, QString
             len = strMake.length();
         }
 
-        strModel = Make_And_Model.mid(len+1);
+        strModel = Make_And_Model.mid(len + 1);
     }
 
     formatModelName(strMake, strModel);

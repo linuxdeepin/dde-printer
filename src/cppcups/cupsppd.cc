@@ -25,12 +25,11 @@
 
 using namespace std;
 
-
 /////////////////////////
 // Encoding conversion //
 /////////////////////////
 
-static int ppd_encoding_is_utf8(PPD * ppd)
+static int ppd_encoding_is_utf8(PPD *ppd)
 {
     const char *lang_encoding = nullptr, *from_encoding = nullptr;
     iconv_t cdf, cdt;
@@ -57,23 +56,23 @@ static int ppd_encoding_is_utf8(PPD * ppd)
         from_encoding = "ISO-8859-1";
 
     cdf = iconv_open("UTF-8", from_encoding);
-    if (cdf == (iconv_t) - 1)
+    if (cdf == (iconv_t)-1)
         cdf = iconv_open("UTF-8", "ISO-8859-1");
 
     cdt = iconv_open(from_encoding, "UTF-8");
-    if (cdt == (iconv_t) - 1)
+    if (cdt == (iconv_t)-1)
         cdt = iconv_open("ISO-8859-1", "UTF-8");
 
-    ppd->conv_from = (iconv_t*)malloc(sizeof(iconv_t));
+    ppd->conv_from = (iconv_t *)malloc(sizeof(iconv_t));
     *ppd->conv_from = cdf;
 
-    ppd->conv_to = (iconv_t*)malloc(sizeof(iconv_t));
+    ppd->conv_to = (iconv_t *)malloc(sizeof(iconv_t));
     *ppd->conv_to = cdt;
 
     return 0;
 }
 
-static char *utf8_to_ppd_encoding(PPD * ppd, const char *inbuf)
+static char *utf8_to_ppd_encoding(PPD *ppd, const char *inbuf)
 {
     char *outbuf = nullptr, *ret = nullptr;
     size_t len, outsize, outbytesleft;
@@ -89,8 +88,8 @@ static char *utf8_to_ppd_encoding(PPD * ppd, const char *inbuf)
     len = strlen(inbuf);
     outsize = 1 + 6 * len;
     outbytesleft = outsize - 1;
-    ret = outbuf = (char*)malloc(outsize);
-    if (iconv(cdt, (char **) &inbuf, &len, &outbuf, &outbytesleft) == (size_t) - 1) {
+    ret = outbuf = (char *)malloc(outsize);
+    if (iconv(cdt, (char **)&inbuf, &len, &outbuf, &outbytesleft) == (size_t)-1) {
         free(outbuf);
         return nullptr;
     }
@@ -111,7 +110,7 @@ PPD::PPD(void)
     conv_to = nullptr;
 }
 
-void PPD::load(const char* filename)
+void PPD::load(const char *filename)
 {
     this->file = fopen(filename, "r");
     if (!this->file) {
@@ -137,9 +136,12 @@ PPD::~PPD(void)
         debugprintf("- PPD %p (no fd)\n", this);
     }
 
-    if (this->ppd) ppdClose(this->ppd);
-    if (this->conv_from) iconv_close(*this->conv_from);
-    if (this->conv_to) iconv_close(*this->conv_to);
+    if (this->ppd)
+        ppdClose(this->ppd);
+    if (this->conv_from)
+        iconv_close(*this->conv_from);
+    if (this->conv_to)
+        iconv_close(*this->conv_to);
 }
 
 /////////
@@ -160,7 +162,7 @@ string PPD::localizeIPPReason(const char *reason, const char *scheme)
     char *buffer = nullptr;
     const size_t bufsize = 1024;
 
-    buffer = (char*)malloc(bufsize);
+    buffer = (char *)malloc(bufsize);
     if (ppdLocalizeIPPReason(this->ppd, reason, scheme, buffer, bufsize)) {
         ret = string(buffer);
     }
@@ -169,7 +171,7 @@ string PPD::localizeIPPReason(const char *reason, const char *scheme)
     return ret;
 }
 
-string PPD::localizeMarkerName(const char* name)
+string PPD::localizeMarkerName(const char *name)
 {
 #if CUPS_VERSION_MAJOR > 1 || (CUPS_VERSION_MAJOR == 1 && CUPS_VERSION_MINOR >= 4)
     string ret;
@@ -181,9 +183,9 @@ string PPD::localizeMarkerName(const char* name)
     }
 
     return ret;
-#else                /* earlier than CUPS 1.4 */
+#else /* earlier than CUPS 1.4 */
     throw runtime_error("Operation not supported - recompile against CUPS 1.4 or later");
-#endif                /* CUPS 1.4 */
+#endif /* CUPS 1.4 */
 }
 
 void PPD::markDefaults(void)
@@ -191,7 +193,7 @@ void PPD::markDefaults(void)
     ppdMarkDefaults(this->ppd);
 }
 
-int PPD::markOption(const char* name, const char* value)
+int PPD::markOption(const char *name, const char *value)
 {
     int conflicts;
     char *encname = nullptr, *encvalue = nullptr;
@@ -216,7 +218,7 @@ int PPD::conflicts(void)
     return ppdConflicts(this->ppd);
 }
 
-Option PPD::findOption(const char* option)
+Option PPD::findOption(const char *option)
 {
     Option ret;
     ppd_option_t *opt = nullptr;
@@ -258,7 +260,7 @@ Attribute PPD::findNextAttr(const char *name, const char *spec)
     return ret;
 }
 
-static int nondefaults_are_marked(ppd_group_t * g)
+static int nondefaults_are_marked(ppd_group_t *g)
 {
     ppd_option_t *o = nullptr;
     int oi;
@@ -309,7 +311,7 @@ int PPD::nondefaultsMarked(void)
  * natively.  Since this is used for PPD file reading, it assumes (possibly
  * falsely) that BUFSIZ is big enough.
  */
-ssize_t getline(char **line, size_t * linelen, FILE * fp)
+ssize_t getline(char **line, size_t *linelen, FILE *fp)
 {
     if (*linelen == 0) {
         *linelen = BUFSIZ;
@@ -375,7 +377,7 @@ void PPD::emitFd(int fd, ppd_section_t section)
 /*
  * emit JCL options by writing to a file object.
  */
-void PPD::emitJCL(FILE* f, int job_id, const char* user, const char* title)
+void PPD::emitJCL(FILE *f, int job_id, const char *user, const char *title)
 {
     if (!ppdEmitJCL(this->ppd, f, job_id, user, title))
         return;
@@ -386,7 +388,7 @@ void PPD::emitJCL(FILE* f, int job_id, const char* user, const char* title)
 /*
  * emit JCL end by writing to a file object.
  */
-void PPD::emitJCLEnd(FILE* f)
+void PPD::emitJCLEnd(FILE *f)
 {
     if (!ppdEmitJCLEnd(this->ppd, f))
         return;
@@ -402,10 +404,12 @@ void PPD::writeFd(int fd)
     int dfd;
 
     dfd = dup(fd);
-    if (dfd == -1) throw runtime_error(string_format("%d", errno));
+    if (dfd == -1)
+        throw runtime_error(string_format("%d", errno));
 
     out = fdopen(dfd, "w");
-    if (!out) throw runtime_error(string_format("%d", errno));
+    if (!out)
+        throw runtime_error(string_format("%d", errno));
 
     rewind(this->file);
     while (!feof(this->file)) {
@@ -423,31 +427,32 @@ void PPD::writeFd(int fd)
                 if (isspace(*end) || *end == ':')
                     break;
             }
-            keyword = (char*)calloc(1, (end - start) + 1);
+            keyword = (char *)calloc(1, (end - start) + 1);
             strncpy(keyword, start, end - start);
             choice = ppdFindMarkedChoice(this->ppd, keyword);
 
             // Treat PageRegion, PaperDimension and ImageableArea specially:
             // if not marked, use PageSize option.
-            if (!choice && (!strcmp(keyword, "PageRegion") ||
-                    !strcmp(keyword, "PaperDimension") ||
-                    !strcmp(keyword, "ImageableArea"))) {
+            if (!choice && (!strcmp(keyword, "PageRegion") || !strcmp(keyword, "PaperDimension") || !strcmp(keyword, "ImageableArea"))) {
                 choice = ppdFindMarkedChoice(this->ppd, "PageSize");
             }
 
             if (choice) {
                 fprintf(out, "*Default%s: %s", keyword, choice->choice);
-                if (strchr(end, '\r')) fputs("\r", out);
+                if (strchr(end, '\r'))
+                    fputs("\r", out);
                 fputs("\n", out);
                 written = 1;
             }
         }
 
-        if (!written) fputs(line, out);
+        if (!written)
+            fputs(line, out);
     }
 
     fclose(out);
-    if (line) free(line);
+    if (line)
+        free(line);
 }
 
 /////////
@@ -546,9 +551,9 @@ int Option::getUI(void)
     return this->option->ui;
 }
 
-vector<map<string,string>> Option::getChoices(void)
+vector<map<string, string>> Option::getChoices(void)
 {
-    vector<map<string,string>> choices;
+    vector<map<string, string>> choices;
     ppd_choice_t *choice = nullptr;
     bool defchoice_seen = false;
     int i;

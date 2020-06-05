@@ -32,7 +32,8 @@
 #include <QDir>
 #include <QDebug>
 
-DPrinter::DPrinter(Connection *con): DDestination(con)
+DPrinter::DPrinter(Connection *con)
+    : DDestination(con)
 {
     m_type = DESTTYPE::PRINTER;
     m_bNeedSavePpd = false;
@@ -42,16 +43,13 @@ bool DPrinter::initPrinterPPD()
 {
     bool bRet = false;
 
-    try
-    {
+    try {
         time_t tm = 0;
         string strPPDName = m_pCon->getPPD3(m_strName.toStdString().c_str(), &tm, nullptr);
         m_ppd.load(strPPDName.c_str());
         m_ppd.localize();
         bRet = true;
-    }
-    catch (const std::runtime_error &e)
-    {
+    } catch (const std::runtime_error &e) {
         bRet = false;
         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
     }
@@ -95,7 +93,7 @@ QVector<QMap<QString, QString>> DPrinter::getPageRegionChooses()
     return getOptionChooses("PageRegion");
 }
 
-void DPrinter::setMediaType(const QString& strValue)
+void DPrinter::setMediaType(const QString &strValue)
 {
     setOptionValue("MediaType", strValue);
 }
@@ -115,16 +113,13 @@ bool DPrinter::canSetColorModel()
     bool bRet = false;
 
     try {
-        Attribute attr = m_ppd.findAttr("ColorDevice",nullptr);
+        Attribute attr = m_ppd.findAttr("ColorDevice", nullptr);
         QString strValue = QString::fromStdString(attr.getValue());
         strValue = strValue.trimmed();
 
-        if(strValue == "False")
-        {
+        if (strValue == "False") {
             bRet = false;
-        }
-        else
-        {
+        } else {
             bRet = true;
         }
     } catch (const std::runtime_error &e) {
@@ -135,7 +130,7 @@ bool DPrinter::canSetColorModel()
     return bRet;
 }
 
-void DPrinter::setColorModel(const QString& strColorMode)
+void DPrinter::setColorModel(const QString &strColorMode)
 {
     /*
     if (bColor) {
@@ -151,8 +146,7 @@ QString DPrinter::getColorModel()
 {
     QString strColorModel = getOptionValue("ColorModel");
 
-    if(strColorModel.isEmpty())
-    {
+    if (strColorModel.isEmpty()) {
         strColorModel = getColorAttr();
     }
 
@@ -163,21 +157,16 @@ QVector<QMap<QString, QString>> DPrinter::getColorModelChooses()
 {
     QVector<QMap<QString, QString>> vecChoose = getOptionChooses("ColorModel");
 
-    if(vecChoose.isEmpty())
-    {
+    if (vecChoose.isEmpty()) {
         QString strVal = getColorAttr();
 
-        if(!strVal.isEmpty())
-        {
-            QMap<QString,QString> choose;
+        if (!strVal.isEmpty()) {
+            QMap<QString, QString> choose;
 
-            if(strVal == "Gray")
-            {
+            if (strVal == "Gray") {
                 choose["choice"] = "Gray";
                 choose["text"] = "Grayscale";
-            }
-            else
-            {
+            } else {
                 choose["choice"] = "RGB";
                 choose["text"] = "Color";
             }
@@ -248,7 +237,7 @@ QString DPrinter::getDriverName()
 
 QString DPrinter::getPrinterMakeAndModel()
 {
-    QString strMakeAndModel= "";
+    QString strMakeAndModel = "";
 
     try {
         vector<string> requestAttrs;
@@ -256,8 +245,7 @@ QString DPrinter::getPrinterMakeAndModel()
         map<string, string> attrs = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(),
                                                                  nullptr, &requestAttrs);
 
-        for (auto iter = attrs.begin(); iter != attrs.end(); iter++)
-        {
+        for (auto iter = attrs.begin(); iter != attrs.end(); iter++) {
             strMakeAndModel = QString::fromStdString(iter->second.data());
             strMakeAndModel = strMakeAndModel.remove(0, 1);
         }
@@ -271,7 +259,7 @@ QString DPrinter::getPrinterMakeAndModel()
 
 QString DPrinter::getPrinterUri()
 {
-    QString strUri= "";
+    QString strUri = "";
 
     try {
         vector<string> requestAttrs;
@@ -279,8 +267,7 @@ QString DPrinter::getPrinterUri()
         map<string, string> attrs = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(),
                                                                  nullptr, &requestAttrs);
 
-        for (auto iter = attrs.begin(); iter != attrs.end(); iter++)
-        {
+        for (auto iter = attrs.begin(); iter != attrs.end(); iter++) {
             strUri = QString::fromStdString(iter->second.data());
             strUri = strUri.remove(0, 1);
         }
@@ -292,18 +279,18 @@ QString DPrinter::getPrinterUri()
     return strUri;
 }
 
-void DPrinter::setPrinterUri(const QString& strValue)
+void DPrinter::setPrinterUri(const QString &strValue)
 {
     try {
         m_pCon->setPrinterDevice(m_strName.toStdString().c_str(), strValue.toStdString().c_str());
-    } catch (const std::runtime_error& e) {
+    } catch (const std::runtime_error &e) {
         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
     }
 }
 
 QString DPrinter::getPageOrientation()
 {
-    QString strOritentation= "";
+    QString strOritentation = "";
 
     try {
         vector<string> requestAttrs;
@@ -311,20 +298,15 @@ QString DPrinter::getPageOrientation()
         map<string, string> attrs = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(),
                                                                  nullptr, &requestAttrs);
 
-        for (auto iter = attrs.begin(); iter != attrs.end(); iter++)
-        {
-            if(0 == iter->first.compare("orientation-requested-default"))
-            {
+        for (auto iter = attrs.begin(); iter != attrs.end(); iter++) {
+            if (0 == iter->first.compare("orientation-requested-default")) {
                 strOritentation = QString::fromStdString(iter->second.data());
 
-                if(strOritentation.isEmpty())
-                {
+                if (strOritentation.isEmpty()) {
                     strOritentation = QString::fromStdString("3");
-                }
-                else
-                {
+                } else {
                     strOritentation = strOritentation.remove('i');
-                    strOritentation =strOritentation.trimmed();
+                    strOritentation = strOritentation.trimmed();
                 }
             }
         }
@@ -336,18 +318,15 @@ QString DPrinter::getPageOrientation()
     return strOritentation;
 }
 
-void DPrinter::setPageOrientationChoose(const QString& strValue)
+void DPrinter::setPageOrientationChoose(const QString &strValue)
 {
-    try
-    {
+    try {
         string strDefault = strValue.toStdString();
         vector<string> Attrs;
         Attrs.push_back(strDefault);
         m_pCon->addPrinterOptionDefault(m_strName.toStdString().c_str(),
                                         "orientation-requested", &Attrs);
-    }
-    catch (const std::runtime_error& e)
-    {
+    } catch (const std::runtime_error &e) {
         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
     }
 }
@@ -356,51 +335,38 @@ QVector<QMap<QString, QString>> DPrinter::getPageOrientationChooses()
 {
     QVector<QMap<QString, QString>> vecChoose;
 
-    try
-    {
+    try {
         vector<string> requestAttrs;
         requestAttrs.push_back("orientation-requested-supported");
-        map<string, string> attrs = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(),nullptr, &requestAttrs);
+        map<string, string> attrs = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(), nullptr, &requestAttrs);
 
-        for (auto iter = attrs.begin(); iter != attrs.end(); iter++)
-        {
+        for (auto iter = attrs.begin(); iter != attrs.end(); iter++) {
             QMap<QString, QString> choose;
 
-            if(0 == iter->first.compare("orientation-requested-supported"))
-            {
+            if (0 == iter->first.compare("orientation-requested-supported")) {
                 QString strChoose = QString::fromStdString(iter->second);
                 //QStringList strChooses = strChoose.split('`');
                 QStringList strChooses = strChoose.split('\0');
-                DPrinterManager* pManger = DPrinterManager::getInstance();
+                DPrinterManager *pManger = DPrinterManager::getInstance();
 
-                for (int i = 0; i < strChooses.size(); i++)
-                {
+                for (int i = 0; i < strChooses.size(); i++) {
                     QString strTemp = strChooses[i].remove('`');
                     strTemp = strChooses[i].remove('i');
-                    strTemp =strTemp.trimmed();
+                    strTemp = strTemp.trimmed();
 
-                    if(0 == strTemp.compare("3"))
-                    {
+                    if (0 == strTemp.compare("3")) {
                         choose[QString::fromStdString("text")] = pManger->translateLocal("Orientation_Combo", "Portrait (no rotation)", "Portrait (no rotation)");
                         choose[QString::fromStdString("choice")] = strTemp;
-                    }
-                    else if(0 == strTemp.compare("4"))
-                    {
+                    } else if (0 == strTemp.compare("4")) {
                         choose[QString::fromStdString("text")] = pManger->translateLocal("Orientation_Combo", "Landscape (90 degrees)", "Landscape (90 degrees)");
                         choose[QString::fromStdString("choice")] = strTemp;
-                    }
-                    else if(0 == strTemp.compare("5"))
-                    {
+                    } else if (0 == strTemp.compare("5")) {
                         choose[QString::fromStdString("text")] = pManger->translateLocal("Orientation_Combo", "Reverse landscape (270 degrees)", "Reverse landscape (270 degrees)");
                         choose[QString::fromStdString("choice")] = strTemp;
-                    }
-                    else if(0 == strTemp.compare("6"))
-                    {
+                    } else if (0 == strTemp.compare("6")) {
                         choose[QString::fromStdString("text")] = pManger->translateLocal("Orientation_Combo", "Reverse portrait (180 degrees)", "Reverse portrait (180 degrees)");
                         choose[QString::fromStdString("choice")] = strTemp;
-                    }
-                    else
-                    {
+                    } else {
                         continue;
                     }
 
@@ -408,9 +374,7 @@ QVector<QMap<QString, QString>> DPrinter::getPageOrientationChooses()
                 }
             }
         }
-    }
-    catch (const std::runtime_error& e)
-    {
+    } catch (const std::runtime_error &e) {
         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
         vecChoose.clear();
     }
@@ -420,7 +384,7 @@ QVector<QMap<QString, QString>> DPrinter::getPageOrientationChooses()
 
 QString DPrinter::getPageOutputOrder()
 {
-    QString strOrder= "";
+    QString strOrder = "";
 
     try {
         vector<string> requestAttrs;
@@ -428,33 +392,24 @@ QString DPrinter::getPageOutputOrder()
         map<string, string> attrs = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(),
                                                                  nullptr, &requestAttrs);
 
-        if(0 == attrs.size())
-        {
+        if (0 == attrs.size()) {
             setPageOutputOrder(QString::fromStdString("normal"));
             strOrder = QString::fromStdString("normal");
-        }
-        else {
-            for (auto iter = attrs.begin(); iter != attrs.end(); iter++)
-            {
-                if(0 == iter->first.compare("outputorder-default"))
-                {
+        } else {
+            for (auto iter = attrs.begin(); iter != attrs.end(); iter++) {
+                if (0 == iter->first.compare("outputorder-default")) {
                     strOrder = QString::fromStdString(iter->second.data());
 
-                    if(strOrder.isEmpty())
-                    {
+                    if (strOrder.isEmpty()) {
                         strOrder = " ";
-                    }
-                    else
-                    {
+                    } else {
                         strOrder = strOrder.remove(0, 1);
                         strOrder = strOrder.trimmed();
                     }
                 }
             }
         }
-    }
-    catch (const std::runtime_error &e)
-    {
+    } catch (const std::runtime_error &e) {
         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
         strOrder.clear();
     }
@@ -462,28 +417,25 @@ QString DPrinter::getPageOutputOrder()
     return strOrder;
 }
 
-void DPrinter::setPageOutputOrder(const QString& strValue)
+void DPrinter::setPageOutputOrder(const QString &strValue)
 {
-    try
-    {
+    try {
         string strDefault = strValue.toStdString();
         vector<string> Attrs;
         Attrs.push_back(strDefault);
         m_pCon->addPrinterOptionDefault(m_strName.toStdString().c_str(),
                                         "outputorder", &Attrs);
-    }
-    catch (const std::runtime_error& e)
-    {
+    } catch (const std::runtime_error &e) {
         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
     }
 }
 
 QVector<QMap<QString, QString>> DPrinter::getPageOutputOrderChooses()
 {
-    DPrinterManager* pManger = DPrinterManager::getInstance();
+    DPrinterManager *pManger = DPrinterManager::getInstance();
     QVector<QMap<QString, QString>> vecChoose;
     //normal,reverse
-    QMap<QString,QString> choose;
+    QMap<QString, QString> choose;
     choose[QString::fromStdString("text")] = pManger->translateLocal("PrintOrder_Combo", "Normal", "Normal");
     choose[QString::fromStdString("choice")] = QString::fromStdString("normal");
     vecChoose.push_back(choose);
@@ -555,31 +507,21 @@ QString DPrinter::getFinishings()
         map<string, string> attrs = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(),
                                                                  nullptr, &requestAttrs);
 
-        for (auto iter = attrs.begin(); iter != attrs.end(); iter++)
-        {
-            if(0 == iter->first.compare("finishings-default"))
-            {
+        for (auto iter = attrs.begin(); iter != attrs.end(); iter++) {
+            if (0 == iter->first.compare("finishings-default")) {
                 strFinishings = QString::fromStdString(iter->second.data());
 
-                if(strFinishings.isEmpty())
-                {
+                if (strFinishings.isEmpty()) {
                     strFinishings = " ";
-                }
-                else
-                {
+                } else {
                     strFinishings = strFinishings.remove('i');
-                    strFinishings =strFinishings.trimmed();
+                    strFinishings = strFinishings.trimmed();
 
-                    if(strFinishings == "3")
-                    {
+                    if (strFinishings == "3") {
                         strFinishings = "none";
-                    }
-                    else if(strFinishings == "51")
-                    {
+                    } else if (strFinishings == "51") {
                         strFinishings = "left";
-                    }
-                    else if(strFinishings == "50")
-                    {
+                    } else if (strFinishings == "50") {
                         strFinishings = "right";
                     }
                 }
@@ -593,22 +535,16 @@ QString DPrinter::getFinishings()
     return strFinishings;
 }
 
-void DPrinter::setFinishings(const QString& strValue)
+void DPrinter::setFinishings(const QString &strValue)
 {
-    try
-    {
+    try {
         string strDefault;
 
-        if(strValue == "left")
-        {
+        if (strValue == "left") {
             strDefault = "51";
-        }
-        else if(strValue == "top")
-        {
+        } else if (strValue == "top") {
             strDefault = "50";
-        }
-        else
-        {
+        } else {
             strDefault = "3";
         }
 
@@ -616,9 +552,7 @@ void DPrinter::setFinishings(const QString& strValue)
         Attrs.push_back(strDefault);
         m_pCon->addPrinterOptionDefault(m_strName.toStdString().c_str(),
                                         "finishings", &Attrs);
-    }
-    catch (const std::runtime_error& e)
-    {
+    } catch (const std::runtime_error &e) {
         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
     }
 }
@@ -627,52 +561,40 @@ QVector<QMap<QString, QString>> DPrinter::getFinishingsChooses()
 {
     QVector<QMap<QString, QString>> vecChoose;
 
-    try
-    {
+    try {
         vector<string> requestAttrs;
         requestAttrs.push_back("finishings-supported");
         map<string, string> attrs = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(),
                                                                  nullptr, &requestAttrs);
 
-        for (auto iter = attrs.begin(); iter != attrs.end(); iter++)
-        {
+        for (auto iter = attrs.begin(); iter != attrs.end(); iter++) {
             QMap<QString, QString> choose;
             QString strChoose = QString::fromStdString(iter->second);
             QStringList strChooses = strChoose.split('\0');
-            DPrinterManager* pManger = DPrinterManager::getInstance();
+            DPrinterManager *pManger = DPrinterManager::getInstance();
 
-            for (int i = 0; i < strChooses.size(); i++)
-            {
+            for (int i = 0; i < strChooses.size(); i++) {
                 QString strTemp = strChooses[i].remove('`');
                 strTemp = strChooses[i].remove('i');
                 strTemp = strTemp.trimmed();
 
-                if(0 == strTemp.compare("3"))
-                {
+                if (0 == strTemp.compare("3")) {
                     choose[QString::fromStdString("text")] = pManger->translateLocal("StapleLocation_Combo", "Bind (none)", "Bind (none)");
                     choose[QString::fromStdString("choice")] = "none";
-                }
-                else if(0 == strTemp.compare("50"))
-                {
-                    choose[QString::fromStdString("text")] = pManger->translateLocal("StapleLocation_Combo", "Bind (top)",  "Bind (top)");
+                } else if (0 == strTemp.compare("50")) {
+                    choose[QString::fromStdString("text")] = pManger->translateLocal("StapleLocation_Combo", "Bind (top)", "Bind (top)");
                     choose[QString::fromStdString("choice")] = "top";
-                }
-                else if(0 == strTemp.compare("51"))
-                {
+                } else if (0 == strTemp.compare("51")) {
                     choose[QString::fromStdString("text")] = pManger->translateLocal("StapleLocation_Combo", "Bind (left)", "Bind (left)");
                     choose[QString::fromStdString("choice")] = "left";
-                }
-                else
-                {
+                } else {
                     continue;
                 }
 
                 vecChoose.push_back(choose);
             }
         }
-    }
-    catch (const std::runtime_error& e)
-    {
+    } catch (const std::runtime_error &e) {
         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
         vecChoose.clear();
     }
@@ -685,7 +607,7 @@ QString DPrinter::getStapleLocation()
     return getOptionValue("StapleLocation");
 }
 
-void DPrinter::setStapleLoaction(const QString& strVal)
+void DPrinter::setStapleLoaction(const QString &strVal)
 {
     setOptionValue("StapleLocation", strVal);
 }
@@ -700,27 +622,26 @@ QString DPrinter::getResolution()
     return getOptionValue("Resolution");
 }
 
-void DPrinter::setResolution(const QString& strValue)
+void DPrinter::setResolution(const QString &strValue)
 {
     setOptionValue("Resolution", strValue);
 }
 
-QVector<QMap<QString,QString>> DPrinter::getResolutionChooses()
+QVector<QMap<QString, QString>> DPrinter::getResolutionChooses()
 {
     return getOptionChooses("Resolution");
 }
 
 void DPrinter::getWastes()
 {
-    QString strWasters= "";
+    QString strWasters = "";
     try {
         vector<string> requestAttrs;
         requestAttrs.push_back("marker-names");
         map<string, string> attrs = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(),
                                                                  nullptr, &requestAttrs);
 
-        for (auto iter = attrs.begin(); iter != attrs.end(); iter++)
-        {
+        for (auto iter = attrs.begin(); iter != attrs.end(); iter++) {
             strWasters = QString::fromStdString(iter->second.data());
             strWasters = strWasters.remove(0, 1);
         }
@@ -754,7 +675,7 @@ bool DPrinter::saveModify()
 
     try {
         g_cupsConnection->addPrinter(getName().toUtf8().data(), nullptr, nullptr, nullptr, nullptr, nullptr, &m_ppd);
-    } catch (const std::runtime_error& e) {
+    } catch (const std::runtime_error &e) {
         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
         bRet = false;
     }
@@ -768,7 +689,7 @@ bool DPrinter::needSavePpd()
     return m_bNeedSavePpd;
 }
 
-bool DPrinter::isConflict(const QString& strModule, const QString& strValue, QVector<CONFLICTNODE>& vecConflicts)
+bool DPrinter::isConflict(const QString &strModule, const QString &strValue, QVector<CONFLICTNODE> &vecConflicts)
 {
     bool bRet = false;
     std::vector<Constraint> vecCons = m_ppd.getConstraints();
@@ -777,15 +698,13 @@ bool DPrinter::isConflict(const QString& strModule, const QString& strValue, QVe
         Constraint tempCons = vecCons[i];
         QString strOption1 = QString::fromStdString(tempCons.getOption1());
 
-        if(strOption1 != strModule)
-        {
+        if (strOption1 != strModule) {
             continue;
         }
 
         QString strChoice1 = QString::fromStdString(tempCons.getChoice1());
 
-        if(strChoice1 != strValue)
-        {
+        if (strChoice1 != strValue) {
             continue;
         }
 
@@ -799,124 +718,120 @@ bool DPrinter::isConflict(const QString& strModule, const QString& strValue, QVe
     return bRet;
 }
 
- QVector<INSTALLABLEOPTNODE> DPrinter::getInstallableNodes()
- {
-     QVector<INSTALLABLEOPTNODE> nodes;
+QVector<INSTALLABLEOPTNODE> DPrinter::getInstallableNodes()
+{
+    QVector<INSTALLABLEOPTNODE> nodes;
 
-     try {
-         vector<Group> groups = m_ppd.getOptionGroups();
+    try {
+        vector<Group> groups = m_ppd.getOptionGroups();
 
-         for (unsigned int i = 0; i < groups.size(); i++) {
-             Group grp = groups[i];
-             QString strName = QString(grp.getName().data());
+        for (unsigned int i = 0; i < groups.size(); i++) {
+            Group grp = groups[i];
+            QString strName = QString(grp.getName().data());
 
-             if(strName == QString::fromStdString("InstallableOptions"))
-             {
-                 vector<Option>  opts = grp.getOptions();
+            if (strName == QString::fromStdString("InstallableOptions")) {
+                vector<Option> opts = grp.getOptions();
 
-                 for (unsigned int i = 0; i < opts.size(); i++) {
-                     Option opt = opts[i];
-                     INSTALLABLEOPTNODE node;
-                     node.strOptName = QString(opt.getKeyword().data());
-                     node.strOptText = QString(opt.getText().data());
-                     node.strDefaultValue = getOptionValue(node.strOptName);
-                     node.vecChooseableValues = getOptionChooses(node.strOptName);
-                     nodes.push_back(node);
-                 }
-             }
-         }
-     } catch (const std::runtime_error &e) {
-         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
-     }
-     return nodes;
- }
+                for (unsigned int i = 0; i < opts.size(); i++) {
+                    Option opt = opts[i];
+                    INSTALLABLEOPTNODE node;
+                    node.strOptName = QString(opt.getKeyword().data());
+                    node.strOptText = QString(opt.getText().data());
+                    node.strDefaultValue = getOptionValue(node.strOptName);
+                    node.vecChooseableValues = getOptionChooses(node.strOptName);
+                    nodes.push_back(node);
+                }
+            }
+        }
+    } catch (const std::runtime_error &e) {
+        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+    }
+    return nodes;
+}
 
- void DPrinter::setInstallableNodeValue(const QString& strOpt, const QString& strValue)
- {
-     try {
-         setOptionValue(strOpt, strValue);
-     } catch (const std::runtime_error &e) {
-         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
-     }
- }
+void DPrinter::setInstallableNodeValue(const QString &strOpt, const QString &strValue)
+{
+    try {
+        setOptionValue(strOpt, strValue);
+    } catch (const std::runtime_error &e) {
+        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+    }
+}
 
- QVector<GENERALOPTNODE> DPrinter::getGeneralNodes()
- {
-     QVector<GENERALOPTNODE> nodes;
+QVector<GENERALOPTNODE> DPrinter::getGeneralNodes()
+{
+    QVector<GENERALOPTNODE> nodes;
 
-     try {
-         vector<Group> groups = m_ppd.getOptionGroups();
+    try {
+        vector<Group> groups = m_ppd.getOptionGroups();
 
-         for (unsigned int i = 0; i < groups.size(); i++) {
-             Group grp = groups[i];
-             QString strName = QString(grp.getName().data());
+        for (unsigned int i = 0; i < groups.size(); i++) {
+            Group grp = groups[i];
+            QString strName = QString(grp.getName().data());
 
-             if(strName == QString::fromStdString("General"))
-             {
-                 vector<Option>  opts = grp.getOptions();
+            if (strName == QString::fromStdString("General")) {
+                vector<Option> opts = grp.getOptions();
 
-                 for (unsigned int i = 0; i < opts.size(); i++) {
-                     Option opt = opts[i];
-                     GENERALOPTNODE node;
-                     node.strOptName = QString::fromStdString(opt.getKeyword());
+                for (unsigned int i = 0; i < opts.size(); i++) {
+                    Option opt = opts[i];
+                    GENERALOPTNODE node;
+                    node.strOptName = QString::fromStdString(opt.getKeyword());
 
-                     if(node.strOptName == QString("ColorModel")||(node.strOptName == QString("PageRegion")))
-                     {
-                         continue;
-                     }
+                    if (node.strOptName == QString("ColorModel") || (node.strOptName == QString("PageRegion"))) {
+                        continue;
+                    }
 
-                     node.strOptText = QString::fromStdString(opt.getText());
-                     node.strOptText = node.strOptText.trimmed();
-                     node.strDefaultValue = getOptionValue(node.strOptName);
-                     node.vecChooseableValues = getOptionChooses(node.strOptName);
-                     nodes.push_back(node);
-                 }
-             }
-         }
-     } catch (const std::runtime_error &e) {
-         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
-     }
-     return nodes;
- }
+                    node.strOptText = QString::fromStdString(opt.getText());
+                    node.strOptText = node.strOptText.trimmed();
+                    node.strDefaultValue = getOptionValue(node.strOptName);
+                    node.vecChooseableValues = getOptionChooses(node.strOptName);
+                    nodes.push_back(node);
+                }
+            }
+        }
+    } catch (const std::runtime_error &e) {
+        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+    }
+    return nodes;
+}
 
- void DPrinter::setGeneralNodeValue(const QString& strOpt, const QString& strValue)
- {
-     try {
-         setOptionValue(strOpt, strValue);
-     } catch (const std::runtime_error &e) {
-         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
-     }
- }
+void DPrinter::setGeneralNodeValue(const QString &strOpt, const QString &strValue)
+{
+    try {
+        setOptionValue(strOpt, strValue);
+    } catch (const std::runtime_error &e) {
+        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+    }
+}
 
- OPTNODE DPrinter::getOptionNodeByKeyword(const QString& strKey)
- {
+OPTNODE DPrinter::getOptionNodeByKeyword(const QString &strKey)
+{
     OPTNODE node;
 
-     try {
-         vector<Group> groups = m_ppd.getOptionGroups();
+    try {
+        vector<Group> groups = m_ppd.getOptionGroups();
 
-         for (unsigned int i = 0; i < groups.size(); i++) {
-                 Group grp = groups[i];
-                 vector<Option>  opts = grp.getOptions();
+        for (unsigned int i = 0; i < groups.size(); i++) {
+            Group grp = groups[i];
+            vector<Option> opts = grp.getOptions();
 
-                 for (unsigned int i = 0; i < opts.size(); i++) {
-                     Option opt = opts[i];
-                     QString strTempKey = QString(opt.getKeyword().data());
+            for (unsigned int i = 0; i < opts.size(); i++) {
+                Option opt = opts[i];
+                QString strTempKey = QString(opt.getKeyword().data());
 
-                     if(strTempKey == strKey)
-                     {
-                         node.strOptName = strKey;
-                         node.strOptText = QString(opt.getText().data());
-                         node.strDefaultValue = getOptionValue(node.strOptName);
-                         node.vecChooseableValues = getOptionChooses(node.strOptName);
-                     }
-                 }
-             }
-     } catch (const std::runtime_error &e) {
-         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
-     }
-     return node;
- }
+                if (strTempKey == strKey) {
+                    node.strOptName = strKey;
+                    node.strOptText = QString(opt.getText().data());
+                    node.strDefaultValue = getOptionValue(node.strOptName);
+                    node.vecChooseableValues = getOptionChooses(node.strOptName);
+                }
+            }
+        }
+    } catch (const std::runtime_error &e) {
+        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+    }
+    return node;
+}
 
 QString DPrinter::getOptionValue(const QString &strOptName)
 {
@@ -941,15 +856,12 @@ void DPrinter::setOptionValue(const QString &strOptName, const QString &strValue
 #endif
 
     try {
-        int iConflicts =  m_ppd.markOption(strOptName.toStdString().c_str(), strValue.toStdString().c_str());
+        int iConflicts = m_ppd.markOption(strOptName.toStdString().c_str(), strValue.toStdString().c_str());
 
-        if(iConflicts != 0)
-        {
+        if (iConflicts != 0) {
             qDebug() << "conflict numbers:" << iConflicts;
             m_bNeedSavePpd = false;
-        }
-        else
-        {
+        } else {
             m_bNeedSavePpd = true;
         }
     } catch (const std::runtime_error &e) {
@@ -960,7 +872,7 @@ void DPrinter::setOptionValue(const QString &strOptName, const QString &strValue
 
 QVector<QMap<QString, QString>> DPrinter::getOptionChooses(const QString &strOptName)
 {
-    QVector<QMap<QString, QString>>retMap;
+    QVector<QMap<QString, QString>> retMap;
 
     try {
         Option opt = m_ppd.findOption(strOptName.toStdString().c_str());

@@ -36,14 +36,11 @@ PermissionsWindow::PermissionsWindow(QWidget *parent)
     , m_ret(0)
 {
     initUI();
-
 }
 
 PermissionsWindow::~PermissionsWindow()
 {
-
 }
-
 
 void PermissionsWindow::setHost(const QString &host)
 {
@@ -68,7 +65,6 @@ QString PermissionsWindow::getPassword()
 
 void PermissionsWindow::initUI()
 {
-
     setIcon(QIcon(":/images/dde-printer.svg"));
 
     resize(380, 270);
@@ -98,7 +94,6 @@ void PermissionsWindow::initUI()
 
     moveToCenter();
 }
-
 
 void PermissionsWindow::closeEvent(QCloseEvent *event)
 {

@@ -34,10 +34,10 @@ class DPropertySetDlg : public DSettingsDialog
 {
     Q_OBJECT
 public:
-    DPropertySetDlg(const QString& strPrinter = QString(""), QWidget* pParent = nullptr);
+    DPropertySetDlg(const QString &strPrinter = QString(""), QWidget *pParent = nullptr);
 
 public:
-    void setPrinterName(const QString& strName);
+    void setPrinterName(const QString &strName);
     void updateViews();
     void moveToParentCenter();
     bool isDriveBroken();
@@ -49,31 +49,31 @@ protected:
     void closeEvent(QCloseEvent *event) override;
 
 private:
-    void updateComboByName(const QString&,const QString&, const QVector<QMap<QString, QString>>&);
-    void updateDriverUI(const QString&);
-    void updateUriUI(const QString&);
-    void updateLocationUI(const QString&);
-    void updateDescriptionUI(const QString&);
-    void updatePageSizeCombo(const QString&, const QVector<QMap<QString, QString>>&);
-    void updateOrientationCombo(const QString&, const QVector<QMap<QString, QString>>&);
-    void updateDuplexPrintCombo(const QString&, const QVector<QMap<QString, QString>>&);
-    void updateColorModeCombo(const QString&, const QVector<QMap<QString, QString>>&);
-    void updatePrintOrderCombo(const QString&, const QVector<QMap<QString, QString>>&);
-    void updatePaperOriginCombo(const QString&, const QVector<QMap<QString, QString>>&);
-    void updatePaperTypeCombo(const QString&, const QVector<QMap<QString, QString>>&);
-    void updateOutputQuanlityCombo(const QString&, const QVector<QMap<QString, QString>>&);
-    void updateStapleLocationCombo(const QString&, const QVector<QMap<QString, QString>>&);
-    void updateBindEdgeCombo(const QString&, const QVector<QMap<QString, QString>>&);
-    void updateResolutionCombo(const QString&, const QVector<QMap<QString, QString>>&);
-    void updateInstallAbleNodeCombo(const QVector<INSTALLABLEOPTNODE>&);
-    void updateGeneralNodeCombo(const QVector<GENERALOPTNODE>&);
-    QString changeComboSelectionByName(const QString& strComboName, int index);
-    bool haveConflict(const QString&, const QString&, QVector<CONFLICTNODE>&);
-    bool isConflict(const QString&, const QString&);
-    void initConflictMap(const QVector<INSTALLABLEOPTNODE>&, const QVector<GENERALOPTNODE>&);
-    void showConflictDlg(const vector<CONFLICTPAIR>&);
-    void updateComboByConflits(const QSet<QString>&);
-    void checkAllConflicts(QSet<QString>&, vector<CONFLICTPAIR>&);
+    void updateComboByName(const QString &, const QString &, const QVector<QMap<QString, QString>> &);
+    void updateDriverUI(const QString &);
+    void updateUriUI(const QString &);
+    void updateLocationUI(const QString &);
+    void updateDescriptionUI(const QString &);
+    void updatePageSizeCombo(const QString &, const QVector<QMap<QString, QString>> &);
+    void updateOrientationCombo(const QString &, const QVector<QMap<QString, QString>> &);
+    void updateDuplexPrintCombo(const QString &, const QVector<QMap<QString, QString>> &);
+    void updateColorModeCombo(const QString &, const QVector<QMap<QString, QString>> &);
+    void updatePrintOrderCombo(const QString &, const QVector<QMap<QString, QString>> &);
+    void updatePaperOriginCombo(const QString &, const QVector<QMap<QString, QString>> &);
+    void updatePaperTypeCombo(const QString &, const QVector<QMap<QString, QString>> &);
+    void updateOutputQuanlityCombo(const QString &, const QVector<QMap<QString, QString>> &);
+    void updateStapleLocationCombo(const QString &, const QVector<QMap<QString, QString>> &);
+    void updateBindEdgeCombo(const QString &, const QVector<QMap<QString, QString>> &);
+    void updateResolutionCombo(const QString &, const QVector<QMap<QString, QString>> &);
+    void updateInstallAbleNodeCombo(const QVector<INSTALLABLEOPTNODE> &);
+    void updateGeneralNodeCombo(const QVector<GENERALOPTNODE> &);
+    QString changeComboSelectionByName(const QString &strComboName, int index);
+    bool haveConflict(const QString &, const QString &, QVector<CONFLICTNODE> &);
+    bool isConflict(const QString &, const QString &);
+    void initConflictMap(const QVector<INSTALLABLEOPTNODE> &, const QVector<GENERALOPTNODE> &);
+    void showConflictDlg(const vector<CONFLICTPAIR> &);
+    void updateComboByConflits(const QSet<QString> &);
+    void checkAllConflicts(QSet<QString> &, vector<CONFLICTPAIR> &);
     QVector<INSTALLABLEOPTNODE> getInstallableNodes();
     QVector<GENERALOPTNODE> getGeneralNodes();
 
@@ -98,7 +98,7 @@ private slots:
     void cancelBtn_clicked();
 
 private:
-    QMap<QString, QWidget*> m_mapOfListWidget;
+    QMap<QString, QWidget *> m_mapOfListWidget;
     QMap<QString, QString> m_mapInitUIValue;
     QMap<QString, QString> m_mapDynamicUIValue;
     QMap<QString, QString> m_mapOfConflict;

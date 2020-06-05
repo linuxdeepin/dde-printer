@@ -42,18 +42,18 @@
 static bool isFilterMissing(const QString &filter)
 {
     char const *filterPath[] = {"/usr/lib/cups/filter/", "/usr/lib64/cups/filter/", nullptr};
-    char const *builtinFilters[] = { ":", ".", "[", "alias", "bind", "break", "cd",
-                     "continue", "declare", "echo", "else", "eval",
-                     "exec", "exit", "export", "fi", "if", "kill", "let",
-                     "local", "popd", "printf", "pushd", "pwd", "read",
-                     "readonly", "set", "shift", "shopt", "source",
-                     "test", "then", "trap", "type", "ulimit", "umask",
-                     "unalias", "unset", "wait", "-", nullptr};
+    char const *builtinFilters[] = {":", ".", "[", "alias", "bind", "break", "cd",
+                                    "continue", "declare", "echo", "else", "eval",
+                                    "exec", "exit", "export", "fi", "if", "kill", "let",
+                                    "local", "popd", "printf", "pushd", "pwd", "read",
+                                    "readonly", "set", "shift", "shopt", "source",
+                                    "test", "then", "trap", "type", "ulimit", "umask",
+                                    "unalias", "unset", "wait", "-", nullptr};
 
     if ("%" == filter.right(1))
         return false;
 
-    for (int i=0;builtinFilters[i];i++) {
+    for (int i = 0; builtinFilters[i]; i++) {
         if (filter == builtinFilters[i]) {
             return false;
         }
@@ -62,8 +62,8 @@ static bool isFilterMissing(const QString &filter)
     if (filter.startsWith("/") && QFile::exists(filter))
         return false;
 
-    for (int i=0;filterPath[i];i++){
-        if (QFile::exists(QString(filterPath[i]) + filter)){
+    for (int i = 0; filterPath[i]; i++) {
+        if (QFile::exists(QString(filterPath[i]) + filter)) {
             return false;
         }
     }
@@ -80,12 +80,12 @@ static QStringList getDirectDevices()
 
     try {
         devs = g_cupsConnection->getDevices(nullptr, &inSechemes, 0, CUPS_TIMEOUT_DEFAULT);
-    }catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return uris;
     }
 
-    for(itmap=devs.begin();itmap != devs.end();itmap++){
+    for (itmap = devs.begin(); itmap != devs.end(); itmap++) {
         uris << STQ(itmap->first);
     }
 
@@ -95,7 +95,8 @@ static QStringList getDirectDevices()
 
 CheckCupsServer::CheckCupsServer(QObject *parent)
     : TroubleShootJob("", parent)
-{}
+{
+}
 
 QString CheckCupsServer::getJobName()
 {
@@ -111,7 +112,7 @@ bool CheckCupsServer::isPass()
 
     try {
         c.init(cupsServer(), ippPort(), 0);
-    }catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         m_strMessage = tr("CUPS server is invalid");
         emit signalStateChanged(TStat_Fail, m_strMessage);
@@ -155,19 +156,20 @@ bool CheckDriver::isPass()
     try {
         p.load(strPPD.toUtf8().data());
         attrs = p.getAttributes();
-    }catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         m_strMessage = tr("The driver is damaged");
         emit signalStateChanged(TStat_Fail, m_strMessage);
         return false;
     };
 
-    for (size_t i=0;i<attrs.size();i++) {
+    for (size_t i = 0; i < attrs.size(); i++) {
         QString strName = STQ(attrs[i].getName());
         QString strValue = STQ(attrs[i].getValue());
         if (strName == "cupsFilter") {
             QStringList list = strValue.split(" ", QString::SkipEmptyParts);
-            if (list.isEmpty()) break;
+            if (list.isEmpty())
+                break;
 
             QString filter = list.last();
             qDebug() << strPPD << " filter: " << filter;
@@ -233,7 +235,7 @@ bool CheckConnected::isPass()
     if (0 == iPort) {
         if ("ipp" == strScheme || "http" == strScheme || "https" == strScheme) {
             iPort = 631;
-        } else if ("lpd" == strScheme){
+        } else if ("lpd" == strScheme) {
             iPort = 515;
         } else if ("socket" == strScheme) {
             iPort = 9100;
@@ -250,9 +252,10 @@ bool CheckConnected::isPass()
         return false;
     }
 
-    if (m_bQuit) return false;
+    if (m_bQuit)
+        return false;
 
-    if (0 != iPort && !strHost.isEmpty()){
+    if (0 != iPort && !strHost.isEmpty()) {
         QTcpSocket socket;
         socket.connectToHost(strHost, iPort);
         if (!socket.waitForConnected(3000)) {
@@ -270,7 +273,7 @@ bool CheckConnected::isPass()
             return false;
         }
     } else if ("file" == strScheme) {
-        QString filePath = strUri.right(strUri.length()-7);
+        QString filePath = strUri.right(strUri.length() - 7);
         QFileInfo fileInfo(filePath);
         if (!fileInfo.absoluteDir().exists()) {
             qWarning() << fileInfo.absoluteDir().path() << "not exists";
@@ -307,7 +310,7 @@ bool CheckAttributes::isPass()
 {
     map<string, string> attrs;
     QString strState, strIsAccept;
-    vector<string> reqs{CUPS_OP_STATE, CUPS_OP_ISACCEPT};
+    vector<string> reqs {CUPS_OP_STATE, CUPS_OP_ISACCEPT};
 
     emit signalStateChanged(TStat_Running, tr("Checking printer settings..."));
 
@@ -318,7 +321,7 @@ bool CheckAttributes::isPass()
 
     try {
         attrs = g_cupsConnection->getPrinterAttributes(m_printerName.toUtf8().data(), nullptr, &reqs);
-    }catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         emit signalStateChanged(TStat_Fail, tr("Failed to get printer attributes, error: ") + QString::fromUtf8(ex.what()));
         return true;
@@ -347,8 +350,8 @@ bool CheckAttributes::isPass()
 }
 
 PrinterTestJob::PrinterTestJob(const QString &printerName, QObject *parent, bool bSync)
-    :TroubleShootJob(printerName, parent),
-      m_jobId(-1)
+    : TroubleShootJob(printerName, parent)
+    , m_jobId(-1)
 {
     m_eventLoop = nullptr;
     m_bSync = bSync;
@@ -383,20 +386,19 @@ bool PrinterTestJob::findRunningJob()
     if (0 != g_jobManager->getJobs(jobs, WHICH_JOB_RUNING))
         return false;
 
-    for (itJobs=jobs.begin();itJobs!=jobs.end();itJobs++) {
+    for (itJobs = jobs.begin(); itJobs != jobs.end(); itJobs++) {
         map<string, string> jobinfo = itJobs->second;
         QString uri = attrValueToQString(jobinfo[JOB_ATTR_URI]);
         int iState = attrValueToQString(jobinfo[JOB_ATTR_STATE]).toInt();
         QString jobName = attrValueToQString(jobinfo[JOB_ATTR_NAME]);
 
-        if (!g_jobManager->isCompletedState(iState) && m_printerName == getPrinterNameFromUri(uri) &&
-                jobName == PrintTestTitle) {
+        if (!g_jobManager->isCompletedState(iState) && m_printerName == getPrinterNameFromUri(uri) && jobName == PrintTestTitle) {
             m_jobId = itJobs->first;
             QMap<QString, QVariant> job;
             map<string, string>::const_iterator itjob;
 
             job.insert(JOB_ATTR_ID, m_jobId);
-            for (itjob=jobinfo.begin();itjob!=jobinfo.end();itjob++) {
+            for (itjob = jobinfo.begin(); itjob != jobinfo.end(); itjob++) {
                 job.insert(STQ(itjob->first), attrValueToQString(itjob->second));
             }
 
@@ -419,7 +421,7 @@ bool PrinterTestJob::isPass()
 
     if (-1 == m_jobId) {
         m_strMessage = g_jobManager->printTestPage(m_printerName.toUtf8().data(), m_jobId);
-        if (!m_strMessage.isEmpty()){
+        if (!m_strMessage.isEmpty()) {
             emit signalStateChanged(TStat_Fail, m_strMessage);
             return false;
         }
@@ -436,7 +438,8 @@ bool PrinterTestJob::isPass()
 
 void PrinterTestJob::slotJobStateChanged(int id, int state, const QString &message)
 {
-    if (id != m_jobId) return;
+    if (id != m_jobId)
+        return;
 
     m_strMessage = g_cupsMonitor->getStateString(state) + " " + message;
 
@@ -460,7 +463,7 @@ void PrinterTestJob::slotJobStateChanged(int id, int state, const QString &messa
     emit signalStateChanged(state, m_strMessage);
 
     if (m_eventLoop && state >= TStat_Suc) {
-        m_eventLoop->exit(TStat_Suc==state?0:-1);
+        m_eventLoop->exit(TStat_Suc == state ? 0 : -1);
     }
 }
 
@@ -490,7 +493,7 @@ int TroubleShoot::addJob(TroubleShootJob *job)
     return 0;
 }
 
-QList<TroubleShootJob*> TroubleShoot::getJobs()
+QList<TroubleShootJob *> TroubleShoot::getJobs()
 {
     return m_jobs;
 }
@@ -507,8 +510,8 @@ void TroubleShoot::stop()
 
 int TroubleShoot::doWork()
 {
-    int i=0;
-    for (;i<m_jobs.count() && !m_bQuit;i++) {
+    int i = 0;
+    for (; i < m_jobs.count() && !m_bQuit; i++) {
         bool bPass = m_jobs[i]->isPass();
         emit signalUpdateProgress(i, m_jobs[i]->getMessage());
 

@@ -29,15 +29,16 @@
 
 #include <sys/utsname.h>
 
-#define VERSION         "1.2.0"
-#define CLIENT_CODE     "godfather"
-#define HOST_PORT       80
-#define SERVER_ADDR     "printer.deepin.com"
-#define OS_VERSION      "eagle"
+#define VERSION "1.2.0"
+#define CLIENT_CODE "godfather"
+#define HOST_PORT 80
+#define SERVER_ADDR "printer.deepin.com"
+#define OS_VERSION "eagle"
 
 QString sysArch()
 {
-    struct utsname name{};
+    struct utsname name {
+    };
 
     if (uname(&name) == -1) {
         return "";
@@ -46,18 +47,17 @@ QString sysArch()
     auto machine = QString::fromLatin1(name.machine);
 
     // map arch
-    auto archMap = QMap<QString, QString>{
+    auto archMap = QMap<QString, QString> {
         {"x86_64", "x86"},
         {"i386", "x86"},
         {"i686", "x86"},
         {"mips64", "mips64"},
-        {"aarch64", "aarch64"}
-    };
+        {"aarch64", "aarch64"}};
     qInfo() << machine;
     return archMap[machine];
 }
 
-zSettings* zSettings::getInstance()
+zSettings *zSettings::getInstance()
 {
     QString strHome = getenv("HOME");
     QString configFile = strHome + "/.config/dde-printer.ini";
@@ -66,11 +66,9 @@ zSettings* zSettings::getInstance()
     return &instance;
 }
 
-
 zSettings::zSettings(const QString &fileName)
     : QSettings(fileName, QSettings::NativeFormat)
 {
-
 }
 
 const QString zSettings::getClientVersion()

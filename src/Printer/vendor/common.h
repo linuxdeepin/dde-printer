@@ -37,18 +37,18 @@ QMap<QString, QString> parseDeviceID(const QString &strId);
 
 //替换厂商名字，统一不同写法
 //如果传入len，len返回被替换名字的长度
-QString replaceMakeName(QString &make_and_model, int* len);
+QString replaceMakeName(QString &make_and_model, int *len);
 
 //移除model中的make信息
-void removeMakeInModel(QString& strMake, QString& strModel);
+void removeMakeInModel(QString &strMake, QString &strModel);
 
 //解析make-and-model字段中的厂商和型号信息
-void ppdMakeModelSplit(const QString &strMakeAndModel, QString& strMake, QString& strModel);
+void ppdMakeModelSplit(const QString &strMakeAndModel, QString &strMake, QString &strModel);
 
-int shellCmd(const QString &cmd, QString& out, QString& strErr, int timeout = 30000);
+int shellCmd(const QString &cmd, QString &out, QString &strErr, int timeout = 30000);
 
 //获取ipp请求的值
-QVariant ipp_attribute_value (ipp_attribute_t *attr, int i);
+QVariant ipp_attribute_value(ipp_attribute_t *attr, int i);
 
 QString getHostFromUri(const QString &strUri);
 
@@ -61,7 +61,7 @@ QString getPrinterPPD(const char *name);
 //获取打印机uri
 QString getPrinterUri(const char *name);
 
-bool isPackageExists(const QString& package);
+bool isPackageExists(const QString &package);
 
 QString reslovedHost(const QString &strHost);
 

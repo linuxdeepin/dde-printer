@@ -172,7 +172,6 @@ void DDestination::getPrinterInfo(QString &info, QString &location, QString &dev
     ppdfile = m_ppdFile;
 }
 
-
 void DDestination::initPrinterAttr()
 {
     vector<string> printerAttrs;

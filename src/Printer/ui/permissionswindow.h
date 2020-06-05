@@ -46,7 +46,6 @@ public:
 private:
     void initUI();
 
-
 protected:
     void closeEvent(QCloseEvent *event) override;
     void showEvent(QShowEvent *event) override;

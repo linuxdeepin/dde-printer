@@ -38,26 +38,26 @@
 #include <limits.h>
 #include <stdlib.h>
 
-bool        g_smbAuth;
-QString     g_smbworkgroup;
-QString     g_smbuser;
-QString     g_smbpassword;
+bool g_smbAuth;
+QString g_smbworkgroup;
+QString g_smbuser;
+QString g_smbpassword;
 
-#define ERR_SocketBase      1000
-#define SOCKET_Timeout      3000
+#define ERR_SocketBase 1000
+#define SOCKET_Timeout 3000
 
 TBackendSchemes g_backendSchemes[] = {{"usb", CUPS_EXCLUDE_NONE},
-                                     {"hp", CUPS_EXCLUDE_NONE},
+                                      {"hp", CUPS_EXCLUDE_NONE},
                                       {"snmp", CUPS_EXCLUDE_NONE},
                                       {"smfpnetdiscovery", CUPS_EXCLUDE_NONE},
-                                     {CUPS_INCLUDE_ALL, "cups-brf,dcp,parallel,serial"}};
+                                      {CUPS_INCLUDE_ALL, "cups-brf,dcp,parallel,serial"}};
 
 static void smb_auth_func(SMBCCTX *c,
-        const char *srv,
-        const char *shr,
-        char *wg, int wglen,
-        char *un, int unlen,
-        char *pw, int pwlen)
+                          const char *srv,
+                          const char *shr,
+                          char *wg, int wglen,
+                          char *un, int unlen,
+                          char *pw, int pwlen)
 {
     UNUSED(c);
     UNUSED(srv);
@@ -65,8 +65,7 @@ static void smb_auth_func(SMBCCTX *c,
     if (g_smbworkgroup.isEmpty()) {
         g_smbworkgroup = wg;
         strncpy(wg, "WORKGROUP", wglen);
-    }
-    else
+    } else
         strncpy(wg, g_smbworkgroup.toUtf8().constData(), wglen);
 
     if (g_smbuser.isEmpty()) {
@@ -74,8 +73,7 @@ static void smb_auth_func(SMBCCTX *c,
         /* if user is empty, wu use nobody instead,
          * otherwise smbspool will use kerberos authentication */
         strncpy(un, "nobody", unlen);
-    }
-    else
+    } else
         strncpy(un, g_smbuser.toUtf8().constData(), unlen);
 
     if (g_smbpassword.isEmpty())
@@ -84,9 +82,10 @@ static void smb_auth_func(SMBCCTX *c,
         strncpy(pw, g_smbpassword.toUtf8().constData(), pwlen);
 }
 
-RefreshDevicesTask::RefreshDevicesTask(int id, QObject* parent)
-    :TaskInterface (id, parent)
-{}
+RefreshDevicesTask::RefreshDevicesTask(int id, QObject *parent)
+    : TaskInterface(id, parent)
+{
+}
 
 QList<TDeviceInfo> RefreshDevicesTask::getResult()
 {
@@ -115,12 +114,13 @@ void RefreshDevicesTask::clearDevices()
     m_devices.clear();
 }
 
-RefreshDevicesByBackendTask::RefreshDevicesByBackendTask(TBackendSchemes* sechemes, int id, QObject* parent)
-    :RefreshDevicesTask(id, parent),
-      m_sechemes(sechemes)
-{}
+RefreshDevicesByBackendTask::RefreshDevicesByBackendTask(TBackendSchemes *sechemes, int id, QObject *parent)
+    : RefreshDevicesTask(id, parent)
+    , m_sechemes(sechemes)
+{
+}
 
-int RefreshDevicesByBackendTask::mergeDevice(TDeviceInfo &device, const char * backend)
+int RefreshDevicesByBackendTask::mergeDevice(TDeviceInfo &device, const char *backend)
 {
     QMutexLocker locker(&m_mutex);
 
@@ -143,9 +143,7 @@ int RefreshDevicesByBackendTask::mergeDevice(TDeviceInfo &device, const char * b
             device.serial = serial;
             for (auto &item : m_devices)
                 //只合并不同后端发现的uri，相同后端发现的URI应该对应不同设备，比如打印机和传真
-                if (!device.strClass.compare(item.strClass) &&
-                        (item.uriList[0].startsWith("hp:") != isHP) &&
-                        !serial.compare(item.serial)) {
+                if (!device.strClass.compare(item.strClass) && (item.uriList[0].startsWith("hp:") != isHP) && !serial.compare(item.serial)) {
                     item.uriList << uri;
                     qInfo() << "merge uri " << item.uriList;
                     emit signalStatus(m_iTaskId, TStat_Update);
@@ -173,11 +171,11 @@ int RefreshDevicesByBackendTask::mergeDevice(TDeviceInfo &device, const char * b
     return 0;
 }
 
-int RefreshDevicesByBackendTask::addDevices(const map<string, map<string, string>> &devs, const char * backend)
+int RefreshDevicesByBackendTask::addDevices(const map<string, map<string, string>> &devs, const char *backend)
 {
     map<string, map<string, string>>::const_iterator itmap;
 
-    for(itmap=devs.begin();itmap != devs.end();itmap++){
+    for (itmap = devs.begin(); itmap != devs.end(); itmap++) {
         TDeviceInfo info;
         QString uri = STQ(itmap->first);
         map<string, string> infomap = itmap->second;
@@ -216,7 +214,7 @@ int RefreshDevicesByBackendTask::addDevices(const map<string, map<string, string
         if (0 != mergeDevice(info, backend))
             continue;
 
-        qInfo() << QString("Add printer %1, by:%2").arg(info.toString()).arg(backend?backend:"other");
+        qInfo() << QString("Add printer %1, by:%2").arg(info.toString()).arg(backend ? backend : "other");
         addDevice(info);
     }
 
@@ -231,12 +229,12 @@ int RefreshDevicesByBackendTask::doWork()
     //传入为空的时候用默认的规则查找
     if (!m_sechemes) {
         m_sechemes = g_backendSchemes;
-        sechCount = sizeof(g_backendSchemes)/sizeof(g_backendSchemes[0]);
+        sechCount = sizeof(g_backendSchemes) / sizeof(g_backendSchemes[0]);
     }
 
     clearDevices();
 
-    for (int i=0;i<sechCount;i++) {
+    for (int i = 0; i < sechCount; i++) {
         const char *inSech = m_sechemes[i].includeSchemes;
         vector<string> inSechemes, exSechemes;
         map<string, map<string, string>> devs;
@@ -252,7 +250,7 @@ int RefreshDevicesByBackendTask::doWork()
             QStringList exlist = QString(m_sechemes[i].excludeSchemes).split(",");
 
             //CUPS_INCLUDE_ALL的情况排除之前已经查找的后端
-            for(int j=0;j<i;j++) {
+            for (int j = 0; j < i; j++) {
                 exlist.append(m_sechemes[j].includeSchemes);
             }
 
@@ -265,12 +263,13 @@ int RefreshDevicesByBackendTask::doWork()
 
         try {
             devs = g_cupsConnection->getDevices(&exSechemes, &inSechemes, 0, CUPS_TIMEOUT_DEFAULT);
-        }catch(const std::exception &ex) {
+        } catch (const std::exception &ex) {
             qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
             continue;
         };
 
-        if (m_bQuit) return 0;
+        if (m_bQuit)
+            return 0;
 
         addDevices(devs, inSech);
 
@@ -283,8 +282,8 @@ int RefreshDevicesByBackendTask::doWork()
     return 0;
 }
 
-RefreshDevicesByHostTask::RefreshDevicesByHostTask(const QString &strHost, int id, QObject* parent)
-    :RefreshDevicesTask (id, parent)
+RefreshDevicesByHostTask::RefreshDevicesByHostTask(const QString &strHost, int id, QObject *parent)
+    : RefreshDevicesTask(id, parent)
 {
     m_strHost = strHost;
 }
@@ -294,20 +293,21 @@ int RefreshDevicesByHostTask::probe_snmp(const QString &strHost)
     qDebug() << strHost;
     QString strRet, strErr;
     int iRet = shellCmd(QString("/usr/lib/cups/backend/snmp ") + strHost, strRet, strErr);
-    if(0 == iRet)
-    {
+    if (0 == iRet) {
         QStringList retList = strRet.split("\n");
         foreach (QString str, retList) {
-            if (str.isEmpty()) continue;
+            if (str.isEmpty())
+                continue;
 
             qDebug() << "Got snmp " << str;
             QStringList list = splitStdoutString(str);
-            if (list.count() < 4) return -2;
+            if (list.count() < 4)
+                return -2;
 
             TDeviceInfo info;
             info.iType = InfoFrom_Detect;
             info.strClass = list[0];
-            info.uriList<<list[1];
+            info.uriList << list[1];
             info.strName = info.strMakeAndModel = list[2];
             info.strInfo = list[3];
             if (list.count() > 4)
@@ -328,11 +328,10 @@ int RefreshDevicesByHostTask::probe_hplip(const QString &strHost)
     QString strErr;
     int iRet = shellCmd(QString("hp-makeuri -c ") + strHost, strRet, strErr);
     strRet = strRet.trimmed();
-    if(0 == iRet && strRet.contains(":"))
-    {
+    if (0 == iRet && strRet.contains(":")) {
         //TODO get uri and info
         TDeviceInfo info;
-        info.uriList<<strRet;
+        info.uriList << strRet;
         info.iType = InfoFrom_Detect;
         addDevice(info);
     }
@@ -345,8 +344,7 @@ int RefreshDevicesByHostTask::probe_jetdirect(const QString &strHost)
     qDebug() << "probe_jetdirect" << strHost;
     QTcpSocket socket;
     socket.connectToHost(strHost, 9100);
-    if (socket.waitForConnected(SOCKET_Timeout))
-    {
+    if (socket.waitForConnected(SOCKET_Timeout)) {
         TDeviceInfo info;
         info.uriList << QString("socket://%1:%2").arg(strHost).arg(9100);
         info.iType = InfoFrom_Detect;
@@ -361,8 +359,8 @@ int RefreshDevicesByHostTask::probe_jetdirect(const QString &strHost)
 
 int RefreshDevicesByHostTask::probe_ipp(const QString &strHost)
 {
-    map<string, map<string,string>> printersMap;
-    map<string, map<string,string>>::iterator itPrinters;
+    map<string, map<string, string>> printersMap;
+    map<string, map<string, string>>::iterator itPrinters;
     Connection c;
 
     try {
@@ -371,12 +369,12 @@ int RefreshDevicesByHostTask::probe_ipp(const QString &strHost)
             return -1;
         }
         printersMap = c.getPrinters();
-    }catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return -2;
     };
 
-    for (itPrinters=printersMap.begin();itPrinters!=printersMap.end();itPrinters++) {
+    for (itPrinters = printersMap.begin(); itPrinters != printersMap.end(); itPrinters++) {
         TDeviceInfo info;
         map<string, string> infomap = itPrinters->second;
 
@@ -399,7 +397,7 @@ int RefreshDevicesByHostTask::probe_lpd(const QString &strHost)
     qDebug() << "probe_lpd" << strHost;
     QTcpSocket socket;
     socket.connectToHost(strHost, 515);
-    if (socket.waitForConnected(SOCKET_Timeout)){
+    if (socket.waitForConnected(SOCKET_Timeout)) {
         TDeviceInfo info;
         info.iType = InfoFrom_Detect;
         info.uriList << QString("lpd://%1/%2").arg(strHost).arg("Unknown");
@@ -419,7 +417,7 @@ int RefreshDevicesByHostTask::probe_smb(const QString &strHost)
     QString uri = "smb://";
     if (!strHost.isEmpty())
         uri += QUrl(strHost).toEncoded();
-    if(!uri.endsWith('/'))
+    if (!uri.endsWith('/'))
         uri += '/';
     QByteArray uri_utf8 = uri.toUtf8();
 
@@ -433,7 +431,7 @@ int RefreshDevicesByHostTask::probe_smb(const QString &strHost)
     smbc_setFunctionAuthDataWithContext(ctx, smb_auth_func);
 
     if (smbc_init_context(ctx) == nullptr) {
-        ret =  -2;
+        ret = -2;
         goto done;
     }
 
@@ -467,8 +465,7 @@ int RefreshDevicesByHostTask::probe_smb(const QString &strHost)
         TDeviceInfo info;
         QUrl url(uri + QUrl(dirent->name).toEncoded());
 
-        if (g_smbAuth)
-        {
+        if (g_smbAuth) {
             url.setUserName(g_smbuser.isEmpty() ? "nobody" : g_smbuser);
             url.setPassword(g_smbpassword);
         }
@@ -500,23 +497,27 @@ int RefreshDevicesByHostTask::doWork()
     }
 
     probe_snmp(m_strHost);
-    if (m_bQuit) return 0;
+    if (m_bQuit)
+        return 0;
 
     //如果snmp 找到设备则不用查找socket、ipp、lpd
-    if (getResult().size() <= 0)
-    {
+    if (getResult().size() <= 0) {
         probe_jetdirect(m_strHost);
-        if (m_bQuit) return 0;
+        if (m_bQuit)
+            return 0;
 
         probe_ipp(m_strHost);
-        if (m_bQuit) return 0;
+        if (m_bQuit)
+            return 0;
 
         probe_lpd(m_strHost);
-        if (m_bQuit) return 0;
+        if (m_bQuit)
+            return 0;
     }
 
     probe_hplip(m_strHost);
-    if (m_bQuit) return 0;
+    if (m_bQuit)
+        return 0;
 
     if (getResult().size() <= 0)
         probe_smb(m_strHost);

@@ -35,7 +35,7 @@ class PrinterTestPageDialog : public QObject
     Q_OBJECT
 
 public:
-    PrinterTestPageDialog(const QString &printerName, QWidget *parent=nullptr);
+    PrinterTestPageDialog(const QString &printerName, QWidget *parent = nullptr);
 
     void printTestPage();
 
@@ -50,10 +50,10 @@ signals:
     void signalFinished();
 
 private:
-    QString         m_printerName;
+    QString m_printerName;
 
-    PrinterTestJob* m_testJob;
-    TroubleShoot*   m_trobleShoot;
-    QString         m_message;
-    QWidget*        m_parent;
+    PrinterTestJob *m_testJob;
+    TroubleShoot *m_trobleShoot;
+    QString m_message;
+    QWidget *m_parent;
 };

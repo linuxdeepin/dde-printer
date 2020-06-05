@@ -20,7 +20,8 @@
  */
 #include "dprintclass.h"
 
-DPrintClass::DPrintClass(Connection *con): DDestination(con)
+DPrintClass::DPrintClass(Connection *con)
+    : DDestination(con)
 {
     m_type = DESTTYPE::CLASS;
 }

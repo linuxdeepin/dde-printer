@@ -43,14 +43,14 @@ int GetSystemPrinters()
     try {
         printers = g_cupsConnection->getPrinters();
 
-        for(itmap=printers.begin();itmap != printers.end();itmap++){
+        for (itmap = printers.begin(); itmap != printers.end(); itmap++) {
             QString name = STQ(itmap->first);
             map<string, string> infomap = itmap->second;
 
             qDebug() << "printer :" << name;
             dumpStdMapValue(infomap);
         }
-    }catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
     };
@@ -60,8 +60,8 @@ int GetSystemPrinters()
 
 int RemoveSystemPrinter(QString printername)
 {
-    ipp_t     *request;       /* IPP Request */
-    char      uri[HTTP_MAX_URI];  /* URI for printer/class */
+    ipp_t *request; /* IPP Request */
+    char uri[HTTP_MAX_URI]; /* URI for printer/class */
 
     qDebug() << "delete_printer " << printername;
 
@@ -77,8 +77,7 @@ int RemoveSystemPrinter(QString printername)
 
     ippDelete(cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/admin/"));
 
-    if (cupsLastError() > IPP_STATUS_OK_CONFLICTING)
-    {
+    if (cupsLastError() > IPP_STATUS_OK_CONFLICTING) {
         qWarning() << "delete_printer failed: " << cupsLastErrorString();
 
         return -1;
@@ -87,26 +86,26 @@ int RemoveSystemPrinter(QString printername)
     return 0;
 }
 
-static cups_ptype_t         /* O - printer-type value */
-get_printer_type(http_t *http,      /* I - Server connection */
-           const char   *printer,   /* I - Printer name */
-         char   *uri,       /* I - URI buffer */
-                 size_t urisize)    /* I - Size of URI buffer */
+static cups_ptype_t /* O - printer-type value */
+get_printer_type(http_t *http, /* I - Server connection */
+                 const char *printer, /* I - Printer name */
+                 char *uri, /* I - URI buffer */
+                 size_t urisize) /* I - Size of URI buffer */
 {
-    ipp_t         *request,   /* IPP request */
-            *response;  /* IPP response */
-    ipp_attribute_t   *attr;      /* printer-type attribute */
-    cups_ptype_t      type;       /* printer-type value */
+    ipp_t *request, /* IPP request */
+        *response; /* IPP response */
+    ipp_attribute_t *attr; /* printer-type attribute */
+    cups_ptype_t type; /* printer-type value */
 
     httpAssembleURIf(HTTP_URI_CODING_ALL, uri, (int)urisize, "ipp", NULL, "localhost", ippPort(), "/printers/%s", printer);
 
     request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
-               "printer-uri", NULL, uri);
+                 "printer-uri", NULL, uri);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
-               "requested-attributes", NULL, "printer-type");
+                 "requested-attributes", NULL, "printer-type");
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-               "requesting-user-name", NULL, cupsUser());
+                 "requesting-user-name", NULL, cupsUser());
 
     /*
     * Do the request...
@@ -114,14 +113,13 @@ get_printer_type(http_t *http,      /* I - Server connection */
 
     response = cupsDoRequest(http, request, "/");
     if ((attr = ippFindAttribute(response, "printer-type",
-                               IPP_TAG_ENUM)) != NULL)
-    {
+                                 IPP_TAG_ENUM))
+        != NULL) {
         type = ippGetInteger(attr, 0);
 
         if (type & CUPS_PRINTER_CLASS)
             httpAssembleURIf(HTTP_URI_CODING_ALL, uri, (int)urisize, "ipp", NULL, "localhost", ippPort(), "/classes/%s", printer);
-    }
-    else
+    } else
         type = CUPS_PRINTER_LOCAL;
 
     ippDelete(response);
@@ -129,22 +127,22 @@ get_printer_type(http_t *http,      /* I - Server connection */
     return (type);
 }
 
-static int              /* O - 0 on success, 1 on fail */
+static int /* O - 0 on success, 1 on fail */
 set_printer_options(
-    http_t        *http,        /* I - Server connection */
-    const char    *printer,     /* I - Printer */
-    int           num_options,      /* I - Number of options */
-    cups_option_t *options     /* I - Options */)
+    http_t *http, /* I - Server connection */
+    const char *printer, /* I - Printer */
+    int num_options, /* I - Number of options */
+    cups_option_t *options /* I - Options */)
 {
-    ipp_t *request;       /* IPP Request */
-    char  uri[HTTP_MAX_URI];
+    ipp_t *request; /* IPP Request */
+    char uri[HTTP_MAX_URI];
     int copied_options = 0; /* Copied options? */
-    const char * protocol;
+    const char *protocol;
 
-    if (0 == num_options || !options) return 1;
+    if (0 == num_options || !options)
+        return 1;
 
-    for(int i=0;i<num_options;i++)
-    {
+    for (int i = 0; i < num_options; i++) {
         qDebug() << options[i].name << " " << options[i].value;
     }
 
@@ -163,15 +161,14 @@ set_printer_options(
     cupsEncodeOptions2(request, num_options, options, IPP_TAG_OPERATION);
     cupsEncodeOptions2(request, num_options, options, IPP_TAG_PRINTER);
 
-    if ((protocol = cupsGetOption("protocol", num_options, options)) != NULL)
-    {
+    if ((protocol = cupsGetOption("protocol", num_options, options)) != NULL) {
         QString lowerpro = UTF8_T_S(protocol).toLower();
         if (lowerpro == "bcp")
             ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_NAME, "port-monitor",
-                   NULL, "bcp");
+                         NULL, "bcp");
         else if (lowerpro == "tbcp")
             ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_NAME, "port-monitor",
-                   NULL, "tbcp");
+                         NULL, "tbcp");
     }
 
     ippDelete(cupsDoRequest(http, request, "/admin/"));
@@ -183,12 +180,10 @@ set_printer_options(
     * Check the response...
     */
 
-    if (cupsLastError() > IPP_STATUS_OK_CONFLICTING)
-    {
-        qDebug() << "Set printer options failed: "<< cupsLastErrorString();
+    if (cupsLastError() > IPP_STATUS_OK_CONFLICTING) {
+        qDebug() << "Set printer options failed: " << cupsLastErrorString();
         return -1;
-    }
-    else
+    } else
         return (0);
 }
 
@@ -198,22 +193,22 @@ int DuplicateSystemPrinter(TDeviceInfo printer, QString newname)
     int iRet = 0;
 
     qDebug() << printer.strName << "-->" << newname;
-    if(printer.strName == newname) return 0;
+    if (printer.strName == newname)
+        return 0;
 
-//    if (printer.pCupsDest)
-//        strUri = UTF8_T_S(cupsGetOption(CUPS_OP_URI, printer.pCupsDest[0].num_options, printer.pCupsDest[0].options));
+    //    if (printer.pCupsDest)
+    //        strUri = UTF8_T_S(cupsGetOption(CUPS_OP_URI, printer.pCupsDest[0].num_options, printer.pCupsDest[0].options));
     if (strUri.isEmpty())
         strUri = printer.uriList[0];
 
     printer.strName = newname;
 
-//    iRet = add_printer(printer, printer.strPPd, strUri);
-//    if (0 == iRet)
-//        iRet = SetSytemPrinterInfo(printer);
+    //    iRet = add_printer(printer, printer.strPPd, strUri);
+    //    if (0 == iRet)
+    //        iRet = SetSytemPrinterInfo(printer);
 
     return iRet;
 }
-
 
 int RenameSystemPrinter(TDeviceInfo printer, QString newname)
 {
@@ -229,9 +224,8 @@ int RenameSystemPrinter(TDeviceInfo printer, QString newname)
 
 int SetDefaultPrinter(QString printername)
 {
-    ipp_t     *request;       /* IPP Request */
-    char      uri[HTTP_MAX_URI];  /* URI for printer/class */
-
+    ipp_t *request; /* IPP Request */
+    char uri[HTTP_MAX_URI]; /* URI for printer/class */
 
     qDebug() << printername;
 
@@ -247,8 +241,7 @@ int SetDefaultPrinter(QString printername)
 
     ippDelete(cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/admin/"));
 
-    if (cupsLastError() > IPP_STATUS_OK_CONFLICTING)
-    {
+    if (cupsLastError() > IPP_STATUS_OK_CONFLICTING) {
         qWarning() << cupsLastErrorString();
 
         return (1);
@@ -257,7 +250,7 @@ int SetDefaultPrinter(QString printername)
     return (0);
 }
 
-const char* GetDefaultPrinter()
+const char *GetDefaultPrinter()
 {
     return cupsGetDefault();
 }
@@ -272,7 +265,7 @@ int SetPrinterShared(QString printername, bool bShared)
     strcpy(name, CUPS_OP_ISSHAED);
     option.name = name;
     memset(value, 0, sizeof(value));
-    strcpy(value, bShared?"true":"false");
+    strcpy(value, bShared ? "true" : "false");
     option.value = value;
 
     qDebug() << printername << " " << option.value;
@@ -289,7 +282,7 @@ int setPrinterAcceptingJobs(const char *name, bool bAccept)
     strcpy(opName, CUPS_OP_ISACCEPT);
     option.name = opName;
     memset(value, 0, sizeof(value));
-    strcpy(value, bAccept?"true":"false");
+    strcpy(value, bAccept ? "true" : "false");
     option.value = value;
 
     qDebug() << name << " " << option.value;
@@ -306,7 +299,7 @@ int setPrinterDisable(const char *name, bool bDisable)
     strcpy(opName, CUPS_OP_STATE);
     option.name = opName;
     memset(value, 0, sizeof(value));
-    strcpy(value, bDisable?"5":"3");
+    strcpy(value, bDisable ? "5" : "3");
     option.value = value;
 
     qDebug() << name << " " << option.value;
@@ -332,7 +325,7 @@ DPrinterManager::~DPrinterManager()
 
 DPrinterManager *DPrinterManager::getInstance()
 {
-    static DPrinterManager* instance = nullptr;
+    static DPrinterManager *instance = nullptr;
     if (nullptr == instance) {
         instance = new DPrinterManager;
     }

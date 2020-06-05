@@ -99,7 +99,8 @@ void handler(int signo)
 
 int PrinterApplication::create()
 {
-    if (!qApp) return -1;
+    if (!qApp)
+        return -1;
 
     qApp->loadTranslator();
     qApp->setAttribute(Qt::AA_UseHighDpiPixmaps);
@@ -146,7 +147,6 @@ int PrinterApplication::create()
             qWarning() << "dde-printer is running";
             return -2;
         }
-
     }
 
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::newProcessInstance, this, &PrinterApplication::slotNewProcessInstance);
@@ -157,7 +157,6 @@ int PrinterApplication::create()
 
     return 0;
 }
-
 
 int PrinterApplication::stop()
 {
@@ -226,17 +225,21 @@ void PrinterApplication::slotShowTrayIcon(bool bShow)
 }
 
 PrinterApplication::PrinterApplication()
-    : QObject(nullptr),
-      m_jobsWindow(nullptr),
-      m_mainWindow(nullptr),
-      m_systemTray(nullptr)
-{}
+    : QObject(nullptr)
+    , m_jobsWindow(nullptr)
+    , m_mainWindow(nullptr)
+    , m_systemTray(nullptr)
+{
+}
 
 PrinterApplication::~PrinterApplication()
 {
-    if (m_jobsWindow) delete m_jobsWindow;
+    if (m_jobsWindow)
+        delete m_jobsWindow;
 
-    if (m_mainWindow) delete m_mainWindow;
+    if (m_mainWindow)
+        delete m_mainWindow;
 
-    if (m_systemTray) delete m_systemTray;
+    if (m_systemTray)
+        delete m_systemTray;
 }

@@ -24,11 +24,11 @@
 #include <QMargins>
 #include <QVariant>
 #define UI_PRINTERSEARCH_MANUAL QObject::tr("Select a driver")
-#define UI_PRINTERSEARCH_URITIP    "ipp://printer.mydomain/ipp\n" \
-    "ipp://cups-sever/printers/printer-queue\n" \
-    "smb://[username:password@][workgroup/]server/printer\n" \
-    "lpd://sever/printer-queue\n" \
-    "socket://server[:port]"
+#define UI_PRINTERSEARCH_URITIP "ipp://printer.mydomain/ipp\n" \
+                                "ipp://cups-sever/printers/printer-queue\n" \
+                                "smb://[username:password@][workgroup/]server/printer\n" \
+                                "lpd://sever/printer-queue\n" \
+                                "socket://server[:port]"
 #define UI_PRINTERSEARCH_DRIVER QObject::tr("Driver")
 #define UI_PRINTERSEARCH_INSTALLDRIVER_NEXT QObject::tr("Next")
 #define UI_PRINTERSEARCH_INSTALLDRIVER_AUTO QObject::tr("Install Driver")

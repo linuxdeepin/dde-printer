@@ -26,7 +26,6 @@
 #include <QFont>
 #include <QFontMetrics>
 
-
 #include <stdlib.h>
 #include <string.h>
 #include <vector>
@@ -52,4 +51,4 @@ void dumpStdMapValue(const map<string, string> &mapValue);
 
 void geteElidedText(const QFont &font, QString &str, int maxWidth);
 
-#endif// QTCONVERT_H
+#endif // QTCONVERT_H

@@ -31,10 +31,9 @@
 
 #define PROPERTYOPTIONNUM 8
 
-const QString generatePropertyDialogJson(const QVector<QString>& vecOption)
+const QString generatePropertyDialogJson(const QVector<QString> &vecOption)
 {
-    if(vecOption.size() != PROPERTYOPTIONNUM)
-    {
+    if (vecOption.size() != PROPERTYOPTIONNUM) {
         return "";
     }
 
@@ -136,16 +135,21 @@ const QString generatePropertyDialogJson(const QVector<QString>& vecOption)
             }\
         ]\
     }\
-                                  ")\
-  .arg(vecOption[0]).arg(vecOption[1]).arg(vecOption[2]).arg(vecOption[3]).arg(vecOption[4])\
-  .arg(vecOption[5]).arg(vecOption[6]).arg(vecOption[7]);
+                                  ")
+        .arg(vecOption[0])
+        .arg(vecOption[1])
+        .arg(vecOption[2])
+        .arg(vecOption[3])
+        .arg(vecOption[4])
+        .arg(vecOption[5])
+        .arg(vecOption[6])
+        .arg(vecOption[7]);
 }
 
-
-const QString formatGroupString(const QVector<OptNode>& nodes)
+const QString formatGroupString(const QVector<OptNode> &nodes)
 {
     QString strAll;
-    DPrinterManager* pManager = DPrinterManager::getInstance();
+    DPrinterManager *pManager = DPrinterManager::getInstance();
 
     for (int i = 0; i < nodes.size(); i++) {
         QString strOptName = nodes[i].strOptName;
@@ -163,26 +167,30 @@ const QString formatGroupString(const QVector<OptNode>& nodes)
                 }\
             ]\
           }\
-        ").arg(strOptName).arg(strLableText).arg(strOptName).arg(strOptName);
+        ")
+                              .arg(strOptName)
+                              .arg(strLableText)
+                              .arg(strOptName)
+                              .arg(strOptName);
 
         strAll += ",";
-        strAll+= strNode;
+        strAll += strNode;
     }
 
     qDebug() << strAll;
     return strAll;
 }
 
-const QString appendGroupString(QString& strBase, const QString& strGroup)
+const QString appendGroupString(QString &strBase, const QString &strGroup)
 {
     int iIndex = strBase.lastIndexOf("]");
 
-    if(iIndex < 0)
+    if (iIndex < 0)
         return "";
 
-    iIndex = strBase.lastIndexOf("]",iIndex - 1);
+    iIndex = strBase.lastIndexOf("]", iIndex - 1);
 
-    if(iIndex < 0)
+    if (iIndex < 0)
         return "";
 
     strBase.insert(iIndex, strGroup);

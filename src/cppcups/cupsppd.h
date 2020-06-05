@@ -103,7 +103,6 @@ public:
     PPD(void);
     ~PPD(void);
 
-
     // @param filename: must be not null!
     // @exception: runtime_error
     void load(const char *filename);
@@ -208,6 +207,5 @@ public:
     iconv_t *conv_from;
     iconv_t *conv_to;
 };
-
 
 #endif /* HAVE_CUPSPPD_H */

@@ -119,7 +119,6 @@ void RenamePrinterWindow::initUI()
     setCentralWidget(widget);
 
     Dtk::Widget::moveToCenter(this);
-
 }
 
 void RenamePrinterWindow::initConnections()

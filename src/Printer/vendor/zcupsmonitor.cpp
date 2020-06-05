@@ -58,8 +58,8 @@ CupsMonitor *CupsMonitor::getInstance()
 }
 
 CupsMonitor::CupsMonitor(QObject *parent)
-    : TaskInterface(Task_CupsMonitor, parent),
-      m_jobId(0)
+    : TaskInterface(Task_CupsMonitor, parent)
+    , m_jobId(0)
 {
     m_subId = -1;
     m_seqNumber = -1;
@@ -189,7 +189,7 @@ void CupsMonitor::clearSubscriptions()
         }
     } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
-        return ;
+        return;
     }
 }
 
@@ -211,7 +211,8 @@ int CupsMonitor::createSubscription()
                 }
             }
 
-            if (!isExists) m_subId = -1;
+            if (!isExists)
+                m_subId = -1;
         }
     } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
@@ -236,7 +237,8 @@ int CupsMonitor::createSubscription()
 
 int CupsMonitor::getNotifications(int &notifysSize)
 {
-    if (-1 == m_subId) return -1;
+    if (-1 == m_subId)
+        return -1;
 
     try {
         bool skip = m_jobId > 0;
@@ -261,7 +263,6 @@ int CupsMonitor::getNotifications(int &notifysSize)
                 g_Settings->setSequenceNumber(m_seqNumber);
             }
 
-
             if (strevent.startsWith("job-")) {
                 int iState = attrValueToQString(info[JOB_ATTR_STATE]).toInt();
                 int iJob = attrValueToQString(info[CUPS_NOTIY_JOBID]).toInt();
@@ -275,7 +276,8 @@ int CupsMonitor::getNotifications(int &notifysSize)
                     m_jobId = 0;
                 }
 
-                if (skip) continue;
+                if (skip)
+                    continue;
 
                 //通过判断同一个id，同一个状态插入的次数判断是否触发信号
                 if (insertJobMessage(iJob, iState, strReason)) {
@@ -305,7 +307,9 @@ int CupsMonitor::getNotifications(int &notifysSize)
                         strReason = tr("%1 printed successfully, please take away the paper in time!").arg(strJobName);
                     } else {
                         strReason = tr("%1 %2, reason: %3")
-                                    .arg(strJobName).arg(getStateString(iState).toLower()).arg(strReason);
+                                        .arg(strJobName)
+                                        .arg(getStateString(iState).toLower())
+                                        .arg(strReason);
                     }
                     sendDesktopNotification(0, qApp->productName(), strReason, 3000);
 
@@ -318,7 +322,8 @@ int CupsMonitor::getNotifications(int &notifysSize)
                     break;
                 }
             } else {
-                if (skip) continue;
+                if (skip)
+                    continue;
 
                 if ("printer-state-changed" == strevent) {
                     int iState = attrValueToQString(info[CUPS_OP_STATE]).toInt();
@@ -369,7 +374,8 @@ int CupsMonitor::cancelSubscription()
 
 int CupsMonitor::initSubscription()
 {
-    if (-1 != m_subId) return 0;
+    if (-1 != m_subId)
+        return 0;
 
     // 不要移动 m_subId 和 m_seqNumber 初始化的顺序
     m_subId = createSubscription();
@@ -429,7 +435,7 @@ void CupsMonitor::stop()
 
 int CupsMonitor::getPrinterState(const QString &printer)
 {
-    return  m_printersState.value(printer, -1);
+    return m_printersState.value(printer, -1);
 }
 
 bool CupsMonitor::initWatcher()
@@ -464,13 +470,13 @@ int CupsMonitor::sendDesktopNotification(int replaceId, const QString &summary, 
     int ret = 0;
 
     QDBusPendingReply<unsigned int> reply = DUtil::DNotifySender(summary)
-                                            .appName("dde-printer")
-                                            .appIcon(":/images/printer.svg")
-                                            .appBody(body)
-                                            .replaceId(replaceId)
-                                            .timeOut(expired)
-                                            .actions(QStringList() << "default")
-                                            .call();
+                                                .appName("dde-printer")
+                                                .appIcon(":/images/printer.svg")
+                                                .appBody(body)
+                                                .replaceId(replaceId)
+                                                .timeOut(expired)
+                                                .actions(QStringList() << "default")
+                                                .call();
 
     reply.waitForFinished();
     if (!reply.isError())
