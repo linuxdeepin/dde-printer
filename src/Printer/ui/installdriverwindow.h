@@ -24,6 +24,8 @@
 
 #include <DMainWindow>
 #include <DComboBox>
+#include <QStyledItemDelegate>
+
 DWIDGET_USE_NAMESPACE
 DWIDGET_BEGIN_NAMESPACE
 class DIconButton;
@@ -41,7 +43,26 @@ class QWidget;
 class QLabel;
 class QStandardItemModel;
 class QStackedWidget;
+class QCompleter;
 QT_END_NAMESPACE
+
+enum COMPLETERNAME
+{
+    MANUFACTURER,
+    TYPE,
+    DRIVER
+};
+
+class QtCompleterDelegate : public QStyledItemDelegate
+{
+public:
+    QtCompleterDelegate(QObject* pParent = nullptr);
+
+protected:
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+};
+
 class InstallDriverWindow : public DMainWindow
 {
     Q_OBJECT
@@ -125,6 +146,7 @@ private slots:
     void driverSearchedSlot();
     // 响应本地驱动初始化完成
     void driverRefreshSlot(int id, int iState);
+    QCompleter* initCompleter(COMPLETERNAME name, const QStringList& strList);
 
 signals:
     void updatePrinterList();
@@ -138,6 +160,9 @@ private:
     DComboBox *m_pManufacturerCombo;
     DComboBox *m_pTypeCombo;
     DComboBox *m_pDriverCombo;
+    QCompleter* m_pManufactureCompleter;
+    QCompleter* m_pTypeCompleter;
+    QCompleter* m_pDriverCompleter;
     // 本地PPD
     QLabel *m_pPPDPath;
     QPushButton *m_pSelectPPDBtn;

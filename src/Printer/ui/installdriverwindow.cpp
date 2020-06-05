@@ -52,9 +52,50 @@
 #include <QMimeData>
 #include <QCompleter>
 #include <QKeyEvent>
+#include <QAbstractItemView>
+
+QtCompleterDelegate::QtCompleterDelegate(QObject* pParent): QStyledItemDelegate(pParent)
+{
+
+}
+
+QSize QtCompleterDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+    Q_UNUSED(option);
+    Q_UNUSED(index);
+    return QSize(400, 30);
+}
+
+void QtCompleterDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+    painter->save();
+    QRect rc = QRect(option.rect.left() + 2, option.rect.top() + 2,
+                     option.rect.width() - 4, option.rect.height() - 4);
+    painter->setRenderHints(QPainter::Antialiasing|QPainter::TextAntialiasing);
+
+    if(option.state.testFlag(QStyle::State_MouseOver))
+    {
+        painter->setPen(QPen(Qt::blue));
+        painter->setBrush(Qt::NoBrush);
+        painter->drawRoundedRect(rc, 8, 8);
+    }
+    else {
+        painter->setPen(QPen(Qt::white));
+        painter->setBrush(Qt::NoBrush);
+        painter->drawRoundedRect(rc, 8, 8);
+    }
+
+    painter->setPen(Qt::black);
+    QString strText = index.data(Qt::DisplayRole).toString();
+    painter->drawText(rc, Qt::AlignLeft|Qt::AlignVCenter, strText);
+    painter->restore();
+}
 
 InstallDriverWindow::InstallDriverWindow(QWidget *parent)
     : DMainWindow(parent)
+    ,m_pManufactureCompleter(nullptr)
+    ,m_pTypeCompleter(nullptr)
+    ,m_pDriverCompleter(nullptr)
 {
     initUI();
     initConnections();
@@ -292,6 +333,7 @@ void InstallDriverWindow::initMakerAndType()
         int index = -1;
         makerList.sort(Qt::CaseInsensitive);
         m_pManufacturerCombo->addItems(makerList);
+        initCompleter(MANUFACTURER, makerList);
         //优先显示所选打印机对应的驱动
         if (!m_device.strMakeAndModel.isEmpty()) {
             QString strMake, strModel;
@@ -418,6 +460,7 @@ void InstallDriverWindow::currentMakerChangedSlot(const QString &maker)
         QStringList modelList = modelset->keys().toSet().toList();
         modelList.sort(Qt::CaseInsensitive);
         m_pTypeCombo->addItems(modelList);
+        initCompleter(TYPE, modelList);
         int index = -1;
         //优先选择打印机对应的驱动
         if (!m_device.strMakeAndModel.isEmpty()) {
@@ -444,6 +487,8 @@ void InstallDriverWindow::currentModelChangedSlot(const QString &model)
 
         QStringList ppdKeys = modelset->values(model);
         const QMap<QString, QMap<QString, QString>> *ppds = g_driverManager->getPPDs();
+        QStringList strValues;
+
         foreach (QString key, ppdKeys) {
             QList<QMap<QString, QString>> list = ppds->values(key.toLower());
             for (int i = 0; i < list.count(); i++) {
@@ -456,8 +501,11 @@ void InstallDriverWindow::currentModelChangedSlot(const QString &model)
                     ppdname.append(tr("(recommended)"));
                 }
                 m_pDriverCombo->addItem(ppdname, QVariant::fromValue(list[i]));
+                strValues.push_back(ppdname);
             }
         }
+
+        initCompleter(DRIVER, strValues);
     }
     if (m_pDriverCombo->count() > 0) {
         m_pInstallBtn->setEnabled(true);
@@ -551,6 +599,51 @@ void InstallDriverWindow::driverRefreshSlot(int id, int iState)
         m_pInstallBtn->setVisible(true);
         initMakerAndType();
     }
+}
+
+QCompleter* InstallDriverWindow::initCompleter(COMPLETERNAME name, const QStringList& strList)
+{
+    QCompleter* pCompleter = new QCompleter(strList, this);
+    pCompleter->setCaseSensitivity(Qt::CaseInsensitive);
+    pCompleter->setFilterMode(Qt::MatchContains);
+    pCompleter->setCompletionMode(QCompleter::PopupCompletion);
+    pCompleter->popup()->setItemDelegate(new QtCompleterDelegate(pCompleter));
+
+    if(MANUFACTURER == name)
+    {
+        m_pManufacturerCombo->setCompleter(pCompleter);
+
+        if(m_pManufactureCompleter != nullptr)
+        {
+            delete m_pManufactureCompleter;
+        }
+
+        m_pManufactureCompleter = pCompleter;
+    }
+    else if(TYPE == name)
+    {
+        m_pTypeCombo->setCompleter(pCompleter);
+
+        if(m_pTypeCompleter != nullptr)
+        {
+            delete m_pTypeCompleter;
+        }
+
+        m_pTypeCompleter = pCompleter;
+    }
+    else if(DRIVER == name)
+    {
+        m_pDriverCombo->setCompleter(pCompleter);
+
+        if(m_pDriverCompleter != nullptr)
+        {
+            delete m_pDriverCompleter;
+        }
+
+        m_pDriverCompleter = pCompleter;
+    }
+
+    return pCompleter;
 }
 
 void InstallDriverWindow::driverSearchedSlot()
