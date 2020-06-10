@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     liurui <liurui_cm@deepin.com>
  *
@@ -73,8 +73,8 @@ private:
     */
     bool autoInstallPrinter(int type, const TDeviceInfo &device);
 
-    QString printerDescription(const TDeviceInfo& info, bool manual = false);
-    QString driverDescription(const QMap<QString, QVariant>& driver);
+    QString printerDescription(const TDeviceInfo &info, bool manual = false);
+    QString driverDescription(const QMap<QString, QVariant> &driver);
 
 private slots:
     void listWidgetClickedSlot(const QModelIndex &previous);
@@ -99,7 +99,6 @@ private slots:
     void driverChangedSlot(int index);
     // 响应smb消息
     void smbInfomationSlot(int &ret, const QString &host, QString &group, QString &user, QString &password);
-
 
 signals:
     void updatePrinterList(const QString &printerName);
@@ -145,7 +144,6 @@ private:
     InstallDriverWindow *m_pInstallDriverWindow;
     // 安装打印机状态界面
     InstallPrinterWindow *m_pInstallPrinterWindow;
-
 };
 
 #endif // PRINTERSEARCHWINDOW_H

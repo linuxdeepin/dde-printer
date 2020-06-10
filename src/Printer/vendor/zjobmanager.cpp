@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     Wei xie <xiewei@deepin.com>
  *
@@ -32,8 +32,8 @@
 #include <QFile>
 
 static const char *g_whichs[] = {"all", "not-completed", "completed"};
-static const char *jattrs[] =     /* Attributes we need for jobs... */
-      {
+static const char *jattrs[] = /* Attributes we need for jobs... */
+    {
         JOB_ATTR_ID,
         JOB_ATTR_SIZE,
         JOB_ATTR_NAME,
@@ -47,32 +47,31 @@ static const char *jattrs[] =     /* Attributes we need for jobs... */
         JOB_ATTR_TIME_END,
         JOB_ATTR_PRIORITY,
         JOB_ATTR_DOC_NUM,
-        nullptr
-      };
+        nullptr};
 
-int JobManager::getJobs(map<int, map<string, string>>& jobs, int which, int myJobs)
+int JobManager::getJobs(map<int, map<string, string>> &jobs, int which, int myJobs)
 {
     map<int, map<string, string>>::iterator itJobs;
     vector<string> requst;
 
     qDebug() << which << myJobs;
 
-    for (int i=0;jattrs[i];i++) {
+    for (int i = 0; jattrs[i]; i++) {
         requst.push_back(jattrs[i]);
     }
 
     try {
         jobs = g_cupsConnection->getJobs(g_whichs[which], myJobs, 0, 0, &requst);
-    }catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
     }
 
     qInfo() << "Got jobs count: " << jobs.size();
 
-    for (itJobs=jobs.begin();itJobs!=jobs.end();itJobs++) {
+    for (itJobs = jobs.begin(); itJobs != jobs.end(); itJobs++) {
         map<string, string> info = itJobs->second;
-        qDebug() << JOB_ATTR_ID <<  itJobs->first;
+        qDebug() << JOB_ATTR_ID << itJobs->first;
         if (g_cupsMonitor->isJobPurged(itJobs->first)) {
             jobs.erase(itJobs);
             qInfo() << itJobs->first << "is purged";
@@ -83,24 +82,24 @@ int JobManager::getJobs(map<int, map<string, string>>& jobs, int which, int myJo
     return 0;
 }
 
-int JobManager::getJobById(map<string, string>& job, int jobId)
+int JobManager::getJobById(map<string, string> &job, int jobId)
 {
     map<int, map<string, string>> jobs;
     map<int, map<string, string>>::iterator itJobs;
     vector<string> requst;
 
-    for (int i=0;jattrs[i];i++) {
+    for (int i = 0; jattrs[i]; i++) {
         requst.push_back(jattrs[i]);
     }
 
     try {
         jobs = g_cupsConnection->getJobs(g_whichs[WHICH_JOB_ALL], 0, 1, jobId, &requst);
-    }catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
     }
 
-    for (itJobs=jobs.begin();itJobs!=jobs.end();itJobs++) {
+    for (itJobs = jobs.begin(); itJobs != jobs.end(); itJobs++) {
         dumpStdMapValue(itJobs->second);
         if (itJobs->first == jobId) {
             job = itJobs->second;
@@ -118,7 +117,7 @@ int JobManager::cancelJob(int job_id)
 
     try {
         g_cupsConnection->cancelJob(job_id, 0);
-    }catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
     }
@@ -126,7 +125,7 @@ int JobManager::cancelJob(int job_id)
     return 0;
 }
 
-int JobManager::deleteJob(int job_id, const char* dest)
+int JobManager::deleteJob(int job_id, const char *dest)
 {
     qInfo() << "Job: " << job_id;
 
@@ -136,7 +135,7 @@ int JobManager::deleteJob(int job_id, const char* dest)
         } else {
             g_cupsConnection->cancelJob(job_id, 1);
         }
-    }catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
     }
@@ -150,7 +149,7 @@ int JobManager::holdJob(int job_id)
 
     try {
         g_cupsConnection->holdJob(job_id);
-    }catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
     }
@@ -166,7 +165,7 @@ int JobManager::holdjobs(const QString &printerName)
     if (0 != getJobs(jobs, WHICH_JOB_RUNING))
         return -1;
 
-    for (itJobs=jobs.begin();itJobs!=jobs.end();itJobs++) {
+    for (itJobs = jobs.begin(); itJobs != jobs.end(); itJobs++) {
         map<string, string> job = itJobs->second;
         QString uri = attrValueToQString(job[JOB_ATTR_URI]);
 
@@ -184,7 +183,7 @@ int JobManager::releaseJob(int job_id)
 
     try {
         g_cupsConnection->releaseJob(job_id);
-    }catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
     }
@@ -198,22 +197,21 @@ int JobManager::restartJob(int job_id)
 
     try {
         g_cupsConnection->restartJob(job_id, nullptr);
-    }catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
     }
 
     return 0;
-
 }
 
-int JobManager::moveJob(const char* destUri, int job_id, const char* srcUri)
+int JobManager::moveJob(const char *destUri, int job_id, const char *srcUri)
 {
     qInfo() << "Job: " << job_id;
 
     try {
         g_cupsConnection->moveJob(destUri, job_id, srcUri);
-    }catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
     }
@@ -227,7 +225,7 @@ static int setJobPriority(int job_id, int iPriority)
 
     try {
         g_cupsConnection->setJobPriority(job_id, iPriority);
-    }catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
     }
@@ -237,9 +235,7 @@ static int setJobPriority(int job_id, int iPriority)
 
 bool JobManager::isCompletedState(int state)
 {
-    return (IPP_JSTATE_COMPLETED == state ||
-            IPP_JSTATE_ABORTED == state ||
-            IPP_JSTATE_CANCELED == state);
+    return (IPP_JSTATE_COMPLETED == state || IPP_JSTATE_ABORTED == state || IPP_JSTATE_CANCELED == state);
 }
 
 int JobManager::priorityJob(int job_id, int &iPriority)
@@ -249,12 +245,12 @@ int JobManager::priorityJob(int job_id, int &iPriority)
 
     qInfo() << job_id << iPriority;
 
-    if (0 !=getJobs(jobs))
+    if (0 != getJobs(jobs))
         return -1;
 
     if (LOWEST_Priority > iPriority) {
         iPriority = DEFAULT_Priority;
-        for (itmaps=jobs.begin();itmaps!=jobs.end();itmaps++) {
+        for (itmaps = jobs.begin(); itmaps != jobs.end(); itmaps++) {
             map<string, string> jobinfo = itmaps->second;
             int jobPriority = attrValueToQString(jobinfo[JOB_ATTR_PRIORITY]).toInt();
             qDebug() << "Got " << itmaps->first << jobPriority;
@@ -263,8 +259,8 @@ int JobManager::priorityJob(int job_id, int &iPriority)
                 iPriority = jobPriority;
                 if (++iPriority > HIGHEST_Priority) {
                     iPriority = HIGHEST_Priority;
-                    qDebug() << "Change " << itmaps->first << "to" << HIGHEST_Priority-1;
-                    setJobPriority(itmaps->first, HIGHEST_Priority-1);
+                    qDebug() << "Change " << itmaps->first << "to" << HIGHEST_Priority - 1;
+                    setJobPriority(itmaps->first, HIGHEST_Priority - 1);
                 }
             }
         }
@@ -287,7 +283,7 @@ QString JobManager::printTestPage(const char *dest, int &jobId, const char *form
 
     try {
         jobId = g_cupsConnection->printTestPage(dest, testFile, PrintTestTitle, format, nullptr);
-    }catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return QString::fromUtf8(ex.what());
     }
@@ -295,9 +291,9 @@ QString JobManager::printTestPage(const char *dest, int &jobId, const char *form
     return QString();
 }
 
-JobManager* JobManager::getInstance()
+JobManager *JobManager::getInstance()
 {
-    static JobManager* instance = nullptr;
+    static JobManager *instance = nullptr;
 
     if (!instance)
         instance = new JobManager();

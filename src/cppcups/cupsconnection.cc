@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,6 @@
  */
 
 #include "cupsconnection.h"
-
 
 #ifndef __SVR4
 #include <paths.h>
@@ -40,27 +39,30 @@ static std::mutex g_lock;
 static Connection **g_connections = nullptr;
 static int g_numConnections = 0;
 
-#define checkIppAnswer(answer, msg) do{\
-    if(!answer || ippGetStatusCode(answer) > IPP_OK_CONFLICT) {\
-        string err = get_ipp_error(answer ? ippGetStatusCode(answer) : cupsLastError(),\
-           answer ? nullptr : cupsLastErrorString());\
-        if(answer) {\
-            ippDelete(answer);\
-        }\
-        if(msg) debugprintf(msg);\
-        throw runtime_error(err);\
-    }\
-}while(0);
+#define checkIppAnswer(answer, msg) \
+    do { \
+        if (!answer || ippGetStatusCode(answer) > IPP_OK_CONFLICT) { \
+            string err = get_ipp_error(answer ? ippGetStatusCode(answer) : cupsLastError(), \
+                                       answer ? nullptr : cupsLastErrorString()); \
+            if (answer) { \
+                ippDelete(answer); \
+            } \
+            if (msg) \
+                debugprintf(msg); \
+            throw runtime_error(err); \
+        } \
+    } while (0);
 
 static void set_http_error(http_status_t status)
 {
-    debugprintf("set_http_error: %d\n",(int)status);
+    debugprintf("set_http_error: %d\n", (int)status);
     throw runtime_error(string_format("http error(%d)", status));
 }
 
 string get_ipp_error(ipp_status_t status, const char *message)
 {
-    if(!message) message = ippErrorString(status);
+    if (!message)
+        message = ippErrorString(status);
 
     return string_format("ipp error(%d, %s)", status, message);
 }
@@ -68,8 +70,8 @@ string get_ipp_error(ipp_status_t status, const char *message)
 static void construct_uri(char *buffer, size_t buflen, const char *base, const char *value)
 {
     char *d = buffer;
-    const unsigned char *s = (const unsigned char *) value;
-    if(strlen(base) < buflen) {
+    const unsigned char *s = (const unsigned char *)value;
+    if (strlen(base) < buflen) {
         strcpy(buffer, base);
         d += strlen(base);
     } else {
@@ -77,14 +79,14 @@ static void construct_uri(char *buffer, size_t buflen, const char *base, const c
         d += buflen;
     }
 
-    while(*s && d < buffer + buflen) {
-        if(isalpha(*s) || isdigit(*s) || *s == '-')
+    while (*s && d < buffer + buflen) {
+        if (isalpha(*s) || isdigit(*s) || *s == '-')
             *d++ = *s++;
-        else if(*s == ' ') {
+        else if (*s == ' ') {
             *d++ = '+';
             s++;
         } else {
-            if(d + 2 < buffer + buflen) {
+            if (d + 2 < buffer + buflen) {
                 *d++ = '%';
                 *d++ = "0123456789ABCDEF"[((*s) & 0xf0) >> 4];
                 *d++ = "0123456789ABCDEF"[((*s) & 0x0f)];
@@ -95,7 +97,8 @@ static void construct_uri(char *buffer, size_t buflen, const char *base, const c
         }
     }
 
-    if(d < buffer + buflen) *d = '\0';
+    if (d < buffer + buflen)
+        *d = '\0';
 }
 
 static int copy_dest(Dest *dst, cups_dest_t *src)
@@ -120,10 +123,10 @@ int cups_dest_cb(void *user_data, unsigned flags, cups_dest_t *dest)
     (void)user_data;
     (void)flags;
 
-    debugprintf ("-> cups_dest_cb\n");
+    debugprintf("-> cups_dest_cb\n");
     copy_dest(&destobj, dest);
     // TODO: callback user function!
-    debugprintf ("<- cups_dest_cb (%d)\n", ret);
+    debugprintf("<- cups_dest_cb (%d)\n", ret);
 
     // return 1 to continue enumeration and 0 to cancel.
     return ret;
@@ -137,7 +140,7 @@ string string_from_attr_value(ipp_attribute_t *attr, int i)
     ipp_res_t units;
     string val;
 
-    switch(ippGetValueTag(attr)) {
+    switch (ippGetValueTag(attr)) {
     case IPP_TAG_NAME:
     case IPP_TAG_TEXT:
     case IPP_TAG_KEYWORD:
@@ -145,33 +148,33 @@ string string_from_attr_value(ipp_attribute_t *attr, int i)
     case IPP_TAG_CHARSET:
     case IPP_TAG_MIMETYPE:
     case IPP_TAG_LANGUAGE:
-    val = string_format("s%s", ippGetString(attr, i, NULL));
-    break;
+        val = string_format("s%s", ippGetString(attr, i, NULL));
+        break;
     case IPP_TAG_INTEGER:
     case IPP_TAG_ENUM:
-    val = string_format("i%d", ippGetInteger(attr, i));
-    break;
+        val = string_format("i%d", ippGetInteger(attr, i));
+        break;
     case IPP_TAG_BOOLEAN:
-    val = string_format("b%d", ippGetBoolean(attr, i));
-    break;
+        val = string_format("b%d", ippGetBoolean(attr, i));
+        break;
     case IPP_TAG_RANGE:
-    lower = ippGetRange(attr, i, &upper);
-    val = string_format("i%d,%d", lower, upper);
-    break;
+        lower = ippGetRange(attr, i, &upper);
+        val = string_format("i%d,%d", lower, upper);
+        break;
     case IPP_TAG_NOVALUE:
-    break;
+        break;
 
     case IPP_TAG_DATE:
-    // TODO: parse IPP_TAG_DATE
-    val = string_format("s%s", "(IPP_TAG_DATE)");
-    break;
+        // TODO: parse IPP_TAG_DATE
+        val = string_format("s%s", "(IPP_TAG_DATE)");
+        break;
     case IPP_TAG_RESOLUTION:
-    xres = ippGetResolution(attr, i, &yres, &units);
-    val = string_format("i%d,%d,%d", xres, yres, units);
-    break;
+        xres = ippGetResolution(attr, i, &yres, &units);
+        val = string_format("i%d,%d,%d", xres, yres, units);
+        break;
     default:
-    val = string_format("s(unknown IPP value tag 0x%x)", ippGetValueTag(attr));
-    break;
+        val = string_format("s(unknown IPP value tag 0x%x)", ippGetValueTag(attr));
+        break;
     }
 
     return val;
@@ -182,9 +185,9 @@ string list_from_attr_values(ipp_attribute_t *attr)
     string list;
     int i;
     debugprintf("-> list_from_attr_values()\n");
-    for(i = 0; i < ippGetCount(attr); i++) {
+    for (i = 0; i < ippGetCount(attr); i++) {
         string val = string_from_attr_value(attr, i);
-        if(!val.empty()) {
+        if (!val.empty()) {
             list += '`'; // each sub string separate with ` char
             list += val;
         }
@@ -199,91 +202,93 @@ string list_from_attr_values(ipp_attribute_t *attr)
 ////////////////
 
 #ifdef HAVE_CUPS_1_4
-static const char* password_callback(int newstyle,
-		   const char *prompt,
-		   http_t *http,
-		   const char *method,
-		   const char *resource,
-		   void *user_data)
+static const char *password_callback(int newstyle,
+                                     const char *prompt,
+                                     http_t *http,
+                                     const char *method,
+                                     const char *resource,
+                                     void *user_data)
 {
-    struct TLS *tls = get_TLS ();
-    Connection* self = nullptr;
+    struct TLS *tls = get_TLS();
+    Connection *self = nullptr;
     std::lock_guard<std::mutex> guard(g_lock);
 
-    debugprintf ("-> password_callback for http=%p, newstyle=%d\n",
-           http, newstyle);
+    debugprintf("-> password_callback for http=%p, newstyle=%d\n",
+                http, newstyle);
     for (int i = 0; i < g_numConnections; i++) {
         if (g_connections[i]->http == http) {
-          self = g_connections[i];
-          break;
+            self = g_connections[i];
+            break;
         }
     }
 
     if (!self) {
-        debugprintf ("cannot find self!\n");
+        debugprintf("cannot find self!\n");
         return "";
     }
 
     // STORE password in slef->cb_password
     tls->cups_password_callback(prompt, self, method, resource, user_data);
     if (self->cb_password.empty()) {
-        debugprintf ("<- password_callback (empty/null)\n");
+        debugprintf("<- password_callback (empty/null)\n");
         return nullptr;
     }
 
-    debugprintf ("<- password_callback\n");
+    debugprintf("<- password_callback\n");
 
     return self->cb_password.data();
 }
 
-const char* password_callback_oldstyle(const char *prompt,
-			    http_t *http,
-			    const char *method,
-			    const char *resource,
-			    void *user_data)
+const char *password_callback_oldstyle(const char *prompt,
+                                       http_t *http,
+                                       const char *method,
+                                       const char *resource,
+                                       void *user_data)
 {
     return password_callback(0, prompt, http, method, resource, user_data);
 }
 
-const char* password_callback_newstyle(const char *prompt,
-			    http_t *http,
-			    const char *method,
-			    const char *resource,
-			    void *user_data)
+const char *password_callback_newstyle(const char *prompt,
+                                       http_t *http,
+                                       const char *method,
+                                       const char *resource,
+                                       void *user_data)
 {
     return password_callback(1, prompt, http, method, resource, user_data);
 }
 #endif /* !HAVE_CUPS_1_4 */
 
-ServerSettings::ServerSettings(Connection* c, map<string, string> settings) : c_(c), settings_(settings)
+ServerSettings::ServerSettings(Connection *c, map<string, string> settings)
+    : c_(c)
+    , settings_(settings)
 {
 }
 
-ServerSettings& ServerSettings::enableDebugLogging(bool enabled)
+ServerSettings &ServerSettings::enableDebugLogging(bool enabled)
 {
     settings_["_debug_logging"] = enabled ? "1" : "0";
     return *this;
 }
 
-ServerSettings& ServerSettings::enableRemoteAdmin(bool enabled)
+ServerSettings &ServerSettings::enableRemoteAdmin(bool enabled)
 {
     settings_["_remote_admin"] = enabled ? "1" : "0";
     return *this;
 }
 
-ServerSettings& ServerSettings::enableRemoteAny(bool enabled)
+ServerSettings &ServerSettings::enableRemoteAny(bool enabled)
 {
     settings_["_remote_any"] = enabled ? "1" : "0";
     return *this;
 }
 
-ServerSettings& ServerSettings::enableSharePrinters(bool enabled)
+ServerSettings &ServerSettings::enableSharePrinters(bool enabled)
 {
     settings_["_share_printers"] = enabled ? "1" : "0";
     return *this;
 }
 
-ServerSettings& ServerSettings::enableUserCancelAny(bool enabled)
+ServerSettings &ServerSettings::enableUserCancelAny(bool enabled)
 {
     settings_["_user_cancel_any"] = enabled ? "1" : "0";
     return *this;
@@ -329,21 +334,22 @@ Connection::~Connection(void)
     int i, j;
     std::lock_guard<std::mutex> guard(g_lock);
 
-    for(j = 0; j < g_numConnections; j++) {
-        if(g_connections[j] == this) break;
+    for (j = 0; j < g_numConnections; j++) {
+        if (g_connections[j] == this)
+            break;
     }
 
-    if(j < g_numConnections) {
-        if(g_numConnections > 1) {
-            Connection **new_array = (Connection**)calloc(g_numConnections - 1, sizeof(Connection *));
+    if (j < g_numConnections) {
+        if (g_numConnections > 1) {
+            Connection **new_array = (Connection **)calloc(g_numConnections - 1, sizeof(Connection *));
 
-            if(new_array) {
+            if (new_array) {
                 int k;
-                for(i = 0, k = 0; i < g_numConnections; i++) {
-                  if(i == j)
-                    continue;
+                for (i = 0, k = 0; i < g_numConnections; i++) {
+                    if (i == j)
+                        continue;
 
-                  new_array[k++] = g_connections[i];
+                    new_array[k++] = g_connections[i];
                 }
 
                 free(g_connections);
@@ -361,22 +367,22 @@ Connection::~Connection(void)
         }
     }
 
-    if(this->http) {
+    if (this->http) {
         debugprintf("httpClose()\n");
         httpClose(this->http);
     }
 }
 
-int Connection::init(const char* host_str, int port_n, int encryption_n)
+int Connection::init(const char *host_str, int port_n, int encryption_n)
 {
     std::lock_guard<std::mutex> guard(g_lock);
-    const char *host = host_str ? host_str:cupsServer();
-    int port = port_n ? port_n: ippPort();
+    const char *host = host_str ? host_str : cupsServer();
+    int port = port_n ? port_n : ippPort();
     int encryption = encryption_n ? encryption_n : (http_encryption_t)cupsEncryption();
 
     debugprintf("-> Connection::init(host=%s, port=%d, enc=%d)\n", host, port, encryption);
     this->host = host;
-    if(this->host.empty()) {
+    if (this->host.empty()) {
         debugprintf("<- Connection::init() = -1\n");
         return -1;
     }
@@ -385,31 +391,27 @@ int Connection::init(const char* host_str, int port_n, int encryption_n)
     int cancel = 0;
     this->http = httpConnect2(host, port, nullptr, AF_UNSPEC,
                               (http_encryption_t)encryption, 1, 30000, &cancel);
-    if(!this->http) {
+    if (!this->http) {
         debugprintf("<- Connection::init() = -1\n");
         throw runtime_error("failed to connect to server");
     }
 
-    if(g_numConnections == 0)
-    {
-        g_connections = (Connection**)malloc(sizeof(Connection *));
-        if(g_connections == nullptr) {
+    if (g_numConnections == 0) {
+        g_connections = (Connection **)malloc(sizeof(Connection *));
+        if (g_connections == nullptr) {
             debugprintf("<- Connection::init() = -1\n");
             throw runtime_error("insufficient memory");
         }
-    }
-    else
-    {
+    } else {
         Connection **old_array = g_connections;
 
-        if((1 + g_numConnections) >= MAX_CONN)
-        {
+        if ((1 + g_numConnections) >= MAX_CONN) {
             debugprintf("<- Connection::init() == -1\n");
             throw runtime_error("too many connections");
         }
 
-        g_connections = (Connection**)realloc(g_connections, (1 + g_numConnections) * sizeof(Connection *));
-        if(g_connections == nullptr) {
+        g_connections = (Connection **)realloc(g_connections, (1 + g_numConnections) * sizeof(Connection *));
+        if (g_connections == nullptr) {
             g_connections = old_array;
             debugprintf("<- Connection::init() = -1\n");
             throw runtime_error("insufficient memory");
@@ -434,12 +436,12 @@ vector<Dest> Connection::getDests(void)
     // Create a dict indexed by(name,instance)
     Dest destobj;
     vector<Dest> ret;
-    for(int i = 0; i <= num_dests; i++) {
+    for (int i = 0; i <= num_dests; i++) {
         cups_dest_t *dest = nullptr;
-        if(i == num_dests) {
+        if (i == num_dests) {
             // Add a(None,None) entry for the default printer.
             dest = cupsGetDest(nullptr, nullptr, num_dests, dests);
-            if(dest == nullptr) {
+            if (dest == nullptr) {
                 /* No default printer. */
                 break;
             }
@@ -457,7 +459,7 @@ vector<Dest> Connection::getDests(void)
     return ret;
 }
 
-map<string, map<string,string>> Connection::getPrinters(void)
+map<string, map<string, string>> Connection::getPrinters(void)
 {
     ipp_t *request = ippNewRequest(CUPS_GET_PRINTERS);
     ipp_t *answer = nullptr;
@@ -480,12 +482,12 @@ map<string, map<string,string>> Connection::getPrinters(void)
     debugprintf("-> Connection::getPrinters()\n");
 
     ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
-         "requested-attributes",
-         sizeof(attributes) / sizeof(attributes[0]),
-         nullptr, attributes);
+                  "requested-attributes",
+                  sizeof(attributes) / sizeof(attributes[0]),
+                  nullptr, attributes);
     debugprintf("cupsDoRequest(\"/\")\n");
     answer = cupsDoRequest(this->http, request, "/");
-    if(answer && ippGetStatusCode(answer) == IPP_NOT_FOUND) {
+    if (answer && ippGetStatusCode(answer) == IPP_NOT_FOUND) {
         // No printers.
         debugprintf("<- Connection::getPrinters() = {}(no printers)\n");
         ippDelete(answer);
@@ -494,67 +496,53 @@ map<string, map<string,string>> Connection::getPrinters(void)
 
     checkIppAnswer(answer, "<- Connection::getPrinters()(error)\n");
 
-    for(attr = ippFirstAttribute(answer); attr; attr = ippNextAttribute(answer)) {
+    for (attr = ippFirstAttribute(answer); attr; attr = ippNextAttribute(answer)) {
         const char *printer = nullptr;
 
-        while(attr && ippGetGroupTag(attr) != IPP_TAG_PRINTER) {
+        while (attr && ippGetGroupTag(attr) != IPP_TAG_PRINTER) {
             attr = ippNextAttribute(answer);
         }
 
-        if(!attr) {
+        if (!attr) {
             break;
         }
 
         map<string, string> dict;
-        for(; attr && ippGetGroupTag(attr) == IPP_TAG_PRINTER; attr = ippNextAttribute(answer)) {
-            const char* attrName = ippGetName(attr);
+        for (; attr && ippGetGroupTag(attr) == IPP_TAG_PRINTER; attr = ippNextAttribute(answer)) {
+            const char *attrName = ippGetName(attr);
             ipp_tag_t valTag = ippGetValueTag(attr);
             debugprintf("Attribute: %s\n", attrName);
 
             string val;
-            if(!strcmp(attrName, "printer-name") &&
-               valTag == IPP_TAG_NAME) {
+            if (!strcmp(attrName, "printer-name") && valTag == IPP_TAG_NAME) {
                 printer = ippGetString(attr, 0, nullptr);
-            } else if((!strcmp(attrName, "printer-type") ||
-                       !strcmp(attrName, "printer-state")) &&
-                      valTag == IPP_TAG_ENUM) {
+            } else if ((!strcmp(attrName, "printer-type") || !strcmp(attrName, "printer-state")) && valTag == IPP_TAG_ENUM) {
                 val = string_format("i%d", ippGetInteger(attr, 0));
-            } else if((!strcmp(attrName, "printer-make-and-model") ||
-                       !strcmp(attrName, "printer-info") ||
-                       !strcmp(attrName, "printer-location") ||
-                       !strcmp(attrName, "printer-state-message")) &&
-                       valTag == IPP_TAG_TEXT) {
+            } else if ((!strcmp(attrName, "printer-make-and-model") || !strcmp(attrName, "printer-info") || !strcmp(attrName, "printer-location") || !strcmp(attrName, "printer-state-message")) && valTag == IPP_TAG_TEXT) {
                 val = string_format("s%s", ippGetString(attr, 0, nullptr));
-            } else if(!strcmp(attrName, "printer-state-reasons") &&
-                      valTag == IPP_TAG_KEYWORD) {
+            } else if (!strcmp(attrName, "printer-state-reasons") && valTag == IPP_TAG_KEYWORD) {
                 val = list_from_attr_values(attr);
-            } else if(!strcmp(attrName, "printer-is-accepting-jobs") &&
-                      valTag == IPP_TAG_BOOLEAN) {
+            } else if (!strcmp(attrName, "printer-is-accepting-jobs") && valTag == IPP_TAG_BOOLEAN) {
                 val = string_format("b%d", ippGetBoolean(attr, 0));
-            } else if((!strcmp(attrName, "printer-up-time") ||
-                       !strcmp(attrName, "queued-job-count")) &&
-                       valTag == IPP_TAG_INTEGER) {
+            } else if ((!strcmp(attrName, "printer-up-time") || !strcmp(attrName, "queued-job-count")) && valTag == IPP_TAG_INTEGER) {
                 val = string_format("i%d", ippGetInteger(attr, 0));
-            } else if((!strcmp(attrName, "device-uri") ||
-                       !strcmp(attrName, "printer-uri-supported")) &&
-                       valTag == IPP_TAG_URI) {
+            } else if ((!strcmp(attrName, "device-uri") || !strcmp(attrName, "printer-uri-supported")) && valTag == IPP_TAG_URI) {
                 val = string_format("s%s", ippGetString(attr, 0, nullptr));
-            } else if(!strcmp(attrName, "printer-is-shared") &&
-                      valTag == IPP_TAG_BOOLEAN) {
+            } else if (!strcmp(attrName, "printer-is-shared") && valTag == IPP_TAG_BOOLEAN) {
                 val = string_format("b%d", ippGetBoolean(attr, 0));
             }
 
-            if(!val.empty()) {
+            if (!val.empty()) {
                 debugprintf("Added %s to dict\n", attrName);
                 dict[attrName] = val;
             }
         }
 
-        if(printer) {
+        if (printer) {
             ret[printer] = dict;
         }
 
-        if(!attr) {
+        if (!attr) {
             break;
         }
     }
@@ -578,13 +566,13 @@ map<string, string> Connection::getClasses(void)
 
     debugprintf("-> Connection::getClasses()\n");
     ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
-         "requested-attributes",
-         sizeof(attributes) / sizeof(attributes[0]),
-         nullptr, attributes);
+                  "requested-attributes",
+                  sizeof(attributes) / sizeof(attributes[0]),
+                  nullptr, attributes);
     debugprintf("cupsDoRequest(\"/\")\n");
     answer = cupsDoRequest(this->http, request, "/");
-    if(!answer || ippGetStatusCode(answer) > IPP_OK_CONFLICT) {
-        if(answer && ippGetStatusCode(answer) == IPP_NOT_FOUND) {
+    if (!answer || ippGetStatusCode(answer) > IPP_OK_CONFLICT) {
+        if (answer && ippGetStatusCode(answer) == IPP_NOT_FOUND) {
             // No classes.
             debugprintf("<- Connection::getClasses() = {}(no classes)\n");
             ippDelete(answer);
@@ -592,8 +580,8 @@ map<string, string> Connection::getClasses(void)
         }
 
         string err = get_ipp_error(answer ? ippGetStatusCode(answer) : cupsLastError(),
-               answer ? nullptr : cupsLastErrorString());
-        if(answer) {
+                                   answer ? nullptr : cupsLastErrorString());
+        if (answer) {
             ippDelete(answer);
         }
         debugprintf("<- Connection::getClasses()(error)\n");
@@ -601,42 +589,42 @@ map<string, string> Connection::getClasses(void)
         throw runtime_error(err);
     }
 
-    for(attr = ippFirstAttribute(answer); attr; attr = ippNextAttribute(answer)) {
+    for (attr = ippFirstAttribute(answer); attr; attr = ippNextAttribute(answer)) {
         char *classname = nullptr;
         char *printer_uri = nullptr;
         string members;
 
-        while(attr && ippGetGroupTag(attr) != IPP_TAG_PRINTER) {
+        while (attr && ippGetGroupTag(attr) != IPP_TAG_PRINTER) {
             attr = ippNextAttribute(answer);
         }
 
-        if(!attr) {
+        if (!attr) {
             break;
         }
 
-        for(; attr && ippGetGroupTag(attr) == IPP_TAG_PRINTER; attr = ippNextAttribute(answer)) {
-            const char* attrName = ippGetName(attr);
+        for (; attr && ippGetGroupTag(attr) == IPP_TAG_PRINTER; attr = ippNextAttribute(answer)) {
+            const char *attrName = ippGetName(attr);
             ipp_tag_t valTag = ippGetValueTag(attr);
             debugprintf("Attribute: %s\n", attrName);
-            if(!strcmp(attrName, "printer-name") && valTag == IPP_TAG_NAME)
+            if (!strcmp(attrName, "printer-name") && valTag == IPP_TAG_NAME)
                 classname = (char *)ippGetString(attr, 0, nullptr);
-            else if(!strcmp(attrName, "printer-uri-supported") && valTag == IPP_TAG_URI)
+            else if (!strcmp(attrName, "printer-uri-supported") && valTag == IPP_TAG_URI)
                 printer_uri = (char *)ippGetString(attr, 0, nullptr);
-            else if(!strcmp(attrName, "member-names") && valTag == IPP_TAG_NAME) {
+            else if (!strcmp(attrName, "member-names") && valTag == IPP_TAG_NAME) {
                 members = list_from_attr_values(attr);
             }
         }
 
-        if(printer_uri) {
+        if (printer_uri) {
             members = printer_uri;
         }
 
-        if(classname) {
+        if (classname) {
             debugprintf("Added class %s\n", classname);
             ret[classname] = members;
         }
 
-        if(!attr) {
+        if (!attr) {
             break;
         }
     }
@@ -649,94 +637,94 @@ map<string, string> Connection::getClasses(void)
 
 map<string, map<string, string>>
 Connection::do_getPPDs(int limit,
-        const vector<string>* exclude_schemes,
-        const vector<string>* include_schemes,
-        const char *ppd_natural_language,
-        const char *ppd_device_id,
-        const char *ppd_make,
-        const char *ppd_make_and_model,
-        int ppd_model_number,
-        const char *ppd_product,
-        const char *ppd_psversion,
-        const char *ppd_type,
-        bool all_lists)
+                       const vector<string> *exclude_schemes,
+                       const vector<string> *include_schemes,
+                       const char *ppd_natural_language,
+                       const char *ppd_device_id,
+                       const char *ppd_make,
+                       const char *ppd_make_and_model,
+                       int ppd_model_number,
+                       const char *ppd_product,
+                       const char *ppd_psversion,
+                       const char *ppd_type,
+                       bool all_lists)
 {
     ipp_t *request = nullptr, *answer = nullptr;
     ipp_attribute_t *attr = nullptr;
 
     request = ippNewRequest(CUPS_GET_PPDS);
-    if(limit > 0) {
+    if (limit > 0) {
         ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
-           "limit", limit);
+                      "limit", limit);
     }
 
-    if(exclude_schemes) {
+    if (exclude_schemes) {
         size_t i, n;
         char **ss = nullptr;
 
         n = exclude_schemes->size();
-        ss = (char**)calloc(n + 1, sizeof(char *));
-        for(i = 0; i < n; i++) {
-            ss[i] = (char*)exclude_schemes->at(i).data();
+        ss = (char **)calloc(n + 1, sizeof(char *));
+        for (i = 0; i < n; i++) {
+            ss[i] = (char *)exclude_schemes->at(i).data();
         }
         ss[n] = nullptr;
         ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-                 "exclude-schemes", n, nullptr,(const char **)ss);
+                      "exclude-schemes", n, nullptr, (const char **)ss);
         free(ss);
     }
 
-    if(include_schemes) {
+    if (include_schemes) {
         size_t i, n;
         char **ss = nullptr;
         n = include_schemes->size();
-        ss = (char**)calloc(n + 1, sizeof(char *));
-        for(i = 0; i < n; i++) {
-            ss[i] = (char*)include_schemes->at(i).data();
+        ss = (char **)calloc(n + 1, sizeof(char *));
+        for (i = 0; i < n; i++) {
+            ss[i] = (char *)include_schemes->at(i).data();
         }
         ss[n] = nullptr;
         ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-                 "include-schemes", n, nullptr,(const char **)ss);
+                      "include-schemes", n, nullptr, (const char **)ss);
         free(ss);
     }
 
-    if(ppd_device_id) {
+    if (ppd_device_id) {
         ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_TEXT,
-                "ppd-device-id", nullptr, ppd_device_id);
+                     "ppd-device-id", nullptr, ppd_device_id);
     }
 
-    if(ppd_make) {
+    if (ppd_make) {
         ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_TEXT,
-                "ppd-make", nullptr, ppd_make);
+                     "ppd-make", nullptr, ppd_make);
     }
 
-    if(ppd_make_and_model) {
+    if (ppd_make_and_model) {
         ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_TEXT,
-            "ppd-make-and-model", nullptr, ppd_make_and_model);
+                     "ppd-make-and-model", nullptr, ppd_make_and_model);
     }
 
-    if(ppd_model_number >= 0) {
+    if (ppd_model_number >= 0) {
         ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
-           "ppd-model-number", ppd_model_number);
+                      "ppd-model-number", ppd_model_number);
     }
 
-    if(ppd_product) {
+    if (ppd_product) {
         ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_TEXT,
-            "ppd-product", nullptr, ppd_product);
+                     "ppd-product", nullptr, ppd_product);
     }
 
-    if(ppd_psversion) {
+    if (ppd_psversion) {
         ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_TEXT,
-                "ppd-psversion", nullptr, ppd_psversion);
+                     "ppd-psversion", nullptr, ppd_psversion);
     }
 
-    if(ppd_natural_language) {
+    if (ppd_natural_language) {
         ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_LANGUAGE,
-          "ppd-natural-language", nullptr, ppd_natural_language);
+                     "ppd-natural-language", nullptr, ppd_natural_language);
     }
 
-    if(ppd_type) {
+    if (ppd_type) {
         ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
-          "ppd-type", nullptr, ppd_type);
+                     "ppd-type", nullptr, ppd_type);
     }
 
     debugprintf("-> Connection::getPPDs()\n");
@@ -745,45 +733,44 @@ Connection::do_getPPDs(int limit,
     checkIppAnswer(answer, "<- Connection::getPPDs()(error)\n");
 
     map<string, map<string, string>> ret;
-    for(attr = ippFirstAttribute(answer); attr; attr = ippNextAttribute(answer)) {
+    for (attr = ippFirstAttribute(answer); attr; attr = ippNextAttribute(answer)) {
         char *ppdname = nullptr;
 
-        while(attr && ippGetGroupTag(attr) != IPP_TAG_PRINTER) {
+        while (attr && ippGetGroupTag(attr) != IPP_TAG_PRINTER) {
             attr = ippNextAttribute(answer);
         }
 
-        if(!attr) {
+        if (!attr) {
             break;
         }
 
         map<string, string> dict;
-        for(; attr && ippGetGroupTag(attr) == IPP_TAG_PRINTER;
-            attr = ippNextAttribute(answer)) {
-            const char* attrName = ippGetName(attr);
+        for (; attr && ippGetGroupTag(attr) == IPP_TAG_PRINTER;
+             attr = ippNextAttribute(answer)) {
+            const char *attrName = ippGetName(attr);
             debugprintf("Attribute: %s\n", attrName);
-            if(!strcmp(attrName, "ppd-name") &&
-                ippGetValueTag(attr) == IPP_TAG_NAME) {
+            if (!strcmp(attrName, "ppd-name") && ippGetValueTag(attr) == IPP_TAG_NAME) {
                 ppdname = (char *)ippGetString(attr, 0, nullptr);
             } else {
                 string val;
-                if(all_lists)
+                if (all_lists)
                     val = list_from_attr_values(attr);
                 else
                     val = string_from_attr_value(attr, 0);
 
-                if(!val.empty()) {
+                if (!val.empty()) {
                     debugprintf("Adding %s to ppd dict\n", attrName);
                     dict[attrName] = val;
                 }
             }
         }
 
-        if(ppdname) {
+        if (ppdname) {
             debugprintf("Adding %s to result dict\n", ppdname);
             ret[ppdname] = dict;
         }
 
-        if(!attr) {
+        if (!attr) {
             break;
         }
     }
@@ -795,63 +782,64 @@ Connection::do_getPPDs(int limit,
 }
 
 map<string, map<string, string>> Connection::getPPDs(int limit,
-        const vector<string>* exclude_schemes,
-        const vector<string>* include_schemes,
-        const char *ppd_natural_language,
-        const char *ppd_device_id,
-        const char *ppd_make,
-        const char *ppd_make_and_model,
-        int ppd_model_number,
-        const char *ppd_product,
-        const char *ppd_psversion,
-        const char *ppd_type)
+                                                     const vector<string> *exclude_schemes,
+                                                     const vector<string> *include_schemes,
+                                                     const char *ppd_natural_language,
+                                                     const char *ppd_device_id,
+                                                     const char *ppd_make,
+                                                     const char *ppd_make_and_model,
+                                                     int ppd_model_number,
+                                                     const char *ppd_product,
+                                                     const char *ppd_psversion,
+                                                     const char *ppd_type)
 {
     return do_getPPDs(limit, exclude_schemes, include_schemes,
-        ppd_natural_language, ppd_device_id, ppd_make, ppd_make_and_model,
-        ppd_model_number, ppd_product, ppd_psversion, ppd_type, false);
+                      ppd_natural_language, ppd_device_id, ppd_make, ppd_make_and_model,
+                      ppd_model_number, ppd_product, ppd_psversion, ppd_type, false);
 }
 
 map<string, map<string, string>> Connection::getPPDs2(int limit,
-        const vector<string>* exclude_schemes,
-        const vector<string>* include_schemes,
-        const char *ppd_natural_language,
-        const char *ppd_device_id,
-        const char *ppd_make,
-        const char *ppd_make_and_model,
-        int ppd_model_number,
-        const char *ppd_product,
-        const char *ppd_psversion,
-        const char *ppd_type)
+                                                      const vector<string> *exclude_schemes,
+                                                      const vector<string> *include_schemes,
+                                                      const char *ppd_natural_language,
+                                                      const char *ppd_device_id,
+                                                      const char *ppd_make,
+                                                      const char *ppd_make_and_model,
+                                                      int ppd_model_number,
+                                                      const char *ppd_product,
+                                                      const char *ppd_psversion,
+                                                      const char *ppd_type)
 {
     return do_getPPDs(limit, exclude_schemes, include_schemes,
-        ppd_natural_language, ppd_device_id, ppd_make, ppd_make_and_model,
-        ppd_model_number, ppd_product, ppd_psversion, ppd_type, true);
+                      ppd_natural_language, ppd_device_id, ppd_make, ppd_make_and_model,
+                      ppd_model_number, ppd_product, ppd_psversion, ppd_type, true);
 }
 
-string Connection::getServerPPD(const char* ppd_name)
+string Connection::getServerPPD(const char *ppd_name)
 {
-#if CUPS_VERSION_MAJOR > 1 ||(CUPS_VERSION_MAJOR == 1 && CUPS_VERSION_MINOR >= 3)
+#if CUPS_VERSION_MAJOR > 1 || (CUPS_VERSION_MAJOR == 1 && CUPS_VERSION_MINOR >= 3)
     const char *filename = nullptr;
-    if(!ppd_name) return string();
+    if (!ppd_name)
+        return string();
 
     debugprintf("-> Connection::getServerPPD()\n");
     filename = cupsGetServerPPD(this->http, ppd_name);
-    if(!filename) {
+    if (!filename) {
         string err = get_ipp_error(cupsLastError(), cupsLastErrorString());
         debugprintf("<- Connection::getServerPPD()(error)\n");
         throw runtime_error(err);
     }
     debugprintf("<- Connection::getServerPPD(\"%s\") = \"%s\"\n",
-           ppd_name, filename);
+                ppd_name, filename);
     return filename;
 #else /* earlier than CUPS 1.3 */
     throw runtime_error("Operation not supported - recompile against CUPS 1.3 or later");
 #endif /* CUPS 1.3 */
 }
 
-map<string, string> Connection::getDocument(const char* uri, int jobid, int docnum)
+map<string, string> Connection::getDocument(const char *uri, int jobid, int docnum)
 {
-#if CUPS_VERSION_MAJOR > 1 ||(CUPS_VERSION_MAJOR == 1 && CUPS_VERSION_MINOR >= 4)
+#if CUPS_VERSION_MAJOR > 1 || (CUPS_VERSION_MAJOR == 1 && CUPS_VERSION_MINOR >= 4)
     ipp_t *request = nullptr, *answer = nullptr;
     ipp_attribute_t *attr = nullptr;
     const char *format = nullptr;
@@ -860,20 +848,21 @@ map<string, string> Connection::getDocument(const char* uri, int jobid, int docn
     int fd;
     map<string, string> dict;
 
-    if(!uri) return dict;
+    if (!uri)
+        return dict;
 
     debugprintf("-> Connection::getDocument(\"%s\",%d)\n", uri, jobid);
     request = ippNewRequest(CUPS_GET_DOCUMENT);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
-        "printer-uri", nullptr, uri);
+                 "printer-uri", nullptr, uri);
     ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
-         "job-id", jobid);
+                  "job-id", jobid);
     ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
-         "document-number", docnum);
+                  "document-number", docnum);
 
     snprintf(docfilename, sizeof(docfilename), "%s/jobdoc-XXXXXX", _PATH_TMP);
     fd = mkstemp(docfilename);
-    if(fd < 0) {
+    if (fd < 0) {
         debugprintf("<- Connection::getDocument() EXCEPTION\n");
         ippDelete(request);
         throw runtime_error(string_format("failed to create %s, error=%d", docfilename, errno));
@@ -882,41 +871,43 @@ map<string, string> Connection::getDocument(const char* uri, int jobid, int docn
     answer = cupsDoIORequest(this->http, request, "/", -1, fd);
 
     close(fd);
-    if(!answer || ippGetStatusCode(answer) > IPP_OK_CONFLICT) {
+    if (!answer || ippGetStatusCode(answer) > IPP_OK_CONFLICT) {
         unlink(docfilename);
         string err = get_ipp_error(answer ? ippGetStatusCode(answer) : cupsLastError(),
-               answer ? nullptr : cupsLastErrorString());
-        if(answer) {
+                                   answer ? nullptr : cupsLastErrorString());
+        if (answer) {
             ippDelete(answer);
         }
         debugprintf("<- Connection::getDocument()(error)\n");
         throw runtime_error(err);
     }
 
-    if((attr = ippFindAttribute(answer, "document-format",
-                IPP_TAG_MIMETYPE)) != nullptr) {
+    if ((attr = ippFindAttribute(answer, "document-format",
+                                 IPP_TAG_MIMETYPE))
+        != nullptr) {
         format = ippGetString(attr, 0, nullptr);
     }
 
-    if((attr = ippFindAttribute(answer, "document-name",
-                IPP_TAG_NAME)) != nullptr) {
+    if ((attr = ippFindAttribute(answer, "document-name",
+                                 IPP_TAG_NAME))
+        != nullptr) {
         name = ippGetString(attr, 0, nullptr);
     }
 
     dict["file"] = docfilename;
 
-    if(format) {
+    if (format) {
         dict["document-format"] = format;
     }
 
-    if(name) {
+    if (name) {
         dict["document-name"] = name;
     }
 
     debugprintf("<- Connection::getDocument() = {'file':\"%s\","
-           "'document-format':\"%s\",'document-name':\"%s\"}\n",
-           docfilename, format ? format : "(nul)",
-           name ? name : "(nul)");
+                "'document-format':\"%s\",'document-name':\"%s\"}\n",
+                docfilename, format ? format : "(nul)",
+                name ? name : "(nul)");
     ippDelete(answer);
 
     return dict;
@@ -926,48 +917,48 @@ map<string, string> Connection::getDocument(const char* uri, int jobid, int docn
 }
 
 map<string, map<string, string>> Connection::getDevices(
-        const vector<string>* exclude_schemes,
-        const vector<string>* include_schemes,
-        int limit,
-        int timeout)
+    const vector<string> *exclude_schemes,
+    const vector<string> *include_schemes,
+    int limit,
+    int timeout)
 {
     ipp_t *request = nullptr, *answer = nullptr;
     ipp_attribute_t *attr = nullptr;
     request = ippNewRequest(CUPS_GET_DEVICES);
-    if(limit > 0) {
+    if (limit > 0) {
         ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
-           "limit", limit);
+                      "limit", limit);
     }
 
-    if(exclude_schemes) {
+    if (exclude_schemes) {
         size_t n = exclude_schemes->size();
-        char **ss = (char**)calloc(n + 1, sizeof(char *));
-        for(size_t i = 0; i < n; i++) {
-            ss[i] = (char*)exclude_schemes->at(i).data();
+        char **ss = (char **)calloc(n + 1, sizeof(char *));
+        for (size_t i = 0; i < n; i++) {
+            ss[i] = (char *)exclude_schemes->at(i).data();
         }
 
         ss[n] = nullptr;
         ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-               "exclude-schemes", n, nullptr,(const char **)ss);
+                      "exclude-schemes", n, nullptr, (const char **)ss);
         free(ss);
     }
 
-    if(include_schemes) {
+    if (include_schemes) {
         size_t n = include_schemes->size();
-        char **ss = (char**)calloc(n + 1, sizeof(char *));
-        for(size_t i = 0; i < n; i++) {
-            ss[i] = (char*)include_schemes->at(i).data();
+        char **ss = (char **)calloc(n + 1, sizeof(char *));
+        for (size_t i = 0; i < n; i++) {
+            ss[i] = (char *)include_schemes->at(i).data();
         }
 
         ss[n] = nullptr;
         ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-             "include-schemes", n, nullptr,(const char **)ss);
+                      "include-schemes", n, nullptr, (const char **)ss);
         free(ss);
     }
 
-    if(timeout > 0) {
+    if (timeout > 0) {
         ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
-           "timeout", timeout);
+                      "timeout", timeout);
     }
 
     debugprintf("-> Connection::getDevices()\n");
@@ -976,39 +967,38 @@ map<string, map<string, string>> Connection::getDevices(
     checkIppAnswer(answer, "<- Connection::getDevices()(error)\n");
 
     map<string, map<string, string>> ret;
-    for(attr = ippFirstAttribute(answer); attr; attr = ippNextAttribute(answer)) {
+    for (attr = ippFirstAttribute(answer); attr; attr = ippNextAttribute(answer)) {
         char *device_uri = nullptr;
 
-        while(attr && ippGetGroupTag(attr) != IPP_TAG_PRINTER) {
+        while (attr && ippGetGroupTag(attr) != IPP_TAG_PRINTER) {
             attr = ippNextAttribute(answer);
         }
 
-        if(!attr) {
+        if (!attr) {
             break;
         }
 
         map<string, string> dict;
-        for(; attr && ippGetGroupTag(attr) == IPP_TAG_PRINTER; attr = ippNextAttribute(answer)) {
-            const char* attrName = ippGetName(attr);
+        for (; attr && ippGetGroupTag(attr) == IPP_TAG_PRINTER; attr = ippNextAttribute(answer)) {
+            const char *attrName = ippGetName(attr);
             debugprintf("Attribute: %s\n", attrName);
-            if(!strcmp(attrName, "device-uri") &&
-                ippGetValueTag(attr) == IPP_TAG_URI) {
+            if (!strcmp(attrName, "device-uri") && ippGetValueTag(attr) == IPP_TAG_URI) {
                 device_uri = (char *)ippGetString(attr, 0, nullptr);
             } else {
                 string val = string_from_attr_value(attr, 0);
-                if(!val.empty()) {
+                if (!val.empty()) {
                     debugprintf("Adding %s to device dict\n", attrName);
                     dict[attrName] = val;
                 }
             }
         }
 
-        if(device_uri) {
+        if (device_uri) {
             debugprintf("Adding %s to result dict\n", device_uri);
             ret[device_uri] = dict;
         }
 
-        if(!attr) {
+        if (!attr) {
             break;
         }
     }
@@ -1022,7 +1012,7 @@ map<string, map<string, string>> Connection::getDevices(
 static void free_requested_attrs(size_t n_attrs, char **attrs)
 {
 #if DUP_STRING
-    for(int i = 0; i < n_attrs; i++) {
+    for (int i = 0; i < n_attrs; i++) {
         free(attrs[i]);
     }
 #else
@@ -1032,7 +1022,7 @@ static void free_requested_attrs(size_t n_attrs, char **attrs)
     free(attrs);
 }
 
-static int get_requested_attrs(const vector<string>* requested_attrs,
+static int get_requested_attrs(const vector<string> *requested_attrs,
                                size_t *n_attrs, char ***attrs)
 {
     size_t i;
@@ -1040,18 +1030,18 @@ static int get_requested_attrs(const vector<string>* requested_attrs,
     char **as = nullptr;
 
     n = requested_attrs->size();
-    as = (char**)malloc((n + 1) * sizeof(char *));
-    for(i = 0; i < n; i++) {
+    as = (char **)malloc((n + 1) * sizeof(char *));
+    for (i = 0; i < n; i++) {
 #if DUP_STRING
         as[i] = strdup(requested_attrs->at(i).data());
 #else
-        as[i] = (char*)requested_attrs->at(i).data();
+        as[i] = (char *)requested_attrs->at(i).data();
 #endif
     }
     as[n] = nullptr;
 
     debugprintf("Requested attributes:\n");
-    for(i = 0; as[i] != NULL; i++) {
+    for (i = 0; as[i] != NULL; i++) {
         debugprintf("  %s\n", as[i]);
     }
 
@@ -1061,48 +1051,48 @@ static int get_requested_attrs(const vector<string>* requested_attrs,
     return 0;
 }
 
-map<int, map<string, string>> Connection::getJobs(const char* which,
-        int my_jobs, int limit, int first_job_id,
-        const vector<string>* requested_attrs)
+map<int, map<string, string>> Connection::getJobs(const char *which,
+                                                  int my_jobs, int limit, int first_job_id,
+                                                  const vector<string> *requested_attrs)
 {
     ipp_t *request = nullptr, *answer = nullptr;
     ipp_attribute_t *attr = nullptr;
     char **attrs = nullptr; /* initialised to calm compiler */
     size_t n_attrs = 0; /* initialised to calm compiler */
     map<int, map<string, string>> ret;
-    const char* cupsuser = cupsUser();
+    const char *cupsuser = cupsUser();
 
     debugprintf("-> Connection::getJobs(%s,%d)\n",
-           which ? which : "(null)", my_jobs);
+                which ? which : "(null)", my_jobs);
     request = ippNewRequest(IPP_GET_JOBS);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri",
-        nullptr, "ipp://localhost/printers/");
+                 nullptr, "ipp://localhost/printers/");
 
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "which-jobs",
-        nullptr, which ? which : "not-completed");
+                 nullptr, which ? which : "not-completed");
 
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-          "requesting-user-name", nullptr, cupsuser);
+                 "requesting-user-name", nullptr, cupsuser);
 
-    if(limit > 0) {
+    if (limit > 0) {
         ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
-           "limit", limit);
+                      "limit", limit);
     }
 
-    if(first_job_id > 0) {
+    if (first_job_id > 0) {
         ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
-           "first-job-id", first_job_id);
+                      "first-job-id", first_job_id);
     }
 
-    if(requested_attrs) {
-        if(get_requested_attrs(requested_attrs, &n_attrs, &attrs) == -1) {
+    if (requested_attrs) {
+        if (get_requested_attrs(requested_attrs, &n_attrs, &attrs) == -1) {
             ippDelete(request);
             return ret;
         }
 
         ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
-               "requested-attributes", n_attrs, nullptr,
-             (const char **) attrs);
+                      "requested-attributes", n_attrs, nullptr,
+                      (const char **)attrs);
         free_requested_attrs(n_attrs, attrs);
     }
 
@@ -1110,49 +1100,39 @@ map<int, map<string, string>> Connection::getJobs(const char* which,
     answer = cupsDoRequest(this->http, request, "/");
     checkIppAnswer(answer, "<- Connection::getJobs()(error)\n");
 
-    for(attr = ippFirstAttribute(answer); attr; attr = ippNextAttribute(answer)) {
+    for (attr = ippFirstAttribute(answer); attr; attr = ippNextAttribute(answer)) {
         int job_id = -1;
 
-        while(attr && ippGetGroupTag(attr) != IPP_TAG_JOB) {
+        while (attr && ippGetGroupTag(attr) != IPP_TAG_JOB) {
             attr = ippNextAttribute(answer);
         }
 
-        if(!attr) {
+        if (!attr) {
             break;
         }
 
         map<string, string> dict;
-        for(; attr && ippGetGroupTag(attr) == IPP_TAG_JOB; attr = ippNextAttribute(answer)) {
-            const char* attrName = ippGetName(attr);
+        for (; attr && ippGetGroupTag(attr) == IPP_TAG_JOB; attr = ippNextAttribute(answer)) {
+            const char *attrName = ippGetName(attr);
             ipp_tag_t valTag = ippGetValueTag(attr);
             debugprintf("Attribute: %s\n", attrName);
 
             string val;
-            if(!strcmp(attrName, "job-id") &&
-                valTag == IPP_TAG_INTEGER) {
+            if (!strcmp(attrName, "job-id") && valTag == IPP_TAG_INTEGER) {
                 job_id = ippGetInteger(attr, 0);
-            } else if(((!strcmp(attrName, "job-k-octets") ||
-                     !strcmp(attrName, "job-priority") ||
-                     !strcmp(attrName, "time-at-creation") ||
-                     !strcmp(attrName, "time-at-processing") ||
-                     !strcmp(attrName, "time-at-completed") ||
-                     !strcmp(attrName, "job-media-sheets") ||
-                     !strcmp(attrName, "job-media-sheets-completed")) &&
-                     valTag == IPP_TAG_INTEGER) ||
-                  (!strcmp(attrName, "job-state") && valTag == IPP_TAG_ENUM)) {
+            } else if (((!strcmp(attrName, "job-k-octets") || !strcmp(attrName, "job-priority") || !strcmp(attrName, "time-at-creation") || !strcmp(attrName, "time-at-processing") || !strcmp(attrName, "time-at-completed") || !strcmp(attrName, "job-media-sheets") || !strcmp(attrName, "job-media-sheets-completed")) && valTag == IPP_TAG_INTEGER) || (!strcmp(attrName, "job-state") && valTag == IPP_TAG_ENUM)) {
                 val = string_format("i%d", ippGetInteger(attr, 0));
-            } else if((!strcmp(attrName, "job-name") && valTag == IPP_TAG_NAME) ||
-                     (!strcmp(attrName, "job-printer-uri") && valTag == IPP_TAG_URI)) {
+            } else if ((!strcmp(attrName, "job-name") && valTag == IPP_TAG_NAME) || (!strcmp(attrName, "job-printer-uri") && valTag == IPP_TAG_URI)) {
                 val = string_format("s%s", ippGetString(attr, 0, nullptr));
-            } else if(!strcmp(attrName, "job-preserved") && valTag == IPP_TAG_BOOLEAN) {
+            } else if (!strcmp(attrName, "job-preserved") && valTag == IPP_TAG_BOOLEAN) {
                 val = string_format("i%d", ippGetInteger(attr, 0));
-            } else if(!strcmp(attrName, "job-originating-user-name") && valTag == IPP_TAG_NAME) {
+            } else if (!strcmp(attrName, "job-originating-user-name") && valTag == IPP_TAG_NAME) {
                 const char *jobuser = ippGetString(attr, 0, nullptr);
 
                 if (my_jobs && strcmp(cupsuser, jobuser)) {
                     debugprintf("Remove %s job, current user is %s\n", jobuser, cupsuser);
                     job_id = -1;
-                    while(attr && ippGetGroupTag(attr) == IPP_TAG_JOB) {
+                    while (attr && ippGetGroupTag(attr) == IPP_TAG_JOB) {
                         attr = ippNextAttribute(answer);
                     }
 
@@ -1160,24 +1140,24 @@ map<int, map<string, string>> Connection::getJobs(const char* which,
                 }
                 val = string_format("s%s", jobuser);
             } else {
-                if(ippGetCount(attr) > 1)
+                if (ippGetCount(attr) > 1)
                     val = list_from_attr_values(attr);
                 else
                     val = string_from_attr_value(attr, 0);
             }
 
-            if(!val.empty()) {
+            if (!val.empty()) {
                 debugprintf("Adding %s to job dict\n", attrName);
                 dict[attrName] = val;
             }
         }
 
-        if(job_id != -1) {
+        if (job_id != -1) {
             debugprintf("Adding %d to result dict\n", job_id);
             ret[job_id] = dict;
         }
 
-        if(!attr) {
+        if (!attr) {
             break;
         }
     }
@@ -1189,7 +1169,7 @@ map<int, map<string, string>> Connection::getJobs(const char* which,
 }
 
 map<string, string> Connection::getJobAttributes(int job_id,
-        const vector<string>* requested_attrs)
+                                                 const vector<string> *requested_attrs)
 {
     ipp_t *request = nullptr, *answer = nullptr;
     ipp_attribute_t *attr = nullptr;
@@ -1198,8 +1178,8 @@ map<string, string> Connection::getJobAttributes(int job_id,
     char uri[1024];
     map<string, string> ret;
 
-    if(requested_attrs) {
-        if(get_requested_attrs(requested_attrs, &n_attrs, &attrs) == -1) {
+    if (requested_attrs) {
+        if (get_requested_attrs(requested_attrs, &n_attrs, &attrs) == -1) {
             return ret;
         }
     }
@@ -1208,31 +1188,31 @@ map<string, string> Connection::getJobAttributes(int job_id,
     request = ippNewRequest(IPP_GET_JOB_ATTRIBUTES);
     snprintf(uri, sizeof(uri), "ipp://localhost/jobs/%d", job_id);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri",
-        nullptr, uri);
-    if(requested_attrs) {
+                 nullptr, uri);
+    if (requested_attrs) {
         ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
-           "requested-attributes", n_attrs, nullptr,
-         (const char **) attrs);
+                      "requested-attributes", n_attrs, nullptr,
+                      (const char **)attrs);
     }
 
     debugprintf("cupsDoRequest(\"/\")\n");
     answer = cupsDoRequest(this->http, request, "/");
-    if(requested_attrs) {
+    if (requested_attrs) {
         free_requested_attrs(n_attrs, attrs);
     }
     checkIppAnswer(answer, "<- Connection::getJobAttributes()(error)\n");
 
-    for(attr = ippFirstAttribute(answer); attr; attr = ippNextAttribute(answer)) {
-        const char* attrName = ippGetName(attr);
+    for (attr = ippFirstAttribute(answer); attr; attr = ippNextAttribute(answer)) {
+        const char *attrName = ippGetName(attr);
         debugprintf("Attr: %s\n", attrName);
 
         string val;
-        if(ippGetCount(attr) > 1 || !strcmp(attrName, "job-printer-state-reasons"))
+        if (ippGetCount(attr) > 1 || !strcmp(attrName, "job-printer-state-reasons"))
             val = list_from_attr_values(attr);
         else
             val = string_from_attr_value(attr, 0);
 
-        if(val.empty()) {
+        if (val.empty()) {
             // Can't represent this.
             continue;
         }
@@ -1246,23 +1226,22 @@ map<string, string> Connection::getJobAttributes(int job_id,
     return ret;
 }
 
-static int do_job_op(http_t *http, int job_id, ipp_op_t op , const char* dest=nullptr);
-static int do_job_op(http_t *http, int job_id, ipp_op_t op , const char* dest)
+static int do_job_op(http_t *http, int job_id, ipp_op_t op, const char *dest = nullptr);
+static int do_job_op(http_t *http, int job_id, ipp_op_t op, const char *dest)
 {
-    ipp_t     *request = nullptr;       /* IPP request */
-    char      uri[HTTP_MAX_URI];  /* Job URI */
+    ipp_t *request = nullptr; /* IPP request */
+    char uri[HTTP_MAX_URI]; /* Job URI */
 
     request = ippNewRequest(op);
 
     snprintf(uri, sizeof(uri), "ipp://localhost/jobs/%d", job_id);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri",
-               nullptr, uri);
+                 nullptr, uri);
 
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-               "requesting-user-name", nullptr, cupsUser());
+                 "requesting-user-name", nullptr, cupsUser());
 
-    if (IPP_PURGE_JOBS == op)
-    {
+    if (IPP_PURGE_JOBS == op) {
         memset(uri, 0, sizeof(uri));
         if (!dest)
             strcpy(uri, "ipp://localhost/printers");
@@ -1272,15 +1251,14 @@ static int do_job_op(http_t *http, int job_id, ipp_op_t op , const char* dest)
             sprintf(uri, "ipp://localhost/jobs/%d", job_id);
 
         ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
-                       "printer-uri", nullptr, uri);
+                     "printer-uri", nullptr, uri);
 
         ippAddBoolean(request, IPP_TAG_OPERATION, "purge-jobs", 1);
     }
 
     ippDelete(cupsDoRequest(http, request, "/admin/"));
 
-    if (cupsLastError() > IPP_STATUS_OK_CONFLICTING)
-    {
+    if (cupsLastError() > IPP_STATUS_OK_CONFLICTING) {
         return -1;
     }
     return 0;
@@ -1306,8 +1284,8 @@ void Connection::cancelJob(int job_id, int purge_job)
     snprintf(uri, sizeof(uri), "ipp://localhost/jobs/%d", job_id);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri", nullptr, uri);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-        "requesting-user-name", nullptr, cupsUser());
-    if(purge_job) {
+                 "requesting-user-name", nullptr, cupsUser());
+    if (purge_job) {
         ippAddBoolean(request, IPP_TAG_OPERATION, "purge-job", 1);
     }
     debugprintf("cupsDoRequest(\"/jobs/\")\n");
@@ -1317,43 +1295,43 @@ void Connection::cancelJob(int job_id, int purge_job)
     debugprintf("<- Connection::cancelJob() = None\n");
 }
 
-void Connection::cancelAllJobs(const char* name,
-        const char* uri, int my_jobs, int purge_jobs)
+void Connection::cancelAllJobs(const char *name,
+                               const char *uri, int my_jobs, int purge_jobs)
 {
     char consuri[HTTP_MAX_URI];
     ipp_t *request = nullptr, *answer = nullptr;
     int i;
 
     debugprintf("-> Connection::cancelAllJobs(%s, my_jobs=%d, purge_jobs=%d)\n",
-           name ? name : uri, my_jobs, purge_jobs);
-    if(name) {
+                name ? name : uri, my_jobs, purge_jobs);
+    if (name) {
         construct_uri(consuri, sizeof(consuri),
-           "ipp://localhost/printers/", name);
+                      "ipp://localhost/printers/", name);
         uri = consuri;
     }
 
-    for(i = 0; i < 2; i++) {
+    for (i = 0; i < 2; i++) {
         request = ippNewRequest(IPP_PURGE_JOBS);
         ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri",
-              nullptr, uri);
+                     nullptr, uri);
 
-        if(my_jobs) {
+        if (my_jobs) {
             ippAddBoolean(request, IPP_TAG_OPERATION, "my-jobs", my_jobs);
             ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-                "requesting-user-name", nullptr, cupsUser());
+                         "requesting-user-name", nullptr, cupsUser());
         }
 
         ippAddBoolean(request, IPP_TAG_OPERATION, "purge-jobs", purge_jobs);
         debugprintf("cupsDoRequest(\"/admin/\") with printer-uri=%s\n", uri);
         answer = cupsDoRequest(this->http, request, "/admin/");
-        if(answer && ippGetStatusCode(answer) == IPP_NOT_POSSIBLE) {
+        if (answer && ippGetStatusCode(answer) == IPP_NOT_POSSIBLE) {
             ippDelete(answer);
-            if(!name)
+            if (!name)
                 break;
 
             // Perhaps it's a class, not a printer.
             construct_uri(consuri, sizeof(consuri),
-                 "ipp://localhost/classes/", name);
+                          "ipp://localhost/classes/", name);
         } else {
             break;
         }
@@ -1365,8 +1343,8 @@ void Connection::cancelAllJobs(const char* name,
     debugprintf("<- Connection::cancelAllJobs() = None\n");
 }
 
-int Connection::createJob(const char* printer, const char* title,
-        const map<string, string>* options)
+int Connection::createJob(const char *printer, const char *title,
+                          const map<string, string> *options)
 {
     int num_settings = 0;
     cups_option_t *settings = nullptr;
@@ -1375,16 +1353,16 @@ int Connection::createJob(const char* printer, const char* title,
     debugprintf("-> Connection::createJob(printer=%s, title=%s)\n", printer, title);
 
     if (options) {
-        for(const auto& it : *options) {
+        for (const auto &it : *options) {
             num_settings = cupsAddOption(it.first.data(),
-                          it.second.data(),
-                          num_settings,
-                          &settings);
+                                         it.second.data(),
+                                         num_settings,
+                                         &settings);
         }
     }
 
     jobid = cupsCreateJob(this->http, printer, title, num_settings, settings);
-    if(jobid == 0) {
+    if (jobid == 0) {
         cupsFreeOptions(num_settings, settings);
         string err = get_ipp_error(cupsLastError(), cupsLastErrorString());
         debugprintf("<- Connection::createJob() = nullptr\n");
@@ -1397,16 +1375,16 @@ int Connection::createJob(const char* printer, const char* title,
     return jobid;
 }
 
-int Connection::startDocument(const char* printer, int jobid,
-        const char* doc_name, const char* format, int last_document)
+int Connection::startDocument(const char *printer, int jobid,
+                              const char *doc_name, const char *format, int last_document)
 {
-    http_status_t    status;        /* Write status */
+    http_status_t status; /* Write status */
 
     debugprintf("-> Connection::startDocument(printer=%s, jobid=%d, doc_name=%s, format=%s)\n",
-              printer, jobid, doc_name, format);
+                printer, jobid, doc_name, format);
 
     status = cupsStartDocument(this->http, printer, jobid, doc_name, format, last_document);
-    if(status != HTTP_CONTINUE) {
+    if (status != HTTP_CONTINUE) {
         string err = get_ipp_error(cupsLastError(), cupsLastErrorString());
         debugprintf("<- Connection::startDocument() = nullptr\n");
         throw runtime_error(err);
@@ -1417,14 +1395,14 @@ int Connection::startDocument(const char* printer, int jobid,
     return status;
 }
 
-int Connection::writeRequestData(const char* buffer, int length)
+int Connection::writeRequestData(const char *buffer, int length)
 {
-    http_status_t    status;        /* Write status */
+    http_status_t status; /* Write status */
 
     debugprintf("-> Connection::writeRequestData(length=%d)\n", length);
 
     status = cupsWriteRequestData(this->http, buffer, length);
-    if(status != HTTP_CONTINUE) {
+    if (status != HTTP_CONTINUE) {
         string err = get_ipp_error(cupsLastError(), cupsLastErrorString());
         debugprintf("<- Connection::writeRequestData() = nullptr\n");
         throw runtime_error(err);
@@ -1435,13 +1413,13 @@ int Connection::writeRequestData(const char* buffer, int length)
     return status;
 }
 
-int Connection::finishDocument(const char* printer)
+int Connection::finishDocument(const char *printer)
 {
     int answer;
 
     debugprintf("-> Connection::finishDocument(printer=%s)\n", printer);
     answer = cupsFinishDocument(this->http, printer);
-    if(answer != IPP_OK) {
+    if (answer != IPP_OK) {
         string err = get_ipp_error(cupsLastError(), cupsLastErrorString());
         debugprintf("<- Connection::finishDocument() = nullptr\n");
         throw runtime_error(err);
@@ -1452,45 +1430,45 @@ int Connection::finishDocument(const char* printer)
     return answer;
 }
 
-void Connection::moveJob(const char* printeruri,
-        int job_id, const char* jobprinteruri)
+void Connection::moveJob(const char *printeruri,
+                         int job_id, const char *jobprinteruri)
 {
     ipp_t *request = nullptr, *answer = nullptr;
 
-    if(!jobprinteruri) {
+    if (!jobprinteruri) {
         throw runtime_error("No job_printer_uri(destination) given");
     }
 
-    if(printeruri) {
-    } else if(job_id == -1) {
+    if (printeruri) {
+    } else if (job_id == -1) {
         throw runtime_error("job_id or printer_uri required");
     }
 
     request = ippNewRequest(CUPS_MOVE_JOB);
-    if(!printeruri) {
+    if (!printeruri) {
         char joburi[HTTP_MAX_URI];
         snprintf(joburi, sizeof(joburi), "ipp://localhost/jobs/%d", job_id);
         ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri", nullptr,
-              joburi);
+                     joburi);
     } else {
         ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", nullptr,
-              printeruri);
+                     printeruri);
 
-        if(job_id != -1) {
+        if (job_id != -1) {
             ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER, "job-id",
-                 job_id);
+                          job_id);
         }
     }
 
     ippAddString(request, IPP_TAG_JOB, IPP_TAG_URI, "job-printer-uri", nullptr,
-        jobprinteruri);
+                 jobprinteruri);
     answer = cupsDoRequest(this->http, request, "/jobs");
     checkIppAnswer(answer, nullptr);
     ippDelete(answer);
 }
 
 void Connection::authenticateJob(int job_id,
-        const vector<string>* auth_info_list)
+                                 const vector<string> *auth_info_list)
 {
     ipp_t *request = nullptr, *answer = nullptr;
     size_t num_auth_info = 0; /* initialised to calm compiler */
@@ -1498,15 +1476,15 @@ void Connection::authenticateJob(int job_id,
     size_t i;
     char uri[1024];
 
-    if(auth_info_list) {
+    if (auth_info_list) {
         num_auth_info = auth_info_list->size();
         debugprintf("sizeof values = %Zd\n", sizeof(auth_info_values));
-        if(num_auth_info > sizeof(auth_info_values)) {
+        if (num_auth_info > sizeof(auth_info_values)) {
             num_auth_info = sizeof(auth_info_values);
         }
 
-        for(i = 0; i < num_auth_info; i++) {
-            auth_info_values[i] = (char*)auth_info_list->at(i).data();
+        for (i = 0; i < num_auth_info; i++) {
+            auth_info_values[i] = (char *)auth_info_list->at(i).data();
         }
     }
 
@@ -1515,12 +1493,12 @@ void Connection::authenticateJob(int job_id,
     snprintf(uri, sizeof(uri), "ipp://localhost/jobs/%d", job_id);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri", nullptr, uri);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-        "requesting-user-name", nullptr, cupsUser());
-    if(auth_info_list) {
+                 "requesting-user-name", nullptr, cupsUser());
+    if (auth_info_list) {
         ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_TEXT, "auth-info",
-             num_auth_info, nullptr,
-           (const char *const *) auth_info_values);
-        for(i = 0; i < num_auth_info; i++) {
+                      num_auth_info, nullptr,
+                      (const char *const *)auth_info_values);
+        for (i = 0; i < num_auth_info; i++) {
             free(auth_info_values[i]);
         }
     }
@@ -1535,8 +1513,8 @@ void Connection::authenticateJob(int job_id,
 
 static void set_job_attrs(http_t *http, int job_id, int num_options, cups_option_t *options)
 {
-    ipp_t     *request = nullptr, *answer = nullptr;
-    char      uri[HTTP_MAX_URI];
+    ipp_t *request = nullptr, *answer = nullptr;
+    char uri[HTTP_MAX_URI];
 
     if (num_options == 0)
         return;
@@ -1544,9 +1522,9 @@ static void set_job_attrs(http_t *http, int job_id, int num_options, cups_option
     request = ippNewRequest(IPP_SET_JOB_ATTRIBUTES);
     sprintf(uri, "ipp://localhost/jobs/%d", job_id);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
-               "job-uri", nullptr, uri);
+                 "job-uri", nullptr, uri);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-               "requesting-user-name", nullptr, cupsUser());
+                 "requesting-user-name", nullptr, cupsUser());
     cupsEncodeOptions(request, num_options, options);
 
     answer = cupsDoRequest(http, request, "/jobs/");
@@ -1560,37 +1538,37 @@ void Connection::setJobPriority(int job_id, int iPriority)
 {
     cups_option_t *options = nullptr;
     int num_options = 0;
-    char buf[16]={0};
+    char buf[16] = {0};
 
     sprintf(buf, "%d", iPriority);
     num_options = cupsAddOption("job-priority", buf,
-                   num_options, &options);
+                                num_options, &options);
 
     debugprintf("-> Connection::setJobPriority(%d,%d)\n",
-           job_id, iPriority);
+                job_id, iPriority);
 
     set_job_attrs(this->http, job_id, num_options, options);
 
     debugprintf("<- Connection::setJobPriority() = None\n");
 }
 
-void Connection::setJobHoldUntil(int job_id, const char* job_hold_until)
+void Connection::setJobHoldUntil(int job_id, const char *job_hold_until)
 {
     cups_option_t *options = nullptr;
     int num_options = 0;
 
     num_options = cupsAddOption("job-hold-until", job_hold_until,
-                   num_options, &options);
+                                num_options, &options);
 
     debugprintf("-> Connection::setJobHoldUntil(%d,%s)\n",
-           job_id, job_hold_until);
+                job_id, job_hold_until);
 
     set_job_attrs(this->http, job_id, num_options, options);
 
     debugprintf("<- Connection::setJobHoldUntil() = None\n");
 }
 
-void Connection::restartJob(int job_id, const char* job_hold_until)
+void Connection::restartJob(int job_id, const char *job_hold_until)
 {
     ipp_t *request = nullptr, *answer = nullptr;
     char uri[1024];
@@ -1600,10 +1578,10 @@ void Connection::restartJob(int job_id, const char* job_hold_until)
     snprintf(uri, sizeof(uri), "ipp://localhost/jobs/%d", job_id);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "job-uri", nullptr, uri);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-        "requesting-user-name", nullptr, cupsUser());
-    if(job_hold_until) {
+                 "requesting-user-name", nullptr, cupsUser());
+    if (job_hold_until) {
         ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-          "job-hold-until", nullptr, job_hold_until);
+                     "job-hold-until", nullptr, job_hold_until);
     }
 
     debugprintf("cupsDoRequest(\"/jobs/\")\n");
@@ -1614,15 +1592,15 @@ void Connection::restartJob(int job_id, const char* job_hold_until)
     debugprintf("<- Connection::restartJob() = None\n");
 }
 
-void Connection::getFile(const char* resource, const char* filename, int fd)
+void Connection::getFile(const char *resource, const char *filename, int fd)
 {
     http_status_t status;
 
-    if(fd > -1 && filename) {
+    if (fd > -1 && filename) {
         throw runtime_error("Only one destination type may be specified");
     }
 
-    if(filename) {
+    if (filename) {
         debugprintf("-> Connection::getFile(%s, %s)\n", resource, filename);
         debugprintf("cupsGetFile()\n");
         status = cupsGetFile(this->http, resource, filename);
@@ -1632,7 +1610,7 @@ void Connection::getFile(const char* resource, const char* filename, int fd)
         status = cupsGetFd(this->http, resource, fd);
     }
 
-    if(status != HTTP_OK) {
+    if (status != HTTP_OK) {
         debugprintf("<- Connection::getFile()(error)\n");
         set_http_error(status);
     }
@@ -1640,15 +1618,15 @@ void Connection::getFile(const char* resource, const char* filename, int fd)
     debugprintf("<- Connection::getFile() = None\n");
 }
 
-void Connection::putFile(const char* resource, const char* filename, int fd)
+void Connection::putFile(const char *resource, const char *filename, int fd)
 {
     http_status_t status;
 
-    if(fd > -1 && filename) {
+    if (fd > -1 && filename) {
         throw runtime_error("Only one destination type may be specified");
     }
 
-    if(filename) {
+    if (filename) {
         debugprintf("-> Connection::putFile(%s, %s)\n", resource, filename);
         debugprintf("cupsPutFile()\n");
         status = cupsPutFile(this->http, resource, filename);
@@ -1658,7 +1636,7 @@ void Connection::putFile(const char* resource, const char* filename, int fd)
         status = cupsPutFd(this->http, resource, fd);
     }
 
-    if(status != HTTP_OK && status != HTTP_CREATED) {
+    if (status != HTTP_OK && status != HTTP_CREATED) {
         debugprintf("<- Connection::putFile()(error)\n");
         set_http_error(status);
     }
@@ -1666,69 +1644,70 @@ void Connection::putFile(const char* resource, const char* filename, int fd)
     debugprintf("<- Connection::putFile() = None\n");
 }
 
-static ipp_t* add_modify_printer_request(const char *name)
+static ipp_t *add_modify_printer_request(const char *name)
 {
     char uri[HTTP_MAX_URI];
-    ipp_t *request = ippNewRequest (CUPS_ADD_MODIFY_PRINTER);
-    construct_uri (uri, sizeof (uri), "ipp://localhost/printers/", name);
-    ippAddString (request, IPP_TAG_OPERATION, IPP_TAG_URI,
-        "printer-uri", NULL, uri);
+    ipp_t *request = ippNewRequest(CUPS_ADD_MODIFY_PRINTER);
+    construct_uri(uri, sizeof(uri), "ipp://localhost/printers/", name);
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
+                 "printer-uri", NULL, uri);
     return request;
 }
 
-static ipp_t* add_modify_class_request (const char *name)
+static ipp_t *add_modify_class_request(const char *name)
 {
     char uri[HTTP_MAX_URI];
-    ipp_t *request = ippNewRequest (CUPS_ADD_MODIFY_CLASS);
-    construct_uri (uri, sizeof (uri), "ipp://localhost/classes/", name);
-    ippAddString (request, IPP_TAG_OPERATION, IPP_TAG_URI,
-        "printer-uri", NULL, uri);
+    ipp_t *request = ippNewRequest(CUPS_ADD_MODIFY_CLASS);
+    construct_uri(uri, sizeof(uri), "ipp://localhost/classes/", name);
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
+                 "printer-uri", NULL, uri);
     return request;
 }
 
-void Connection::addPrinter(const char* name,
-        const char* info,
-        const char* location,
-        const char* device,
-        const char* ppdfile,
-        const char* ppdname,
-        PPD* ppd)
+void Connection::addPrinter(const char *name,
+                            const char *info,
+                            const char *location,
+                            const char *device,
+                            const char *ppdfile,
+                            const char *ppdname,
+                            PPD *ppd)
 {
     ipp_t *request = nullptr, *answer = nullptr;
     int ppds_specified = 0;
 
     debugprintf("-> Connection::addPrinter(%s,%s,%s,%s,%s,%s,%s)\n",
-           name, ppdfile ? ppdfile: "", ppdname ? ppdname: "",
-           info ? info: "", location ? location: "",
-           device ? device: "", ppd ? "(PPD object)": "");
+                name, ppdfile ? ppdfile : "", ppdname ? ppdname : "",
+                info ? info : "", location ? location : "",
+                device ? device : "", ppd ? "(PPD object)" : "");
 
-    if(ppdfile) ppds_specified++;
-    if(ppdname) ppds_specified++;
-    if(ppd) {
+    if (ppdfile)
+        ppds_specified++;
+    if (ppdname)
+        ppds_specified++;
+    if (ppd) {
         ppds_specified++;
     }
-    if(ppds_specified > 1) {
+    if (ppds_specified > 1) {
         debugprintf("<- Connection::addPrinter() EXCEPTION\n");
         throw runtime_error("Only one PPD may be given");
     }
 
-    if(ppd) {
+    if (ppd) {
         // We've been given a cups.PPD object.  Construct a PPD file.
         char templatestr[PATH_MAX];
         int fd;
 
         snprintf(templatestr, sizeof(templatestr), "%s/scp-ppd-XXXXXX", _PATH_TMP);
         ppdfile = templatestr;
-        fd = mkstemp((char*)ppdfile);
-        if(fd < 0) {
+        fd = mkstemp((char *)ppdfile);
+        if (fd < 0) {
             debugprintf("<- Connection::addPrinter() EXCEPTION\n");
             throw runtime_error(string_format("failed to create %s, error=%d", ppdfile, errno));
         }
 
         try {
             ppd->writeFd(fd);
-        }
-        catch(...) {
+        } catch (...) {
             unlink(ppdfile);
             debugprintf("<- Connection::addPrinter() EXCEPTION\n");
             return;
@@ -1737,34 +1716,34 @@ void Connection::addPrinter(const char* name,
     }
 
     request = add_modify_printer_request(name);
-    if(ppdname) {
+    if (ppdname) {
         ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-          "ppd-name", nullptr, ppdname);
+                     "ppd-name", nullptr, ppdname);
     }
-    if(info) {
+    if (info) {
         ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_TEXT,
-          "printer-info", nullptr, info);
+                     "printer-info", nullptr, info);
     }
-    if(location) {
+    if (location) {
         ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_TEXT,
-          "printer-location", nullptr, location);
+                     "printer-location", nullptr, location);
     }
-    if(device) {
+    if (device) {
         ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_URI,
-          "device-uri", nullptr, device);
+                     "device-uri", nullptr, device);
     }
-    if(ppds_specified) {
+    if (ppds_specified) {
         ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_KEYWORD,
-          "printer-state-reasons", nullptr, "none");
+                     "printer-state-reasons", nullptr, "none");
     }
 
-    if(ppdfile) {
+    if (ppdfile) {
         answer = cupsDoFileRequest(this->http, request, "/admin/", ppdfile);
     } else {
         answer = cupsDoRequest(this->http, request, "/admin/");
     }
 
-    if(ppd) {
+    if (ppd) {
         unlink(ppdfile);
     }
 
@@ -1773,29 +1752,29 @@ void Connection::addPrinter(const char* name,
     debugprintf("<- Connection::addPrinter() = None\n");
 }
 
-void Connection::setPrinterDevice(const char* name, const char* device_uri)
+void Connection::setPrinterDevice(const char *name, const char *device_uri)
 {
     ipp_t *request = nullptr, *answer = nullptr;
 
     request = add_modify_printer_request(name);
     ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_URI,
-        "device-uri", nullptr, device_uri);
+                 "device-uri", nullptr, device_uri);
     answer = cupsDoRequest(this->http, request, "/admin/");
     checkIppAnswer(answer, nullptr);
     ippDelete(answer);
 }
 
-void Connection::setPrinterInfo(const char* name, const char* info)
+void Connection::setPrinterInfo(const char *name, const char *info)
 {
     ipp_t *request = nullptr, *answer = nullptr;
     int i;
 
     request = add_modify_printer_request(name);
-    for(i = 0; i < 2; i++) {
+    for (i = 0; i < 2; i++) {
         ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_TEXT,
-              "printer-info", nullptr, info);
+                     "printer-info", nullptr, info);
         answer = cupsDoRequest(this->http, request, "/admin/");
-        if(answer && ippGetStatusCode(answer) == IPP_NOT_POSSIBLE) {
+        if (answer && ippGetStatusCode(answer) == IPP_NOT_POSSIBLE) {
             // Perhaps it's a class, not a printer.
             ippDelete(answer);
             request = add_modify_class_request(name);
@@ -1808,17 +1787,17 @@ void Connection::setPrinterInfo(const char* name, const char* info)
     ippDelete(answer);
 }
 
-void Connection::setPrinterLocation(const char* name, const char* location)
+void Connection::setPrinterLocation(const char *name, const char *location)
 {
     ipp_t *request = nullptr, *answer = nullptr;
     int i;
 
     request = add_modify_printer_request(name);
-    for(i = 0; i < 2; i++) {
+    for (i = 0; i < 2; i++) {
         ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_TEXT,
-              "printer-location", nullptr, location);
+                     "printer-location", nullptr, location);
         answer = cupsDoRequest(this->http, request, "/admin/");
-        if(answer && ippGetStatusCode(answer) == IPP_NOT_POSSIBLE) {
+        if (answer && ippGetStatusCode(answer) == IPP_NOT_POSSIBLE) {
             // Perhaps it's a class, not a printer.
             ippDelete(answer);
             request = add_modify_class_request(name);
@@ -1831,16 +1810,16 @@ void Connection::setPrinterLocation(const char* name, const char* location)
     ippDelete(answer);
 }
 
-void Connection::setPrinterShared(const char* name, int sharing)
+void Connection::setPrinterShared(const char *name, int sharing)
 {
     ipp_t *request = nullptr, *answer = nullptr;
     int i;
 
     request = add_modify_printer_request(name);
-    for(i = 0; i < 2; i++) {
+    for (i = 0; i < 2; i++) {
         ippAddBoolean(request, IPP_TAG_OPERATION, "printer-is-shared", sharing);
         answer = cupsDoRequest(this->http, request, "/admin/");
-        if(answer && ippGetStatusCode(answer) == IPP_NOT_POSSIBLE) {
+        if (answer && ippGetStatusCode(answer) == IPP_NOT_POSSIBLE) {
             // Perhaps it's a class, not a printer.
             ippDelete(answer);
             request = add_modify_class_request(name);
@@ -1860,13 +1839,13 @@ void Connection::setPrinterJobSheets(char *name, char *start, char *end)
     int i;
 
     request = add_modify_printer_request(name);
-    for(i = 0; i < 2; i++) {
+    for (i = 0; i < 2; i++) {
         a = ippAddStrings(request, IPP_TAG_PRINTER, IPP_TAG_NAME,
-                   "job-sheets-default", 2, nullptr, nullptr);
+                          "job-sheets-default", 2, nullptr, nullptr);
         ippSetString(request, &a, 0, start);
         ippSetString(request, &a, 1, end);
         answer = cupsDoRequest(this->http, request, "/admin/");
-        if(answer && ippGetStatusCode(answer) == IPP_NOT_POSSIBLE) {
+        if (answer && ippGetStatusCode(answer) == IPP_NOT_POSSIBLE) {
             ippDelete(answer);
             // Perhaps it's a class, not a printer.
             request = add_modify_class_request(name);
@@ -1879,17 +1858,17 @@ void Connection::setPrinterJobSheets(char *name, char *start, char *end)
     ippDelete(answer);
 }
 
-void Connection::setPrinterErrorPolicy(const char* name, const char* policy)
+void Connection::setPrinterErrorPolicy(const char *name, const char *policy)
 {
     ipp_t *request = nullptr, *answer = nullptr;
     int i;
 
     request = add_modify_printer_request(name);
-    for(i = 0; i < 2; i++) {
+    for (i = 0; i < 2; i++) {
         ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_NAME,
-              "printer-error-policy", nullptr, policy);
+                     "printer-error-policy", nullptr, policy);
         answer = cupsDoRequest(this->http, request, "/admin/");
-        if(answer && ippGetStatusCode(answer) == IPP_NOT_POSSIBLE) {
+        if (answer && ippGetStatusCode(answer) == IPP_NOT_POSSIBLE) {
             ippDelete(answer);
             // Perhaps it's a class, not a printer.
             request = add_modify_class_request(name);
@@ -1902,17 +1881,17 @@ void Connection::setPrinterErrorPolicy(const char* name, const char* policy)
     ippDelete(answer);
 }
 
-void Connection::setPrinterOpPolicy(const char* name, const char* policy)
+void Connection::setPrinterOpPolicy(const char *name, const char *policy)
 {
     ipp_t *request = nullptr, *answer = nullptr;
     int i;
 
     request = add_modify_printer_request(name);
-    for(i = 0; i < 2; i++) {
+    for (i = 0; i < 2; i++) {
         ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_NAME,
-              "printer-op-policy", nullptr, policy);
+                     "printer-op-policy", nullptr, policy);
         answer = cupsDoRequest(this->http, request, "/admin/");
-        if(answer && ippGetStatusCode(answer) == IPP_NOT_POSSIBLE) {
+        if (answer && ippGetStatusCode(answer) == IPP_NOT_POSSIBLE) {
             ippDelete(answer);
             // Perhaps it's a class, not a printer.
             request = add_modify_class_request(name);
@@ -1925,34 +1904,34 @@ void Connection::setPrinterOpPolicy(const char* name, const char* policy)
     ippDelete(answer);
 }
 
-void Connection::do_requesting_user_names(const char* name,
-        const vector<string>* users, const char* requeststr)
+void Connection::do_requesting_user_names(const char *name,
+                                          const vector<string> *users, const char *requeststr)
 {
     int num_users, i, j;
     ipp_t *request = nullptr, *answer = nullptr;
     ipp_attribute_t *attr = nullptr;
 
     request = add_modify_printer_request(name);
-    for(i = 0; i < 2; i++) {
+    for (i = 0; i < 2; i++) {
         num_users = users->size();
-        if(num_users) {
+        if (num_users) {
             attr = ippAddStrings(request, IPP_TAG_PRINTER, IPP_TAG_NAME,
-                      requeststr, num_users, nullptr, nullptr);
-            for(j = 0; j < num_users; j++) {
+                                 requeststr, num_users, nullptr, nullptr);
+            for (j = 0; j < num_users; j++) {
                 const char *username = users->at(j).data();
                 ippSetString(request, &attr, j, username);
-              }
+            }
         } else {
             attr = ippAddStrings(request, IPP_TAG_PRINTER, IPP_TAG_NAME,
-                      requeststr, 1, nullptr, nullptr);
-            if(strstr(requeststr, "denied"))
+                                 requeststr, 1, nullptr, nullptr);
+            if (strstr(requeststr, "denied"))
                 ippSetString(request, &attr, 0, "none");
             else
                 ippSetString(request, &attr, 0, "all");
         }
 
         answer = cupsDoRequest(this->http, request, "/admin/");
-        if(answer && ippGetStatusCode(answer) == IPP_NOT_POSSIBLE) {
+        if (answer && ippGetStatusCode(answer) == IPP_NOT_POSSIBLE) {
             ippDelete(answer);
             // Perhaps it's a class, not a printer.
             request = add_modify_class_request(name);
@@ -1965,20 +1944,20 @@ void Connection::do_requesting_user_names(const char* name,
     ippDelete(answer);
 }
 
-void Connection::setPrinterUsersAllowed(const char* name,
-        const vector<string>* users)
+void Connection::setPrinterUsersAllowed(const char *name,
+                                        const vector<string> *users)
 {
     return do_requesting_user_names(name, users, "requesting-user-name-allowed");
 }
 
-void Connection::setPrinterUsersDenied(const char* name,
-        const vector<string>* users)
+void Connection::setPrinterUsersDenied(const char *name,
+                                       const vector<string> *users)
 {
     return do_requesting_user_names(name, users, "requesting-user-name-denied");
 }
 
 void Connection::addPrinterOptionDefault(const char *name, const char *option,
-       const vector<string>* values)
+                                         const vector<string> *values)
 {
     const char suffix[] = "-default";
     char *opt = nullptr;
@@ -1987,22 +1966,22 @@ void Connection::addPrinterOptionDefault(const char *name, const char *option,
     size_t optionlen;
 
     optionlen = strlen(option);
-    opt = (char*)malloc(optionlen + sizeof(suffix) + 1);
+    opt = (char *)malloc(optionlen + sizeof(suffix) + 1);
     memcpy(opt, option, optionlen);
     strcpy(opt + optionlen, suffix);
     request = add_modify_printer_request(name);
-    for(i = 0; i < 2; i++) {
+    for (i = 0; i < 2; i++) {
         ipp_attribute_t *attr = nullptr;
         int len = values->size();
         int j;
         attr = ippAddStrings(request, IPP_TAG_PRINTER, IPP_TAG_NAME,
-                    opt, len, nullptr, nullptr);
-        for(j = 0; j < len; j++) {
+                             opt, len, nullptr, nullptr);
+        for (j = 0; j < len; j++) {
             ippSetString(request, &attr, j, values->at(j).data());
         }
 
         answer = cupsDoRequest(this->http, request, "/admin/");
-        if(answer && ippGetStatusCode(answer) == IPP_NOT_POSSIBLE) {
+        if (answer && ippGetStatusCode(answer) == IPP_NOT_POSSIBLE) {
             ippDelete(answer);
             // Perhaps it's a class, not a printer.
             request = add_modify_class_request(name);
@@ -2015,7 +1994,7 @@ void Connection::addPrinterOptionDefault(const char *name, const char *option,
     ippDelete(answer);
 }
 
-void Connection::deletePrinterOptionDefault(const char* name, const char* option)
+void Connection::deletePrinterOptionDefault(const char *name, const char *option)
 {
     const char suffix[] = "-default";
     char *opt = nullptr;
@@ -2024,15 +2003,15 @@ void Connection::deletePrinterOptionDefault(const char* name, const char* option
     size_t optionlen;
 
     optionlen = strlen(option);
-    opt = (char*)malloc(optionlen + sizeof(suffix) + 1);
+    opt = (char *)malloc(optionlen + sizeof(suffix) + 1);
     memcpy(opt, option, optionlen);
     strcpy(opt + optionlen, suffix);
     request = add_modify_printer_request(name);
-    for(i = 0; i < 2; i++) {
+    for (i = 0; i < 2; i++) {
         ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_DELETEATTR,
-              opt, nullptr, nullptr);
+                     opt, nullptr, nullptr);
         answer = cupsDoRequest(this->http, request, "/admin/");
-        if(answer && ippGetStatusCode(answer) == IPP_NOT_POSSIBLE) {
+        if (answer && ippGetStatusCode(answer) == IPP_NOT_POSSIBLE) {
             ippDelete(answer);
             // Perhaps it's a class, not a printer.
             request = add_modify_class_request(name);
@@ -2045,23 +2024,23 @@ void Connection::deletePrinterOptionDefault(const char* name, const char* option
     ippDelete(answer);
 }
 
-void Connection::do_printer_request(const char* name, const char* reason, ipp_op_t op)
+void Connection::do_printer_request(const char *name, const char *reason, ipp_op_t op)
 {
     char uri[HTTP_MAX_URI];
     ipp_t *request = nullptr, *answer = nullptr;
 
-    debugprintf("-> do_printer_request(op:%d, name:%s)\n", (int) op, name);
+    debugprintf("-> do_printer_request(op:%d, name:%s)\n", (int)op, name);
 
     request = ippNewRequest(op);
     construct_uri(uri, sizeof(uri), "ipp://localhost/printers/", name);
 
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
-        "printer-uri", NULL, uri);
+                 "printer-uri", NULL, uri);
 
-    if(reason) {
+    if (reason) {
         debugprintf("reason: %s\n", reason);
         ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_TEXT,
-              "printer-state-message", NULL, reason);
+                     "printer-state-message", NULL, reason);
     }
 
     debugprintf("cupsDoRequest(\"/admin/\")\n");
@@ -2072,13 +2051,13 @@ void Connection::do_printer_request(const char* name, const char* reason, ipp_op
     debugprintf("<- do_printer_request(None)\n");
 }
 
-void Connection::deletePrinter(const char* name, const char* reason)
+void Connection::deletePrinter(const char *name, const char *reason)
 {
     return do_printer_request(name, reason, CUPS_DELETE_PRINTER);
 }
 
-map<string, string> Connection::getPrinterAttributes(const char* name,
-        const char* uri, const vector<string>* requested_attrs)
+map<string, string> Connection::getPrinterAttributes(const char *name,
+                                                     const char *uri, const vector<string> *requested_attrs)
 {
     char **attrs = nullptr; /* initialised to calm compiler */
     size_t n_attrs = 0; /* initialised to calm compiler */
@@ -2088,72 +2067,72 @@ map<string, string> Connection::getPrinterAttributes(const char* name,
     int i;
     map<string, string> ret;
 
-    if(name && uri) {
+    if (name && uri) {
         throw runtime_error("name or uri must be specified but not both");
     }
 
-    if(name) {
-    } else if(uri) {
+    if (name) {
+    } else if (uri) {
     } else {
         throw runtime_error("name or uri must be specified");
     }
 
-    if(requested_attrs) {
-        if(get_requested_attrs(requested_attrs, &n_attrs, &attrs) == -1) {
+    if (requested_attrs) {
+        if (get_requested_attrs(requested_attrs, &n_attrs, &attrs) == -1) {
             return ret;
         }
     }
 
     debugprintf("-> Connection::getPrinterAttributes(%s)\n",
-           name ? name : uri);
+                name ? name : uri);
 
-    if(name) {
+    if (name) {
         construct_uri(consuri, sizeof(consuri),
-           "ipp://localhost/printers/", name);
+                      "ipp://localhost/printers/", name);
         uri = consuri;
     }
 
-    for(i = 0; i < 2; i++) {
+    for (i = 0; i < 2; i++) {
         request = ippNewRequest(IPP_GET_PRINTER_ATTRIBUTES);
         ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
-              "printer-uri", nullptr, uri);
-        if(requested_attrs) {
+                     "printer-uri", nullptr, uri);
+        if (requested_attrs) {
             ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
-                 "requested-attributes", n_attrs, nullptr,
-               (const char **) attrs);
+                          "requested-attributes", n_attrs, nullptr,
+                          (const char **)attrs);
         }
         debugprintf("trying request with uri %s\n", uri);
         answer = cupsDoRequest(this->http, request, "/");
-        if(answer && ippGetStatusCode(answer) == IPP_NOT_POSSIBLE) {
+        if (answer && ippGetStatusCode(answer) == IPP_NOT_POSSIBLE) {
             ippDelete(answer);
-            if(!name)
+            if (!name)
                 break;
 
-          // Perhaps it's a class, not a printer.
-          construct_uri(consuri, sizeof(consuri),
-                 "ipp://localhost/classes/", name);
+            // Perhaps it's a class, not a printer.
+            construct_uri(consuri, sizeof(consuri),
+                          "ipp://localhost/classes/", name);
         } else {
             break;
         }
     }
 
-    if(requested_attrs) {
+    if (requested_attrs) {
         free_requested_attrs(n_attrs, attrs);
     }
 
     checkIppAnswer(answer, "<- Connection::getPrinterAttributes()(error)\n");
 
-    for(attr = ippFirstAttribute(answer); attr; attr = ippNextAttribute(answer)) {
-        while(attr && ippGetGroupTag(attr) != IPP_TAG_PRINTER) {
+    for (attr = ippFirstAttribute(answer); attr; attr = ippNextAttribute(answer)) {
+        while (attr && ippGetGroupTag(attr) != IPP_TAG_PRINTER) {
             attr = ippNextAttribute(answer);
         }
 
-        if(!attr) {
+        if (!attr) {
             break;
         }
 
-        for(; attr && ippGetGroupTag(attr) == IPP_TAG_PRINTER; attr = ippNextAttribute(answer)) {
-            const char* attrName = ippGetName(attr);
+        for (; attr && ippGetGroupTag(attr) == IPP_TAG_PRINTER; attr = ippNextAttribute(answer)) {
+            const char *attrName = ippGetName(attr);
             size_t namelen = strlen(attrName);
             bool is_list = ippGetCount(attr) > 1;
             ipp_tag_t valTag = ippGetValueTag(attr);
@@ -2161,10 +2140,10 @@ map<string, string> Connection::getPrinterAttributes(const char* name,
             debugprintf("Attribute: %s\n", attrName);
             // job-sheets-default is special, since it is always two values.
             // Make it a tuple.
-            if(!strcmp(attrName, "job-sheets-default") && valTag == IPP_TAG_NAME) {
+            if (!strcmp(attrName, "job-sheets-default") && valTag == IPP_TAG_NAME) {
                 const char *start = nullptr, *end = nullptr;
                 start = ippGetString(attr, 0, nullptr);
-                if(ippGetCount(attr) >= 2)
+                if (ippGetCount(attr) >= 2)
                     end = ippGetString(attr, 1, nullptr);
                 else
                     end = "";
@@ -2178,7 +2157,7 @@ map<string, string> Connection::getPrinterAttributes(const char* name,
             //
             // Also check for attributes that are known to allow multiple
             // string values, and make them lists.
-            if(!is_list && namelen > 10) {
+            if (!is_list && namelen > 10) {
                 const char *multivalue_options[] = {
                     "notify-events-default",
                     "requesting-user-name-allowed",
@@ -2189,10 +2168,9 @@ map<string, string> Connection::getPrinterAttributes(const char* name,
                     "marker-types",
                     "marker-levels",
                     "member-names",
-                    nullptr
-                };
+                    nullptr};
 
-                switch(valTag) {
+                switch (valTag) {
                 case IPP_TAG_NAME:
                 case IPP_TAG_TEXT:
                 case IPP_TAG_KEYWORD:
@@ -2205,9 +2183,9 @@ map<string, string> Connection::getPrinterAttributes(const char* name,
                 case IPP_TAG_RESOLUTION:
                     is_list = !strcmp(attrName + namelen - 10, "-supported");
 
-                    if(!is_list) {
+                    if (!is_list) {
                         const char **opt = nullptr;
-                        for(opt = multivalue_options; !is_list && *opt; opt++) {
+                        for (opt = multivalue_options; !is_list && *opt; opt++) {
                             is_list = !strcmp(attrName, *opt);
                         }
                     }
@@ -2217,14 +2195,14 @@ map<string, string> Connection::getPrinterAttributes(const char* name,
                 }
             }
 
-            if(is_list) {
+            if (is_list) {
                 ret[attrName] = list_from_attr_values(attr);
             } else {
                 ret[attrName] = string_from_attr_value(attr, i);
             }
         }
 
-        if(!attr) {
+        if (!attr) {
             break;
         }
     }
@@ -2243,18 +2221,18 @@ void Connection::addPrinterToClass(const char *printername, const char *classnam
     // Does the class exist, and is the printer already in it?
     request = ippNewRequest(IPP_GET_PRINTER_ATTRIBUTES);
     construct_uri(classuri, sizeof(classuri),
-         "ipp://localhost/classes/", classname);
+                  "ipp://localhost/classes/", classname);
 
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
-        "printer-uri", nullptr, classuri);
+                 "printer-uri", nullptr, classuri);
     answer = cupsDoRequest(this->http, request, "/");
-    if(answer) {
+    if (answer) {
         ipp_attribute_t *printers = nullptr;
         printers = ippFindAttribute(answer, "member-names", IPP_TAG_NAME);
-        if(printers) {
+        if (printers) {
             int i;
-            for(i = 0; i < ippGetCount(printers); i++) {
-                if(!strcasecmp(ippGetString(printers, i, nullptr), printername)) {
+            for (i = 0; i < ippGetCount(printers); i++) {
+                if (!strcasecmp(ippGetString(printers, i, nullptr), printername)) {
                     ippDelete(answer);
                     throw runtime_error("Printer already in class");
                 }
@@ -2264,32 +2242,32 @@ void Connection::addPrinterToClass(const char *printername, const char *classnam
 
     request = ippNewRequest(CUPS_ADD_CLASS);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
-        "printer-uri", nullptr, classuri);
+                 "printer-uri", nullptr, classuri);
     construct_uri(printeruri, sizeof(printeruri),
-         "ipp://localhost/printers/", printername);
-    if(answer) {
+                  "ipp://localhost/printers/", printername);
+    if (answer) {
         ipp_attribute_t *printers = nullptr;
         printers = ippFindAttribute(answer, "member-uris", IPP_TAG_URI);
-        if(printers) {
+        if (printers) {
             ipp_attribute_t *attr = nullptr;
             int i;
             attr = ippAddStrings(request, IPP_TAG_PRINTER, IPP_TAG_URI,
-                    "member-uris", ippGetCount(printers) + 1,
-                    nullptr, nullptr);
-            for(i = 0; i < ippGetCount(printers); i++) {
+                                 "member-uris", ippGetCount(printers) + 1,
+                                 nullptr, nullptr);
+            for (i = 0; i < ippGetCount(printers); i++) {
                 ippSetString(request, &attr, i,
-                         ippGetString(printers, i, nullptr));
+                             ippGetString(printers, i, nullptr));
             }
-            ippSetString(request, &attr, ippGetCount(printers),(printeruri));
+            ippSetString(request, &attr, ippGetCount(printers), (printeruri));
         }
 
         ippDelete(answer);
     }
 
     // If the class didn't exist, create a new one.
-    if(!ippFindAttribute(request, "member-uris", IPP_TAG_URI)) {
+    if (!ippFindAttribute(request, "member-uris", IPP_TAG_URI)) {
         ippAddString(request, IPP_TAG_PRINTER, IPP_TAG_URI,
-          "member-uris", nullptr, printeruri);
+                     "member-uris", nullptr, printeruri);
     }
 
     answer = cupsDoRequest(this->http, request, "/admin/");
@@ -2297,12 +2275,11 @@ void Connection::addPrinterToClass(const char *printername, const char *classnam
     ippDelete(answer);
 }
 
-void Connection::deletePrinterFromClass(const char* printername, const char* classname)
+void Connection::deletePrinterFromClass(const char *printername, const char *classname)
 {
     const char *requested_attrs[] = {
         "member-names",
-        "member-uris"
-    };
+        "member-uris"};
     char classuri[HTTP_MAX_URI];
     ipp_t *request = nullptr, *answer = nullptr;
     ipp_attribute_t *printers = nullptr;
@@ -2311,58 +2288,58 @@ void Connection::deletePrinterFromClass(const char* printername, const char* cla
     // Does the class exist, and is the printer in it?
     request = ippNewRequest(IPP_GET_PRINTER_ATTRIBUTES);
     construct_uri(classuri, sizeof(classuri),
-         "ipp://localhost/classes/", classname);
+                  "ipp://localhost/classes/", classname);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
-        "printer-uri", nullptr, classuri);
+                 "printer-uri", nullptr, classuri);
     ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
-         "requested-attributes",
-         sizeof(requested_attrs) / sizeof(requested_attrs[0]),
-         nullptr, requested_attrs);
+                  "requested-attributes",
+                  sizeof(requested_attrs) / sizeof(requested_attrs[0]),
+                  nullptr, requested_attrs);
     answer = cupsDoRequest(this->http, request, "/");
-    if(!answer) {
+    if (!answer) {
         string err = get_ipp_error(cupsLastError(), cupsLastErrorString());
         throw runtime_error(err);
     }
 
     printers = ippFindAttribute(answer, "member-names", IPP_TAG_NAME);
-    for(i = 0; printers && i < ippGetCount(printers); i++) {
-        if(!strcasecmp(ippGetString(printers, i, nullptr), printername)) {
+    for (i = 0; printers && i < ippGetCount(printers); i++) {
+        if (!strcasecmp(ippGetString(printers, i, nullptr), printername)) {
             break;
         }
     }
 
-    if(!printers || i == ippGetCount(printers)) {
+    if (!printers || i == ippGetCount(printers)) {
         ippDelete(answer);
         throw runtime_error("Printer not in class");
     }
 
     printers = ippFindAttribute(answer, "member-uris", IPP_TAG_URI);
-    if(!printers || i >= ippGetCount(printers)) {
+    if (!printers || i >= ippGetCount(printers)) {
         ippDelete(answer);
         throw runtime_error("No member URIs returned");
     }
 
     request = ippNewRequest(CUPS_ADD_CLASS);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
-        "printer-uri", nullptr, classuri);
+                 "printer-uri", nullptr, classuri);
 
     // Only printer in class?  Delete the class.
-    if(ippGetCount(printers) == 1) {
+    if (ippGetCount(printers) == 1) {
         ippSetOperation(request, CUPS_DELETE_CLASS);
     } else {
         // Trim the printer from the list.
         ipp_attribute_t *newlist = nullptr;
         int j;
         newlist = ippAddStrings(request, IPP_TAG_PRINTER, IPP_TAG_URI,
-                     "member-uris", ippGetCount(printers) - 1,
-                     nullptr, nullptr);
-        for(j = 0; j < i; j++) {
+                                "member-uris", ippGetCount(printers) - 1,
+                                nullptr, nullptr);
+        for (j = 0; j < i; j++) {
             ippSetString(request, &newlist, j,
-                       ippGetString(printers, j, nullptr));
+                         ippGetString(printers, j, nullptr));
         }
-        for(j = i; j < ippGetCount(newlist); j++) {
+        for (j = i; j < ippGetCount(newlist); j++) {
             ippSetString(request, &newlist, j,
-                       ippGetString(printers, j+1, nullptr));
+                         ippGetString(printers, j + 1, nullptr));
         }
     }
 
@@ -2372,37 +2349,37 @@ void Connection::deletePrinterFromClass(const char* printername, const char* cla
     ippDelete(answer);
 }
 
-void Connection::deleteClass(const char* classname)
+void Connection::deleteClass(const char *classname)
 {
     char classuri[HTTP_MAX_URI];
     ipp_t *request = nullptr, *answer = nullptr;
 
     request = ippNewRequest(CUPS_DELETE_CLASS);
     construct_uri(classuri, sizeof(classuri),
-         "ipp://localhost/classes/", classname);
+                  "ipp://localhost/classes/", classname);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
-        "printer-uri", nullptr, classuri);
+                 "printer-uri", nullptr, classuri);
     answer = cupsDoRequest(this->http, request, "/admin/");
     checkIppAnswer(answer, nullptr);
     ippDelete(answer);
 }
 
-void Connection::enablePrinter(const char* name, const char* reason)
+void Connection::enablePrinter(const char *name, const char *reason)
 {
     return do_printer_request(name, reason, IPP_RESUME_PRINTER);
 }
 
-void Connection::disablePrinter(const char* name, const char* reason)
+void Connection::disablePrinter(const char *name, const char *reason)
 {
     return do_printer_request(name, reason, IPP_PAUSE_PRINTER);
 }
 
-void Connection::acceptJobs(const char* name, const char* reason)
+void Connection::acceptJobs(const char *name, const char *reason)
 {
     return do_printer_request(name, reason, CUPS_ACCEPT_JOBS);
 }
 
-void Connection::rejectJobs(const char* name, const char* reason)
+void Connection::rejectJobs(const char *name, const char *reason)
 {
     return do_printer_request(name, reason, CUPS_REJECT_JOBS);
 }
@@ -2412,29 +2389,29 @@ string Connection::getDefault(void)
     const char *def = nullptr;
     debugprintf("-> Connection::getDefault()\n");
     def = cupsGetDefault2(this->http);
-    if(def == nullptr) {
+    if (def == nullptr) {
         debugprintf("<- Connection::getDefault() = None\n");
     } else {
         debugprintf("<- Connection::getDefault() = \"%s\"\n", def);
     }
 
-    return def != nullptr ? string(def):string();
+    return def != nullptr ? string(def) : string();
 }
 
-void Connection::setDefault(const char* name, const char* reason)
+void Connection::setDefault(const char *name, const char *reason)
 {
     return do_printer_request(name, reason, CUPS_SET_DEFAULT);
 }
 
-string Connection::getPPD(const char* printer)
+string Connection::getPPD(const char *printer)
 {
     const char *ppdfile = nullptr;
 
     debugprintf("-> Connection::getPPD()\n");
     ppdfile = cupsGetPPD2(this->http, printer);
-    if(!ppdfile) {
+    if (!ppdfile) {
         ipp_status_t err = cupsLastError();
-        if(err) {
+        if (err) {
             string err2 = get_ipp_error(err, cupsLastErrorString());
             throw runtime_error(err2);
         } else {
@@ -2451,13 +2428,13 @@ string Connection::getPPD(const char* printer)
 }
 
 #ifdef HAVE_CUPS_1_4
-string Connection::getPPD3(const char* printer, time_t* modtime, const char* filename)
+string Connection::getPPD3(const char *printer, time_t *modtime, const char *filename)
 {
     char fname[PATH_MAX];
     http_status_t status;
 
-    if(filename) {
-        if(strlen(filename) > sizeof(fname)) {
+    if (filename) {
+        if (strlen(filename) > sizeof(fname)) {
             throw invalid_argument("overlength filename");
         }
         strcpy(fname, filename);
@@ -2467,9 +2444,9 @@ string Connection::getPPD3(const char* printer, time_t* modtime, const char* fil
 
     debugprintf("-> Connection::getPPD3()\n");
     status = cupsGetPPD3(this->http, printer, modtime,
-            fname, sizeof(fname));
+                         fname, sizeof(fname));
     debugprintf("<- Connection::getPPD3() = (%d,%ld,%s)\n",
-           status, *modtime, fname);
+                status, *modtime, fname);
     if (status != HTTP_STATUS_OK && status != HTTP_STATUS_NOT_MODIFIED) {
         set_http_error(status);
     }
@@ -2479,7 +2456,7 @@ string Connection::getPPD3(const char* printer, time_t* modtime, const char* fil
 #endif /* HAVE_CUPS_1_4 */
 
 int Connection::printTestPage(const char *printer, const char *file,
-        const char *title, const char *format, const char *user)
+                              const char *title, const char *format, const char *user)
 {
     const char *datadir = nullptr;
     char filename[PATH_MAX];
@@ -2490,40 +2467,40 @@ int Connection::printTestPage(const char *printer, const char *file,
     int jobid = 0;
     int i;
 
-    if(!file) {
-        const char *testprint[] = { "%s/data/testprint",
-                    "%s/data/testprint.ps",
-                    nullptr };
-        if((datadir = getenv("CUPS_DATADIR")) != nullptr) {
+    if (!file) {
+        const char *testprint[] = {"%s/data/testprint",
+                                   "%s/data/testprint.ps",
+                                   nullptr};
+        if ((datadir = getenv("CUPS_DATADIR")) != nullptr) {
             const char **pattern = nullptr;
-            for(pattern = testprint; *pattern != nullptr; pattern++) {
+            for (pattern = testprint; *pattern != nullptr; pattern++) {
                 snprintf(filename, sizeof(filename), *pattern, datadir);
-                if(access(filename, R_OK) == 0) {
+                if (access(filename, R_OK) == 0) {
                     break;
                 }
             }
         } else {
-            const char *const dirs[] = { "/usr/share/cups",
-                       "/usr/local/share/cups",
-                       nullptr };
+            const char *const dirs[] = {"/usr/share/cups",
+                                        "/usr/local/share/cups",
+                                        nullptr};
             int found = 0;
             int i;
-            for(i = 0;(datadir = dirs[i]) != nullptr; i++) {
+            for (i = 0; (datadir = dirs[i]) != nullptr; i++) {
                 const char **pattern = nullptr;
-                for(pattern = testprint; *pattern != nullptr; pattern++) {
+                for (pattern = testprint; *pattern != nullptr; pattern++) {
                     snprintf(filename, sizeof(filename), *pattern, datadir);
-                    if(access(filename, R_OK) == 0) {
+                    if (access(filename, R_OK) == 0) {
                         found = 1;
                         break;
                     }
                 }
 
-                if(found) {
+                if (found) {
                     break;
                 }
             }
 
-            if(datadir == nullptr) {
+            if (datadir == nullptr) {
                 /* We haven't found the testprint.ps file, so just pick a path
                  * and try it.  This will certainly fail with
                  * client-error-not-found, but we'll let that happen rather
@@ -2536,36 +2513,36 @@ int Connection::printTestPage(const char *printer, const char *file,
         file = filename;
     }
 
-    if(!title) {
+    if (!title) {
         title = "Test Page";
     }
 
-    if(!user) {
+    if (!user) {
         user = (char *)cupsUser();
     }
 
     construct_uri(uri, sizeof(uri),
-         "ipp://localhost/printers/", printer);
+                  "ipp://localhost/printers/", printer);
     resource = uri + strlen("ipp://localhost");
-    for(i = 0; i < 2; i++) {
+    for (i = 0; i < 2; i++) {
         request = ippNewRequest(IPP_PRINT_JOB);
         ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri",
-              nullptr, uri);
+                     nullptr, uri);
         ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-              "requesting-user-name", nullptr, user);
+                     "requesting-user-name", nullptr, user);
         ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "job-name",
-              nullptr, title);
-        if(format) {
+                     nullptr, title);
+        if (format) {
             ippAddString(request, IPP_TAG_JOB, IPP_TAG_MIMETYPE, "document-format",
-                nullptr, format);
+                         nullptr, format);
         }
 
         answer = cupsDoFileRequest(this->http, request, resource, file);
-        if(answer && ippGetStatusCode(answer) == IPP_NOT_POSSIBLE) {
+        if (answer && ippGetStatusCode(answer) == IPP_NOT_POSSIBLE) {
             ippDelete(answer);
             // Perhaps it's a class, not a printer.
             construct_uri(uri, sizeof(uri),
-                 "ipp://localhost/classes/", printer);
+                          "ipp://localhost/classes/", printer);
         } else {
             break;
         }
@@ -2574,7 +2551,7 @@ int Connection::printTestPage(const char *printer, const char *file,
     checkIppAnswer(answer, nullptr);
 
     attr = ippFindAttribute(answer, "job-id", IPP_TAG_INTEGER);
-    if(attr) {
+    if (attr) {
         jobid = ippGetInteger(attr, 0);
     }
     ippDelete(answer);
@@ -2583,7 +2560,7 @@ int Connection::printTestPage(const char *printer, const char *file,
 }
 
 void Connection::adminExportSamba(const char *name,
-        const char *server, const char *user, const char *password)
+                                  const char *server, const char *user, const char *password)
 {
     int ret;
     char ppdfile[1024];
@@ -2591,12 +2568,12 @@ void Connection::adminExportSamba(const char *name,
     FILE *tf = nullptr;
     char str[80];
 
-    if(!name || !server || !user || !password) {
+    if (!name || !server || !user || !password) {
         throw runtime_error("name, samba_server, samba_username, samba_password "
-                    "must be specified");
+                            "must be specified");
     }
 
-    if(!cupsAdminCreateWindowsPPD(this->http, name, ppdfile, sizeof(ppdfile))) {
+    if (!cupsAdminCreateWindowsPPD(this->http, name, ppdfile, sizeof(ppdfile))) {
         throw runtime_error("No PPD file found for the printer");
     }
 
@@ -2605,13 +2582,13 @@ void Connection::adminExportSamba(const char *name,
     ret = cupsAdminExportSamba(name, ppdfile, server, user, password, tf);
     unlink(ppdfile);
 
-    if(!ret) {
+    if (!ret) {
         rewind(tf);
         // Read logfile line by line to get Exit status message on the last line.
-        while(fgets(str, sizeof(str), tf) != nullptr) { }
+        while (fgets(str, sizeof(str), tf) != nullptr) {}
         fclose(tf);
-        if(str[strlen(str) -1] == '\n') {
-            str[strlen(str) -1] = '\0';
+        if (str[strlen(str) - 1] == '\n') {
+            str[strlen(str) - 1] = '\0';
         }
         debugprintf("<- Connection::adminExportSamba() EXCEPTION\n");
         throw runtime_error(str);
@@ -2627,7 +2604,7 @@ map<string, string> Connection::adminGetServerSettings(void)
     cups_option_t *settings = nullptr;
     debugprintf("-> Connection::adminGetServerSettings()\n");
     cupsAdminGetServerSettings(this->http, &num_settings, &settings);
-    for(i = 0; i < num_settings; i++) {
+    for (i = 0; i < num_settings; i++) {
         ret[settings[i].name] = settings[i].value;
     }
 
@@ -2637,26 +2614,26 @@ map<string, string> Connection::adminGetServerSettings(void)
     return ret;
 }
 
-void Connection::adminSetServerSettings(const map<string,string>* dict)
+void Connection::adminSetServerSettings(const map<string, string> *dict)
 {
     int ret;
     int num_settings = 0;
     cups_option_t *settings = nullptr;
 
     debugprintf("-> Connection::adminSetServerSettings()\n");
-    for(const auto& it : *dict) {
+    for (const auto &it : *dict) {
         const char *name = it.first.data();
         const char *value = it.second.data();
         debugprintf("%s: %s\n", name, value);
         num_settings = cupsAddOption(name,
-                      value,
-                      num_settings,
-                      &settings);
+                                     value,
+                                     num_settings,
+                                     &settings);
     }
 
     debugprintf("num_settings=%d, settings=%p\n", num_settings, settings);
     ret = cupsAdminSetServerSettings(this->http, num_settings, settings);
-    if(!ret) {
+    if (!ret) {
         cupsFreeOptions(num_settings, settings);
         debugprintf("<- Connection::adminSetServerSettings() EXCEPTION\n");
         throw runtime_error("Failed to set settings");
@@ -2678,8 +2655,8 @@ ServerSettings Connection::newServerSettings()
     return server_settings;
 }
 
-vector<map<string, string>> Connection::getSubscriptions(const char* uri,
-        bool my_subscriptions, int job_id)
+vector<map<string, string>> Connection::getSubscriptions(const char *uri,
+                                                         bool my_subscriptions, int job_id)
 {
     ipp_t *request = nullptr, *answer = nullptr;
     ipp_attribute_t *attr = nullptr;
@@ -2687,35 +2664,35 @@ vector<map<string, string>> Connection::getSubscriptions(const char* uri,
     debugprintf("-> Connection::getSubscriptions()\n");
     request = ippNewRequest(IPP_GET_SUBSCRIPTIONS);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
-        "printer-uri", nullptr, uri);
+                 "printer-uri", nullptr, uri);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-        "requesting-user-name", nullptr, cupsUser());
+                 "requesting-user-name", nullptr, cupsUser());
 
-    if(my_subscriptions) {
+    if (my_subscriptions) {
         ippAddBoolean(request, IPP_TAG_OPERATION, "my-subscriptions", 1);
     }
 
-    if(job_id != -1) {
+    if (job_id != -1) {
         ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
-           "job-id", job_id);
+                      "job-id", job_id);
     }
 
     answer = cupsDoRequest(this->http, request, "/");
     checkIppAnswer(answer, nullptr);
 
-    for(attr = ippFirstAttribute(answer); attr; attr = ippNextAttribute(answer)) {
-        if(ippGetGroupTag(attr) == IPP_TAG_SUBSCRIPTION) {
+    for (attr = ippFirstAttribute(answer); attr; attr = ippNextAttribute(answer)) {
+        if (ippGetGroupTag(attr) == IPP_TAG_SUBSCRIPTION) {
             break;
         }
     }
 
     vector<map<string, string>> ret;
     map<string, string> subscription;
-    for(; attr; attr = ippNextAttribute(answer)) {
+    for (; attr; attr = ippNextAttribute(answer)) {
         string val;
-        if(ippGetGroupTag(attr) == IPP_TAG_ZERO) {
+        if (ippGetGroupTag(attr) == IPP_TAG_ZERO) {
             // End of subscription.
-            if(!subscription.empty()) {
+            if (!subscription.empty()) {
                 ret.push_back(subscription);
                 subscription.clear();
             }
@@ -2723,13 +2700,13 @@ vector<map<string, string>> Connection::getSubscriptions(const char* uri,
             continue;
         }
 
-        const char* attrName = ippGetName(attr);
-        if(ippGetCount(attr) > 1 || !strcmp(attrName, "notify-events"))
+        const char *attrName = ippGetName(attr);
+        if (ippGetCount(attr) > 1 || !strcmp(attrName, "notify-events"))
             val = list_from_attr_values(attr);
         else
             val = string_from_attr_value(attr, 0);
 
-        if(val.empty()) {
+        if (val.empty()) {
             // Can't represent this.
             continue;
         }
@@ -2737,7 +2714,7 @@ vector<map<string, string>> Connection::getSubscriptions(const char* uri,
         subscription[attrName] = val;
     }
 
-    if(!subscription.empty()) {
+    if (!subscription.empty()) {
         ret.push_back(subscription);
     }
 
@@ -2748,12 +2725,12 @@ vector<map<string, string>> Connection::getSubscriptions(const char* uri,
 }
 
 int Connection::createSubscription(const char *resource_uri,
-        const vector<string>* events,
-        int job_id,
-        const char *recipient_uri,
-        int lease_duration,
-        int time_interval,
-        const char *user_data)
+                                   const vector<string> *events,
+                                   int job_id,
+                                   const char *recipient_uri,
+                                   int lease_duration,
+                                   int time_interval,
+                                   const char *user_data)
 {
     ipp_t *request = nullptr, *answer = nullptr;
     int i = 0;
@@ -2764,63 +2741,61 @@ int Connection::createSubscription(const char *resource_uri,
     debugprintf("-> Connection::createSubscription(%s)\n", resource_uri);
     request = ippNewRequest(IPP_CREATE_PRINTER_SUBSCRIPTION);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
-        "printer-uri", nullptr, resource_uri);
+                 "printer-uri", nullptr, resource_uri);
     ippAddString(request, IPP_TAG_SUBSCRIPTION, IPP_TAG_KEYWORD,
-        "notify-pull-method", nullptr, "ippget");
+                 "notify-pull-method", nullptr, "ippget");
     ippAddString(request, IPP_TAG_SUBSCRIPTION, IPP_TAG_CHARSET,
-        "notify-charset", nullptr, "utf-8");
+                 "notify-charset", nullptr, "utf-8");
     ippAddString(request, IPP_TAG_SUBSCRIPTION, IPP_TAG_NAME,
-        "requesting-user-name", nullptr, cupsUser());
+                 "requesting-user-name", nullptr, cupsUser());
 
-    if(recipient_uri) {
+    if (recipient_uri) {
         ippAddString(request, IPP_TAG_SUBSCRIPTION, IPP_TAG_URI,
-              "notify-recipient-uri", nullptr, recipient_uri);
+                     "notify-recipient-uri", nullptr, recipient_uri);
     }
 
-    if(user_data) {
+    if (user_data) {
         ippAddString(request, IPP_TAG_SUBSCRIPTION, IPP_TAG_STRING,
-              "notify-user-data", nullptr, user_data);
+                     "notify-user-data", nullptr, user_data);
     }
 
-    if(events) {
-        if(get_requested_attrs(events, &n_attrs, &attrs) == -1) {
+    if (events) {
+        if (get_requested_attrs(events, &n_attrs, &attrs) == -1) {
             ippDelete(request);
             return -1;
         }
         ippAddStrings(request, IPP_TAG_SUBSCRIPTION,
-                  IPP_TAG_KEYWORD, "notify-events",
-                  n_attrs, nullptr, attrs);
+                      IPP_TAG_KEYWORD, "notify-events",
+                      n_attrs, nullptr, attrs);
         free_requested_attrs(n_attrs, attrs);
     }
 
-    if(lease_duration != -1) {
+    if (lease_duration != -1) {
         ippAddInteger(request, IPP_TAG_SUBSCRIPTION, IPP_TAG_INTEGER,
-           "notify-lease-duration", lease_duration);
+                      "notify-lease-duration", lease_duration);
     }
 
-    if(time_interval != -1) {
+    if (time_interval != -1) {
         ippAddInteger(request, IPP_TAG_SUBSCRIPTION, IPP_TAG_INTEGER,
-           "notify-time-interval", time_interval);
+                      "notify-time-interval", time_interval);
     }
 
-    if(job_id != -1) {
+    if (job_id != -1) {
         ippAddInteger(request, IPP_TAG_SUBSCRIPTION, IPP_TAG_INTEGER,
-           "notify-job-id", job_id);
+                      "notify-job-id", job_id);
     }
 
     answer = cupsDoRequest(this->http, request, "/");
     checkIppAnswer(answer, "<- Connection::createSubscription() EXCEPTION\n");
 
     i = -1;
-    for(attr = ippFirstAttribute(answer); attr; attr = ippNextAttribute(answer)) {
-        if(ippGetGroupTag(attr) == IPP_TAG_SUBSCRIPTION) {
+    for (attr = ippFirstAttribute(answer); attr; attr = ippNextAttribute(answer)) {
+        if (ippGetGroupTag(attr) == IPP_TAG_SUBSCRIPTION) {
             ipp_tag_t valTag = ippGetValueTag(attr);
-            const char* attrName = ippGetName(attr);
-            if(valTag == IPP_TAG_INTEGER &&
-               !strcmp(attrName, "notify-subscription-id")) {
-                    i = ippGetInteger(attr, 0);
-            } else if(valTag == IPP_TAG_ENUM &&
-                      !strcmp(attrName, "notify-status-code")) {
+            const char *attrName = ippGetName(attr);
+            if (valTag == IPP_TAG_INTEGER && !strcmp(attrName, "notify-subscription-id")) {
+                i = ippGetInteger(attr, 0);
+            } else if (valTag == IPP_TAG_ENUM && !strcmp(attrName, "notify-status-code")) {
                 debugprintf("notify-status-code = %d\n", ippGetInteger(attr, 0));
             }
         }
@@ -2833,8 +2808,8 @@ int Connection::createSubscription(const char *resource_uri,
 }
 
 vector<map<string, string>> Connection::getNotifications(int subscription_id,
-        int sequence_number,
-        long* notify_get_interval, long* printer_up_time)
+                                                         int sequence_number,
+                                                         long *notify_get_interval, long *printer_up_time)
 {
     ipp_t *request = nullptr, *answer = nullptr;
     ipp_attribute_t *attr = nullptr;
@@ -2842,16 +2817,16 @@ vector<map<string, string>> Connection::getNotifications(int subscription_id,
     debugprintf("-> Connection::getNotifications()\n");
     request = ippNewRequest(IPP_GET_NOTIFICATIONS);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
-        "printer-uri", nullptr, "/");
+                 "printer-uri", nullptr, "/");
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-        "requesting-user-name", nullptr, cupsUser());
+                 "requesting-user-name", nullptr, cupsUser());
 
     ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
-             "notify-subscription-ids", subscription_id);
+                  "notify-subscription-ids", subscription_id);
 
-    if(sequence_number) {
+    if (sequence_number) {
         ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
-                   "notify-sequence-numbers", sequence_number);
+                      "notify-sequence-numbers", sequence_number);
     }
 
     answer = cupsDoRequest(this->http, request, "/");
@@ -2859,27 +2834,27 @@ vector<map<string, string>> Connection::getNotifications(int subscription_id,
 
     // Result-wide attributes.
     attr = ippFindAttribute(answer, "notify-get-interval", IPP_TAG_INTEGER);
-    if(attr && notify_get_interval) {
+    if (attr && notify_get_interval) {
         *notify_get_interval = ippGetInteger(attr, 0);
     }
 
     attr = ippFindAttribute(answer, "printer-up-time", IPP_TAG_INTEGER);
-    if(attr && printer_up_time) {
+    if (attr && printer_up_time) {
         *printer_up_time = ippGetInteger(attr, 0);
     }
 
-    for(attr = ippFirstAttribute(answer); attr; attr = ippNextAttribute(answer)) {
-        if(ippGetGroupTag(attr) == IPP_TAG_EVENT_NOTIFICATION) {
+    for (attr = ippFirstAttribute(answer); attr; attr = ippNextAttribute(answer)) {
+        if (ippGetGroupTag(attr) == IPP_TAG_EVENT_NOTIFICATION) {
             break;
         }
     }
 
     vector<map<string, string>> events;
     map<string, string> event;
-    for(; attr; attr = ippNextAttribute(answer)) {
-        if(ippGetGroupTag(attr) == IPP_TAG_ZERO) {
+    for (; attr; attr = ippNextAttribute(answer)) {
+        if (ippGetGroupTag(attr) == IPP_TAG_ZERO) {
             // End of event notification.
-            if(!event.empty()) {
+            if (!event.empty()) {
                 events.push_back(event);
                 event.clear();
             }
@@ -2888,18 +2863,14 @@ vector<map<string, string>> Connection::getNotifications(int subscription_id,
         }
 
         string val;
-        const char* attrName = ippGetName(attr);
-        if(ippGetCount(attr) > 1 ||
-            !strcmp(attrName, "notify-events") ||
-            !strcmp(attrName, "printer-state-reasons") ||
-            !strcmp(attrName, "job-printer-state-reasons")) {
+        const char *attrName = ippGetName(attr);
+        if (ippGetCount(attr) > 1 || !strcmp(attrName, "notify-events") || !strcmp(attrName, "printer-state-reasons") || !strcmp(attrName, "job-printer-state-reasons")) {
             val = list_from_attr_values(attr);
-        }
-        else {
+        } else {
             val = string_from_attr_value(attr, 0);
         }
 
-        if(val.empty()) {
+        if (val.empty()) {
             // Can't represent this.
             continue;
         }
@@ -2907,7 +2878,7 @@ vector<map<string, string>> Connection::getNotifications(int subscription_id,
         event[attrName] = val;
     }
 
-    if(!event.empty()) {
+    if (!event.empty()) {
         events.push_back(event);
     }
 
@@ -2924,15 +2895,15 @@ void Connection::renewSubscription(int id, int lease_duration)
     debugprintf("-> Connection::renewSubscription()\n");
     request = ippNewRequest(IPP_RENEW_SUBSCRIPTION);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
-        "printer-uri", nullptr, "/");
+                 "printer-uri", nullptr, "/");
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-        "requesting-user-name", nullptr, cupsUser());
+                 "requesting-user-name", nullptr, cupsUser());
     ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
-         "notify-subscription-id", id);
+                  "notify-subscription-id", id);
 
-    if(lease_duration != -1) {
+    if (lease_duration != -1) {
         ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
-           "notify-lease-duration", lease_duration);
+                      "notify-lease-duration", lease_duration);
     }
 
     answer = cupsDoRequest(this->http, request, "/");
@@ -2949,11 +2920,11 @@ void Connection::cancelSubscription(int id)
     debugprintf("-> Connection::cancelSubscription()\n");
     request = ippNewRequest(IPP_CANCEL_SUBSCRIPTION);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
-        "printer-uri", nullptr, "/");
+                 "printer-uri", nullptr, "/");
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME,
-        "requesting-user-name", nullptr, cupsUser());
+                 "requesting-user-name", nullptr, cupsUser());
     ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
-        "notify-subscription-id", id);
+                  "notify-subscription-id", id);
 
     answer = cupsDoRequest(this->http, request, "/");
     checkIppAnswer(answer, "<- Connection::cancelSubscription() EXCEPTION\n");
@@ -2963,25 +2934,25 @@ void Connection::cancelSubscription(int id)
 }
 
 int Connection::printFile(const char *printer,
-        const char *filename, const char *title,
-        const map<string, string>* options)
+                          const char *filename, const char *title,
+                          const map<string, string> *options)
 {
     int num_settings = 0;
     cups_option_t *settings = nullptr;
     int jobid;
 
     if (options) {
-        for(const auto& it : *options) {
+        for (const auto &it : *options) {
             num_settings = cupsAddOption(it.first.data(),
-                          it.second.data(),
-                          num_settings,
-                          &settings);
+                                         it.second.data(),
+                                         num_settings,
+                                         &settings);
         }
     }
 
     jobid = cupsPrintFile2(this->http, printer, filename, title, num_settings,
-                          settings);
-    if(jobid == 0) {
+                           settings);
+    if (jobid == 0) {
         cupsFreeOptions(num_settings, settings);
         string err = get_ipp_error(cupsLastError(), cupsLastErrorString());
         throw runtime_error(err);
@@ -2993,8 +2964,8 @@ int Connection::printFile(const char *printer,
 }
 
 int Connection::printFiles(const char *printer,
-        const vector<string>* filenames_obj, const char *title,
-        const map<string, string>* options)
+                           const vector<string> *filenames_obj, const char *title,
+                           const map<string, string> *options)
 {
     int num_filenames;
     char **filenames = nullptr;
@@ -3003,28 +2974,28 @@ int Connection::printFiles(const char *printer,
     int jobid;
 
     num_filenames = filenames_obj->size();
-    if(num_filenames == 0) {
+    if (num_filenames == 0) {
         throw runtime_error("filenames list is empty");
     }
-    filenames = (char**)malloc(num_filenames * sizeof(char*));
-    for(int i = 0; i < num_filenames; ++i) {
-        filenames[i] = (char*)filenames_obj->at(i).data();
+    filenames = (char **)malloc(num_filenames * sizeof(char *));
+    for (int i = 0; i < num_filenames; ++i) {
+        filenames[i] = (char *)filenames_obj->at(i).data();
     }
 
     if (options) {
-        for(const auto& it : *options) {
+        for (const auto &it : *options) {
             num_settings = cupsAddOption(it.first.data(),
-                          it.second.data(),
-                          num_settings,
-                          &settings);
+                                         it.second.data(),
+                                         num_settings,
+                                         &settings);
         }
     }
 
     jobid = cupsPrintFiles2(this->http, printer, num_filenames,
-                          (const char **)filenames, title, num_settings,
-                           settings);
+                            (const char **)filenames, title, num_settings,
+                            settings);
     free(filenames);
-    if(jobid < 0) {
+    if (jobid < 0) {
         cupsFreeOptions(num_settings, settings);
         string err = get_ipp_error(cupsLastError(), cupsLastErrorString());
         throw runtime_error(err);

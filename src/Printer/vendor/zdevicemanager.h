@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     Wei xie <xiewei@deepin.com>
  *
@@ -38,32 +38,31 @@ using namespace std;
 
 enum {
     InfoFrom_Invalid = -1,
-    InfoFrom_Detect = 0,/*准确的打印机信息，通过探测发现的*/
+    InfoFrom_Detect = 0, /*准确的打印机信息，通过探测发现的*/
     InfoFrom_Guess, /*通过host猜测的打印机信息*/
     InfoFrom_Manual /*用户手动填写的打印机信息*/
 };
 
 typedef struct tagDeviceInfo {
-    tagDeviceInfo() :
-        iType(InfoFrom_Invalid)
+    tagDeviceInfo()
+        : iType(InfoFrom_Invalid)
     {
     }
 
     QString toString() const
     {
-        return QString("uri: %1,class:%2,info:%3,name:%4,makemodel:%5,id:%6").arg(uriList.join(";"))
-               .arg(strClass).arg(strInfo).arg(strName).arg(strMakeAndModel).arg(strDeviceId);
+        return QString("uri: %1,class:%2,info:%3,name:%4,makemodel:%5,id:%6").arg(uriList.join(";")).arg(strClass).arg(strInfo).arg(strName).arg(strMakeAndModel).arg(strDeviceId);
     }
 
-    QStringList uriList;//uri
-    QString     strClass;//打印机类型，network网络共享打印机，direct直连打印机，file云打印
-    QString     strInfo;//打印机描述
-    QString     strName;//打印机名字，用户在打印机设置界面设置的名字
-    QString     strMakeAndModel;//打印机厂商和型号
-    QString     strDeviceId;//打印机IEEE 1284 ID
-    QString     strLocation;//location
-    int         iType;//打印机信息的来源
-    QString     serial;//打印机序列号
+    QStringList uriList; //uri
+    QString strClass; //打印机类型，network网络共享打印机，direct直连打印机，file云打印
+    QString strInfo; //打印机描述
+    QString strName; //打印机名字，用户在打印机设置界面设置的名字
+    QString strMakeAndModel; //打印机厂商和型号
+    QString strDeviceId; //打印机IEEE 1284 ID
+    QString strLocation; //location
+    int iType; //打印机信息的来源
+    QString serial; //打印机序列号
 } TDeviceInfo;
 
 Q_DECLARE_METATYPE(TDeviceInfo)
@@ -73,7 +72,7 @@ class RefreshDevicesTask : public TaskInterface
     Q_OBJECT
 
 public:
-    RefreshDevicesTask(int id, QObject* parent=nullptr);
+    RefreshDevicesTask(int id, QObject *parent = nullptr);
 
     QList<TDeviceInfo> getResult();
 
@@ -82,16 +81,16 @@ protected:
     void clearDevices();
 
 private:
-    QList<TDeviceInfo>  m_devices;
-    QMutex  m_mutex;
+    QList<TDeviceInfo> m_devices;
+    QMutex m_mutex;
 
     friend class RefreshDevicesByBackendTask;
 };
 
-typedef struct tagBackendSchemes{
-   const char* includeSchemes;
-   const char* excludeSchemes;
-}TBackendSchemes;
+typedef struct tagBackendSchemes {
+    const char *includeSchemes;
+    const char *excludeSchemes;
+} TBackendSchemes;
 
 class RefreshDevicesByBackendTask : public RefreshDevicesTask
 {
@@ -99,12 +98,12 @@ class RefreshDevicesByBackendTask : public RefreshDevicesTask
 
 public:
     //支持传入查找规则，如果sechemes不为空，则认为传入一个TBackendSchemes结构体
-    RefreshDevicesByBackendTask(TBackendSchemes* sechemes = nullptr, int id = TASK_RefreshKnownDev, QObject *parent = nullptr);
+    RefreshDevicesByBackendTask(TBackendSchemes *sechemes = nullptr, int id = TASK_RefreshKnownDev, QObject *parent = nullptr);
 
 protected:
     int doWork();
 
-    int mergeDevice(TDeviceInfo &device, const char * backend);
+    int mergeDevice(TDeviceInfo &device, const char *backend);
     int addDevices(const map<string, map<string, string>> &devs, const char *backend);
 
 private:
@@ -135,7 +134,7 @@ protected:
     int probe_snmp(const QString &strHost);
 
 private:
-    QString             m_strHost;
+    QString m_strHost;
 };
 
 #endif // ZDEVICEMANAGER_H

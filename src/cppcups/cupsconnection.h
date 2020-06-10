@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,8 +30,7 @@
 #include <stdexcept>
 using namespace std;
 
-typedef struct tagDest
-{
+typedef struct tagDest {
     bool is_default;
     string destname;
     string instance;
@@ -43,12 +42,12 @@ class Connection;
 class ServerSettings
 {
 public:
-    ServerSettings(Connection* c = NULL, map<string, string> settings = map<string,string>());
-    ServerSettings& enableDebugLogging(bool enabled);
-    ServerSettings& enableRemoteAdmin(bool enabled);
-    ServerSettings& enableRemoteAny(bool enabled);
-    ServerSettings& enableSharePrinters(bool enabled);
-    ServerSettings& enableUserCancelAny(bool enabled);
+    ServerSettings(Connection *c = NULL, map<string, string> settings = map<string, string>());
+    ServerSettings &enableDebugLogging(bool enabled);
+    ServerSettings &enableRemoteAdmin(bool enabled);
+    ServerSettings &enableRemoteAny(bool enabled);
+    ServerSettings &enableSharePrinters(bool enabled);
+    ServerSettings &enableUserCancelAny(bool enabled);
 
     bool isDebugLoggingEnabled() const;
     bool isRemoteAdminEnabled() const;
@@ -59,7 +58,7 @@ public:
     void commit();
 
 private:
-    Connection* c_;
+    Connection *c_;
     map<string, string> settings_;
 };
 
@@ -75,9 +74,9 @@ public:
     // @param encryption: forces encryption when connecting to the cups server
     // @return: 0, OK; -1,failed;
     // @exception: runtime_error
-    int init(const char* host_uri,
-            int port,
-            int encryption);
+    int init(const char *host_uri,
+             int port,
+             int encryption);
 
     // @description: Get all print destination include printer and class.
     // @return: a vector with Dest elements
@@ -109,7 +108,7 @@ public:
     // s -> raw utf-8 string
     // ` -> type string list
     // @exception: runtime_error
-    map<string, map<string,string>> getPrinters(void);
+    map<string, map<string, string>> getPrinters(void);
 
     // @description: Get all the printer class, with each class has a printer list:
     // @return: a map with the key is the class name, and the value is a printer list with
@@ -121,7 +120,7 @@ public:
     //               and get the new file name which can use to construct a PPD object.
     // @return: the full path of new temp PPD file
     // @exception: runtime_error
-    string getServerPPD(const char* ppd_name);
+    string getServerPPD(const char *ppd_name);
 
     // @description: Get all PPD file managed by cups server, to read the PPD file see getServerPPD.
     // @param limit: how many PPD file to get
@@ -140,29 +139,29 @@ public:
     //          the value of ppd attribute map is a type string.
     // @exception: runtime_error
     map<string, map<string, string>> getPPDs(int limit,
-        const vector<string>* exclude_schemes,
-        const vector<string>* include_schemes,
-        const char *ppd_natural_language,
-        const char *ppd_device_id,
-        const char *ppd_make,
-        const char *ppd_make_and_model,
-        int ppd_model_number,
-        const char *ppd_product,
-        const char *ppd_psversion,
-        const char *ppd_type);
+                                             const vector<string> *exclude_schemes,
+                                             const vector<string> *include_schemes,
+                                             const char *ppd_natural_language,
+                                             const char *ppd_device_id,
+                                             const char *ppd_make,
+                                             const char *ppd_make_and_model,
+                                             int ppd_model_number,
+                                             const char *ppd_product,
+                                             const char *ppd_psversion,
+                                             const char *ppd_type);
 
     // @description: like getPPDs except the value of ppd attribute map is a type string list
     map<string, map<string, string>> getPPDs2(int limit,
-        const vector<string>* exclude_schemes,
-        const vector<string>* include_schemes,
-        const char *ppd_natural_language,
-        const char *ppd_device_id,
-        const char *ppd_make,
-        const char *ppd_make_and_model,
-        int ppd_model_number,
-        const char *ppd_product,
-        const char *ppd_psversion,
-        const char *ppd_type);
+                                              const vector<string> *exclude_schemes,
+                                              const vector<string> *include_schemes,
+                                              const char *ppd_natural_language,
+                                              const char *ppd_device_id,
+                                              const char *ppd_make,
+                                              const char *ppd_make_and_model,
+                                              int ppd_model_number,
+                                              const char *ppd_product,
+                                              const char *ppd_psversion,
+                                              const char *ppd_type);
 
     // @description: Get the printing file specified by jobid and docnum by printer `uir`
     // @uri: the printer
@@ -173,9 +172,9 @@ public:
     //         "document-format",
     //         "document-name",
     // @exception: runtime_error
-    map<string, string> getDocument(const char* uri,
-            int jobid,
-            int docnum);
+    map<string, string> getDocument(const char *uri,
+                                    int jobid,
+                                    int docnum);
 
     // @description: Get all device can auto detected by cups server.
     // @param exclude_schemes: like http, https, ipp, dnssd, snmp, driverless,socket,...
@@ -190,10 +189,10 @@ public:
     //           "device-location",
     //           "device-make-and-model",
     // @exception: runtime_error
-    map<string, map<string, string>> getDevices(const vector<string>* exclude_schemes,
-        const vector<string>* include_schemes,
-        int limit,
-        int timeout);
+    map<string, map<string, string>> getDevices(const vector<string> *exclude_schemes,
+                                                const vector<string> *include_schemes,
+                                                int limit,
+                                                int timeout);
 
     // @description: Get specified job
     // @param which: job type, can be of these: no-completed, completed, all
@@ -212,39 +211,39 @@ public:
     //          The key of job map is one of the above attributes, the value of
     //          job map is a type string.
     // @exception: runtime_error
-    map<int, map<string, string>> getJobs(const char* which,
-        int my_jobs,
-        int limit,
-        int first_job_id,
-        const vector<string>* requested_attrs);
+    map<int, map<string, string>> getJobs(const char *which,
+                                          int my_jobs,
+                                          int limit,
+                                          int first_job_id,
+                                          const vector<string> *requested_attrs);
 
     // @param requested_attrs: only get attribute by specified.
     // @exception: runtime_error
     map<string, string> getJobAttributes(int job_id,
-            const vector<string>* requested_attrs);
+                                         const vector<string> *requested_attrs);
 
     // @param name or param uri must be specified, but can't both specified.
     // @param requested_attrs: only get attribute by specified.
     // @exception: runtime_error
-    map<string, string> getPrinterAttributes(const char* name,
-        const char* uri,
-        const vector<string>* requested_attrs);
+    map<string, string> getPrinterAttributes(const char *name,
+                                             const char *uri,
+                                             const vector<string> *requested_attrs);
 
     // @param notify_get_interval: receive the notify-get-interval
     // @param printer_up_time: receive the printer-up-time
     // @return: a map list, every map save all attribute of a notify event.
     // @exception: runtime_error
     vector<map<string, string>> getNotifications(int subscription_id,
-        int sequence_number,
-        long* notify_get_interval,
-        long* printer_up_time);
+                                                 int sequence_number,
+                                                 long *notify_get_interval,
+                                                 long *printer_up_time);
 
     // @param uri: printer uri, must be not null.
     // @return: a map list, every map save all attribute of a subscription.
     // @exception: runtime_error
-    vector<map<string, string>> getSubscriptions(const char* uri,
-            bool my_subscriptions,
-            int job_id);
+    vector<map<string, string>> getSubscriptions(const char *uri,
+                                                 bool my_subscriptions,
+                                                 int job_id);
 
     int holdJob(int job_id);
 
@@ -252,152 +251,152 @@ public:
 
     // @exception: runtime_error
     void cancelJob(int job_id,
-            int purge_job);
+                   int purge_job);
 
     // @param name or param uri must be specified, but can't both specified.
     // @exception: runtime_error
-    void cancelAllJobs(const char* name,
-            const char* uri,
-            int my_jobs,
-            int purge_jobs);
+    void cancelAllJobs(const char *name,
+                       const char *uri,
+                       int my_jobs,
+                       int purge_jobs);
 
     // @param printer: must be not null!
     // @param title: must be not null!
     // @return: id of new job
     // @exception: runtime_error
-    int createJob(const char* printer,
-            const char* title,
-            const map<string, string>* options);
+    int createJob(const char *printer,
+                  const char *title,
+                  const map<string, string> *options);
 
     // @description: Add a document to a job specified by jobid.
     // @param doc_name: must be not null!
     // @param format: must be not null!
     // @return: HTTP status code
     // @exception: runtime_error
-    int startDocument(const char* printer,
-            int jobid,
-            const char* doc_name,
-            const char* format,
-            int last_document);
+    int startDocument(const char *printer,
+                      int jobid,
+                      const char *doc_name,
+                      const char *format,
+                      int last_document);
 
     // @description: sending data in [buffer, buffer+length]
     // @return: HTTP status code
     // @exception: runtime_error
-    int writeRequestData(const char* buffer,
-            int length);
+    int writeRequestData(const char *buffer,
+                         int length);
 
     // @description: finish sending a document
     // @return: HTTP status code
     // @exception: runtime_error
-    int finishDocument(const char* printer);
+    int finishDocument(const char *printer);
 
     // @description: move job specified by job_id or printeruri to new printer specified
     //               by jobprinteruri .
     // @param jobprinteruri: must be not null!
     // @exception: runtime_error
-    void moveJob(const char* printeruri,
-            int job_id,
-            const char* jobprinteruri);
+    void moveJob(const char *printeruri,
+                 int job_id,
+                 const char *jobprinteruri);
 
     // @description: Authenticate a job specified by job_id
     // @param: auth_info_list is username/password pair
     // @exception: runtime_error
     void authenticateJob(int job_id,
-            const vector<string>* auth_info_list);
+                         const vector<string> *auth_info_list);
 
     // @param job_hold_until: must be not null!
     // @exception: runtime_error
     void setJobHoldUntil(int job_id,
-            const char* job_hold_until);
+                         const char *job_hold_until);
 
     void setJobPriority(int job_id, int iPriority);
 
     // @param job_hold_until: must be not null!
     // @exception: runtime_error
     void restartJob(int job_id,
-            const char* job_hold_until);
+                    const char *job_hold_until);
 
     // @description: Get a file specified by @resource from cups server to file
     //               specified by @fd or @filename.
     // @exception: runtime_error
-    void getFile(const char* resource,
-            const char* filename,
-            int fd);
+    void getFile(const char *resource,
+                 const char *filename,
+                 int fd);
 
     // @description: put a file specified by @fd or @filename to cups server
     //               specified by @resource.
     // @param resource: like "/admin/conf/cupsd.conf"
     // @exception: runtime_error
-    void putFile(const char* resource,
-            const char* filename,
-            int fd);
+    void putFile(const char *resource,
+                 const char *filename,
+                 int fd);
 
     // @param name: must be not null!
     // @ppdfile, @ppdname, @ppd, only give one!
     // @exception: runtime_error
-    void addPrinter(const char* name,
-            const char* info,
-            const char* location,
-            const char* device,
-            const char* ppdfile,
-            const char* ppdname,
-            PPD* ppd);
+    void addPrinter(const char *name,
+                    const char *info,
+                    const char *location,
+                    const char *device,
+                    const char *ppdfile,
+                    const char *ppdname,
+                    PPD *ppd);
 
     // @param name: must be not null!
     // @param device_uri: must be not null!
     // @exception: runtime_error
-    void setPrinterDevice(const char* name,
-            const char* device_uri);
+    void setPrinterDevice(const char *name,
+                          const char *device_uri);
 
     // @description: Change the description of the printer specified by @name
     // @param name: must be not null!
     // @param info: must be not null!
     // @exception: runtime_error
-    void setPrinterInfo(const char* name,
-            const char* info);
+    void setPrinterInfo(const char *name,
+                        const char *info);
 
     // @param name: must be not null!
     // @param location: must be not null!
     // @exception: runtime_error
-    void setPrinterLocation(const char* name,
-            const char* location);
+    void setPrinterLocation(const char *name,
+                            const char *location);
 
     // @param name: must be not null!
     // @exception: runtime_error
-    void setPrinterShared(const char* name,
-            int sharing);
+    void setPrinterShared(const char *name,
+                          int sharing);
 
     // @param name: must be not null!
     // @param start: must be not null!
     // @param end: must be not null!
     // @exception: runtime_error
     void setPrinterJobSheets(char *name,
-            char *start,
-            char *end);
+                             char *start,
+                             char *end);
 
     // @param name: must be not null!
     // @param policy: must be not null!
     // @exception: runtime_error
-    void setPrinterErrorPolicy(const char* name,
-            const char* policy);
+    void setPrinterErrorPolicy(const char *name,
+                               const char *policy);
 
     // @param name: must be not null!
     // @param policy: must be not null!
     // @exception: runtime_error
-    void setPrinterOpPolicy(const char* name,
-            const char* policy);
+    void setPrinterOpPolicy(const char *name,
+                            const char *policy);
 
     // @param name: must be not null!
     // @param users: must be not null!
     // @exception: runtime_error
-    void setPrinterUsersAllowed(const char* name,
-            const vector<string>* users);
+    void setPrinterUsersAllowed(const char *name,
+                                const vector<string> *users);
 
     // @param name: must be not null!
     // @param users: must be not null!
     // @exception: runtime_error
-    void setPrinterUsersDenied(const char* name,
-            const vector<string>* users);
+    void setPrinterUsersDenied(const char *name,
+                               const vector<string> *users);
 
     // @description: Change option of the printer specified by @name where are not stored
     //              into the PPD file.
@@ -407,67 +406,67 @@ public:
     // @exception: runtime_error
     // refer lpoptions command
     void addPrinterOptionDefault(const char *name,
-            const char *option,
-            const vector<string>* values);
+                                 const char *option,
+                                 const vector<string> *values);
 
     // @param name: must be not null!
     // @param option: must be not null!
     // @exception: runtime_error
     // refer lpoptions command
-    void deletePrinterOptionDefault(const char* name,
-            const char* option);
+    void deletePrinterOptionDefault(const char *name,
+                                    const char *option);
 
     // @param name: must be not null!
     // @param reason: must be not null!
     // @exception: runtime_error
-    void deletePrinter(const char* name,
-            const char* reason);
+    void deletePrinter(const char *name,
+                       const char *reason);
 
     // @param printername: must be not null!
     // @param classname: must be not null!
     // @exception: runtime_error
     void addPrinterToClass(const char *printername,
-            const char *classname);
+                           const char *classname);
 
     // @param printername: must be not null!
     // @param classname: must be not null!
     // @exception: runtime_error
-    void deletePrinterFromClass(const char* printername,
-            const char* classname);
+    void deletePrinterFromClass(const char *printername,
+                                const char *classname);
 
     // @param classname: must be not null!
     // @exception: runtime_error
-    void deleteClass(const char* classname);
+    void deleteClass(const char *classname);
 
     // @param name: must be not null!
     // @param reason: must be not null!
     // @exception: runtime_error
-    void enablePrinter(const char* name,
-            const char* reason);
+    void enablePrinter(const char *name,
+                       const char *reason);
 
     // @param name: must be not null!
     // @param reason: must be not null!
     // @exception: runtime_error
-    void disablePrinter(const char* name,
-            const char* reason);
+    void disablePrinter(const char *name,
+                        const char *reason);
 
     // @param name: must be not null!
     // @param reason: must be not null!
     // @exception: runtime_error
-    void acceptJobs(const char* name,
-            const char* reason);
+    void acceptJobs(const char *name,
+                    const char *reason);
 
     // @param name: must be not null!
     // @param reason: must be not null!
     // @exception: runtime_error
-    void rejectJobs(const char* name,
-            const char* reason);
+    void rejectJobs(const char *name,
+                    const char *reason);
 
     // @param name: must be not null!
     // @param reason: must be not null!
     // @exception: runtime_error
-    void setDefault(const char* name,
-            const char* reason);
+    void setDefault(const char *name,
+                    const char *reason);
 
     // @return: the name of the default printer; return empty if failed.
     // @exception: none
@@ -476,7 +475,7 @@ public:
     // @param printer: must be not null!
     // @return: the name of the ppd file match to the specified printer; return empty if failed.
     // @exception: runtime_error
-    string getPPD(const char* printer);
+    string getPPD(const char *printer);
 
     // @param printer: must be not null!
     // @param modtime: specified the modified time, and update if the ppd file has changed.
@@ -484,9 +483,9 @@ public:
     // @param filename: optional. if not empty, the file will be overwritten.
     // @return: the name of the ppd file match to the specified printer; return empty if failed.
     // @exception: runtime_error
-    string getPPD3(const char* printer,
-            time_t* modtime,
-            const char* filename);
+    string getPPD3(const char *printer,
+                   time_t *modtime,
+                   const char *filename);
 
     // @param ppd_name: must be not null!
     // @param samba_server: must be not null!
@@ -494,9 +493,9 @@ public:
     // @param samba_password: must be not null!
     // @exception: runtime_error
     void adminExportSamba(const char *ppd_name,
-            const char *samba_server,
-            const char  *samba_user,
-            const char *samba_password);
+                          const char *samba_server,
+                          const char *samba_user,
+                          const char *samba_password);
 
     // @description: get cups server's global setting
     // @exception: none
@@ -504,7 +503,7 @@ public:
 
     // @param settings: must be not null! refer to adminGetServerSettings
     // @exception: runtime_error
-    void adminSetServerSettings(const map<string,string>* settings);
+    void adminSetServerSettings(const map<string, string> *settings);
 
     ServerSettings getServerSettings();
     ServerSettings newServerSettings();
@@ -524,17 +523,17 @@ public:
     // @return: subscription id
     // @exception: runtime_error
     int createSubscription(const char *resource_uri,
-            const vector<string>* events,
-            int job_id,
-            const char *recipient_uri,
-            int lease_duration,
-            int time_interval,
-            const char *user_data);
+                           const vector<string> *events,
+                           int job_id,
+                           const char *recipient_uri,
+                           int lease_duration,
+                           int time_interval,
+                           const char *user_data);
 
     // @param lease_duration: unit is second
     // @exception: runtime_error
     void renewSubscription(int id,
-            int lease_duration);
+                           int lease_duration);
 
     // @exception: runtime_error
     void cancelSubscription(int id);
@@ -543,10 +542,10 @@ public:
     // @return: the new job id
     // @exception: runtime_error
     int printTestPage(const char *printer,
-            const char *file,
-            const char *title,
-            const char *format,
-            const char *user);
+                      const char *file,
+                      const char *title,
+                      const char *format,
+                      const char *user);
 
     // @param printer: must be not null!
     // @param filename: must be not null!
@@ -554,9 +553,9 @@ public:
     // @return: the new job id
     // @exception: runtime_error
     int printFile(const char *printer,
-            const char *filename,
-            const char *title,
-            const map<string, string>* options);
+                  const char *filename,
+                  const char *title,
+                  const map<string, string> *options);
 
     // @param printer: must be not null!
     // @param filenames: must be not null!
@@ -564,31 +563,31 @@ public:
     // @return: the new job id
     // @exception: runtime_error
     int printFiles(const char *printer,
-            const vector<string>* filenames,
-            const char *title,
-            const map<string, string>* options);
+                   const vector<string> *filenames,
+                   const char *title,
+                   const map<string, string> *options);
 
 private:
-    void do_requesting_user_names(const char* name,
-            const vector<string>* users,
-            const char* requeststr);
+    void do_requesting_user_names(const char *name,
+                                  const vector<string> *users,
+                                  const char *requeststr);
 
-    void do_printer_request(const char* name,
-            const char* reason,
-            ipp_op_t op);
+    void do_printer_request(const char *name,
+                            const char *reason,
+                            ipp_op_t op);
 
     map<string, map<string, string>> do_getPPDs(int limit,
-            const vector<string>* exclude_schemes,
-            const vector<string>* include_schemes,
-            const char *ppd_natural_language,
-            const char *ppd_device_id,
-            const char *ppd_make,
-            const char *ppd_make_and_model,
-            int ppd_model_number,
-            const char *ppd_product,
-            const char *ppd_psversion,
-            const char *ppd_type,
-            bool all_lists);
+                                                const vector<string> *exclude_schemes,
+                                                const vector<string> *include_schemes,
+                                                const char *ppd_natural_language,
+                                                const char *ppd_device_id,
+                                                const char *ppd_make,
+                                                const char *ppd_make_and_model,
+                                                int ppd_model_number,
+                                                const char *ppd_product,
+                                                const char *ppd_psversion,
+                                                const char *ppd_type,
+                                                bool all_lists);
 
 public:
     // member
@@ -601,23 +600,23 @@ public:
 };
 
 const char *password_callback_newstyle(const char *prompt,
-			http_t *http,
-			const char *method,
-			const char *resource,
-			void *user_data);
+                                       http_t *http,
+                                       const char *method,
+                                       const char *resource,
+                                       void *user_data);
 
 const char *password_callback_oldstyle(const char *prompt,
-			http_t *http,
-			const char *method,
-			const char *resource,
-			void *user_data);
+                                       http_t *http,
+                                       const char *method,
+                                       const char *resource,
+                                       void *user_data);
 
 #ifdef HAVE_CUPS_1_6
 int cups_dest_cb(void *user_data,
-		    unsigned flags,
-		    cups_dest_t *dest);
+                 unsigned flags,
+                 cups_dest_t *dest);
 #endif /* HAVE_CUPS_1_6 */
 
 string get_ipp_error(ipp_status_t status,
-		    const char *message);
+                     const char *message);
 #endif /* HAVE_CUPSCONNECTION_H */

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     liurui <liurui_cm@deepin.com>
  *
@@ -45,7 +45,6 @@ public:
 
 private:
     void initUI();
-
 
 protected:
     void closeEvent(QCloseEvent *event) override;

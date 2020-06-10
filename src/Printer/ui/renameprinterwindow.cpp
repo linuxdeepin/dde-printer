@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     liurui <liurui_cm@deepin.com>
  *
@@ -119,7 +119,6 @@ void RenamePrinterWindow::initUI()
     setCentralWidget(widget);
 
     Dtk::Widget::moveToCenter(this);
-
 }
 
 void RenamePrinterWindow::initConnections()

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     Wei xie <xiewei@deepin.com>
  *
@@ -43,9 +43,9 @@
 #include <QFont>
 
 TroubleShootItem::TroubleShootItem(TroubleShootJob *job, int index, QWidget *parent)
-    : QFrame(parent),
-      m_job(job),
-      m_index(index)
+    : QFrame(parent)
+    , m_job(job)
+    , m_index(index)
 {
     m_iconLabel = new QLabel(this);
     m_iconLabel->setFixedSize(17, 17);
@@ -103,7 +103,6 @@ TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *pare
 
     m_trobleShoot = new TroubleShoot(printerName, this);
     m_trobleShoot->addJob(new CheckConnected(printerName, m_trobleShoot));
-
 
     setAttribute(Qt::WA_TranslucentBackground, false);
     QWidget *contentWidget = new QWidget(this);

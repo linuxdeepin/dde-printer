@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     Wei xie <xiewei@deepin.com>
  *
@@ -37,7 +37,7 @@ class TroubleShootItem : public QFrame
     Q_OBJECT
 
 public:
-    TroubleShootItem(TroubleShootJob* job, int index, QWidget* parent=nullptr);
+    TroubleShootItem(TroubleShootJob *job, int index, QWidget *parent = nullptr);
 
 protected:
     void slotStateChanged(int state, const QString &message);
@@ -45,11 +45,11 @@ protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 
 private:
-    TroubleShootJob*    m_job;
-    QLabel*             m_iconLabel;
-    QLabel*             m_titleLabel;
-    QLabel*             m_messageLabel;
-    int                 m_index;
+    TroubleShootJob *m_job;
+    QLabel *m_iconLabel;
+    QLabel *m_titleLabel;
+    QLabel *m_messageLabel;
+    int m_index;
 };
 
 class TroubleShootDialog : public DAbstractDialog
@@ -57,14 +57,14 @@ class TroubleShootDialog : public DAbstractDialog
     Q_OBJECT
 
 public:
-    TroubleShootDialog(const QString &printerName, QWidget *parent=nullptr);
+    TroubleShootDialog(const QString &printerName, QWidget *parent = nullptr);
 
 protected slots:
     void slotTroubleShootStatus(int id, int state);
 
 private:
-    QString         m_printerName;
+    QString m_printerName;
 
-    TroubleShoot*   m_trobleShoot;
-    QPushButton*    m_button;
+    TroubleShoot *m_trobleShoot;
+    QPushButton *m_button;
 };

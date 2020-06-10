@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     Wei xie <xiewei@deepin.com>
  *
@@ -46,12 +46,12 @@ static QString g_captexec = "/opt/cndrvcups-capt/addprinter.sh";
 static QString getPackageVersion(const QString &package)
 {
     QString strOut, strErr;
-    if (0 == shellCmd(QString("dpkg -l %1").arg(package), strOut, strErr)){
+    if (0 == shellCmd(QString("dpkg -l %1").arg(package), strOut, strErr)) {
         QStringList list = strOut.split("\n", QString::SkipEmptyParts);
-        strOut = list.isEmpty()?"":list.last();
-        qDebug() << strOut ;
+        strOut = list.isEmpty() ? "" : list.last();
+        qDebug() << strOut;
         list = strOut.split(" ", QString::SkipEmptyParts);
-        return list.count()>2?list[2]:QString();
+        return list.count() > 2 ? list[2] : QString();
     }
 
     return QString();
@@ -65,7 +65,7 @@ static QString probeDevName(const QString &serial)
             continue;
 
         QProcess proc;
-        proc.start("udevadm", QStringList{"info", "-a", path});
+        proc.start("udevadm", QStringList {"info", "-a", path});
         proc.waitForFinished();
         if (proc.exitStatus() == QProcess::NormalExit && !proc.exitCode()) {
             QRegularExpression re("ATTRS{serial}==\"(.*)\"");
@@ -91,26 +91,21 @@ static bool isCanonCAPTDrv(const QString &ppd_name)
 
 static bool isHplipDrv(const QString &ppd_name)
 {
-    return (ppd_name.startsWith("drv:///hpcups.drv") ||
-            ppd_name.startsWith("drv:///hpijs.drv") ||
-            ppd_name.startsWith("lsb/usr/hplip/") ||
-            ppd_name.startsWith("hplip:") ||
-            ppd_name.startsWith("hplip-data:") ||
-            ppd_name.startsWith("hpijs-ppds:"));
+    return (ppd_name.startsWith("drv:///hpcups.drv") || ppd_name.startsWith("drv:///hpijs.drv") || ppd_name.startsWith("lsb/usr/hplip/") || ppd_name.startsWith("hplip:") || ppd_name.startsWith("hplip-data:") || ppd_name.startsWith("hpijs-ppds:"));
 }
 
-static QDBusInterface* getPackageInterface()
+static QDBusInterface *getPackageInterface()
 {
     static QDBusInterface interface {
         "com.deepin.lastore",
         "/com/deepin/lastore",
         "com.deepin.lastore.Manager",
-        QDBusConnection::systemBus()
-    };
+        QDBusConnection::systemBus()};
     return &interface;
 }
 
-FixHplipBackend::FixHplipBackend(QObject *parent):QObject(parent)
+FixHplipBackend::FixHplipBackend(QObject *parent)
+    : QObject(parent)
 {
     m_deviceTask = nullptr;
     m_installer = nullptr;
@@ -130,7 +125,6 @@ int FixHplipBackend::startFixed()
         m_installer->setPackages(packages);
 
         connect(m_installer, &InstallInterface::signalStatus, this, &FixHplipBackend::slotInstallStatus);
-
     }
 
     m_installer->startInstallPackages();
@@ -151,7 +145,7 @@ QString FixHplipBackend::getErrorString()
     return m_strError;
 }
 
-QString FixHplipBackend::getMatchHplipUri(const QString& strUri)
+QString FixHplipBackend::getMatchHplipUri(const QString &strUri)
 {
     QString strMatch;
 
@@ -165,7 +159,7 @@ QString FixHplipBackend::getMatchHplipUri(const QString& strUri)
         if (match.hasMatch()) {
             QString serial = match.captured(1).toLower();
 
-            for (int i=0;i<devices.count();i++) {
+            for (int i = 0; i < devices.count(); i++) {
                 QRegularExpressionMatch devMatch = re.match(devices[i].uriList[0]);
                 QString devSerial = devMatch.hasMatch() ? match.captured(1).toLower() : "";
 
@@ -214,9 +208,10 @@ void FixHplipBackend::slotInstallStatus(int status)
 }
 
 InstallInterface::InstallInterface(QObject *parent)
-    :QObject (parent),
-      m_bQuit(false)
-{}
+    : QObject(parent)
+    , m_bQuit(false)
+{
+}
 
 void InstallInterface::setPackages(const QList<TPackageInfo> &packages)
 {
@@ -238,7 +233,7 @@ void InstallInterface::startInstallPackages()
     QDBusInterface *interface = getPackageInterface();
     for (auto package : m_packages) {
         qInfo() << "install package:" << package.toString();
-        if (isPackageExists(package.packageName)){
+        if (isPackageExists(package.packageName)) {
             QString strVer = getPackageVersion(package.packageName);
             if (!package.packageVer.isEmpty() && strVer != package.packageVer) {
                 qInfo() << package.packageName << "need update";
@@ -254,13 +249,13 @@ void InstallInterface::startInstallPackages()
         QDBusReply<bool> installable = interface->call("PackageInstallable", package.packageName);
 
         if (!installable.isValid() || !installable) {
-            m_strErr = package.packageName  + tr("is invalid");
+            m_strErr = package.packageName + tr("is invalid");
             emit signalStatus(TStat_Fail);
             return;
         }
     }
 
-    if (m_installPackages.isEmpty()){
+    if (m_installPackages.isEmpty()) {
         emit signalStatus(TStat_Suc);
         return;
     }
@@ -270,10 +265,10 @@ void InstallInterface::startInstallPackages()
     if (objPath.isValid()) {
         m_jobPath = objPath.value().path();
         if (QDBusConnection::systemBus().connect("com.deepin.lastore",
-                    m_jobPath,
-                    "org.freedesktop.DBus.Properties",
-                    "PropertiesChanged",
-                    this, SLOT(propertyChanged(QDBusMessage)))) {
+                                                 m_jobPath,
+                                                 "org.freedesktop.DBus.Properties",
+                                                 "PropertiesChanged",
+                                                 this, SLOT(propertyChanged(QDBusMessage)))) {
             qDebug() << "Start install " << m_installPackages;
             return;
         } else {
@@ -292,22 +287,23 @@ void InstallInterface::stop()
     m_bQuit = true;
 
     QDBusConnection::systemBus().disconnect("com.deepin.lastore",
-            m_jobPath,
-            "org.freedesktop.DBus.Properties",
-            "PropertiesChanged",
-            this, SLOT(propertyChanged(QDBusMessage)));
+                                            m_jobPath,
+                                            "org.freedesktop.DBus.Properties",
+                                            "PropertiesChanged",
+                                            this, SLOT(propertyChanged(QDBusMessage)));
 }
 
 void InstallInterface::propertyChanged(const QDBusMessage &msg)
 {
     QList<QVariant> arguments = msg.arguments();
 
-    if (m_bQuit) return;
+    if (m_bQuit)
+        return;
 
     if (3 == arguments.count()) {
         QString strType, strStatus;
         QVariantMap changedProps = qdbus_cast<QVariantMap>(arguments[1].value<QDBusArgument>());
-        for (auto prop  = changedProps.begin(); prop != changedProps.end(); ++prop) {
+        for (auto prop = changedProps.begin(); prop != changedProps.end(); ++prop) {
             QString key = prop.key();
             if (key == "Type")
                 m_strType = prop.value().toString();
@@ -318,7 +314,7 @@ void InstallInterface::propertyChanged(const QDBusMessage &msg)
         qDebug() << m_strType << m_strStatus;
         if (m_strType == "install" && m_strStatus == "succeed") {
             emit signalStatus(TStat_Suc);
-            goto  done;
+            goto done;
         } else if (m_strStatus == "failed") {
             emit signalStatus(TStat_Fail);
             goto done;
@@ -333,19 +329,18 @@ void InstallInterface::propertyChanged(const QDBusMessage &msg)
 done:
     qDebug() << "Disconnect com.deepin.lastore PropertiesChanged";
     QDBusConnection::systemBus().disconnect("com.deepin.lastore",
-            m_jobPath,
-            "org.freedesktop.DBus.Properties",
-            "PropertiesChanged",
-            this, SLOT(propertyChanged(QDBusMessage)));
+                                            m_jobPath,
+                                            "org.freedesktop.DBus.Properties",
+                                            "PropertiesChanged",
+                                            this, SLOT(propertyChanged(QDBusMessage)));
 
     return;
 }
 
-InstallDriver::InstallDriver(const QMap<QString, QVariant> &solution, QObject* parent)
-    :InstallInterface(parent)
+InstallDriver::InstallDriver(const QMap<QString, QVariant> &solution, QObject *parent)
+    : InstallInterface(parent)
 {
     m_solution = solution;
-
 }
 
 void InstallDriver::doWork()
@@ -372,18 +367,20 @@ void InstallDriver::stop()
 
 void InstallDriver::slotServerDone(int iCode, const QByteArray &result)
 {
-    if (m_bQuit) return;
+    if (m_bQuit)
+        return;
 
     if (iCode != QNetworkReply::NoError) {
         m_strErr = tr("Failed to find the driver solution: %1, error: %2")
-                .arg(m_solution[SD_KEY_sid].toInt()).arg(iCode);
+                       .arg(m_solution[SD_KEY_sid].toInt())
+                       .arg(iCode);
         qWarning() << "Request " << m_solution[SD_KEY_sid] << "failed:" << iCode;
         emit signalStatus(TStat_Fail);
         return;
     }
 
     QJsonParseError err;
-    QJsonDocument doc =  QJsonDocument::fromJson(result, &err);
+    QJsonDocument doc = QJsonDocument::fromJson(result, &err);
     if (doc.isNull()) {
         m_strErr = tr("The solution is invalid");
         qWarning() << "Request " << m_solution[SD_KEY_sid] << " return nullptr";
@@ -396,10 +393,10 @@ void InstallDriver::slotServerDone(int iCode, const QByteArray &result)
     QJsonArray package_array = obj[SD_KEY_package].toArray();
     QJsonArray ver_array = obj[SD_KEY_ver].toArray();
 
-    for (int i=0;i<package_array.size();i++) {
+    for (int i = 0; i < package_array.size(); i++) {
         TPackageInfo info;
         info.packageName = package_array.at(i).toString();
-        info.packageVer = ver_array.at(i).isUndefined()?QString():ver_array.at(i).toString();
+        info.packageVer = ver_array.at(i).isUndefined() ? QString() : ver_array.at(i).toString();
         m_packages.append(info);
     }
 
@@ -407,16 +404,16 @@ void InstallDriver::slotServerDone(int iCode, const QByteArray &result)
 }
 
 AddCanonCAPTPrinter::AddCanonCAPTPrinter(const TDeviceInfo &printer, const QMap<QString, QVariant> &solution, const QString &uri, QObject *parent)
-    :AddPrinterTask(printer, solution, uri, parent)
+    : AddPrinterTask(printer, solution, uri, parent)
 {
-    connect(&m_proc, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(slotProcessFinished(int,QProcess::ExitStatus)));
+    connect(&m_proc, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(slotProcessFinished(int, QProcess::ExitStatus)));
 }
 
 void AddCanonCAPTPrinter::stop()
 {
     AddPrinterTask::stop();
 
-    disconnect(&m_proc, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(slotProcessFinished(int,QProcess::ExitStatus)));
+    disconnect(&m_proc, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(slotProcessFinished(int, QProcess::ExitStatus)));
     m_proc.kill();
 }
 
@@ -432,9 +429,10 @@ int AddCanonCAPTPrinter::addPrinter()
         return -1;
     }
 
-    if (m_bQuit) return -1;
+    if (m_bQuit)
+        return -1;
 
-    m_proc.start("pkexec", QStringList{g_captexec, m_printer.strName, ppd_name, m_uri});
+    m_proc.start("pkexec", QStringList {g_captexec, m_printer.strName, ppd_name, m_uri});
 
     return 1;
 }
@@ -451,16 +449,16 @@ void AddCanonCAPTPrinter::slotProcessFinished(int iCode, QProcess::ExitStatus ex
 }
 
 DefaultAddPrinter::DefaultAddPrinter(const TDeviceInfo &printer, const QMap<QString, QVariant> &solution, const QString &uri, QObject *parent)
-    :AddPrinterTask(printer, solution, uri, parent)
+    : AddPrinterTask(printer, solution, uri, parent)
 {
-    connect(&m_proc, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(slotProcessFinished(int,QProcess::ExitStatus)));
+    connect(&m_proc, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(slotProcessFinished(int, QProcess::ExitStatus)));
 }
 
 void DefaultAddPrinter::stop()
 {
     AddPrinterTask::stop();
 
-    disconnect(&m_proc, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(slotProcessFinished(int,QProcess::ExitStatus)));
+    disconnect(&m_proc, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(slotProcessFinished(int, QProcess::ExitStatus)));
     m_proc.kill();
 }
 
@@ -471,11 +469,14 @@ int DefaultAddPrinter::addPrinter()
     int driverType = m_solution[SD_KEY_from].toInt();
     ppd_name = m_solution[CUPS_PPD_NAME].toString();
 
-    if (m_bQuit) return -1;
+    if (m_bQuit)
+        return -1;
 
-    args << "-p" << m_printer.strName << "-E" << "-v" << m_uri;
+    args << "-p" << m_printer.strName << "-E"
+         << "-v" << m_uri;
     if (PPDFrom_EveryWhere == driverType)
-        args << "-m" << "everywhere";
+        args << "-m"
+             << "everywhere";
     else if (driverType == PPDFrom_File)
         args << "-P" << ppd_name;
     else
@@ -486,7 +487,7 @@ int DefaultAddPrinter::addPrinter()
     if (!m_printer.strLocation.isEmpty())
         args << "-L" << m_printer.strLocation;
 
-    qInfo() << args.join(" ") ;
+    qInfo() << args.join(" ");
     m_proc.start("/usr/sbin/lpadmin", args);
 
     return 1;
@@ -498,7 +499,7 @@ void DefaultAddPrinter::slotProcessFinished(int iCode, QProcess::ExitStatus exit
     if (exitStatus != QProcess::NormalExit || 0 != iCode) {
         int index;
         m_strErr = m_proc.readAllStandardError();
-        index = m_strErr.indexOf("\n")+1;
+        index = m_strErr.indexOf("\n") + 1;
         if (index < m_strErr.length())
             m_strErr = m_strErr.mid(index);
 
@@ -509,12 +510,12 @@ void DefaultAddPrinter::slotProcessFinished(int iCode, QProcess::ExitStatus exit
 }
 
 AddPrinterTask::AddPrinterTask(const TDeviceInfo &printer, const QMap<QString, QVariant> &solution, const QString &uri, QObject *parent)
-    :QObject(parent),
-      m_installDepends(nullptr),
-      m_installDriver(nullptr),
-      m_bQuit(false),
-      m_iStep(STEP_Start),
-      m_fixHplip(nullptr)
+    : QObject(parent)
+    , m_installDepends(nullptr)
+    , m_installDriver(nullptr)
+    , m_bQuit(false)
+    , m_iStep(STEP_Start)
+    , m_fixHplip(nullptr)
 {
     m_printer = printer;
     m_solution = solution;
@@ -542,7 +543,7 @@ int AddPrinterTask::isUriAndDriverMatched()
             break;
         }
     }
-    if (m_uri.isEmpty()){
+    if (m_uri.isEmpty()) {
         m_strErr = tr("URI and driver do not match.");
         if (is_hplip) {
             m_strErr += tr("Install hplip first and restart the app to install the driver again.");
@@ -625,7 +626,7 @@ void AddPrinterTask::nextStep()
 
     if (0 > iRet) {
         m_iStep = STEP_Failed;
-    } else if(iRet > 0) {
+    } else if (iRet > 0) {
         return;
     }
 
@@ -657,7 +658,7 @@ int AddPrinterTask::fixDriverDepends()
     if (!depends.isEmpty()) {
         m_installDepends = new InstallInterface(this);
         QList<TPackageInfo> packages;
-        foreach (const QString& package, depends) {
+        foreach (const QString &package, depends) {
             TPackageInfo info;
             info.packageName = package;
             packages.append(info);
@@ -694,11 +695,11 @@ int AddPrinterTask::fillPrinterInfo()
         QString strHost = getHostFromUri(strUri);
 
         if (strHost.isEmpty()) {
-           if (strUri.startsWith("hp") || strUri.startsWith("usb")) {
-               strHost = "Direct-attached Device";
-           } else if (strUri.startsWith("file")) {
-               strHost = "File";
-           }
+            if (strUri.startsWith("hp") || strUri.startsWith("usb")) {
+                strHost = "Direct-attached Device";
+            } else if (strUri.startsWith("file")) {
+                strHost = "File";
+            }
         }
 
         m_printer.strLocation = strHost;
@@ -707,7 +708,7 @@ int AddPrinterTask::fillPrinterInfo()
     if (m_printer.strInfo.isEmpty()) {
         QString strModel = m_solution[CUPS_PPD_MODEL].toString();
 
-        m_printer.strInfo = strModel.isEmpty()?m_solution[CUPS_PPD_MAKE_MODEL].toString() : strModel;
+        m_printer.strInfo = strModel.isEmpty() ? m_solution[CUPS_PPD_MAKE_MODEL].toString() : strModel;
     }
 
     return 0;
@@ -732,10 +733,10 @@ QStringList GetSystemPrinterNames()
     try {
         printers = g_cupsConnection->getPrinters();
 
-        for(itmap=printers.begin();itmap != printers.end();itmap++){
+        for (itmap = printers.begin(); itmap != printers.end(); itmap++) {
             printerNames << STQ(itmap->first);
         }
-    }catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
     };
 
@@ -745,7 +746,8 @@ QStringList GetSystemPrinterNames()
 
 void AddPrinterTask::slotDependsStatus(int iStatus)
 {
-    if(m_bQuit) return;
+    if (m_bQuit)
+        return;
 
     if (TStat_Fail == iStatus) {
         m_strErr = m_installDepends->getErrorString();
@@ -756,7 +758,8 @@ void AddPrinterTask::slotDependsStatus(int iStatus)
 
 void AddPrinterTask::slotInstallStatus(int iStatus)
 {
-    if(m_bQuit) return;
+    if (m_bQuit)
+        return;
 
     if (TStat_Fail == iStatus) {
         m_strErr = m_installDriver->getErrorString();
@@ -767,7 +770,8 @@ void AddPrinterTask::slotInstallStatus(int iStatus)
 
 void AddPrinterTask::slotFixHplipStatus(int iStatus)
 {
-    if(m_bQuit) return;
+    if (m_bQuit)
+        return;
 
     if (TStat_Fail == iStatus) {
         m_strErr = m_fixHplip->getErrorString();
@@ -775,23 +779,23 @@ void AddPrinterTask::slotFixHplipStatus(int iStatus)
     } else if (TStat_Suc == iStatus) {
         QString strUri = m_fixHplip->getMatchHplipUri(m_printer.uriList[0]);
 
-        if(!strUri.isEmpty()) {
+        if (!strUri.isEmpty()) {
             m_uri = strUri;
         }
     }
     nextStep();
 }
 
-AddPrinterFactory* AddPrinterFactory::getInstance()
+AddPrinterFactory *AddPrinterFactory::getInstance()
 {
-    static AddPrinterFactory* instance = nullptr;
+    static AddPrinterFactory *instance = nullptr;
     if (!instance)
         instance = new AddPrinterFactory();
 
     return instance;
 }
 
-AddPrinterTask* AddPrinterFactory::createAddPrinterTask(const TDeviceInfo &printer, const QMap<QString, QVariant> &solution)
+AddPrinterTask *AddPrinterFactory::createAddPrinterTask(const TDeviceInfo &printer, const QMap<QString, QVariant> &solution)
 {
     QString ppd_name;
     QString device_uri = printer.uriList[0];
@@ -822,12 +826,12 @@ QString AddPrinterFactory::defaultPrinterName(const TDeviceInfo &printer, const 
     strName.replace(QRegularExpression("[^\\w-]"), " ");
     QStringList list = strName.split(" ", QString::SkipEmptyParts);
     strName = list.join(" ");
-    if(strName.isEmpty()) {
-        QString strMM = printer.strMakeAndModel.isEmpty()?solution.value(CUPS_PPD_MAKE_MODEL).toString():printer.strMakeAndModel;
+    if (strName.isEmpty()) {
+        QString strMM = printer.strMakeAndModel.isEmpty() ? solution.value(CUPS_PPD_MAKE_MODEL).toString() : printer.strMakeAndModel;
         QString strMake = solution.value(CUPS_PPD_MAKE).toString();
 
         if (strMM.isEmpty() && !strMake.isEmpty()) {
-            strMM = strMake  + " " + solution.value(CUPS_PPD_MODEL).toString();
+            strMM = strMake + " " + solution.value(CUPS_PPD_MODEL).toString();
         }
 
         //EveryWhere 不用makeandmodel作为名称，因为会包含中文
@@ -842,7 +846,7 @@ QString AddPrinterFactory::defaultPrinterName(const TDeviceInfo &printer, const 
     }
 
     //打印机名字不能超过128个字符
-    if (strName.length() >=  128) {
+    if (strName.length() >= 128) {
         strName = strName.left(120);
     }
     strName.replace(QRegularExpression("[^\\w-]"), " ");

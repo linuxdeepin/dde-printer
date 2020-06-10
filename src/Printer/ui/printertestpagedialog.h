@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     Wei xie <xiewei@deepin.com>
  *
@@ -35,7 +35,7 @@ class PrinterTestPageDialog : public QObject
     Q_OBJECT
 
 public:
-    PrinterTestPageDialog(const QString &printerName, QWidget *parent=nullptr);
+    PrinterTestPageDialog(const QString &printerName, QWidget *parent = nullptr);
 
     void printTestPage();
 
@@ -50,10 +50,10 @@ signals:
     void signalFinished();
 
 private:
-    QString         m_printerName;
+    QString m_printerName;
 
-    PrinterTestJob* m_testJob;
-    TroubleShoot*   m_trobleShoot;
-    QString         m_message;
-    QWidget*        m_parent;
+    PrinterTestJob *m_testJob;
+    TroubleShoot *m_trobleShoot;
+    QString m_message;
+    QWidget *m_parent;
 };

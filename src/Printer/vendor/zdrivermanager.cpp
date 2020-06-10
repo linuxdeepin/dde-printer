@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     Wei xie <xiewei@deepin.com>
  *
@@ -46,14 +46,14 @@
 #include <QTimer>
 
 static QMutex g_mutex;
-static QMap<QString, QMap<QString, QString>> g_ppds;//所以ppd文件的字典，以device_id(没有device_id则以make_and_model)作为key
-static QMap<QString, QMap<QString, QString>*> g_ppdsDirct;//将厂商和型号格式化之后作为key生成的字典，键值为g_ppds的key
-static QMap<QString, QMap<QString, QString>*> g_ppdsMakeModelNames;//厂商和型号的字典，用于显示厂商和型号列表
-static QMap<QString, QString>                g_textPPd;//没有找到驱动的情况，默认的驱动
+static QMap<QString, QMap<QString, QString>> g_ppds; //所以ppd文件的字典，以device_id(没有device_id则以make_and_model)作为key
+static QMap<QString, QMap<QString, QString> *> g_ppdsDirct; //将厂商和型号格式化之后作为key生成的字典，键值为g_ppds的key
+static QMap<QString, QMap<QString, QString> *> g_ppdsMakeModelNames; //厂商和型号的字典，用于显示厂商和型号列表
+static QMap<QString, QString> g_textPPd; //没有找到驱动的情况，默认的驱动
 
 static int g_iStatus = TStat_None;
 
-static QMap<QString, QVariant> stringToVariant(const QMap<QString, QString>& driver)
+static QMap<QString, QVariant> stringToVariant(const QMap<QString, QString> &driver)
 {
     QMap<QString, QVariant> info;
     QStringList keys = driver.keys();
@@ -78,10 +78,9 @@ static QStringList findBestMatchPPDs(QStringList &models, QString mdl)
     index = models.indexOf(mdl);
     len = models.count();
     if (index > 0)
-        left = models[index-1];
+        left = models[index - 1];
     if (index < (len - 1))
-        right = models[index+1];
-
+        right = models[index + 1];
 
     qDebug() << QString("Between %1 left: %2 righ: %3").arg(mdl).arg(left).arg(right);
 
@@ -100,13 +99,14 @@ static QStringList findBestMatchPPDs(QStringList &models, QString mdl)
         else
             rightlen = -1;
 
-        if (rightlen < 1 && leftlen < 1) break;
+        if (rightlen < 1 && leftlen < 1)
+            break;
     }
 
     //取匹配字符数较多并且超过mdl一半的项
-    if (rightMatch > leftMatch && rightMatch > len/2)
+    if (rightMatch > leftMatch && rightMatch > len / 2)
         list.append(right);
-    else if (leftMatch > rightMatch && leftMatch > len/2)
+    else if (leftMatch > rightMatch && leftMatch > len / 2)
         list.append(left);
     else {
         //如果没有匹配到，取字符串里面的数字进行匹配
@@ -145,21 +145,25 @@ static QStringList getPPDNameFromCommandSet(QString strCMD)
     strCMD = strCMD.toLower();
     cmds = strCMD.split(",");
     if (cmds.contains("postscript") || cmds.contains("postscript2")
-            || cmds.contains("postscript level 2 emulation"))
+        || cmds.contains("postscript level 2 emulation"))
         mdls << "postscript";
-    else if(cmds.contains("pclxl") || cmds.contains("pcl-xl") ||
-            cmds.contains("pcl6") || cmds.contains("pcl 6 emulation"))
-        mdls << "PCL 6/PCL XL" << "PCL Laser";
+    else if (cmds.contains("pclxl") || cmds.contains("pcl-xl") || cmds.contains("pcl6") || cmds.contains("pcl 6 emulation"))
+        mdls << "PCL 6/PCL XL"
+             << "PCL Laser";
     else if (cmds.contains("pcl5e"))
-        mdls << "PCL 5e" << "PCL Laser";
+        mdls << "PCL 5e"
+             << "PCL Laser";
     else if (cmds.contains("pcl5c"))
-        mdls << "PCL 5c" << "PCL Laser";
+        mdls << "PCL 5c"
+             << "PCL Laser";
     else if (cmds.contains("pcl5"))
-        mdls << "PCL 5" << "PCL Laser";
+        mdls << "PCL 5"
+             << "PCL Laser";
     else if (cmds.contains("pcl"))
-        mdls << "PCL 3" << "PCL Laser";
+        mdls << "PCL 3"
+             << "PCL Laser";
     if (cmds.contains("escpl2") || cmds.contains("esc/p2")
-            || cmds.contains("escp2e"))
+        || cmds.contains("escp2e"))
         mdls << "ESC/P Dot Matrix";
 
     foreach (QString mdl, mdls) {
@@ -179,10 +183,10 @@ static QList<QMap<QString, QVariant>> getFuzzyMatchDrivers(const QString &strMak
         return list;
     }
 
-    if(g_ppdsDirct.contains(strMake))
-    {
+    if (g_ppdsDirct.contains(strMake)) {
         QMap<QString, QString> *modelMap = g_ppdsDirct.value(strMake);
-        if (!modelMap) return list;
+        if (!modelMap)
+            return list;
 
         QStringList modellist = modelMap->keys();
         QStringList models = findBestMatchPPDs(modellist, strModel);
@@ -196,20 +200,19 @@ static QList<QMap<QString, QVariant>> getFuzzyMatchDrivers(const QString &strMak
         }
     }
 
-    if (!strCMD.isEmpty())
-    {
+    if (!strCMD.isEmpty()) {
         QList<QMap<QString, QVariant>> templist;
         QStringList commandsets = strCMD.split(",");
         qDebug() << QString("Device commandsets: %1").arg(strCMD);
         //判断找到的驱动commandsets信息符不符合
-        for(int i=0;i<list.count();i++) {
+        for (int i = 0; i < list.count(); i++) {
             QString devId = list[i].value(CUPS_PPD_ID).toString();
             QMap<QString, QString> devDirct = parseDeviceID(devId);
             QString strcmd = devDirct.value("CMD");
             qDebug() << QString("PPD commandsets: %1").arg(strcmd);
             QStringList cmds = strcmd.split(",");
             foreach (QString cmd, cmds) {
-                if(commandsets.contains(cmd)) {
+                if (commandsets.contains(cmd)) {
                     templist.append(list[i]);
                     break;
                 }
@@ -217,7 +220,7 @@ static QList<QMap<QString, QVariant>> getFuzzyMatchDrivers(const QString &strMak
         }
 
         //如果所有的驱动都不符合，保留驱动，如果只是部分不符合，去掉不符合的驱动
-        if(!templist.isEmpty()) {
+        if (!templist.isEmpty()) {
             int count = list.count();
             list = templist;
             if (count != list.count())
@@ -241,7 +244,7 @@ static QList<QMap<QString, QVariant>> getFuzzyMatchDrivers(const QString &strMak
         }
     }
 
-    qInfo() << "Got dirver count: "<< list.count();
+    qInfo() << "Got dirver count: " << list.count();
     return list;
 }
 
@@ -251,11 +254,12 @@ static QList<QMap<QString, QVariant>> getExactMatchDrivers(const QString &strMFG
     QString strMake, strModel;
     QStringList strKeys;
 
-    if (strMFG.isEmpty() || strMDL.isEmpty()) return list;
-
+    if (strMFG.isEmpty() || strMDL.isEmpty())
+        return list;
 
     QMap<QString, QString> *modelMap = g_ppdsDirct.value(strMake);
-    if (!modelMap) return list;
+    if (!modelMap)
+        return list;
 
     strKeys = modelMap->values(strModel);
     if (!strKeys.isEmpty()) {
@@ -278,14 +282,14 @@ static bool addToDirct(const QString &strMake, const QString &strModel, const QS
     QString makel, model;
 
     if (key.isEmpty()) {
-        qWarning()<< QString("Dirct key is empty");
+        qWarning() << QString("Dirct key is empty");
         return false;
     }
 
     makel = normalize(strMake);
     model = normalize(strModel);
     if (makel.isEmpty() || model.isEmpty()) {
-        qWarning()<< QString("make_and_model failed for %1").arg(key);
+        qWarning() << QString("make_and_model failed for %1").arg(key);
         return false;
     }
 
@@ -302,52 +306,52 @@ static bool addToDirct(const QString &strMake, const QString &strModel, const QS
         return true;
     } else {
         qDebug() << "Remove duplicate driver" << strMake << strModel << strkey << "->" << key;
-        return  false;
+        return false;
     }
 }
 
-static void getPpdMakeModel(QString &strMake, QString &strModel, QMap<QString, QString>& list)
+static void getPpdMakeModel(QString &strMake, QString &strModel, QMap<QString, QString> &list)
 {
     //先通过device id解析make model
     QString key = list.value(CUPS_PPD_ID);
     QMap<QString, QString> idInfo = parseDeviceID(key);
     strMake = idInfo["MFG"];
     strModel = idInfo["MDL"];
-    ppdMakeModelSplit(strMake+" "+strModel, strMake, strModel);
+    ppdMakeModelSplit(strMake + " " + strModel, strMake, strModel);
 
     //如果无效，再通过ppd-make-and-model解析make model
-    if (strMake.isEmpty() || strModel.isEmpty())
-    {
+    if (strMake.isEmpty() || strModel.isEmpty()) {
         //qDebug() << "get make and model from strMakeAndModel";
         QString strMakeAndModel = list.value(CUPS_PPD_MAKE_MODEL);
-        if (!strMakeAndModel.isEmpty())
-        {
+        if (!strMakeAndModel.isEmpty()) {
             QString make, model;
             ppdMakeModelSplit(strMakeAndModel, make, model);
             //qDebug() << QString("split MakeAndModel make and model: %1 , %2").arg(make).arg(model);
-            if(strModel.isEmpty()) strModel = model;
-            if(strMake.isEmpty()) strMake = make;
+            if (strModel.isEmpty())
+                strModel = model;
+            if (strMake.isEmpty())
+                strMake = make;
         }
     }
 
     //如果无效，再通过ppd-product解析make model
-    if (strMake.isEmpty() || strModel.isEmpty())
-    {
+    if (strMake.isEmpty() || strModel.isEmpty()) {
         //qDebug() << "get make and model from ppd-product";
         QString strProduct = list.value("ppd-product");
         QString prodMake, prodModel;
-        if (!strProduct.isEmpty() && strProduct.startsWith("(") && strProduct.endsWith(")"))
-        {
+        if (!strProduct.isEmpty() && strProduct.startsWith("(") && strProduct.endsWith(")")) {
             QString lmake = normalize(strMake);
-            strProduct = strProduct.mid(1, strProduct.length()-2);
+            strProduct = strProduct.mid(1, strProduct.length() - 2);
             if (!strProduct.toLower().startsWith(lmake))
-                strProduct = strMake +  " " + strProduct;
+                strProduct = strMake + " " + strProduct;
 
             ppdMakeModelSplit(strProduct, prodMake, prodModel);
             //qDebug() << QString("split Product make and model: %1 , %2").arg(prodMake).arg(prodModel);
 
-            if(strModel.isEmpty()) strModel = prodModel;
-            if(strMake.isEmpty()) strMake = prodMake;
+            if (strModel.isEmpty())
+                strModel = prodModel;
+            if (strMake.isEmpty())
+                strMake = prodMake;
         }
     }
 }
@@ -364,27 +368,29 @@ int RefreshLocalPPDS::doWork()
 
     try {
         allPPDS = g_cupsConnection->getPPDs2(0, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, -1, nullptr, nullptr, nullptr);
-    }catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
     };
 
-    if (m_bQuit) return 0;
+    if (m_bQuit)
+        return 0;
 
     int count = 0;
     qInfo() << "format ppd info";
-    for (itall=allPPDS.begin();itall!=allPPDS.end();itall++) {
+    for (itall = allPPDS.begin(); itall != allPPDS.end(); itall++) {
         qDebug() << QString("*****************************");
         QMap<QString, QString> list;
         map<string, string> mapValue = itall->second;
         map<string, string>::iterator itinfo = mapValue.begin();
 
-        if (m_bQuit) return 0;
+        if (m_bQuit)
+            return 0;
 
         QString ppdname = STQ(itall->first);
         qDebug() << CUPS_PPD_NAME << ":" << ppdname;
         list.insert(CUPS_PPD_NAME, ppdname);
-        for (;itinfo!=mapValue.end();itinfo++) {
+        for (; itinfo != mapValue.end(); itinfo++) {
             QString attrName = STQ(itinfo->first);
             QString attrValue = attrValueToQString(itinfo->second);
             qDebug() << attrName << ":" << attrValue;
@@ -398,8 +404,8 @@ int RefreshLocalPPDS::doWork()
 
             count++;
             //make sure has make and model name
-            if (strModel.isEmpty() || strMake.isEmpty() || key.isEmpty()){
-                qWarning()<< QString("invaild ppd %1").arg(ppdname);
+            if (strModel.isEmpty() || strMake.isEmpty() || key.isEmpty()) {
+                qWarning() << QString("invaild ppd %1").arg(ppdname);
                 continue;
             } else if (addToDirct(strMake, strModel, key)) {
                 strMake = toNormalName(strMake);
@@ -412,7 +418,8 @@ int RefreshLocalPPDS::doWork()
                     modelMap = new QMap<QString, QString>();
                     g_ppdsMakeModelNames.insert(strMake, modelMap);
                 }
-                modelMap->insertMulti(strModel, key);;
+                modelMap->insertMulti(strModel, key);
+                ;
 
                 if (g_textPPd.isEmpty() && (ppdname.endsWith("textonly.ppd") || ppdname.endsWith("postscript.ppd")))
                     g_textPPd = list;
@@ -429,7 +436,7 @@ int RefreshLocalPPDS::doWork()
 }
 
 DriverSearcher::DriverSearcher(const TDeviceInfo &printer, QObject *parent)
-    :QObject(parent)
+    : QObject(parent)
 {
     m_printer = printer;
     m_localIndex = -1;
@@ -441,8 +448,8 @@ DriverSearcher::DriverSearcher(const TDeviceInfo &printer, QObject *parent)
         m_strCMD = id_dirct["CMD"];
         m_strMake = id_dirct["MFG"];
         m_strModel = id_dirct["MDL"];
-        ppdMakeModelSplit(m_strMake+" "+m_strModel, m_strMake, m_strModel);
-    } else if (!m_printer.strMakeAndModel.isEmpty()){
+        ppdMakeModelSplit(m_strMake + " " + m_strModel, m_strMake, m_strModel);
+    } else if (!m_printer.strMakeAndModel.isEmpty()) {
         //如果没有device id,尝试通过make_and_model解析出来的make和model匹配
         ppdMakeModelSplit(m_printer.strMakeAndModel, m_strMake, m_strModel);
     }
@@ -495,7 +502,8 @@ static void insertDriver(QList<QMap<QString, QVariant>> &drivers, QStringList &p
         }
     }
 
-    if (isDup) return;
+    if (isDup)
+        return;
 
     //将精确查找的结果排列到EveryWhere驱动之后,其他驱动之前
     if (driver[SD_KEY_from].toInt() == PPDFrom_Server && driver[SD_KEY_excat].toBool()) {
@@ -513,7 +521,8 @@ void DriverSearcher::sortDrivers()
     QStringList ppdNames;
     int headerIndex = 0;
 
-    if (m_drivers.isEmpty()) return;
+    if (m_drivers.isEmpty())
+        return;
 
     //没有通过本地查找的驱动，不需要进行排序
     if (m_localIndex < 0 || m_localIndex >= m_drivers.count()) {
@@ -531,10 +540,10 @@ void DriverSearcher::sortDrivers()
      * 如果服务器获取的不是精确查找的结果，则插入到本地驱动之后
      * 如果和本地驱动重复，则删除服务器查找的结果
     */
-    for(int i=m_localIndex;i<m_drivers.count();i++) {
+    for (int i = m_localIndex; i < m_drivers.count(); i++) {
         insertDriver(drivers, ppdNames, m_drivers[i], headerIndex);
     }
-    for (int i=headerIndex;i<m_localIndex;i++) {
+    for (int i = headerIndex; i < m_localIndex; i++) {
         insertDriver(drivers, ppdNames, m_drivers[i], headerIndex);
     }
 
@@ -570,8 +579,7 @@ void DriverSearcher::askForFinish()
             getLocalDrivers();
         }
 
-        if (TStat_Suc == g_iStatus && !hasExcatDriver() &&
-            (!m_strMake.isEmpty() || !m_strModel.isEmpty())) {
+        if (TStat_Suc == g_iStatus && !hasExcatDriver() && (!m_strMake.isEmpty() || !m_strModel.isEmpty())) {
             QMutexLocker locker(&g_mutex);
 
             m_strMake = normalize(m_strMake);
@@ -596,7 +604,7 @@ void DriverSearcher::slotDone(int iCode, const QByteArray &result)
         QJsonParseError err;
         QJsonDocument doc = QJsonDocument::fromJson(result, &err);
         qDebug() << doc.toJson();
-        QJsonArray array =  doc.object()["solutions"].toArray();
+        QJsonArray array = doc.object()["solutions"].toArray();
         if (!array.isEmpty()) {
             foreach (QJsonValue value, array) {
                 QJsonObject ppdobject = value.toObject();
@@ -652,7 +660,7 @@ int DriverSearcher::getLocalDrivers()
     }
 
     QList<QMap<QString, QVariant>> list = getExactMatchDrivers(strMake, strModel);
-    if (!list.isEmpty()){
+    if (!list.isEmpty()) {
         m_localIndex = m_drivers.count();
         m_drivers += list;
     }
@@ -662,17 +670,17 @@ int DriverSearcher::getLocalDrivers()
     return list.count();
 }
 
-DriverManager* DriverManager::getInstance()
+DriverManager *DriverManager::getInstance()
 {
-    static DriverManager* ppdInstance = nullptr;
-    if (ppdInstance == nullptr)
-    {
+    static DriverManager *ppdInstance = nullptr;
+    if (ppdInstance == nullptr) {
         ppdInstance = new DriverManager;
     }
     return ppdInstance;
 }
 
-DriverManager::DriverManager(QObject *parent) : QObject(parent)
+DriverManager::DriverManager(QObject *parent)
+    : QObject(parent)
 {
     m_refreshTask = nullptr;
 }
@@ -694,13 +702,15 @@ int DriverManager::stop()
     g_iStatus = TStat_None;
     qInfo() << "Clear local driver dirct";
 
-    QList<QMap<QString, QString>*> models = g_ppdsDirct.values();
+    QList<QMap<QString, QString> *> models = g_ppdsDirct.values();
     foreach (auto model, models) {
-        if (model) delete model;
+        if (model)
+            delete model;
     }
     models = g_ppdsMakeModelNames.values();
     foreach (auto model, models) {
-        if (model) delete model;
+        if (model)
+            delete model;
     }
     g_ppds.clear();
     g_ppdsDirct.clear();
@@ -709,9 +719,9 @@ int DriverManager::stop()
     return 0;
 }
 
-DriverSearcher* DriverManager::createSearcher(const TDeviceInfo &device)
+DriverSearcher *DriverManager::createSearcher(const TDeviceInfo &device)
 {
-    DriverSearcher* searcher = new DriverSearcher(device, this);
+    DriverSearcher *searcher = new DriverSearcher(device, this);
     return searcher;
 }
 
@@ -733,16 +743,16 @@ QStringList DriverManager::getAllMakes()
 {
     QStringList makes;
 
-    if(TStat_Suc == g_iStatus){
+    if (TStat_Suc == g_iStatus) {
         makes = g_ppdsMakeModelNames.keys();
     }
 
     return makes;
 }
 
-const QMap<QString, QString>* DriverManager::getModelsByMake(const QString &strMake)
+const QMap<QString, QString> *DriverManager::getModelsByMake(const QString &strMake)
 {
-    if(TStat_Suc > g_iStatus){
+    if (TStat_Suc > g_iStatus) {
         qWarning() << "PPD is not inited";
         return nullptr;
     }
@@ -750,9 +760,9 @@ const QMap<QString, QString>* DriverManager::getModelsByMake(const QString &strM
     return g_ppdsMakeModelNames.value(strMake);
 }
 
-const QMap<QString, QMap<QString, QString>>* DriverManager::getPPDs()
+const QMap<QString, QMap<QString, QString>> *DriverManager::getPPDs()
 {
-    if(TStat_Suc > g_iStatus){
+    if (TStat_Suc > g_iStatus) {
         qWarning() << "PPD is not inited";
         return nullptr;
     }
@@ -762,7 +772,7 @@ const QMap<QString, QMap<QString, QString>>* DriverManager::getPPDs()
 
 QMap<QString, QString> DriverManager::getTextPPD()
 {
-    if(TStat_Suc > g_iStatus)
+    if (TStat_Suc > g_iStatus)
         return QMap<QString, QString>();
 
     return g_textPPd;
@@ -776,8 +786,7 @@ QMap<QString, QVariant> DriverManager::getEveryWhereDriver(const QString &strUri
      * but it may contains utf-8 encoded character, so we don't use
      * everywhere model unless this issuse solved.
      * CUPS issue #5362 */
-    if ((strUri.startsWith("dnssd://") && strUri.contains("/cups")) ||
-        ((strUri.startsWith("ipp://")||strUri.startsWith("ipps")) && strUri.contains("/printers"))) {
+    if ((strUri.startsWith("dnssd://") && strUri.contains("/cups")) || ((strUri.startsWith("ipp://") || strUri.startsWith("ipps")) && strUri.contains("/printers"))) {
         driver.insert(SD_KEY_from, PPDFrom_EveryWhere);
         driver.insert(CUPS_PPD_MAKE_MODEL, tr("EveryWhere driver"));
         driver.insert(CUPS_PPD_NAME, "EveryWhere driver");
@@ -788,7 +797,7 @@ QMap<QString, QVariant> DriverManager::getEveryWhereDriver(const QString &strUri
     return driver;
 }
 
-QStringList DriverManager::getDriverDepends(const char* strPPD)
+QStringList DriverManager::getDriverDepends(const char *strPPD)
 {
     PPD p;
     std::vector<Attribute> attrs;
@@ -804,12 +813,12 @@ QStringList DriverManager::getDriverDepends(const char* strPPD)
             p.load(ppdfile.c_str());
         }
         attrs = p.getAttributes();
-    }catch(const std::exception &ex) {
+    } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return depends;
     };
 
-    for (size_t i=0;i<attrs.size();i++) {
+    for (size_t i = 0; i < attrs.size(); i++) {
         QString strName = STQ(attrs[i].getName());
         QString strValue = STQ(attrs[i].getValue());
         qDebug() << strName << strValue;
@@ -829,13 +838,12 @@ QStringList DriverManager::getDriverDepends(const char* strPPD)
 
 bool DriverManager::isSamePPD(const QString &ppd1, const QString &ppd2)
 {
-    if (ppd1.isEmpty() || ppd2.isEmpty()) return false;
+    if (ppd1.isEmpty() || ppd2.isEmpty())
+        return false;
     QString ppd1l = ppd1.toLower();
     QString ppd2l = ppd2.toLower();
-    if(ppd1l.endsWith(ppd2l) || ppd2l.endsWith(ppd1l))
+    if (ppd1l.endsWith(ppd2l) || ppd2l.endsWith(ppd1l))
         return true;
 
     return false;
 }
-
-

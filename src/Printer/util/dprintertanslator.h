@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     shenfusheng_cm <shenfusheng_cm@deepin.com>
  *
@@ -32,11 +32,11 @@ public:
 
 public:
     void init();
-    void addTranslate(const QString&, const QString&, const QString&);
-    QString translateLocal(const QString&, const QString&, const QString&);
+    void addTranslate(const QString &, const QString &, const QString &);
+    QString translateLocal(const QString &, const QString &, const QString &);
 
 private:
-    QMap<QString,QMap<QString,QString>> m_mapTrans;
+    QMap<QString, QMap<QString, QString>> m_mapTrans;
 };
 
 #endif // DPRINTERTANSLATOR_H

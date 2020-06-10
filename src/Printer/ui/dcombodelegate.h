@@ -26,14 +26,12 @@
 #include <QPainter>
 #include <QStyledItemDelegate>
 
-enum COMBOITEMROLE
-{
+enum COMBOITEMROLE {
     VALUEROLE = Qt::UserRole + 1,
     BACKCOLORROLE
 };
 
-enum ITEMSTATE
-{
+enum ITEMSTATE {
     NORMAL,
     CONFLICT
 };
@@ -67,7 +65,7 @@ class ComItemDelegate : public QItemDelegate
     Q_OBJECT
 
 public:
-    explicit ComItemDelegate(QObject* parent=nullptr);
+    explicit ComItemDelegate(QObject *parent = nullptr);
 
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;

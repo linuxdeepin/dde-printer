@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     Wei xie <xiewei@deepin.com>
  *
@@ -28,7 +28,7 @@
 #define STR_T_UTF8(str) str.toUtf8().data()
 #define UNUSED(x) (void)x
 
-#define MAX_RETRY       30   //最大重试次数
+#define MAX_RETRY 30 //最大重试次数
 #define MAX_SEQUENCE_NUM 91
 #define MAX_SEQUENCE_SPEED 20
 

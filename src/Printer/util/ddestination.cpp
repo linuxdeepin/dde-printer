@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     liurui <liurui_cm@deepin.com>
  *
@@ -171,7 +171,6 @@ void DDestination::getPrinterInfo(QString &info, QString &location, QString &dev
     deviceURI = m_printerURI;
     ppdfile = m_ppdFile;
 }
-
 
 void DDestination::initPrinterAttr()
 {

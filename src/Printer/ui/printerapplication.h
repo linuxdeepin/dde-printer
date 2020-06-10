@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     Wei xie <xiewei@deepin.com>
  *
@@ -33,7 +33,7 @@ class PrinterApplication : public QObject
     Q_OBJECT
 
 public:
-    static PrinterApplication* getInstance();
+    static PrinterApplication *getInstance();
 
     int create();
     int launchWithMode(const QStringList &arguments);
@@ -54,11 +54,11 @@ protected:
     ~PrinterApplication();
 
 private:
-    JobManagerWindow*       m_jobsWindow;
-    DPrintersShowWindow*    m_mainWindow;
-    QSystemTrayIcon*        m_systemTray;
+    JobManagerWindow *m_jobsWindow;
+    DPrintersShowWindow *m_mainWindow;
+    QSystemTrayIcon *m_systemTray;
 };
 
 #define g_printerApplication PrinterApplication::getInstance()
 
-#endif//PRINTERAPPLICATION_H
+#endif //PRINTERAPPLICATION_H

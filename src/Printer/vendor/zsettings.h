@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     Wei xie <xiewei@deepin.com>
  *
@@ -27,7 +27,7 @@
 class zSettings : public QSettings
 {
 public:
-    static zSettings* getInstance();
+    static zSettings *getInstance();
 
     const QString getClientVersion();
     const QString getClientCode();
@@ -44,7 +44,7 @@ public:
 
 protected:
     zSettings(const QString &fileName);
-    ~zSettings(){}
+    ~zSettings() {}
 };
 
 #define g_Settings zSettings::getInstance()

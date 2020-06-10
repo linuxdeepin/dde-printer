@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     Wei xie <xiewei@deepin.com>
  *
@@ -54,29 +54,28 @@
 #include <map>
 using namespace std;
 
-#define JOB_ACTION_Cancel       0x01
-#define JOB_ACTION_Delete       0x02
-#define JOB_ACTION_Hold         0x04
-#define JOB_ACTION_Release      0x08
-#define JOB_ACTION_Priority     0x10
-#define JOB_ACTION_Restart      0x20
+#define JOB_ACTION_Cancel 0x01
+#define JOB_ACTION_Delete 0x02
+#define JOB_ACTION_Hold 0x04
+#define JOB_ACTION_Release 0x08
+#define JOB_ACTION_Priority 0x10
+#define JOB_ACTION_Restart 0x20
 
-#define JOB_ACTION_Count        6
-#define ACTION_Column           7
+#define JOB_ACTION_Count 6
+#define ACTION_Column 7
 
-#define JOB_VIEW_WIDTH          880
-#define ITEM_Height             36
-#define ACTION_BUT_SPACE        15
+#define JOB_VIEW_WIDTH 880
+#define ITEM_Height 36
+#define ACTION_BUT_SPACE 15
 
-#define JOB_ITEM_ROLE_ID        Qt::UserRole+1
-#define JOB_ITEM_ROLE_STATE     Qt::UserRole+2
-#define JOB_ITEM_ROLE_ACTION    Qt::UserRole+3
+#define JOB_ITEM_ROLE_ID Qt::UserRole + 1
+#define JOB_ITEM_ROLE_STATE Qt::UserRole + 2
+#define JOB_ITEM_ROLE_ACTION Qt::UserRole + 3
 
 typedef struct tagHoverAction {
-
-    tagHoverAction() :
-        iHoverAction(-1),
-        iLastAction(-1)
+    tagHoverAction()
+        : iHoverAction(-1)
+        , iLastAction(-1)
     {
     }
 
@@ -154,7 +153,7 @@ static QPixmap getActionPixmap(unsigned int iAction, QIcon::Mode mode)
 
     pixmap = QIcon::fromTheme(iconpath).pixmap(QSize(16, 16), mode);
 
-//    qInfo() << iAction << " pixmap size:"<<pixmap.size();
+    //    qInfo() << iAction << " pixmap size:"<<pixmap.size();
     return pixmap;
 }
 
@@ -169,7 +168,7 @@ static QMap<unsigned int, QRect> getItemActionRect(const QRect &itemRect, const 
 
         if (flags & iAction) {
             QPixmap pixmap = getActionPixmap(iAction);
-            QRect rect(itemRect.left() + ACTION_BUT_SPACE + (pixmap.width() + ACTION_BUT_SPACE)*butIndex++,
+            QRect rect(itemRect.left() + ACTION_BUT_SPACE + (pixmap.width() + ACTION_BUT_SPACE) * butIndex++,
                        itemRect.top() + (itemRect.height() - pixmap.height()) / 2,
                        pixmap.width(), pixmap.height());
 
@@ -177,14 +176,14 @@ static QMap<unsigned int, QRect> getItemActionRect(const QRect &itemRect, const 
         }
     }
 
-    return  actions;
+    return actions;
 }
 
 JobListView::JobListView(QWidget *parent)
-    : QTableView(parent),
-      m_contextMenu(nullptr),
-      m_itemDelegate(nullptr),
-      m_tipsTimer(nullptr)
+    : QTableView(parent)
+    , m_contextMenu(nullptr)
+    , m_itemDelegate(nullptr)
+    , m_tipsTimer(nullptr)
 {
     setAttribute(Qt::WA_Hover);
     setMouseTracking(true);
@@ -279,7 +278,7 @@ void JobListView::mouseMoveEvent(QMouseEvent *event)
         }
     }
 
-//    qInfo() << iRow << action;
+    //    qInfo() << iRow << action;
 
     //如果有按钮处于hover状态
     if (-1 != action) {
@@ -339,8 +338,7 @@ void JobListView::mouseReleaseEvent(QMouseEvent *event)
     QList<unsigned int> flags = actionRects.keys();
 
     foreach (unsigned int iAction, flags) {
-        if (actionRects.value(iAction).contains(event->pos()) &&
-                askDeleteJobs(iAction)) {
+        if (actionRects.value(iAction).contains(event->pos()) && askDeleteJobs(iAction)) {
             JobsDataModel *jobModel = static_cast<JobsDataModel *>(model());
             jobModel->doItemAction(jobModel->getJobId(index.row()), iAction);
         }
@@ -385,7 +383,8 @@ void JobListView::slotShowContextMenu(const QPoint &pos)
     unsigned int flag = 0;
     JobsDataModel *jobsModel = static_cast<JobsDataModel *>(model());
 
-    if (selectList.isEmpty()) return;
+    if (selectList.isEmpty())
+        return;
 
     foreach (QModelIndex index, selectList) {
         flag |= jobsModel->getActionStatus(index.row());
@@ -445,7 +444,8 @@ void JobListView::slotMenuTriggered(QAction *action)
 
 JobItemDelegate::JobItemDelegate(QObject *parent)
     : QItemDelegate(parent)
-{}
+{
+}
 
 void JobItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
@@ -476,8 +476,7 @@ void JobItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &optio
         foreach (unsigned int iAction, flags) {
             QPixmap pixmap;
 
-            if (g_hoverAction.iHoverAction == static_cast<int>(iAction) &&
-                    g_hoverAction.iHoverRow == index.row()) {
+            if (g_hoverAction.iHoverAction == static_cast<int>(iAction) && g_hoverAction.iHoverRow == index.row()) {
                 pixmap = getActionPixmap(iAction, QIcon::Active);
             } else {
                 pixmap = getActionPixmap(iAction);
@@ -493,7 +492,7 @@ QSize JobItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModel
     Q_UNUSED(index);
     int iRow = index.row();
 
-//    qInfo() << ITEM_Height;
+    //    qInfo() << ITEM_Height;
 
     if (0 == iRow)
         return QSize(72, ITEM_Height);
@@ -514,9 +513,9 @@ QSize JobItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModel
 }
 
 JobsDataModel::JobsDataModel(QObject *parent)
-    : QAbstractTableModel(parent),
-      m_iHighestPriority(50),
-      m_iWhichJob(WHICH_JOB_RUNING)
+    : QAbstractTableModel(parent)
+    , m_iHighestPriority(50)
+    , m_iWhichJob(WHICH_JOB_RUNING)
 {
     m_refreshTimer = new QTimer(this);
     m_refreshTimer->setInterval(100);
@@ -536,7 +535,8 @@ void JobsDataModel::deleteJobItem(int jobId)
         }
     }
 
-    if (index >= m_jobs.count()) return;
+    if (index >= m_jobs.count())
+        return;
 
     m_jobs.removeAt(index);
     m_refreshTimer->start();
@@ -544,7 +544,8 @@ void JobsDataModel::deleteJobItem(int jobId)
 
 void JobsDataModel::addJobItem(const QMap<QString, QVariant> &job)
 {
-    if (job.isEmpty()) return;
+    if (job.isEmpty())
+        return;
 
     qInfo() << job[JOB_ATTR_ID].toInt();
 
@@ -554,7 +555,8 @@ void JobsDataModel::addJobItem(const QMap<QString, QVariant> &job)
 
 void JobsDataModel::setJobAttributes(int index, const QMap<QString, QVariant> &job)
 {
-    if (index >= m_jobs.count()) return;
+    if (index >= m_jobs.count())
+        return;
 
     QMap<QString, QVariant> lastJob = m_jobs[index];
     int lastState = lastJob[JOB_ATTR_STATE].toString().toInt();
@@ -710,8 +712,7 @@ void JobsDataModel::updateJobState(int id, int state, const QString &message)
     if (index >= m_jobs.count()) {
         //如果已完成任务不在任务列表中,而且当前需要显示已完成任务，则将已完成任务添加到列表中
         //如果未完成任务不在任务列表中,而且当前需要显示未完成任务，则将新任务添加到任务列表中
-        if (((g_jobManager->isCompletedState(state) && m_iWhichJob != WHICH_JOB_RUNING) ||
-                (!g_jobManager->isCompletedState(state) && m_iWhichJob != WHICH_JOB_DONE))) {
+        if (((g_jobManager->isCompletedState(state) && m_iWhichJob != WHICH_JOB_RUNING) || (!g_jobManager->isCompletedState(state) && m_iWhichJob != WHICH_JOB_DONE))) {
             if (0 == g_jobManager->getJobById(jobinfo, id)) {
                 map<string, string>::const_iterator itjob;
 
@@ -729,8 +730,7 @@ void JobsDataModel::updateJobState(int id, int state, const QString &message)
 
     //如果已完成任务在任务列表中，而且当前只显示未完成任务，则将已完成任务从任务列表中删除
     //如果未完成任务在任务列表中，而且当前只显示已完成任务，则将未完成任务从任务列表中删除(重新打印的情况)
-    if ((g_jobManager->isCompletedState(state) && m_iWhichJob == WHICH_JOB_RUNING) ||
-            (!g_jobManager->isCompletedState(state) && m_iWhichJob == WHICH_JOB_DONE)) {
+    if ((g_jobManager->isCompletedState(state) && m_iWhichJob == WHICH_JOB_RUNING) || (!g_jobManager->isCompletedState(state) && m_iWhichJob == WHICH_JOB_DONE)) {
         deleteJobItem(id);
         return;
     }
@@ -817,7 +817,8 @@ int JobsDataModel::columnCount(const QModelIndex &parent) const
 QVariant JobsDataModel::data(const QModelIndex &index, int role) const
 {
     int iRow = index.row();
-    if (iRow >= m_jobs.count()) return QVariant();
+    if (iRow >= m_jobs.count())
+        return QVariant();
 
     QMap<QString, QVariant> job = m_jobs[iRow];
 
@@ -881,7 +882,8 @@ void JobsDataModel::setHighestPriority(int id, int iPriority)
         }
     }
 
-    if (index >= m_jobs.count()) return;
+    if (index >= m_jobs.count())
+        return;
 
     QMap<QString, QVariant> job = m_jobs[index];
     m_iHighestPriority = iPriority;
@@ -893,7 +895,8 @@ unsigned int JobsDataModel::getActionStatus(int iRow) const
 {
     unsigned int flag = 0;
 
-    if (iRow >= m_jobs.count()) return flag;
+    if (iRow >= m_jobs.count())
+        return flag;
 
     QMap<QString, QVariant> job = m_jobs[iRow];
     int iState = job[JOB_ATTR_STATE].toString().toInt();
@@ -931,23 +934,24 @@ unsigned int JobsDataModel::getActionStatus(int iRow) const
         break;
     }
 
-    return  flag;
+    return flag;
 }
 
 int JobsDataModel::getJobId(int iRow)
 {
-    if (iRow >= m_jobs.count()) return 0;
+    if (iRow >= m_jobs.count())
+        return 0;
 
     return m_jobs[iRow][JOB_ATTR_ID].toInt();
 }
 
 JobManagerWindow::JobManagerWindow(QWidget *parent)
-    : DMainWindow(parent),
-      m_jobsView(nullptr),
-      m_jobsModel(nullptr),
-      m_refreshBut(nullptr),
-      m_whichButBox(nullptr),
-      m_jobCountLabel(nullptr)
+    : DMainWindow(parent)
+    , m_jobsView(nullptr)
+    , m_jobsModel(nullptr)
+    , m_refreshBut(nullptr)
+    , m_whichButBox(nullptr)
+    , m_jobCountLabel(nullptr)
 {
     createUi();
     initUi();
@@ -1035,7 +1039,7 @@ void JobManagerWindow::slotDoActionFailed(int jobId, unsigned int iAction)
     QPoint tipsPos = QCursor::pos();
 
     //右键菜单可能关闭导致tooltips没有显示，延时处理
-    QTimer::singleShot(100, this, [ = ]() {
+    QTimer::singleShot(100, this, [=]() {
         QToolTip::showText(tipsPos, strTips, this);
     });
 }

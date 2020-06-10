@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     Wei xie <xiewei@deepin.com>
  *
@@ -35,7 +35,7 @@ class AddPrinterTask : public QObject
     Q_OBJECT
 
 public:
-    AddPrinterTask(const TDeviceInfo &printer, const QMap<QString, QVariant> &solution, const QString &uri, QObject *parent=nullptr);
+    AddPrinterTask(const TDeviceInfo &printer, const QMap<QString, QVariant> &solution, const QString &uri, QObject *parent = nullptr);
 
     int doWork();
 
@@ -76,30 +76,30 @@ protected slots:
     void slotFixHplipStatus(int iStatus);
 
 protected:
-    TDeviceInfo     m_printer;
-    QMap<QString, QVariant>     m_solution;
-    QString         m_uri;
-    InstallInterface*   m_installDepends;
-    InstallDriver*  m_installDriver;
-    bool            m_bQuit;
-    QString         m_strErr;
+    TDeviceInfo m_printer;
+    QMap<QString, QVariant> m_solution;
+    QString m_uri;
+    InstallInterface *m_installDepends;
+    InstallDriver *m_installDriver;
+    bool m_bQuit;
+    QString m_strErr;
 
-    int             m_iStep;
+    int m_iStep;
 
-    FixHplipBackend*    m_fixHplip;
+    FixHplipBackend *m_fixHplip;
 };
 
 class AddPrinterFactory
 {
 public:
-    static AddPrinterFactory* getInstance();
+    static AddPrinterFactory *getInstance();
 
-    AddPrinterTask* createAddPrinterTask(const TDeviceInfo &printer, const QMap<QString, QVariant> &solution);
+    AddPrinterTask *createAddPrinterTask(const TDeviceInfo &printer, const QMap<QString, QVariant> &solution);
 
     QString defaultPrinterName(const TDeviceInfo &printer, const QMap<QString, QVariant> &solution);
 
 protected:
-    AddPrinterFactory(){}
+    AddPrinterFactory() {}
 };
 
 #define g_addPrinterFactoty AddPrinterFactory::getInstance()

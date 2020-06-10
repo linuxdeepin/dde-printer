@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     shenfusheng_cm <shenfusheng_cm@deepin.com>
  *
@@ -57,16 +57,16 @@ enum COMBOITEMROLE {
     BACKCOLORROLE
 };
 
-DPropertySetDlg::DPropertySetDlg(const QString& strPrinter, QWidget *pParent) : DSettingsDialog(pParent)
+DPropertySetDlg::DPropertySetDlg(const QString &strPrinter, QWidget *pParent)
+    : DSettingsDialog(pParent)
 {
     m_strPrinterName = strPrinter;
 }
 
 void DPropertySetDlg::initUI()
 {
-    widgetFactory()->registerWidget("custom-label", [](QObject * obj) -> QWidget* {
-        if (DSettingsOption *option = qobject_cast<DSettingsOption *>(obj))
-        {
+    widgetFactory()->registerWidget("custom-label", [](QObject *obj) -> QWidget * {
+        if (DSettingsOption *option = qobject_cast<DSettingsOption *>(obj)) {
             QString strVal = option->data("text").toString();
             qDebug() << "create custom label:" << option->value();
             DLabel *pLable = new DLabel(FLAGITEMSPACE + strVal);
@@ -76,9 +76,8 @@ void DPropertySetDlg::initUI()
         return nullptr;
     });
 
-    widgetFactory()->registerWidget("custom-lineedit", [this](QObject * obj) -> QWidget* {
-        if (DSettingsOption *option = qobject_cast<DSettingsOption *>(obj))
-        {
+    widgetFactory()->registerWidget("custom-lineedit", [this](QObject *obj) -> QWidget * {
+        if (DSettingsOption *option = qobject_cast<DSettingsOption *>(obj)) {
             QString strName = option->name();
             QLineEdit *pLineEdit = new QLineEdit;
             pLineEdit->setObjectName(strName);
@@ -89,9 +88,8 @@ void DPropertySetDlg::initUI()
         return nullptr;
     });
 
-    widgetFactory()->registerWidget("custom-listview", [this](QObject * obj) -> QWidget* {
-        if (DSettingsOption *option = qobject_cast<DSettingsOption *>(obj))
-        {
+    widgetFactory()->registerWidget("custom-listview", [this](QObject *obj) -> QWidget * {
+        if (DSettingsOption *option = qobject_cast<DSettingsOption *>(obj)) {
             qDebug() << "create custom list:" << option->value();
             DListView *pListView = new DListView;
             //pListView->setMinimumSize(QSize(300,200));
@@ -104,7 +102,7 @@ void DPropertySetDlg::initUI()
             if (itemdata.type() == QVariant::StringList) {
                 QStringList strItems = itemdata.toStringList();
 
-                for (int i = 0 ; i < strItems.size(); i++) {
+                for (int i = 0; i < strItems.size(); i++) {
                     QString strItem = strItems[i];
                     QStandardItem *pItem = new QStandardItem(FLAGITEMSPACE + strItem);
                     pItem->setSizeHint(QSize(ITEMWIDTH, ITEMHEIGHT));
@@ -120,9 +118,8 @@ void DPropertySetDlg::initUI()
         return nullptr;
     });
 
-    widgetFactory()->registerWidget("custom-combobox", [this](QObject * obj) -> QWidget* {
-        if (DSettingsOption *option = qobject_cast<DSettingsOption *>(obj))
-        {
+    widgetFactory()->registerWidget("custom-combobox", [this](QObject *obj) -> QWidget * {
+        if (DSettingsOption *option = qobject_cast<DSettingsOption *>(obj)) {
             qDebug() << "create custom combobox:" << option->value();
             DComboBox *pCombo = new DComboBox;
             QString strName = option->name();
@@ -134,9 +131,8 @@ void DPropertySetDlg::initUI()
         return nullptr;
     });
 
-    widgetFactory()->registerWidget("custom-buttons", [this](QObject * obj) -> QWidget* {
-        if (DSettingsOption *option = qobject_cast<DSettingsOption *>(obj))
-        {
+    widgetFactory()->registerWidget("custom-buttons", [this](QObject *obj) -> QWidget * {
+        if (DSettingsOption *option = qobject_cast<DSettingsOption *>(obj)) {
             qDebug() << "create custom button:" << option->value();
             QWidget *pWidget = new QWidget;
             auto itemdata = option->data(QString::fromStdString("items"));
@@ -190,14 +186,11 @@ void DPropertySetDlg::initUI()
     QString strJson = generatePropertyDialogJson(vecOption);
     QVector<GENERALOPTNODE> generalNodes = getGeneralNodes();
 
-    if(!generalNodes.isEmpty())
-    {
-        for(int i = 0; i < generalNodes.size(); i++)
-        {
+    if (!generalNodes.isEmpty()) {
+        for (int i = 0; i < generalNodes.size(); i++) {
             GENERALOPTNODE node = generalNodes[i];
 
-            if(node.strOptName == QString("ColorModel"))
-            {
+            if (node.strOptName == QString("ColorModel")) {
                 generalNodes.remove(i);
                 break;
             }
@@ -209,8 +202,7 @@ void DPropertySetDlg::initUI()
 
     QVector<INSTALLABLEOPTNODE> nodes = getInstallableNodes();
 
-    if(!nodes.isEmpty())
-    {
+    if (!nodes.isEmpty()) {
         QString strGroup = formatGroupString(nodes);
         strJson = appendGroupString(strJson, strGroup);
     }
@@ -241,7 +233,7 @@ void DPropertySetDlg::initConnection()
     //PageSize_Combo
     //QComboBox
     //Direction_Combo
-    QComboBox* pCombo = qobject_cast<DComboBox *>(m_mapOfListWidget[QString::fromStdString("Orientation_Combo")]);
+    QComboBox *pCombo = qobject_cast<DComboBox *>(m_mapOfListWidget[QString::fromStdString("Orientation_Combo")]);
     QObject::connect(pCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(paperOrientation_clicked(int)));
 
     //ColorMode_Combo
@@ -267,8 +259,7 @@ void DPropertySetDlg::initConnection()
     //InstallAble_Combo
     QVector<INSTALLABLEOPTNODE> nodes = getInstallableNodes();
 
-    for(int i = 0; i < nodes.size(); i++)
-    {
+    for (int i = 0; i < nodes.size(); i++) {
         QString strOptName = nodes[i].strOptName;
         QString strComboName = QString::fromStdString("%1_Combo").arg(strOptName);
         pCombo = qobject_cast<DComboBox *>(m_mapOfListWidget[strComboName]);
@@ -278,14 +269,13 @@ void DPropertySetDlg::initConnection()
     //GeneralOpt_Combo
     QVector<GENERALOPTNODE> genNode = getGeneralNodes();
 
-    for(int i = 0; i < genNode.size(); i++)
-    {
+    for (int i = 0; i < genNode.size(); i++) {
         QString strOptName = genNode[i].strOptName;
         QString strComboName = QString::fromStdString("%1_Combo").arg(strOptName);
         pCombo = qobject_cast<DComboBox *>(m_mapOfListWidget[strComboName]);
         QObject::connect(pCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(generalCombo_clicked(int)));
-    }
-;}
+    };
+}
 
 void DPropertySetDlg::updateComboByName(const QString &strWidgetName, const QString &strDefault, const QVector<QMap<QString, QString>> &vecChoices)
 {
@@ -303,7 +293,7 @@ void DPropertySetDlg::updateComboByName(const QString &strWidgetName, const QStr
             QString strText = mapValues[QString::fromStdString("text")];
             QString strChoice = mapValues[QString::fromStdString("choice")];
             DPrinterManager *pManger = DPrinterManager::getInstance();
-            strText =  strText.trimmed();
+            strText = strText.trimmed();
             strText = pManger->translateLocal(strWidgetName, strChoice, strText);
 
             if ((!strText.isEmpty()) && (!strChoice.isEmpty())) {
@@ -419,7 +409,7 @@ void DPropertySetDlg::updateViews()
             updateLocationUI(strLoc);
 
             //Update Description UI
-            QString strDes =  pPrinter->printerInfo();
+            QString strDes = pPrinter->printerInfo();
             updateDescriptionUI(strDes);
 
             //Update ColorModel UI
@@ -518,10 +508,9 @@ void DPropertySetDlg::updateResolutionCombo(const QString &strDefault, const QVe
     updateComboByName(QString::fromStdString("Resolution_Combo"), strDefault, vecChoices);
 }
 
-void DPropertySetDlg::updateInstallAbleNodeCombo(const QVector<INSTALLABLEOPTNODE>& nodes)
+void DPropertySetDlg::updateInstallAbleNodeCombo(const QVector<INSTALLABLEOPTNODE> &nodes)
 {
-    for(int i = 0; i < nodes.size(); i++)
-    {
+    for (int i = 0; i < nodes.size(); i++) {
         QString strOptName = nodes[i].strOptName;
         QString strComboName = QString::fromStdString("%1_Combo").arg(strOptName);
         m_mapInitUIValue[strComboName] = nodes[i].strDefaultValue;
@@ -530,10 +519,9 @@ void DPropertySetDlg::updateInstallAbleNodeCombo(const QVector<INSTALLABLEOPTNOD
     }
 }
 
-void DPropertySetDlg::updateGeneralNodeCombo(const QVector<GENERALOPTNODE>& nodes)
+void DPropertySetDlg::updateGeneralNodeCombo(const QVector<GENERALOPTNODE> &nodes)
 {
-    for(int i = 0; i < nodes.size(); i++)
-    {
+    for (int i = 0; i < nodes.size(); i++) {
         QString strOptName = nodes[i].strOptName;
         QString strComboName = QString::fromStdString("%1_Combo").arg(strOptName);
         m_mapInitUIValue[strComboName] = nodes[i].strDefaultValue;
@@ -560,7 +548,6 @@ QString DPropertySetDlg::changeComboSelectionByName(const QString &strComboName,
     //依据模块进行冲突判断
     vector<CONFLICTPAIR> vecConflictOptionPairs;
     checkAllConflicts(m_setConflictOptions, vecConflictOptionPairs);
-
 
     if (m_setConflictOptions.size() > 0) {
         showConflictDlg(vecConflictOptionPairs);
@@ -603,7 +590,7 @@ bool DPropertySetDlg::isConflict(const QString &strConflictOption, const QString
     return (strCurrentValue == strConflictValue);
 }
 
-void DPropertySetDlg::initConflictMap(const QVector<INSTALLABLEOPTNODE>& nodes1, const QVector<GENERALOPTNODE>& nodes2)
+void DPropertySetDlg::initConflictMap(const QVector<INSTALLABLEOPTNODE> &nodes1, const QVector<GENERALOPTNODE> &nodes2)
 {
     m_mapOfConflict.clear();
     /*
@@ -615,14 +602,12 @@ void DPropertySetDlg::initConflictMap(const QVector<INSTALLABLEOPTNODE>& nodes1,
     m_mapOfConflict.insert(QString::fromStdString("StapleLocation"), QString::fromStdString("StapleLocation_Combo"));
     */
 
-    for(int i = 0;  i < nodes1.size(); i++)
-    {
+    for (int i = 0; i < nodes1.size(); i++) {
         QString strWidgetName = QString::fromStdString("%1_Combo").arg(nodes1[i].strOptName);
         m_mapOfConflict.insert(nodes1[i].strOptName, strWidgetName);
     }
 
-    for(int i = 0;  i < nodes2.size(); i++)
-    {
+    for (int i = 0; i < nodes2.size(); i++) {
         QString strWidgetName = QString::fromStdString("%1_Combo").arg(nodes2[i].strOptName);
         m_mapOfConflict.insert(nodes2[i].strOptName, strWidgetName);
     }
@@ -639,13 +624,13 @@ void DPropertySetDlg::showConflictDlg(const vector<CONFLICTPAIR> &vecConflictPai
     pLabel2->setAlignment(Qt::AlignCenter);
     DPrinterManager *pManager = DPrinterManager::getInstance();
     DDestination *pDest = pManager->getDestinationByName(m_strPrinterName);
-    DPrinter* pPrinter = nullptr;
+    DPrinter *pPrinter = nullptr;
     QString strValue1, strValue2;
 
     if (pDest != nullptr) {
         if (DESTTYPE::PRINTER == pDest->getType()) {
             pPrinter = static_cast<DPrinter *>(pDest);
-            OPTNODE node= pPrinter->getOptionNodeByKeyword(vecConflictPairs[0].strOpt1);
+            OPTNODE node = pPrinter->getOptionNodeByKeyword(vecConflictPairs[0].strOpt1);
             strValue1 = node.strOptText;
             node = pPrinter->getOptionNodeByKeyword(vecConflictPairs[0].strOpt2);
             strValue2 = node.strOptText;
@@ -678,7 +663,6 @@ void DPropertySetDlg::showConflictDlg(const vector<CONFLICTPAIR> &vecConflictPai
 void DPropertySetDlg::updateComboByConflits(const QSet<QString> &nodes)
 {
     for (auto iter = m_mapOfConflict.begin(); iter != m_mapOfConflict.end(); iter++) {
-
         if (nodes.contains(iter.key())) {
             continue;
         }
@@ -1054,14 +1038,12 @@ void DPropertySetDlg::installAbleCombo_clicked(int index)
         return;
     }
 
-    QWidget* pFocusedWidget = nullptr;
+    QWidget *pFocusedWidget = nullptr;
 
-    for(auto iter = m_mapOfListWidget.begin(); iter != m_mapOfListWidget.end(); iter++)
-    {
-        QWidget* pWidget = iter.value();
+    for (auto iter = m_mapOfListWidget.begin(); iter != m_mapOfListWidget.end(); iter++) {
+        QWidget *pWidget = iter.value();
 
-        if(pWidget->hasFocus())
-        {
+        if (pWidget->hasFocus()) {
             pFocusedWidget = pWidget;
             break;
         }
@@ -1094,15 +1076,13 @@ void DPropertySetDlg::generalCombo_clicked(int index)
         return;
     }
 
-    QWidget* pFocusedWidget = nullptr;
+    QWidget *pFocusedWidget = nullptr;
 
-    for(auto iter = m_mapOfListWidget.begin(); iter != m_mapOfListWidget.end(); iter++)
-    {
+    for (auto iter = m_mapOfListWidget.begin(); iter != m_mapOfListWidget.end(); iter++) {
         QString strName = iter.key();
-        QWidget* pWidget = iter.value();
+        QWidget *pWidget = iter.value();
 
-        if(pWidget->hasFocus())
-        {
+        if (pWidget->hasFocus()) {
             pFocusedWidget = pWidget;
             break;
         }
@@ -1233,12 +1213,10 @@ void DPropertySetDlg::printDescriptionUI_EditFinished()
 
 void DPropertySetDlg::confirmBtn_clicked()
 {
-
 }
 
 void DPropertySetDlg::cancelBtn_clicked()
 {
-
 }
 
 void DPropertySetDlg::moveToParentCenter()
@@ -1281,7 +1259,6 @@ void DPropertySetDlg::showEvent(QShowEvent *event)
     vector<CONFLICTPAIR> vecConflictOptionPairs;
     checkAllConflicts(m_setConflictOptions, vecConflictOptionPairs);
 
-
     if (m_setConflictOptions.size() > 0) {
         showConflictDlg(vecConflictOptionPairs);
         updateComboByConflits(m_setConflictOptions);
@@ -1315,7 +1292,7 @@ void DPropertySetDlg::closeEvent(QCloseEvent *event)
                         break;
                     }
                 }
-                \
+
                 if ((!bSame) && (0 == m_setConflictOptions.size())) {
                     pPrinter->saveModify();
                 }

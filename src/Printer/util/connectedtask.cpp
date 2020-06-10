@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     liurui <liurui_cm@deepin.com>
  *
@@ -39,4 +39,3 @@ void ConnectedTask::run()
     //用printerName区分信号的来源
     emit signalResult(passed, m_printerName);
 }
-

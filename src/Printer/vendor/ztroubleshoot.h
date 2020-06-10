@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     Wei xie <xiewei@deepin.com>
  *
@@ -33,8 +33,8 @@ class TroubleShootJob : public QObject
     Q_OBJECT
 
 public:
-    TroubleShootJob(const QString &printerName, QObject *parent=nullptr)
-        :QObject(parent)
+    TroubleShootJob(const QString &printerName, QObject *parent = nullptr)
+        : QObject(parent)
     {
         m_printerName = printerName;
         m_bQuit = false;
@@ -44,9 +44,9 @@ public:
 
     virtual QString getJobName() = 0;
 
-    virtual void stop(){m_bQuit = true;}
+    virtual void stop() { m_bQuit = true; }
 
-    QString getMessage(){return m_strMessage;}
+    QString getMessage() { return m_strMessage; }
 
 signals:
     void signalStateChanged(int state, const QString &message);
@@ -54,7 +54,7 @@ signals:
 protected:
     QString m_printerName;
     QString m_strMessage;
-    bool    m_bQuit;
+    bool m_bQuit;
 };
 
 class PrinterTestJob : public TroubleShootJob
@@ -62,7 +62,7 @@ class PrinterTestJob : public TroubleShootJob
     Q_OBJECT
 
 public:
-    PrinterTestJob(const QString &printerName, QObject *parent=nullptr, bool bSync = true);
+    PrinterTestJob(const QString &printerName, QObject *parent = nullptr, bool bSync = true);
     ~PrinterTestJob() Q_DECL_OVERRIDE;
 
     bool isPass() Q_DECL_OVERRIDE;
@@ -76,9 +76,9 @@ protected slots:
     void slotJobStateChanged(int id, int state, const QString &message);
 
 private:
-    QEventLoop  *m_eventLoop;
-    int         m_jobId;
-    bool        m_bSync;
+    QEventLoop *m_eventLoop;
+    int m_jobId;
+    bool m_bSync;
 };
 
 class TroubleShoot : public TaskInterface
@@ -86,12 +86,12 @@ class TroubleShoot : public TaskInterface
     Q_OBJECT
 
 public:
-    TroubleShoot(const QString &printerName, QObject *parent=nullptr);
+    TroubleShoot(const QString &printerName, QObject *parent = nullptr);
     ~TroubleShoot() Q_DECL_OVERRIDE;
 
     int addJob(TroubleShootJob *job);
 
-    QList<TroubleShootJob*> getJobs();
+    QList<TroubleShootJob *> getJobs();
 
     void stop() Q_DECL_OVERRIDE;
 
@@ -99,9 +99,9 @@ protected:
     int doWork() Q_DECL_OVERRIDE;
 
 private:
-    QString     m_printerName;
+    QString m_printerName;
 
-    QList<TroubleShootJob*> m_jobs;
+    QList<TroubleShootJob *> m_jobs;
 };
 
 #endif

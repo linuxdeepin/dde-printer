@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     Wei xie <xiewei@deepin.com>
  *
@@ -29,11 +29,11 @@
 #include <QAbstractButton>
 
 PrinterTestPageDialog::PrinterTestPageDialog(const QString &printerName, QWidget *parent)
-    :QObject(nullptr),
-      m_printerName(printerName),
-      m_testJob(nullptr),
-      m_trobleShoot(nullptr),
-      m_parent(parent)
+    : QObject(nullptr)
+    , m_printerName(printerName)
+    , m_testJob(nullptr)
+    , m_trobleShoot(nullptr)
+    , m_parent(parent)
 {
     connect(this, &PrinterTestPageDialog::signalFinished, this, &QObject::deleteLater);
 }

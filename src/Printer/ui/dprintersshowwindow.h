@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     liurui <liurui_cm@deepin.com>
  *
@@ -70,6 +70,7 @@ public:
         loop.exec();
         return 1;
     }
+
 private:
     void initUI()
     {
@@ -92,7 +93,7 @@ private:
         m_pCheckIPP = new QCheckBox(tr("Allow printing from the Internet"));
         m_pCheckIPP->setEnabled(false);
         m_pCheckRemote = new QCheckBox(tr("Allow remote administration"));
-//        m_pCheckCancelJobs = new QCheckBox(tr("Allow users to cancel all tasks (not just their own)"));
+        //        m_pCheckCancelJobs = new QCheckBox(tr("Allow users to cancel all tasks (not just their own)"));
         m_pCheckSaveDebugInfo = new QCheckBox(tr("Save debugging information for troubleshooting"));
         QVBoxLayout *pSettingsVLayout = new QVBoxLayout();
         pSettingsVLayout->setSpacing(0);
@@ -119,7 +120,7 @@ private:
 
         pSettingsVLayout->addWidget(pFrame2);
 
-//        pSettingsVLayout->addWidget(m_pCheckCancelJobs);
+        //        pSettingsVLayout->addWidget(m_pCheckCancelJobs);
 
         QVBoxLayout *pSettingsVLayout3 = new QVBoxLayout();
         pSettingsVLayout3->addWidget(m_pCheckSaveDebugInfo);
@@ -149,7 +150,6 @@ private:
         takeCentralWidget();
         setCentralWidget(pCentralWidget);
         moveToCenter(this);
-
     }
     void initConnections()
     {
@@ -162,6 +162,7 @@ private:
             }
         });
     }
+
 protected:
     void closeEvent(QCloseEvent *event) override
     {
@@ -173,12 +174,11 @@ public:
     QCheckBox *m_pCheckShared;
     QCheckBox *m_pCheckIPP;
     QCheckBox *m_pCheckRemote;
-//    QCheckBox *m_pCheckCancelJobs;
+    //    QCheckBox *m_pCheckCancelJobs;
     QCheckBox *m_pCheckSaveDebugInfo;
 signals:
     void finished();
 };
-
 
 class ItemDelegate : public QStyledItemDelegate
 {
@@ -188,16 +188,9 @@ public:
     virtual ~ItemDelegate() override;
 
     void setEnabled(bool enabled);
+
 protected:
-    QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const  override;
-
-
-//    virtual void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
-
-
-private:
-    bool m_isEnabled;
-
+    QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 };
 
 class PrinterListView : public DListView
@@ -205,7 +198,9 @@ class PrinterListView : public DListView
     Q_OBJECT
 public:
     explicit PrinterListView(QWidget *parent = nullptr)
-        : DListView(parent) {}
+        : DListView(parent)
+    {
+    }
     virtual ~PrinterListView() override {}
 
 protected:
@@ -230,7 +225,6 @@ public:
     explicit DPrintersShowWindow(QWidget *parent = nullptr);
     virtual ~DPrintersShowWindow() override;
 
-
 private:
     // 初始化UI
     void initUI();
@@ -242,7 +236,6 @@ private:
     * @author        liurui
     * @date          2019-11-08
     */
-
 
     void showEvent(QShowEvent *event) override;
 
@@ -290,12 +283,11 @@ private slots:
     // 服务器设置
     void serverSettingsSlot();
 
-//    bool eventFilter(QObject *watched, QEvent *event) override;
+    //    bool eventFilter(QObject *watched, QEvent *event) override;
 
     void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
 private:
-
     // UI成员变量
     DIconButton *m_pBtnAddPrinter;
     DIconButton *m_pBtnDeletePrinter;
@@ -318,7 +310,6 @@ private:
     QAction *m_pEnableAction;
     QAction *m_pRejectAction;
     QAction *m_pDefaultAction;
-
 
     QWidget *m_pPrinterInfoWidget;
     QLabel *m_pPRightTipLabel1;

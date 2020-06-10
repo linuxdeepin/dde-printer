@@ -72,16 +72,17 @@ void ItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 }
 */
 
-ComItemDelegate::ComItemDelegate(QObject* parent)
-    :QItemDelegate (parent)
-{}
+ComItemDelegate::ComItemDelegate(QObject *parent)
+    : QItemDelegate(parent)
+{
+}
 
 void ComItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     QMap<unsigned int, QRect> actions;
     QList<unsigned int> flags;
 
-//    qInfo() << index;
+    //    qInfo() << index;
     QItemDelegate::paint(painter, option, index);
 }
 
@@ -90,21 +91,21 @@ QSize ComItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModel
     Q_UNUSED(index);
     int iRow = index.row();
 
-//    qInfo() << ITEM_Height;
+    //    qInfo() << ITEM_Height;
 
     if (0 == iRow)
         return QSize(72, 30);
-    else if(1 == iRow)
+    else if (1 == iRow)
         return QSize(102, 30);
-    else if(2 == iRow)
+    else if (2 == iRow)
         return QSize(137, 30);
-    else if(3 == iRow)
+    else if (3 == iRow)
         return QSize(131, 30);
-    else if(4 == iRow)
+    else if (4 == iRow)
         return QSize(65, 30);
-    else if(5 == iRow)
+    else if (5 == iRow)
         return QSize(124, 30);
-    else if(6 == iRow)
+    else if (6 == iRow)
         return QSize(146, 30);
 
     return option.rect.size();

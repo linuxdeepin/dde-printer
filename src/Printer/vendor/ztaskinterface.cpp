@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     Wei xie <xiewei@deepin.com>
  *
@@ -24,21 +24,22 @@
 #include <QEventLoop>
 #include <QTimer>
 
-static const char* g_taskText[] = {"null",
-                                 "Refresh devices by backends",
-                                 "Refresh devices by host",
-                                 "Init ppds",
-                                 "not use",
-                                 "not use",
-                                 "not use",
-                                 "not use",
-                                 "not use",
-                                 "not use",
-                                 "Toruble shoot",
-                                 "Cups monitor",
-                                 "max value"};
+static const char *g_taskText[] = {"null",
+                                   "Refresh devices by backends",
+                                   "Refresh devices by host",
+                                   "Init ppds",
+                                   "not use",
+                                   "not use",
+                                   "not use",
+                                   "not use",
+                                   "not use",
+                                   "not use",
+                                   "Toruble shoot",
+                                   "Cups monitor",
+                                   "max value"};
 
-TaskInterface::TaskInterface(int id, QObject* parent):QThread(parent)
+TaskInterface::TaskInterface(int id, QObject *parent)
+    : QThread(parent)
 {
     m_bQuit = false;
     m_iTaskId = id;
@@ -57,8 +58,7 @@ void TaskInterface::stop()
 
     qInfo() << "Stop task " << g_taskText[m_iTaskId];
     this->disconnect();
-    if (this->isRunning())
-    {
+    if (this->isRunning()) {
         this->quit();
         this->wait();
     }
@@ -81,10 +81,11 @@ void TaskInterface::run()
     emit signalStatus(m_iTaskId, TStat_Running);
     iRet = doWork();
 
-    if (m_bQuit) return;
+    if (m_bQuit)
+        return;
 
     //如果doWork中没有设置ErrCode，返回值作为errCode
-    if(0 == getErrCode())
+    if (0 == getErrCode())
         m_errCode = iRet;
 
     qInfo() << "Task " << g_taskText[m_iTaskId] << " finished " << iRet;
@@ -93,4 +94,3 @@ void TaskInterface::run()
     else
         emit signalStatus(m_iTaskId, TStat_Fail);
 }
-

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     liurui <liurui_cm@deepin.com>
  *
@@ -230,7 +230,6 @@ void DPrinterManager::setPrinterAcceptJob(QString printerName, bool enabled)
     } else {
         m_conn->rejectJobs(printerName.toStdString().data(), "");
     }
-
 }
 
 bool DPrinterManager::isPrinterAcceptJob(QString printerName)
@@ -256,7 +255,6 @@ bool DPrinterManager::isPrinterAcceptJob(QString printerName)
 void DPrinterManager::setPrinterDefault(QString printerName)
 {
     m_conn->setDefault(printerName.toStdString().data(), "");
-
 }
 
 void DPrinterManager::addPrinter(const QString &printer, const QString &info, const QString &location, const QString &device, const QString &ppdfile)
@@ -268,8 +266,6 @@ void DPrinterManager::addPrinter(const QString &printer, const QString &info, co
         qWarning() << e.what();
     }
 }
-
-
 
 bool DPrinterManager::isDefaultPrinter(QString PrinterName)
 {
@@ -283,14 +279,14 @@ bool DPrinterManager::isDefaultPrinter(QString PrinterName)
 DDestination *DPrinterManager::getDestinationByName(const QString &strName)
 {
     if (m_mapDests.contains(strName))
-        return  m_mapDests[strName];
+        return m_mapDests[strName];
     return nullptr;
 }
 
 bool DPrinterManager::hasUnfinishedJob()
 {
     try {
-        vector<string> jobAttrs{"job-id", "job-printer-uri", "job-name"};
+        vector<string> jobAttrs {"job-id", "job-printer-uri", "job-name"};
         map<int, map<string, string>> unfinishedJobs = m_conn->getJobs(nullptr, 1, 1, 0, &jobAttrs);
         if (unfinishedJobs.size() == 0)
             return false;
@@ -305,7 +301,7 @@ bool DPrinterManager::hasUnfinishedJob(const QString &printer)
 {
     //先获取所有的未完成任务，查找指定打印机任务
     try {
-        vector<string> jobAttrs{"job-id", "job-printer-uri", "job-name"};
+        vector<string> jobAttrs {"job-id", "job-printer-uri", "job-name"};
         map<int, map<string, string>> unfinishedJobs = m_conn->getJobs(nullptr, 0, 0, 0, &jobAttrs);
         if (unfinishedJobs.size() == 0)
             return false;
@@ -328,7 +324,7 @@ bool DPrinterManager::hasUnfinishedJob(const QString &printer)
 bool DPrinterManager::hasFinishedJob()
 {
     try {
-        vector<string> jobAttrs{"job-id", "job-printer-uri", "job-state"};
+        vector<string> jobAttrs {"job-id", "job-printer-uri", "job-state"};
         map<int, map<string, string>> finishedJobs = m_conn->getJobs("completed", 1, 1, 0, &jobAttrs);
         if (finishedJobs.size() == 0)
             return false;
@@ -418,7 +414,7 @@ QString DPrinterManager::validataName(const QString &oldPrinterName)
     return newPrinterName;
 }
 
-void  DPrinterManager::clearDestinationList()
+void DPrinterManager::clearDestinationList()
 {
     if (m_mapDests.size() > 0) {
         for (auto iter = m_mapDests.begin(); iter != m_mapDests.end();) {

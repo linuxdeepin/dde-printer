@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     Wei xie <xiewei@deepin.com>
  *
@@ -28,7 +28,7 @@
 #include <QMap>
 #include <QVariant>
 
-enum{
+enum {
     PPDFrom_Database = 0,
     PPDFrom_File,
     PPDFrom_Server,
@@ -42,7 +42,7 @@ class DriverSearcher : public QObject
     Q_OBJECT
 
 public:
-    DriverSearcher(const TDeviceInfo &printer, QObject *parent=nullptr);
+    DriverSearcher(const TDeviceInfo &printer, QObject *parent = nullptr);
 
     void startSearch();
 
@@ -63,13 +63,13 @@ private:
     void askForFinish();
     bool hasExcatDriver();
 
-    TDeviceInfo     m_printer;
-    QList<QMap<QString, QVariant>>   m_drivers;
-    int             m_localIndex;
+    TDeviceInfo m_printer;
+    QList<QMap<QString, QVariant>> m_drivers;
+    int m_localIndex;
 
-    QString         m_strMake;
-    QString         m_strModel;
-    QString         m_strCMD;
+    QString m_strMake;
+    QString m_strModel;
+    QString m_strCMD;
 };
 
 class DriverManager : public QObject
@@ -77,7 +77,7 @@ class DriverManager : public QObject
     Q_OBJECT
 
 public:
-    static DriverManager* getInstance();
+    static DriverManager *getInstance();
     /*!
     * @brief 获取刷新ppd的状态
     */
@@ -92,12 +92,12 @@ public:
     int refreshPpds();
 
     QStringList getAllMakes();
-    const QMap<QString, QString>* getModelsByMake(const QString &strMake);
+    const QMap<QString, QString> *getModelsByMake(const QString &strMake);
 
     /*!
     * @brief 获取所有ppd文件的信息
     */
-    const QMap<QString, QMap<QString, QString>>* getPPDs();
+    const QMap<QString, QMap<QString, QString>> *getPPDs();
 
     /*!
     * @brief 获取Generic Text-Only Printer，作为默认驱动
@@ -109,23 +109,23 @@ public:
     */
     bool isSamePPD(const QString &ppd1, const QString &ppd2);
 
-    QStringList getDriverDepends(const char* strPPD);
+    QStringList getDriverDepends(const char *strPPD);
 
     QMap<QString, QVariant> getEveryWhereDriver(const QString &strUri);
 
     /*!
     * @brief 查找驱动
     */
-    DriverSearcher* createSearcher(const TDeviceInfo &device);
+    DriverSearcher *createSearcher(const TDeviceInfo &device);
 
 signals:
     void signalStatus(int, int);
 
 protected:
-    DriverManager(QObject *parent=nullptr);
+    DriverManager(QObject *parent = nullptr);
 
 private:
-    RefreshLocalPPDS*   m_refreshTask;
+    RefreshLocalPPDS *m_refreshTask;
 };
 
 #define g_driverManager DriverManager::getInstance()

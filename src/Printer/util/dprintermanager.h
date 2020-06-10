@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     liurui <liurui_cm@deepin.com>
  *
@@ -29,7 +29,6 @@
 #include <QMap>
 #include <QObject>
 #include <QLocale>
-
 
 using namespace std;
 
@@ -103,6 +102,7 @@ public:
     void commit();
     bool hasSamePrinter(const QString &printer);
     QString validataName(const QString &oldPrinterName);
+
 private:
     DPrinterManager();
     Q_DISABLE_COPY(DPrinterManager)

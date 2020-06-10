@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     liurui <liurui_cm@deepin.com>
  *
@@ -106,7 +106,6 @@ void InstallPrinterWindow::initUI()
     pHLayout->addWidget(m_pPrinterTestPageBtn);
     pHLayout->addStretch();
 
-
     QVBoxLayout *pMainLayout = new QVBoxLayout();
     pMainLayout->setSpacing(0);
     QSpacerItem *pSpaceItem = new QSpacerItem(300, 52, QSizePolicy::Preferred, QSizePolicy::Preferred);
@@ -129,7 +128,6 @@ void InstallPrinterWindow::initUI()
     setCentralWidget(widget);
 
     moveToCenter(this);
-
 }
 
 void InstallPrinterWindow::initConnections()
@@ -306,8 +304,7 @@ void InstallPrinterWindow::feedbackPrintTestPage()
         if (driver[SD_KEY_from].toInt() == PPDFrom_Server) {
             int sid = driver[SD_KEY_sid].toInt();
             QString strReason = m_testJob ? m_testJob->getMessage() : "User feedback";
-            QString strFeedback = QString("Uri: %1, device: %2").arg(m_device.uriList.join(" "))
-                                  .arg(m_device.strDeviceId.isEmpty() ? m_device.strMakeAndModel : m_device.strDeviceId);
+            QString strFeedback = QString("Uri: %1, device: %2").arg(m_device.uriList.join(" ")).arg(m_device.strDeviceId.isEmpty() ? m_device.strMakeAndModel : m_device.strDeviceId);
             PrinterServerInterface *server = g_printerServer->feedbackResult(sid, false, strReason, strFeedback);
             if (server)
                 server->postToServer();

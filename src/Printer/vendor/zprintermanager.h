@@ -37,7 +37,7 @@
 int GetSystemPrinters();
 
 //尝试通过uri获取打印机信息
-int GetPrinterInfo(TDeviceInfo& printer);
+int GetPrinterInfo(TDeviceInfo &printer);
 
 //添加系统打印机
 int AddSystemPrinter(TDeviceInfo printer, QVariantMap solution);
@@ -56,7 +56,7 @@ int SetSytemPrinterInfo(TDeviceInfo printer);
 
 //设置系统默认打印机
 int SetDefaultPrinter(QString printername);
-const char* GetDefaultPrinter(void);
+const char *GetDefaultPrinter(void);
 
 //设置打印机是否共享
 int SetPrinterShared(QString printername, bool bShared = true);

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     liurui <liurui_cm@deepin.com>
  *
@@ -20,7 +20,8 @@
  */
 #include "dprintclass.h"
 
-DPrintClass::DPrintClass(Connection *con): DDestination(con)
+DPrintClass::DPrintClass(Connection *con)
+    : DDestination(con)
 {
     m_type = DESTTYPE::CLASS;
 }

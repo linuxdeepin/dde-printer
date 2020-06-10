@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     Wei xie <xiewei@deepin.com>
  *
@@ -52,7 +52,7 @@ class JobsDataModel : public QAbstractTableModel
     Q_OBJECT
 
 public:
-    explicit JobsDataModel(QObject* parent=nullptr);
+    explicit JobsDataModel(QObject *parent = nullptr);
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
     int columnCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
@@ -86,10 +86,10 @@ protected slots:
     void slotRefreshJobItems();
 
 private:
-    QList<QMap<QString, QVariant>>   m_jobs;
-    int     m_iHighestPriority;
-    QTimer*             m_refreshTimer;
-    int                 m_iWhichJob;
+    QList<QMap<QString, QVariant>> m_jobs;
+    int m_iHighestPriority;
+    QTimer *m_refreshTimer;
+    int m_iWhichJob;
 
     friend class JobManagerWindow;
     friend class JobListView;
@@ -100,7 +100,7 @@ class JobItemDelegate : public QItemDelegate
     Q_OBJECT
 
 public:
-    explicit JobItemDelegate(QObject* parent=nullptr);
+    explicit JobItemDelegate(QObject *parent = nullptr);
 
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
@@ -111,11 +111,11 @@ class JobListView : public QTableView
     Q_OBJECT
 
 public:
-    explicit JobListView(QWidget* parent=nullptr);
+    explicit JobListView(QWidget *parent = nullptr);
 
 protected:
     void mouseMoveEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
-    void mouseReleaseEvent(QMouseEvent *event)  Q_DECL_OVERRIDE;
+    void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
 
     bool askDeleteJobs(unsigned int flag);
@@ -134,21 +134,21 @@ protected slots:
     void slotShowTips();
 
 private:
-    QMenu*              m_contextMenu;
-    QList<QAction*>     m_atctions;
-    JobItemDelegate*    m_itemDelegate;
-    QTimer*             m_tipsTimer;
-    QPoint              m_tipsPos;
-    QStringList         m_actionNames;
-    QLabel*             m_label;
+    QMenu *m_contextMenu;
+    QList<QAction *> m_atctions;
+    JobItemDelegate *m_itemDelegate;
+    QTimer *m_tipsTimer;
+    QPoint m_tipsPos;
+    QStringList m_actionNames;
+    QLabel *m_label;
 };
 
-class  JobManagerWindow : public DMainWindow
+class JobManagerWindow : public DMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit JobManagerWindow(QWidget* parent=nullptr);
+    explicit JobManagerWindow(QWidget *parent = nullptr);
 
 protected:
     void createUi();
@@ -162,12 +162,12 @@ protected slots:
     void slotDoActionFailed(int jobId, unsigned int iAction);
 
 private:
-    JobListView*        m_jobsView;
-    JobsDataModel*      m_jobsModel;
-    DIconButton*        m_refreshBut;
-    DButtonBox*         m_whichButBox;
-    QList<DButtonBoxButton*>    m_whichList;
-    QLabel*             m_jobCountLabel;
+    JobListView *m_jobsView;
+    JobsDataModel *m_jobsModel;
+    DIconButton *m_refreshBut;
+    DButtonBox *m_whichButBox;
+    QList<DButtonBoxButton *> m_whichList;
+    QLabel *m_jobCountLabel;
 };
 
-#endif//JOBMANAGERWINDOW_H
+#endif //JOBMANAGERWINDOW_H

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     liurui <liurui_cm@deepin.com>
  *
@@ -67,6 +67,7 @@ public:
     * @date          2019-11-01
     */
     void copyDriverData(const QMap<QString, QVariant> &itemDataMap);
+
 private:
     void initUI();
     void initConnections();
@@ -114,6 +115,7 @@ private:
     QComboBox *m_pDriverCombo;
 
     AddPrinterTask *m_pAddPrinterTask;
+
 private:
     InstallationStatus m_status;
     QString m_printerName;
@@ -123,7 +125,7 @@ private:
     QWidget *m_pParentWidget;
     bool m_bInstallFail;
 
-    PrinterTestJob*     m_testJob;
+    PrinterTestJob *m_testJob;
 };
 
 #endif // INSTALLPRINTERWINDOW_H

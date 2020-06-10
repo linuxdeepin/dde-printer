@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     Wei xie <xiewei@deepin.com>
  *
@@ -31,18 +31,18 @@
 class PrinterServerInterface;
 
 typedef struct tagPackageInfo {
-    QString toString() {return packageName + ": " + packageVer;}
+    QString toString() { return packageName + ": " + packageVer; }
 
     QString packageName;
     QString packageVer;
-}TPackageInfo;
+} TPackageInfo;
 
 class InstallInterface : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit InstallInterface(QObject *parent=nullptr);
+    explicit InstallInterface(QObject *parent = nullptr);
 
     void setPackages(const QList<TPackageInfo> &packages);
     void startInstallPackages();
@@ -58,13 +58,13 @@ protected slots:
     void propertyChanged(const QDBusMessage &msg);
 
 protected:
-    QList<TPackageInfo>     m_packages;
-    QStringList             m_installPackages;
-    bool            m_bQuit;
-    QString         m_jobPath;
-    QString         m_strType;
-    QString         m_strStatus;
-    QString         m_strErr;
+    QList<TPackageInfo> m_packages;
+    QStringList m_installPackages;
+    bool m_bQuit;
+    QString m_jobPath;
+    QString m_strType;
+    QString m_strStatus;
+    QString m_strErr;
 };
 
 class InstallDriver : public InstallInterface
@@ -72,7 +72,7 @@ class InstallDriver : public InstallInterface
     Q_OBJECT
 
 public:
-    InstallDriver(const QMap<QString, QVariant> &solution, QObject* parent=nullptr);
+    InstallDriver(const QMap<QString, QVariant> &solution, QObject *parent = nullptr);
 
     void doWork();
 
@@ -82,8 +82,8 @@ protected slots:
     void slotServerDone(int iCode, const QByteArray &result);
 
 private:
-    QMap<QString, QVariant>  m_solution;
-    PrinterServerInterface* m_serverInterface;
+    QMap<QString, QVariant> m_solution;
+    PrinterServerInterface *m_serverInterface;
 };
 
 class AddCanonCAPTPrinter : public AddPrinterTask
@@ -91,7 +91,7 @@ class AddCanonCAPTPrinter : public AddPrinterTask
     Q_OBJECT
 
 public:
-    AddCanonCAPTPrinter(const TDeviceInfo &printer, const QMap<QString, QVariant> &solution, const QString &uri, QObject *parent=nullptr);
+    AddCanonCAPTPrinter(const TDeviceInfo &printer, const QMap<QString, QVariant> &solution, const QString &uri, QObject *parent = nullptr);
 
     void stop();
 
@@ -102,7 +102,7 @@ protected slots:
     void slotProcessFinished(int iCode, QProcess::ExitStatus exitStatus);
 
 private:
-    QProcess    m_proc;
+    QProcess m_proc;
 };
 
 class DefaultAddPrinter : public AddPrinterTask
@@ -110,7 +110,7 @@ class DefaultAddPrinter : public AddPrinterTask
     Q_OBJECT
 
 public:
-    DefaultAddPrinter(const TDeviceInfo &printer, const QMap<QString, QVariant> &solution, const QString &uri, QObject *parent=nullptr);
+    DefaultAddPrinter(const TDeviceInfo &printer, const QMap<QString, QVariant> &solution, const QString &uri, QObject *parent = nullptr);
 
     void stop();
 
@@ -121,7 +121,7 @@ protected slots:
     void slotProcessFinished(int iCode, QProcess::ExitStatus exitStatus);
 
 private:
-    QProcess    m_proc;
+    QProcess m_proc;
 };
 
 class FixHplipBackend : public QObject
@@ -129,10 +129,10 @@ class FixHplipBackend : public QObject
     Q_OBJECT
 
 public:
-    FixHplipBackend(QObject *parent=nullptr);
+    FixHplipBackend(QObject *parent = nullptr);
 
     int startFixed();
-    QString getMatchHplipUri(const QString& strUri);
+    QString getMatchHplipUri(const QString &strUri);
 
     void stop();
 
@@ -146,12 +146,12 @@ protected slots:
     void slotInstallStatus(int status);
 
 private:
-    RefreshDevicesByBackendTask*    m_deviceTask;
-    TBackendSchemes                 m_hplipBackend;
+    RefreshDevicesByBackendTask *m_deviceTask;
+    TBackendSchemes m_hplipBackend;
 
-    InstallInterface*               m_installer;
+    InstallInterface *m_installer;
 
-    QString     m_strError;
+    QString m_strError;
 };
 
-#endif//ADDPRINTER_P_H
+#endif //ADDPRINTER_P_H

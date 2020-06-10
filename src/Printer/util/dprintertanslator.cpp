@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
  *
  * Author:     shenfusheng_cm <shenfusheng_cm@deepin.com>
  *
@@ -23,7 +23,6 @@
 
 DPrinterTanslator::DPrinterTanslator()
 {
-
 }
 
 void DPrinterTanslator::init()
@@ -138,26 +137,24 @@ void DPrinterTanslator::init()
     addTranslate("Resolution_Combo", "Output Resolution", tr("Resolution"));
 }
 
-void DPrinterTanslator::addTranslate(const QString& strContext, const QString& strKey, const QString& strValue)
+void DPrinterTanslator::addTranslate(const QString &strContext, const QString &strKey, const QString &strValue)
 {
     QMap<QString, QString> mapNode = m_mapTrans.value(strContext);
 
-    if(mapNode.isEmpty()){
+    if (mapNode.isEmpty()) {
         mapNode.insert(strKey, strValue);
         m_mapTrans.insert(strContext, mapNode);
-    }
-    else {
+    } else {
         mapNode[strKey] = strValue;
         m_mapTrans.insert(strContext, mapNode);
     }
 }
 
-QString DPrinterTanslator::translateLocal(const QString & strContext, const QString& strKey, const QString& strDefault)
+QString DPrinterTanslator::translateLocal(const QString &strContext, const QString &strKey, const QString &strDefault)
 {
-    QMap<QString,QString> mapNode = m_mapTrans.value(strContext);
+    QMap<QString, QString> mapNode = m_mapTrans.value(strContext);
 
-    if(mapNode.isEmpty())
-    {
+    if (mapNode.isEmpty()) {
         return strDefault;
     }
 
