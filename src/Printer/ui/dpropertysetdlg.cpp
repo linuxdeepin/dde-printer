@@ -65,8 +65,9 @@ DPropertySetDlg::DPropertySetDlg(const QString &strPrinter, QWidget *pParent)
 
 void DPropertySetDlg::initUI()
 {
-    widgetFactory()->registerWidget("custom-label", [](QObject *obj) -> QWidget * {
-        if (DSettingsOption *option = qobject_cast<DSettingsOption *>(obj)) {
+    widgetFactory()->registerWidget("custom-label", [](QObject * obj) -> QWidget * {
+        if (DSettingsOption *option = qobject_cast<DSettingsOption *>(obj))
+        {
             QString strVal = option->data("text").toString();
             qDebug() << "create custom label:" << option->value();
             DLabel *pLable = new DLabel(FLAGITEMSPACE + strVal);
@@ -76,8 +77,9 @@ void DPropertySetDlg::initUI()
         return nullptr;
     });
 
-    widgetFactory()->registerWidget("custom-lineedit", [this](QObject *obj) -> QWidget * {
-        if (DSettingsOption *option = qobject_cast<DSettingsOption *>(obj)) {
+    widgetFactory()->registerWidget("custom-lineedit", [this](QObject * obj) -> QWidget * {
+        if (DSettingsOption *option = qobject_cast<DSettingsOption *>(obj))
+        {
             QString strName = option->name();
             QLineEdit *pLineEdit = new QLineEdit;
             pLineEdit->setObjectName(strName);
@@ -88,8 +90,9 @@ void DPropertySetDlg::initUI()
         return nullptr;
     });
 
-    widgetFactory()->registerWidget("custom-listview", [this](QObject *obj) -> QWidget * {
-        if (DSettingsOption *option = qobject_cast<DSettingsOption *>(obj)) {
+    widgetFactory()->registerWidget("custom-listview", [this](QObject * obj) -> QWidget * {
+        if (DSettingsOption *option = qobject_cast<DSettingsOption *>(obj))
+        {
             qDebug() << "create custom list:" << option->value();
             DListView *pListView = new DListView;
             //pListView->setMinimumSize(QSize(300,200));
@@ -118,8 +121,9 @@ void DPropertySetDlg::initUI()
         return nullptr;
     });
 
-    widgetFactory()->registerWidget("custom-combobox", [this](QObject *obj) -> QWidget * {
-        if (DSettingsOption *option = qobject_cast<DSettingsOption *>(obj)) {
+    widgetFactory()->registerWidget("custom-combobox", [this](QObject * obj) -> QWidget * {
+        if (DSettingsOption *option = qobject_cast<DSettingsOption *>(obj))
+        {
             qDebug() << "create custom combobox:" << option->value();
             DComboBox *pCombo = new DComboBox;
             QString strName = option->name();
@@ -131,8 +135,9 @@ void DPropertySetDlg::initUI()
         return nullptr;
     });
 
-    widgetFactory()->registerWidget("custom-buttons", [this](QObject *obj) -> QWidget * {
-        if (DSettingsOption *option = qobject_cast<DSettingsOption *>(obj)) {
+    widgetFactory()->registerWidget("custom-buttons", [this](QObject * obj) -> QWidget * {
+        if (DSettingsOption *option = qobject_cast<DSettingsOption *>(obj))
+        {
             qDebug() << "create custom button:" << option->value();
             QWidget *pWidget = new QWidget;
             auto itemdata = option->data(QString::fromStdString("items"));
@@ -223,6 +228,7 @@ void DPropertySetDlg::initUI()
     settings->setBackend(backend);
     updateSettings(settings);
     resize(682, 546);
+    setFixedSize(682, 546);
     m_bShow = false;
     setResetVisible(false);
     setWindowIcon(QIcon(":/images/dde-printer.svg"));

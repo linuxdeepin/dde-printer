@@ -1039,7 +1039,7 @@ void JobManagerWindow::slotDoActionFailed(int jobId, unsigned int iAction)
     QPoint tipsPos = QCursor::pos();
 
     //右键菜单可能关闭导致tooltips没有显示，延时处理
-    QTimer::singleShot(100, this, [=]() {
+    QTimer::singleShot(100, this, [ = ]() {
         QToolTip::showText(tipsPos, strTips, this);
     });
 }
