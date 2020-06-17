@@ -95,7 +95,6 @@ TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *pare
     : DAbstractDialog(false, parent)
 {
     m_printerName = printerName;
-
     DTitlebar *titleBar = new DTitlebar();
     titleBar->setIcon(QIcon(":/images/dde-printer.svg"));
     titleBar->setMenuVisible(false);
@@ -149,6 +148,8 @@ TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *pare
     mainlay->addWidget(titleBar);
     mainlay->addWidget(contentWidget);
     setLayout(mainlay);
+
+    this->setFixedSize(692, 487);
 
     connect(m_trobleShoot, &TroubleShoot::signalStatus, this, &TroubleShootDialog::slotTroubleShootStatus);
     connect(m_button, &QPushButton::clicked, this, &DDialog::close);

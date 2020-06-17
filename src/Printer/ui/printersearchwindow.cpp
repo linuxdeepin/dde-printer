@@ -70,9 +70,9 @@ void PrinterSearchWindow::initUi()
     titlebar()->setTitle("");
     titlebar()->setIcon(QIcon(":/images/dde-printer.svg"));
     // 去掉最大最小按钮
-    setWindowFlags(windowFlags() & ~Qt::WindowMinMaxButtonsHint);
+    setWindowFlags(Qt::Dialog);
     setWindowModality(Qt::ApplicationModal);
-    setMinimumSize(682, 532);
+    setFixedSize(682, 532);
 
     DFrame *pLeftWidget = new DFrame();
     //自动填充背景之后就去掉了DTK的圆角边框，变成了默认的直角边框（UI设计）
