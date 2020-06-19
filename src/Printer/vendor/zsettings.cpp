@@ -22,6 +22,8 @@
 #include "zsettings.h"
 #include "config.h"
 
+#include <DSysInfo>
+
 #include <QSettings>
 #include <QFile>
 #include <QLocale>
@@ -29,16 +31,16 @@
 
 #include <sys/utsname.h>
 
-#define VERSION "1.2.0"
-#define CLIENT_CODE "godfather"
-#define HOST_PORT 80
-#define SERVER_ADDR "printer.deepin.com"
-#define OS_VERSION "eagle"
+#define VERSION         "1.2.0"
+#define CLIENT_CODE     "godfather"
+#define HOST_PORT       80
+#define SERVER_ADDR     "printer.deepin.com"
+#define OS_VERSION      "eagle"
+static QMap<int, QString> DeepinTypeStrMap({{0, "unknown"}, {1, "apricot"}, {2, "eagle"}, {3, "fou"}, {4, "plum"}});
 
 QString sysArch()
 {
-    struct utsname name {
-    };
+    struct utsname name {};
 
     if (uname(&name) == -1) {
         return "";
@@ -52,7 +54,8 @@ QString sysArch()
         {"i386", "x86"},
         {"i686", "x86"},
         {"mips64", "mips64"},
-        {"aarch64", "aarch64"}};
+        {"aarch64", "aarch64"}
+    };
     qInfo() << machine;
     return archMap[machine];
 }
@@ -98,7 +101,7 @@ const QString zSettings::getLogRules()
 
 const QString zSettings::getOSVersion()
 {
-    QString defaultVersion = OS_VERSION;
+    QString defaultVersion = DeepinTypeStrMap.value(DTK_CORE_NAMESPACE::DSysInfo::deepinType(), OS_VERSION);
     QString archName = sysArch();
 
     qInfo() << QLocale::languageToString(QLocale::system().language());

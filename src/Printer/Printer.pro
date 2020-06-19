@@ -143,8 +143,8 @@ keyring.files = $${PWD}/ppa/printer-keyring.gpg
 gpgfile.path =  $${PREFIX}/share/dde-printer
 gpgfile.files = $${PWD}/ppa/printer.gpg
 
-ppa.path =  /etc/apt/sources.list.d
-ppa.files = $${PWD}/ppa/printer.list
+#ppa.path =  /etc/apt/sources.list.d
+#ppa.files = $${PWD}/ppa/printer.list
 
 INSTALLS += target watch desktop hicolor trans polkit keyring gpgfile ppa
 }
