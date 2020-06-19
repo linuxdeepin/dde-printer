@@ -123,7 +123,7 @@ isEmpty(PREFIX){
 target.path = $${PREFIX}/bin
 
 watch.path = /etc/xdg/autostart
-watch.files = $${PWD}/platform/linux/dde-printer-watch.desktop
+watch.files = $${PWD}/platform/linux/watch/dde-printer.desktop
 
 desktop.path = $${PREFIX}/share/applications
 desktop.files = $${PWD}/platform/linux/dde-printer.desktop
