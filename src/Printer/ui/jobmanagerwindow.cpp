@@ -956,6 +956,7 @@ JobManagerWindow::JobManagerWindow(QWidget *parent)
     initUi();
     initConnect();
     m_jobsModel->setWhichJob(WHICH_JOB_RUNING);
+    setAttribute(Qt::WA_DeleteOnClose);
 }
 
 void JobManagerWindow::createUi()
