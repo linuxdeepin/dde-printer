@@ -1,28 +1,30 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="sr" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="sr">
 <context>
     <name>AddPrinterTask</name>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="546"/>
+        <location filename="../vendor/addprinter.cpp" line="547"/>
         <source>URI and driver do not match.</source>
         <translation>УРИ и управљач нису подударни.</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="548"/>
+        <location filename="../vendor/addprinter.cpp" line="549"/>
         <source>Install hplip first and restart the app to install the driver again.</source>
         <translation>Прво инсталирајте hplip и поново покрените програм да инсталирате управљач.</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="556"/>
+        <location filename="../vendor/addprinter.cpp" line="557"/>
         <source>Please select an hplip driver and try again.</source>
         <translation>Изаберите hplip управљач и покушајте поново.</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="569"/>
+        <location filename="../vendor/addprinter.cpp" line="570"/>
         <source>URI can&apos;t be empty</source>
         <translation>УРИ не може бити празан</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="576"/>
+        <location filename="../vendor/addprinter.cpp" line="577"/>
         <source> not found</source>
         <translation>није пронађено</translation>
     </message>
@@ -30,37 +32,37 @@
 <context>
     <name>CheckAttributes</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="303"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="306"/>
         <source>Check printer settings</source>
         <translation>Провери подешавања штампача</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="312"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="315"/>
         <source>Checking printer settings...</source>
         <translation>Провера подешавања штампача...</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="315"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="318"/>
         <source>Success</source>
         <translation>Успех</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="323"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="326"/>
         <source>Failed to get printer attributes, error: </source>
         <translation>Нису добављени атрибути штампача, грешка:</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="331"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="334"/>
         <source>%1 is disabled</source>
         <translation>%1 је онемогућен</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="340"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="343"/>
         <source>is not accepting jobs</source>
         <translation>не прихвата задатке</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="345"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="348"/>
         <source>Printer settings are ok</source>
         <translation>Подешавања штампача су у реду</translation>
     </message>
@@ -68,42 +70,42 @@
 <context>
     <name>CheckConnected</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="209"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="211"/>
         <source>Check printer connection</source>
         <translation>Провери везу штампача</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="221"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="223"/>
         <source>Checking printer connection...</source>
         <translation>Провера везе штампача...</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="224"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="226"/>
         <source>Success</source>
         <translation>Успех</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="260"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="263"/>
         <source>Cannot connect to the printer, error: %1</source>
         <translation>Немогуће повезивање са штампачем, грешка: %1</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="268"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="271"/>
         <source> is not connected, URI: </source>
         <translation>није повезан, УРИ:</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="277"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="280"/>
         <source>%1 does not exist</source>
         <translation>%1 не постоји</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="286"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="289"/>
         <source>Cannot connect to the printer</source>
         <translation>Немогуће повезивање са штампачем</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="292"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="295"/>
         <source>The connection is valid</source>
         <translation>Веза је важећа</translation>
     </message>
@@ -111,22 +113,22 @@
 <context>
     <name>CheckCupsServer</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="102"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="103"/>
         <source>Check CUPS server</source>
         <translation>Провери CUPS сервер</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="110"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="111"/>
         <source>Checking CUPS server...</source>
         <translation>Провера CUPS сервера...</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="116"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="117"/>
         <source>CUPS server is invalid</source>
         <translation>CUPS сервер је неважећи</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="121"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="122"/>
         <source>CUPS server is valid</source>
         <translation>CUPS сервер је важећи</translation>
     </message>
@@ -134,42 +136,42 @@
 <context>
     <name>CheckDriver</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="139"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="140"/>
         <source>Checking driver...</source>
         <translation>Провера управљача...</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="142"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="143"/>
         <source>Success</source>
         <translation>Успех</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="150"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="151"/>
         <source>PPD file %1 not found</source>
         <translation>PPD датотека %1 није пронађена</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="160"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="161"/>
         <source>The driver is damaged</source>
         <translation>Управљачки програм је оштећен</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="175"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="177"/>
         <source>Driver filter %1 not found</source>
         <translation>Филтер управљача %1 није пронађен</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="187"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="189"/>
         <source>%1 is not installed, cannot print now</source>
         <translation>%1 није инсталиран, није могуће штампати</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="193"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="195"/>
         <source>Driver is valid</source>
         <translation>Управљач је важећи</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="199"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="201"/>
         <source>Check driver</source>
         <translation>Провери управљач</translation>
     </message>
@@ -212,17 +214,17 @@
         <translation>Завршено</translation>
     </message>
     <message>
-        <location filename="../vendor/zcupsmonitor.cpp" line="291"/>
+        <location filename="../vendor/zcupsmonitor.cpp" line="293"/>
         <source>%1 timed out, reason: %2</source>
         <translation>%1 време је истекло, разлог: %2</translation>
     </message>
     <message>
-        <location filename="../vendor/zcupsmonitor.cpp" line="306"/>
+        <location filename="../vendor/zcupsmonitor.cpp" line="307"/>
         <source>%1 printed successfully, please take away the paper in time!</source>
         <translation>%1 успешно одштампано, молимо на време склоните папир!</translation>
     </message>
     <message>
-        <location filename="../vendor/zcupsmonitor.cpp" line="308"/>
+        <location filename="../vendor/zcupsmonitor.cpp" line="309"/>
         <source>%1 %2, reason: %3</source>
         <translation>%1 %2, разлог: %3</translation>
     </message>
@@ -231,22 +233,22 @@
     <name>DDestination</name>
     <message>
         <location filename="../util/ddestination.cpp" line="148"/>
-        <location filename="../util/ddestination.cpp" line="203"/>
+        <location filename="../util/ddestination.cpp" line="202"/>
         <source>Unknown</source>
         <translation>Непознато</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="210"/>
+        <location filename="../util/ddestination.cpp" line="209"/>
         <source>Idle</source>
         <translation>Мировање</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="213"/>
+        <location filename="../util/ddestination.cpp" line="212"/>
         <source>Printing</source>
         <translation>Штампање</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="216"/>
+        <location filename="../util/ddestination.cpp" line="215"/>
         <source>Disabled</source>
         <translation>Онемогућено</translation>
     </message>
@@ -254,307 +256,307 @@
 <context>
     <name>DPrinterTanslator</name>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="34"/>
+        <location filename="../util/dprintertanslator.cpp" line="33"/>
         <source>Color</source>
         <translation>Боја</translation>
     </message>
     <message>
+        <location filename="../util/dprintertanslator.cpp" line="34"/>
         <location filename="../util/dprintertanslator.cpp" line="35"/>
-        <location filename="../util/dprintertanslator.cpp" line="36"/>
         <source>Grayscale</source>
         <translation>Сиве нијенсе</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="39"/>
-        <location filename="../util/dprintertanslator.cpp" line="70"/>
-        <location filename="../util/dprintertanslator.cpp" line="87"/>
-        <location filename="../util/dprintertanslator.cpp" line="108"/>
-        <location filename="../util/dprintertanslator.cpp" line="127"/>
-        <location filename="../util/dprintertanslator.cpp" line="136"/>
+        <location filename="../util/dprintertanslator.cpp" line="38"/>
+        <location filename="../util/dprintertanslator.cpp" line="69"/>
+        <location filename="../util/dprintertanslator.cpp" line="86"/>
+        <location filename="../util/dprintertanslator.cpp" line="107"/>
+        <location filename="../util/dprintertanslator.cpp" line="126"/>
+        <location filename="../util/dprintertanslator.cpp" line="135"/>
         <source>None</source>
         <translation>Ништа</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="40"/>
-        <location filename="../util/dprintertanslator.cpp" line="50"/>
+        <location filename="../util/dprintertanslator.cpp" line="39"/>
+        <location filename="../util/dprintertanslator.cpp" line="49"/>
         <source>Draft</source>
         <translation>Нацрт</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="41"/>
-        <location filename="../util/dprintertanslator.cpp" line="121"/>
+        <location filename="../util/dprintertanslator.cpp" line="40"/>
+        <location filename="../util/dprintertanslator.cpp" line="120"/>
         <source>Normal</source>
         <translation>Нормално</translation>
     </message>
     <message>
+        <location filename="../util/dprintertanslator.cpp" line="43"/>
         <location filename="../util/dprintertanslator.cpp" line="44"/>
-        <location filename="../util/dprintertanslator.cpp" line="45"/>
-        <location filename="../util/dprintertanslator.cpp" line="48"/>
+        <location filename="../util/dprintertanslator.cpp" line="47"/>
         <source>Print Quality</source>
         <translation>Квалитет штампе</translation>
     </message>
     <message>
+        <location filename="../util/dprintertanslator.cpp" line="55"/>
         <location filename="../util/dprintertanslator.cpp" line="56"/>
-        <location filename="../util/dprintertanslator.cpp" line="57"/>
         <source>Auto-Select</source>
         <translation>Самоизбор</translation>
     </message>
     <message>
+        <location filename="../util/dprintertanslator.cpp" line="57"/>
         <location filename="../util/dprintertanslator.cpp" line="58"/>
-        <location filename="../util/dprintertanslator.cpp" line="59"/>
         <source>Manual Feeder</source>
         <translation>Ручни додавач</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="60"/>
-        <location filename="../util/dprintertanslator.cpp" line="74"/>
+        <location filename="../util/dprintertanslator.cpp" line="59"/>
+        <location filename="../util/dprintertanslator.cpp" line="73"/>
         <source>Auto</source>
         <translation>Аутоматски</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="49"/>
-        <location filename="../util/dprintertanslator.cpp" line="61"/>
+        <location filename="../util/dprintertanslator.cpp" line="48"/>
+        <location filename="../util/dprintertanslator.cpp" line="60"/>
         <source>Manual</source>
         <translation>Ручно</translation>
     </message>
     <message>
+        <location filename="../util/dprintertanslator.cpp" line="52"/>
         <location filename="../util/dprintertanslator.cpp" line="53"/>
         <location filename="../util/dprintertanslator.cpp" line="54"/>
-        <location filename="../util/dprintertanslator.cpp" line="55"/>
         <source>Paper Source</source>
         <translation>Извор папира</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="62"/>
+        <location filename="../util/dprintertanslator.cpp" line="61"/>
         <source>Drawer 1</source>
         <translation>Фиока 1</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="63"/>
+        <location filename="../util/dprintertanslator.cpp" line="62"/>
         <source>Drawer 2</source>
         <translation>Фиока 2</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="64"/>
+        <location filename="../util/dprintertanslator.cpp" line="63"/>
         <source>Drawer 3</source>
         <translation>Фиока 3</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="65"/>
+        <location filename="../util/dprintertanslator.cpp" line="64"/>
         <source>Drawer 4</source>
         <translation>Фиока 4</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="66"/>
+        <location filename="../util/dprintertanslator.cpp" line="65"/>
         <source>Drawer 5</source>
         <translation>Фиока 5</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="67"/>
+        <location filename="../util/dprintertanslator.cpp" line="66"/>
         <source>Envelope Feeder</source>
         <translation>Додавач коверти</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="68"/>
+        <location filename="../util/dprintertanslator.cpp" line="67"/>
         <source>Tray1</source>
         <translation>Касета 1</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="69"/>
+        <location filename="../util/dprintertanslator.cpp" line="68"/>
         <source>Unknown</source>
         <translation>Непознато</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="73"/>
+        <location filename="../util/dprintertanslator.cpp" line="72"/>
         <source>MediaType</source>
         <translation>Врста папира</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="75"/>
+        <location filename="../util/dprintertanslator.cpp" line="74"/>
         <source>Plain Paper</source>
         <translation>Обичан папир</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="76"/>
+        <location filename="../util/dprintertanslator.cpp" line="75"/>
         <source>Recycled Paper</source>
         <translation>Рециклирани папир</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="77"/>
+        <location filename="../util/dprintertanslator.cpp" line="76"/>
         <source>Color Paper</source>
         <translation>Папир у боји</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="78"/>
+        <location filename="../util/dprintertanslator.cpp" line="77"/>
         <source>Bond Paper</source>
         <translation>Бонд папир</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="79"/>
+        <location filename="../util/dprintertanslator.cpp" line="78"/>
         <source>Heavy Paper 1</source>
         <translation>Тешки папир 1</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="80"/>
+        <location filename="../util/dprintertanslator.cpp" line="79"/>
         <source>Heavy Paper 2</source>
         <translation>Тешки папир 2</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="81"/>
+        <location filename="../util/dprintertanslator.cpp" line="80"/>
         <source>Heavy Paper 3</source>
         <translation>Тешки папир 3</translation>
     </message>
     <message>
+        <location filename="../util/dprintertanslator.cpp" line="81"/>
         <location filename="../util/dprintertanslator.cpp" line="82"/>
-        <location filename="../util/dprintertanslator.cpp" line="83"/>
         <source>OHP</source>
         <translation>ОХП</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="84"/>
+        <location filename="../util/dprintertanslator.cpp" line="83"/>
         <source>Labels</source>
         <translation>Ознаке</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="85"/>
+        <location filename="../util/dprintertanslator.cpp" line="84"/>
         <source>Envelope</source>
         <translation>Коверта</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="86"/>
+        <location filename="../util/dprintertanslator.cpp" line="85"/>
         <source>Photo Paper</source>
         <translation>Фото папир</translation>
     </message>
     <message>
+        <location filename="../util/dprintertanslator.cpp" line="89"/>
         <location filename="../util/dprintertanslator.cpp" line="90"/>
         <location filename="../util/dprintertanslator.cpp" line="91"/>
-        <location filename="../util/dprintertanslator.cpp" line="92"/>
         <source>PageSize</source>
         <translation>Величина странице</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="93"/>
+        <location filename="../util/dprintertanslator.cpp" line="92"/>
         <source>Custom</source>
         <translation>Прилагођено</translation>
     </message>
     <message>
+        <location filename="../util/dprintertanslator.cpp" line="95"/>
         <location filename="../util/dprintertanslator.cpp" line="96"/>
         <location filename="../util/dprintertanslator.cpp" line="97"/>
-        <location filename="../util/dprintertanslator.cpp" line="98"/>
         <source>Duplex</source>
         <translation>Двострано</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="99"/>
+        <location filename="../util/dprintertanslator.cpp" line="98"/>
         <source>DuplexTumble</source>
         <translation>Двострано тумбање</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="100"/>
+        <location filename="../util/dprintertanslator.cpp" line="99"/>
         <source>DuplexNoTumble</source>
         <translation>Двострано без тумбања</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="101"/>
+        <location filename="../util/dprintertanslator.cpp" line="100"/>
         <source>ON (Long-edged Binding)</source>
         <translation>УКЉ. (везивање дугих рубова)</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="102"/>
+        <location filename="../util/dprintertanslator.cpp" line="101"/>
         <source>ON (Short-edged Binding)</source>
         <translation>УКЉ. (везивање кратких рубова)</translation>
     </message>
     <message>
+        <location filename="../util/dprintertanslator.cpp" line="102"/>
         <location filename="../util/dprintertanslator.cpp" line="103"/>
-        <location filename="../util/dprintertanslator.cpp" line="104"/>
         <source>OFF</source>
         <translation>Искљ.</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="107"/>
-        <location filename="../util/dprintertanslator.cpp" line="111"/>
+        <location filename="../util/dprintertanslator.cpp" line="106"/>
+        <location filename="../util/dprintertanslator.cpp" line="110"/>
         <source>Binding Edge</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../util/dprintertanslator.cpp" line="124"/>
         <location filename="../util/dprintertanslator.cpp" line="125"/>
-        <location filename="../util/dprintertanslator.cpp" line="126"/>
         <source>Staple Location</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../util/dprintertanslator.cpp" line="136"/>
         <location filename="../util/dprintertanslator.cpp" line="137"/>
-        <location filename="../util/dprintertanslator.cpp" line="138"/>
         <source>Resolution</source>
         <translation>Резолуција</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="109"/>
+        <location filename="../util/dprintertanslator.cpp" line="108"/>
         <source>Left</source>
         <translation>Лево</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="110"/>
+        <location filename="../util/dprintertanslator.cpp" line="109"/>
         <source>Top</source>
         <translation>Горе</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="114"/>
+        <location filename="../util/dprintertanslator.cpp" line="113"/>
         <source>Portrait (no rotation)</source>
         <translation>Усправно (без ротације)</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="115"/>
+        <location filename="../util/dprintertanslator.cpp" line="114"/>
         <source>Landscape (90 degrees)</source>
         <translation>Положено (90 степени)</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="116"/>
+        <location filename="../util/dprintertanslator.cpp" line="115"/>
         <source>Reverse landscape (270 degrees)</source>
         <translation>Обрнуто положено (270 степени)</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="117"/>
+        <location filename="../util/dprintertanslator.cpp" line="116"/>
         <source>Reverse portrait (180 degrees)</source>
         <translation>Обрнуто усправно (180 степени)</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="118"/>
+        <location filename="../util/dprintertanslator.cpp" line="117"/>
         <source>Auto Rotation</source>
         <translation>Саморотација</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="122"/>
+        <location filename="../util/dprintertanslator.cpp" line="121"/>
         <source>Reverse</source>
         <translation>Обрнуто</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="128"/>
+        <location filename="../util/dprintertanslator.cpp" line="127"/>
         <source>Bind</source>
         <translation>Вежи</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="129"/>
+        <location filename="../util/dprintertanslator.cpp" line="128"/>
         <source>Bind (none)</source>
         <translation>Вежи (ништа)</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="130"/>
+        <location filename="../util/dprintertanslator.cpp" line="129"/>
         <source>Bind (bottom)</source>
         <translation>Вежи (доле)</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="131"/>
+        <location filename="../util/dprintertanslator.cpp" line="130"/>
         <source>Bind (left)</source>
         <translation>Вежи (лево)</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="132"/>
+        <location filename="../util/dprintertanslator.cpp" line="131"/>
         <source>Bind (right)</source>
         <translation>Вежи (десно)</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="133"/>
+        <location filename="../util/dprintertanslator.cpp" line="132"/>
         <source>Bind (top)</source>
         <translation>Вежи (горе)</translation>
     </message>
@@ -582,134 +584,134 @@
         <translation>Обриши штампач</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="110"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="114"/>
         <source>Shared</source>
         <translation>Дељено</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="113"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="117"/>
         <source>Enabled</source>
         <translation>Омогућено</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="116"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="120"/>
         <source>Accept jobs</source>
         <translation>Прихвати задатке</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="120"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="124"/>
         <source>Set as default</source>
         <translation>Постави као подразумевано</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="132"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="135"/>
         <source>No Printers</source>
         <translation>Нема штампача</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="157"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="159"/>
         <source>Location:</source>
         <translation>Локација:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="161"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="163"/>
         <source>Model:</source>
         <translation>Модел:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="164"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="166"/>
         <source>Status:</source>
         <translation>Статус:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="191"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="193"/>
         <source>Properties</source>
         <translation>Својства</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="201"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="203"/>
         <source>Print Queue</source>
         <translation>Ред за штампање</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="211"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="213"/>
         <source>Print Test Page</source>
         <translation>Штампај пробну страницу</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="245"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="247"/>
         <source>No printer configured</source>
         <translation>Нема подешених штампача</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="250"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="252"/>
         <source>Click + to add printers</source>
         <translation>Кликни на + да додаш штампаче</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="310"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="314"/>
         <source>As print jobs are in process, you cannot rename the printer now, please try later</source>
         <translation>Задатак штампања је у току, није могуће преименовати штампач, покушајте касније</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="314"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="363"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="548"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="318"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="366"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="550"/>
         <source>OK</source>
         <translation>У реду</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="341"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="344"/>
         <source>Idle</source>
         <translation>Мировање</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="343"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="346"/>
         <source>Printing</source>
         <translation>Штампање</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="345"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="348"/>
         <source>Disabled</source>
         <translation>Онемогућено</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="360"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="363"/>
         <source>CUPS server is not running, and can’t manage printers.</source>
         <translation>CUPS сервер није активан, не може управљати штампачима.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="506"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="508"/>
         <source>Are you sure you want to delete the printer &quot;%1&quot; ?</source>
         <translation>Заиста желите да обришете штампач &quot;%1&quot; ?</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="512"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="514"/>
         <source>Delete</source>
         <translation>Обриши</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="544"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="546"/>
         <source>The name already exists</source>
         <translation>Име већ постоји</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="563"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="565"/>
         <source>You will not be able to reprint the completed jobs if continue. Are you sure you want to rename the printer?</source>
         <translation>Нећете моћи да поново штампате завршене задатке ако наставите. Заиста желите да преименујете штампач?</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="568"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="570"/>
         <source>Confirm</source>
         <translation>Потврди</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="617"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="619"/>
         <source>The driver is damaged, please install it again.</source>
         <translation>Управљач је оштећен, молимо поново га инсталирајте</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="620"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="622"/>
         <source>Install Driver</source>
         <translation>Неважећи управљач</translation>
     </message>
@@ -717,68 +719,68 @@
 <context>
     <name>DPropertySetDlg</name>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="171"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="175"/>
         <source>Print Properties</source>
         <translation>Својства штампања</translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="172"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="176"/>
         <source>Driver</source>
         <translation>Управљач</translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="173"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="177"/>
         <source>URI</source>
         <translation>УРИ</translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="174"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="178"/>
         <source>Location</source>
         <translation>Локација</translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="175"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="179"/>
         <source>Description</source>
         <translation>Опис</translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="176"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="180"/>
         <source>Color Mode</source>
         <translation>Режим боје</translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="177"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="181"/>
         <source>Orientation</source>
         <translation>Усмерење</translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="178"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="182"/>
         <source>Page Order</source>
         <translation>Распоред страница</translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="631"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="603"/>
         <source>Options conflict!</source>
         <translation>Сукоб опција!</translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="634"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="606"/>
         <source>Please resolve the conflict first, and then save the changes.</source>
         <translation>Молимо прво решите сукоб па сачувајте измене.</translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="653"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="625"/>
         <source>Conflict:</source>
         <translation>Сукоб:</translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="664"/>
-        <location filename="../ui/dpropertysetdlg.cpp" line="1156"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="636"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="1123"/>
         <source>OK</source>
         <translation>У реду</translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="1155"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="1122"/>
         <source>Invalid URI</source>
         <translation>Неважећи УРИ</translation>
     </message>
@@ -786,7 +788,7 @@
 <context>
     <name>DriverManager</name>
     <message>
-        <location filename="../vendor/zdrivermanager.cpp" line="782"/>
+        <location filename="../vendor/zdrivermanager.cpp" line="791"/>
         <source>EveryWhere driver</source>
         <translation>EveryWhere управљач</translation>
     </message>
@@ -794,12 +796,12 @@
 <context>
     <name>InstallDriver</name>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="378"/>
+        <location filename="../vendor/addprinter.cpp" line="374"/>
         <source>Failed to find the driver solution: %1, error: %2</source>
         <translation>Неуспешно проналажење управљачког решења:%1, грешка: %2</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="388"/>
+        <location filename="../vendor/addprinter.cpp" line="385"/>
         <source>The solution is invalid</source>
         <translation>Решење је неважеће</translation>
     </message>
@@ -807,91 +809,95 @@
 <context>
     <name>InstallDriverWindow</name>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="85"/>
+        <location filename="../ui/installdriverwindow.cpp" line="123"/>
         <source>Select a driver from</source>
         <translation>Изабери управљач</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="89"/>
+        <location filename="../ui/installdriverwindow.cpp" line="127"/>
         <source>Local driver</source>
         <translation>Локални управљач</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="90"/>
+        <location filename="../ui/installdriverwindow.cpp" line="128"/>
         <source>Local PPD file</source>
         <translation>Локална PPD датотека</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="91"/>
+        <location filename="../ui/installdriverwindow.cpp" line="129"/>
         <source>Search for a driver</source>
         <translation>Тражи управљач</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="105"/>
-        <location filename="../ui/installdriverwindow.cpp" line="386"/>
+        <location filename="../ui/installdriverwindow.cpp" line="143"/>
+        <location filename="../ui/installdriverwindow.cpp" line="421"/>
         <source>Choose a local driver</source>
         <translation>Изабери локални управљач</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="108"/>
+        <location filename="../ui/installdriverwindow.cpp" line="146"/>
         <source>Vendor</source>
         <translation>Марка</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="120"/>
+        <location filename="../ui/installdriverwindow.cpp" line="158"/>
         <source>Model</source>
         <translation>Модел</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="131"/>
-        <location filename="../ui/installdriverwindow.cpp" line="201"/>
+        <location filename="../ui/installdriverwindow.cpp" line="169"/>
+        <location filename="../ui/installdriverwindow.cpp" line="238"/>
         <source>Driver</source>
         <translation>Управљач</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="185"/>
+        <location filename="../ui/installdriverwindow.cpp" line="223"/>
         <source>Vendor and Model</source>
         <translation>Марка и модел</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="187"/>
-        <source>Enter a complete vendor and model</source>
-        <translation>Унесите потпун модел и марку</translation>
+        <location filename="../ui/installdriverwindow.cpp" line="225"/>
+        <source>Enter a complete vendor and model (Only letters, numbers and whitespaces)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="189"/>
+        <source>Enter a complete vendor and model</source>
+        <translation type="vanished">Унесите потпун модел и марку</translation>
+    </message>
+    <message>
+        <location filename="../ui/installdriverwindow.cpp" line="227"/>
         <source>Search</source>
         <translation>Претражи</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="232"/>
+        <location filename="../ui/installdriverwindow.cpp" line="268"/>
         <source>Install Driver</source>
         <translation>Инсталирај управљач</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="368"/>
-        <location filename="../ui/installdriverwindow.cpp" line="474"/>
+        <location filename="../ui/installdriverwindow.cpp" line="403"/>
+        <location filename="../ui/installdriverwindow.cpp" line="515"/>
         <source>Reselect</source>
         <translation>Реизбор</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="394"/>
-        <location filename="../ui/installdriverwindow.cpp" line="471"/>
+        <location filename="../ui/installdriverwindow.cpp" line="429"/>
+        <location filename="../ui/installdriverwindow.cpp" line="512"/>
         <source>Select a PPD file</source>
         <translation>Изабери PPD датотеку</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="403"/>
+        <location filename="../ui/installdriverwindow.cpp" line="438"/>
         <source>Search for printer driver</source>
         <translation>Тражи управљаче за штампач</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="456"/>
+        <location filename="../ui/installdriverwindow.cpp" line="494"/>
         <source>(recommended)</source>
         <translation>(препоручено)</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="577"/>
+        <location filename="../ui/installdriverwindow.cpp" line="656"/>
         <source> (recommended)</source>
         <translation>(препоручено)</translation>
     </message>
@@ -899,17 +905,17 @@
 <context>
     <name>InstallInterface</name>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="257"/>
+        <location filename="../vendor/addprinter.cpp" line="252"/>
         <source>is invalid</source>
         <translation>је неважећи</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="286"/>
+        <location filename="../vendor/addprinter.cpp" line="281"/>
         <source>Failed to install the driver by calling dbus interface</source>
         <translation>Неуспешно инсталирање управљача позивањем dbus сучеља</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="330"/>
+        <location filename="../vendor/addprinter.cpp" line="326"/>
         <source>Failed to install %1</source>
         <translation>Неуспешно инсталирање %1</translation>
     </message>
@@ -918,7 +924,7 @@
     <name>InstallPrinterWindow</name>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="85"/>
-        <location filename="../ui/installprinterwindow.cpp" line="150"/>
+        <location filename="../ui/installprinterwindow.cpp" line="148"/>
         <source>Installing driver...</source>
         <translation>Инсталирање управљача...</translation>
     </message>
@@ -929,79 +935,79 @@
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="98"/>
-        <location filename="../ui/installprinterwindow.cpp" line="173"/>
-        <location filename="../ui/installprinterwindow.cpp" line="190"/>
+        <location filename="../ui/installprinterwindow.cpp" line="171"/>
+        <location filename="../ui/installprinterwindow.cpp" line="188"/>
         <source>View Printer</source>
         <translation>Прикажи штампач</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="100"/>
-        <location filename="../ui/installprinterwindow.cpp" line="175"/>
-        <location filename="../ui/installprinterwindow.cpp" line="192"/>
+        <location filename="../ui/installprinterwindow.cpp" line="173"/>
+        <location filename="../ui/installprinterwindow.cpp" line="190"/>
         <source>Print Test Page</source>
         <translation>Штампај пробну страницу</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="162"/>
+        <location filename="../ui/installprinterwindow.cpp" line="160"/>
         <source>Successfully installed </source>
         <translation>Успешно инсталиран</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="168"/>
-        <location filename="../ui/installprinterwindow.cpp" line="186"/>
+        <location filename="../ui/installprinterwindow.cpp" line="166"/>
+        <location filename="../ui/installprinterwindow.cpp" line="184"/>
         <source>You have successfully added the printer. Print a test page to check if it works properly.</source>
         <translation>Успешно сте додали штампач. Штампајте пробну страницу да проверите његову исправност.</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="180"/>
+        <location filename="../ui/installprinterwindow.cpp" line="178"/>
         <source>Printing test page...</source>
         <translation>Штампање пробне странице...</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="197"/>
+        <location filename="../ui/installprinterwindow.cpp" line="195"/>
         <source>Did you print the test page successfully?</source>
         <translation>Да ли сте успешно одштампали пробну страницу?</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="203"/>
+        <location filename="../ui/installprinterwindow.cpp" line="201"/>
         <source>If succeeded, click Yes; if failed, click No</source>
         <translation>Ако сте успели, кликните на Да; ако нисте, кликните на Не.</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="206"/>
+        <location filename="../ui/installprinterwindow.cpp" line="204"/>
         <source>No</source>
         <translation>Не</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="208"/>
+        <location filename="../ui/installprinterwindow.cpp" line="206"/>
         <source>Yes</source>
         <translation>Да</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="213"/>
-        <location filename="../ui/installprinterwindow.cpp" line="233"/>
+        <location filename="../ui/installprinterwindow.cpp" line="211"/>
+        <location filename="../ui/installprinterwindow.cpp" line="231"/>
         <source>Print failed</source>
         <translation>Штампање неуспешно</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="219"/>
+        <location filename="../ui/installprinterwindow.cpp" line="217"/>
         <source>Click Reinstall to install the printer driver again, or click Troubleshoot to start troubleshooting.</source>
         <translation>Кликни на Поново инст. да поново инсталираш управљач за штампач или кликни на Истражи проблем.</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="222"/>
-        <location filename="../ui/installprinterwindow.cpp" line="243"/>
+        <location filename="../ui/installprinterwindow.cpp" line="220"/>
+        <location filename="../ui/installprinterwindow.cpp" line="241"/>
         <source>Reinstall</source>
         <translation>Поново инст.</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="224"/>
-        <location filename="../ui/installprinterwindow.cpp" line="245"/>
+        <location filename="../ui/installprinterwindow.cpp" line="222"/>
+        <location filename="../ui/installprinterwindow.cpp" line="243"/>
         <source>Troubleshoot</source>
         <translation>Истражи проблем</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="231"/>
+        <location filename="../ui/installprinterwindow.cpp" line="229"/>
         <source>Installation failed</source>
         <translation>Инсталирање неуспешно</translation>
     </message>
@@ -1009,44 +1015,44 @@
 <context>
     <name>JobListView</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="214"/>
-        <location filename="../ui/jobmanagerwindow.cpp" line="372"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="212"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="369"/>
         <source>Cancel</source>
         <translation>Откажи</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="215"/>
-        <location filename="../ui/jobmanagerwindow.cpp" line="373"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="213"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="370"/>
         <source>Delete</source>
         <translation>Обриши</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="216"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="214"/>
         <source>Pause</source>
         <translation>Паузирај</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="217"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="215"/>
         <source>Resume</source>
         <translation>Настави</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="218"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="216"/>
         <source>Print first</source>
         <translation>Штампај прво</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="219"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="217"/>
         <source>Reprint</source>
         <translation>Поново штампај</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="221"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="219"/>
         <source>No print jobs</source>
         <translation>Нема штампарских задатака</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="366"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="363"/>
         <source>Are you sure you want to delete this job?</source>
         <translation>Заиста желите да обришете овај задатак?</translation>
     </message>
@@ -1054,7 +1060,7 @@
 <context>
     <name>JobManager</name>
     <message>
-        <location filename="../vendor/zjobmanager.cpp" line="283"/>
+        <location filename="../vendor/zjobmanager.cpp" line="279"/>
         <source> not found</source>
         <translation>није пронађено</translation>
     </message>
@@ -1062,32 +1068,32 @@
 <context>
     <name>JobManagerWindow</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="975"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="979"/>
         <source>Refresh</source>
         <translation>Освежи</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="979"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="983"/>
         <source>All</source>
         <translation>Све</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="980"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="984"/>
         <source>Print Queue</source>
         <translation>Ред за штампање</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="981"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="985"/>
         <source>Completed</source>
         <translation>Завршено</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1034"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1042"/>
         <source> failed</source>
         <translation>неуспешно</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1055"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1063"/>
         <source>%1 jobs</source>
         <translation>%1 задатак/а</translation>
     </message>
@@ -1095,42 +1101,42 @@
 <context>
     <name>JobsDataModel</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="628"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="629"/>
         <source>Job</source>
         <translation>Задатак</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="630"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="631"/>
         <source>User</source>
         <translation>Корисник</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="632"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="633"/>
         <source>Document</source>
         <translation>Документ</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="634"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="635"/>
         <source>Printer</source>
         <translation>Штампач</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="636"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="637"/>
         <source>Size</source>
         <translation>Величина</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="638"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="639"/>
         <source>Time submitted</source>
         <translation>Време подношења</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="640"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="641"/>
         <source>Status</source>
         <translation>Статус</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="642"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="643"/>
         <source>Action</source>
         <translation>Поступак</translation>
     </message>
@@ -1138,32 +1144,32 @@
 <context>
     <name>PermissionsWindow</name>
     <message>
-        <location filename="../ui/permissionswindow.cpp" line="51"/>
+        <location filename="../ui/permissionswindow.cpp" line="48"/>
         <source>Connect to %1 to find a printer</source>
         <translation>Повежи се на %1 да нађеш штампач</translation>
     </message>
     <message>
-        <location filename="../ui/permissionswindow.cpp" line="78"/>
+        <location filename="../ui/permissionswindow.cpp" line="74"/>
         <source>Username</source>
         <translation>Корисничко име</translation>
     </message>
     <message>
-        <location filename="../ui/permissionswindow.cpp" line="80"/>
+        <location filename="../ui/permissionswindow.cpp" line="76"/>
         <source>Group</source>
         <translation>Група</translation>
     </message>
     <message>
-        <location filename="../ui/permissionswindow.cpp" line="82"/>
+        <location filename="../ui/permissionswindow.cpp" line="78"/>
         <source>Password</source>
         <translation>Лозинка</translation>
     </message>
     <message>
-        <location filename="../ui/permissionswindow.cpp" line="96"/>
+        <location filename="../ui/permissionswindow.cpp" line="92"/>
         <source>Cancel</source>
         <translation>Откажи</translation>
     </message>
     <message>
-        <location filename="../ui/permissionswindow.cpp" line="97"/>
+        <location filename="../ui/permissionswindow.cpp" line="93"/>
         <source>Connect</source>
         <translation>Повежи</translation>
     </message>
@@ -1171,12 +1177,12 @@
 <context>
     <name>PrinterApplication</name>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="98"/>
+        <location filename="../ui/printerapplication.cpp" line="111"/>
         <source>Print Manager</source>
         <translation>Управник Штампања</translation>
     </message>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="99"/>
+        <location filename="../ui/printerapplication.cpp" line="112"/>
         <source>Print Manager is a printer management tool, which supports adding and removing printers, managing print jobs and so on.</source>
         <translation>Управник Штампања је алат за управљање штампачима. Подржава додавање и уклањање штампача, управљање задацима штампања итд.</translation>
     </message>
@@ -1184,75 +1190,75 @@
 <context>
     <name>PrinterSearchWindow</name>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="84"/>
-        <location filename="../ui/printersearchwindow.cpp" line="87"/>
+        <location filename="../ui/printersearchwindow.cpp" line="83"/>
+        <location filename="../ui/printersearchwindow.cpp" line="86"/>
         <source>Discover printer</source>
         <translation>Откриј штампач</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="90"/>
-        <location filename="../ui/printersearchwindow.cpp" line="93"/>
+        <location filename="../ui/printersearchwindow.cpp" line="89"/>
+        <location filename="../ui/printersearchwindow.cpp" line="92"/>
         <source>Find printer</source>
         <translation>Нађи штампач</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="95"/>
-        <location filename="../ui/printersearchwindow.cpp" line="98"/>
+        <location filename="../ui/printersearchwindow.cpp" line="94"/>
+        <location filename="../ui/printersearchwindow.cpp" line="97"/>
         <source>Enter URI</source>
         <translation>Унеси УРИ</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="119"/>
+        <location filename="../ui/printersearchwindow.cpp" line="118"/>
         <source>Select a printer</source>
         <translation>Изабери штампач</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="125"/>
+        <location filename="../ui/printersearchwindow.cpp" line="124"/>
         <source>Refresh</source>
         <translation>Освежи</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="164"/>
+        <location filename="../ui/printersearchwindow.cpp" line="162"/>
         <source>Install Driver</source>
         <translation>Инсталирај управљач</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="193"/>
+        <location filename="../ui/printersearchwindow.cpp" line="190"/>
         <source>Address</source>
         <translation>Адреса</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="196"/>
+        <location filename="../ui/printersearchwindow.cpp" line="192"/>
         <source>Enter an address</source>
         <translation>Унеси адресу</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="197"/>
+        <location filename="../ui/printersearchwindow.cpp" line="193"/>
         <source>Find</source>
         <translation>Нађи</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="271"/>
+        <location filename="../ui/printersearchwindow.cpp" line="266"/>
         <source>URI</source>
         <translation>УРИ</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="275"/>
+        <location filename="../ui/printersearchwindow.cpp" line="270"/>
         <source>Enter device URI</source>
         <translation>Унеси УРИ уређаја</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="286"/>
+        <location filename="../ui/printersearchwindow.cpp" line="281"/>
         <source>Examples:</source>
         <translation>Примери:</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="570"/>
+        <location filename="../ui/printersearchwindow.cpp" line="555"/>
         <source>OK</source>
         <translation>У реду</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="658"/>
+        <location filename="../ui/printersearchwindow.cpp" line="642"/>
         <source> (recommended)</source>
         <translation>(препоручено)</translation>
     </message>
@@ -1260,12 +1266,12 @@
 <context>
     <name>PrinterTestJob</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="366"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="369"/>
         <source>Check test page printing</source>
         <translation>Провери штампање пробне странице</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="414"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="416"/>
         <source>Printing test page...</source>
         <translation>Штампање пробне странице...</translation>
     </message>
@@ -1281,37 +1287,37 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="102"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="101"/>
         <source>1 min ago</source>
         <translation>Пре 1 минут</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="105"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="104"/>
         <source>%1 mins ago</source>
         <translation>Пре %1 минута</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="109"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="108"/>
         <source>1 hr ago</source>
         <translation>Пре 1 сат</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="111"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="110"/>
         <source>%1 hrs ago</source>
         <translation>Пре %1 сата/и</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="116"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="115"/>
         <source>Yesterday</source>
         <translation>Јуче</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="118"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="117"/>
         <source>%1 days ago</source>
         <translation>Пре %1 дана</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="496"/>
+        <location filename="../ui/printersearchwindow.cpp" line="481"/>
         <source>(use %1 protocol)</source>
         <translation>(користи %1 протокол)</translation>
     </message>
@@ -1358,17 +1364,17 @@
         <translation>Откажи</translation>
     </message>
     <message>
-        <location filename="../vendor/common.cpp" line="144"/>
+        <location filename="../vendor/common.cpp" line="149"/>
         <source> not found, please ask the administrator for help</source>
         <translation>није нађен, потражите помоћ од администратора</translation>
     </message>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="108"/>
+        <location filename="../ui/printerapplication.cpp" line="121"/>
         <source>Direct-attached Device</source>
         <translation>Директно прикључен уређај</translation>
     </message>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="109"/>
+        <location filename="../ui/printerapplication.cpp" line="122"/>
         <source>File</source>
         <translation>Датотека</translation>
     </message>
@@ -1409,27 +1415,27 @@
 <context>
     <name>ServerSettingsWindow</name>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="82"/>
+        <location filename="../ui/dprintersshowwindow.h" line="85"/>
         <source>Basic Server Settings</source>
         <translation>Основна подешавања сервера</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="90"/>
+        <location filename="../ui/dprintersshowwindow.h" line="93"/>
         <source>Publish shared printers connected to this system</source>
         <translation>Објави дељене штампаче повезане са овим системом</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="91"/>
+        <location filename="../ui/dprintersshowwindow.h" line="94"/>
         <source>Allow printing from the Internet</source>
         <translation>Дозволи штампање са интернета</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="93"/>
+        <location filename="../ui/dprintersshowwindow.h" line="96"/>
         <source>Allow remote administration</source>
         <translation>Дозволи даљинску администрацију</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="95"/>
+        <location filename="../ui/dprintersshowwindow.h" line="98"/>
         <source>Save debugging information for troubleshooting</source>
         <translation>Сачвај податке уклањања грешака за истражиивање проблема</translation>
     </message>
@@ -1437,12 +1443,12 @@
 <context>
     <name>TroubleShootDialog</name>
     <message>
-        <location filename="../ui/troubleshootdialog.cpp" line="111"/>
+        <location filename="../ui/troubleshootdialog.cpp" line="109"/>
         <source>Troubleshoot: </source>
         <translation>Истражи проблем:</translation>
     </message>
     <message>
-        <location filename="../ui/troubleshootdialog.cpp" line="136"/>
+        <location filename="../ui/troubleshootdialog.cpp" line="134"/>
         <source>Cancel</source>
         <translation>Откажи</translation>
     </message>

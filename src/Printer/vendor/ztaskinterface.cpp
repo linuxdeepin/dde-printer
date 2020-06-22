@@ -36,7 +36,8 @@ static const char *g_taskText[] = {"null",
                                    "not use",
                                    "Toruble shoot",
                                    "Cups monitor",
-                                   "max value"};
+                                   "max value"
+                                  };
 
 TaskInterface::TaskInterface(int id, QObject *parent)
     : QThread(parent)
