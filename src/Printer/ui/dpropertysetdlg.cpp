@@ -44,6 +44,9 @@
 #include <QPalette>
 #include <QFile>
 
+#include <QJsonParseError>
+#include <QJsonObject>
+
 #include "../util/dprintermanager.h"
 #include "../util/dprinter.h"
 
@@ -178,16 +181,6 @@ void DPropertySetDlg::initUI()
     vecOption.push_back(tr("Orientation"));
     vecOption.push_back(tr("Page Order"));
 
-    /*
-    vecOption.push_back(tr("Resolution"));
-    vecOption.push_back(tr("Output Quality"));
-    vecOption.push_back(tr("Paper Source"));
-    vecOption.push_back(tr("Paper Type"));
-    vecOption.push_back(tr("Paper Size"));
-    vecOption.push_back(tr("Duplex"));
-    vecOption.push_back(tr("Binding Edge"));
-    vecOption.push_back(tr("Staple Location"));
-    */
     QString strJson = generatePropertyDialogJson(vecOption);
     QVector<GENERALOPTNODE> generalNodes = getGeneralNodes();
 
@@ -211,18 +204,6 @@ void DPropertySetDlg::initUI()
         QString strGroup = formatGroupString(nodes);
         strJson = appendGroupString(strJson, strGroup);
     }
-
-    /*
-    QFile jsonFile("/tmp/json.txt");
-
-    if(!jsonFile.open(QIODevice::ReadWrite|QIODevice::Text))
-    {
-        return;
-    }
-
-    jsonFile.write(strJson.toStdString().c_str(), strJson.length());
-    jsonFile.close();
-    */
 
     settings = Dtk::Core::DSettings::fromJson(strJson.toUtf8());
     settings->setBackend(backend);
@@ -433,9 +414,6 @@ void DPropertySetDlg::updateViews()
             vecChoice = pPrinter->getPageOutputOrderChooses();
             updatePrintOrderCombo(strDefault, vecChoice);
 
-            //waste
-            pPrinter->getWastes();
-
             //Update Installable UI
             QVector<INSTALLABLEOPTNODE> nodes = pPrinter->getInstallableNodes();
             updateInstallAbleNodeCombo(nodes);
@@ -557,7 +535,7 @@ QString DPropertySetDlg::changeComboSelectionByName(const QString &strComboName,
 
     if (m_setConflictOptions.size() > 0) {
         showConflictDlg(vecConflictOptionPairs);
-        strChoice = UNSUPPORTED;
+        m_mapDynamicUIValue[strComboName] = strChoice;
     } else {
         m_mapDynamicUIValue[strComboName] = strChoice;
     }
@@ -1287,6 +1265,13 @@ void DPropertySetDlg::closeEvent(QCloseEvent *event)
             if (!pPrinter->needSavePpd()) {
                 return;
             } else {
+                vector<CONFLICTPAIR> vecConflictOptionPairs;
+                checkAllConflicts(m_setConflictOptions, vecConflictOptionPairs);
+
+                if (m_setConflictOptions.size() > 0) {
+                    return;
+                }
+
                 bool bSame = true;
 
                 for (auto iter = m_mapInitUIValue.begin(); iter != m_mapInitUIValue.end(); iter++) {
