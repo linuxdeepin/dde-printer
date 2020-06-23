@@ -116,9 +116,9 @@ void InstallDriverWindow::initUI()
     pBtnBox->setButtonList(btnList, false);
     titlebar()->addWidget(pBtnBox, Qt::AlignLeft);
     // 去掉最大最小按钮
-    setWindowFlags(windowFlags() & ~Qt::WindowMinMaxButtonsHint);
+    setWindowFlags(Qt::Dialog);
     setWindowModality(Qt::ApplicationModal);
-    resize(682, 532);
+    setFixedSize(682, 532);
     // 左侧
     QLabel *pLabelTitle1 = new QLabel(tr("Select a driver from"));
     DFontSizeManager::instance()->bind(pLabelTitle1, DFontSizeManager::T5, QFont::DemiBold);
@@ -222,7 +222,7 @@ void InstallDriverWindow::initUI()
     //设置打印信息搜索
     QLabel *pMakerAndTypeLabel = new QLabel(tr("Vendor and Model"));
     m_pManuAndTypeLineEdit = new QLineEdit();
-    m_pManuAndTypeLineEdit->setToolTip(tr("Enter a complete vendor and model"));
+    m_pManuAndTypeLineEdit->setToolTip(tr("Enter a complete vendor and model (Only letters, numbers and whitespaces)"));
     m_pManuAndTypeLineEdit->setValidator(new QRegExpValidator(QRegExp("^[a-zA-Z0-9 ]*$")));
     m_pSearchBtn = new QPushButton(tr("Search"));
     m_pSearchBtn->setFixedSize(60, 36);
