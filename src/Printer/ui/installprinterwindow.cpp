@@ -72,10 +72,10 @@ void InstallPrinterWindow::initUI()
     titlebar()->setTitle("");
     titlebar()->setIcon(QIcon(":/images/dde-printer.svg"));
     // 去掉最大最小按钮
-    setWindowFlags(windowFlags() & ~Qt::WindowMinMaxButtonsHint);
+    setWindowFlags(Qt::Dialog);
     setWindowModality(Qt::ApplicationModal);
     setAttribute(Qt::WA_DeleteOnClose);
-    resize(682, 532);
+    setFixedSize(682, 532);
 
     m_pSpinner = new DSpinner();
     m_pSpinner->setFixedSize(32, 32);

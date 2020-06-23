@@ -116,9 +116,9 @@ void InstallDriverWindow::initUI()
     pBtnBox->setButtonList(btnList, false);
     titlebar()->addWidget(pBtnBox, Qt::AlignLeft);
     // 去掉最大最小按钮
-    setWindowFlags(windowFlags() & ~Qt::WindowMinMaxButtonsHint);
+    setWindowFlags(Qt::Dialog);
     setWindowModality(Qt::ApplicationModal);
-    resize(682, 532);
+    setFixedSize(682, 532);
     // 左侧
     QLabel *pLabelTitle1 = new QLabel(tr("Select a driver from"));
     DFontSizeManager::instance()->bind(pLabelTitle1, DFontSizeManager::T5, QFont::DemiBold);

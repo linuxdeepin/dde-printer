@@ -67,7 +67,7 @@ void PermissionsWindow::initUI()
 {
     setIcon(QIcon(":/images/dde-printer.svg"));
 
-    resize(380, 270);
+    setFixedSize(380, 270);
 
     m_pTipLabel = new QLabel("");
     m_pUserEdit = new DLineEdit();
