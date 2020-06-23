@@ -200,7 +200,6 @@ JobListView::JobListView(QWidget *parent)
     verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
     verticalHeader()->setDefaultSectionSize(ITEM_Height);
     horizontalHeader()->setFixedHeight(ITEM_Height);
-    horizontalHeader()->setStretchLastSection(true);
     horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
 
     m_tipsTimer = new QTimer(this);
@@ -957,6 +956,7 @@ JobManagerWindow::JobManagerWindow(QWidget *parent)
     initUi();
     initConnect();
     m_jobsModel->setWhichJob(WHICH_JOB_RUNING);
+    setAttribute(Qt::WA_DeleteOnClose);
 }
 
 void JobManagerWindow::createUi()
@@ -994,13 +994,17 @@ void JobManagerWindow::initUi()
     titlebar()->setMenuVisible(false);
 
     m_jobsView->setModel(m_jobsModel);
-    m_jobsView->horizontalHeader()->resizeSection(0, 72);
-    m_jobsView->horizontalHeader()->resizeSection(1, 82);
-    m_jobsView->horizontalHeader()->resizeSection(2, 137);
-    m_jobsView->horizontalHeader()->resizeSection(3, 131);
-    m_jobsView->horizontalHeader()->resizeSection(4, 65);
-    m_jobsView->horizontalHeader()->resizeSection(5, 124);
-    m_jobsView->horizontalHeader()->resizeSection(6, 146);
+    m_jobsView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    m_jobsView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
+    m_jobsView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Fixed);
+    m_jobsView->horizontalHeader()->setSectionResizeMode(4, QHeaderView::Fixed);
+    m_jobsView->horizontalHeader()->setSectionResizeMode(5, QHeaderView::Fixed);
+    m_jobsView->horizontalHeader()->setSectionResizeMode(6, QHeaderView::Fixed);
+    m_jobsView->setColumnWidth(0, 72);
+    m_jobsView->setColumnWidth(1, 82);
+    m_jobsView->setColumnWidth(4, 65);
+    m_jobsView->setColumnWidth(5, 124);
+    m_jobsView->setColumnWidth(6, 146);
 
     m_jobCountLabel->setAlignment(Qt::AlignCenter);
     m_jobCountLabel->setFixedHeight(30);

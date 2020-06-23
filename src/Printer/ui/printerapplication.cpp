@@ -171,10 +171,14 @@ int PrinterApplication::showJobsWindow()
 {
     if (!m_jobsWindow) {
         m_jobsWindow = new JobManagerWindow();
+        connect(m_jobsWindow, &JobManagerWindow::destroyed, this, [&]() {
+            m_jobsWindow = nullptr;
+        });
         Dtk::Widget::moveToCenter(m_jobsWindow);
     }
 
-    g_cupsMonitor->start();
+    if (!g_cupsMonitor->isRunning())
+        g_cupsMonitor->start();
     m_jobsWindow->showNormal();
     qApp->setActiveWindow(m_jobsWindow);
 
