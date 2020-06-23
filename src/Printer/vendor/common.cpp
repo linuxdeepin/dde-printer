@@ -106,7 +106,7 @@ QString getHostFromUri(const QString &strUri)
     //smb格式uri：smb://[username:password@][workgroup/]server/printer
     if (strUri.startsWith("smb://")) {
         QStringList strlist = strUri.split("/", QString::SkipEmptyParts);
-        QString str = strlist.count() > 3 ? strlist[strlist.count() - 1] : "";
+        QString str = strlist.count() > 3 ? strlist[strlist.count() - 2] : "";
 
         if (str.isEmpty())
             return QString();
@@ -154,11 +154,13 @@ QString reslovedHost(const QString &strHost)
 
 bool isPackageExists(const QString &package)
 {
-    QDBusInterface interface {
+    QDBusInterface interface
+    {
         "com.deepin.lastore",
         "/com/deepin/lastore",
         "com.deepin.lastore.Manager",
-        QDBusConnection::systemBus()};
+        QDBusConnection::systemBus()
+    };
 
     QDBusReply<bool> isExists = interface.call("PackageExists", package);
 
@@ -193,26 +195,26 @@ QVariant ipp_attribute_value(ipp_attribute_t *attr, int i)
         qDebug() << QString("Got %1 : %2").arg(UTF8_T_S(ippGetName(attr))).arg(ippGetBoolean(attr, i) ? "true" : "false");
         val = QVariant(ippGetBoolean(attr, i));
         break;
-        //    case IPP_TAG_RANGE:
-        //        lower = ippGetRange (attr, i, &upper);
-        //        val = Py_BuildValue ("(ii)",
-        //                 lower,
-        //                 upper);
-        //        break;
-        //    case IPP_TAG_NOVALUE:
-        //        Py_RETURN_NONE;
-        //        break;
-        //    // TODO:
-        //    case IPP_TAG_DATE:
-        //        val = PyUnicode_FromString ("(IPP_TAG_DATE)");
-        //        break;
-        //    case IPP_TAG_RESOLUTION:
-        //        xres = ippGetResolution(attr, i, &yres, &units);
-        //        val = Py_BuildValue ("(iii)",
-        //                 xres,
-        //                 yres,
-        //                 units);
-        //        break;
+    //    case IPP_TAG_RANGE:
+    //        lower = ippGetRange (attr, i, &upper);
+    //        val = Py_BuildValue ("(ii)",
+    //                 lower,
+    //                 upper);
+    //        break;
+    //    case IPP_TAG_NOVALUE:
+    //        Py_RETURN_NONE;
+    //        break;
+    //    // TODO:
+    //    case IPP_TAG_DATE:
+    //        val = PyUnicode_FromString ("(IPP_TAG_DATE)");
+    //        break;
+    //    case IPP_TAG_RESOLUTION:
+    //        xres = ippGetResolution(attr, i, &yres, &units);
+    //        val = Py_BuildValue ("(iii)",
+    //                 xres,
+    //                 yres,
+    //                 units);
+    //        break;
     default:
         //        snprintf (unknown, sizeof (unknown),
         //              "(unknown IPP value tag 0x%x)", ippGetValueTag(attr));
@@ -332,7 +334,8 @@ QString normalize(const QString &strin)
     bool alnumfound = false;
     enum { BLANK,
            LETTER,
-           DIGIT };
+           DIGIT
+         };
     int lastchar = BLANK;
 
     if (strin.isEmpty())
@@ -380,13 +383,14 @@ QMap<QString, QString> parseDeviceID(const QString &strId)
 }
 
 static const char *g_replaceMap[][2] = {{"lexmark international", "Lexmark"},
-                                        {"kyocera mita", "Kyocera"},
-                                        {"hewlettpackard", "HP"},
-                                        {"minoltaqms", "minolta"},
-                                        {"datamaxoneil", "datamax"},
-                                        {"eastman kodak company", "kodak"},
-                                        {"fuji xerox", "fuji xerox"},
-                                        {"konica minolta", "konica minolta"}};
+    {"kyocera mita", "Kyocera"},
+    {"hewlettpackard", "HP"},
+    {"minoltaqms", "minolta"},
+    {"datamaxoneil", "datamax"},
+    {"eastman kodak company", "kodak"},
+    {"fuji xerox", "fuji xerox"},
+    {"konica minolta", "konica minolta"}
+};
 QString replaceMakeName(QString &make_and_model, int *len)
 {
     make_and_model = make_and_model.replace(QRegularExpression("_|-|\'"), "");
@@ -417,46 +421,59 @@ typedef struct tagMakeRegular {
 
 TMakeRegular _MFR_BY_RANGE[] = {
     // Fill in missing manufacturer names based on model name
-    {"HP", QString("deskjet"
-                   "|dj[ 0-9]?"
-                   "|laserjet"
-                   "|lj"
-                   "|color laserjet"
-                   "|color lj"
-                   "|designjet"
-                   "|officejet"
-                   "|oj"
-                   "|photosmart"
-                   "|ps "
-                   "|psc"
-                   "|edgeline")},
+    {
+        "HP", QString("deskjet"
+                      "|dj[ 0-9]?"
+                      "|laserjet"
+                      "|lj"
+                      "|color laserjet"
+                      "|color lj"
+                      "|designjet"
+                      "|officejet"
+                      "|oj"
+                      "|photosmart"
+                      "|ps "
+                      "|psc"
+                      "|edgeline")
+    },
     {"Epson", QString("stylus|aculaser")},
-    {"Apple", QString("stylewriter"
-                      "|imagewriter"
-                      "|deskwriter"
-                      "|laserwriter")},
-    {"Canon", QString("pixus"
-                      "|pixma"
-                      "|selphy"
-                      "|imagerunner"
-                      "|bj"
-                      "|lbp")},
+    {
+        "Apple", QString("stylewriter"
+                         "|imagewriter"
+                         "|deskwriter"
+                         "|laserwriter")
+    },
+    {
+        "Canon", QString("pixus"
+                         "|pixma"
+                         "|selphy"
+                         "|imagerunner"
+                         "|bj"
+                         "|lbp")
+    },
     {"Brother", QString("hl|dcp|mfc")},
-    {"Xerox", QString("docuprint"
-                      "|docupage"
-                      "|phaser"
-                      "|workcentre"
-                      "|homecentre")},
+    {
+        "Xerox", QString("docuprint"
+                         "|docupage"
+                         "|phaser"
+                         "|workcentre"
+                         "|homecentre")
+    },
     {"Lexmark", QString("optra|(:color )?jetprinter")},
-    {"KONICA MINOLTA", QString("magicolor"
-                               "|pageworks"
-                               "|pagepro")},
-    {"Kyocera", QString("fs-"
-                        "|km-"
-                        "|taskalfa")},
+    {
+        "KONICA MINOLTA", QString("magicolor"
+                                  "|pageworks"
+                                  "|pagepro")
+    },
+    {
+        "Kyocera", QString("fs-"
+                           "|km-"
+                           "|taskalfa")
+    },
     {"Ricoh", QString("aficio")},
     {"Oce", QString("varioprint")},
-    {"Oki", QString("okipage|microline")}};
+    {"Oki", QString("okipage|microline")}
+};
 
 QString _RE_ignore_suffix = QString(","
                                     "| hpijs"
@@ -485,10 +502,11 @@ typedef struct tagHPMode {
 } THPMode;
 
 THPMode _HP_MODEL_BY_NAME[] = {{"dj", "DeskJet"},
-                               {"lj", "LaserJet"},
-                               {"oj", "OfficeJet"},
-                               {"color lj", "Color LaserJet"},
-                               {"ps ", "PhotoSmart"}};
+    {"lj", "LaserJet"},
+    {"oj", "OfficeJet"},
+    {"color lj", "Color LaserJet"},
+    {"ps ", "PhotoSmart"}
+};
 
 void removeMakeInModel(const QString &strMake, QString &strModel)
 {
