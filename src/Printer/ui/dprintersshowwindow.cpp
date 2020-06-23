@@ -590,7 +590,16 @@ void DPrintersShowWindow::renamePrinterSlot(QStandardItem *pItem)
         m_pPrinterManager->setPrinterEnabled(m_CurPrinterName, false);
 
         pDest->getPrinterInfo(info, location, deviceURI, ppdFile);
-        m_pPrinterManager->addPrinter(newPrinterName, info, location, deviceURI, ppdFile);
+        //添加打印机失败
+        if (!m_pPrinterManager->addPrinter(newPrinterName, info, location, deviceURI, ppdFile)) {
+            m_pPrinterListView->blockSignals(true);
+            m_pPrinterModel->blockSignals(true);
+            pItem->setText(m_CurPrinterName);
+            m_pPrinterListView->blockSignals(false);
+            m_pPrinterModel->blockSignals(false);
+            qWarning() << "add printer failed";
+            return;
+        }
         m_pPrinterManager->setPrinterEnabled(newPrinterName, true);
         if (isDefault)
             m_pPrinterManager->setPrinterDefault(newPrinterName);
@@ -757,6 +766,7 @@ QWidget *ItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem 
     if (!index.isValid())
         return nullptr;
     QLineEdit *pLineEdit = new QLineEdit(parent);
-    pLineEdit->setMaxLength(127);
+    //打印机名称长度的限制是字节数128,unicode中文占3个字节
+    pLineEdit->setMaxLength(40);
     return pLineEdit;
 }

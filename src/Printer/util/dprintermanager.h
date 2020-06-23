@@ -65,7 +65,7 @@ public:
     // 设置默认打印机
     void setPrinterDefault(QString printerName);
     // 添加打印机
-    void addPrinter(const QString &printer, const QString &info, const QString &location, const QString &device, const QString &ppdfile);
+    bool addPrinter(const QString &printer, const QString &info, const QString &location, const QString &device, const QString &ppdfile);
 
     // 判断打印机是否是默认打印机
     bool isDefaultPrinter(QString PrinterName);

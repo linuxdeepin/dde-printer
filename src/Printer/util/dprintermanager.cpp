@@ -257,14 +257,16 @@ void DPrinterManager::setPrinterDefault(QString printerName)
     m_conn->setDefault(printerName.toStdString().data(), "");
 }
 
-void DPrinterManager::addPrinter(const QString &printer, const QString &info, const QString &location, const QString &device, const QString &ppdfile)
+bool DPrinterManager::addPrinter(const QString &printer, const QString &info, const QString &location, const QString &device, const QString &ppdfile)
 {
     try {
         m_conn->addPrinter(printer.toStdString().data(), info.toStdString().data(),
                            location.toStdString().data(), device.toStdString().data(), ppdfile.toStdString().data(), nullptr, nullptr);
     } catch (const std::runtime_error &e) {
         qWarning() << e.what();
+        return false;
     }
+    return true;
 }
 
 bool DPrinterManager::isDefaultPrinter(QString PrinterName)
@@ -409,7 +411,7 @@ QString DPrinterManager::validataName(const QString &oldPrinterName)
     QString newPrinterName = oldPrinterName.trimmed();
     if (newPrinterName.isEmpty())
         return QString();
-    newPrinterName = (newPrinterName.length() > 127) ? newPrinterName.left(127) : newPrinterName;
+    newPrinterName = (newPrinterName.length() > 40) ? newPrinterName.left(40) : newPrinterName;
     newPrinterName.replace(QRegularExpression("[# /]"), "-");
     return newPrinterName;
 }
