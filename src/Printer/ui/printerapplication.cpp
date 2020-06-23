@@ -176,7 +176,6 @@ int PrinterApplication::showJobsWindow()
         });
         Dtk::Widget::moveToCenter(m_jobsWindow);
     }
-
     if (!g_cupsMonitor->isRunning())
         g_cupsMonitor->start();
     m_jobsWindow->showNormal();
