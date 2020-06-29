@@ -30,6 +30,7 @@
 #include "printertestpagedialog.h"
 #include "troubleshootdialog.h"
 #include "ztroubleshoot_p.h"
+#include "dprintersupplyshowdlg.h"
 
 #include <DDialog>
 #include <DMessageBox>
@@ -183,6 +184,7 @@ void DPrintersShowWindow::initUI()
     pRightTopHLayout->addLayout(pRightGridLayout);
 
     // 右侧下方控件
+    QStringList strList =  QIcon::themeSearchPaths();
     m_pTBtnSetting = new DFloatingButton(this);
     m_pTBtnSetting->setIcon(QIcon::fromTheme("dp_set"));
     m_pTBtnSetting->setIconSize(QSize(32, 32));
@@ -225,6 +227,17 @@ void DPrintersShowWindow::initUI()
     pLabelPrintFault->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
     DFontSizeManager::instance()->bind(pLabelPrintFault, DFontSizeManager::T8);
 
+    m_pTBtnSupply = new DFloatingButton(this);
+    m_pTBtnSupply->setIcon(QIcon::fromTheme("filter_icon_unknown"));
+    m_pTBtnSupply->setIconSize(QSize(32, 32));
+    m_pTBtnSupply->setFixedSize(60, 60);
+    m_pTBtnSupply->setBackgroundRole(QPalette::Button);
+
+    QLabel *pLabelSupply = new QLabel;
+    pLabelSupply->setText(tr("Supplies"));
+    pLabelSupply->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    DFontSizeManager::instance()->bind(pLabelSupply, DFontSizeManager::T8);
+
     QGridLayout *pRightBottomGLayout = new QGridLayout();
     pRightBottomGLayout->addWidget(m_pTBtnSetting, 0, 0, Qt::AlignHCenter);
     pRightBottomGLayout->addWidget(pLabelSetting, 1, 0);
@@ -232,8 +245,10 @@ void DPrintersShowWindow::initUI()
     pRightBottomGLayout->addWidget(pLabelPrintQueue, 1, 1);
     pRightBottomGLayout->addWidget(m_pTBtnPrintTest, 0, 2, Qt::AlignHCenter);
     pRightBottomGLayout->addWidget(pLabelPrintTest, 1, 2);
-    pRightBottomGLayout->addWidget(m_pTBtnFault, 0, 3, Qt::AlignHCenter);
-    pRightBottomGLayout->addWidget(pLabelPrintFault, 1, 3);
+    pRightBottomGLayout->addWidget(m_pTBtnSupply, 0, 3);
+    pRightBottomGLayout->addWidget(pLabelSupply, 1, 3);
+    pRightBottomGLayout->addWidget(m_pTBtnFault, 0, 4, Qt::AlignHCenter);
+    pRightBottomGLayout->addWidget(pLabelPrintFault, 1, 4);
 
     // 右侧整体布局
     QVBoxLayout *pRightVLayout = new QVBoxLayout();
@@ -294,6 +309,7 @@ void DPrintersShowWindow::initConnections()
     connect(m_pTBtnSetting, &DIconButton::clicked, this, &DPrintersShowWindow::printSettingClickSlot);
     connect(m_pTBtnPrintQueue, &DIconButton::clicked, this, &DPrintersShowWindow::printQueueClickSlot);
     connect(m_pTBtnPrintTest, &DIconButton::clicked, this, &DPrintersShowWindow::printTestClickSlot);
+    connect(m_pTBtnSupply, &DIconButton::clicked, this, &DPrintersShowWindow::printSupplyClickSlot);
     connect(m_pTBtnFault, &DIconButton::clicked, this, &DPrintersShowWindow::printFalutClickSlot);
 
     connect(m_pPrinterListView, QOverload<const QModelIndex &>::of(&DListView::currentChanged), this, &DPrintersShowWindow::printerListWidgetItemChangedSlot);
@@ -397,6 +413,41 @@ void DPrintersShowWindow::updateDefaultPrinterIcon()
     }
     m_pPrinterListView->blockSignals(false);
     m_pPrinterModel->blockSignals(false);
+}
+
+QIcon DPrintersShowWindow::getSupplyIconByLevel(int iLevel)
+{
+    QIcon icon;
+
+    if(iLevel == 0)
+    {
+        icon = QIcon::fromTheme("filter_icon_normal6");
+    }
+    else if(iLevel <= 20)
+    {
+        icon = QIcon::fromTheme("filter_icon_normal5");
+    }
+    else if(iLevel <= 40)
+    {
+        icon = QIcon::fromTheme("filter_icon_normal4");
+    }
+    else if(iLevel <= 60)
+    {
+        icon = QIcon::fromTheme("filter_icon_normal3");
+    }
+    else if(iLevel <= 80)
+    {
+        icon = QIcon::fromTheme("filter_icon_normal2");
+    }
+    else if(iLevel <= 100)
+    {
+        icon = QIcon::fromTheme("filter_icon_normal1");
+    }
+    else {
+        icon = QIcon::fromTheme("filter_icon_unknown");
+    }
+
+    return icon;
 }
 
 void DPrintersShowWindow::refreshPrinterListView(const QString &newPrinterName)
@@ -684,6 +735,16 @@ void DPrintersShowWindow::printDriveInstall()
     m_pSearchWindow->show();
 }
 
+void DPrintersShowWindow::printSupplyClickSlot()
+{
+    if (!m_pPrinterListView->currentIndex().isValid())
+        return ;
+    QString strPrinterName = m_pPrinterListView->currentIndex().data().toString();
+    DPrinterSupplyShowDlg dlg(strPrinterName, this);
+    dlg.updateUI();
+    dlg.exec();
+}
+
 void DPrintersShowWindow::printerListWidgetItemChangedSlot(const QModelIndex &previous)
 {
     Q_UNUSED(previous)
@@ -710,6 +771,15 @@ void DPrintersShowWindow::printerListWidgetItemChangedSlot(const QModelIndex &pr
         m_pLabelTypeShow->setText(model);
         m_pLabelTypeShow->setToolTip(basePrinterInfo.at(1));
         m_pLabelStatusShow->setText(basePrinterInfo.at(2));
+        DDestination* pDest = m_pPrinterManager->getDestinationByName(printerName);
+
+        if(PRINTER == pDest->getType()){
+            DPrinter* pPrinter = static_cast<DPrinter*>(pDest);
+            pPrinter->updateSupplys();
+            int iMinValue = pPrinter->getMinMarkerLevel();
+            QIcon pix = getSupplyIconByLevel(iMinValue);
+            m_pTBtnSupply->setIcon(pix);
+        }
     }
 }
 

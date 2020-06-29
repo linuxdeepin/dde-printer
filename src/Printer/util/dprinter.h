@@ -23,6 +23,7 @@
 
 #include "cupsconnection.h"
 #include "cupsppd.h"
+#include "cupssnmp.h"
 #include "ddestination.h"
 
 #include <QStringList>
@@ -158,8 +159,12 @@ public:
     void setResolution(const QString &strValue);
     QVector<QMap<QString, QString>> getResolutionChooses();
 
-    //read waste
-    void getWastes();
+    //read marker
+    QVector<SUPPLYSDATA> getSupplys();
+    void updateSupplys();
+    void disableSupplys();
+    int getMinMarkerLevel();
+
 
     QStringList getDefaultPpdOpts();
 
@@ -186,10 +191,15 @@ private:
     void setOptionValue(const QString &strOptName, const QString &strValue);
     QVector<QMap<QString, QString>> getOptionChooses(const QString &strOptName);
     QString getColorAttr();
+    QString getMarkerType();
+    QString getMarkerName();
+    QString getMarkerLevel();
 
 private:
     PPD m_ppd;
     bool m_bNeedSavePpd;
+    bool m_bNeedUpdateInk;
+    QVector<SUPPLYSDATA> m_vecMarkInfo;
 };
 
 #endif // DPRINTER_H

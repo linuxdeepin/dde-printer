@@ -254,6 +254,12 @@ private:
     * @date          2019-11-08
     */
     void updateDefaultPrinterIcon();
+
+    /**
+    * @projectName   Printer
+    * @brief         按照耗材余量加载相应的图标
+    */
+    QIcon getSupplyIconByLevel(int iLevel);
 private slots:
     // 添加打印机
     void addPrinterClickSlot();
@@ -272,6 +278,7 @@ private slots:
     void printTestClickSlot();
     void printFalutClickSlot();
     void printDriveInstall();
+    void printSupplyClickSlot();
 
     void printerListWidgetItemChangedSlot(const QModelIndex &previous);
     // 响应列表的右键菜单
@@ -303,6 +310,7 @@ private:
     DFloatingButton *m_pTBtnPrintQueue;
     DFloatingButton *m_pTBtnPrintTest;
     DFloatingButton *m_pTBtnFault;
+    DFloatingButton *m_pTBtnSupply;
 
     PrinterListView *m_pPrinterListView;
     QStandardItemModel *m_pPrinterModel;
