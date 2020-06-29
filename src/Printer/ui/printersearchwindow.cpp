@@ -524,6 +524,7 @@ void PrinterSearchWindow::getDeviceResultSlot(int id, int state)
             // 将结构体转化为QVariant,需要再转回来
             pItem->setData(QVariant::fromValue(info), Dtk::UserRole + 1);
             pItem->setSizeHint(QSize(480, 50));
+            pItem->setToolTip(info.strName);
             m_pPrinterListModel->appendRow(pItem);
         }
     }
@@ -576,6 +577,7 @@ void PrinterSearchWindow::getDeviceResultByManualSlot(int id, int state)
             // 将结构体转化为QVariant,需要再转回来
             pItem->setData(QVariant::fromValue(info), Dtk::UserRole + 1);
             pItem->setSizeHint(QSize(480, 50));
+            pItem->setToolTip(info.strName);
             m_pPrinterListModelManual->appendRow(pItem);
         }
     }
