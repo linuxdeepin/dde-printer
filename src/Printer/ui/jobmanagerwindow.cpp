@@ -24,6 +24,8 @@
 #include "qtconvert.h"
 #include "zcupsmonitor.h"
 #include "common.h"
+#include "dprintermanager.h"
+#include "dprinter.h"
 
 #include <DTitlebar>
 #include <DIconButton>
@@ -725,6 +727,32 @@ void JobsDataModel::updateJobState(int id, int state, const QString &message)
 
         //其他不在任务列表的情况不需要刷新列表
         return;
+    }
+
+    //如果是任务完成的信号，刷新耗材信息。
+    if(g_jobManager->isCompletedState(state))
+    {
+        g_jobManager->getJobById(jobinfo, id);
+
+        auto iter = jobinfo.find("job-printer-uri");
+
+        if(iter != jobinfo.end())
+        {
+            QString strURI = attrValueToQString(iter->second);
+            QString strName = getPrinterNameFromUri(strURI);
+            DPrinterManager* pManager = DPrinterManager::getInstance();
+            DDestination* pDest = pManager->getDestinationByName(strName);
+
+            if(pDest != nullptr)
+            {
+                if(PRINTER == pDest->getType())
+                {
+                    DPrinter* pPrinter = static_cast<DPrinter*>(pDest);
+                    pPrinter->disableSupplys();
+                    pPrinter->updateSupplys();
+                }
+            }
+        }
     }
 
     //如果已完成任务在任务列表中，而且当前只显示未完成任务，则将已完成任务从任务列表中删除

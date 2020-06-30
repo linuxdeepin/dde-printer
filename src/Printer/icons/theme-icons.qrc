@@ -24,5 +24,14 @@
         <file>texts/dp_print_done_14px.svg</file>
         <file>texts/dp_print_wait_14px.svg</file>
         <file>texts/dp_arrow_left_7px.svg</file>
+        <file>texts/fault_icon_warning_24px.svg</file>
+        <file>texts/filter_icon_normal1_24px.svg</file>
+        <file>texts/filter_icon_normal2_24px.svg</file>
+        <file>texts/filter_icon_normal3_24px.svg</file>
+        <file>texts/filter_icon_normal4_24px.svg</file>
+        <file>texts/filter_icon_normal5_24px.svg</file>
+        <file>texts/filter_icon_normal6_24px.svg</file>
+        <file>texts/filter_icon_unknown_24px.svg</file>
+        <file>actions/dp_warning_14px.svg</file>
     </qresource>
 </RCC>

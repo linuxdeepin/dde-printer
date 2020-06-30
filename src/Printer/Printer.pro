@@ -39,7 +39,8 @@ SOURCES += \
     vendor/zsettings.cpp \
     ui/printertestpagedialog.cpp \
     ui/troubleshootdialog.cpp\
-    util/dprintertanslator.cpp
+    util/dprintertanslator.cpp \
+    ui/dprintersupplyshowdlg.cpp
 
 
 RESOURCES +=         resources.qrc \
@@ -83,7 +84,8 @@ HEADERS += \
     ui/printertestpagedialog.h \
     ui/troubleshootdialog.h\
     util/dprintertanslator.h \
-    ui/dprinterpropertytemplate.h
+    ui/dprinterpropertytemplate.h \
+    ui/dprintersupplyshowdlg.h
 
 
 INCLUDEPATH +=  \

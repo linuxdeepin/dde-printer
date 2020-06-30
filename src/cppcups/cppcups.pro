@@ -18,13 +18,18 @@ DEFINES += CPPCUPS_LIBRARY
 SOURCES += cupsconnection.cc\
     cupsipp.cc\
     cupsmodule.cc\
-    cupsppd.cc
+    cupsppd.cc \
+    cupssnmp.cpp
 
 HEADERS += cupsconnection.h \
         cppcups_global.h\
         cupsipp.h \
         cupsmodule.h\
-        cupsppd.h
+        cupsppd.h \
+    cupssnmp.h
+
+INCLUDEPATH += $${PWD}/cups_private
+LIBS += $${PWD}/cups_private/libcups.a
 
 unix {
     target.path = /usr/lib
