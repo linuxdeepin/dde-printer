@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="hu">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="hu" version="2.1">
 <context>
     <name>AddPrinterTask</name>
     <message>
@@ -54,7 +52,7 @@
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="334"/>
         <source>%1 is disabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="343"/>
@@ -216,7 +214,7 @@
     <message>
         <location filename="../vendor/zcupsmonitor.cpp" line="293"/>
         <source>%1 timed out, reason: %2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../vendor/zcupsmonitor.cpp" line="307"/>
@@ -235,7 +233,7 @@
         <location filename="../util/ddestination.cpp" line="148"/>
         <location filename="../util/ddestination.cpp" line="202"/>
         <source>Unknown</source>
-        <translation type="unfinished">Ismeretlen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../util/ddestination.cpp" line="209"/>
@@ -251,6 +249,44 @@
         <location filename="../util/ddestination.cpp" line="215"/>
         <source>Disabled</source>
         <translation>Letiltva</translation>
+    </message>
+</context>
+<context>
+    <name>DPrinterSupplyShowDlg</name>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="104"/>
+        <source>Ink/Toner Status</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="110"/>
+        <source>Unknown amount</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="117"/>
+        <source>Unable to get the remaining amount</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="142"/>
+        <source>The amounts are estimated, last updated at%1:%2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="151"/>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="209"/>
+        <source>%1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="250"/>
+        <source>Unknown</source>
+        <translation>Ismeretlen</translation>
     </message>
 </context>
 <context>
@@ -293,7 +329,7 @@
         <location filename="../util/dprintertanslator.cpp" line="44"/>
         <location filename="../util/dprintertanslator.cpp" line="47"/>
         <source>Print Quality</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="55"/>
@@ -476,13 +512,13 @@
         <location filename="../util/dprintertanslator.cpp" line="106"/>
         <location filename="../util/dprintertanslator.cpp" line="110"/>
         <source>Binding Edge</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="124"/>
         <location filename="../util/dprintertanslator.cpp" line="125"/>
         <source>Staple Location</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="136"/>
@@ -538,7 +574,7 @@
     <message>
         <location filename="../util/dprintertanslator.cpp" line="128"/>
         <source>Bind (none)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="129"/>
@@ -564,156 +600,161 @@
 <context>
     <name>DPrintersShowWindow</name>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="80"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="81"/>
         <source>Settings</source>
         <translation>Beállítások</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="86"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="87"/>
         <source>Printers</source>
         <translation>Nyomtatók</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="90"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="91"/>
         <source>Add printer</source>
         <translation>Nyomtató hozzáadása</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="93"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="94"/>
         <source>Delete printer</source>
         <translation>Nyomtató eltávolítása</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="114"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="115"/>
         <source>Shared</source>
         <translation>Megosztva</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="117"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="118"/>
         <source>Enabled</source>
         <translation>Engedélyezve</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="120"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="121"/>
         <source>Accept jobs</source>
         <translation>Munkák fogadása</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="124"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="125"/>
         <source>Set as default</source>
         <translation>Beállítás alapértelmezettként</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="135"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="136"/>
         <source>No Printers</source>
         <translation>Nincsenek nyomtatók</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="159"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="160"/>
         <source>Location:</source>
         <translation>Hely:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="163"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="164"/>
         <source>Model:</source>
         <translation>Tipus:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="166"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="167"/>
         <source>Status:</source>
         <translation>Státusz:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="193"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="195"/>
         <source>Properties</source>
         <translation>Beállítások</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="203"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="205"/>
         <source>Print Queue</source>
         <translation>Nyomtatási sor</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="213"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="215"/>
         <source>Print Test Page</source>
         <translation>Tesztoldal nyomtatás</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="247"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="237"/>
+        <source>Supplies</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="262"/>
         <source>No printer configured</source>
         <translation>A nyomtató nincs beállítva</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="252"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="267"/>
         <source>Click + to add printers</source>
         <translation>Kattints a + jelre a nyomtató hozzáadásához</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="314"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="330"/>
         <source>As print jobs are in process, you cannot rename the printer now, please try later</source>
         <translation>Amíg a nyomtatás folymatban van, nem lehet átnevezni a nyomtatót. Próbálja később.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="318"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="366"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="550"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="334"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="382"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="601"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="344"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="360"/>
         <source>Idle</source>
         <translation>Várakozik</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="346"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="362"/>
         <source>Printing</source>
         <translation>Nyomtatás</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="348"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="364"/>
         <source>Disabled</source>
         <translation>Letiltva</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="363"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="379"/>
         <source>CUPS server is not running, and can’t manage printers.</source>
         <translation>A CUPS szerver nem fut, nem tudja kezelni a nyomtatókat.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="508"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="559"/>
         <source>Are you sure you want to delete the printer &quot;%1&quot; ?</source>
         <translation>Biztosan törölni szeretné ezt a nyomtatót: &quot;%1&quot; ?</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="514"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="565"/>
         <source>Delete</source>
         <translation>Törlés</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="546"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="597"/>
         <source>The name already exists</source>
         <translation>Ez a név már létezik</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="565"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="616"/>
         <source>You will not be able to reprint the completed jobs if continue. Are you sure you want to rename the printer?</source>
         <translation>Nem fogja tudni újranyomtatni a már kinyomtatott munkákat, ha folytatja. Biztosan át akarja nevezni a nyomtatót?</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="570"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="621"/>
         <source>Confirm</source>
         <translation>Megerősítés</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="619"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="679"/>
         <source>The driver is damaged, please install it again.</source>
         <translation>A driver megsérült, kérem telepítse újra.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="622"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="682"/>
         <source>Install Driver</source>
-        <translation type="unfinished">Driver telepítés</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -798,7 +839,7 @@
     <message>
         <location filename="../vendor/addprinter.cpp" line="374"/>
         <source>Failed to find the driver solution: %1, error: %2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../vendor/addprinter.cpp" line="385"/>
@@ -858,7 +899,7 @@
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="225"/>
         <source>Enter a complete vendor and model (Only letters, numbers and whitespaces)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Enter a complete vendor and model</source>
@@ -971,7 +1012,7 @@
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="201"/>
         <source>If succeeded, click Yes; if failed, click No</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="204"/>
@@ -992,7 +1033,7 @@
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="217"/>
         <source>Click Reinstall to install the printer driver again, or click Troubleshoot to start troubleshooting.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="220"/>
@@ -1015,44 +1056,44 @@
 <context>
     <name>JobListView</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="212"/>
-        <location filename="../ui/jobmanagerwindow.cpp" line="369"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="214"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="371"/>
         <source>Cancel</source>
         <translation>Mégse</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="213"/>
-        <location filename="../ui/jobmanagerwindow.cpp" line="370"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="215"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="372"/>
         <source>Delete</source>
         <translation>Törlés</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="214"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="216"/>
         <source>Pause</source>
         <translation>Megállítás</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="215"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="217"/>
         <source>Resume</source>
         <translation>Folytatás</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="216"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="218"/>
         <source>Print first</source>
         <translation>Először nyomtasson</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="217"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="219"/>
         <source>Reprint</source>
         <translation>Újranyomtatás</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="219"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="221"/>
         <source>No print jobs</source>
         <translation>Nincs nyomtatnivaló</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="363"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="365"/>
         <source>Are you sure you want to delete this job?</source>
         <translation>Biztosan törölni akarja ezt a munkát?</translation>
     </message>
@@ -1068,32 +1109,32 @@
 <context>
     <name>JobManagerWindow</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="979"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1007"/>
         <source>Refresh</source>
         <translation>Frissítés</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="983"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1011"/>
         <source>All</source>
         <translation>Mind</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="984"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1012"/>
         <source>Print Queue</source>
         <translation>Nyomtatási sor</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="985"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1013"/>
         <source>Completed</source>
         <translation>Kész</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1042"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1070"/>
         <source> failed</source>
         <translation>sikertelen</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1063"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1091"/>
         <source>%1 jobs</source>
         <translation>%1 munka</translation>
     </message>
@@ -1101,42 +1142,42 @@
 <context>
     <name>JobsDataModel</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="629"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="631"/>
         <source>Job</source>
         <translation>Munka</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="631"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="633"/>
         <source>User</source>
         <translation>Felhasználó</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="633"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="635"/>
         <source>Document</source>
         <translation>Dokumentum</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="635"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="637"/>
         <source>Printer</source>
         <translation>Nyomtató</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="637"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="639"/>
         <source>Size</source>
         <translation>Méret</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="639"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="641"/>
         <source>Time submitted</source>
         <translation>Idő beküldése</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="641"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="643"/>
         <source>Status</source>
         <translation>Státusz</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="643"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="645"/>
         <source>Action</source>
         <translation>Esemény</translation>
     </message>
@@ -1287,32 +1328,32 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="101"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="103"/>
         <source>1 min ago</source>
         <translation>1 perce</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="104"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="106"/>
         <source>%1 mins ago</source>
         <translation>%1 perce</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="108"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="110"/>
         <source>1 hr ago</source>
         <translation>1 órája</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="110"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="112"/>
         <source>%1 hrs ago</source>
         <translation>%1 órája</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="115"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="117"/>
         <source>Yesterday</source>
         <translation>Tegnap</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="117"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="119"/>
         <source>%1 days ago</source>
         <translation>%1 napja</translation>
     </message>
@@ -1371,12 +1412,137 @@ vagy</translation>
     <message>
         <location filename="../ui/printerapplication.cpp" line="121"/>
         <source>Direct-attached Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui/printerapplication.cpp" line="122"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="40"/>
+        <source>Black</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="41"/>
+        <source>Blue</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="42"/>
+        <source>Brown</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="43"/>
+        <source>Cyan</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="44"/>
+        <source>Dark-gray</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="45"/>
+        <source>Dark gray</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="46"/>
+        <source>Dark-yellow</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="47"/>
+        <source>Dark yellow</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="48"/>
+        <source>Gold</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="49"/>
+        <source>Gray</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="50"/>
+        <source>Green</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="51"/>
+        <source>Light-black</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="52"/>
+        <source>Light black</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="53"/>
+        <source>Light-cyan</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="54"/>
+        <source>Light cyan</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="55"/>
+        <source>Light-gray</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="56"/>
+        <source>Light gray</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="57"/>
+        <source>Light-magenta</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="58"/>
+        <source>Light magenta</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="59"/>
+        <source>Magenta</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="60"/>
+        <source>Orange</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="61"/>
+        <source>Red</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="62"/>
+        <source>Silver</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="63"/>
+        <source>White</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="64"/>
+        <source>Yellow</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
