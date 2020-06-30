@@ -50,12 +50,15 @@ private:
     void moveToParentCenter();
     QWidget* initColorSupplyItem(const SUPPLYSDATA& info, bool bColor);
     bool isColorPrinter();
+    void initColorTrans();
+    QString getTranslatedColor(const QString& strColor);
 
 private:
     QString m_strPrinterName;
     QStackedWidget* m_pStackedWidget;
     QVector<SUPPLYSDATA> m_supplyInfos;
     DPushButton* m_pConfirmBtn;
+    QMap<QString,QString> m_mapColorTrans;
 };
 
 #endif // DPRINTERSUPPLYSHOWDLG_H

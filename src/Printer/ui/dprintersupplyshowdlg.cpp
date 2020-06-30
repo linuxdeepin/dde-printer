@@ -35,39 +35,10 @@
 #include <QPalette>
 #include <QTime>
 
-const QString strSupplyColorName[] =
-{
-    QObject::tr("Black"),
-    QObject::tr("Blue"),
-    QObject::tr("Brown"),
-    QObject::tr("Cyan"),
-    QObject::tr("Dark-gray"),
-    QObject::tr("Dark gray"),
-    QObject::tr("Dark-yellow"),
-    QObject::tr("Dark yellow"),
-    QObject::tr("Gold"),
-    QObject::tr("Gray"),
-    QObject::tr("Green"),
-    QObject::tr("Light-black"),
-    QObject::tr("Light black"),
-    QObject::tr("Light-cyan"),
-    QObject::tr("Light cyan"),
-    QObject::tr("Light-gray"),
-    QObject::tr("Light gray"),
-    QObject::tr("Light-magenta"),
-    QObject::tr("Light magenta"),
-    QObject::tr("Magenta"),
-    QObject::tr("Orange"),
-    QObject::tr("Red"),
-    QObject::tr("Silver"),
-    QObject::tr("White"),
-    QObject::tr("Yellow"),
-};
-
 DPrinterSupplyShowDlg::DPrinterSupplyShowDlg(const QString& strPrinterName, QWidget *parent):DDialog(parent)
   ,m_strPrinterName(strPrinterName)
 {
-
+    initColorTrans();
 }
 
 DPrinterSupplyShowDlg::~DPrinterSupplyShowDlg()
@@ -139,7 +110,7 @@ void DPrinterSupplyShowDlg::initUI()
             DLabel* pTimelLabel = new DLabel;
             DFontSizeManager::instance()->bind(pTimelLabel, DFontSizeManager::T8, int(QFont::ExtraLight));
             QTime time = QTime::currentTime();
-            pTimelLabel->setText(tr("The amounts are estimated, last updated at%1:%2").arg(time.hour()).arg(time.minute()));
+            pTimelLabel->setText(tr("The amounts are estimated, last updated at %1:%2").arg(time.hour()).arg(time.minute()));
             pVlayout->addWidget(pTimelLabel, 0, Qt::AlignHCenter);
         }
     }
@@ -206,7 +177,7 @@ QWidget* DPrinterSupplyShowDlg::initColorSupplyItem(const SUPPLYSDATA& info, boo
         }
     }
 
-    QString strColorName = tr("%1").arg(info.colorName);
+    QString strColorName = getTranslatedColor(info.colorName);
     DLabel* pLabel = new DLabel(strColorName, this);
     DFontSizeManager::instance()->bind(pLabel, DFontSizeManager::T6, int(QFont::ExtraLight));
     pHlayout->addWidget(pLabel);
@@ -276,6 +247,51 @@ bool DPrinterSupplyShowDlg::isColorPrinter()
     }
 
     return bRet;
+}
+
+void DPrinterSupplyShowDlg::initColorTrans()
+{
+    m_mapColorTrans.clear();
+    m_mapColorTrans.insert("Black", QObject::tr("Black"));
+    m_mapColorTrans.insert("Blue", QObject::tr("Blue"));
+    m_mapColorTrans.insert("Brown", QObject::tr("Brown"));
+    m_mapColorTrans.insert("Cyan", QObject::tr("Cyan"));
+    m_mapColorTrans.insert("Dark-gray", QObject::tr("Dark-gray"));
+    m_mapColorTrans.insert("Dark gray", QObject::tr("Dark gray"));
+    m_mapColorTrans.insert("Dark-yellow", QObject::tr("Dark-yellow"));
+    m_mapColorTrans.insert("Dark yellow", QObject::tr("Dark yellow"));
+    m_mapColorTrans.insert("Gold", QObject::tr("Gold"));
+    m_mapColorTrans.insert("Gray", QObject::tr("Gray"));
+    m_mapColorTrans.insert("Green", QObject::tr("Green"));
+    m_mapColorTrans.insert("Light-black", QObject::tr("Light-black"));
+    m_mapColorTrans.insert("Light black", QObject::tr("Light black"));
+    m_mapColorTrans.insert("Light-cyan", QObject::tr("Light-cyan"));
+    m_mapColorTrans.insert("Light cyan", QObject::tr("Light cyan"));
+    m_mapColorTrans.insert("Light-gray", QObject::tr("Light-gray"));
+    m_mapColorTrans.insert("Light gray", QObject::tr("Light gray"));
+    m_mapColorTrans.insert("Light-magenta", QObject::tr("Light-magenta"));
+    m_mapColorTrans.insert("Light magenta", QObject::tr("Light magenta"));
+    m_mapColorTrans.insert("Magenta", QObject::tr("Magenta"));
+    m_mapColorTrans.insert("Orange", QObject::tr("Orange"));
+    m_mapColorTrans.insert("Red", QObject::tr("Red"));
+    m_mapColorTrans.insert("Silver", QObject::tr("Silver"));
+    m_mapColorTrans.insert("White", QObject::tr("White"));
+    m_mapColorTrans.insert("Yellow", QObject::tr("Yellow"));
+    m_mapColorTrans.insert("Waste", QObject::tr("Waste"));
+}
+
+QString DPrinterSupplyShowDlg::getTranslatedColor(const QString& strColor)
+{
+    QString strRet;
+
+    if(m_mapColorTrans.contains(strColor)){
+        strRet = m_mapColorTrans.value(strColor);
+    }
+    else {
+        strRet = strColor;
+    }
+
+    return strRet;
 }
 
 bool DPrinterSupplyShowDlg::canGetSupplyMsg()
