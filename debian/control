@@ -11,6 +11,7 @@ Build-Depends: debhelper (>= 9),
  libsmbclient-dev,
  libcrypto++-dev,
  libdtkwidget-dev,
+ libgnutls28-dev,
  qt5-default,
  qttools5-dev-tools
 Standards-Version: 3.9.5
