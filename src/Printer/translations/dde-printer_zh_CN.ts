@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="zh_CN">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.1">
 <context>
     <name>AddPrinterTask</name>
     <message>
@@ -251,6 +249,44 @@
         <location filename="../util/ddestination.cpp" line="215"/>
         <source>Disabled</source>
         <translation>已停用</translation>
+    </message>
+</context>
+<context>
+    <name>DPrinterSupplyShowDlg</name>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="104"/>
+        <source>Ink/Toner Status</source>
+        <translation>耗材余量</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="110"/>
+        <source>Unknown amount</source>
+        <translation>油墨量未知</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="117"/>
+        <source>Unable to get the remaining amount</source>
+        <translation>未获取到油墨量数据</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="142"/>
+        <source>The amounts are estimated, last updated at%1:%2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="151"/>
+        <source>OK</source>
+        <translation>确定</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="209"/>
+        <source>%1</source>
+        <translation>%1</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="250"/>
+        <source>Unknown</source>
+        <translation>余量未知</translation>
     </message>
 </context>
 <context>
@@ -564,154 +600,159 @@
 <context>
     <name>DPrintersShowWindow</name>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="80"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="81"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="86"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="87"/>
         <source>Printers</source>
         <translation>打印机设备</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="90"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="91"/>
         <source>Add printer</source>
         <translation>添加打印机</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="93"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="94"/>
         <source>Delete printer</source>
         <translation>删除打印机</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="114"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="115"/>
         <source>Shared</source>
         <translation>共享</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="117"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="118"/>
         <source>Enabled</source>
         <translation>启用</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="120"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="121"/>
         <source>Accept jobs</source>
         <translation>接受任务</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="124"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="125"/>
         <source>Set as default</source>
         <translation>设为默认</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="135"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="136"/>
         <source>No Printers</source>
         <translation>无打印设备</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="159"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="160"/>
         <source>Location:</source>
         <translation>位置：</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="163"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="164"/>
         <source>Model:</source>
         <translation>型号：</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="166"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="167"/>
         <source>Status:</source>
         <translation>状态：</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="193"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="195"/>
         <source>Properties</source>
         <translation>属性</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="203"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="205"/>
         <source>Print Queue</source>
         <translation>打印队列</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="213"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="215"/>
         <source>Print Test Page</source>
         <translation>打印测试页</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="247"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="237"/>
+        <source>Supplies</source>
+        <translation>耗材</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="262"/>
         <source>No printer configured</source>
         <translation>未配置打印机</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="252"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="267"/>
         <source>Click + to add printers</source>
         <translation>请点击添加按钮（+），添加打印机</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="314"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="330"/>
         <source>As print jobs are in process, you cannot rename the printer now, please try later</source>
         <translation>有正在进行的打印任务，无法重命名，请稍后再试</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="318"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="366"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="550"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="334"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="382"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="601"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="344"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="360"/>
         <source>Idle</source>
         <translation>空闲</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="346"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="362"/>
         <source>Printing</source>
         <translation>打印中</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="348"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="364"/>
         <source>Disabled</source>
         <translation>未启用</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="363"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="379"/>
         <source>CUPS server is not running, and can’t manage printers.</source>
         <translation>CUPS服务器未运行，不能管理打印机。</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="508"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="559"/>
         <source>Are you sure you want to delete the printer &quot;%1&quot; ?</source>
         <translation>您确定要删除打印机“%1”吗？</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="514"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="565"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="546"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="597"/>
         <source>The name already exists</source>
         <translation>此名称已存在</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="565"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="616"/>
         <source>You will not be able to reprint the completed jobs if continue. Are you sure you want to rename the printer?</source>
         <translation>重命名会导致已完成的任务不能重复打印，您确定要重命名吗？</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="570"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="621"/>
         <source>Confirm</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="619"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="679"/>
         <source>The driver is damaged, please install it again.</source>
         <translation>驱动文件已损坏，请重新安装驱动。</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="622"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="682"/>
         <source>Install Driver</source>
         <translation>安装驱动</translation>
     </message>
@@ -858,7 +899,7 @@
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="225"/>
         <source>Enter a complete vendor and model (Only letters, numbers and whitespaces)</source>
-        <translation type="unfinished"></translation>
+        <translation>请输入完整的厂商和型号（仅限字母、数字及空格）</translation>
     </message>
     <message>
         <source>Enter a complete vendor and model</source>
@@ -1015,44 +1056,44 @@
 <context>
     <name>JobListView</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="212"/>
-        <location filename="../ui/jobmanagerwindow.cpp" line="369"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="214"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="371"/>
         <source>Cancel</source>
         <translation>取消打印</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="213"/>
-        <location filename="../ui/jobmanagerwindow.cpp" line="370"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="215"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="372"/>
         <source>Delete</source>
         <translation>删除任务</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="214"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="216"/>
         <source>Pause</source>
         <translation>暂停打印</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="215"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="217"/>
         <source>Resume</source>
         <translation>恢复打印</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="216"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="218"/>
         <source>Print first</source>
         <translation>优先打印</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="217"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="219"/>
         <source>Reprint</source>
         <translation>重新打印</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="219"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="221"/>
         <source>No print jobs</source>
         <translation>暂无打印任务</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="363"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="365"/>
         <source>Are you sure you want to delete this job?</source>
         <translation>您确定要删除此打印任务吗？</translation>
     </message>
@@ -1068,32 +1109,32 @@
 <context>
     <name>JobManagerWindow</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="979"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1007"/>
         <source>Refresh</source>
         <translation>刷新</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="983"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1011"/>
         <source>All</source>
         <translation>全部</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="984"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1012"/>
         <source>Print Queue</source>
         <translation>打印队列</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="985"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1013"/>
         <source>Completed</source>
         <translation>已完成</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1042"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1070"/>
         <source> failed</source>
         <translation>失败</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1063"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1091"/>
         <source>%1 jobs</source>
         <translation>%1项任务</translation>
     </message>
@@ -1101,42 +1142,42 @@
 <context>
     <name>JobsDataModel</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="629"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="631"/>
         <source>Job</source>
         <translation>任务</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="631"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="633"/>
         <source>User</source>
         <translation>用户</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="633"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="635"/>
         <source>Document</source>
         <translation>文档</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="635"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="637"/>
         <source>Printer</source>
         <translation>打印机</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="637"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="639"/>
         <source>Size</source>
         <translation>大小</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="639"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="641"/>
         <source>Time submitted</source>
         <translation>提交时间</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="641"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="643"/>
         <source>Status</source>
         <translation>状态</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="643"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="645"/>
         <source>Action</source>
         <translation>操作</translation>
     </message>
@@ -1287,32 +1328,32 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="101"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="103"/>
         <source>1 min ago</source>
         <translation>1分钟以前</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="104"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="106"/>
         <source>%1 mins ago</source>
         <translation>%1分钟以前</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="108"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="110"/>
         <source>1 hr ago</source>
         <translation>1小时以前</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="110"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="112"/>
         <source>%1 hrs ago</source>
         <translation>%1小时以前</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="115"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="117"/>
         <source>Yesterday</source>
         <translation>昨天</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="117"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="119"/>
         <source>%1 days ago</source>
         <translation>%1天以前</translation>
     </message>
@@ -1377,6 +1418,131 @@
         <location filename="../ui/printerapplication.cpp" line="122"/>
         <source>File</source>
         <translation>文件</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="40"/>
+        <source>Black</source>
+        <translation>黑色</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="41"/>
+        <source>Blue</source>
+        <translation>蓝色</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="42"/>
+        <source>Brown</source>
+        <translation>褐色</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="43"/>
+        <source>Cyan</source>
+        <translation>青色</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="44"/>
+        <source>Dark-gray</source>
+        <translation>深灰色</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="45"/>
+        <source>Dark gray</source>
+        <translation>深灰色</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="46"/>
+        <source>Dark-yellow</source>
+        <translation>深黄色</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="47"/>
+        <source>Dark yellow</source>
+        <translation>深黄色</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="48"/>
+        <source>Gold</source>
+        <translation>金色</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="49"/>
+        <source>Gray</source>
+        <translation>灰色</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="50"/>
+        <source>Green</source>
+        <translation>绿色</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="51"/>
+        <source>Light-black</source>
+        <translation>浅黑色</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="52"/>
+        <source>Light black</source>
+        <translation>浅黑色</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="53"/>
+        <source>Light-cyan</source>
+        <translation>浅青色</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="54"/>
+        <source>Light cyan</source>
+        <translation>浅青色</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="55"/>
+        <source>Light-gray</source>
+        <translation>浅灰色</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="56"/>
+        <source>Light gray</source>
+        <translation>浅灰色</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="57"/>
+        <source>Light-magenta</source>
+        <translation>浅洋红色</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="58"/>
+        <source>Light magenta</source>
+        <translation>浅洋红色</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="59"/>
+        <source>Magenta</source>
+        <translation>洋红色</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="60"/>
+        <source>Orange</source>
+        <translation>橙色</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="61"/>
+        <source>Red</source>
+        <translation>红色</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="62"/>
+        <source>Silver</source>
+        <translation>银色</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="63"/>
+        <source>White</source>
+        <translation>白色</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="64"/>
+        <source>Yellow</source>
+        <translation>黄色</translation>
     </message>
 </context>
 <context>
