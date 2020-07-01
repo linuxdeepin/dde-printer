@@ -513,10 +513,8 @@ void InstallDriverWindow::getPPDFileFromLocalSlot()
     if (!ppdFilePath.isEmpty()) {
         m_pPPDPath->setText(ppdFilePath);
         m_pSelectPPDBtn->setText(tr("Reselect"));
-        m_pInstallBtn->setEnabled(true);
-    } else {
-        m_pInstallBtn->setEnabled(false);
     }
+    m_pInstallBtn->setEnabled(!m_pPPDPath->text().isEmpty());
 }
 
 void InstallDriverWindow::installDriverSlot()
