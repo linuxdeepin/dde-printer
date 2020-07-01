@@ -118,6 +118,23 @@ int PrinterApplication::create()
     QLoggingCategory::setFilterRules(logRules);
     qInfo() << "save log to:" << DLogManager::getlogFilePath();
 
+    if (qApp->arguments().contains("-r")) {
+        //重启模式先kill原始进程
+        QString originPid = qApp->arguments().at(4).toLocal8Bit();
+        QProcess process;
+        QString cmd = "kill";
+        QStringList args;
+        args << "-9" << originPid;
+        process.start(cmd, args);
+
+        if (process.waitForFinished()) {
+            qInfo() << "kill origin process " << originPid;
+        } else {
+            qInfo() << "kill origin process failed :" << process.errorString();
+        }
+
+    }
+
     QObject::tr("Direct-attached Device");
     QObject::tr("File");
     g_cupsMonitor->initTranslations();
@@ -126,27 +143,11 @@ int PrinterApplication::create()
     if (signal(SIGUSR1, handler) == SIG_ERR) {
         qWarning("Can't set handler for SIGUSR1\n");
     }
+
     if (!DGuiApplicationHelper::setSingleInstance("dde-printer")) {
-        if (qApp->arguments().contains("-r")) {
-            //重启模式先kill原始进程
-            QString originPid = qApp->arguments().at(4).toLocal8Bit();
-            QProcess process;
-            QString cmd = "kill";
-            QStringList args;
-            args << "-9" << originPid;
-            process.start(cmd, args);
-            process.waitForFinished();
-            qInfo() << "kill origin process " << originPid;
-            if (!DGuiApplicationHelper::setSingleInstance("dde-printer")) {
-                qWarning() << "restart process failed";
-                return -3;
-            } else {
-                qInfo() << "restart process success";
-            }
-        } else {
-            qWarning() << "dde-printer is running";
-            return -2;
-        }
+        //进程设置单例失败，杀死原始进程，继续设置单例，虽然返回true，但是实际没有生效，所以先杀死原始进程，再设置新进程单例
+        qWarning() << "dde-printer is running";
+        return -2;
     }
 
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::newProcessInstance, this, &PrinterApplication::slotNewProcessInstance);
