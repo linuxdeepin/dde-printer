@@ -305,19 +305,16 @@ bool DPrinterSupplyShowDlg::canGetSupplyMsg()
         if (DESTTYPE::PRINTER == pDest->getType()) {
             DPrinter *pPrinter = static_cast<DPrinter *>(pDest);
 
-            if(pPrinter->isPpdFileBroken())
-            {
+            if(pPrinter->isPpdFileBroken()){
                 bRet = false;
             }
-            else
-            {
+            else{
                 pPrinter->disableSupplys();
                 pPrinter->updateSupplys();
                 m_supplyInfos.clear();
                 m_supplyInfos = pPrinter->getSupplys();
 
-                if(m_supplyInfos.size() > 0)
-                {
+                if(m_supplyInfos.size() > 0){
                     bRet = true;
                 }
             }
