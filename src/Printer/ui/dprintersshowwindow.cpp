@@ -775,10 +775,13 @@ void DPrintersShowWindow::printerListWidgetItemChangedSlot(const QModelIndex &pr
 
         if(PRINTER == pDest->getType()){
             DPrinter* pPrinter = static_cast<DPrinter*>(pDest);
-            pPrinter->updateSupplys();
-            int iMinValue = pPrinter->getMinMarkerLevel();
-            QIcon pix = getSupplyIconByLevel(iMinValue);
-            m_pTBtnSupply->setIcon(pix);
+
+            if(!pPrinter->isPpdFileBroken()){
+                pPrinter->updateSupplys();
+                int iMinValue = pPrinter->getMinMarkerLevel();
+                QIcon pix = getSupplyIconByLevel(iMinValue);
+                m_pTBtnSupply->setIcon(pix);
+            }
         }
     }
 }

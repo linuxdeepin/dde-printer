@@ -743,13 +743,14 @@ void JobsDataModel::updateJobState(int id, int state, const QString &message)
             DPrinterManager* pManager = DPrinterManager::getInstance();
             DDestination* pDest = pManager->getDestinationByName(strName);
 
-            if(pDest != nullptr)
-            {
-                if(PRINTER == pDest->getType())
-                {
+            if(pDest != nullptr){
+                if(PRINTER == pDest->getType()){
                     DPrinter* pPrinter = static_cast<DPrinter*>(pDest);
-                    pPrinter->disableSupplys();
-                    pPrinter->updateSupplys();
+
+                    if(!pPrinter->isPpdFileBroken()){
+                        pPrinter->disableSupplys();
+                        pPrinter->updateSupplys();
+                    }
                 }
             }
         }
