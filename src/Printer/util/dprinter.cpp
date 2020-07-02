@@ -249,6 +249,11 @@ QString DPrinter::getPrinterMakeAndModel()
         for (auto iter = attrs.begin(); iter != attrs.end(); iter++) {
             strMakeAndModel = QString::fromStdString(iter->second.data());
             strMakeAndModel = strMakeAndModel.remove(0, 1);
+
+            if (strMakeAndModel.contains("(recommended)")) {
+                strMakeAndModel.remove("(recommended)");
+                strMakeAndModel.append(tr("(recommended)"));
+            }
         }
     } catch (const std::runtime_error &e) {
         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
