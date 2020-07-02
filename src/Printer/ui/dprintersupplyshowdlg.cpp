@@ -247,7 +247,7 @@ QWidget* DPrinterSupplyShowDlg::initColorSupplyItem(const SUPPLYSDATA& info, boo
     }
 
     pWidget->setLayout(pHlayout);
-    pWidget->setFixedHeight(32);
+    pWidget->setMinimumHeight(32);
     return pWidget;
 }
 
