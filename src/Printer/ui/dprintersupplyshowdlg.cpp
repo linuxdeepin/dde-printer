@@ -208,6 +208,7 @@ QWidget* DPrinterSupplyShowDlg::initColorSupplyItem(const SUPPLYSDATA& info, boo
         QIcon icon = QIcon::fromTheme("dp_warning");
         QPixmap pix = icon.pixmap(QSize(14, 14));
         pImageLabel->setPixmap(pix);
+        pImageLabel->setToolTip(tr("Low level"));
         DProgressBar* pProcessBar = new DProgressBar;
         pProcessBar->setTextVisible(false);
         pProcessBar->setFixedSize(230, 8);
