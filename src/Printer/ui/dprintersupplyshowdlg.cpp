@@ -113,6 +113,26 @@ void DPrinterSupplyShowDlg::initUI()
             pTimelLabel->setText(tr("The amounts are estimated, last updated at %1:%2").arg(time.hour()).arg(time.minute()));
             pVlayout->addWidget(pTimelLabel, 0, Qt::AlignHCenter);
         }
+        else {
+            pVlayout->addStretch(500);
+            QLabel* pLabel2 = new QLabel;
+            pLabel2->setText(tr("Unknown amount"));
+            DFontSizeManager::instance()->bind(pLabel2, DFontSizeManager::T4, int(QFont::Medium));
+            QPalette pal = pLabel2->palette();
+            QColor color = pal.color(QPalette::WindowText);
+            pal.setColor(QPalette::WindowText, QColor(color.red(), color.green(), color.blue(), 160));
+            pLabel2->setPalette(pal);
+            QLabel* pLabel3 = new QLabel;
+            pLabel3->setText(tr("Unable to get the remaining amount"));
+            pVlayout->addWidget(pLabel2, 0, Qt::AlignHCenter);
+            pVlayout->addSpacing(10);
+            pVlayout->addWidget(pLabel3, 0, Qt::AlignHCenter);
+            DFontSizeManager::instance()->bind(pLabel3, DFontSizeManager::T6, int(QFont::Light));
+            pal = pLabel3->palette();
+            color = pal.color(QPalette::WindowText);
+            pal.setColor(QPalette::WindowText, QColor(color.red(), color.green(), color.blue(), 120));
+            pLabel3->setPalette(pal);
+        }
     }
 
     pVlayout->addStretch(500);
@@ -227,7 +247,7 @@ QWidget* DPrinterSupplyShowDlg::initColorSupplyItem(const SUPPLYSDATA& info, boo
     }
 
     pWidget->setLayout(pHlayout);
-    pWidget->setFixedHeight(32);
+    pWidget->setMinimumHeight(32);
     return pWidget;
 }
 
