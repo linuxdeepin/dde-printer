@@ -237,6 +237,8 @@ void DPrintersShowWindow::initUI()
     pLabelSupply->setText(tr("Supplies"));
     pLabelSupply->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
     DFontSizeManager::instance()->bind(pLabelSupply, DFontSizeManager::T8);
+    m_pTBtnSupply->hide();
+    pLabelSupply->hide();
 
     QGridLayout *pRightBottomGLayout = new QGridLayout();
     pRightBottomGLayout->addWidget(m_pTBtnSetting, 0, 0, Qt::AlignHCenter);
@@ -771,6 +773,8 @@ void DPrintersShowWindow::printerListWidgetItemChangedSlot(const QModelIndex &pr
         m_pLabelTypeShow->setText(model);
         m_pLabelTypeShow->setToolTip(basePrinterInfo.at(1));
         m_pLabelStatusShow->setText(basePrinterInfo.at(2));
+
+        /*
         DDestination* pDest = m_pPrinterManager->getDestinationByName(printerName);
 
         if(PRINTER == pDest->getType()){
@@ -783,6 +787,7 @@ void DPrintersShowWindow::printerListWidgetItemChangedSlot(const QModelIndex &pr
                 m_pTBtnSupply->setIcon(pix);
             }
         }
+        */
     }
 }
 
