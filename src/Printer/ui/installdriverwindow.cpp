@@ -554,6 +554,9 @@ void InstallDriverWindow::installDriverSlot()
 
     AddPrinterTask *task = g_addPrinterFactoty->createAddPrinterTask(m_device, solution);
     InstallPrinterWindow *pInstallPrinterWindow = new InstallPrinterWindow(this);
+    connect(pInstallPrinterWindow, &InstallPrinterWindow::showParentWindows, this, [&]() {
+        this->show();
+    });
     pInstallPrinterWindow->setTask(task);
     pInstallPrinterWindow->setDevice(m_device);
 

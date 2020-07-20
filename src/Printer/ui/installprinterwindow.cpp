@@ -41,9 +41,9 @@
 #include <QComboBox>
 #include <QMapIterator>
 
-InstallPrinterWindow::InstallPrinterWindow(QWidget *parennt)
-    : DMainWindow(parennt)
-    , m_pParentWidget(parennt)
+InstallPrinterWindow::InstallPrinterWindow(QWidget *parent)
+    : DMainWindow(parent)
+    , m_pParentWidget(parent)
     , m_bInstallFail(false)
     , m_testJob(nullptr)
 {
@@ -322,15 +322,7 @@ void InstallPrinterWindow::leftBtnClickedSlot()
     } else if (m_status == PrintFailed) {
         if (m_pDriverCombo->count() == 0) {
             if (m_pParentWidget) {
-                InstallDriverWindow *pParent = static_cast<InstallDriverWindow *>(m_pParentWidget);
-                if (pParent) {
-                    pParent->show();
-                } else {
-                    PrinterSearchWindow *pParentSearch = static_cast<PrinterSearchWindow *>(m_pParentWidget);
-                    if (pParentSearch) {
-                        pParentSearch->show();
-                    }
-                }
+                emit showParentWindows();
             }
             close();
         } else {
@@ -338,29 +330,13 @@ void InstallPrinterWindow::leftBtnClickedSlot()
 //现在将这里修改成跳过setStatus(Reinstall)的界面，直接回到上一级界面
 //            setStatus(Reinstall);
             if (m_pParentWidget) {
-                InstallDriverWindow *pParent = static_cast<InstallDriverWindow *>(m_pParentWidget);
-                if (pParent) {
-                    pParent->show();
-                } else {
-                    PrinterSearchWindow *pParentSearch = static_cast<PrinterSearchWindow *>(m_pParentWidget);
-                    if (pParentSearch) {
-                        pParentSearch->show();
-                    }
-                }
+                emit showParentWindows();
             }
             close();
         }
     } else if (m_status == Reinstall) {
         if (m_pParentWidget) {
-            InstallDriverWindow *pParent = static_cast<InstallDriverWindow *>(m_pParentWidget);
-            if (pParent) {
-                pParent->show();
-            } else {
-                PrinterSearchWindow *pParentSearch = static_cast<PrinterSearchWindow *>(m_pParentWidget);
-                if (pParentSearch) {
-                    pParentSearch->show();
-                }
-            }
+            emit showParentWindows();
         }
         close();
     }

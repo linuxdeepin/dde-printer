@@ -433,6 +433,9 @@ bool PrinterSearchWindow::autoInstallPrinter(int type, const TDeviceInfo &device
     AddPrinterTask *task = g_addPrinterFactoty->createAddPrinterTask(device, solution);
     close();
     m_pInstallPrinterWindow = new InstallPrinterWindow(this);
+    connect(m_pInstallPrinterWindow, &InstallPrinterWindow::showParentWindows, this, [&]() {
+        this->show();
+    });
     m_pInstallPrinterWindow->show();
     m_pInstallPrinterWindow->setTask(task);
     m_pInstallPrinterWindow->setDevice(device);
