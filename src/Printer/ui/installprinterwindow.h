@@ -53,7 +53,7 @@ class InstallPrinterWindow : public DMainWindow
 {
     Q_OBJECT
 public:
-    explicit InstallPrinterWindow(QWidget *parennt = nullptr);
+    explicit InstallPrinterWindow(QWidget *parent = nullptr);
     virtual ~InstallPrinterWindow() override;
 
     void setTask(AddPrinterTask *task);
@@ -99,6 +99,7 @@ signals:
     * @date          2019-11-07
     */
     void updatePrinterList(const QString &newPrinterName);
+    void showParentWindows();
 
 private:
     DSpinner *m_pSpinner;
