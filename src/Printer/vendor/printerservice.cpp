@@ -31,12 +31,7 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QJsonArray>
-#include <cryptopp/base64.h>
-#include <cryptopp/osrng.h>
-#include <cryptopp/randpool.h>
-#include <cryptopp/rsa.h>
 
-using namespace CryptoPP;
 
 static QNetworkAccessManager g_networkManager;
 
@@ -63,41 +58,9 @@ QNetworkReply *PrinterServerInterface::post_request(const QString &path, const Q
     QNetworkRequest request(url);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
-    QJsonArray cipher_text;
-    encrypt(QJsonDocument(obj).toJson(QJsonDocument::Compact), cipher_text);
     QNetworkReply *reply = g_networkManager.post(request,
-                                                 QJsonDocument(cipher_text).toJson(QJsonDocument::Compact));
+                                                 QJsonDocument(obj).toJson(QJsonDocument::Compact));
     return reply;
-}
-
-void PrinterServerInterface::encrypt(const QString &text, QJsonArray &res)
-{
-    static const char pub_key[] = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1O6fa/bSzcQEQ/7B2wme\n"
-                                  "6k+pNuuu3O4J4PpJyXmVMuQ8uGrnHv2GEiDMN4hGXRJK49yciIUyZvjtS1VDNiLy\n"
-                                  "shiYGBebWeLcN8GcSuDjf2ZjWw3dVhi8lyjkDdxOWTnP6enCbRjZt5IiwjniYcK0\n"
-                                  "b9eiAExkUCzMWvOU46f62RxaNj0HLzn8gIRARVGyu1wwqXLIdKlzsAew8G3GaFNC\n"
-                                  "bLeDiQe3Uu9JfSOLf8IHG4gfHaNZpA0f3DfUXsOX70uDzSDzV80trFpPyl2DUhUK\n"
-                                  "7s5zyKmm1iuooV79sYs8efZbP3p+Uy2Q2o2JEilOkXfxaSG1IDzvIfX+bnPHN2jO\n"
-                                  "twIDAQAB";
-
-    AutoSeededRandomPool rng;
-    RSAES_OAEP_SHA_Encryptor pubkey;
-    int maxlen;
-
-    StringSource keybase64(pub_key, true, new Base64Decoder);
-    pubkey = RSAES_OAEP_SHA_Encryptor(keybase64);
-
-    QByteArray clear = text.toUtf8();
-    const char *data = clear.constData();
-    int len = clear.size();
-    maxlen = pubkey.FixedMaxPlaintextLength();
-    for (int i = len, j = 0; i > 0; i -= maxlen, j += maxlen) {
-        std::string pieces;
-        StringSource((unsigned char *)data + j, i > maxlen ? maxlen : i, true,
-                     new PK_EncryptorFilter(rng, pubkey,
-                                            new Base64Encoder(new StringSink(pieces))));
-        res.append(pieces.c_str());
-    }
 }
 
 PrinterService *PrinterService::getInstance()

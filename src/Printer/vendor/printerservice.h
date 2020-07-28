@@ -59,7 +59,6 @@ protected:
 
 private:
     QNetworkReply *post_request(const QString &path, const QJsonObject &obj);
-    void encrypt(const QString &text, QJsonArray &res);
 
     QString m_url;
     QJsonObject m_args;

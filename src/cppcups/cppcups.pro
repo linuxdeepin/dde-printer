@@ -5,10 +5,7 @@
 #-------------------------------------------------
 
 QT       -= core gui
-
-#CONFIG += link_pkgconfig
-#PKGCONFIG += cups
-LIBS += -lcups
+CONFIG += staticlib
 
 TARGET = cppcups
 TEMPLATE = lib
@@ -29,9 +26,3 @@ HEADERS += cupsconnection.h \
     cupssnmp.h
 
 INCLUDEPATH += $${PWD}/cups_private
-LIBS += $${PWD}/cups_private/libcups.a
-
-unix {
-    target.path = /usr/lib
-    INSTALLS += target
-}

@@ -32,21 +32,38 @@
 #include <QStringList>
 #include <QTcpSocket>
 #include <QUrl>
+#include <QLibrary>
 
 #include <libsmbclient.h>
 
 #include <limits.h>
 #include <stdlib.h>
 
-bool g_smbAuth;
-QString g_smbworkgroup;
-QString g_smbuser;
-QString g_smbpassword;
+typedef SMBCCTX* (*pfunc_smbc_new_context)(void);
+typedef void (*pfunc_smbc_setFunctionAuthDataWithContext)(SMBCCTX *c, smbc_get_auth_data_with_context_fn fn);
+typedef SMBCCTX* (*pfunc_smbc_init_context)(SMBCCTX * context);
+typedef smbc_opendir_fn (*pfunc_smbc_getFunctionOpendir)(SMBCCTX *c);
+typedef smbc_readdir_fn (*pfunc_smbc_getFunctionReaddir)(SMBCCTX *c);
+typedef smbc_close_fn (*pfunc_smbc_getFunctionClose)(SMBCCTX *c);
+typedef int (*pfunc_smbc_free_context)(SMBCCTX * context, int shutdown_ctx);
+
+static pfunc_smbc_new_context p_smbc_new_context = NULL;
+static pfunc_smbc_setFunctionAuthDataWithContext p_smbc_setFunctionAuthDataWithContext = NULL;
+static pfunc_smbc_init_context p_smbc_init_context = NULL;
+static pfunc_smbc_getFunctionOpendir p_smbc_getFunctionOpendir = NULL;
+static pfunc_smbc_getFunctionReaddir p_smbc_getFunctionReaddir = NULL;
+static pfunc_smbc_getFunctionClose p_smbc_getFunctionClose = NULL;
+static pfunc_smbc_free_context p_smbc_free_context = NULL;
+
+static bool g_smbAuth;
+static QString g_smbworkgroup;
+static QString g_smbuser;
+static QString g_smbpassword;
 
 #define ERR_SocketBase 1000
 #define SOCKET_Timeout 3000
 
-TBackendSchemes g_backendSchemes[] = {{"usb", CUPS_EXCLUDE_NONE},
+static TBackendSchemes g_backendSchemes[] = {{"usb", CUPS_EXCLUDE_NONE},
                                       {"hp", CUPS_EXCLUDE_NONE},
                                       {"snmp", CUPS_EXCLUDE_NONE},
                                       {"smfpnetdiscovery", CUPS_EXCLUDE_NONE},
@@ -412,6 +429,25 @@ int RefreshDevicesByHostTask::probe_lpd(const QString &strHost)
 int RefreshDevicesByHostTask::probe_smb(const QString &strHost)
 {
     qDebug() << "probe_smb" << strHost;
+
+    if (!p_smbc_init_context) {
+        QLibrary smbclient("libsmbclient");
+        p_smbc_new_context = (pfunc_smbc_new_context)smbclient.resolve("smbc_new_context");
+        p_smbc_setFunctionAuthDataWithContext = (pfunc_smbc_setFunctionAuthDataWithContext)smbclient.resolve("smbc_setFunctionAuthDataWithContext");
+        p_smbc_init_context = (pfunc_smbc_init_context)smbclient.resolve("smbc_init_context");
+        p_smbc_getFunctionOpendir = (pfunc_smbc_getFunctionOpendir)smbclient.resolve("smbc_getFunctionOpendir");
+        p_smbc_getFunctionReaddir = (pfunc_smbc_getFunctionReaddir)smbclient.resolve("smbc_getFunctionReaddir");
+        p_smbc_getFunctionClose = (pfunc_smbc_getFunctionClose)smbclient.resolve("smbc_getFunctionClose");
+        p_smbc_free_context = (pfunc_smbc_free_context)smbclient.resolve("smbc_free_context");
+
+        if (!p_smbc_new_context || !p_smbc_setFunctionAuthDataWithContext ||
+            !p_smbc_init_context || !p_smbc_getFunctionOpendir || !p_smbc_getFunctionReaddir ||
+            !p_smbc_getFunctionClose || !p_smbc_free_context) {
+            qWarning() << "load libsmbclient error.";
+	    return -1;
+        }
+    }
+
     int ret = 0;
     int try_again = 0;
     QString uri = "smb://";
@@ -423,20 +459,20 @@ int RefreshDevicesByHostTask::probe_smb(const QString &strHost)
 
     SMBCCTX *ctx = nullptr;
     SMBCFILE *fd = nullptr;
-    if ((ctx = smbc_new_context()) == nullptr) {
+    if ((ctx = p_smbc_new_context()) == nullptr) {
         ret = -1;
         goto done;
     }
 
-    smbc_setFunctionAuthDataWithContext(ctx, smb_auth_func);
+    p_smbc_setFunctionAuthDataWithContext(ctx, smb_auth_func);
 
-    if (smbc_init_context(ctx) == nullptr) {
+    if (p_smbc_init_context(ctx) == nullptr) {
         ret = -2;
         goto done;
     }
 
     g_smbAuth = false;
-    fd = smbc_getFunctionOpendir(ctx)(ctx, uri_utf8.constData());
+    fd = p_smbc_getFunctionOpendir(ctx)(ctx, uri_utf8.constData());
     while (!fd) {
         int last = try_again;
         qDebug() << "error: " << errno;
@@ -450,7 +486,7 @@ int RefreshDevicesByHostTask::probe_smb(const QString &strHost)
         if (try_again <= last)
             goto done;
 
-        fd = smbc_getFunctionOpendir(ctx)(ctx, uri_utf8.constData());
+        fd = p_smbc_getFunctionOpendir(ctx)(ctx, uri_utf8.constData());
     }
 
     /* insert workgroup after smb:// */
@@ -458,7 +494,7 @@ int RefreshDevicesByHostTask::probe_smb(const QString &strHost)
         uri.insert(6, QUrl(g_smbworkgroup).toEncoded() + '/');
 
     struct smbc_dirent *dirent;
-    while ((dirent = smbc_getFunctionReaddir(ctx)(ctx, fd)) != nullptr) {
+    while ((dirent = p_smbc_getFunctionReaddir(ctx)(ctx, fd)) != nullptr) {
         if (dirent->smbc_type != SMBC_PRINTER_SHARE)
             continue;
 
@@ -480,9 +516,9 @@ int RefreshDevicesByHostTask::probe_smb(const QString &strHost)
 
 done:
     if (fd)
-        smbc_getFunctionClose(ctx)(ctx, fd);
+        p_smbc_getFunctionClose(ctx)(ctx, fd);
     if (ctx)
-        smbc_free_context(ctx, 1);
+        p_smbc_free_context(ctx, 1);
     qDebug() << "probe_smb ret: " << ret;
     return ret;
 }

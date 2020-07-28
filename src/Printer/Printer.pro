@@ -99,12 +99,9 @@ DEPENDPATH += $$PWD/../cppcups
 QMAKE_CFLAGS += -Wall -Wextra -Wformat=2 -Wno-format-nonliteral -Wshadow
 QMAKE_CXXFLAGS += -Wall -Wextra -Wformat=2 -Wno-format-nonliteral -Wshadow
 
-
-QMAKE_LFLAGS += -Wl,-rpath=../cppcups
-
 unix:!macx:{
-LIBS += -L../cppcups/ -lcppcups
-LIBS += -lsmbclient -lcups -lcrypto++
+LIBS += -L../cppcups/ -l:libcppcups.a
+LIBS += -lcups
 }
 
 DISTFILES +=
