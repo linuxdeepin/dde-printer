@@ -946,7 +946,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="654"/>
+        <location filename="../ui/installdriverwindow.cpp" line="657"/>
         <source> (recommended)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1302,12 +1302,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="556"/>
+        <location filename="../ui/printersearchwindow.cpp" line="559"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="644"/>
+        <location filename="../ui/printersearchwindow.cpp" line="647"/>
         <source> (recommended)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1376,7 +1376,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="481"/>
+        <location filename="../ui/printersearchwindow.cpp" line="484"/>
         <source>(use %1 protocol)</source>
         <translation type="unfinished"></translation>
     </message>

@@ -946,7 +946,7 @@
         <translation>(recommended)</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="654"/>
+        <location filename="../ui/installdriverwindow.cpp" line="657"/>
         <source> (recommended)</source>
         <translation> (recommended)</translation>
     </message>
@@ -1302,12 +1302,12 @@
         <translation>Examples:</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="556"/>
+        <location filename="../ui/printersearchwindow.cpp" line="559"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="644"/>
+        <location filename="../ui/printersearchwindow.cpp" line="647"/>
         <source> (recommended)</source>
         <translation> (recommended)</translation>
     </message>
@@ -1366,7 +1366,7 @@
         <translation>%1 days ago</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="481"/>
+        <location filename="../ui/printersearchwindow.cpp" line="484"/>
         <source>(use %1 protocol)</source>
         <translation>(use %1 protocol)</translation>
     </message>
