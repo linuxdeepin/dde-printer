@@ -1,28 +1,36 @@
 /*
  * SNMP functions for CUPS.
  *
- * Copyright 2007-2014 by Apple Inc.
- * Copyright 2006-2007 by Easy Software Products, all rights reserved.
+ * Copyright © 2007-2014 by Apple Inc.
+ * Copyright © 2006-2007 by Easy Software Products, all rights reserved.
  *
- * These coded instructions, statements, and computer programs are the
- * property of Apple Inc. and are protected by Federal copyright
- * law.  Distribution and use rights are outlined in the file "LICENSE.txt"
- * "LICENSE" which should have been included with this file.  If this
- * file is missing or damaged, see the license at "http://www.cups.org/".
- *
- * This file is subject to the Apple OS-Developed Software exception.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 /*
  * Include necessary headers.
  */
 
-#include "cups-private.h"
-#include "snmp-private.h"
+#include "snmp.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <memory.h>
+#include <unistd.h>
+#include <sys/poll.h>
+#include <errno.h>
+#include <ctype.h>
+#include <ifaddrs.h>
+#include <net/if.h>
+#include <fcntl.h>
+
 #ifdef HAVE_POLL
 #  include <poll.h>
 #endif /* HAVE_POLL */
 
+#define HAVE_POLL 1
+#define HAVE_EPOLL 1
 
 /*
  * Local functions...
@@ -66,16 +74,30 @@ static void		snmp_set_error(cups_snmp_t *packet,
 			               const char *message);
 
 
+int _cups_tolower(int ch);
+int _cups_toupper(int ch);
+int _cups_isupper(int ch);
+int _cups_islower(int ch);
+int cupsstrcasecmp(const char *s,	const char *t);
+ char* getValue(char* pLine);
+
+
+
+void httpAddrSetPort(http_addr_t *addr, int port);
+int httpAddrLength(const http_addr_t *addr);
+
+
 /*
  * '_cupsSNMPClose()' - Close a SNMP socket.
  */
 
-void
-_cupsSNMPClose(int fd)			/* I - SNMP socket file descriptor */
+void _cupsSNMPClose(int fd)			/* I - SNMP socket file descriptor */
 {
-  DEBUG_printf(("4_cupsSNMPClose(fd=%d)", fd));
-
-  httpAddrClose(NULL, fd);
+#ifdef WIN32
+    closesocket(fd);
+#else
+    close(fd);
+#endif /* WIN32 */
 }
 
 
@@ -91,10 +113,6 @@ _cupsSNMPCopyOID(int       *dst,	/* I - Destination OID */
 		 int       dstsize)	/* I - Number of integers in dst */
 {
   int	i;				/* Looping var */
-
-
-  DEBUG_printf(("4_cupsSNMPCopyOID(dst=%p, src=%p, dstsize=%d)", dst, src,
-                dstsize));
 
   for (i = 0, dstsize --; src[i] >= 0 && i < dstsize; i ++)
     dst[i] = src[i];
@@ -115,38 +133,39 @@ _cupsSNMPCopyOID(int       *dst,	/* I - Destination OID */
 const char *				/* O - Default community name */
 _cupsSNMPDefaultCommunity(void)
 {
-  cups_file_t	*fp;			/* snmp.conf file */
-  char		line[1024],		/* Line from file */
-		*value;			/* Value from file */
-  int		linenum;		/* Line number in file */
-  _cups_globals_t *cg = _cupsGlobals();	/* Global data */
+    char* pRet = (char*)malloc(100);
+    memset(pRet, 0, 100);
+    FILE* rf = fopen("/etc/cups/snmp.conf", "r");
 
+    if(rf != NULL){
+      char line[200] = {0};
 
-  DEBUG_puts("4_cupsSNMPDefaultCommunity()");
+      while (!feof(rf)) {
+          fgets(line, 200, rf);
+          char* p = line;
 
-  if (!cg->snmp_community[0])
-  {
-    strlcpy(cg->snmp_community, "public", sizeof(cg->snmp_community));
+          if(!cupsstrcasecmp(line, "Community")){
+              char* pValue = getValue(line);
 
-    snprintf(line, sizeof(line), "%s/snmp.conf", cg->cups_serverroot);
-    if ((fp = cupsFileOpen(line, "r")) != NULL)
-    {
-      linenum = 0;
-      while (cupsFileGetConf(fp, line, sizeof(line), &value, &linenum))
-	if (!_cups_strcasecmp(line, "Community") && value)
-	{
-	  strlcpy(cg->snmp_community, value, sizeof(cg->snmp_community));
-	  break;
-	}
+              if(pValue){
+                  strcpy(pRet, pValue);
+                  break;
+              }
+              else {
+                  strcpy(pRet, "public");
+              }
+          }
 
-      cupsFileClose(fp);
+          memset(line, 0, 200);
+      }
+
+      fclose(rf);
     }
-  }
+    else {
+        strcpy(pRet, "public");
+    }
 
-  DEBUG_printf(("5_cupsSNMPDefaultCommunity: Returning \"%s\"",
-                cg->snmp_community));
-
-  return (cg->snmp_community);
+  return pRet;
 }
 
 
@@ -162,17 +181,12 @@ _cupsSNMPIsOID(cups_snmp_t *packet,	/* I - Response packet */
 {
   int	i;				/* Looping var */
 
-
  /*
   * Range check input...
   */
 
-  DEBUG_printf(("4_cupsSNMPIsOID(packet=%p, oid=%p)", packet, oid));
-
   if (!packet || !oid)
   {
-    DEBUG_puts("5_cupsSNMPIsOID: Returning 0");
-
     return (0);
   }
 
@@ -180,18 +194,13 @@ _cupsSNMPIsOID(cups_snmp_t *packet,	/* I - Response packet */
   * Compare OIDs...
   */
 
-  for (i = 0;
-       i < CUPS_SNMP_MAX_OID && oid[i] >= 0 && packet->object_name[i] >= 0;
-       i ++)
+  for (i = 0; i < CUPS_SNMP_MAX_OID && oid[i] >= 0 && packet->object_name[i] >= 0; i ++)
+  {
     if (oid[i] != packet->object_name[i])
     {
-      DEBUG_puts("5_cupsSNMPIsOID: Returning 0");
-
       return (0);
     }
-
-  DEBUG_printf(("5_cupsSNMPIsOID: Returning %d",
-                i < CUPS_SNMP_MAX_OID && oid[i] == packet->object_name[i]));
+  }
 
   return (i < CUPS_SNMP_MAX_OID && oid[i] == packet->object_name[i]);
 }
@@ -209,41 +218,31 @@ _cupsSNMPIsOIDPrefixed(
     cups_snmp_t *packet,		/* I - Response packet */
     const int   *prefix)		/* I - OID prefix */
 {
-  int	i;				/* Looping var */
+    int	i;				/* Looping var */
 
 
- /*
-  * Range check input...
-  */
+    /*
+    * Range check input...
+    */
 
-  DEBUG_printf(("4_cupsSNMPIsOIDPrefixed(packet=%p, prefix=%p)", packet,
-                prefix));
-
-  if (!packet || !prefix)
-  {
-    DEBUG_puts("5_cupsSNMPIsOIDPrefixed: Returning 0");
-
-    return (0);
-  }
-
- /*
-  * Compare OIDs...
-  */
-
-  for (i = 0;
-       i < CUPS_SNMP_MAX_OID && prefix[i] >= 0 && packet->object_name[i] >= 0;
-       i ++)
-    if (prefix[i] != packet->object_name[i])
+    if (!packet || !prefix)
     {
-      DEBUG_puts("5_cupsSNMPIsOIDPrefixed: Returning 0");
-
       return (0);
     }
 
-  DEBUG_printf(("5_cupsSNMPIsOIDPrefixed: Returning %d",
-                i < CUPS_SNMP_MAX_OID));
+    /*
+    * Compare OIDs...
+    */
 
-  return (i < CUPS_SNMP_MAX_OID);
+    for (i = 0; i < CUPS_SNMP_MAX_OID && prefix[i] >= 0 && packet->object_name[i] >= 0; i ++)
+    {
+        if (prefix[i] != packet->object_name[i])
+        {
+            return (0);
+        }
+    }
+
+    return (i < CUPS_SNMP_MAX_OID);
 }
 
 
@@ -259,10 +258,6 @@ _cupsSNMPOIDToString(const int *src,	/* I - OID */
 {
   char	*dstptr,			/* Pointer into string buffer */
 	*dstend;			/* End of string buffer */
-
-
-  DEBUG_printf(("4_cupsSNMPOIDToString(src=%p, dst=%p, dstsize=" CUPS_LLFMT ")",
-                src, dst, CUPS_LLCAST dstsize));
 
  /*
   * Range check input...
@@ -302,12 +297,8 @@ _cupsSNMPOpen(int family)		/* I - Address family - @code AF_INET@ or @code AF_IN
   * Create the SNMP socket...
   */
 
-  DEBUG_printf(("4_cupsSNMPOpen(family=%d)", family));
-
   if ((fd = socket(family, SOCK_DGRAM, 0)) < 0)
   {
-    DEBUG_printf(("5_cupsSNMPOpen: Returning -1 (%s)", strerror(errno)));
-
     return (-1);
   }
 
@@ -315,18 +306,15 @@ _cupsSNMPOpen(int family)		/* I - Address family - @code AF_INET@ or @code AF_IN
   * Set the "broadcast" flag...
   */
 
+  /*
   val = 1;
 
-  if (setsockopt(fd, SOL_SOCKET, SO_BROADCAST, CUPS_SOCAST &val, sizeof(val)))
+  if (setsockopt(fd, SOL_SOCKET, SO_BROADCAST, (const void*)&val, sizeof(val)))
   {
-    DEBUG_printf(("5_cupsSNMPOpen: Returning -1 (%s)", strerror(errno)));
-
     close(fd);
-
     return (-1);
   }
-
-  DEBUG_printf(("5_cupsSNMPOpen: Returning %d", fd));
+  */
 
   return (fd);
 }
@@ -355,13 +343,8 @@ _cupsSNMPRead(int         fd,		/* I - SNMP socket file descriptor */
   * Range check input...
   */
 
-  DEBUG_printf(("4_cupsSNMPRead(fd=%d, packet=%p, timeout=%.1f)", fd, packet,
-                timeout));
-
   if (fd < 0 || !packet)
   {
-    DEBUG_puts("5_cupsSNMPRead: Returning NULL");
-
     return (NULL);
   }
 
@@ -395,11 +378,13 @@ _cupsSNMPRead(int         fd,		/* I - SNMP socket file descriptor */
 
       ready = select(fd + 1, &input_set, NULL, NULL, &stimeout);
     }
+
 #  ifdef WIN32
     while (ready < 0 && WSAGetLastError() == WSAEINTR);
 #  else
     while (ready < 0 && (errno == EINTR || errno == EAGAIN));
 #  endif /* WIN32 */
+
 #endif /* HAVE_POLL */
 
    /*
@@ -408,8 +393,6 @@ _cupsSNMPRead(int         fd,		/* I - SNMP socket file descriptor */
 
     if (ready <= 0)
     {
-      DEBUG_puts("5_cupsSNMPRead: Returning NULL (timeout)");
-
       return (NULL);
     }
   }
@@ -423,8 +406,6 @@ _cupsSNMPRead(int         fd,		/* I - SNMP socket file descriptor */
   if ((bytes = recvfrom(fd, buffer, sizeof(buffer), 0, (void *)&address,
                         &addrlen)) < 0)
   {
-    DEBUG_printf(("5_cupsSNMPRead: Returning NULL (%s)", strerror(errno)));
-
     return (NULL);
   }
 
@@ -442,27 +423,8 @@ _cupsSNMPRead(int         fd,		/* I - SNMP socket file descriptor */
   * Return decoded data packet...
   */
 
-  DEBUG_puts("5_cupsSNMPRead: Returning packet");
-
   return (packet);
 }
-
-
-/*
- * '_cupsSNMPSetDebug()' - Enable/disable debug logging to stderr.
- */
-
-void
-_cupsSNMPSetDebug(int level)		/* I - 1 to enable debug output, 0 otherwise */
-{
-  _cups_globals_t *cg = _cupsGlobals();	/* Global data */
-
-
-  DEBUG_printf(("4_cupsSNMPSetDebug(level=%d)", level));
-
-  cg->snmp_debug = level;
-}
-
 
 /*
  * '_cupsSNMPStringToOID()' - Convert a numeric OID string to an OID array.
@@ -481,10 +443,6 @@ _cupsSNMPStringToOID(const char *src,	/* I - OID string */
 {
   int	*dstptr,			/* Pointer into OID array */
 	*dstend;			/* End of OID array */
-
-
-  DEBUG_printf(("4_cupsSNMPStringToOID(src=\"%s\", dst=%p, dstsize=%d)",
-                src, dst, dstsize));
 
  /*
   * Range check input...
@@ -565,16 +523,10 @@ _cupsSNMPWalk(int            fd,	/* I - SNMP socket */
   * Range check input...
   */
 
-  DEBUG_printf(("4_cupsSNMPWalk(fd=%d, address=%p, version=%d, "
-                "community=\"%s\", prefix=%p, timeout=%.1f, cb=%p, data=%p)",
-		fd, address, version, community, prefix, timeout, cb, data));
-
   if (fd < 0 || !address || version != CUPS_SNMP_VERSION_1 || !community ||
       !prefix || !cb)
   {
-    DEBUG_puts("5_cupsSNMPWalk: Returning -1");
-
-    return (-1);
+      return (-1);
   }
 
  /*
@@ -592,30 +544,22 @@ _cupsSNMPWalk(int            fd,	/* I - SNMP socket */
                         CUPS_ASN1_GET_NEXT_REQUEST, request_id,
 		        packet.object_name))
     {
-      DEBUG_puts("5_cupsSNMPWalk: Returning -1");
-
       return (-1);
     }
 
     if (!_cupsSNMPRead(fd, &packet, timeout))
     {
-      DEBUG_puts("5_cupsSNMPWalk: Returning -1");
-
       return (-1);
     }
 
     if (!_cupsSNMPIsOIDPrefixed(&packet, prefix) ||
         _cupsSNMPIsOID(&packet, lastoid))
     {
-      DEBUG_printf(("5_cupsSNMPWalk: Returning %d", count));
-
       return (count);
     }
 
     if (packet.error || packet.error_status)
     {
-      DEBUG_printf(("5_cupsSNMPWalk: Returning %d", count > 0 ? count : -1));
-
       return (count > 0 ? count : -1);
     }
 
@@ -656,17 +600,11 @@ _cupsSNMPWrite(
   * Range check input...
   */
 
-  DEBUG_printf(("4_cupsSNMPWrite(fd=%d, address=%p, version=%d, "
-                "community=\"%s\", request_type=%d, request_id=%u, oid=%p)",
-		fd, address, version, community, request_type, request_id, oid));
-
   if (fd < 0 || !address || version != CUPS_SNMP_VERSION_1 || !community ||
       (request_type != CUPS_ASN1_GET_REQUEST &&
        request_type != CUPS_ASN1_GET_NEXT_REQUEST) || request_id < 1 || !oid)
   {
-    DEBUG_puts("5_cupsSNMPWrite: Returning 0 (bad arguments)");
-
-    return (0);
+      return (0);
   }
 
  /*
@@ -679,8 +617,7 @@ _cupsSNMPWrite(
   packet.request_type = request_type;
   packet.request_id   = request_id;
   packet.object_type  = CUPS_ASN1_NULL_VALUE;
-
-  strlcpy(packet.community, community, sizeof(packet.community));
+  strcpy(packet.community, community);
 
   for (i = 0; oid[i] >= 0 && i < (CUPS_SNMP_MAX_OID - 1); i ++)
     packet.object_name[i] = oid[i];
@@ -688,8 +625,6 @@ _cupsSNMPWrite(
 
   if (oid[i] >= 0)
   {
-    DEBUG_puts("5_cupsSNMPWrite: Returning 0 (OID too big)");
-
     errno = E2BIG;
     return (0);
   }
@@ -698,8 +633,6 @@ _cupsSNMPWrite(
 
   if (bytes < 0)
   {
-    DEBUG_puts("5_cupsSNMPWrite: Returning 0 (request too big)");
-
     errno = E2BIG;
     return (0);
   }
@@ -712,7 +645,7 @@ _cupsSNMPWrite(
 
   temp = *address;
 
-  _httpAddrSetPort(&temp, CUPS_SNMP_PORT);
+  httpAddrSetPort(&temp, CUPS_SNMP_PORT);
 
   return (sendto(fd, buffer, (size_t)bytes, 0, (void *)&temp, (socklen_t)httpAddrLength(&temp)) == bytes);
 }
@@ -728,25 +661,21 @@ asn1_debug(const char    *prefix,	/* I - Prefix string */
            size_t        len,		/* I - Length of buffer */
            int           indent)	/* I - Indentation */
 {
-  size_t	i;			/* Looping var */
-  unsigned char	*bufend;		/* End of buffer */
-  int		integer;		/* Number value */
-  int		oid[CUPS_SNMP_MAX_OID];	/* OID value */
+    /*
+  size_t	i;
+  unsigned char	*bufend;
+  int		integer;
+  int		oid[CUPS_SNMP_MAX_OID];
   char		string[CUPS_SNMP_MAX_STRING];
-					/* String value */
-  unsigned char	value_type;		/* Type of value */
-  unsigned	value_length;		/* Length of value */
-  _cups_globals_t *cg = _cupsGlobals();	/* Global data */
-
+  unsigned char	value_type;
+  unsigned	value_length;
+  _cups_globals_t *cg = _cupsGlobals();
 
   if (cg->snmp_debug <= 0)
     return;
 
   if (cg->snmp_debug > 1 && indent == 0)
   {
-   /*
-    * Do a hex dump of the packet...
-    */
 
     size_t j;
 
@@ -793,9 +722,7 @@ asn1_debug(const char    *prefix,	/* I - Prefix string */
 
   while (buffer < bufend)
   {
-   /*
-    * Get value type...
-    */
+
 
     value_type   = (unsigned char)asn1_get_type(&buffer, bufend);
     value_length = asn1_get_length(&buffer, bufend);
@@ -912,6 +839,7 @@ asn1_debug(const char    *prefix,	/* I - Prefix string */
           break;
     }
   }
+  */
 }
 
 
@@ -940,20 +868,20 @@ asn1_decode_snmp(unsigned char *buffer,	/* I - Buffer */
   bufend = buffer + len;
 
   if (asn1_get_type(&bufptr, bufend) != CUPS_ASN1_SEQUENCE)
-    snmp_set_error(packet, _("Packet does not start with SEQUENCE"));
+    snmp_set_error(packet, "Packet does not start with SEQUENCE");
   else if (asn1_get_length(&bufptr, bufend) == 0)
-    snmp_set_error(packet, _("SEQUENCE uses indefinite length"));
+    snmp_set_error(packet, "SEQUENCE uses indefinite length");
   else if (asn1_get_type(&bufptr, bufend) != CUPS_ASN1_INTEGER)
-    snmp_set_error(packet, _("No version number"));
+    snmp_set_error(packet, "No version number");
   else if ((length = asn1_get_length(&bufptr, bufend)) == 0)
-    snmp_set_error(packet, _("Version uses indefinite length"));
+    snmp_set_error(packet, "Version uses indefinite length");
   else if ((packet->version = asn1_get_integer(&bufptr, bufend, length))
                != CUPS_SNMP_VERSION_1)
-    snmp_set_error(packet, _("Bad SNMP version number"));
+    snmp_set_error(packet, "Bad SNMP version number");
   else if (asn1_get_type(&bufptr, bufend) != CUPS_ASN1_OCTET_STRING)
-    snmp_set_error(packet, _("No community name"));
+    snmp_set_error(packet, "No community name");
   else if ((length = asn1_get_length(&bufptr, bufend)) == 0)
-    snmp_set_error(packet, _("Community name uses indefinite length"));
+    snmp_set_error(packet, "Community name uses indefinite length");
   else
   {
     asn1_get_string(&bufptr, bufend, length, packet->community,
@@ -961,46 +889,45 @@ asn1_decode_snmp(unsigned char *buffer,	/* I - Buffer */
 
     if ((packet->request_type = (cups_asn1_t)asn1_get_type(&bufptr, bufend))
             != CUPS_ASN1_GET_RESPONSE)
-      snmp_set_error(packet, _("Packet does not contain a Get-Response-PDU"));
+      snmp_set_error(packet, "Packet does not contain a Get-Response-PDU");
     else if (asn1_get_length(&bufptr, bufend) == 0)
-      snmp_set_error(packet, _("Get-Response-PDU uses indefinite length"));
+      snmp_set_error(packet, "Get-Response-PDU uses indefinite length");
     else if (asn1_get_type(&bufptr, bufend) != CUPS_ASN1_INTEGER)
-      snmp_set_error(packet, _("No request-id"));
+      snmp_set_error(packet, "No request-id");
     else if ((length = asn1_get_length(&bufptr, bufend)) == 0)
-      snmp_set_error(packet, _("request-id uses indefinite length"));
+      snmp_set_error(packet, "request-id uses indefinite length");
     else
     {
       packet->request_id = (unsigned)asn1_get_integer(&bufptr, bufend, length);
 
       if (asn1_get_type(&bufptr, bufend) != CUPS_ASN1_INTEGER)
-	snmp_set_error(packet, _("No error-status"));
+    snmp_set_error(packet, "No error-status");
       else if ((length = asn1_get_length(&bufptr, bufend)) == 0)
-	snmp_set_error(packet, _("error-status uses indefinite length"));
+    snmp_set_error(packet, "error-status uses indefinite length");
       else
       {
 	packet->error_status = asn1_get_integer(&bufptr, bufend, length);
 
 	if (asn1_get_type(&bufptr, bufend) != CUPS_ASN1_INTEGER)
-	  snmp_set_error(packet, _("No error-index"));
+      snmp_set_error(packet, "No error-index");
 	else if ((length = asn1_get_length(&bufptr, bufend)) == 0)
-	  snmp_set_error(packet, _("error-index uses indefinite length"));
+      snmp_set_error(packet, "error-index uses indefinite length");
 	else
 	{
 	  packet->error_index = asn1_get_integer(&bufptr, bufend, length);
 
           if (asn1_get_type(&bufptr, bufend) != CUPS_ASN1_SEQUENCE)
-	    snmp_set_error(packet, _("No variable-bindings SEQUENCE"));
+        snmp_set_error(packet, "No variable-bindings SEQUENCE");
 	  else if (asn1_get_length(&bufptr, bufend) == 0)
-	    snmp_set_error(packet,
-	                   _("variable-bindings uses indefinite length"));
+        snmp_set_error(packet, "variable-bindings uses indefinite length");
 	  else if (asn1_get_type(&bufptr, bufend) != CUPS_ASN1_SEQUENCE)
-	    snmp_set_error(packet, _("No VarBind SEQUENCE"));
+        snmp_set_error(packet, "No VarBind SEQUENCE");
 	  else if (asn1_get_length(&bufptr, bufend) == 0)
-	    snmp_set_error(packet, _("VarBind uses indefinite length"));
+        snmp_set_error(packet, "VarBind uses indefinite length");
 	  else if (asn1_get_type(&bufptr, bufend) != CUPS_ASN1_OID)
-	    snmp_set_error(packet, _("No name OID"));
+        snmp_set_error(packet, "No name OID");
 	  else if ((length = asn1_get_length(&bufptr, bufend)) == 0)
-	    snmp_set_error(packet, _("Name OID uses indefinite length"));
+        snmp_set_error(packet, "Name OID uses indefinite length");
           else
 	  {
 	    asn1_get_oid(&bufptr, bufend, length, packet->object_name,
@@ -1011,7 +938,7 @@ asn1_decode_snmp(unsigned char *buffer,	/* I - Buffer */
 	    if ((length = asn1_get_length(&bufptr, bufend)) == 0 &&
 	        packet->object_type != CUPS_ASN1_NULL_VALUE &&
 	        packet->object_type != CUPS_ASN1_OCTET_STRING)
-	      snmp_set_error(packet, _("Value uses indefinite length"));
+          snmp_set_error(packet, "Value uses indefinite length");
 	    else
 	    {
 	      switch (packet->object_type)
@@ -1059,7 +986,7 @@ asn1_decode_snmp(unsigned char *buffer,	/* I - Buffer */
 	            break;
 
                 default :
-		    snmp_set_error(packet, _("Unsupported value type"));
+            snmp_set_error(packet, "Unsupported value type");
 		    break;
 	      }
 	    }
@@ -1664,11 +1591,164 @@ static void
 snmp_set_error(cups_snmp_t *packet,	/* I - Packet */
                const char *message)	/* I - Error message */
 {
-  _cups_globals_t *cg = _cupsGlobals();	/* Global data */
+    /*
+  _cups_globals_t *cg = _cupsGlobals();
 
 
   if (!cg->lang_default)
     cg->lang_default = cupsLangDefault();
 
   packet->error = _cupsLangString(cg->lang_default, message);
+  */
 }
+
+void httpAddrSetPort(http_addr_t *addr,	/* I - Address */
+                 int         port)	/* I - Port */
+{
+  if (!addr || port <= 0)
+    return;
+
+#ifdef AF_INET6_ENV
+  if (addr->addr.sa_family == AF_INET6)
+    addr->ipv6.sin6_port = htons(port);
+  else
+#endif /* AF_INET6 */
+  if (addr->addr.sa_family == AF_INET)
+    addr->ipv4.sin_port = htons(port);
+}
+
+int					/* O - Length in bytes */
+httpAddrLength(const http_addr_t *addr)	/* I - Address */
+{
+  if (!addr)
+    return (0);
+
+#ifdef AF_INET6_ENV
+  if (addr->addr.sa_family == AF_INET6)
+    return (sizeof(addr->ipv6));
+  else
+#endif /* AF_INET6 */
+#ifdef AF_LOCAL
+  if (addr->addr.sa_family == AF_LOCAL)
+    return ((int)(offsetof(struct sockaddr_un, sun_path) + strlen(addr->un.sun_path) + 1));
+  else
+#endif /* AF_LOCAL */
+  if (addr->addr.sa_family == AF_INET)
+    return (sizeof(addr->ipv4));
+  else
+    return (0);
+}
+
+/*
+ * 'get_interface_addresses()' - Get the broadcast address(es) associated
+ *                               with an interface.
+ */
+
+http_addrlist_t *		/* O - List of addresses */
+get_interface_addresses(
+    const char *ifname)			/* I - Interface name */
+{
+  struct ifaddrs	*addrs,		/* Interface address list */
+            *addr;		/* Current interface address */
+  http_addrlist_t	*first,		/* First address in list */
+            *last,		/* Last address in list */
+            *current;	/* Current address */
+
+
+  if (getifaddrs(&addrs) < 0)
+    return (NULL);
+
+  for (addr = addrs, first = NULL, last = NULL; addr; addr = addr->ifa_next)
+    if ((addr->ifa_flags & IFF_BROADCAST) && addr->ifa_broadaddr &&
+        addr->ifa_broadaddr->sa_family == AF_INET &&
+    (!ifname || !strcmp(ifname, addr->ifa_name)))
+    {
+      current = calloc(1, sizeof(http_addrlist_t));
+
+      memcpy(&(current->addr), addr->ifa_broadaddr,
+             sizeof(struct sockaddr_in));
+
+      if (!last)
+        first = current;
+      else
+        last->next = current;
+
+      last = current;
+    }
+
+  freeifaddrs(addrs);
+  return (first);
+}
+
+int _cups_tolower(int ch)			/* I - Character to convert */
+{
+  return (_cups_isupper(ch) ? ch - 'A' + 'a' : ch);
+}
+
+ int			/* O - Converted character */
+_cups_toupper(int ch)			/* I - Character to convert */
+{
+  return (_cups_islower(ch) ? ch - 'a' + 'A' : ch);
+}
+
+ int _cups_isupper(int ch)			/* I - Character to test */
+ {
+   return (ch >= 'A' && ch <= 'Z');
+ }
+
+
+ int			/* O - 1 on match, 0 otherwise */
+ _cups_islower(int ch)			/* I - Character to test */
+ {
+   return (ch >= 'a' && ch <= 'z');
+ }
+
+ int				/* O - Result of comparison (-1, 0, or 1) */
+ cupsstrcasecmp(const char *s,	/* I - First string */
+                  const char *t)	/* I - Second string */
+ {
+   while (*s != '\0' && *t != '\0')
+   {
+     if (_cups_tolower(*s) < _cups_tolower(*t))
+       return (-1);
+     else if (_cups_tolower(*s) > _cups_tolower(*t))
+       return (1);
+
+     s ++;
+     t ++;
+   }
+
+   if (*s == '\0' && *t == '\0')
+     return (0);
+   else if (*s != '\0')
+     return (0);
+   else
+     return (-1);
+ }
+
+ char* getValue(char* pLine)
+ {
+     char* pRetVal;
+     char* p = pLine;
+
+     while (p&&(*p != ' ')) {
+         p++;
+     }
+
+     while(p&&(*p == ' ')){
+         p++;
+     }
+
+     if(p)
+     {
+         pRetVal = p;
+
+         while (p&&(*p != '\n')) {
+             p++;
+         }
+
+         *p = '\0';
+     }
+
+     return pRetVal;
+ }
