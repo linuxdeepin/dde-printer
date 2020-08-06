@@ -486,11 +486,6 @@ void PrinterSearchWindow::listWidgetClickedSlot(const QModelIndex &previous)
     // 0 自动查找 ;1 手动；2 URI
     if (m_pStackedWidget->count() > m_pTabListView->currentIndex().row()) {
         m_pStackedWidget->setCurrentIndex(m_pTabListView->currentIndex().row());
-        if (m_pTabListView->currentIndex().row() == 0) {
-        }
-        if (m_pTabListView->currentIndex().row() == 1) {
-        } else if (m_pTabListView->currentIndex().row() == 2) {
-        }
     }
 }
 

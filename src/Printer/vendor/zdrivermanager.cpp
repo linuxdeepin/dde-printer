@@ -31,6 +31,8 @@
 #include "cupsppd.h"
 #include "cupsconnectionfactory.h"
 
+#include <DSysInfo>
+
 #include <QProcess>
 #include <QTcpSocket>
 #include <QString>
@@ -472,8 +474,12 @@ void DriverSearcher::startSearch()
 
     /*等待服务器查找结果返回之后再开始查找本地驱动
      * 如果服务有精确查找到驱动，则不需要从本地查找
+     *如果是欧拉版和服务器行业版则直接从本地查找，不通过服务器查找
     */
-
+    if ((DTK_CORE_NAMESPACE::DSysInfo::uosEditionType() == DTK_CORE_NAMESPACE::DSysInfo::UosEuler) ||
+            (DTK_CORE_NAMESPACE::DSysInfo::uosEditionType() == DTK_CORE_NAMESPACE::DSysInfo::UosEnterpriseC)) {
+        askForFinish();
+    }
     PrinterServerInterface *search = g_printerServer->searchSolution(m_strMake, m_strModel, m_printer.strDeviceId);
     if (search) {
         connect(search, &PrinterServerInterface::signalDone, this, &DriverSearcher::slotDone);

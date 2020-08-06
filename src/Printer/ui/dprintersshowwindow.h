@@ -311,11 +311,11 @@ private:
     QLabel *m_pLabelTypeShow;
     QLabel *m_pLabelStatusShow;
 
-    DIconButton *m_pIBtnSetting;
-    DIconButton *m_pIBtnPrintQueue;
-    DIconButton *m_pIBtnPrintTest;
-    DIconButton *m_pIBtnFault;
-    DIconButton *m_pIBtnSupply;
+    DFloatingButton *m_pTBtnSetting;
+    DFloatingButton *m_pTBtnPrintQueue;
+    DFloatingButton *m_pTBtnPrintTest;
+    DFloatingButton *m_pTBtnFault;
+    DFloatingButton *m_pTBtnSupply;
 
     PrinterListView *m_pPrinterListView;
     QStandardItemModel *m_pPrinterModel;

@@ -30,6 +30,8 @@
 #include "qtconvert.h"
 #include "cupsconnectionfactory.h"
 
+#include <DSysInfo>
+
 #include <QRegularExpression>
 #include <QFile>
 #include <QProcess>
@@ -807,7 +809,9 @@ AddPrinterTask *AddPrinterFactory::createAddPrinterTask(const TDeviceInfo &print
 
     qInfo() << "add printer task:" << device_uri << solution[SD_KEY_from] << ppd_name;
     /* Canon CAPT local printer must use ccp backend */
-    if (isCanonCAPTDrv(ppd_name) && !printer.strClass.compare("direct")) {
+    /*欧拉版本没有这个脚本，使用默认添加打印机方式*/
+    if (isCanonCAPTDrv(ppd_name) && !printer.strClass.compare("direct") &&
+            (DTK_CORE_NAMESPACE::DSysInfo::uosEditionType() != DTK_CORE_NAMESPACE::DSysInfo::UosEuler)) {
         device_uri = probeDevName(printer.serial);
         if (!device_uri.isEmpty()) {
             return new AddCanonCAPTPrinter(printer, solution, device_uri);
