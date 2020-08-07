@@ -20,9 +20,10 @@
  */
 #include "cupssnmp.h"
 #include "cupsppd.h"
+#include "mibpath.h"
+#include "snmp.h"
 
-#include <cups-private.h>
-#include <backend-private.h>
+#include <strings.h>
 
 #define CUPS_MAX_SUPPLIES	32	/* Maximum number of supplies for a printer */
 #define CUPS_SUPPLY_TIMEOUT	2.0	/* Timeout for SNMP lookups */
@@ -45,13 +46,13 @@
 
 static const int	hrDeviceDescr[] =
             { CUPS_OID_hrDeviceDescr, 1, -1 };
-                    /* Device description OID */
+                     //Device description OID
 static const int	hrPrinterStatus[] =
             { CUPS_OID_hrPrinterStatus, 1, -1 };
-                    /* Current state OID */
+                    //Current state OID
 static const int	hrPrinterDetectedErrorState[] =
             { CUPS_OID_hrPrinterDetectedErrorState, 1, -1 };
-                    /* Current printer state bits OID */
+                    // Current printer state bits OID
 static const int	prtGeneralCurrentLocalization[] =
             { CUPS_OID_prtGeneralCurrentLocalization, 1, -1 };
 static const int	prtLocalizationCharacterSet[] =
@@ -61,66 +62,66 @@ static const int	prtLocalizationCharacterSet[] =
              sizeof(prtLocalizationCharacterSet[0]));
 static const int	prtMarkerColorantValue[] =
             { CUPS_OID_prtMarkerColorantValue, -1 },
-                    /* Colorant OID */
+                    // Colorant OID
             prtMarkerColorantValueOffset =
             (sizeof(prtMarkerColorantValue) /
              sizeof(prtMarkerColorantValue[0]));
-                    /* Offset to colorant index */
+                    // Offset to colorant index
 static const int	prtMarkerLifeCount[] =
             { CUPS_OID_prtMarkerLifeCount, 1, 1, -1 };
-                    /* Page counter OID */
+                    // Page counter OID
 static const int	prtMarkerSuppliesEntry[] =
             { CUPS_OID_prtMarkerSuppliesEntry, -1 };
-                    /* Supplies OID */
+                    // Supplies OID
 static const int	prtMarkerSuppliesColorantIndex[] =
             { CUPS_OID_prtMarkerSuppliesColorantIndex, -1 },
-                    /* Colorant index OID */
+                    // Colorant index OID
             prtMarkerSuppliesColorantIndexOffset =
             (sizeof(prtMarkerSuppliesColorantIndex) /
              sizeof(prtMarkerSuppliesColorantIndex[0]));
-                    /* Offset to supply index */
+                    // Offset to supply index
 static const int	prtMarkerSuppliesDescription[] =
             { CUPS_OID_prtMarkerSuppliesDescription, -1 },
-                    /* Description OID */
+                    // Description OID
             prtMarkerSuppliesDescriptionOffset =
             (sizeof(prtMarkerSuppliesDescription) /
              sizeof(prtMarkerSuppliesDescription[0]));
-                    /* Offset to supply index */
+                    // Offset to supply index
 static const int	prtMarkerSuppliesLevel[] =
             { CUPS_OID_prtMarkerSuppliesLevel, -1 },
-                    /* Level OID */
+                    // Level OID
             prtMarkerSuppliesLevelOffset =
             (sizeof(prtMarkerSuppliesLevel) /
              sizeof(prtMarkerSuppliesLevel[0]));
-                    /* Offset to supply index */
+                    // Offset to supply index
 static const int	prtMarkerSuppliesMaxCapacity[] =
             { CUPS_OID_prtMarkerSuppliesMaxCapacity, -1 },
-                    /* Max capacity OID */
+                    // Max capacity OID
             prtMarkerSuppliesMaxCapacityOffset =
             (sizeof(prtMarkerSuppliesMaxCapacity) /
              sizeof(prtMarkerSuppliesMaxCapacity[0]));
-                    /* Offset to supply index */
+                    // Offset to supply index
 static const int	prtMarkerSuppliesClass[] =
             { CUPS_OID_prtMarkerSuppliesClass, -1 },
-                    /* Class OID */
+                    // Class OID
             prtMarkerSuppliesClassOffset =
             (sizeof(prtMarkerSuppliesClass) /
              sizeof(prtMarkerSuppliesClass[0]));
-                    /* Offset to supply index */
+                    // Offset to supply index
 static const int	prtMarkerSuppliesType[] =
             { CUPS_OID_prtMarkerSuppliesType, -1 },
-                    /* Type OID */
+                    // Type OID
             prtMarkerSuppliesTypeOffset =
             (sizeof(prtMarkerSuppliesType) /
              sizeof(prtMarkerSuppliesType[0]));
-                    /* Offset to supply index */
+                    // Offset to supply index
 static const int	prtMarkerSuppliesSupplyUnit[] =
             { CUPS_OID_prtMarkerSuppliesSupplyUnit, -1 },
-                    /* Units OID */
+                    // Units OID
             prtMarkerSuppliesSupplyUnitOffset =
             (sizeof(prtMarkerSuppliesSupplyUnit) /
              sizeof(prtMarkerSuppliesSupplyUnit[0]));
-                    /* Offset to supply index */
+                    // Offset to supply index
 
 static int g_iNumSupply = -1;
 static unsigned int g_iQuirks = CUPS_SNMP_NONE;
@@ -150,13 +151,12 @@ void cupssnmp::setPPDName(const string& strppd)
 
 bool cupssnmp::SNMPOpen()
 {
-    if ((m_pHost = httpAddrGetList(m_strip.c_str(), AF_UNSPEC, "9100")) == nullptr)
-    {
-        m_iFd = -1;
-        return false;
-    }
+#ifdef AF_INET6_ENV
+    m_iFd = _cupsSNMPOpen(AF_INET6);
+#else
+    m_iFd = _cupsSNMPOpen(AF_INET);
+#endif
 
-    m_iFd = _cupsSNMPOpen(m_pHost->addr.addr.sa_family);
     return (m_iFd >= 0);
 }
 
@@ -210,7 +210,7 @@ bool cupssnmp::SNMPSupport()
     Attribute attr = ppd.findAttr("cupsSNMPSupplies", nullptr);
     string strAttrValue = attr.getValue();
 
-    if(strAttrValue.empty() || !_cups_strcasecmp(strAttrValue.c_str(), "true"))
+    if(strAttrValue.empty() || !strncmp(strAttrValue.c_str(), "true", strlen("true")))
     {
         bRet = true;
     }
@@ -266,6 +266,13 @@ void cupssnmp::SNMPInit()
     * Get the device description...
     */
 
+    //m_pHost = get_interface_addresses(nullptr);
+    sockaddr_in addr;
+    addr.sin_family = AF_INET;
+    addr.sin_addr.s_addr = inet_addr(m_strip.c_str());
+    memcpy(&(m_pHost->addr), (void*)&addr,
+           sizeof(struct sockaddr_in));
+
     if (!_cupsSNMPWrite(m_iFd, &m_pHost->addr, CUPS_SNMP_VERSION_1,
                       _cupsSNMPDefaultCommunity(), CUPS_ASN1_GET_REQUEST, 1,
              hrDeviceDescr))
@@ -291,7 +298,7 @@ void cupssnmp::QuirksInit()
     string strAttrValue = attr.getValue();
     g_iQuirks = CUPS_SNMP_NONE;
 
-    if (!strAttrValue.empty()&&(!_cups_strcasecmp(strAttrValue.c_str(), "capacity")))
+    if (!strAttrValue.empty()&&(!strncmp(strAttrValue.c_str(), "capacity", strlen("capacity"))))
     {
         g_iQuirks |= CUPS_SNMP_CAPACITY;
     }
@@ -300,7 +307,7 @@ void cupssnmp::QuirksInit()
 void backend_walk_cb(cups_snmp_t *packet, void* pData)
 {
     static const char * const colors[][2] =
-      {					/* Standard color names */
+      {     /* Standard color names */
         { "Black",         "#000000" },
         { "Blue",          "#0000FF" },
         { "Brown",         "#A52A2A" },
@@ -344,10 +351,12 @@ void backend_walk_cb(cups_snmp_t *packet, void* pData)
         if (g_supplies[j].colorant == i)
         {
             for (int k = 0; k < (int)(sizeof(colors) / sizeof(colors[0])); k ++)
-                if (!_cups_strcasecmp(colors[k][0], (char *)packet->object_value.string.bytes))
+
+                //此處要改爲不分大小寫
+                if (!strcasecmp((const char*)colors[k][0], (const char*)packet->object_value.string.bytes))
                 {
-                    strlcpy(g_supplies[j].colorName, colors[k][0], sizeof(g_supplies[j].colorName));
-                    strlcpy(g_supplies[j].color, colors[k][1], sizeof(g_supplies[j].color));
+                    strncpy(g_supplies[j].colorName, colors[k][0], sizeof(g_supplies[j].colorName));
+                    strncpy(g_supplies[j].color, colors[k][1], sizeof(g_supplies[j].color));
                     break;
                 }
         }
@@ -359,6 +368,7 @@ void backend_walk_cb(cups_snmp_t *packet, void* pData)
         */
 
         i = packet->object_name[prtMarkerSuppliesColorantIndexOffset];
+
         if (i < 1 || i > CUPS_MAX_SUPPLIES ||
             packet->object_type != CUPS_ASN1_INTEGER)
           return;
@@ -384,6 +394,7 @@ void backend_walk_cb(cups_snmp_t *packet, void* pData)
           g_iNumSupply = i;
 
         char	*src, *dst;	/* Pointers into strings */
+
         for (src = (char*)packet->object_value.string.bytes,
          dst = g_supplies[i - 1].name;
          *src;
@@ -430,6 +441,7 @@ void backend_walk_cb(cups_snmp_t *packet, void* pData)
         fprintf(stderr, "DEBUG2: prtMarkerSuppliesMaxCapacity.1.%d = %d\n", i,
                 packet->object_value.integer);
         */
+
 
         if (i > g_iNumSupply)
             g_iNumSupply = i;

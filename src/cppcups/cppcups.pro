@@ -16,13 +16,17 @@ SOURCES += cupsconnection.cc\
     cupsipp.cc\
     cupsmodule.cc\
     cupsppd.cc \
-    cupssnmp.cpp
+    cupssnmp.cpp \
+    snmp.c
 
 HEADERS += cupsconnection.h \
         cppcups_global.h\
         cupsipp.h \
         cupsmodule.h\
         cupsppd.h \
-    cupssnmp.h
+    cupssnmp.h \
+    snmp.h \
+    types.h \
+    mibpath.h
 
-INCLUDEPATH += $${PWD}/cups_private
+#INCLUDEPATH += $${PWD}/cups_private
