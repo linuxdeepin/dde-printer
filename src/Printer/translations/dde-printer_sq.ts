@@ -252,42 +252,49 @@
     </message>
 </context>
 <context>
+    <name>DPrinter</name>
+    <message>
+        <location filename="../util/dprinter.cpp" line="255"/>
+        <source>(recommended)</source>
+        <translation>(e këshilluar)</translation>
+    </message>
+</context>
+<context>
     <name>DPrinterSupplyShowDlg</name>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="75"/>
         <source>Ink/Toner Status</source>
-        <translation type="unfinished"/>
+        <translation>Gjendje Boje/Toneri</translation>
     </message>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="81"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="120"/>
         <source>Unknown amount</source>
-        <translation type="unfinished"/>
+        <translation>Sasi e panjohur</translation>
     </message>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="88"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="127"/>
         <source>Unable to get the remaining amount</source>
+        <translation>S’arrihet të merret sasia e mbetur</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="114"/>
+        <source>The amounts are estimated, last updated at %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="113"/>
-        <source>The amounts are estimated, last updated at %1:%2</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>The amounts are estimated, last updated at%1:%2</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="122"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="143"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <source>%1</source>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="218"/>
+        <source>Low level</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="221"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="249"/>
         <source>Unknown</source>
         <translation>E panjohur</translation>
     </message>
@@ -905,10 +912,6 @@
         <translation>Jepni një prodhues dhe model të plotë (Vetëm shkronja, numra dhe hapësira)</translation>
     </message>
     <message>
-        <source>Enter a complete vendor and model</source>
-        <translation type="vanished">Jepni një prodhues dhe model të plotë</translation>
-    </message>
-    <message>
         <location filename="../ui/installdriverwindow.cpp" line="227"/>
         <source>Search</source>
         <translation>Kērko</translation>
@@ -941,7 +944,7 @@
         <translation>(e këshilluar)</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="656"/>
+        <location filename="../ui/installdriverwindow.cpp" line="657"/>
         <source> (recommended)</source>
         <translation> (e këshilluar)</translation>
     </message>
@@ -1112,32 +1115,32 @@
 <context>
     <name>JobManagerWindow</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1007"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1008"/>
         <source>Refresh</source>
         <translation>Rifreskoje</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1011"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1012"/>
         <source>All</source>
         <translation>Krejt</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1012"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1013"/>
         <source>Print Queue</source>
         <translation>Radhë Shtypjesh</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1013"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1014"/>
         <source>Completed</source>
         <translation>E përfunduar</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1070"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1071"/>
         <source> failed</source>
         <translation> dështoi</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1091"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1092"/>
         <source>%1 jobs</source>
         <translation>%1 akte</translation>
     </message>
@@ -1297,12 +1300,12 @@
         <translation>Shembuj:</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="556"/>
+        <location filename="../ui/printersearchwindow.cpp" line="559"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="644"/>
+        <location filename="../ui/printersearchwindow.cpp" line="647"/>
         <source> (recommended)</source>
         <translation> (e këshilluar)</translation>
     </message>
@@ -1361,7 +1364,7 @@
         <translation>%1 ditë më parë</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="481"/>
+        <location filename="../ui/printersearchwindow.cpp" line="484"/>
         <source>(use %1 protocol)</source>
         <translation>(përdor protokollin %1)</translation>
     </message>
@@ -1413,142 +1416,142 @@
         <translation> s’u gjet, ju lutemi, kërkojini ndihmë përgjegjësit</translation>
     </message>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="121"/>
+        <location filename="../ui/printerapplication.cpp" line="138"/>
         <source>Direct-attached Device</source>
         <translation>Pajisje e lidhur drejtpërsëdrejti</translation>
     </message>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="122"/>
+        <location filename="../ui/printerapplication.cpp" line="139"/>
         <source>File</source>
         <translation>Kartelë</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="255"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="283"/>
         <source>Black</source>
-        <translation type="unfinished"/>
+        <translation>E zezë</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="256"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="284"/>
         <source>Blue</source>
-        <translation type="unfinished"/>
+        <translation>Blu</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="257"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="285"/>
         <source>Brown</source>
-        <translation type="unfinished"/>
+        <translation>Kafe</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="258"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="286"/>
         <source>Cyan</source>
-        <translation type="unfinished"/>
+        <translation>Akua</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="259"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="287"/>
         <source>Dark-gray</source>
-        <translation type="unfinished"/>
+        <translation>Gri-e-errët</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="260"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="288"/>
         <source>Dark gray</source>
-        <translation type="unfinished"/>
+        <translation>Gri e errët</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="261"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="289"/>
         <source>Dark-yellow</source>
-        <translation type="unfinished"/>
+        <translation>E-verdhë-e-errët</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="262"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="290"/>
         <source>Dark yellow</source>
-        <translation type="unfinished"/>
+        <translation>E verdhë e errët</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="263"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="291"/>
         <source>Gold</source>
-        <translation type="unfinished"/>
+        <translation>E artë</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="264"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="292"/>
         <source>Gray</source>
-        <translation type="unfinished"/>
+        <translation>Gri</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="265"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="293"/>
         <source>Green</source>
-        <translation type="unfinished"/>
+        <translation>E gelbër</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="266"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="294"/>
         <source>Light-black</source>
-        <translation type="unfinished"/>
+        <translation>E-zezë-e-çelët</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="267"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="295"/>
         <source>Light black</source>
-        <translation type="unfinished"/>
+        <translation>E zezë e çelët</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="268"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="296"/>
         <source>Light-cyan</source>
-        <translation type="unfinished"/>
+        <translation>Akua-e-çelët</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="269"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="297"/>
         <source>Light cyan</source>
-        <translation type="unfinished"/>
+        <translation>Akua e çelët</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="270"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="298"/>
         <source>Light-gray</source>
-        <translation type="unfinished"/>
+        <translation>Gri-e-çelët</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="271"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="299"/>
         <source>Light gray</source>
-        <translation type="unfinished"/>
+        <translation>Gri e çelët</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="272"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="300"/>
         <source>Light-magenta</source>
-        <translation type="unfinished"/>
+        <translation>Lulevathi-e-çelët</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="273"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="301"/>
         <source>Light magenta</source>
-        <translation type="unfinished"/>
+        <translation>Lulevathi e çelët</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="274"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="302"/>
         <source>Magenta</source>
-        <translation type="unfinished"/>
+        <translation>Lulevathi</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="275"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="303"/>
         <source>Orange</source>
-        <translation type="unfinished"/>
+        <translation>Portokalli</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="276"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="304"/>
         <source>Red</source>
-        <translation type="unfinished"/>
+        <translation>E kuqe</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="277"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="305"/>
         <source>Silver</source>
-        <translation type="unfinished"/>
+        <translation>E argjendtë</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="278"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="306"/>
         <source>White</source>
-        <translation type="unfinished"/>
+        <translation>E bardhë</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="279"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="307"/>
         <source>Yellow</source>
-        <translation type="unfinished"/>
+        <translation>E verdhë</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="280"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="308"/>
         <source>Waste</source>
         <translation type="unfinished"/>
     </message>

@@ -252,42 +252,49 @@
     </message>
 </context>
 <context>
+    <name>DPrinter</name>
+    <message>
+        <location filename="../util/dprinter.cpp" line="255"/>
+        <source>(recommended)</source>
+        <translation>(권장)</translation>
+    </message>
+</context>
+<context>
     <name>DPrinterSupplyShowDlg</name>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="75"/>
         <source>Ink/Toner Status</source>
-        <translation type="unfinished"/>
+        <translation>잉크/토너 상태</translation>
     </message>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="81"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="120"/>
         <source>Unknown amount</source>
-        <translation type="unfinished"/>
+        <translation>알 수 없는 양</translation>
     </message>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="88"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="127"/>
         <source>Unable to get the remaining amount</source>
+        <translation>남아있는 총량을 가져올 수 없습니다</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="114"/>
+        <source>The amounts are estimated, last updated at %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="113"/>
-        <source>The amounts are estimated, last updated at %1:%2</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>The amounts are estimated, last updated at%1:%2</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="122"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="143"/>
         <source>OK</source>
         <translation>확인</translation>
     </message>
     <message>
-        <source>%1</source>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="218"/>
+        <source>Low level</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="221"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="249"/>
         <source>Unknown</source>
         <translation>알 수 없음</translation>
     </message>
@@ -433,17 +440,17 @@
     <message>
         <location filename="../util/dprintertanslator.cpp" line="78"/>
         <source>Heavy Paper 1</source>
-        <translation>무거운 종이 1</translation>
+        <translation>두꺼운 용지 1</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="79"/>
         <source>Heavy Paper 2</source>
-        <translation>무거운 종이 2</translation>
+        <translation>두꺼운 용지 2</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="80"/>
         <source>Heavy Paper 3</source>
-        <translation>무거운 종이 3</translation>
+        <translation>두꺼운 용지 3</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="81"/>
@@ -488,22 +495,22 @@
     <message>
         <location filename="../util/dprintertanslator.cpp" line="98"/>
         <source>DuplexTumble</source>
-        <translation>양면(짧은 가장자리)</translation>
+        <translation>양면(짧은 쪽으로 넘김)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="99"/>
         <source>DuplexNoTumble</source>
-        <translation>양면(긴 가장자리)</translation>
+        <translation>양면(긴 쪽으로 넘김)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="100"/>
         <source>ON (Long-edged Binding)</source>
-        <translation>켜기 (Long-edged Binding)</translation>
+        <translation>켜기 (긴 가장자리)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="101"/>
         <source>ON (Short-edged Binding)</source>
-        <translation>켜기 (Short-edged Binding)</translation>
+        <translation>켜기 (짧은 가장자리)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="102"/>
@@ -521,7 +528,7 @@
         <location filename="../util/dprintertanslator.cpp" line="124"/>
         <location filename="../util/dprintertanslator.cpp" line="125"/>
         <source>Staple Location</source>
-        <translation>철사 침 위치</translation>
+        <translation>제본 위치</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="136"/>
@@ -572,32 +579,32 @@
     <message>
         <location filename="../util/dprintertanslator.cpp" line="127"/>
         <source>Bind</source>
-        <translation>바인드</translation>
+        <translation>제본</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="128"/>
         <source>Bind (none)</source>
-        <translation>바인드 (없음)</translation>
+        <translation>제본 (없음)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="129"/>
         <source>Bind (bottom)</source>
-        <translation>바인드 (하단)</translation>
+        <translation>제본 (아래쪽)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="130"/>
         <source>Bind (left)</source>
-        <translation>바인드 (왼쪽)</translation>
+        <translation>제본 (왼쪽)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="131"/>
         <source>Bind (right)</source>
-        <translation>바인드 (오른쪽)</translation>
+        <translation>제본 (오른쪽)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="132"/>
         <source>Bind (top)</source>
-        <translation>바인드 (상단)</translation>
+        <translation>제본 (위쪽)</translation>
     </message>
 </context>
 <context>
@@ -680,7 +687,7 @@
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="237"/>
         <source>Supplies</source>
-        <translation type="unfinished"/>
+        <translation>소모품</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="262"/>
@@ -752,7 +759,7 @@
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="679"/>
         <source>The driver is damaged, please install it again.</source>
-        <translation>드라이버가 손상되면 다시 설치하십시오.</translation>
+        <translation>드라이버가 손상되었습니다. 다시 설치하십시오.</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="682"/>
@@ -815,7 +822,7 @@
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="625"/>
         <source>Conflict:</source>
-        <translation>확인</translation>
+        <translation>충돌 :</translation>
     </message>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="636"/>
@@ -881,7 +888,7 @@
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="146"/>
         <source>Vendor</source>
-        <translation>공급업체</translation>
+        <translation>제조업체</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="158"/>
@@ -897,16 +904,12 @@
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="223"/>
         <source>Vendor and Model</source>
-        <translation>공급업체 및 모델</translation>
+        <translation>제조업체 및 모델</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="225"/>
         <source>Enter a complete vendor and model (Only letters, numbers and whitespaces)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Enter a complete vendor and model</source>
-        <translation type="vanished">전체 공급업체 및 모델 입력</translation>
+        <translation>완전한 제조업체 및 모델 입력 (문자, 숫자 및 공백만 해당)</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="227"/>
@@ -941,7 +944,7 @@
         <translation>(권장)</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="656"/>
+        <location filename="../ui/installdriverwindow.cpp" line="657"/>
         <source> (recommended)</source>
         <translation> (권장)</translation>
     </message>
@@ -1112,34 +1115,34 @@
 <context>
     <name>JobManagerWindow</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1007"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1008"/>
         <source>Refresh</source>
         <translation>새로고침</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1011"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1012"/>
         <source>All</source>
         <translation>모두</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1012"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1013"/>
         <source>Print Queue</source>
         <translation>인쇄 대기열</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1013"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1014"/>
         <source>Completed</source>
         <translation>완료됨</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1070"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1071"/>
         <source> failed</source>
         <translation>실패</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1091"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1092"/>
         <source>%1 jobs</source>
-        <translation>작업 %1</translation>
+        <translation>%1개의 작업</translation>
     </message>
 </context>
 <context>
@@ -1297,12 +1300,12 @@
         <translation>예제:</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="556"/>
+        <location filename="../ui/printersearchwindow.cpp" line="559"/>
         <source>OK</source>
         <translation>확인</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="644"/>
+        <location filename="../ui/printersearchwindow.cpp" line="647"/>
         <source> (recommended)</source>
         <translation> (권장)</translation>
     </message>
@@ -1361,7 +1364,7 @@
         <translation>%1일 전</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="481"/>
+        <location filename="../ui/printersearchwindow.cpp" line="484"/>
         <source>(use %1 protocol)</source>
         <translation>(%1 프로토콜 사용)</translation>
     </message>
@@ -1413,144 +1416,144 @@
         <translation>찾을 수 없는 경우, 관리자에게 도움을 요청하십시오</translation>
     </message>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="121"/>
+        <location filename="../ui/printerapplication.cpp" line="138"/>
         <source>Direct-attached Device</source>
         <translation>직접 연결된 장치</translation>
     </message>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="122"/>
+        <location filename="../ui/printerapplication.cpp" line="139"/>
         <source>File</source>
         <translation>파일</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="255"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="283"/>
         <source>Black</source>
-        <translation type="unfinished"/>
+        <translation>검정색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="256"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="284"/>
         <source>Blue</source>
-        <translation type="unfinished"/>
+        <translation>파란색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="257"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="285"/>
         <source>Brown</source>
-        <translation type="unfinished"/>
+        <translation>갈색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="258"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="286"/>
         <source>Cyan</source>
-        <translation type="unfinished"/>
+        <translation>청록색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="259"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="287"/>
         <source>Dark-gray</source>
-        <translation type="unfinished"/>
+        <translation>짙은_회색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="260"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="288"/>
         <source>Dark gray</source>
-        <translation type="unfinished"/>
+        <translation>짙은 회색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="261"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="289"/>
         <source>Dark-yellow</source>
-        <translation type="unfinished"/>
+        <translation>진한_노란색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="262"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="290"/>
         <source>Dark yellow</source>
-        <translation type="unfinished"/>
+        <translation>진한 노란색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="263"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="291"/>
         <source>Gold</source>
-        <translation type="unfinished"/>
+        <translation>금색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="264"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="292"/>
         <source>Gray</source>
-        <translation type="unfinished"/>
+        <translation>회색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="265"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="293"/>
         <source>Green</source>
-        <translation type="unfinished"/>
+        <translation>녹색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="266"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="294"/>
         <source>Light-black</source>
-        <translation type="unfinished"/>
+        <translation>밝은_검정색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="267"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="295"/>
         <source>Light black</source>
-        <translation type="unfinished"/>
+        <translation>밝은 검정색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="268"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="296"/>
         <source>Light-cyan</source>
-        <translation type="unfinished"/>
+        <translation>밝은_청록색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="269"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="297"/>
         <source>Light cyan</source>
-        <translation type="unfinished"/>
+        <translation>밝은 청록색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="270"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="298"/>
         <source>Light-gray</source>
-        <translation type="unfinished"/>
+        <translation>밝은_회색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="271"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="299"/>
         <source>Light gray</source>
-        <translation type="unfinished"/>
+        <translation>밝은 회색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="272"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="300"/>
         <source>Light-magenta</source>
-        <translation type="unfinished"/>
+        <translation>밝은_자홍색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="273"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="301"/>
         <source>Light magenta</source>
-        <translation type="unfinished"/>
+        <translation>밝은 자홍색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="274"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="302"/>
         <source>Magenta</source>
-        <translation type="unfinished"/>
+        <translation>자홍색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="275"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="303"/>
         <source>Orange</source>
-        <translation type="unfinished"/>
+        <translation>주황색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="276"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="304"/>
         <source>Red</source>
-        <translation type="unfinished"/>
+        <translation>빨간색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="277"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="305"/>
         <source>Silver</source>
-        <translation type="unfinished"/>
+        <translation>은색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="278"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="306"/>
         <source>White</source>
-        <translation type="unfinished"/>
+        <translation>흰색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="279"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="307"/>
         <source>Yellow</source>
-        <translation type="unfinished"/>
+        <translation>노란색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="280"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="308"/>
         <source>Waste</source>
-        <translation type="unfinished"/>
+        <translation>소모</translation>
     </message>
 </context>
 <context>
