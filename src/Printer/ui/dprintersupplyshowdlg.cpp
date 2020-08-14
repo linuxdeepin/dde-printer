@@ -75,7 +75,7 @@ void DPrinterSupplyShowDlg::initUI()
     pLabel->setText(tr("Ink/Toner Status"));
     pVlayout->addWidget(pLabel, 0, Qt::AlignHCenter|Qt::AlignTop);
 
-    if(isDriveBroken()){
+    if (isDriveBroken()) {
         pVlayout->addStretch(500);
         QLabel* pLabel2 = new QLabel;
         pLabel2->setText(tr("Unknown amount"));
@@ -96,7 +96,7 @@ void DPrinterSupplyShowDlg::initUI()
         pLabel3->setPalette(pal);
     }
     else {
-        if(canGetSupplyMsg()){
+        if (canGetSupplyMsg()) {
             pVlayout->addSpacing(20);
             bool bColor = isColorPrinter();
 
@@ -110,7 +110,8 @@ void DPrinterSupplyShowDlg::initUI()
             DLabel* pTimelLabel = new DLabel;
             DFontSizeManager::instance()->bind(pTimelLabel, DFontSizeManager::T8, int(QFont::ExtraLight));
             QTime time = QTime::currentTime();
-            pTimelLabel->setText(tr("The amounts are estimated, last updated at %1:%2").arg(time.hour()).arg(time.minute()));
+            QString strTime = QString("%1:%2").arg(time.hour(), 2, 10, QLatin1Char('0')).arg(time.minute(), 2, 10, QLatin1Char('0'));
+            pTimelLabel->setText(tr("The amounts are estimated, last updated at %1").arg(strTime));
             pVlayout->addWidget(pTimelLabel, 0, Qt::AlignHCenter);
         }
         else {
@@ -178,9 +179,9 @@ QWidget* DPrinterSupplyShowDlg::initColorSupplyItem(const SUPPLYSDATA& info, boo
     pal.setColor(QPalette::Background, QColor(0, 0, 0, int(0.03 * 255)));
     pWidget->setPalette(pal);
     QHBoxLayout* pHlayout = new QHBoxLayout;
-    pHlayout->setSpacing(10);
+    pHlayout->setSpacing(8);
 
-    if((info.colorant != 0)&&bColor){
+    if ((info.colorant != 0) && bColor) {
         QPixmap colorPix(12, 12);
         colorPix.fill(Qt::transparent);
         QPainter painter(&colorPix);
@@ -192,18 +193,24 @@ QWidget* DPrinterSupplyShowDlg::initColorSupplyItem(const SUPPLYSDATA& info, boo
         pColorLabel->setPixmap(colorPix);
         pHlayout->addWidget(pColorLabel);
 
-        if((info.level < 0) || (info.level > 100)){
+        if ((info.level < 0) || (info.level > 100)) {
             pColorLabel->hide();
         }
     }
 
     QString strColorName = getTranslatedColor(info.colorName);
+
+    if (strColorName.trimmed().isEmpty()) {
+        if (info.type == 4) {
+            strColorName = getTranslatedColor("Waste");
+        }
+    }
+
     DLabel* pLabel = new DLabel(strColorName, this);
     DFontSizeManager::instance()->bind(pLabel, DFontSizeManager::T6, int(QFont::ExtraLight));
     pHlayout->addWidget(pLabel);
 
-    if(info.level <= 100)
-    {
+    if (info.level <= 100) {
         QLabel* pImageLabel = new DLabel(this);
         QIcon icon = QIcon::fromTheme("dp_warning");
         QPixmap pix = icon.pixmap(QSize(14, 14));
@@ -221,7 +228,7 @@ QWidget* DPrinterSupplyShowDlg::initColorSupplyItem(const SUPPLYSDATA& info, boo
         pHlayout->addWidget(pImageLabel, Qt::AlignRight);
         pHlayout->addWidget(pProcessBar, Qt::AlignRight);
 
-        if(info.level > 0){
+        if ((info.level >= 0) && (info.colorant != 0)) {
             if(info.level < 20){
                 pImageLabel->show();
             }
@@ -305,7 +312,7 @@ QString DPrinterSupplyShowDlg::getTranslatedColor(const QString& strColor)
 {
     QString strRet;
 
-    if(m_mapColorTrans.contains(strColor)){
+    if (m_mapColorTrans.contains(strColor)) {
         strRet = m_mapColorTrans.value(strColor);
     }
     else {
@@ -326,16 +333,16 @@ bool DPrinterSupplyShowDlg::canGetSupplyMsg()
         if (DESTTYPE::PRINTER == pDest->getType()) {
             DPrinter *pPrinter = static_cast<DPrinter *>(pDest);
 
-            if(pPrinter->isPpdFileBroken()){
+            if (pPrinter->isPpdFileBroken()) {
                 bRet = false;
             }
-            else{
+            else {
                 pPrinter->disableSupplys();
                 pPrinter->updateSupplys();
                 m_supplyInfos.clear();
                 m_supplyInfos = pPrinter->getSupplys();
 
-                if(m_supplyInfos.size() > 0){
+                if (m_supplyInfos.size() > 0) {
                     bRet = true;
                 }
             }
