@@ -194,8 +194,12 @@ vector<SUPPLYSDATA> cupssnmp::getMarkInfo()
     vector<SUPPLYSDATA> vecInfo;
 
     for (int i = 0; i < g_iNumSupply; i++)
-    {
-        vecInfo.push_back(g_supplies[i]);
+    {   
+        if(g_supplies[i].type == 3 ||
+                g_supplies[i].type == 4)
+        {
+            vecInfo.push_back(g_supplies[i]);
+        }
     }
 
     return  vecInfo;
@@ -229,16 +233,22 @@ void cupssnmp::SNMPClose()
 
 void cupssnmp::SNMPWalk()
 {
-    _cupsSNMPWalk(m_iFd, &m_pHost->addr, CUPS_SNMP_VERSION_1,
-          _cupsSNMPDefaultCommunity(), prtMarkerSuppliesEntry,
-          CUPS_SUPPLY_TIMEOUT, backend_walk_cb, nullptr);
+    memset(g_supplies, 0, sizeof(SUPPLYSDATA) * CUPS_MAX_SUPPLIES);
+    g_iNumSupply = -1;
+
+    int iRet = _cupsSNMPWalk(m_iFd, &m_pHost->addr, CUPS_SNMP_VERSION_1,
+                    _cupsSNMPDefaultCommunity(), prtMarkerSuppliesEntry,
+                    CUPS_SUPPLY_TIMEOUT, backend_walk_cb, nullptr);
+
+    if(iRet < 0)
+    {
+        g_iNumSupply = -1;
+        return;
+    }
 
     _cupsSNMPWalk(m_iFd, &m_pHost->addr, CUPS_SNMP_VERSION_1,
-          _cupsSNMPDefaultCommunity(), prtMarkerColorantValue,
-          CUPS_SUPPLY_TIMEOUT, backend_walk_cb, nullptr);
-
-    if (g_iNumSupply < 0)
-        g_iNumSupply = 0;
+        _cupsSNMPDefaultCommunity(), prtMarkerColorantValue,
+        CUPS_SUPPLY_TIMEOUT, backend_walk_cb, nullptr);
 }
 
 void cupssnmp::SNMPInit()

@@ -270,33 +270,33 @@
     </message>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="81"/>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="119"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="120"/>
         <source>Unknown amount</source>
         <translation>Unknown amount</translation>
     </message>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="88"/>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="126"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="127"/>
         <source>Unable to get the remaining amount</source>
         <translation>Unable to get the remaining amount</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="113"/>
-        <source>The amounts are estimated, last updated at %1:%2</source>
-        <translation>The amounts are estimated, last updated at %1:%2</translation>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="114"/>
+        <source>The amounts are estimated, last updated at %1</source>
+        <translation type="unfinished">The amounts are estimated, last updated at %1</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="142"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="143"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="211"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="218"/>
         <source>Low level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="242"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="249"/>
         <source>Unknown</source>
         <translation>Unknown</translation>
     </message>
@@ -1428,132 +1428,132 @@
         <translation>File</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="276"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="283"/>
         <source>Black</source>
         <translation>Black</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="277"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="284"/>
         <source>Blue</source>
         <translation>Blue</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="278"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="285"/>
         <source>Brown</source>
         <translation>Brown</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="279"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="286"/>
         <source>Cyan</source>
         <translation>Cyan</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="280"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="287"/>
         <source>Dark-gray</source>
         <translation>Dark-gray</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="281"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="288"/>
         <source>Dark gray</source>
         <translation>Dark gray</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="282"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="289"/>
         <source>Dark-yellow</source>
         <translation>Dark-yellow</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="283"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="290"/>
         <source>Dark yellow</source>
         <translation>Dark yellow</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="284"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="291"/>
         <source>Gold</source>
         <translation>Gold</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="285"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="292"/>
         <source>Gray</source>
         <translation>Gray</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="286"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="293"/>
         <source>Green</source>
         <translation>Green</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="287"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="294"/>
         <source>Light-black</source>
         <translation>Light-black</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="288"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="295"/>
         <source>Light black</source>
         <translation>Light black</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="289"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="296"/>
         <source>Light-cyan</source>
         <translation>Light-cyan</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="290"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="297"/>
         <source>Light cyan</source>
         <translation>Light cyan</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="291"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="298"/>
         <source>Light-gray</source>
         <translation>Light-gray</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="292"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="299"/>
         <source>Light gray</source>
         <translation>Light gray</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="293"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="300"/>
         <source>Light-magenta</source>
         <translation>Light-magenta</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="294"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="301"/>
         <source>Light magenta</source>
         <translation>Light magenta</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="295"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="302"/>
         <source>Magenta</source>
         <translation>Magenta</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="296"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="303"/>
         <source>Orange</source>
         <translation>Orange</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="297"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="304"/>
         <source>Red</source>
         <translation>Red</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="298"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="305"/>
         <source>Silver</source>
         <translation>Silver</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="299"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="306"/>
         <source>White</source>
         <translation>White</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="300"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="307"/>
         <source>Yellow</source>
         <translation>Yellow</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="301"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="308"/>
         <source>Waste</source>
         <translation>Waste</translation>
     </message>
