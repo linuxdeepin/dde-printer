@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="en">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="en" version="2.1">
 <context>
     <name>AddPrinterTask</name>
     <message>
@@ -258,7 +256,7 @@
     <message>
         <location filename="../util/dprinter.cpp" line="255"/>
         <source>(recommended)</source>
-        <translation type="unfinished">(recommended)</translation>
+        <translation>(recommended)</translation>
     </message>
 </context>
 <context>
@@ -283,7 +281,7 @@
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="114"/>
         <source>The amounts are estimated, last updated at %1</source>
-        <translation type="unfinished">The amounts are estimated, last updated at %1</translation>
+        <translation>The amounts are estimated, last updated at %1</translation>
     </message>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="143"/>
@@ -293,7 +291,7 @@
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="218"/>
         <source>Low level</source>
-        <translation type="unfinished"></translation>
+        <translation>Low level</translation>
     </message>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="249"/>

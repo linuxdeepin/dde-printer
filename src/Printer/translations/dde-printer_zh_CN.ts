@@ -252,6 +252,14 @@
     </message>
 </context>
 <context>
+    <name>DPrinter</name>
+    <message>
+        <location filename="../util/dprinter.cpp" line="255"/>
+        <source>(recommended)</source>
+        <translation>（推荐）</translation>
+    </message>
+</context>
+<context>
     <name>DPrinterSupplyShowDlg</name>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="75"/>
@@ -260,34 +268,33 @@
     </message>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="81"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="120"/>
         <source>Unknown amount</source>
         <translation>油墨量未知</translation>
     </message>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="88"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="127"/>
         <source>Unable to get the remaining amount</source>
         <translation>未获取到油墨量数据</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="113"/>
-        <source>The amounts are estimated, last updated at %1:%2</source>
-        <translation>所有余量为估计值 ，更新时间为今天%1:%2</translation>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="114"/>
+        <source>The amounts are estimated, last updated at %1</source>
+        <translation>所有余量为估计值 ，更新时间为今天%1</translation>
     </message>
     <message>
-        <source>The amounts are estimated, last updated at%1:%2</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="122"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="143"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
     <message>
-        <source>%1</source>
-        <translation type="vanished">%1</translation>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="218"/>
+        <source>Low level</source>
+        <translation>余量不足</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="221"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="249"/>
         <source>Unknown</source>
         <translation>余量未知</translation>
     </message>
@@ -905,10 +912,6 @@
         <translation>请输入完整的厂商和型号（仅限字母、数字及空格）</translation>
     </message>
     <message>
-        <source>Enter a complete vendor and model</source>
-        <translation type="vanished">请输入完整的厂商和型号</translation>
-    </message>
-    <message>
         <location filename="../ui/installdriverwindow.cpp" line="227"/>
         <source>Search</source>
         <translation>搜索</translation>
@@ -941,7 +944,7 @@
         <translation>（推荐）</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="656"/>
+        <location filename="../ui/installdriverwindow.cpp" line="657"/>
         <source> (recommended)</source>
         <translation>（推荐）</translation>
     </message>
@@ -1112,32 +1115,32 @@
 <context>
     <name>JobManagerWindow</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1007"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1008"/>
         <source>Refresh</source>
         <translation>刷新</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1011"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1012"/>
         <source>All</source>
         <translation>全部</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1012"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1013"/>
         <source>Print Queue</source>
         <translation>打印队列</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1013"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1014"/>
         <source>Completed</source>
         <translation>已完成</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1070"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1071"/>
         <source> failed</source>
         <translation>失败</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1091"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1092"/>
         <source>%1 jobs</source>
         <translation>%1项任务</translation>
     </message>
@@ -1297,12 +1300,12 @@
         <translation>例如：</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="556"/>
+        <location filename="../ui/printersearchwindow.cpp" line="559"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="644"/>
+        <location filename="../ui/printersearchwindow.cpp" line="647"/>
         <source> (recommended)</source>
         <translation>（推荐）</translation>
     </message>
@@ -1361,7 +1364,7 @@
         <translation>%1天以前</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="481"/>
+        <location filename="../ui/printersearchwindow.cpp" line="484"/>
         <source>(use %1 protocol)</source>
         <translation>（使用%1协议）</translation>
     </message>
@@ -1413,142 +1416,142 @@
         <translation>无法解析，请联系管理员</translation>
     </message>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="121"/>
+        <location filename="../ui/printerapplication.cpp" line="138"/>
         <source>Direct-attached Device</source>
         <translation>直连设备</translation>
     </message>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="122"/>
+        <location filename="../ui/printerapplication.cpp" line="139"/>
         <source>File</source>
         <translation>文件</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="255"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="283"/>
         <source>Black</source>
         <translation>黑色</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="256"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="284"/>
         <source>Blue</source>
         <translation>蓝色</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="257"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="285"/>
         <source>Brown</source>
         <translation>褐色</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="258"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="286"/>
         <source>Cyan</source>
         <translation>青色</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="259"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="287"/>
         <source>Dark-gray</source>
         <translation>深灰色</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="260"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="288"/>
         <source>Dark gray</source>
         <translation>深灰色</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="261"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="289"/>
         <source>Dark-yellow</source>
         <translation>深黄色</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="262"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="290"/>
         <source>Dark yellow</source>
         <translation>深黄色</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="263"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="291"/>
         <source>Gold</source>
         <translation>金色</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="264"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="292"/>
         <source>Gray</source>
         <translation>灰色</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="265"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="293"/>
         <source>Green</source>
         <translation>绿色</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="266"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="294"/>
         <source>Light-black</source>
         <translation>浅黑色</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="267"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="295"/>
         <source>Light black</source>
         <translation>浅黑色</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="268"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="296"/>
         <source>Light-cyan</source>
         <translation>浅青色</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="269"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="297"/>
         <source>Light cyan</source>
         <translation>浅青色</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="270"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="298"/>
         <source>Light-gray</source>
         <translation>浅灰色</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="271"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="299"/>
         <source>Light gray</source>
         <translation>浅灰色</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="272"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="300"/>
         <source>Light-magenta</source>
         <translation>浅洋红色</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="273"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="301"/>
         <source>Light magenta</source>
         <translation>浅洋红色</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="274"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="302"/>
         <source>Magenta</source>
         <translation>洋红色</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="275"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="303"/>
         <source>Orange</source>
         <translation>橙色</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="276"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="304"/>
         <source>Red</source>
         <translation>红色</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="277"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="305"/>
         <source>Silver</source>
         <translation>银色</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="278"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="306"/>
         <source>White</source>
         <translation>白色</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="279"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="307"/>
         <source>Yellow</source>
         <translation>黄色</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="280"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="308"/>
         <source>Waste</source>
         <translation>废粉</translation>
     </message>

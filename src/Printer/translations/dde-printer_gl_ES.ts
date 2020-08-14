@@ -4,27 +4,27 @@
     <message>
         <location filename="../vendor/addprinter.cpp" line="547"/>
         <source>URI and driver do not match.</source>
-        <translation type="unfinished"/>
+        <translation>URI e controlador non coinciden.</translation>
     </message>
     <message>
         <location filename="../vendor/addprinter.cpp" line="549"/>
         <source>Install hplip first and restart the app to install the driver again.</source>
-        <translation type="unfinished"/>
+        <translation>Instale primeiro hplip e reinicie o aplicativo para volver a instalar o controlador.</translation>
     </message>
     <message>
         <location filename="../vendor/addprinter.cpp" line="557"/>
         <source>Please select an hplip driver and try again.</source>
-        <translation type="unfinished"/>
+        <translation>Selecciona un controlador hplip e inténteo de novo.</translation>
     </message>
     <message>
         <location filename="../vendor/addprinter.cpp" line="570"/>
         <source>URI can&apos;t be empty</source>
-        <translation type="unfinished"/>
+        <translation>O URI non pode estar baleiro</translation>
     </message>
     <message>
         <location filename="../vendor/addprinter.cpp" line="577"/>
         <source> not found</source>
-        <translation type="unfinished"/>
+        <translation>non se atopou</translation>
     </message>
 </context>
 <context>
@@ -42,7 +42,7 @@
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="318"/>
         <source>Success</source>
-        <translation type="unfinished"/>
+        <translation>Feito con éxito</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="326"/>
@@ -80,7 +80,7 @@
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="226"/>
         <source>Success</source>
-        <translation type="unfinished"/>
+        <translation>Feito con éxito</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="263"/>
@@ -141,12 +141,12 @@
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="143"/>
         <source>Success</source>
-        <translation type="unfinished"/>
+        <translation>Feito con éxito</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="151"/>
         <source>PPD file %1 not found</source>
-        <translation type="unfinished"/>
+        <translation>Non se atopou o ficheiro PPD% 1</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="161"/>
@@ -156,7 +156,7 @@
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="177"/>
         <source>Driver filter %1 not found</source>
-        <translation type="unfinished"/>
+        <translation>Non se atopou o filtro do controlador% 1</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="189"/>
@@ -214,7 +214,7 @@
     <message>
         <location filename="../vendor/zcupsmonitor.cpp" line="293"/>
         <source>%1 timed out, reason: %2</source>
-        <translation type="unfinished"/>
+        <translation>% 1 fora de prazo, razón:% 2</translation>
     </message>
     <message>
         <location filename="../vendor/zcupsmonitor.cpp" line="307"/>
@@ -238,7 +238,7 @@
     <message>
         <location filename="../util/ddestination.cpp" line="209"/>
         <source>Idle</source>
-        <translation type="unfinished"/>
+        <translation>Ocioso</translation>
     </message>
     <message>
         <location filename="../util/ddestination.cpp" line="212"/>
@@ -252,42 +252,49 @@
     </message>
 </context>
 <context>
+    <name>DPrinter</name>
+    <message>
+        <location filename="../util/dprinter.cpp" line="255"/>
+        <source>(recommended)</source>
+        <translation>(recomendado)</translation>
+    </message>
+</context>
+<context>
     <name>DPrinterSupplyShowDlg</name>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="75"/>
         <source>Ink/Toner Status</source>
-        <translation type="unfinished"/>
+        <translation>Estado da tinta / toner</translation>
     </message>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="81"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="120"/>
         <source>Unknown amount</source>
-        <translation type="unfinished"/>
+        <translation>Cantidade descoñecida</translation>
     </message>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="88"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="127"/>
         <source>Unable to get the remaining amount</source>
+        <translation>Non se pode obter o importe restante</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="114"/>
+        <source>The amounts are estimated, last updated at %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="113"/>
-        <source>The amounts are estimated, last updated at %1:%2</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>The amounts are estimated, last updated at%1:%2</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="122"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="143"/>
         <source>OK</source>
         <translation>Aceptar</translation>
     </message>
     <message>
-        <source>%1</source>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="218"/>
+        <source>Low level</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="221"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="249"/>
         <source>Unknown</source>
         <translation>Descoñecido</translation>
     </message>
@@ -303,7 +310,7 @@
         <location filename="../util/dprintertanslator.cpp" line="34"/>
         <location filename="../util/dprintertanslator.cpp" line="35"/>
         <source>Grayscale</source>
-        <translation type="unfinished"/>
+        <translation>Escala de grises</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="38"/>
@@ -319,7 +326,7 @@
         <location filename="../util/dprintertanslator.cpp" line="39"/>
         <location filename="../util/dprintertanslator.cpp" line="49"/>
         <source>Draft</source>
-        <translation type="unfinished"/>
+        <translation>Borrador</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="40"/>
@@ -332,13 +339,13 @@
         <location filename="../util/dprintertanslator.cpp" line="44"/>
         <location filename="../util/dprintertanslator.cpp" line="47"/>
         <source>Print Quality</source>
-        <translation type="unfinished"/>
+        <translation>Calidade de impresión</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="55"/>
         <location filename="../util/dprintertanslator.cpp" line="56"/>
         <source>Auto-Select</source>
-        <translation type="unfinished"/>
+        <translation>Selección automática</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="57"/>
@@ -368,27 +375,27 @@
     <message>
         <location filename="../util/dprintertanslator.cpp" line="61"/>
         <source>Drawer 1</source>
-        <translation type="unfinished"/>
+        <translation>Caixón 1</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="62"/>
         <source>Drawer 2</source>
-        <translation type="unfinished"/>
+        <translation>Caixón 2</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="63"/>
         <source>Drawer 3</source>
-        <translation type="unfinished"/>
+        <translation>Caixón 3</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="64"/>
         <source>Drawer 4</source>
-        <translation type="unfinished"/>
+        <translation>Caixón 4</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="65"/>
         <source>Drawer 5</source>
-        <translation type="unfinished"/>
+        <translation>Caixón 5</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="66"/>
@@ -398,7 +405,7 @@
     <message>
         <location filename="../util/dprintertanslator.cpp" line="67"/>
         <source>Tray1</source>
-        <translation type="unfinished"/>
+        <translation>Bandexa1</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="68"/>
@@ -408,7 +415,7 @@
     <message>
         <location filename="../util/dprintertanslator.cpp" line="72"/>
         <source>MediaType</source>
-        <translation type="unfinished"/>
+        <translation>MediaType</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="74"/>
@@ -428,22 +435,22 @@
     <message>
         <location filename="../util/dprintertanslator.cpp" line="77"/>
         <source>Bond Paper</source>
-        <translation type="unfinished"/>
+        <translation>Papel de fianza</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="78"/>
         <source>Heavy Paper 1</source>
-        <translation type="unfinished"/>
+        <translation>Papel groso 1</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="79"/>
         <source>Heavy Paper 2</source>
-        <translation type="unfinished"/>
+        <translation>Papel groso 2</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="80"/>
         <source>Heavy Paper 3</source>
-        <translation type="unfinished"/>
+        <translation>Papel groso 3</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="81"/>
@@ -471,7 +478,7 @@
         <location filename="../util/dprintertanslator.cpp" line="90"/>
         <location filename="../util/dprintertanslator.cpp" line="91"/>
         <source>PageSize</source>
-        <translation type="unfinished"/>
+        <translation>Tamaño da páxina</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="92"/>
@@ -483,45 +490,45 @@
         <location filename="../util/dprintertanslator.cpp" line="96"/>
         <location filename="../util/dprintertanslator.cpp" line="97"/>
         <source>Duplex</source>
-        <translation type="unfinished"/>
+        <translation>Dúplex</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="98"/>
         <source>DuplexTumble</source>
-        <translation type="unfinished"/>
+        <translation>CaídaDúplex</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="99"/>
         <source>DuplexNoTumble</source>
-        <translation type="unfinished"/>
+        <translation>NonCáidaDúplex</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="100"/>
         <source>ON (Long-edged Binding)</source>
-        <translation type="unfinished"/>
+        <translation>Encender (Encuadernación a longo prazo)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="101"/>
         <source>ON (Short-edged Binding)</source>
-        <translation type="unfinished"/>
+        <translation>Encender (Encuadernación a curto prazo)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="102"/>
         <location filename="../util/dprintertanslator.cpp" line="103"/>
         <source>OFF</source>
-        <translation type="unfinished"/>
+        <translation>Apagar</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="106"/>
         <location filename="../util/dprintertanslator.cpp" line="110"/>
         <source>Binding Edge</source>
-        <translation type="unfinished"/>
+        <translation>Os bordes da encuadernación</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="124"/>
         <location filename="../util/dprintertanslator.cpp" line="125"/>
         <source>Staple Location</source>
-        <translation type="unfinished"/>
+        <translation>Situación básica</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="136"/>
@@ -532,72 +539,72 @@
     <message>
         <location filename="../util/dprintertanslator.cpp" line="108"/>
         <source>Left</source>
-        <translation type="unfinished"/>
+        <translation>Esquerda</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="109"/>
         <source>Top</source>
-        <translation type="unfinished"/>
+        <translation>Dereita</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="113"/>
         <source>Portrait (no rotation)</source>
-        <translation type="unfinished"/>
+        <translation>Retrato (non rotación)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="114"/>
         <source>Landscape (90 degrees)</source>
-        <translation type="unfinished"/>
+        <translation>Paisaxe (90 graos)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="115"/>
         <source>Reverse landscape (270 degrees)</source>
-        <translation type="unfinished"/>
+        <translation>Reverter paisaxe (270 graos)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="116"/>
         <source>Reverse portrait (180 degrees)</source>
-        <translation type="unfinished"/>
+        <translation>Reverter retrato (180 graos)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="117"/>
         <source>Auto Rotation</source>
-        <translation type="unfinished"/>
+        <translation>Rotación automática</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="121"/>
         <source>Reverse</source>
-        <translation type="unfinished"/>
+        <translation>Inverso</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="127"/>
         <source>Bind</source>
-        <translation type="unfinished"/>
+        <translation>Amarrar</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="128"/>
         <source>Bind (none)</source>
-        <translation type="unfinished"/>
+        <translation>Amarrar (nada)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="129"/>
         <source>Bind (bottom)</source>
-        <translation type="unfinished"/>
+        <translation>Amarrar (abaixo)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="130"/>
         <source>Bind (left)</source>
-        <translation type="unfinished"/>
+        <translation>Amarrar (esquerda)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="131"/>
         <source>Bind (right)</source>
-        <translation type="unfinished"/>
+        <translation>Amarrar (dereita)</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="132"/>
         <source>Bind (top)</source>
-        <translation type="unfinished"/>
+        <translation>Amarrar (enriba)</translation>
     </message>
 </context>
 <context>
@@ -605,144 +612,144 @@
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="81"/>
         <source>Settings</source>
-        <translation type="unfinished"/>
+        <translation>Configuracións</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="87"/>
         <source>Printers</source>
-        <translation type="unfinished"/>
+        <translation>Impresoras</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="91"/>
         <source>Add printer</source>
-        <translation type="unfinished"/>
+        <translation>Engadir impresora</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="94"/>
         <source>Delete printer</source>
-        <translation type="unfinished"/>
+        <translation>Eliminar impresora</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="115"/>
         <source>Shared</source>
-        <translation type="unfinished"/>
+        <translation>Compartido</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="118"/>
         <source>Enabled</source>
-        <translation type="unfinished"/>
+        <translation>Activado</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="121"/>
         <source>Accept jobs</source>
-        <translation type="unfinished"/>
+        <translation>Aceptar traballos</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="125"/>
         <source>Set as default</source>
-        <translation type="unfinished"/>
+        <translation>Establecer como predeterminado</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="136"/>
         <source>No Printers</source>
-        <translation type="unfinished"/>
+        <translation>Non hai impresoras</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="160"/>
         <source>Location:</source>
-        <translation type="unfinished"/>
+        <translation>Localización:</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="164"/>
         <source>Model:</source>
-        <translation type="unfinished"/>
+        <translation>Modelo:</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="167"/>
         <source>Status:</source>
-        <translation type="unfinished"/>
+        <translation>Estado:</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="195"/>
         <source>Properties</source>
-        <translation type="unfinished"/>
+        <translation>Propiedades</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="205"/>
         <source>Print Queue</source>
-        <translation type="unfinished"/>
+        <translation>Fila de impresoras</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="215"/>
         <source>Print Test Page</source>
-        <translation type="unfinished"/>
+        <translation>Imprimir a páxina de proba</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="237"/>
         <source>Supplies</source>
-        <translation type="unfinished"/>
+        <translation>Subministracións</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="262"/>
         <source>No printer configured</source>
-        <translation type="unfinished"/>
+        <translation>Non se configurou ningunha impresora</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="267"/>
         <source>Click + to add printers</source>
-        <translation type="unfinished"/>
+        <translation>Prema + para engadir impresoras</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="330"/>
         <source>As print jobs are in process, you cannot rename the printer now, please try later</source>
-        <translation type="unfinished"/>
+        <translation>Como os traballos de impresión están en proceso, non pode cambiar o nome da impresora agora, inténteo máis tarde</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="334"/>
         <location filename="../ui/dprintersshowwindow.cpp" line="382"/>
         <location filename="../ui/dprintersshowwindow.cpp" line="601"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>Aceptar</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="360"/>
         <source>Idle</source>
-        <translation type="unfinished"/>
+        <translation>Ocioso</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="362"/>
         <source>Printing</source>
-        <translation type="unfinished"/>
+        <translation>Imprimindo</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="364"/>
         <source>Disabled</source>
-        <translation type="unfinished"/>
+        <translation>Desactivado</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="379"/>
         <source>CUPS server is not running, and can’t manage printers.</source>
-        <translation type="unfinished"/>
+        <translation>O servidor CUPS non está en funcionamento e non pode xestionar impresoras.</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="559"/>
         <source>Are you sure you want to delete the printer &quot;%1&quot; ?</source>
-        <translation type="unfinished"/>
+        <translation>Está seguro de que quere eliminar a impresora &quot;% 1&quot;?</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="565"/>
         <source>Delete</source>
-        <translation type="unfinished"/>
+        <translation>Eliminar</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="597"/>
         <source>The name already exists</source>
-        <translation type="unfinished"/>
+        <translation>O nome xa existe</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="616"/>
         <source>You will not be able to reprint the completed jobs if continue. Are you sure you want to rename the printer?</source>
-        <translation type="unfinished"/>
+        <translation>Se non pode volver a imprimir os traballos completados se continúa. Está seguro de que quere cambiar o nome da impresora?</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="621"/>
@@ -834,7 +841,7 @@
     <message>
         <location filename="../vendor/zdrivermanager.cpp" line="791"/>
         <source>EveryWhere driver</source>
-        <translation type="unfinished"/>
+        <translation>Condutor EveryWhere</translation>
     </message>
 </context>
 <context>
@@ -842,12 +849,12 @@
     <message>
         <location filename="../vendor/addprinter.cpp" line="374"/>
         <source>Failed to find the driver solution: %1, error: %2</source>
-        <translation type="unfinished"/>
+        <translation>Erro ao atopar a solución do controlador:% 1, erro:% 2</translation>
     </message>
     <message>
         <location filename="../vendor/addprinter.cpp" line="385"/>
         <source>The solution is invalid</source>
-        <translation type="unfinished"/>
+        <translation>Esta solución non é válida</translation>
     </message>
 </context>
 <context>
@@ -902,11 +909,7 @@
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="225"/>
         <source>Enter a complete vendor and model (Only letters, numbers and whitespaces)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Enter a complete vendor and model</source>
-        <translation type="vanished">Insire un fabricante e modelo</translation>
+        <translation>Insira un modelo e vendedor completo (Só letras, números e espazos en branco)</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="227"/>
@@ -941,7 +944,7 @@
         <translation>(recomendado)</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="656"/>
+        <location filename="../ui/installdriverwindow.cpp" line="657"/>
         <source> (recommended)</source>
         <translation>(recomendado)</translation>
     </message>
@@ -1036,7 +1039,7 @@
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="217"/>
         <source>Click Reinstall to install the printer driver again, or click Troubleshoot to start troubleshooting.</source>
-        <translation type="unfinished"/>
+        <translation>Prema en Reinstalar para instalar o controlador de impresora de novo ou prema en Resolución de problemas para comezar a solución de problemas.</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="220"/>
@@ -1048,7 +1051,7 @@
         <location filename="../ui/installprinterwindow.cpp" line="222"/>
         <location filename="../ui/installprinterwindow.cpp" line="243"/>
         <source>Troubleshoot</source>
-        <translation type="unfinished"/>
+        <translation>Solución de problemas</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="229"/>
@@ -1106,38 +1109,38 @@
     <message>
         <location filename="../vendor/zjobmanager.cpp" line="279"/>
         <source> not found</source>
-        <translation type="unfinished"/>
+        <translation>non se atopou</translation>
     </message>
 </context>
 <context>
     <name>JobManagerWindow</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1007"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1008"/>
         <source>Refresh</source>
         <translation>Actualizar</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1011"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1012"/>
         <source>All</source>
         <translation>Todo</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1012"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1013"/>
         <source>Print Queue</source>
         <translation>Cola de impresión</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1013"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1014"/>
         <source>Completed</source>
         <translation>Completado</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1070"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1071"/>
         <source> failed</source>
         <translation>fallou</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1091"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1092"/>
         <source>%1 jobs</source>
         <translation>%1 traballo/s</translation>
     </message>
@@ -1172,7 +1175,7 @@
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="641"/>
         <source>Time submitted</source>
-        <translation type="unfinished"/>
+        <translation>Tempo estimado</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="643"/>
@@ -1190,7 +1193,7 @@
     <message>
         <location filename="../ui/permissionswindow.cpp" line="48"/>
         <source>Connect to %1 to find a printer</source>
-        <translation type="unfinished"/>
+        <translation>Conéctate a% 1 para atopar unha impresora</translation>
     </message>
     <message>
         <location filename="../ui/permissionswindow.cpp" line="74"/>
@@ -1228,7 +1231,7 @@
     <message>
         <location filename="../ui/printerapplication.cpp" line="112"/>
         <source>Print Manager is a printer management tool, which supports adding and removing printers, managing print jobs and so on.</source>
-        <translation type="unfinished"/>
+        <translation>Print Manager é unha ferramenta de xestión de impresoras, que admite engadir e eliminar impresoras, xestionar traballos de impresión etc.</translation>
     </message>
 </context>
 <context>
@@ -1297,12 +1300,12 @@
         <translation>Exemplos:</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="556"/>
+        <location filename="../ui/printersearchwindow.cpp" line="559"/>
         <source>OK</source>
         <translation>Aceptar</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="644"/>
+        <location filename="../ui/printersearchwindow.cpp" line="647"/>
         <source> (recommended)</source>
         <translation>(recomendado)</translation>
     </message>
@@ -1312,7 +1315,7 @@
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="369"/>
         <source>Check test page printing</source>
-        <translation type="unfinished"/>
+        <translation>Comprobe a impresión da páxina de proba</translation>
     </message>
     <message>
         <location filename="../vendor/ztroubleshoot.cpp" line="416"/>
@@ -1325,7 +1328,7 @@
     <message>
         <location filename="../ui/printertestpagedialog.cpp" line="63"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>Aceptar</translation>
     </message>
 </context>
 <context>
@@ -1361,7 +1364,7 @@
         <translation>hai %1 días</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="481"/>
+        <location filename="../ui/printersearchwindow.cpp" line="484"/>
         <source>(use %1 protocol)</source>
         <translation>(empregar o protocolo %1)</translation>
     </message>
@@ -1400,7 +1403,7 @@
     <message>
         <location filename="../ui/uisourcestring.h" line="39"/>
         <source>Troubleshoot</source>
-        <translation type="unfinished"/>
+        <translation>Solución de problemas</translation>
     </message>
     <message>
         <location filename="../ui/uisourcestring.h" line="40"/>
@@ -1410,147 +1413,147 @@
     <message>
         <location filename="../vendor/common.cpp" line="149"/>
         <source> not found, please ask the administrator for help</source>
-        <translation type="unfinished"/>
+        <translation>non atopado, solicite axuda ao administrador</translation>
     </message>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="121"/>
+        <location filename="../ui/printerapplication.cpp" line="138"/>
         <source>Direct-attached Device</source>
-        <translation type="unfinished"/>
+        <translation>Dispositivo adxunto directo</translation>
     </message>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="122"/>
+        <location filename="../ui/printerapplication.cpp" line="139"/>
         <source>File</source>
         <translation>Ficheiro</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="255"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="283"/>
         <source>Black</source>
-        <translation type="unfinished"/>
+        <translation>Negro</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="256"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="284"/>
         <source>Blue</source>
-        <translation type="unfinished"/>
+        <translation>Azul</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="257"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="285"/>
         <source>Brown</source>
-        <translation type="unfinished"/>
+        <translation>Marrón</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="258"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="286"/>
         <source>Cyan</source>
-        <translation type="unfinished"/>
+        <translation>cian</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="259"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="287"/>
         <source>Dark-gray</source>
-        <translation type="unfinished"/>
+        <translation>Gris escuro</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="260"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="288"/>
         <source>Dark gray</source>
-        <translation type="unfinished"/>
+        <translation>Gris escuro</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="261"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="289"/>
         <source>Dark-yellow</source>
-        <translation type="unfinished"/>
+        <translation>Amarelo escuro</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="262"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="290"/>
         <source>Dark yellow</source>
-        <translation type="unfinished"/>
+        <translation>Amarelo escuro</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="263"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="291"/>
         <source>Gold</source>
-        <translation type="unfinished"/>
+        <translation>Dourado</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="264"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="292"/>
         <source>Gray</source>
-        <translation type="unfinished"/>
+        <translation>Gris</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="265"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="293"/>
         <source>Green</source>
-        <translation type="unfinished"/>
+        <translation>Verde</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="266"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="294"/>
         <source>Light-black</source>
-        <translation type="unfinished"/>
+        <translation>Negro claro</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="267"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="295"/>
         <source>Light black</source>
-        <translation type="unfinished"/>
+        <translation>Negro claro</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="268"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="296"/>
         <source>Light-cyan</source>
-        <translation type="unfinished"/>
+        <translation>Cian claro</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="269"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="297"/>
         <source>Light cyan</source>
-        <translation type="unfinished"/>
+        <translation>Cian claro</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="270"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="298"/>
         <source>Light-gray</source>
-        <translation type="unfinished"/>
+        <translation>Gris claro</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="271"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="299"/>
         <source>Light gray</source>
-        <translation type="unfinished"/>
+        <translation>Gris claro</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="272"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="300"/>
         <source>Light-magenta</source>
-        <translation type="unfinished"/>
+        <translation>Maxenta claro</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="273"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="301"/>
         <source>Light magenta</source>
-        <translation type="unfinished"/>
+        <translation>Maxenta claro</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="274"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="302"/>
         <source>Magenta</source>
-        <translation type="unfinished"/>
+        <translation>Maxenta</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="275"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="303"/>
         <source>Orange</source>
-        <translation type="unfinished"/>
+        <translation>Laranxa</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="276"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="304"/>
         <source>Red</source>
-        <translation type="unfinished"/>
+        <translation>Vermello</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="277"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="305"/>
         <source>Silver</source>
-        <translation type="unfinished"/>
+        <translation>Prata</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="278"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="306"/>
         <source>White</source>
-        <translation type="unfinished"/>
+        <translation>Branco</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="279"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="307"/>
         <source>Yellow</source>
-        <translation type="unfinished"/>
+        <translation>Amarelo</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="280"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="308"/>
         <source>Waste</source>
-        <translation type="unfinished"/>
+        <translation>Residuo</translation>
     </message>
 </context>
 <context>
@@ -1611,7 +1614,7 @@
     <message>
         <location filename="../ui/dprintersshowwindow.h" line="98"/>
         <source>Save debugging information for troubleshooting</source>
-        <translation type="unfinished"/>
+        <translation>Garda información de depuración para solucionar problemas</translation>
     </message>
 </context>
 <context>
@@ -1619,7 +1622,7 @@
     <message>
         <location filename="../ui/troubleshootdialog.cpp" line="109"/>
         <source>Troubleshoot: </source>
-        <translation type="unfinished"/>
+        <translation>Resolución de problemas</translation>
     </message>
     <message>
         <location filename="../ui/troubleshootdialog.cpp" line="134"/>
