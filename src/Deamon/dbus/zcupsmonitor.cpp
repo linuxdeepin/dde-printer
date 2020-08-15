@@ -20,24 +20,26 @@
  */
 
 #include "zcupsmonitor.h"
+#include "zjobmanager.h"
+#include "cupsattrnames.h"
 #include "common.h"
 #include "cupsconnection.h"
-#include "config.h"
+#include "cupsconnectionfactory.h"
 #include "qtconvert.h"
 #include "zsettings.h"
 #include "cupsattrnames.h"
-#include "printerapplication.h"
-#include "zjobmanager.h"
-#include "dprintermanager.h"
 
 #include <DApplication>
+#include <DNotifySender>
 
 #include <QMap>
 #include <QVariant>
 #include <QDBusPendingReply>
 #include <QStringList>
-#include <DNotifySender>
+#include <QDebug>
 #include <QDBusConnection>
+#include <QDBusMessage>
+#include <QProcess>
 
 DWIDGET_USE_NAMESPACE
 
@@ -47,22 +49,22 @@ DWIDGET_USE_NAMESPACE
 
 DCORE_USE_NAMESPACE
 
-CupsMonitor *CupsMonitor::getInstance()
-{
-    static CupsMonitor *instance = nullptr;
-    if (nullptr == instance) {
-        instance = new CupsMonitor();
-    }
-
-    return instance;
-}
 
 CupsMonitor::CupsMonitor(QObject *parent)
-    : TaskInterface(Task_CupsMonitor, parent)
+    : QThread(parent)
     , m_jobId(0)
+    , m_bQuit(false)
+    , m_systemTray(nullptr)
 {
     m_subId = -1;
     m_seqNumber = -1;
+}
+
+CupsMonitor::~CupsMonitor()
+{
+    if (m_systemTray)
+        m_systemTray->deleteLater();
+    stop();
 }
 
 void CupsMonitor::initTranslations()
@@ -84,6 +86,22 @@ void CupsMonitor::initTranslations()
 QString CupsMonitor::getStateString(int iState)
 {
     return iState < m_stateStrings.count() ? m_stateStrings[iState] : QString();
+}
+
+void CupsMonitor::run()
+{
+    qInfo() << "Task cupsmonitor running...";
+    int iRet = 0;
+
+    iRet = doWork();
+
+    qInfo() << "Task cupsmonitor finished " << iRet;
+
+}
+
+bool CupsMonitor::isCompletedState(int state)
+{
+    return (IPP_JSTATE_COMPLETED == state || IPP_JSTATE_ABORTED == state || IPP_JSTATE_CANCELED == state);
 }
 
 bool CupsMonitor::insertJobMessage(int id, int state, const QString &message)
@@ -115,7 +133,7 @@ bool CupsMonitor::insertJobMessage(int id, int state, const QString &message)
             if (!str.isEmpty()) {
                 int iState = str.left(1).toInt();
 
-                if (!g_jobManager->isCompletedState(iState)) {
+                if (!isCompletedState(iState)) {
                     hasRuningJobs = true;
                     break;
                 }
@@ -123,7 +141,7 @@ bool CupsMonitor::insertJobMessage(int id, int state, const QString &message)
         }
     }
 
-    emit signalShowTrayIcon(hasRuningJobs);
+    slotShowTrayIcon(hasRuningJobs);
 
     //只有处理中的状态才通过事件触发的次数过滤事件
     if (IPP_JSTATE_PROCESSING != state) {
@@ -282,7 +300,11 @@ int CupsMonitor::getNotifications(int &notifysSize)
                 //通过判断同一个id，同一个状态插入的次数判断是否触发信号
                 if (insertJobMessage(iJob, iState, strReason)) {
                     qInfo() << "Emit job state changed signal" << iJob << iState << strReason;
-                    emit signalJobStateChanged(iJob, iState, strReason);
+                    QDBusMessage msg = QDBusMessage::createSignal(SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME, "signalJobStateChanged");
+                    msg << iJob << iState << strReason;
+                    if (!QDBusConnection::sessionBus().send(msg)) {
+                        qWarning() << "send message:" << msg << " error";
+                    }
                 }
 
                 switch (iState) {
@@ -307,9 +329,9 @@ int CupsMonitor::getNotifications(int &notifysSize)
                         strReason = tr("%1 printed successfully, please take away the paper in time!").arg(strJobName);
                     } else {
                         strReason = tr("%1 %2, reason: %3")
-                                        .arg(strJobName)
-                                        .arg(getStateString(iState).toLower())
-                                        .arg(strReason);
+                                    .arg(strJobName)
+                                    .arg(getStateString(iState).toLower())
+                                    .arg(strReason);
                     }
                     sendDesktopNotification(0, qApp->productName(), strReason, 3000);
 
@@ -339,12 +361,20 @@ int CupsMonitor::getNotifications(int &notifysSize)
                     if (m_printersState.value(printerName, -1) != iState) {
                         qInfo() << "Emit printer state changed signal: " << printerName << iState << strReason;
                         m_printersState.insert(printerName, iState);
-                        emit signalPrinterStateChanged(printerName, iState, strReason);
+                        QDBusMessage msg = QDBusMessage::createSignal(SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME, "signalPrinterStateChanged");
+                        msg << printerName << iState << strReason;
+                        if (!QDBusConnection::sessionBus().send(msg)) {
+                            qWarning() << "send message:" << msg << " error";
+                        }
+
                     }
                 } else if ("printer-deleted" == strevent) {
                     QString printerName = attrValueToQString(info[CUPS_OP_NAME]);
-
-                    emit signalPrinterDelete(printerName);
+                    QDBusMessage msg = QDBusMessage::createSignal(SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME, "signalPrinterDelete");
+                    msg << printerName;
+                    if (!QDBusConnection::sessionBus().send(msg)) {
+                        qWarning() << "send message:" << msg << " error";
+                    }
                 }
             }
         }
@@ -400,12 +430,12 @@ int CupsMonitor::resetSubscription()
 
 int CupsMonitor::doWork()
 {
+
     m_pendingNotification.clear();
     m_processingJob.clear();
 
     QTime t;
     t.start();
-
     while (!m_bQuit) {
         int size = 0;
         if (0 != getNotifications(size) && 0 != resetSubscription()) {
@@ -429,8 +459,11 @@ int CupsMonitor::doWork()
 void CupsMonitor::stop()
 {
     cancelSubscription();
-
-    TaskInterface::stop();
+    m_bQuit = true;
+    if (this->isRunning()) {
+        this->quit();
+        this->wait();
+    }
 }
 
 int CupsMonitor::getPrinterState(const QString &printer)
@@ -470,13 +503,13 @@ int CupsMonitor::sendDesktopNotification(int replaceId, const QString &summary, 
     int ret = 0;
 
     QDBusPendingReply<unsigned int> reply = DUtil::DNotifySender(summary)
-                                                .appName("dde-printer")
-                                                .appIcon(":/images/printer.svg")
-                                                .appBody(body)
-                                                .replaceId(replaceId)
-                                                .timeOut(expired)
-                                                .actions(QStringList() << "default")
-                                                .call();
+                                            .appName("dde-printer")
+                                            .appIcon(":/images/printer.svg")
+                                            .appBody(body)
+                                            .replaceId(replaceId)
+                                            .timeOut(expired)
+                                            .actions(QStringList() << "default")
+                                            .call();
 
     reply.waitForFinished();
     if (!reply.isError())
@@ -495,8 +528,13 @@ int CupsMonitor::sendDesktopNotification(int replaceId, const QString &summary, 
 void CupsMonitor::notificationInvoke(unsigned int notificationId, QString action)
 {
     Q_UNUSED(action);
-    if (m_pendingNotification.contains(notificationId))
-        g_printerApplication->showJobsWindow();
+    if (m_pendingNotification.contains(notificationId)) {
+        QDBusMessage msg = QDBusMessage::createSignal(SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME, "signalShowJobsWindow");
+        if (!QDBusConnection::sessionBus().send(msg)) {
+            qWarning() << "send message:" << msg << " error";
+        }
+    }
+
 }
 
 void CupsMonitor::notificationClosed(unsigned int notificationId, unsigned int reason)
@@ -515,4 +553,62 @@ void CupsMonitor::spoolerEvent(QDBusMessage msg)
             m_jobId = args[1].toInt();
         start();
     }
+}
+
+void CupsMonitor::showJobsWindow()
+{
+    QProcess process;
+    QString cmd = "dde-printer";
+    QStringList args;
+    args << "-m" << "4";
+    if (!process.startDetached(cmd, args)) {
+        qWarning() << QString("showJobsWindow failed because %1").arg(process.errorString());
+    }
+}
+
+void CupsMonitor::registerDBus()
+{
+    //注册dbus服务
+    QDBusConnection dbus = QDBusConnection::sessionBus();
+    bool ret = dbus.registerService(SERVICE_INTERFACE_NAME);
+    if (ret == false) {
+        qWarning("Register QDBus Service Error!");
+    }
+    ret = dbus.registerObject(SERVICE_INTERFACE_PATH, this,
+                              QDBusConnection::ExportAllSlots |
+                              QDBusConnection::ExportAllSignals);
+    if (ret == false) {
+        qDebug("Register QDBus Object Error!");
+    }
+
+}
+
+void CupsMonitor::unRegisterDBus()
+{
+    //注销dbus服务
+    QDBusConnection dbus = QDBusConnection::sessionBus();
+    bool ret = dbus.unregisterService(SERVICE_INTERFACE_NAME);
+    if (ret == false) {
+        qWarning("unregister QDBus Service Error!");
+
+    }
+    dbus.unregisterObject(SERVICE_INTERFACE_PATH);
+    dbus.disconnectFromBus(dbus.name());
+}
+
+void CupsMonitor::slotShowTrayIcon(bool bShow)
+{
+
+    if (bShow && !m_systemTray) {
+        m_systemTray = new QSystemTrayIcon(QIcon(":/images/dde-printer.svg"));
+        connect(m_systemTray, &QSystemTrayIcon::activated, [&](QSystemTrayIcon::ActivationReason reason) {
+            if (reason == QSystemTrayIcon::Trigger) {
+                showJobsWindow();
+            }
+        });
+    }
+    if (bShow)
+        m_systemTray->show();
+    else if (m_systemTray)
+        m_systemTray->hide();
 }

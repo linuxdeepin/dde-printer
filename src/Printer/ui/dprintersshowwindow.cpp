@@ -26,7 +26,9 @@
 #include "qtconvert.h"
 #include "zjobmanager.h"
 #include "uisourcestring.h"
-#include "zcupsmonitor.h"
+#include "config.h"
+#include "cupsconnectionfactory.h"
+
 #include "printertestpagedialog.h"
 #include "troubleshootdialog.h"
 #include "ztroubleshoot_p.h"
@@ -54,6 +56,7 @@
 #include <QTimer>
 #include <QCheckBox>
 #include <QLineEdit>
+#include <QDBusConnection>
 
 DPrintersShowWindow::DPrintersShowWindow(QWidget *parent)
     : DMainWindow(parent),
@@ -345,21 +348,12 @@ void DPrintersShowWindow::initConnections()
     connect(m_pRejectAction, &QAction::triggered, this, &DPrintersShowWindow::listWidgetMenuActionSlot);
 
     connect(m_pSettings, &QAction::triggered, this, &DPrintersShowWindow::serverSettingsSlot);
+    //连接dbus信号
+    if (!QDBusConnection::sessionBus().connect(SERVICE_INTERFACE_NAME, SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME,
+                                               "signalPrinterStateChanged", this, SLOT(printerStateChanged(QDBusMessage)))) {
+        qWarning() << "connect to dbus signal(signalPrinterStateChanged) failed";
+    }
 
-    connect(g_cupsMonitor, &CupsMonitor::signalPrinterStateChanged, this, [this](const QString & printer, int state, const QString & message) {
-        Q_UNUSED(message)
-        if (printer == m_CurPrinterName) {
-            QString stateStr;
-            if (state == 3) {
-                stateStr = tr("Idle");
-            } else if (state == 4) {
-                stateStr = tr("Printing");
-            } else {
-                stateStr = tr("Disabled");
-            }
-            m_pLabelStatusShow->setText(stateStr);
-        }
-    });
 }
 
 void DPrintersShowWindow::showEvent(QShowEvent *event)
@@ -494,7 +488,8 @@ void DPrintersShowWindow::serverSettingsSlot()
     if (!m_pSettingsDialog) {
         m_pSettingsDialog = new ServerSettingsWindow();
     }
-
+    /*打开设置界面之前先更新设置接口数据，避免外部程序修改了cups设置，导致数据不同步*/
+    m_pPrinterManager->updateServerSetting();
     if (m_pPrinterManager->isSharePrintersEnabled()) {
         m_pSettingsDialog->m_pCheckShared->setChecked(true);
         m_pSettingsDialog->m_pCheckIPP->setChecked(m_pPrinterManager->isRemoteAnyEnabled());
@@ -505,7 +500,6 @@ void DPrintersShowWindow::serverSettingsSlot()
         m_pSettingsDialog->m_pCheckIPP->setEnabled(false);
     }
     m_pSettingsDialog->m_pCheckRemote->setChecked(m_pPrinterManager->isRemoteAdminEnabled());
-    //    m_pSettingsDialog->m_pCheckCancelJobs->setChecked(m_pPrinterManager->isUserCancelAnyEnabled());
     m_pSettingsDialog->m_pCheckSaveDebugInfo->setChecked(m_pPrinterManager->isDebugLoggingEnabled());
     m_pSettingsDialog->exec();
     if (m_pSettingsDialog->m_pCheckShared->isChecked()) {
@@ -516,24 +510,13 @@ void DPrintersShowWindow::serverSettingsSlot()
         m_pPrinterManager->enableRemoteAny(false);
     }
     m_pPrinterManager->enableRemoteAdmin(m_pSettingsDialog->m_pCheckRemote->isChecked());
-    //    m_pPrinterManager->enableUserCancelAny(m_pSettingsDialog->m_pCheckCancelJobs->isChecked());
     m_pPrinterManager->enableDebugLogging(m_pSettingsDialog->m_pCheckSaveDebugInfo->isChecked());
     m_pPrinterManager->commit();
     //触发本地cups服务启动
-    m_pPrinterManager->isPrinterShared(m_pPrinterListView->currentIndex().data().toString());
+    if (!g_cupsConnection) {
+        qInfo() << "Try to restart the cups service";
+    }
 }
-
-//bool DPrintersShowWindow::eventFilter(QObject *watched, QEvent *event)
-//{
-//    if (watched == m_pPrinterListView) {
-//        if (event->type() == QEvent::MouseButtonRelease) {
-//            if (m_pPrinterListView->isPersistentEditorOpen(m_pPrinterListView->currentIndex())) {
-//                m_pPrinterListView->closePersistentEditor(m_pPrinterListView->currentIndex());
-//            }
-//        }
-//    }
-//    return false;
-//}
 
 void DPrintersShowWindow::closeEvent(QCloseEvent *event)
 {
@@ -547,6 +530,26 @@ void DPrintersShowWindow::resizeEvent(QResizeEvent *event)
     /*界面缩放时动态调整打印机信息显示的宽度*/
     printerListWidgetItemChangedSlot(QModelIndex());
     DMainWindow::resizeEvent(event);
+}
+void DPrintersShowWindow::printerStateChanged(const QDBusMessage &msg)
+{
+    if (msg.arguments().count() != 3) {
+        qWarning() << "printerStateChanged dbus arguments error";
+        return;
+    }
+    const QString printer = msg.arguments().at(0).toString();
+    int state = msg.arguments().at(1).toInt();
+    if (printer == m_CurPrinterName) {
+        QString stateStr;
+        if (state == 3) {
+            stateStr = tr("Idle");
+        } else if (state == 4) {
+            stateStr = tr("Printing");
+        } else {
+            stateStr = tr("Disabled");
+        }
+        m_pLabelStatusShow->setText(stateStr);
+    }
 }
 
 void DPrintersShowWindow::addPrinterClickSlot()

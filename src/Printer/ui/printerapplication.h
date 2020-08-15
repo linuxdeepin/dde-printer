@@ -24,6 +24,7 @@
 
 #include <QObject>
 #include <QSystemTrayIcon>
+#include <QDBusMessage>
 
 class JobManagerWindow;
 class DPrintersShowWindow;
@@ -47,7 +48,6 @@ public slots:
 
 protected slots:
     void slotNewProcessInstance(qint64 pid, const QStringList &arguments);
-    void slotShowTrayIcon(bool bShow);
 
 protected:
     PrinterApplication();

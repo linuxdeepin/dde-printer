@@ -24,30 +24,34 @@
 #include "config.h"
 #include "cupsconnection.h"
 #include "qtconvert.h"
-#include "dprintermanager.h"
-#include "zcupsmonitor.h"
+#include "cupsconnectionfactory.h"
+
 
 #include <QMap>
 #include <QVariant>
 #include <QFile>
+#include <QDBusInterface>
+#include <QDBusConnection>
+#include <QDBusReply>
 
 static const char *g_whichs[] = {"all", "not-completed", "completed"};
 static const char *jattrs[] = /* Attributes we need for jobs... */
-    {
-        JOB_ATTR_ID,
-        JOB_ATTR_SIZE,
-        JOB_ATTR_NAME,
-        JOB_ATTR_USER,
-        JOB_ATTR_STATE,
-        JOB_ATTR_STATE_MEG,
-        JOB_ATTR_STATE_RES,
-        JOB_ATTR_URI,
-        JOB_ATTR_STATE_STR,
-        JOB_ATTR_TIME_ADD,
-        JOB_ATTR_TIME_END,
-        JOB_ATTR_PRIORITY,
-        JOB_ATTR_DOC_NUM,
-        nullptr};
+{
+    JOB_ATTR_ID,
+    JOB_ATTR_SIZE,
+    JOB_ATTR_NAME,
+    JOB_ATTR_USER,
+    JOB_ATTR_STATE,
+    JOB_ATTR_STATE_MEG,
+    JOB_ATTR_STATE_RES,
+    JOB_ATTR_URI,
+    JOB_ATTR_STATE_STR,
+    JOB_ATTR_TIME_ADD,
+    JOB_ATTR_TIME_END,
+    JOB_ATTR_PRIORITY,
+    JOB_ATTR_DOC_NUM,
+    nullptr
+};
 
 int JobManager::getJobs(map<int, map<string, string>> &jobs, int which, int myJobs)
 {
@@ -72,9 +76,14 @@ int JobManager::getJobs(map<int, map<string, string>> &jobs, int which, int myJo
     for (itJobs = jobs.begin(); itJobs != jobs.end(); itJobs++) {
         map<string, string> info = itJobs->second;
         qDebug() << JOB_ATTR_ID << itJobs->first;
-        if (g_cupsMonitor->isJobPurged(itJobs->first)) {
-            jobs.erase(itJobs);
-            qInfo() << itJobs->first << "is purged";
+
+        QDBusInterface interface(SERVICE_INTERFACE_NAME, SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME, QDBusConnection::sessionBus());
+        if (interface.isValid()) {
+            QDBusReply<bool> result = interface.call("isJobPurged", itJobs->first);
+            if (result.isValid() && result.value()) {
+                jobs.erase(itJobs);
+                qInfo() << itJobs->first << "is purged";
+            }
         }
         dumpStdMapValue(info);
     }

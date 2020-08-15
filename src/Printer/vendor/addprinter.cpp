@@ -28,7 +28,7 @@
 #include "common.h"
 #include "cupsconnection.h"
 #include "qtconvert.h"
-#include "dprintermanager.h"
+#include "cupsconnectionfactory.h"
 
 #include <QRegularExpression>
 #include <QFile>

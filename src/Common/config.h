@@ -34,4 +34,7 @@
 
 #define s_linkTemplate "<a href='%1' style='text-decoration: none; color: #0066ec;'>%2</a>"
 
+#define SERVICE_INTERFACE_NAME "com.deepin.print.helper"
+#define SERVICE_INTERFACE_PATH "/com/deepin/print/helper"
+
 #endif // CONFIG_H

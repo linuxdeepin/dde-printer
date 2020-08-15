@@ -37,6 +37,7 @@
 #include <QCheckBox>
 #include <QVBoxLayout>
 #include <QEventLoop>
+#include <QDBusMessage>
 DWIDGET_USE_NAMESPACE
 DWIDGET_BEGIN_NAMESPACE
 class DImageButton;
@@ -296,6 +297,8 @@ private slots:
     void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
     void resizeEvent(QResizeEvent *event) override;
+
+    void printerStateChanged(const QDBusMessage &msg);
 
 private:
     // UI成员变量

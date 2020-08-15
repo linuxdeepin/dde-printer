@@ -21,7 +21,6 @@
 
 #include "troubleshootdialog.h"
 #include "ztroubleshoot.h"
-#include "zcupsmonitor.h"
 #include "zjobmanager.h"
 #include "ztroubleshoot_p.h"
 

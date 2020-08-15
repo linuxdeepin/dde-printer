@@ -23,16 +23,19 @@
 #include "jobmanagerwindow.h"
 #include "dprintersshowwindow.h"
 #include "zdrivermanager.h"
-#include "zcupsmonitor.h"
 #include "dprintermanager.h"
 #include "zsettings.h"
 #include "zjobmanager.h"
+#include "config.h"
 
 #include <DApplication>
 #include <DLog>
 #include <DWidgetUtil>
 #include <DGuiApplicationHelper>
 #include <QTranslator>
+
+#include <QDBusError>
+#include <QDBusConnection>
 
 #include <signal.h>
 DWIDGET_USE_NAMESPACE
@@ -71,10 +74,6 @@ int PrinterApplication::launchWithMode(const QStringList &arguments)
 
     appModel = appModel > 0 ? appModel : APPMODEL_MainWindow;
 
-    if (appModel & APPMODEL_Watch) {
-        qApp->setQuitOnLastWindowClosed(false);
-    }
-
     if (appModel & APPMODEL_JobsWindow) {
         showJobsWindow();
     }
@@ -84,17 +83,6 @@ int PrinterApplication::launchWithMode(const QStringList &arguments)
     }
 
     return 0;
-}
-
-void handler(int signo)
-{
-    //默认终止的自定义信号，此处作为重启通知
-    if (signo == SIGUSR1) {
-        pid_t pid = getpid();
-        QProcess process;
-        QString cmd = QString("dde-printer -m 1 -r %1").arg(pid);
-        process.startDetached(cmd);
-    }
 }
 
 int PrinterApplication::create()
@@ -118,31 +106,11 @@ int PrinterApplication::create()
     QLoggingCategory::setFilterRules(logRules);
     qInfo() << "save log to:" << DLogManager::getlogFilePath();
 
-    if (qApp->arguments().contains("-r")) {
-        //重启模式先kill原始进程
-        QString originPid = qApp->arguments().at(4).toLocal8Bit();
-        QProcess process;
-        QString cmd = "kill";
-        QStringList args;
-        args << "-9" << originPid;
-        process.start(cmd, args);
-
-        if (process.waitForFinished()) {
-            qInfo() << "kill origin process " << originPid;
-        } else {
-            qInfo() << "kill origin process failed :" << process.errorString();
-        }
-
-    }
 
     QObject::tr("Direct-attached Device");
     QObject::tr("File");
-    g_cupsMonitor->initTranslations();
+
     DPrinterManager::getInstance()->initLanguageTrans();
-    // 绑定SIGUSR1信号
-    if (signal(SIGUSR1, handler) == SIG_ERR) {
-        qWarning("Can't set handler for SIGUSR1\n");
-    }
 
     if (!DGuiApplicationHelper::setSingleInstance("dde-printer")) {
         //进程设置单例失败，杀死原始进程，继续设置单例，虽然返回true，但是实际没有生效，所以先杀死原始进程，再设置新进程单例
@@ -151,10 +119,6 @@ int PrinterApplication::create()
     }
 
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::newProcessInstance, this, &PrinterApplication::slotNewProcessInstance);
-    connect(g_cupsMonitor, &CupsMonitor::signalShowTrayIcon, this, &PrinterApplication::slotShowTrayIcon);
-
-    g_cupsMonitor->initSubscription();
-    g_cupsMonitor->initWatcher();
 
     return 0;
 }
@@ -162,7 +126,6 @@ int PrinterApplication::create()
 int PrinterApplication::stop()
 {
     g_driverManager->stop();
-    g_cupsMonitor->stop();
 
     delete DPrinterManager::getInstance();
     return 0;
@@ -177,8 +140,6 @@ int PrinterApplication::showJobsWindow()
         });
         Dtk::Widget::moveToCenter(m_jobsWindow);
     }
-    if (!g_cupsMonitor->isRunning())
-        g_cupsMonitor->start();
     m_jobsWindow->showNormal();
     qApp->setActiveWindow(m_jobsWindow);
 
@@ -211,28 +172,11 @@ void PrinterApplication::slotMainWindowClosed()
     }
 }
 
-void PrinterApplication::slotShowTrayIcon(bool bShow)
-{
-    if (bShow && !m_systemTray) {
-        m_systemTray = new QSystemTrayIcon(QIcon(":/images/dde-printer.svg"));
-        connect(m_systemTray, &QSystemTrayIcon::activated, [this](QSystemTrayIcon::ActivationReason reason) {
-            if (reason == QSystemTrayIcon::Trigger) {
-                showJobsWindow();
-            }
-        });
-    }
-
-    if (bShow)
-        m_systemTray->show();
-    else if (m_systemTray)
-        m_systemTray->hide();
-}
 
 PrinterApplication::PrinterApplication()
     : QObject(nullptr)
     , m_jobsWindow(nullptr)
     , m_mainWindow(nullptr)
-    , m_systemTray(nullptr)
 {
 }
 
@@ -243,7 +187,4 @@ PrinterApplication::~PrinterApplication()
 
     if (m_mainWindow)
         delete m_mainWindow;
-
-    if (m_systemTray)
-        delete m_systemTray;
 }

@@ -25,7 +25,7 @@
 #include "qtconvert.h"
 #include "common.h"
 #include "config.h"
-#include "dprintermanager.h"
+#include "cupsconnectionfactory.h"
 
 #include <QProcess>
 #include <QRegularExpression>
@@ -39,13 +39,13 @@
 #include <limits.h>
 #include <stdlib.h>
 
-typedef SMBCCTX* (*pfunc_smbc_new_context)(void);
+typedef SMBCCTX *(*pfunc_smbc_new_context)(void);
 typedef void (*pfunc_smbc_setFunctionAuthDataWithContext)(SMBCCTX *c, smbc_get_auth_data_with_context_fn fn);
-typedef SMBCCTX* (*pfunc_smbc_init_context)(SMBCCTX * context);
-typedef smbc_opendir_fn (*pfunc_smbc_getFunctionOpendir)(SMBCCTX *c);
-typedef smbc_readdir_fn (*pfunc_smbc_getFunctionReaddir)(SMBCCTX *c);
-typedef smbc_close_fn (*pfunc_smbc_getFunctionClose)(SMBCCTX *c);
-typedef int (*pfunc_smbc_free_context)(SMBCCTX * context, int shutdown_ctx);
+typedef SMBCCTX *(*pfunc_smbc_init_context)(SMBCCTX *context);
+typedef smbc_opendir_fn(*pfunc_smbc_getFunctionOpendir)(SMBCCTX *c);
+typedef smbc_readdir_fn(*pfunc_smbc_getFunctionReaddir)(SMBCCTX *c);
+typedef smbc_close_fn(*pfunc_smbc_getFunctionClose)(SMBCCTX *c);
+typedef int (*pfunc_smbc_free_context)(SMBCCTX *context, int shutdown_ctx);
 
 static pfunc_smbc_new_context p_smbc_new_context = NULL;
 static pfunc_smbc_setFunctionAuthDataWithContext p_smbc_setFunctionAuthDataWithContext = NULL;
@@ -64,10 +64,11 @@ static QString g_smbpassword;
 #define SOCKET_Timeout 3000
 
 static TBackendSchemes g_backendSchemes[] = {{"usb", CUPS_EXCLUDE_NONE},
-                                      {"hp", CUPS_EXCLUDE_NONE},
-                                      {"snmp", CUPS_EXCLUDE_NONE},
-                                      {"smfpnetdiscovery", CUPS_EXCLUDE_NONE},
-                                      {CUPS_INCLUDE_ALL, "cups-brf,dcp,parallel,serial"}};
+    {"hp", CUPS_EXCLUDE_NONE},
+    {"snmp", CUPS_EXCLUDE_NONE},
+    {"smfpnetdiscovery", CUPS_EXCLUDE_NONE},
+    {CUPS_INCLUDE_ALL, "cups-brf,dcp,parallel,serial"}
+};
 
 static void smb_auth_func(SMBCCTX *c,
                           const char *srv,
@@ -258,7 +259,7 @@ int RefreshDevicesByBackendTask::doWork()
 
         //snmp找到设备的情况不用三星的后端查找设备
         if (snmpCount > 0 && inSech
-            && 0 == strcmp(inSech, "smfpnetdiscovery")) {
+                && 0 == strcmp(inSech, "smfpnetdiscovery")) {
             continue;
         }
 
@@ -378,18 +379,13 @@ int RefreshDevicesByHostTask::probe_ipp(const QString &strHost)
 {
     map<string, map<string, string>> printersMap;
     map<string, map<string, string>>::iterator itPrinters;
-    Connection c;
-
-    try {
-        if (0 != c.init(strHost.toUtf8().data(), 0, 0)) {
-            qWarning() << "Unable to connect " << strHost;
-            return -1;
-        }
-        printersMap = c.getPrinters();
-    } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
-        return -2;
-    };
+    /*连接指定ip的cups服务器，不是全局的默认ip*/
+    auto conPtr = CupsConnectionFactory::createConnection(strHost, 0, 0);
+    if (conPtr) {
+        printersMap = g_cupsConnection->getPrinters();
+    } else {
+        return -1;
+    }
 
     for (itPrinters = printersMap.begin(); itPrinters != printersMap.end(); itPrinters++) {
         TDeviceInfo info;
@@ -441,10 +437,10 @@ int RefreshDevicesByHostTask::probe_smb(const QString &strHost)
         p_smbc_free_context = (pfunc_smbc_free_context)smbclient.resolve("smbc_free_context");
 
         if (!p_smbc_new_context || !p_smbc_setFunctionAuthDataWithContext ||
-            !p_smbc_init_context || !p_smbc_getFunctionOpendir || !p_smbc_getFunctionReaddir ||
-            !p_smbc_getFunctionClose || !p_smbc_free_context) {
+                !p_smbc_init_context || !p_smbc_getFunctionOpendir || !p_smbc_getFunctionReaddir ||
+                !p_smbc_getFunctionClose || !p_smbc_free_context) {
             qWarning() << "load libsmbclient error.";
-	    return -1;
+            return -1;
         }
     }
 

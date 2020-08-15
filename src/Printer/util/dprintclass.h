@@ -29,7 +29,7 @@ using namespace std;
 class DPrintClass : public DDestination
 {
 public:
-    DPrintClass(Connection *con);
+    DPrintClass();
 
 private:
     vector<string> m_strPrinters;

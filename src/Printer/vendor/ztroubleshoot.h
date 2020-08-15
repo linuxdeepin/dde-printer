@@ -27,6 +27,7 @@
 #include <QObject>
 #include <QList>
 #include <QEventLoop>
+#include <QDBusMessage>
 
 class TroubleShootJob : public QObject
 {
@@ -73,7 +74,7 @@ public:
     bool findRunningJob();
 
 protected slots:
-    void slotJobStateChanged(int id, int state, const QString &message);
+    void slotJobStateChanged(const QDBusMessage &msg);
 
 private:
     QEventLoop *m_eventLoop;

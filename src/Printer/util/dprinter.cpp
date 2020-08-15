@@ -20,6 +20,7 @@
  */
 #include "dprinter.h"
 #include "dprintermanager.h"
+#include "cupsconnectionfactory.h"
 
 #include <assert.h>
 #include <string>
@@ -32,8 +33,7 @@
 #include <QDir>
 #include <QDebug>
 
-DPrinter::DPrinter(Connection *con)
-    : DDestination(con)
+DPrinter::DPrinter()
 {
     m_type = DESTTYPE::PRINTER;
     m_bNeedSavePpd = false;
@@ -50,7 +50,7 @@ bool DPrinter::initPrinterPPD()
     bool bRet = false;
     try {
         time_t tm = 0;
-        string strPPDName = m_pCon->getPPD3(m_strName.toStdString().c_str(), &tm, nullptr);
+        string strPPDName = g_cupsConnection->getPPD3(m_strName.toStdString().c_str(), &tm, nullptr);
         m_ppd.load(strPPDName.c_str());
         m_ppd.localize();
         bRet = true;
@@ -236,7 +236,7 @@ QVector<QMap<QString, QString>> DPrinter::getDuplexChooses()
 
 QString DPrinter::getDriverName()
 {
-    string strLinkPath = m_pCon->getPPD(m_strName.toStdString().c_str());
+    string strLinkPath = g_cupsConnection->getPPD(m_strName.toStdString().c_str());
     return QFile::symLinkTarget(QString::fromStdString(strLinkPath));
 }
 
@@ -247,8 +247,8 @@ QString DPrinter::getPrinterMakeAndModel()
     try {
         vector<string> requestAttrs;
         requestAttrs.push_back("printer-make-and-model");
-        map<string, string> attrs = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(),
-                                                                 nullptr, &requestAttrs);
+        map<string, string> attrs = g_cupsConnection->getPrinterAttributes(m_strName.toStdString().c_str(),
+                                                                           nullptr, &requestAttrs);
 
         for (auto iter = attrs.begin(); iter != attrs.end(); iter++) {
             strMakeAndModel = QString::fromStdString(iter->second.data());
@@ -274,8 +274,8 @@ QString DPrinter::getPrinterUri()
     try {
         vector<string> requestAttrs;
         requestAttrs.push_back("device-uri");
-        map<string, string> attrs = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(),
-                                                                 nullptr, &requestAttrs);
+        map<string, string> attrs = g_cupsConnection->getPrinterAttributes(m_strName.toStdString().c_str(),
+                                                                           nullptr, &requestAttrs);
 
         for (auto iter = attrs.begin(); iter != attrs.end(); iter++) {
             strUri = QString::fromStdString(iter->second.data());
@@ -292,7 +292,7 @@ QString DPrinter::getPrinterUri()
 void DPrinter::setPrinterUri(const QString &strValue)
 {
     try {
-        m_pCon->setPrinterDevice(m_strName.toStdString().c_str(), strValue.toStdString().c_str());
+        g_cupsConnection->setPrinterDevice(m_strName.toStdString().c_str(), strValue.toStdString().c_str());
     } catch (const std::runtime_error &e) {
         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
     }
@@ -305,8 +305,8 @@ QString DPrinter::getPageOrientation()
     try {
         vector<string> requestAttrs;
         requestAttrs.push_back("orientation-requested-default");
-        map<string, string> attrs = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(),
-                                                                 nullptr, &requestAttrs);
+        map<string, string> attrs = g_cupsConnection->getPrinterAttributes(m_strName.toStdString().c_str(),
+                                                                           nullptr, &requestAttrs);
 
         for (auto iter = attrs.begin(); iter != attrs.end(); iter++) {
             if (0 == iter->first.compare("orientation-requested-default")) {
@@ -334,8 +334,8 @@ void DPrinter::setPageOrientationChoose(const QString &strValue)
         string strDefault = strValue.toStdString();
         vector<string> Attrs;
         Attrs.push_back(strDefault);
-        m_pCon->addPrinterOptionDefault(m_strName.toStdString().c_str(),
-                                        "orientation-requested", &Attrs);
+        g_cupsConnection->addPrinterOptionDefault(m_strName.toStdString().c_str(),
+                                                  "orientation-requested", &Attrs);
     } catch (const std::runtime_error &e) {
         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
     }
@@ -348,7 +348,7 @@ QVector<QMap<QString, QString>> DPrinter::getPageOrientationChooses()
     try {
         vector<string> requestAttrs;
         requestAttrs.push_back("orientation-requested-supported");
-        map<string, string> attrs = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(), nullptr, &requestAttrs);
+        map<string, string> attrs = g_cupsConnection->getPrinterAttributes(m_strName.toStdString().c_str(), nullptr, &requestAttrs);
 
         for (auto iter = attrs.begin(); iter != attrs.end(); iter++) {
             QMap<QString, QString> choose;
@@ -399,8 +399,8 @@ QString DPrinter::getPageOutputOrder()
     try {
         vector<string> requestAttrs;
         requestAttrs.push_back("outputorder-default");
-        map<string, string> attrs = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(),
-                                                                 nullptr, &requestAttrs);
+        map<string, string> attrs = g_cupsConnection->getPrinterAttributes(m_strName.toStdString().c_str(),
+                                                                           nullptr, &requestAttrs);
 
         if (0 == attrs.size()) {
             setPageOutputOrder(QString::fromStdString("normal"));
@@ -433,8 +433,8 @@ void DPrinter::setPageOutputOrder(const QString &strValue)
         string strDefault = strValue.toStdString();
         vector<string> Attrs;
         Attrs.push_back(strDefault);
-        m_pCon->addPrinterOptionDefault(m_strName.toStdString().c_str(),
-                                        "outputorder", &Attrs);
+        g_cupsConnection->addPrinterOptionDefault(m_strName.toStdString().c_str(),
+                                                  "outputorder", &Attrs);
     } catch (const std::runtime_error &e) {
         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
     }
@@ -454,27 +454,6 @@ QVector<QMap<QString, QString>> DPrinter::getPageOutputOrderChooses()
     choose[QString::fromStdString("choice")] = QString::fromStdString("reverse");
     vecChoose.push_back(choose);
     return vecChoose;
-
-    /*
-    QVector<QMap<QString, QString>> vecChoose;
-
-    try {
-        vector<string> requestAttrs;
-        requestAttrs.push_back("outputorder-default");
-        map<string, string> attrs = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(),
-                                                                 nullptr, nullptr);
-
-        for (auto iter = attrs.begin(); iter != attrs.end(); iter++) {
-
-        }
-    }
-    catch (const std::runtime_error& e)
-    {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
-    }
-
-    return vecChoose;
-    */
 }
 
 QString DPrinter::getBindEdgeOption()
@@ -484,21 +463,6 @@ QString DPrinter::getBindEdgeOption()
 
 void DPrinter::setBindEdgetOption(const QString &strValue)
 {
-    /*
-    try
-    {
-        string strDefault = strValue.toStdString();
-        vector<string> Attrs;
-        Attrs.push_back(strDefault);
-        m_pCon->addPrinterOptionDefault(m_strName.toStdString().c_str(),
-                                        "finishings", &Attrs);
-    }
-    catch (const std::runtime_error& e)
-    {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
-    }
-    */
-
     setOptionValue("BindEdge", strValue);
 }
 
@@ -514,8 +478,8 @@ QString DPrinter::getFinishings()
     try {
         vector<string> requestAttrs;
         requestAttrs.push_back("finishings-default");
-        map<string, string> attrs = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(),
-                                                                 nullptr, &requestAttrs);
+        map<string, string> attrs = g_cupsConnection->getPrinterAttributes(m_strName.toStdString().c_str(),
+                                                                           nullptr, &requestAttrs);
 
         for (auto iter = attrs.begin(); iter != attrs.end(); iter++) {
             if (0 == iter->first.compare("finishings-default")) {
@@ -560,8 +524,8 @@ void DPrinter::setFinishings(const QString &strValue)
 
         vector<string> Attrs;
         Attrs.push_back(strDefault);
-        m_pCon->addPrinterOptionDefault(m_strName.toStdString().c_str(),
-                                        "finishings", &Attrs);
+        g_cupsConnection->addPrinterOptionDefault(m_strName.toStdString().c_str(),
+                                                  "finishings", &Attrs);
     } catch (const std::runtime_error &e) {
         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
     }
@@ -574,8 +538,8 @@ QVector<QMap<QString, QString>> DPrinter::getFinishingsChooses()
     try {
         vector<string> requestAttrs;
         requestAttrs.push_back("finishings-supported");
-        map<string, string> attrs = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(),
-                                                                 nullptr, &requestAttrs);
+        map<string, string> attrs = g_cupsConnection->getPrinterAttributes(m_strName.toStdString().c_str(),
+                                                                           nullptr, &requestAttrs);
 
         for (auto iter = attrs.begin(); iter != attrs.end(); iter++) {
             QMap<QString, QString> choose;
@@ -659,7 +623,7 @@ void DPrinter::updateSupplys()
 
     if (strURI.startsWith("socket://")) {
         time_t tm = 0;
-        string strPPDName = m_pCon->getPPD3(m_strName.toStdString().c_str(), &tm, nullptr);
+        string strPPDName = g_cupsConnection->getPPD3(m_strName.toStdString().c_str(), &tm, nullptr);
         cupssnmp snmp;
         snmp.setIP(strLoc.toStdString());
         snmp.setPPDName(strPPDName);
@@ -671,18 +635,22 @@ void DPrinter::updateSupplys()
         }
     } else if (strURI.startsWith("ipp://")) {
         try {
-            Connection c;
+
             QString strMarkerLevel;
             QString strMarkerName;
             QStringList strLevelList;
             QStringList strNameList;
-            c.init(strLoc.toStdString().c_str(), ippPort(), 0);
+
             vector<string> requestAttrs;
             requestAttrs.push_back("marker-names");
             requestAttrs.push_back("marker-levels");
             requestAttrs.push_back("marker-high-levels");
-            map<string, string> attrs = c.getPrinterAttributes(m_strName.toStdString().c_str(),
-                                                               nullptr, &requestAttrs);
+
+            auto conPtr = CupsConnectionFactory::createConnection(strLoc, ippPort(), 0);
+            if (!conPtr)
+                return;
+            map<string, string> attrs = conPtr->getPrinterAttributes(m_strName.toStdString().c_str(),
+                                                                     nullptr, &requestAttrs);
 
             for (auto iter = attrs.begin(); iter != attrs.end(); iter++) {
                 if (iter->first == "marker-names") {
@@ -926,6 +894,7 @@ OPTNODE DPrinter::getOptionNodeByKeyword(const QString &strKey)
     }
     return node;
 }
+<<< <<< < HEAD
 
 QString DPrinter::getPPDName()
 {
@@ -942,8 +911,10 @@ QString DPrinter::getPPDName()
 
     return strPpdName;
 }
+== == == =
+    >>> >>> > feat: 重构代码
 
-QString DPrinter::getOptionValue(const QString &strOptName)
+    QString DPrinter::getOptionValue(const QString &strOptName)
 {
     QString strDefault;
 
@@ -1027,8 +998,8 @@ QString DPrinter::getMarkerType()
     try {
         vector<string> requestAttrs;
         requestAttrs.push_back("marker-types");
-        map<string, string> attrs = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(),
-                                                                 nullptr, &requestAttrs);
+        map<string, string> attrs = g_cupsConnection->getPrinterAttributes(m_strName.toStdString().c_str(),
+                                                                           nullptr, &requestAttrs);
 
         for (auto iter = attrs.begin(); iter != attrs.end(); iter++) {
             strMarkerType = QString::fromStdString(iter->second.data());
@@ -1048,8 +1019,8 @@ QString DPrinter::getMarkerName()
     try {
         vector<string> requestAttrs;
         requestAttrs.push_back("marker-names");
-        map<string, string> attrs = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(),
-                                                                 nullptr, &requestAttrs);
+        map<string, string> attrs = g_cupsConnection->getPrinterAttributes(m_strName.toStdString().c_str(),
+                                                                           nullptr, &requestAttrs);
 
         for (auto iter = attrs.begin(); iter != attrs.end(); iter++) {
             strMarkerName = QString::fromStdString(iter->second.data());
@@ -1073,8 +1044,8 @@ QString DPrinter::getMarkerLevel()
         requestAttrs.push_back("marker-levels");
         //requestAttrs.push_back("marker-low-levels");
         //requestAttrs.push_back("marker-high-levels");
-        map<string, string> attrs = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(),
-                                                                 nullptr, &requestAttrs);
+        map<string, string> attrs = g_cupsConnection->getPrinterAttributes(m_strName.toStdString().c_str(),
+                                                                           nullptr, &requestAttrs);
 
         for (auto iter = attrs.begin(); iter != attrs.end(); iter++) {
             strMarkerLevel = QString::fromStdString(iter->second.data());

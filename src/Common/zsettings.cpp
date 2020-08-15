@@ -30,6 +30,7 @@
 #include <QDebug>
 
 #include <sys/utsname.h>
+#include <cups/cups.h>
 
 #define VERSION         "1.2.0"
 #define CLIENT_CODE     "godfather"
@@ -74,6 +75,11 @@ zSettings::zSettings(const QString &fileName)
 {
 }
 
+zSettings::~zSettings()
+{
+
+}
+
 const QString zSettings::getClientVersion()
 {
     return value("ClientVersion", VERSION).toString();
@@ -107,7 +113,7 @@ const QString zSettings::getOSVersion()
     qInfo() << QLocale::languageToString(QLocale::system().language());
 
     if (QLocale::system().language() == QLocale::Chinese && !archName.isEmpty())
-        defaultVersion += "-" + archName;
+        defaultVersion = "-"  + archName;
     else
         defaultVersion = "";
 
@@ -135,3 +141,20 @@ void zSettings::setSequenceNumber(int number)
     setValue("SequenceNumber", number);
     sync();
 }
+
+//返回默认本地服务器host port encryption,后续连接远程cups服务器再提供set接口存储在本地配置中
+const QString zSettings::getCupsServerHost()
+{
+    return value("CupsServerHost", cupsServer()).toString();
+}
+
+int zSettings::getCupsServerPort()
+{
+    return value("CupsServerPort", ippPort()).toInt();
+}
+//加密配置只影响当前线程，如果要修改加密配置需要在每个线程都掉用cupsSetEncryption
+int zSettings::getCupsServerEncryption()
+{
+    return value("CupsServerEncryption", cupsEncryption()).toInt();
+}
+

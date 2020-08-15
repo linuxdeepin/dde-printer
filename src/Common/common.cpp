@@ -23,7 +23,7 @@
 #include "config.h"
 #include "qtconvert.h"
 #include "cupsattrnames.h"
-#include "dprintermanager.h"
+#include "cupsconnectionfactory.h"
 
 #include <QVariant>
 #include <QJsonDocument>

@@ -42,9 +42,12 @@ public:
     int getSequenceNumber();
     void setSequenceNumber(int number);
 
+    const QString getCupsServerHost();
+    int getCupsServerPort();
+    int getCupsServerEncryption();
 protected:
     zSettings(const QString &fileName);
-    ~zSettings() {}
+    ~zSettings();
 };
 
 #define g_Settings zSettings::getInstance()

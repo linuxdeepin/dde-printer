@@ -29,7 +29,7 @@
 #include "printerservice.h"
 #include "zdrivermanager_p.h"
 #include "cupsppd.h"
-#include "dprintermanager.h"
+#include "cupsconnectionfactory.h"
 
 #include <QProcess>
 #include <QTcpSocket>

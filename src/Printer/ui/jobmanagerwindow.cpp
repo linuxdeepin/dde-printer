@@ -22,10 +22,11 @@
 #include "jobmanagerwindow.h"
 #include "zjobmanager.h"
 #include "qtconvert.h"
-#include "zcupsmonitor.h"
+
 #include "common.h"
 #include "dprintermanager.h"
 #include "dprinter.h"
+#include "config.h"
 
 #include <DTitlebar>
 #include <DIconButton>
@@ -52,6 +53,9 @@
 #include <QLabel>
 #include <QToolTip>
 #include <QCursor>
+#include <QDBusConnection>
+#include <QDBusInterface>
+#include <QDBusReply>
 
 #include <cups/ipp.h>
 #include <map>
@@ -744,10 +748,14 @@ void JobsDataModel::updateJobState(int id, int state, const QString &message)
     qInfo() << iState << m_iWhichJob;
 
     //如果是因为删除触发的状态改变，则从列表中删除
-    if (g_cupsMonitor->isJobPurged(id)) {
-        if (index < m_jobs.count())
-            deleteJobItem(id);
-        return;
+    QDBusInterface interface(SERVICE_INTERFACE_NAME, SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME, QDBusConnection::sessionBus());
+    if (interface.isValid()) {
+        QDBusReply<bool> result = interface.call("isJobPurged", id);
+        if (result.isValid() && result.value()) {
+            if (index < m_jobs.count())
+                deleteJobItem(id);
+            return;
+        }
     }
 
     if (index >= m_jobs.count()) {
@@ -928,7 +936,13 @@ QVariant JobsDataModel::data(const QModelIndex &index, int role) const
 
         return formatDataTimeString(dateTime);
     } else if (index.column() == 6) {
-        return g_cupsMonitor->getJobNotify(job);
+        QDBusInterface interface(SERVICE_INTERFACE_NAME, SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME, QDBusConnection::sessionBus());
+        if (interface.isValid()) {
+            QDBusReply<QString> result = interface.call("getJobNotify", job);
+            if (result.isValid()) {
+                return result.value();
+            }
+        }
     }
     return QVariant();
 }
@@ -1099,7 +1113,12 @@ void JobManagerWindow::initConnect()
 {
     connect(m_refreshBut, &QAbstractButton::clicked, m_jobsModel, &JobsDataModel::slotRefreshJobsList);
     connect(m_whichButBox, &DButtonBox::buttonClicked, this, &JobManagerWindow::slotWhichBoxClicked);
-    connect(g_cupsMonitor, &CupsMonitor::signalJobStateChanged, this, &JobManagerWindow::slotJobStateChanged);
+
+    if (!QDBusConnection::sessionBus().connect(SERVICE_INTERFACE_NAME, SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME,
+                                               "signalJobStateChanged", this, SLOT(slotJobStateChanged(QDBusMessage)))) {
+        qWarning() << "connect to dbus signal(signalJobStateChanged) failed";
+    }
+
     connect(m_jobsModel, &JobsDataModel::signalJobsCountChanged, this, &JobManagerWindow::slotJobsCountChanged);
     connect(m_jobsModel, &JobsDataModel::signalDoActionFailed, this, &JobManagerWindow::slotDoActionFailed);
 }
@@ -1133,7 +1152,11 @@ void JobManagerWindow::slotJobsCountChanged(int count)
     m_jobsView->setLabelContentVisable(0 == count);
 }
 
-void JobManagerWindow::slotJobStateChanged(int id, int state, const QString &message)
+void JobManagerWindow::slotJobStateChanged(const QDBusMessage &msg)
 {
-    m_jobsModel->updateJobState(id, state, message);
+    if (msg.arguments().count() != 3) {
+        qWarning() << "JobStateChanged dbus arguments error";
+        return;
+    }
+    m_jobsModel->updateJobState(msg.arguments().at(0).toInt(), msg.arguments().at(1).toInt(), msg.arguments().at(2).toString());
 }
