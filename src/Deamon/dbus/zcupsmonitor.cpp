@@ -54,10 +54,17 @@ CupsMonitor::CupsMonitor(QObject *parent)
     : QThread(parent)
     , m_jobId(0)
     , m_bQuit(false)
-    , m_systemTray(nullptr)
+    , m_systemTray(new QSystemTrayIcon(QIcon(":/images/dde-printer.svg")))
 {
     m_subId = -1;
     m_seqNumber = -1;
+    /*托盘需要在主线程创建*/
+    connect(m_systemTray, &QSystemTrayIcon::activated, [&](QSystemTrayIcon::ActivationReason reason) {
+        if (reason == QSystemTrayIcon::Trigger) {
+            showJobsWindow();
+        }
+    });
+
 }
 
 CupsMonitor::~CupsMonitor()
@@ -598,15 +605,6 @@ void CupsMonitor::unRegisterDBus()
 
 void CupsMonitor::slotShowTrayIcon(bool bShow)
 {
-
-    if (bShow && !m_systemTray) {
-        m_systemTray = new QSystemTrayIcon(QIcon(":/images/dde-printer.svg"));
-        connect(m_systemTray, &QSystemTrayIcon::activated, [&](QSystemTrayIcon::ActivationReason reason) {
-            if (reason == QSystemTrayIcon::Trigger) {
-                showJobsWindow();
-            }
-        });
-    }
     if (bShow)
         m_systemTray->show();
     else if (m_systemTray)
