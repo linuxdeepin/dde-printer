@@ -63,7 +63,9 @@ void DPrinterManager::setAllowedUsers(const QString &strPrinterName, const QVect
     }
 
     try {
-        g_cupsConnection->setPrinterUsersAllowed(strPrinterName.toStdString().c_str(), &vecTrans);
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr)
+            conPtr->setPrinterUsersAllowed(strPrinterName.toStdString().c_str(), &vecTrans);
     } catch (const std::runtime_error &e) {
         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
     }
@@ -74,7 +76,10 @@ void DPrinterManager::updateDestinationList()
     clearDestinationList();
 
     try {
-        map<string, map<string, string>> mapPrinters = g_cupsConnection->getPrinters();
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (!conPtr)
+            return;
+        map<string, map<string, string>> mapPrinters = conPtr->getPrinters();
 
         for (auto iter = mapPrinters.begin(); iter != mapPrinters.end(); iter++) {
             map<string, string> mapProperty = iter->second;
@@ -131,9 +136,12 @@ bool DPrinterManager::deletePrinterByName(QString PrinterName)
 {
     bool bRet = false;
     try {
-        g_cupsConnection->deletePrinter(PrinterName.toStdString().data(), "");
-        bRet = true;
-        m_mapDests.remove(PrinterName);
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr) {
+            conPtr->deletePrinter(PrinterName.toStdString().data(), "");
+            bRet = true;
+            m_mapDests.remove(PrinterName);
+        }
     } catch (const std::runtime_error &e) {
         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
         bRet = false;
@@ -144,7 +152,9 @@ bool DPrinterManager::deletePrinterByName(QString PrinterName)
 
 void DPrinterManager::setPrinterShared(QString printerName, int shared)
 {
-    g_cupsConnection->setPrinterShared(printerName.toStdString().data(), shared);
+    auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+    if (conPtr)
+        conPtr->setPrinterShared(printerName.toStdString().data(), shared);
 }
 
 bool DPrinterManager::isPrinterShared(QString printerName)
@@ -153,12 +163,15 @@ bool DPrinterManager::isPrinterShared(QString printerName)
     vector<string> printerAttrs;
     printerAttrs.push_back(CUPS_OP_ISSHAED);
     try {
-        map<string, string> attrMap = g_cupsConnection->getPrinterAttributes(printerName.toStdString().data(), nullptr, &printerAttrs);
-        string strShared = attrMap.at(CUPS_OP_ISSHAED);
-        if (strShared.substr(0, 2) == "b1") {
-            isShared = true;
-        } else {
-            isShared = false;
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr) {
+            map<string, string> attrMap = conPtr->getPrinterAttributes(printerName.toStdString().data(), nullptr, &printerAttrs);
+            std::string strShared = attrMap.at(CUPS_OP_ISSHAED);
+            if (strShared.substr(0, 2) == "b1") {
+                isShared = true;
+            } else {
+                isShared = false;
+            }
         }
     } catch (const std::runtime_error &e) {
         qWarning() << e.what();
@@ -168,10 +181,11 @@ bool DPrinterManager::isPrinterShared(QString printerName)
 
 void DPrinterManager::setPrinterEnabled(QString printerName, bool enabled)
 {
-    if (enabled) {
-        g_cupsConnection->enablePrinter(printerName.toStdString().data(), "");
-    } else {
-        g_cupsConnection->disablePrinter(printerName.toStdString().data(), "");
+    auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+    if (enabled && conPtr) {
+        conPtr->enablePrinter(printerName.toStdString().data(), "");
+    } else if (conPtr) {
+        conPtr->disablePrinter(printerName.toStdString().data(), "");
     }
 }
 
@@ -181,13 +195,16 @@ bool DPrinterManager::isPrinterEnabled(QString printerName)
     vector<string> printerAttrs;
     printerAttrs.push_back(CUPS_OP_STATE);
     try {
-        map<string, string> attrMap = g_cupsConnection->getPrinterAttributes(printerName.toStdString().data(), nullptr, &printerAttrs);
-        if (attrMap.at(CUPS_OP_STATE).substr(0, 2) == string("i3")) {
-            isEnable = true;
-        } else if (attrMap.at(CUPS_OP_STATE).substr(0, 2) == string("i4")) {
-            isEnable = true;
-        } else {
-            isEnable = false;
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr) {
+            map<string, string> attrMap = conPtr->getPrinterAttributes(printerName.toStdString().data(), nullptr, &printerAttrs);
+            if (attrMap.at(CUPS_OP_STATE).substr(0, 2) == string("i3")) {
+                isEnable = true;
+            } else if (attrMap.at(CUPS_OP_STATE).substr(0, 2) == string("i4")) {
+                isEnable = true;
+            } else {
+                isEnable = false;
+            }
         }
     } catch (const std::runtime_error &e) {
         qCritical() << e.what();
@@ -197,10 +214,11 @@ bool DPrinterManager::isPrinterEnabled(QString printerName)
 
 void DPrinterManager::setPrinterAcceptJob(QString printerName, bool enabled)
 {
-    if (enabled) {
-        g_cupsConnection->acceptJobs(printerName.toStdString().data(), "");
-    } else {
-        g_cupsConnection->rejectJobs(printerName.toStdString().data(), "");
+    auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+    if (enabled && conPtr) {
+        conPtr->acceptJobs(printerName.toStdString().data(), "");
+    } else if (conPtr) {
+        conPtr->rejectJobs(printerName.toStdString().data(), "");
     }
 }
 
@@ -210,13 +228,16 @@ bool DPrinterManager::isPrinterAcceptJob(QString printerName)
     vector<string> printerAttrs;
     printerAttrs.push_back(CUPS_OP_TYPE);
     try {
-        map<string, string> attrMap = g_cupsConnection->getPrinterAttributes(printerName.toStdString().data(), nullptr, &printerAttrs);
-        int typeValue = QString(attrMap.at(CUPS_OP_TYPE).substr(1).data()).toInt();
-        int result = typeValue & CUPS_PRINTER_REJECTING;
-        if (result == CUPS_PRINTER_REJECTING) {
-            isAcceptJobs = false;
-        } else {
-            isAcceptJobs = true;
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr) {
+            map<string, string> attrMap = conPtr->getPrinterAttributes(printerName.toStdString().data(), nullptr, &printerAttrs);
+            int typeValue = QString(attrMap.at(CUPS_OP_TYPE).substr(1).data()).toInt();
+            int result = typeValue & CUPS_PRINTER_REJECTING;
+            if (result == CUPS_PRINTER_REJECTING) {
+                isAcceptJobs = false;
+            } else {
+                isAcceptJobs = true;
+            }
         }
     } catch (const std::runtime_error &e) {
         qCritical() << e.what();
@@ -226,14 +247,18 @@ bool DPrinterManager::isPrinterAcceptJob(QString printerName)
 
 void DPrinterManager::setPrinterDefault(QString printerName)
 {
-    g_cupsConnection->setDefault(printerName.toStdString().data(), "");
+    auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+    if (conPtr)
+        conPtr->setDefault(printerName.toStdString().data(), "");
 }
 
 bool DPrinterManager::addPrinter(const QString &printer, const QString &info, const QString &location, const QString &device, const QString &ppdfile)
 {
     try {
-        g_cupsConnection->addPrinter(printer.toStdString().data(), info.toStdString().data(),
-                                     location.toStdString().data(), device.toStdString().data(), ppdfile.toStdString().data(), nullptr, nullptr);
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr)
+            conPtr->addPrinter(printer.toStdString().data(), info.toStdString().data(),
+                               location.toStdString().data(), device.toStdString().data(), ppdfile.toStdString().data(), nullptr, nullptr);
     } catch (const std::runtime_error &e) {
         qWarning() << e.what();
         return false;
@@ -243,7 +268,10 @@ bool DPrinterManager::addPrinter(const QString &printer, const QString &info, co
 
 bool DPrinterManager::isDefaultPrinter(QString PrinterName)
 {
-    string defaultPrinter = g_cupsConnection->getDefault();
+    auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+    if (!conPtr)
+        return false;
+    string defaultPrinter = conPtr->getDefault();
     if (PrinterName.toStdString().compare(defaultPrinter) == 0) {
         return true;
     }
@@ -261,7 +289,10 @@ bool DPrinterManager::hasUnfinishedJob()
 {
     try {
         vector<string> jobAttrs {"job-id", "job-printer-uri", "job-name"};
-        map<int, map<string, string>> unfinishedJobs = g_cupsConnection->getJobs(nullptr, 1, 1, 0, &jobAttrs);
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (!conPtr)
+            return false;
+        map<int, map<string, string>> unfinishedJobs = conPtr->getJobs(nullptr, 1, 1, 0, &jobAttrs);
         if (unfinishedJobs.size() == 0)
             return false;
         return true;
@@ -276,7 +307,10 @@ bool DPrinterManager::hasUnfinishedJob(const QString &printer)
     //先获取所有的未完成任务，查找指定打印机任务
     try {
         vector<string> jobAttrs {"job-id", "job-printer-uri", "job-name"};
-        map<int, map<string, string>> unfinishedJobs = g_cupsConnection->getJobs(nullptr, 0, 0, 0, &jobAttrs);
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (!conPtr)
+            return false;
+        map<int, map<string, string>> unfinishedJobs = conPtr->getJobs(nullptr, 0, 0, 0, &jobAttrs);
         if (unfinishedJobs.size() == 0)
             return false;
         map<int, map<string, string>>::iterator iter;
@@ -299,7 +333,10 @@ bool DPrinterManager::hasFinishedJob()
 {
     try {
         vector<string> jobAttrs {"job-id", "job-printer-uri", "job-state"};
-        map<int, map<string, string>> finishedJobs = g_cupsConnection->getJobs("completed", 1, 1, 0, &jobAttrs);
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (!conPtr)
+            return false;
+        map<int, map<string, string>> finishedJobs = conPtr->getJobs("completed", 1, 1, 0, &jobAttrs);
         if (finishedJobs.size() == 0)
             return false;
         return true;
@@ -361,7 +398,9 @@ bool DPrinterManager::isUserCancelAnyEnabled() const
 
 void DPrinterManager::updateServerSetting()
 {
-    m_pServerSettings.updateSettings(g_cupsConnection->adminGetServerSettings());
+    auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+    if (conPtr)
+        m_pServerSettings.updateSettings(conPtr->adminGetServerSettings());
 }
 
 void DPrinterManager::commit()

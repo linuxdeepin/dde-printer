@@ -31,20 +31,16 @@ std::unique_ptr<Connection> CupsConnectionFactory::createConnection(QString strH
         if (0 != connectionPtr->init(strHost.toUtf8().data(), port, encryption)) {
             qWarning() << "Unable to connect " << strHost;
             connectionPtr.reset();
-
         }
-
     } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         connectionPtr.reset();
 
     }
     return connectionPtr;
-
 }
 
 std::unique_ptr<Connection> CupsConnectionFactory::createConnectionBySettings()
-
 {
     std::unique_ptr<Connection> connectionPtr = std::unique_ptr<Connection>(new Connection());
     try {

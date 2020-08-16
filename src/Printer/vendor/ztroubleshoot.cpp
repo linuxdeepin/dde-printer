@@ -84,7 +84,9 @@ static QStringList getDirectDevices()
     map<string, map<string, string>>::iterator itmap;
 
     try {
-        devs = g_cupsConnection->getDevices(nullptr, &inSechemes, 0, CUPS_TIMEOUT_DEFAULT);
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr)
+            devs = conPtr->getDevices(nullptr, &inSechemes, 0, CUPS_TIMEOUT_DEFAULT);
     } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return uris;
@@ -319,7 +321,9 @@ bool CheckAttributes::isPass()
     }
 
     try {
-        attrs = g_cupsConnection->getPrinterAttributes(m_printerName.toUtf8().data(), nullptr, &reqs);
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr)
+            attrs = conPtr->getPrinterAttributes(m_printerName.toUtf8().data(), nullptr, &reqs);
     } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         emit signalStateChanged(TStat_Fail, tr("Failed to get printer attributes, error: ") + QString::fromUtf8(ex.what()));

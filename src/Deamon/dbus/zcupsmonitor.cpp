@@ -206,11 +206,14 @@ QString CupsMonitor::getJobNotify(const QMap<QString, QVariant> &job)
 void CupsMonitor::clearSubscriptions()
 {
     try {
-        vector<map<string, string>> subs = g_cupsConnection->getSubscriptions(SUB_URI, true, -1);
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (!conPtr)
+            return;
+        vector<map<string, string>> subs = conPtr->getSubscriptions(SUB_URI, true, -1);
         for (size_t i = 0; i < subs.size(); i++) {
             dumpStdMapValue(subs[i]);
             m_subId = attrValueToQString(subs[i]["notify-subscription-id"]).toInt();
-            g_cupsConnection->cancelSubscription(m_subId);
+            conPtr->cancelSubscription(m_subId);
         }
     } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
@@ -221,11 +224,15 @@ void CupsMonitor::clearSubscriptions()
 int CupsMonitor::createSubscription()
 {
     m_subId = g_Settings->getSubscriptionId();
-
+    auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+    if (!conPtr) {
+        m_subId = -1;
+        return m_subId;
+    }
     try {
         if (-1 != m_subId) {
             bool isExists = false;
-            vector<map<string, string>> subs = g_cupsConnection->getSubscriptions(SUB_URI, true, -1);
+            vector<map<string, string>> subs = conPtr->getSubscriptions(SUB_URI, true, -1);
             for (size_t i = 0; i < subs.size(); i++) {
                 dumpStdMapValue(subs[i]);
 
@@ -247,7 +254,7 @@ int CupsMonitor::createSubscription()
     try {
         if (-1 == m_subId) {
             vector<string> events = {"printer-deleted", "printer-state-changed", "job-progress", "job-state-changed"};
-            m_subId = g_cupsConnection->createSubscription(SUB_URI, &events, 0, nullptr, 86400, 0, nullptr);
+            m_subId = conPtr->createSubscription(SUB_URI, &events, 0, nullptr, 86400, 0, nullptr);
             g_Settings->setSubscriptionId(m_subId);
             g_Settings->setSequenceNumber(0);
             qDebug() << "createSubscription id: " << m_subId;
@@ -267,8 +274,10 @@ int CupsMonitor::getNotifications(int &notifysSize)
 
     try {
         bool skip = m_jobId > 0;
-
-        vector<map<string, string>> notifys = g_cupsConnection->getNotifications(m_subId, m_seqNumber, nullptr, nullptr);
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (!conPtr)
+            return -1;
+        vector<map<string, string>> notifys = conPtr->getNotifications(m_subId, m_seqNumber, nullptr, nullptr);
         notifysSize = notifys.size();
 
         if (notifysSize)
@@ -399,8 +408,12 @@ int CupsMonitor::getNotifications(int &notifysSize)
 int CupsMonitor::cancelSubscription()
 {
     try {
-        if (-1 != m_subId)
-            g_cupsConnection->cancelSubscription(m_subId);
+        if (-1 != m_subId) {
+            auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+            if (conPtr)
+                conPtr->cancelSubscription(m_subId);
+        }
+
     } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;

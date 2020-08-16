@@ -65,7 +65,9 @@ int JobManager::getJobs(map<int, map<string, string>> &jobs, int which, int myJo
     }
 
     try {
-        jobs = g_cupsConnection->getJobs(g_whichs[which], myJobs, 0, 0, &requst);
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr)
+            jobs = conPtr->getJobs(g_whichs[which], myJobs, 0, 0, &requst);
     } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
@@ -102,7 +104,9 @@ int JobManager::getJobById(map<string, string> &job, int jobId)
     }
 
     try {
-        jobs = g_cupsConnection->getJobs(g_whichs[WHICH_JOB_ALL], 0, 1, jobId, &requst);
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr)
+            jobs = conPtr->getJobs(g_whichs[WHICH_JOB_ALL], 0, 1, jobId, &requst);
     } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
@@ -125,7 +129,9 @@ int JobManager::cancelJob(int job_id)
     qInfo() << "Job: " << job_id;
 
     try {
-        g_cupsConnection->cancelJob(job_id, 0);
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr)
+            conPtr->cancelJob(job_id, 0);
     } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
@@ -139,10 +145,13 @@ int JobManager::deleteJob(int job_id, const char *dest)
     qInfo() << "Job: " << job_id;
 
     try {
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (!conPtr)
+            return -1;
         if (dest) {
-            g_cupsConnection->cancelAllJobs(dest, nullptr, 1, 1);
+            conPtr->cancelAllJobs(dest, nullptr, 1, 1);
         } else {
-            g_cupsConnection->cancelJob(job_id, 1);
+            conPtr->cancelJob(job_id, 1);
         }
     } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
@@ -157,7 +166,9 @@ int JobManager::holdJob(int job_id)
     qInfo() << "Job: " << job_id;
 
     try {
-        g_cupsConnection->holdJob(job_id);
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr)
+            conPtr->holdJob(job_id);
     } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
@@ -191,7 +202,9 @@ int JobManager::releaseJob(int job_id)
     qInfo() << "Job: " << job_id;
 
     try {
-        g_cupsConnection->releaseJob(job_id);
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr)
+            conPtr->releaseJob(job_id);
     } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
@@ -205,7 +218,9 @@ int JobManager::restartJob(int job_id)
     qInfo() << "Job: " << job_id;
 
     try {
-        g_cupsConnection->restartJob(job_id, nullptr);
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr)
+            conPtr->restartJob(job_id, nullptr);
     } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
@@ -219,7 +234,9 @@ int JobManager::moveJob(const char *destUri, int job_id, const char *srcUri)
     qInfo() << "Job: " << job_id;
 
     try {
-        g_cupsConnection->moveJob(destUri, job_id, srcUri);
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr)
+            conPtr->moveJob(destUri, job_id, srcUri);
     } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
@@ -233,7 +250,9 @@ static int setJobPriority(int job_id, int iPriority)
     qInfo() << "Job: " << job_id << iPriority;
 
     try {
-        g_cupsConnection->setJobPriority(job_id, iPriority);
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr)
+            conPtr->setJobPriority(job_id, iPriority);
     } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
@@ -291,7 +310,9 @@ QString JobManager::printTestPage(const char *dest, int &jobId, const char *form
     qInfo() << dest;
 
     try {
-        jobId = g_cupsConnection->printTestPage(dest, testFile, PrintTestTitle, format, nullptr);
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr)
+            jobId = conPtr->printTestPage(dest, testFile, PrintTestTitle, format, nullptr);
     } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return QString::fromUtf8(ex.what());

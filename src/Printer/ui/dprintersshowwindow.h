@@ -292,8 +292,6 @@ private slots:
     // 服务器设置
     void serverSettingsSlot();
 
-    //    bool eventFilter(QObject *watched, QEvent *event) override;
-
     void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
     void resizeEvent(QResizeEvent *event) override;

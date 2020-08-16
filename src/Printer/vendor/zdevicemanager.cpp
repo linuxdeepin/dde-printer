@@ -280,7 +280,9 @@ int RefreshDevicesByBackendTask::doWork()
         }
 
         try {
-            devs = g_cupsConnection->getDevices(&exSechemes, &inSechemes, 0, CUPS_TIMEOUT_DEFAULT);
+            auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+            if (conPtr)
+                devs = conPtr->getDevices(&exSechemes, &inSechemes, 0, CUPS_TIMEOUT_DEFAULT);
         } catch (const std::exception &ex) {
             qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
             continue;
@@ -382,7 +384,7 @@ int RefreshDevicesByHostTask::probe_ipp(const QString &strHost)
     /*连接指定ip的cups服务器，不是全局的默认ip*/
     auto conPtr = CupsConnectionFactory::createConnection(strHost, 0, 0);
     if (conPtr) {
-        printersMap = g_cupsConnection->getPrinters();
+        printersMap = conPtr->getPrinters();
     } else {
         return -1;
     }
