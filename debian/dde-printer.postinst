@@ -18,10 +18,12 @@ GPG="${GPGGDIR}/printer.gpg"
 #    /usr/bin/apt-key add $GPG
 #fi
 # restart process after updating
-ProcessName="dde-printer -m 1"    #进程
-ID=`ps -ef | grep "$ProcessName" | grep -v "grep" | awk '{print $2}'`  #注意此shell脚本的名称，避免自杀
+#进程
+ProcessName="dde-printer-helper"
+#注意此shell脚本的名称，避免自杀
+ID=`ps -ef | grep "$ProcessName" | grep -v "grep" | awk '{print $2}'`
 if [ -z "$ID" ];then
-    echo "process id is empty, process is not existed..."
+    echo "$ProcessName is not running"
 else
     echo "$ID process will restart..."
     kill -USR1 $ID  #通知进程重启

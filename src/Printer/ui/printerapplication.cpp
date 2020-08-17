@@ -37,7 +37,6 @@
 #include <QDBusError>
 #include <QDBusConnection>
 
-#include <signal.h>
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 
@@ -90,6 +89,7 @@ int PrinterApplication::create()
     if (!qApp)
         return -1;
 
+
     qApp->loadTranslator();
     qApp->setAttribute(Qt::AA_UseHighDpiPixmaps);
     qApp->setOrganizationName("deepin");
@@ -120,6 +120,7 @@ int PrinterApplication::create()
 
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::newProcessInstance, this, &PrinterApplication::slotNewProcessInstance);
 
+    detectHelperState();
     return 0;
 }
 
@@ -187,4 +188,19 @@ PrinterApplication::~PrinterApplication()
 
     if (m_mainWindow)
         delete m_mainWindow;
+}
+
+void PrinterApplication::detectHelperState()
+{
+    /*第一次安装没有启动后台程序，需要手动启动*/
+    QProcess proces;
+    QString cmd = "bash";
+    QStringList args;
+    args << "-c" << "ps -ef |grep dde-printer-helper |grep -v 'grep'";
+    proces.start(cmd, args);
+    proces.waitForFinished();
+    if (proces.readAllStandardOutput().isEmpty()) {
+        qInfo() << "start dde-printer-helper";
+        proces.startDetached("bash", QStringList() << "-c" << "dde-printer-helper");
+    }
 }

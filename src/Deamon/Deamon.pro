@@ -36,6 +36,18 @@ target.path = $${PREFIX}/bin
 
 watch.path = /etc/xdg/autostart
 watch.files = $${PWD}/platform/linux/watch/dde-printer-watch.desktop
-INSTALLS += target watch
+
+trans.path =  $${PREFIX}/share/dde-printer-helper/translations
+trans.files = $${PWD}/translations/*.qm
+
+INSTALLS += target watch trans
 }
 include(../Common/Common.pri)
+
+TRANSLATIONS  +=  translations/dde-printer-helper_zh_CN.ts \
+                  translations/dde-printer-helper_en_AU.ts
+
+CONFIG(release, debug|release) {
+    !system($$PWD/translate_generation.sh): error("Failed to generate translation")
+}
+

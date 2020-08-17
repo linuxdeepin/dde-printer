@@ -489,7 +489,8 @@ void DPrintersShowWindow::serverSettingsSlot()
         m_pSettingsDialog = new ServerSettingsWindow();
     }
     /*打开设置界面之前先更新设置接口数据，避免外部程序修改了cups设置，导致数据不同步*/
-    m_pPrinterManager->updateServerSetting();
+    if (!m_pPrinterManager->updateServerSetting())
+        return;
     if (m_pPrinterManager->isSharePrintersEnabled()) {
         m_pSettingsDialog->m_pCheckShared->setChecked(true);
         m_pSettingsDialog->m_pCheckIPP->setChecked(m_pPrinterManager->isRemoteAnyEnabled());

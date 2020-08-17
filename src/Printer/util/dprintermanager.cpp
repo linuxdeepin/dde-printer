@@ -396,11 +396,15 @@ bool DPrinterManager::isUserCancelAnyEnabled() const
     return m_pServerSettings.isUserCancelAnyEnabled();
 }
 
-void DPrinterManager::updateServerSetting()
+bool DPrinterManager::updateServerSetting()
 {
     auto conPtr = CupsConnectionFactory::createConnectionBySettings();
-    if (conPtr)
+    if (conPtr) {
         m_pServerSettings.updateSettings(conPtr->adminGetServerSettings());
+        return true;
+    }
+    return false;
+
 }
 
 void DPrinterManager::commit()

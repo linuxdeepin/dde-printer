@@ -98,7 +98,7 @@ public:
     * @author        liurui
     * @date          2019-11-09
     */
-    void updateServerSetting();
+    bool updateServerSetting();
     void commit();
     bool hasSamePrinter(const QString &printer);
     QString validataName(const QString &oldPrinterName);

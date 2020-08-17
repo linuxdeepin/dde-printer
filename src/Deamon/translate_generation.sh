@@ -4,12 +4,12 @@
 
 cd $(dirname $0)
 
-lupdate -no-obsolete  Printer.pro
-ts_list=(`ls translations/*.ts`)
-lupdate  -no-obsolete Printer.pro -ts translations/dde-printer_en_US.ts
+lupdate -no-obsolete Deamon.pro
 
+ts_list=(`ls translations/*.ts`)
 for ts in "${ts_list[@]}"
 do
     printf "\nprocess ${ts}\n"
+    lupdate -no-obsolete  Deamon.pro -ts "${ts}"
     lrelease "${ts}"
 done

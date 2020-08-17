@@ -113,7 +113,7 @@ const QString zSettings::getOSVersion()
     qInfo() << QLocale::languageToString(QLocale::system().language());
 
     if (QLocale::system().language() == QLocale::Chinese && !archName.isEmpty())
-        defaultVersion = "-"  + archName;
+        defaultVersion += "-"  + archName;
     else
         defaultVersion = "";
 
