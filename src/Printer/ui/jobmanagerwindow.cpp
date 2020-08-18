@@ -34,6 +34,7 @@
 #include <DDialog>
 #include <DPalette>
 #include <DApplicationHelper>
+#include <DApplication>
 
 #include <QStandardItemModel>
 #include <QTableView>
@@ -159,6 +160,38 @@ static QPixmap getActionPixmap(unsigned int iAction, QIcon::Mode mode)
     return pixmap;
 }
 
+static QString getActionIconPath(unsigned int iAction);
+static QString getActionIconPath(unsigned int iAction)
+{
+    QString iconpath;
+
+    switch (iAction) {
+    case JOB_ACTION_Cancel:
+        iconpath = "dp_job_cancel";
+        break;
+    case JOB_ACTION_Delete:
+        iconpath = "dp_job_delete";
+        break;
+    case JOB_ACTION_Hold:
+        iconpath = "dp_job_pause";
+        break;
+    case JOB_ACTION_Release:
+        iconpath = "dp_job_start";
+        break;
+    case JOB_ACTION_Restart:
+        iconpath = "dp_job_again";
+        break;
+    case JOB_ACTION_Priority:
+        iconpath = "dp_job_priority";
+        break;
+    default:
+        qWarning() << "Unsupport actions: " << iAction;
+        break;
+    }
+
+    return iconpath;
+}
+
 static QMap<unsigned int, QRect> getItemActionRect(const QRect &itemRect, const QModelIndex &index)
 {
     QMap<unsigned int, QRect> actions;
@@ -201,6 +234,9 @@ JobListView::JobListView(QWidget *parent)
     verticalHeader()->setVisible(false);
     verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
     verticalHeader()->setDefaultSectionSize(ITEM_Height);
+
+    DFontSizeManager::instance()->bind(horizontalHeader(), DFontSizeManager::T6, int(QFont::Medium));
+    DFontSizeManager::instance()->bind(this, DFontSizeManager::T7, int(QFont::Normal));
     horizontalHeader()->setFixedHeight(ITEM_Height);
     horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
 
@@ -219,9 +255,12 @@ JobListView::JobListView(QWidget *parent)
     m_actionNames << tr("Reprint");
 
     m_label = new QLabel(tr("No print jobs"), this);
+    DFontSizeManager::instance()->bind(m_label, DFontSizeManager::T5, int(QFont::DemiBold));
     m_label->setAlignment(Qt::AlignCenter);
     QPalette pa = m_label->palette();
-    QColor color = pa.color(QPalette::Text);
+    QStyleOption opt;
+    opt.initFrom(m_label);
+    QColor color = opt.palette.color(QPalette::Inactive, QPalette::Text);
     pa.setColor(QPalette::WindowText, QColor(color.red(), color.green(), color.blue(), 100));
     m_label->setPalette(pa);
 }
@@ -453,6 +492,8 @@ void JobItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &optio
     QMap<unsigned int, QRect> actions;
     QList<unsigned int> flags;
     QStyleOptionViewItem newoption = option;
+    QString iconPath;
+    QStyleOptionButton actionButton;
 
     if (index.column() == 0) {
         newoption.rect.setLeft(10);
@@ -460,8 +501,7 @@ void JobItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &optio
 
     if (index.row() % 2) {
         DPalette pl(DApplicationHelper::instance()->palette(option.widget));
-
-        painter->fillRect(newoption.rect, pl.brush(QPalette::AlternateBase));
+        painter->fillRect(newoption.rect, QColor(137, 144, 161, 30));
     }
 
     int iState = index.data(JOB_ITEM_ROLE_STATE).toInt();
@@ -469,22 +509,22 @@ void JobItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &optio
     if (IPP_JSTATE_ABORTED == iState || IPP_JSTATE_STOPPED == iState) {
         newoption.palette.setColor(QPalette::Inactive, QPalette::Text, QColor(255, 87, 54, 100));
     }
-    QItemDelegate::paint(painter, newoption, index);
 
     if (index.column() == ACTION_Column) {
         actions = getItemActionRect(newoption.rect, index);
         flags = actions.keys();
         foreach (unsigned int iAction, flags) {
-            QPixmap pixmap;
-
-            if (g_hoverAction.iHoverAction == static_cast<int>(iAction) && g_hoverAction.iHoverRow == index.row()) {
-                pixmap = getActionPixmap(iAction, QIcon::Active);
-            } else {
-                pixmap = getActionPixmap(iAction);
-            }
-
-            painter->drawPixmap(actions.value(iAction), pixmap);
+            iconPath = getActionIconPath(iAction);
+            actionButton.icon = QIcon::fromTheme(iconPath);
+            actionButton.initFrom(option.widget);
+            actionButton.rect = actions.value(iAction);
+            actionButton.features = QStyleOptionButton::Flat;
+            actionButton.rect.setX(actionButton.rect.x() - ACTION_BUT_SPACE);
+            actionButton.rect.setY(actionButton.rect.y() - ACTION_BUT_SPACE);
+            DApplication::style()->drawControl(QStyle::CE_PushButton, &actionButton, painter);
         }
+    } else {
+        DApplication::style()->drawItemText(painter, newoption.rect, static_cast<int>(newoption.displayAlignment), newoption.palette, true, index.data(Qt::DisplayRole).toString(), QPalette::Text);
     }
 }
 
@@ -730,24 +770,22 @@ void JobsDataModel::updateJobState(int id, int state, const QString &message)
     }
 
     //如果是任务完成的信号，刷新耗材信息。
-    if(g_jobManager->isCompletedState(state))
-    {
+    if (g_jobManager->isCompletedState(state)) {
         g_jobManager->getJobById(jobinfo, id);
 
         auto iter = jobinfo.find("job-printer-uri");
 
-        if(iter != jobinfo.end())
-        {
+        if (iter != jobinfo.end()) {
             QString strURI = attrValueToQString(iter->second);
             QString strName = getPrinterNameFromUri(strURI);
-            DPrinterManager* pManager = DPrinterManager::getInstance();
-            DDestination* pDest = pManager->getDestinationByName(strName);
+            DPrinterManager *pManager = DPrinterManager::getInstance();
+            DDestination *pDest = pManager->getDestinationByName(strName);
 
-            if(pDest != nullptr){
-                if(PRINTER == pDest->getType()){
-                    DPrinter* pPrinter = static_cast<DPrinter*>(pDest);
+            if (pDest != nullptr) {
+                if (PRINTER == pDest->getType()) {
+                    DPrinter *pPrinter = static_cast<DPrinter *>(pDest);
 
-                    if(!pPrinter->isPpdFileBroken()){
+                    if (!pPrinter->isPpdFileBroken()) {
                         pPrinter->disableSupplys();
                         pPrinter->updateSupplys();
                     }
@@ -1028,18 +1066,20 @@ void JobManagerWindow::initUi()
     m_jobsView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Fixed);
     m_jobsView->horizontalHeader()->setSectionResizeMode(4, QHeaderView::Fixed);
     m_jobsView->horizontalHeader()->setSectionResizeMode(5, QHeaderView::Fixed);
-    m_jobsView->horizontalHeader()->setSectionResizeMode(6, QHeaderView::Fixed);
+    m_jobsView->horizontalHeader()->setSectionResizeMode(6, QHeaderView::Interactive);
     m_jobsView->setColumnWidth(0, 72);
     m_jobsView->setColumnWidth(1, 82);
     m_jobsView->setColumnWidth(4, 65);
-    m_jobsView->setColumnWidth(5, 124);
+    m_jobsView->setColumnWidth(5, 146);
     m_jobsView->setColumnWidth(6, 146);
 
     m_jobCountLabel->setAlignment(Qt::AlignCenter);
     m_jobCountLabel->setFixedHeight(30);
     QPalette pa = m_jobCountLabel->palette();
-    QColor color = pa.color(QPalette::Text);
-    pa.setColor(QPalette::WindowText, QColor(color.red(), color.green(), color.blue(), 75));
+    QStyleOption opt;
+    opt.initFrom(m_jobCountLabel);
+    QColor color = opt.palette.color(QPalette::Inactive, QPalette::Text);
+    pa.setColor(QPalette::WindowText, color);
     m_jobCountLabel->setPalette(pa);
 
     setMinimumSize(JOB_VIEW_WIDTH, 546);
