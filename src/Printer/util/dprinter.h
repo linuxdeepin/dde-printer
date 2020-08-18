@@ -78,6 +78,7 @@ typedef OPTNODE GENERALOPTNODE;
 
 class DPrinter : public DDestination
 {
+    Q_OBJECT
 public:
     DPrinter(Connection *con);
 
