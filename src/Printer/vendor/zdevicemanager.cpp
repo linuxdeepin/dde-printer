@@ -431,7 +431,7 @@ int RefreshDevicesByHostTask::probe_smb(const QString &strHost)
     qDebug() << "probe_smb" << strHost;
 
     if (!p_smbc_init_context) {
-        QLibrary smbclient("libsmbclient");
+        QLibrary smbclient("libsmbclient", 0);
         p_smbc_new_context = (pfunc_smbc_new_context)smbclient.resolve("smbc_new_context");
         p_smbc_setFunctionAuthDataWithContext = (pfunc_smbc_setFunctionAuthDataWithContext)smbclient.resolve("smbc_setFunctionAuthDataWithContext");
         p_smbc_init_context = (pfunc_smbc_init_context)smbclient.resolve("smbc_init_context");
