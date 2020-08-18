@@ -23,6 +23,7 @@
 #include "mibpath.h"
 #include "snmp.h"
 
+#include <stdlib.h>
 #include <strings.h>
 
 #define CUPS_MAX_SUPPLIES	32	/* Maximum number of supplies for a printer */
@@ -132,11 +133,16 @@ cupssnmp::cupssnmp()
 {
     m_iFd = -1;
     m_bSNMPSupport = false;
+    m_pHost = nullptr;
 }
 
 cupssnmp::~cupssnmp()
 {
-
+    if(m_pHost)
+    {
+        delete m_pHost;
+        m_pHost = nullptr;
+    }
 }
 
 void cupssnmp::setIP(const string & strip)
@@ -276,7 +282,11 @@ void cupssnmp::SNMPInit()
     * Get the device description...
     */
 
-    //m_pHost = get_interface_addresses(nullptr);
+    if(!m_pHost)
+    {
+        m_pHost = (http_addrlist_s*)calloc(sizeof(http_addrlist_t), 1);
+    }
+
     sockaddr_in addr;
     addr.sin_family = AF_INET;
     addr.sin_addr.s_addr = inet_addr(m_strip.c_str());
