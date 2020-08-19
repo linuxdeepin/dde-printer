@@ -56,7 +56,9 @@
 #include <QLineEdit>
 
 DPrintersShowWindow::DPrintersShowWindow(QWidget *parent)
-    : DMainWindow(parent)
+    : DMainWindow(parent),
+      m_pSearchWindow(nullptr),
+      m_pSettingsDialog(nullptr)
 {
     m_pPrinterManager = DPrinterManager::getInstance();
 
@@ -295,10 +297,6 @@ void DPrintersShowWindow::initUI()
     pCentralWidget1->setLayout(pMainLayout1);
     takeCentralWidget();
     setCentralWidget(pCentralWidget1);
-    //设置了parent会导致moveToCenter失效
-    m_pSearchWindow = new PrinterSearchWindow();
-    //设置对话框
-    m_pSettingsDialog = new ServerSettingsWindow();
 }
 
 void DPrintersShowWindow::initConnections()
@@ -348,8 +346,6 @@ void DPrintersShowWindow::initConnections()
     connect(m_pDefaultAction, &QAction::triggered, this, &DPrintersShowWindow::listWidgetMenuActionSlot);
     connect(m_pRejectAction, &QAction::triggered, this, &DPrintersShowWindow::listWidgetMenuActionSlot);
 
-    connect(m_pSearchWindow, &PrinterSearchWindow::updatePrinterList, this, &DPrintersShowWindow::refreshPrinterListView);
-
     connect(m_pSettings, &QAction::triggered, this, &DPrintersShowWindow::serverSettingsSlot);
 
     connect(g_cupsMonitor, &CupsMonitor::signalPrinterStateChanged, this, [this](const QString & printer, int state, const QString & message) {
@@ -371,9 +367,10 @@ void DPrintersShowWindow::initConnections()
 void DPrintersShowWindow::showEvent(QShowEvent *event)
 {
     Q_UNUSED(event)
-    refreshPrinterListView(QString());
 
     QTimer::singleShot(10, this, [ = ]() {
+        refreshPrinterListView(QString());
+
         CheckCupsServer cups(this);
         if (!cups.isPass()) {
             DDialog dlg("", tr("CUPS server is not running, and can’t manage printers."));
@@ -496,6 +493,11 @@ void DPrintersShowWindow::refreshPrinterListView(const QString &newPrinterName)
 
 void DPrintersShowWindow::serverSettingsSlot()
 {
+    //设置对话框
+    if (!m_pSettingsDialog) {
+        m_pSettingsDialog = new ServerSettingsWindow();
+    }
+
     if (m_pPrinterManager->isSharePrintersEnabled()) {
         m_pSettingsDialog->m_pCheckShared->setChecked(true);
         m_pSettingsDialog->m_pCheckIPP->setChecked(m_pPrinterManager->isRemoteAnyEnabled());
@@ -545,8 +547,12 @@ void DPrintersShowWindow::closeEvent(QCloseEvent *event)
 
 void DPrintersShowWindow::addPrinterClickSlot()
 {
-    if (m_pSearchWindow)
-        m_pSearchWindow->show();
+    //设置了parent会导致moveToCenter失效
+    if (!m_pSearchWindow) {
+        m_pSearchWindow = new PrinterSearchWindow();
+	connect(m_pSearchWindow, &PrinterSearchWindow::updatePrinterList, this, &DPrintersShowWindow::refreshPrinterListView);
+    }
+    m_pSearchWindow->show();
 }
 
 void DPrintersShowWindow::deletePrinterClickSlot()
@@ -682,7 +688,7 @@ void DPrintersShowWindow::printSettingClickSlot()
         int iIndex = dialog.addButton(tr("Install Driver"));
         dialog.setIcon(QPixmap(":/images/warning_logo.svg"));
         QAbstractButton *pBtn = dialog.getButton(iIndex);
-        connect(pBtn, &QAbstractButton::clicked, this, &DPrintersShowWindow::printDriveInstall);
+        connect(pBtn, &QAbstractButton::clicked, this, &DPrintersShowWindow::addPrinterClickSlot);
         QPoint ptCen1 = this->geometry().center();
         QPoint ptCen2 = dialog.geometry().center();
         QPoint mvPhasor = ptCen1 - ptCen2;
@@ -728,11 +734,6 @@ void DPrintersShowWindow::printFalutClickSlot()
     TroubleShootDialog dlg(printerName, this);
     dlg.setModal(true);
     dlg.exec();
-}
-
-void DPrintersShowWindow::printDriveInstall()
-{
-    m_pSearchWindow->show();
 }
 
 void DPrintersShowWindow::printSupplyClickSlot()

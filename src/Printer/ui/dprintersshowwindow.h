@@ -277,7 +277,6 @@ private slots:
     void printQueueClickSlot();
     void printTestClickSlot();
     void printFalutClickSlot();
-    void printDriveInstall();
     void printSupplyClickSlot();
 
     void printerListWidgetItemChangedSlot(const QModelIndex &previous);
