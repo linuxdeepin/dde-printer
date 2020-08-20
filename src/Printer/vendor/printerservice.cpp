@@ -31,6 +31,8 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QJsonArray>
+#include <QTimer>
+#include <QEventLoop>
 
 
 static QNetworkAccessManager g_networkManager;
@@ -45,11 +47,27 @@ PrinterServerInterface::PrinterServerInterface(const QString &url, const QJsonOb
 void PrinterServerInterface::postToServer()
 {
     QNetworkReply *reply = post_request(m_url, m_args);
-    connect(reply, &QNetworkReply::finished, [=]() {
-        qInfo() << m_url << "return " << reply->error();
 
-        emit signalDone(reply->error(), reply->readAll());
-    });
+    /*QNetworkReply默认超时时间太长，这里暂定设置为10s*/
+    QTimer timer;
+    timer.setSingleShot(true);
+    QEventLoop loop;
+    connect(&timer, &QTimer::timeout, &loop, &QEventLoop::quit);
+    connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+    timer.start(10000);
+    loop.exec();
+
+    if (timer.isActive()) {
+        /*正常返回*/
+        timer.stop();
+    } else {
+        /*timeout*/
+        disconnect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+        qWarning() << m_url << "timeout(10s)";
+    }
+    qInfo() << m_url << "return " << reply->error();
+    emit signalDone(reply->error(), reply->readAll());
+    reply->deleteLater();
 }
 
 QNetworkReply *PrinterServerInterface::post_request(const QString &path, const QJsonObject &obj)
