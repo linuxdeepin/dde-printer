@@ -44,8 +44,8 @@ void handler(int signo)
     if (signo == SIGUSR1) {
         pid_t pid = getpid();
         QProcess process;
-        QString cmd = QString("dde-printer-helper -r %1").arg(pid);
-        process.startDetached(cmd);
+        QString cmd = QString("dde-printer-helper");
+        process.startDetached(cmd, QStringList() << "-r" << QString::number(pid));
     }
 }
 

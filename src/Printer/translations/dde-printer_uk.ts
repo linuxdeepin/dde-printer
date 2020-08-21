@@ -2,27 +2,47 @@
 <context>
     <name>AddPrinterTask</name>
     <message>
+<<<<<<< HEAD
         <location filename="../vendor/addprinter.cpp" line="546"/>
+=======
+        <location filename="../vendor/addprinter.cpp" line="549"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>URI and driver do not match.</source>
         <translation>Невідповідність адреси і драйвера.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../vendor/addprinter.cpp" line="548"/>
+=======
+        <location filename="../vendor/addprinter.cpp" line="551"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Install hplip first and restart the app to install the driver again.</source>
         <translation>Спочатку встановіть hplip, потім перезапустіть програму для повторної спроби встановити драйвер.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../vendor/addprinter.cpp" line="556"/>
+=======
+        <location filename="../vendor/addprinter.cpp" line="559"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Please select an hplip driver and try again.</source>
         <translation>Будь ласка, виберіть драйвер hplip і повторіть спробу.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../vendor/addprinter.cpp" line="569"/>
+=======
+        <location filename="../vendor/addprinter.cpp" line="572"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>URI can&apos;t be empty</source>
         <translation>Адреса не може бути порожньою.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../vendor/addprinter.cpp" line="576"/>
+=======
+        <location filename="../vendor/addprinter.cpp" line="579"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source> not found</source>
         <translation> не знайдено</translation>
     </message>
@@ -30,37 +50,37 @@
 <context>
     <name>CheckAttributes</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="306"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="307"/>
         <source>Check printer settings</source>
         <translation>Перевірити параметри принтера</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="315"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="316"/>
         <source>Checking printer settings...</source>
         <translation>Перевіряємо параметри принтера…</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="318"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="319"/>
         <source>Success</source>
         <translation>Успіх</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="326"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="329"/>
         <source>Failed to get printer attributes, error: </source>
         <translation>Не вдалося отримати атрибути принтера, помилка:</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="334"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="337"/>
         <source>%1 is disabled</source>
         <translation>%1 вимкнено</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="343"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="346"/>
         <source>is not accepting jobs</source>
         <translation>не приймає завдань</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="348"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="351"/>
         <source>Printer settings are ok</source>
         <translation>Із параметрами принтера усе гаразд</translation>
     </message>
@@ -68,42 +88,42 @@
 <context>
     <name>CheckConnected</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="211"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="212"/>
         <source>Check printer connection</source>
         <translation>Перевірка з&apos;єднання із принтером</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="223"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="224"/>
         <source>Checking printer connection...</source>
         <translation>Перевіряємо з&apos;єднання із принтером…</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="226"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="227"/>
         <source>Success</source>
         <translation>Успіх</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="263"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="264"/>
         <source>Cannot connect to the printer, error: %1</source>
         <translation>Не вдалося встановити з&apos;єднання із принтером. Помилка: %1</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="271"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="272"/>
         <source> is not connected, URI: </source>
         <translation> не з&apos;єднано, адреса: </translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="280"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="281"/>
         <source>%1 does not exist</source>
         <translation>%1 не існує</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="289"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="290"/>
         <source>Cannot connect to the printer</source>
         <translation>Не вдалося встановити з&apos;єднання із принтером</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="295"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="296"/>
         <source>The connection is valid</source>
         <translation>З&apos;єднання є коректним</translation>
     </message>
@@ -111,22 +131,22 @@
 <context>
     <name>CheckCupsServer</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="103"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="110"/>
         <source>Check CUPS server</source>
         <translation>Перевірка сервера CUPS</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="111"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="116"/>
         <source>Checking CUPS server...</source>
         <translation>Перевіряємо сервер CUPS…</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="117"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="118"/>
         <source>CUPS server is invalid</source>
         <translation>Сервер CUPS працює некоректно</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="122"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="123"/>
         <source>CUPS server is valid</source>
         <translation>CUPS працює належним чином</translation>
     </message>
@@ -134,114 +154,78 @@
 <context>
     <name>CheckDriver</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="140"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="141"/>
         <source>Checking driver...</source>
         <translation>Перевіряємо драйвер…</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="143"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="144"/>
         <source>Success</source>
         <translation>Успіх</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="151"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="152"/>
         <source>PPD file %1 not found</source>
         <translation>Не знайдено файла PPD %1</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="161"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="162"/>
         <source>The driver is damaged</source>
         <translation>Драйвер пошкоджено</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="177"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="178"/>
         <source>Driver filter %1 not found</source>
         <translation>Не знайдено фільтра драйвера %1</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="189"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="190"/>
         <source>%1 is not installed, cannot print now</source>
         <translation>%1 не встановлено. Зараз друк неможливий.</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="195"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="196"/>
         <source>Driver is valid</source>
         <translation>Драйвер є коректним</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="201"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="202"/>
         <source>Check driver</source>
         <translation>Перевірка драйвера</translation>
     </message>
 </context>
 <context>
-    <name>CupsMonitor</name>
-    <message>
-        <location filename="../vendor/zcupsmonitor.cpp" line="74"/>
-        <source>Queuing</source>
-        <translation>Додаємо до черги</translation>
-    </message>
-    <message>
-        <location filename="../vendor/zcupsmonitor.cpp" line="75"/>
-        <source>Paused</source>
-        <translation>Призупинено</translation>
-    </message>
-    <message>
-        <location filename="../vendor/zcupsmonitor.cpp" line="76"/>
-        <source>Printing</source>
-        <translation>Друк</translation>
-    </message>
-    <message>
-        <location filename="../vendor/zcupsmonitor.cpp" line="77"/>
-        <source>Stopped</source>
-        <translation>Зупинено</translation>
-    </message>
-    <message>
-        <location filename="../vendor/zcupsmonitor.cpp" line="78"/>
-        <source>Canceled</source>
-        <translation>Скасовано</translation>
-    </message>
-    <message>
-        <location filename="../vendor/zcupsmonitor.cpp" line="79"/>
-        <source>Error</source>
-        <translation>Помилка</translation>
-    </message>
-    <message>
-        <location filename="../vendor/zcupsmonitor.cpp" line="80"/>
-        <source>Completed</source>
-        <translation>Завершено</translation>
-    </message>
-    <message>
-        <location filename="../vendor/zcupsmonitor.cpp" line="293"/>
-        <source>%1 timed out, reason: %2</source>
-        <translation>Перевищено час очікування на %1. Причина: %2</translation>
-    </message>
-    <message>
-        <location filename="../vendor/zcupsmonitor.cpp" line="307"/>
-        <source>%1 printed successfully, please take away the paper in time!</source>
-        <translation>%1 успішно надруковано. Будь ласка, вчасно заберіть папір!</translation>
-    </message>
-    <message>
-        <location filename="../vendor/zcupsmonitor.cpp" line="309"/>
-        <source>%1 %2, reason: %3</source>
-        <translation>%1 %2, причина: %3</translation>
-    </message>
-</context>
-<context>
     <name>DDestination</name>
     <message>
+<<<<<<< HEAD
+=======
+        <location filename="../util/ddestination.cpp" line="161"/>
+        <location filename="../util/ddestination.cpp" line="218"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Unknown</source>
         <translation type="vanished">Невідомий</translation>
     </message>
     <message>
+<<<<<<< HEAD
+=======
+        <location filename="../util/ddestination.cpp" line="225"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Idle</source>
         <translation type="vanished">Бездіяльність</translation>
     </message>
     <message>
+<<<<<<< HEAD
+=======
+        <location filename="../util/ddestination.cpp" line="228"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Printing</source>
         <translation type="vanished">Друк</translation>
     </message>
     <message>
+<<<<<<< HEAD
+=======
+        <location filename="../util/ddestination.cpp" line="231"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Disabled</source>
         <translation type="vanished">Вимкнено</translation>
     </message>
@@ -249,6 +233,10 @@
 <context>
     <name>DPrinter</name>
     <message>
+<<<<<<< HEAD
+=======
+        <location filename="../util/dprinter.cpp" line="268"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>(recommended)</source>
         <translation type="vanished">(рекомендований)</translation>
     </message>
@@ -602,159 +590,277 @@
 <context>
     <name>DPrintersShowWindow</name>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="83"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="86"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Settings</source>
         <translation>Параметри</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="89"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="92"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Printers</source>
         <translation>Принтери</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="93"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="96"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Add printer</source>
         <translation>Додати принтер</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="96"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="99"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Delete printer</source>
         <translation>Вилучити принтер</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="117"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="120"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Shared</source>
         <translation>Спільний</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="120"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="123"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Enabled</source>
         <translation>Увімкнено</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="123"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="126"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Accept jobs</source>
         <translation>Приймати завдання</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="127"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="130"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Set as default</source>
         <translation>Зробити типовим</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="138"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="141"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>No Printers</source>
         <translation>Немає принтерів</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="162"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="165"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Location:</source>
         <translation>Розташування:</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="167"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="169"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Model:</source>
         <translation>Модель:</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="170"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="172"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Status:</source>
         <translation>Стан:</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="198"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="200"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Properties</source>
         <translation>Властивості</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="208"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="210"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Print Queue</source>
         <translation>Черга друку</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="218"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="220"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Print Test Page</source>
         <translation>Надрукувати пробну сторінку</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="238"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="242"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Supplies</source>
         <translation>Запаси</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="262"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="267"/>
         <source>No printer configured</source>
         <translation>Немає налаштованих принтерів</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="267"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="272"/>
         <source>Click + to add printers</source>
         <translation>Натисніть «+», що додати принтери</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="326"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="331"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>As print jobs are in process, you cannot rename the printer now, please try later</source>
         <translation>Оскільки зараз виконуються завдання з друку, ви не можете перейменувати принтер. Спробуйте перейменувати його пізніше.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="330"/>
         <location filename="../ui/dprintersshowwindow.cpp" line="377"/>
         <location filename="../ui/dprintersshowwindow.cpp" line="611"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="335"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="373"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="600"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>OK</source>
         <translation>Гаразд</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="354"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="531"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Idle</source>
         <translation>Бездіяльність</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="356"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="533"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Printing</source>
         <translation>Друк</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="358"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="535"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Disabled</source>
         <translation>Вимкнено</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="374"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="370"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>CUPS server is not running, and can’t manage printers.</source>
         <translation>Сервер CUPS не запущено, отже, він не може керувати принтерами.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="569"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="558"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Are you sure you want to delete the printer &quot;%1&quot; ?</source>
         <translation>Ви справді хочете вилучити запис принтера «%1» ?</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="575"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="564"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Delete</source>
         <translation>Вилучити</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="607"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="596"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>The name already exists</source>
         <translation>Цю назву вже використано</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="626"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="615"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>You will not be able to reprint the completed jobs if continue. Are you sure you want to rename the printer?</source>
         <translation>Якщо ви продовжите виконання цієї дії, ви не зможете повторно надрукувати завершені завдання з друку. Ви справді хочете перейменувати принтер?</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="631"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="620"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Confirm</source>
         <translation>Підтвердити</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="689"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="678"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>The driver is damaged, please install it again.</source>
         <translation>Файли драйвера пошкоджено. Будь ласка, встановіть драйвер повторно.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/dprintersshowwindow.cpp" line="692"/>
+=======
+        <location filename="../ui/dprintersshowwindow.cpp" line="681"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Install Driver</source>
         <translation>Встановити драйвер</translation>
     </message>
@@ -831,7 +937,11 @@
 <context>
     <name>DriverManager</name>
     <message>
+<<<<<<< HEAD
         <location filename="../vendor/zdrivermanager.cpp" line="794"/>
+=======
+        <location filename="../vendor/zdrivermanager.cpp" line="793"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>EveryWhere driver</source>
         <translation>Драйвер EveryWhere</translation>
     </message>
@@ -839,12 +949,20 @@
 <context>
     <name>InstallDriver</name>
     <message>
+<<<<<<< HEAD
         <location filename="../vendor/addprinter.cpp" line="373"/>
+=======
+        <location filename="../vendor/addprinter.cpp" line="376"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Failed to find the driver solution: %1, error: %2</source>
         <translation>Не вдалося розв&apos;язати проблему із драйверами: %1. Помилка: %2</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../vendor/addprinter.cpp" line="384"/>
+=======
+        <location filename="../vendor/addprinter.cpp" line="387"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>The solution is invalid</source>
         <translation>Некоректне розв&apos;язання</translation>
     </message>
@@ -1054,44 +1172,78 @@
 <context>
     <name>JobListView</name>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="250"/>
         <location filename="../ui/jobmanagerwindow.cpp" line="410"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="254"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="414"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Cancel</source>
         <translation>Скасувати</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="251"/>
         <location filename="../ui/jobmanagerwindow.cpp" line="411"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="255"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="415"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Delete</source>
         <translation>Вилучити</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="252"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="256"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Pause</source>
         <translation>Призупинити</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="253"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="257"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Resume</source>
         <translation>Продовжити</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="254"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="258"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Print first</source>
         <translation>Друкувати першим</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="255"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="259"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Reprint</source>
         <translation>Повторно надрукувати</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="257"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="261"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>No print jobs</source>
         <translation>Немає завдань друку</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="404"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="408"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Are you sure you want to delete this job?</source>
         <translation>Ви впевнені, що бажаєте вилучити це завдання?</translation>
     </message>
@@ -1099,7 +1251,7 @@
 <context>
     <name>JobManager</name>
     <message>
-        <location filename="../vendor/zjobmanager.cpp" line="279"/>
+        <location filename="../../Common/zjobmanager.cpp" line="307"/>
         <source> not found</source>
         <translation> не знайдено</translation>
     </message>
@@ -1107,32 +1259,56 @@
 <context>
     <name>JobManagerWindow</name>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="1046"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="1060"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Refresh</source>
         <translation>Оновити</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="1050"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="1064"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>All</source>
         <translation>Всі</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="1051"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="1065"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Print Queue</source>
         <translation>Черга друку</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="1052"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="1066"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Completed</source>
         <translation>Завершено</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="1111"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="1130"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source> failed</source>
         <translation>Помилка</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="1132"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="1151"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>%1 jobs</source>
         <translation>Завдання (%1)</translation>
     </message>
@@ -1140,42 +1316,74 @@
 <context>
     <name>JobsDataModel</name>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="671"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="675"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Job</source>
         <translation>Завдання</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="673"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="677"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>User</source>
         <translation>Користувач</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="675"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="679"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Document</source>
         <translation>Документ</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="677"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="681"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Printer</source>
         <translation>Принтер</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="679"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="683"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Size</source>
         <translation>Розмір</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="681"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="685"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Time submitted</source>
         <translation>Час надсилання</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="683"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="687"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Status</source>
         <translation>Стан</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="685"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="689"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Action</source>
         <translation>Дія</translation>
     </message>
@@ -1216,12 +1424,12 @@
 <context>
     <name>PrinterApplication</name>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="111"/>
+        <location filename="../ui/printerapplication.cpp" line="99"/>
         <source>Print Manager</source>
-        <translation>Керування друком</translation>
+        <translation>Диспетчер друку</translation>
     </message>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="112"/>
+        <location filename="../ui/printerapplication.cpp" line="100"/>
         <source>Print Manager is a printer management tool, which supports adding and removing printers, managing print jobs and so on.</source>
         <translation>«Керування принтерами» — інструмент для керування принтерами, у якому передбачено підтримку додавання та вилучення записів принтерів, керування завданнями із друку тощо.</translation>
     </message>
@@ -1311,12 +1519,12 @@
 <context>
     <name>PrinterTestJob</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="369"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="372"/>
         <source>Check test page printing</source>
         <translation>Перевірити друк тестової сторінки</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="416"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="426"/>
         <source>Printing test page...</source>
         <translation>Друкуємо тестову сторінку…</translation>
     </message>
@@ -1324,7 +1532,7 @@
 <context>
     <name>PrinterTestPageDialog</name>
     <message>
-        <location filename="../ui/printertestpagedialog.cpp" line="63"/>
+        <location filename="../ui/printertestpagedialog.cpp" line="62"/>
         <source>OK</source>
         <translation>Гаразд</translation>
     </message>
@@ -1332,32 +1540,56 @@
 <context>
     <name>QObject</name>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="104"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="108"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>1 min ago</source>
         <translation>1 хвилину тому</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="107"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="111"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>%1 mins ago</source>
         <translation>%1 хвилини тому</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="111"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="115"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>1 hr ago</source>
         <translation>1 годину тому</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="113"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="117"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>%1 hrs ago</source>
         <translation>%1 години тому</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="118"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="122"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>Yesterday</source>
         <translation>Вчора</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="../ui/jobmanagerwindow.cpp" line="120"/>
+=======
+        <location filename="../ui/jobmanagerwindow.cpp" line="124"/>
+>>>>>>> chore:更新翻译和desktop文件
         <source>%1 days ago</source>
         <translation>%1 дні тому</translation>
     </message>
@@ -1409,17 +1641,17 @@
         <translation>Скасувати</translation>
     </message>
     <message>
-        <location filename="../vendor/common.cpp" line="149"/>
+        <location filename="../../Common/common.cpp" line="152"/>
         <source> not found, please ask the administrator for help</source>
         <translation>не знайдено, будь ласка, попросіть про допомогу адміністратора</translation>
     </message>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="138"/>
+        <location filename="../ui/printerapplication.cpp" line="110"/>
         <source>Direct-attached Device</source>
         <translation>Безпосередньо з&apos;єднаний пристрій</translation>
     </message>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="139"/>
+        <location filename="../ui/printerapplication.cpp" line="111"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
@@ -1644,17 +1876,17 @@
 <context>
     <name>TroubleShootDialog</name>
     <message>
-        <location filename="../ui/troubleshootdialog.cpp" line="109"/>
+        <location filename="../ui/troubleshootdialog.cpp" line="108"/>
         <source>Troubleshoot: </source>
         <translation>Діагностика проблем:</translation>
     </message>
     <message>
-        <location filename="../ui/troubleshootdialog.cpp" line="134"/>
+        <location filename="../ui/troubleshootdialog.cpp" line="133"/>
         <source>Cancel</source>
         <translation>Скасувати</translation>
     </message>
     <message>
-        <location filename="../ui/troubleshootdialog.cpp" line="165"/>
+        <location filename="../ui/troubleshootdialog.cpp" line="164"/>
         <source>OK</source>
         <translation>Гаразд</translation>
     </message>

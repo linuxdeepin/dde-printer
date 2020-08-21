@@ -549,10 +549,7 @@ void CupsMonitor::notificationInvoke(unsigned int notificationId, QString action
 {
     Q_UNUSED(action);
     if (m_pendingNotification.contains(notificationId)) {
-        QDBusMessage msg = QDBusMessage::createSignal(SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME, "signalShowJobsWindow");
-        if (!QDBusConnection::sessionBus().send(msg)) {
-            qWarning() << "send message:" << msg << " error";
-        }
+        showJobsWindow();
     }
 
 }

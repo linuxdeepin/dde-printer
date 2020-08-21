@@ -45,7 +45,7 @@ INSTALLS += target watch trans
 include(../Common/Common.pri)
 
 TRANSLATIONS  +=  translations/dde-printer-helper_zh_CN.ts \
-                  translations/dde-printer-helper_en_AU.ts
+                  translations/dde-printer-helper_en_US.ts
 
 CONFIG(release, debug|release) {
     !system($$PWD/translate_generation.sh): error("Failed to generate translation")
