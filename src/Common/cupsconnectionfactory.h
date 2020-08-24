@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
+ * Copyright (C) 2019 ~ 2020 Uniontech Software Co., Ltd.
  *
  * Author:     liurui <liurui@uniontech.com>
  *
@@ -34,7 +34,7 @@ public:
     static std::unique_ptr<Connection> createConnection(QString strHost, int port, int encryption = 0);
     static std::unique_ptr<Connection> createConnectionBySettings();
 private:
-    CupsConnectionFactory(){}
+    CupsConnectionFactory() {}
     Q_DISABLE_COPY(CupsConnectionFactory)
 };
 

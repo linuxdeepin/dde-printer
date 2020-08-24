@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 ~ 2019 Uniontech Software Co., Ltd.
+ * Copyright (C) 2019 ~ 2020 Uniontech Software Co., Ltd.
  *
  * Author:     liurui <liurui@uniontech.com>
  *
