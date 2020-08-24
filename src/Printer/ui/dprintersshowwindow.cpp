@@ -247,7 +247,7 @@ void DPrintersShowWindow::initUI()
     pRightBottomGLayout->addWidget(pLabelPrintQueue, 1, 1);
     pRightBottomGLayout->addWidget(m_pTBtnPrintTest, 0, 2, Qt::AlignHCenter);
     pRightBottomGLayout->addWidget(pLabelPrintTest, 1, 2);
-    pRightBottomGLayout->addWidget(m_pTBtnSupply, 0, 3);
+    pRightBottomGLayout->addWidget(m_pTBtnSupply, 0, 3, Qt::AlignHCenter);
     pRightBottomGLayout->addWidget(pLabelSupply, 1, 3);
     pRightBottomGLayout->addWidget(m_pTBtnFault, 0, 4, Qt::AlignHCenter);
     pRightBottomGLayout->addWidget(pLabelPrintFault, 1, 4);
