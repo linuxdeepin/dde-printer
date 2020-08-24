@@ -35,8 +35,8 @@
 #include <QPalette>
 #include <QTime>
 
-DPrinterSupplyShowDlg::DPrinterSupplyShowDlg(const QString& strPrinterName, QWidget *parent):DDialog(parent)
-  ,m_strPrinterName(strPrinterName)
+DPrinterSupplyShowDlg::DPrinterSupplyShowDlg(const QString &strPrinterName, QWidget *parent): DDialog(parent)
+    , m_strPrinterName(strPrinterName)
 {
     initColorTrans();
 }
@@ -67,24 +67,24 @@ bool DPrinterSupplyShowDlg::isDriveBroken()
 void DPrinterSupplyShowDlg::initUI()
 {
     setIcon(QIcon(":/images/dde-printer.svg"));
-    QVBoxLayout* pVlayout = new QVBoxLayout;
+    QVBoxLayout *pVlayout = new QVBoxLayout;
     pVlayout->setSpacing(0);
-    DWidget* pWidget = new DWidget(this);
-    QLabel* pLabel = new QLabel;
+    DWidget *pWidget = new DWidget(this);
+    QLabel *pLabel = new QLabel;
     DFontSizeManager::instance()->bind(pLabel, DFontSizeManager::T6, int(QFont::Medium));
     pLabel->setText(tr("Ink/Toner Status"));
-    pVlayout->addWidget(pLabel, 0, Qt::AlignHCenter|Qt::AlignTop);
+    pVlayout->addWidget(pLabel, 0, Qt::AlignHCenter | Qt::AlignTop);
 
     if (isDriveBroken()) {
         pVlayout->addStretch(500);
-        QLabel* pLabel2 = new QLabel;
+        QLabel *pLabel2 = new QLabel;
         pLabel2->setText(tr("Unknown amount"));
         DFontSizeManager::instance()->bind(pLabel2, DFontSizeManager::T4, int(QFont::Medium));
         QPalette pal = pLabel2->palette();
         QColor color = pal.color(QPalette::WindowText);
         pal.setColor(QPalette::WindowText, QColor(color.red(), color.green(), color.blue(), 160));
         pLabel2->setPalette(pal);
-        QLabel* pLabel3 = new QLabel;
+        QLabel *pLabel3 = new QLabel;
         pLabel3->setText(tr("Unable to get the remaining amount"));
         pVlayout->addWidget(pLabel2, 0, Qt::AlignHCenter);
         pVlayout->addSpacing(10);
@@ -94,37 +94,39 @@ void DPrinterSupplyShowDlg::initUI()
         color = pal.color(QPalette::WindowText);
         pal.setColor(QPalette::WindowText, QColor(color.red(), color.green(), color.blue(), 120));
         pLabel3->setPalette(pal);
-    }
-    else {
+    } else {
         if (canGetSupplyMsg()) {
             pVlayout->addSpacing(20);
             bool bColor = isColorPrinter();
 
-            for(int i = 0; i < m_supplyInfos.size(); i++){
-                QWidget* pColorWidget = initColorSupplyItem(m_supplyInfos[i], bColor);
+            for (int i = 0; i < m_supplyInfos.size(); i++) {
+                QWidget *pColorWidget = initColorSupplyItem(m_supplyInfos[i], bColor);
                 pVlayout->addWidget(pColorWidget);
                 pVlayout->addSpacing(1);
             }
 
             pVlayout->addSpacing(10);
-            DLabel* pTimelLabel = new DLabel;
+            DLabel *pTimelLabel = new DLabel;
+            pTimelLabel->setWordWrap(true);
+            pTimelLabel->setAlignment(Qt::AlignHCenter);
             DFontSizeManager::instance()->bind(pTimelLabel, DFontSizeManager::T8, int(QFont::ExtraLight));
             QTime time = QTime::currentTime();
             QString strTime = QString("%1:%2").arg(time.hour(), 2, 10, QLatin1Char('0')).arg(time.minute(), 2, 10, QLatin1Char('0'));
             pTimelLabel->setText(tr("The amounts are estimated, last updated at %1").arg(strTime));
             pVlayout->addWidget(pTimelLabel, 0, Qt::AlignHCenter);
-        }
-        else {
+        } else {
             pVlayout->addStretch(500);
-            QLabel* pLabel2 = new QLabel;
+            QLabel *pLabel2 = new QLabel;
             pLabel2->setText(tr("Unknown amount"));
             DFontSizeManager::instance()->bind(pLabel2, DFontSizeManager::T4, int(QFont::Medium));
             QPalette pal = pLabel2->palette();
             QColor color = pal.color(QPalette::WindowText);
             pal.setColor(QPalette::WindowText, QColor(color.red(), color.green(), color.blue(), 160));
             pLabel2->setPalette(pal);
-            QLabel* pLabel3 = new QLabel;
+            QLabel *pLabel3 = new QLabel;
             pLabel3->setText(tr("Unable to get the remaining amount"));
+            pLabel3->setWordWrap(true);
+            pLabel3->setAlignment(Qt::AlignHCenter);
             pVlayout->addWidget(pLabel2, 0, Qt::AlignHCenter);
             pVlayout->addSpacing(10);
             pVlayout->addWidget(pLabel3, 0, Qt::AlignHCenter);
@@ -141,7 +143,7 @@ void DPrinterSupplyShowDlg::initUI()
     m_pConfirmBtn->setFixedSize(230, 36);
     DFontSizeManager::instance()->bind(m_pConfirmBtn, DFontSizeManager::T6, int(QFont::ExtraLight));
     m_pConfirmBtn->setText(tr("OK"));
-    pVlayout->addWidget(m_pConfirmBtn, 0, Qt::AlignCenter|Qt::AlignBottom);
+    pVlayout->addWidget(m_pConfirmBtn, 0, Qt::AlignCenter | Qt::AlignBottom);
     pVlayout->setContentsMargins(10, 0, 10, 0);
     pWidget->setLayout(pVlayout);
     addContent(pWidget);
@@ -171,25 +173,25 @@ void DPrinterSupplyShowDlg::moveToParentCenter()
     }
 }
 
-QWidget* DPrinterSupplyShowDlg::initColorSupplyItem(const SUPPLYSDATA& info, bool bColor)
+QWidget *DPrinterSupplyShowDlg::initColorSupplyItem(const SUPPLYSDATA &info, bool bColor)
 {
-    QWidget* pWidget = new QWidget;
+    QWidget *pWidget = new QWidget;
     pWidget->setAutoFillBackground(true);
     QPalette pal;
     pal.setColor(QPalette::Background, QColor(0, 0, 0, int(0.03 * 255)));
     pWidget->setPalette(pal);
-    QHBoxLayout* pHlayout = new QHBoxLayout;
+    QHBoxLayout *pHlayout = new QHBoxLayout;
     pHlayout->setSpacing(8);
 
     if ((info.colorant != 0) && bColor) {
         QPixmap colorPix(12, 12);
         colorPix.fill(Qt::transparent);
         QPainter painter(&colorPix);
-        painter.setRenderHints(QPainter::Antialiasing|QPainter::SmoothPixmapTransform, true);
+        painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform, true);
         painter.setBrush(QBrush(QColor(info.color)));
         painter.setPen(Qt::NoPen);
         painter.drawRoundedRect(QRect(0, 0, 12, 12), 4, 4);
-        DLabel* pColorLabel = new DLabel;
+        DLabel *pColorLabel = new DLabel;
         pColorLabel->setPixmap(colorPix);
         pHlayout->addWidget(pColorLabel);
 
@@ -206,17 +208,17 @@ QWidget* DPrinterSupplyShowDlg::initColorSupplyItem(const SUPPLYSDATA& info, boo
         }
     }
 
-    DLabel* pLabel = new DLabel(strColorName, this);
+    DLabel *pLabel = new DLabel(strColorName, this);
     DFontSizeManager::instance()->bind(pLabel, DFontSizeManager::T6, int(QFont::ExtraLight));
     pHlayout->addWidget(pLabel);
 
     if (info.level <= 100) {
-        QLabel* pImageLabel = new DLabel(this);
+        QLabel *pImageLabel = new DLabel(this);
         QIcon icon = QIcon::fromTheme("dp_warning");
         QPixmap pix = icon.pixmap(QSize(14, 14));
         pImageLabel->setPixmap(pix);
         pImageLabel->setToolTip(tr("Low level"));
-        DProgressBar* pProcessBar = new DProgressBar;
+        DProgressBar *pProcessBar = new DProgressBar;
         pProcessBar->setTextVisible(false);
         pProcessBar->setFixedSize(230, 8);
         pProcessBar->setRange(0, 100);
@@ -229,24 +231,20 @@ QWidget* DPrinterSupplyShowDlg::initColorSupplyItem(const SUPPLYSDATA& info, boo
         pHlayout->addWidget(pProcessBar, Qt::AlignRight);
 
         if ((info.level >= 0) && (info.colorant != 0)) {
-            if(info.level < 20){
+            if (info.level < 20) {
                 pImageLabel->show();
-            }
-            else {
+            } else {
                 pImageLabel->hide();
             }
-        }
-        else {
+        } else {
             pImageLabel->hide();
         }
-    }
-    else
-    {
+    } else {
         QIcon icon = QIcon::fromTheme("dp_caution");
         QPixmap pix = icon.pixmap(QSize(14, 14));
-        DLabel* pImageLabel = new DLabel(this);
+        DLabel *pImageLabel = new DLabel(this);
         pImageLabel->setPixmap(pix);
-        DLabel* pTextLabel = new DLabel(tr("Unknown"),this);
+        DLabel *pTextLabel = new DLabel(tr("Unknown"), this);
         DFontSizeManager::instance()->bind(pTextLabel, DFontSizeManager::T8, int(QFont::ExtraLight));
         pHlayout->addSpacing(13);
         pHlayout->addWidget(pImageLabel, Qt::AlignRight);
@@ -308,14 +306,13 @@ void DPrinterSupplyShowDlg::initColorTrans()
     m_mapColorTrans.insert("Waste", QObject::tr("Waste"));
 }
 
-QString DPrinterSupplyShowDlg::getTranslatedColor(const QString& strColor)
+QString DPrinterSupplyShowDlg::getTranslatedColor(const QString &strColor)
 {
     QString strRet;
 
     if (m_mapColorTrans.contains(strColor)) {
         strRet = m_mapColorTrans.value(strColor);
-    }
-    else {
+    } else {
         strRet = strColor;
     }
 
@@ -335,8 +332,7 @@ bool DPrinterSupplyShowDlg::canGetSupplyMsg()
 
             if (pPrinter->isPpdFileBroken()) {
                 bRet = false;
-            }
-            else {
+            } else {
                 pPrinter->disableSupplys();
                 pPrinter->updateSupplys();
                 m_supplyInfos.clear();
