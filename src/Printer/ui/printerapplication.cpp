@@ -120,7 +120,6 @@ int PrinterApplication::create()
 
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::newProcessInstance, this, &PrinterApplication::slotNewProcessInstance);
 
-    detectHelperState();
     return 0;
 }
 

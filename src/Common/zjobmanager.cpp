@@ -55,7 +55,6 @@ static const char *jattrs[] = /* Attributes we need for jobs... */
 
 int JobManager::getJobs(map<int, map<string, string>> &jobs, int which, int myJobs)
 {
-    map<int, map<string, string>>::iterator itJobs;
     vector<string> requst;
 
     qDebug() << which << myJobs;
@@ -74,22 +73,23 @@ int JobManager::getJobs(map<int, map<string, string>> &jobs, int which, int myJo
     }
 
     qInfo() << "Got jobs count: " << jobs.size();
+    map<int, map<string, string>>::iterator itJobs = jobs.begin();
+    QDBusInterface interface(SERVICE_INTERFACE_NAME, SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME, QDBusConnection::sessionBus());
 
-    for (itJobs = jobs.begin(); itJobs != jobs.end(); itJobs++) {
+    while (itJobs != jobs.end()) {
         map<string, string> info = itJobs->second;
         qDebug() << JOB_ATTR_ID << itJobs->first;
-
-        QDBusInterface interface(SERVICE_INTERFACE_NAME, SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME, QDBusConnection::sessionBus());
         if (interface.isValid()) {
             QDBusReply<bool> result = interface.call("isJobPurged", itJobs->first);
             if (result.isValid() && result.value()) {
-                jobs.erase(itJobs);
                 qInfo() << itJobs->first << "is purged";
-            }
-        }
+                itJobs = jobs.erase(itJobs);
+            } else
+                itJobs++;
+        } else
+            itJobs++;
         dumpStdMapValue(info);
     }
-
     return 0;
 }
 
