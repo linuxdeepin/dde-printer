@@ -137,6 +137,9 @@ private:
 
     QPushButton *m_pURIInstallDriverBtn;
 
+    QLabel *m_pInfoAuto;
+    QLabel *m_pInfoManual;
+
     // 用于查找打印机切换界面
     QStackedWidget *m_pStackedWidget;
 

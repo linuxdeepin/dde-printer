@@ -5,10 +5,10 @@
 cd $(dirname $0)
 
 ts_list=(`ls translations/*.ts`)
+lupdate  Printer.pro -ts translations/dde-printer_en_US.ts
 
 for ts in "${ts_list[@]}"
 do
     printf "\nprocess ${ts}\n"
-    lupdate  Printer.pro -ts "${ts}"
     lrelease "${ts}"
 done

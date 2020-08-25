@@ -279,22 +279,22 @@
         <translation>남아있는 총량을 가져올 수 없습니다</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="114"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="115"/>
         <source>The amounts are estimated, last updated at %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="143"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="145"/>
         <source>OK</source>
         <translation>확인</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="218"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="220"/>
         <source>Low level</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="249"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="247"/>
         <source>Unknown</source>
         <translation>알 수 없음</translation>
     </message>
@@ -610,82 +610,82 @@
 <context>
     <name>DPrintersShowWindow</name>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="81"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="83"/>
         <source>Settings</source>
         <translation>설정</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="87"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="89"/>
         <source>Printers</source>
         <translation>프린터</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="91"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="93"/>
         <source>Add printer</source>
         <translation>프린터 추가</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="94"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="96"/>
         <source>Delete printer</source>
         <translation>프린터 삭제</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="115"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="117"/>
         <source>Shared</source>
         <translation>공유됨</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="118"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="120"/>
         <source>Enabled</source>
         <translation>활성화됨</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="121"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="123"/>
         <source>Accept jobs</source>
         <translation>작업을 수락합니다</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="125"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="127"/>
         <source>Set as default</source>
         <translation>기본값으로 설정</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="136"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="138"/>
         <source>No Printers</source>
         <translation>프린터 없음</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="160"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="162"/>
         <source>Location:</source>
         <translation>위치:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="164"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="165"/>
         <source>Model:</source>
         <translation>모델:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="167"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="168"/>
         <source>Status:</source>
         <translation>상태:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="195"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="196"/>
         <source>Properties</source>
         <translation>속성</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="205"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="206"/>
         <source>Print Queue</source>
         <translation>인쇄 대기열</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="215"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="216"/>
         <source>Print Test Page</source>
         <translation>테스트 페이지 인쇄</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="237"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="238"/>
         <source>Supplies</source>
         <translation>소모품</translation>
     </message>
@@ -700,69 +700,69 @@
         <translation>+를 클릭하여 프린터 추가</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="330"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="326"/>
         <source>As print jobs are in process, you cannot rename the printer now, please try later</source>
         <translation>인쇄 작업이 진행 중이므로 프린터 이름을 바꿀 수 없습니다, 나중에 시도하십시오.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="334"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="382"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="601"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="330"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="377"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="593"/>
         <source>OK</source>
         <translation>확인</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="360"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="354"/>
         <source>Idle</source>
         <translation>Idle</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="362"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="356"/>
         <source>Printing</source>
         <translation>인쇄중</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="364"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="358"/>
         <source>Disabled</source>
         <translation>비활성화됨</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="379"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="374"/>
         <source>CUPS server is not running, and can’t manage printers.</source>
         <translation>CUPS 서버가 실행중이 아니며 프린터를 관리할 수 없습니다.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="559"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="551"/>
         <source>Are you sure you want to delete the printer &quot;%1&quot; ?</source>
         <translation>프린터 &quot;%1&quot;를 삭제하시겠습니까?</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="565"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="557"/>
         <source>Delete</source>
         <translation>삭제</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="597"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="589"/>
         <source>The name already exists</source>
         <translation>이름이 이미 있습니다</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="616"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="608"/>
         <source>You will not be able to reprint the completed jobs if continue. Are you sure you want to rename the printer?</source>
         <translation>계속하면 완료된 작업을 다시 인쇄할 수 없습니다. 프린터 이름을 바꾸시겠습니까?</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="621"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="613"/>
         <source>Confirm</source>
         <translation>확인</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="679"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="671"/>
         <source>The driver is damaged, please install it again.</source>
         <translation>드라이버가 손상되었습니다. 다시 설치하십시오.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="682"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="674"/>
         <source>Install Driver</source>
         <translation>드라이버 설치</translation>
     </message>
@@ -1062,44 +1062,44 @@
 <context>
     <name>JobListView</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="214"/>
-        <location filename="../ui/jobmanagerwindow.cpp" line="371"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="250"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="410"/>
         <source>Cancel</source>
         <translation>취소</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="215"/>
-        <location filename="../ui/jobmanagerwindow.cpp" line="372"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="251"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="411"/>
         <source>Delete</source>
         <translation>삭제</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="216"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="252"/>
         <source>Pause</source>
         <translation>일시 중지</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="217"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="253"/>
         <source>Resume</source>
         <translation>재시작</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="218"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="254"/>
         <source>Print first</source>
         <translation>먼저 인쇄</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="219"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="255"/>
         <source>Reprint</source>
         <translation>재인쇄</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="221"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="257"/>
         <source>No print jobs</source>
         <translation>인쇄 작업이 없습니다</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="365"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="404"/>
         <source>Are you sure you want to delete this job?</source>
         <translation>이 작업을 삭제 하시겠습니까?</translation>
     </message>
@@ -1115,32 +1115,32 @@
 <context>
     <name>JobManagerWindow</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1008"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1046"/>
         <source>Refresh</source>
         <translation>새로고침</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1012"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1050"/>
         <source>All</source>
         <translation>모두</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1013"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1051"/>
         <source>Print Queue</source>
         <translation>인쇄 대기열</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1014"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1052"/>
         <source>Completed</source>
         <translation>완료됨</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1071"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1111"/>
         <source> failed</source>
         <translation>실패</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1092"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1132"/>
         <source>%1 jobs</source>
         <translation>%1개의 작업</translation>
     </message>
@@ -1148,42 +1148,42 @@
 <context>
     <name>JobsDataModel</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="631"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="671"/>
         <source>Job</source>
         <translation>작업</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="633"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="673"/>
         <source>User</source>
         <translation>사용자</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="635"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="675"/>
         <source>Document</source>
         <translation>문서</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="637"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="677"/>
         <source>Printer</source>
         <translation>프린터</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="639"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="679"/>
         <source>Size</source>
         <translation>크기</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="641"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="681"/>
         <source>Time submitted</source>
         <translation>제출된 시간</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="643"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="683"/>
         <source>Status</source>
         <translation>상태</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="645"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="685"/>
         <source>Action</source>
         <translation>동작</translation>
     </message>
@@ -1265,47 +1265,53 @@
         <translation>새로고침</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="162"/>
+        <location filename="../ui/printersearchwindow.cpp" line="144"/>
+        <location filename="../ui/printersearchwindow.cpp" line="222"/>
+        <source>No printers found</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/printersearchwindow.cpp" line="167"/>
         <source>Install Driver</source>
         <translation>드라이버 설치</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="190"/>
+        <location filename="../ui/printersearchwindow.cpp" line="195"/>
         <source>Address</source>
         <translation>주소</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="192"/>
+        <location filename="../ui/printersearchwindow.cpp" line="197"/>
         <source>Enter an address</source>
         <translation>주소 입력</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="193"/>
+        <location filename="../ui/printersearchwindow.cpp" line="198"/>
         <source>Find</source>
         <translation>찾기</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="266"/>
+        <location filename="../ui/printersearchwindow.cpp" line="277"/>
         <source>URI</source>
         <translation>URI</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="270"/>
+        <location filename="../ui/printersearchwindow.cpp" line="281"/>
         <source>Enter device URI</source>
         <translation>장치 URI 입력</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="281"/>
+        <location filename="../ui/printersearchwindow.cpp" line="292"/>
         <source>Examples:</source>
         <translation>예제:</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="559"/>
+        <location filename="../ui/printersearchwindow.cpp" line="576"/>
         <source>OK</source>
         <translation>확인</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="647"/>
+        <location filename="../ui/printersearchwindow.cpp" line="664"/>
         <source> (recommended)</source>
         <translation> (권장)</translation>
     </message>
@@ -1334,37 +1340,37 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="103"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="104"/>
         <source>1 min ago</source>
         <translation>1분 전</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="106"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="107"/>
         <source>%1 mins ago</source>
         <translation>%1분 전</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="110"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="111"/>
         <source>1 hr ago</source>
         <translation>1시간 전</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="112"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="113"/>
         <source>%1 hrs ago</source>
         <translation>%1시간 전</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="117"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="118"/>
         <source>Yesterday</source>
         <translation>어제</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="119"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="120"/>
         <source>%1 days ago</source>
         <translation>%1일 전</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="484"/>
+        <location filename="../ui/printersearchwindow.cpp" line="495"/>
         <source>(use %1 protocol)</source>
         <translation>(%1 프로토콜 사용)</translation>
     </message>
@@ -1426,132 +1432,132 @@
         <translation>파일</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="283"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="281"/>
         <source>Black</source>
         <translation>검정색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="284"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="282"/>
         <source>Blue</source>
         <translation>파란색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="285"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="283"/>
         <source>Brown</source>
         <translation>갈색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="286"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="284"/>
         <source>Cyan</source>
         <translation>청록색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="287"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="285"/>
         <source>Dark-gray</source>
         <translation>짙은_회색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="288"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="286"/>
         <source>Dark gray</source>
         <translation>짙은 회색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="289"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="287"/>
         <source>Dark-yellow</source>
         <translation>진한_노란색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="290"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="288"/>
         <source>Dark yellow</source>
         <translation>진한 노란색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="291"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="289"/>
         <source>Gold</source>
         <translation>금색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="292"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="290"/>
         <source>Gray</source>
         <translation>회색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="293"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="291"/>
         <source>Green</source>
         <translation>녹색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="294"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="292"/>
         <source>Light-black</source>
         <translation>밝은_검정색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="295"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="293"/>
         <source>Light black</source>
         <translation>밝은 검정색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="296"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="294"/>
         <source>Light-cyan</source>
         <translation>밝은_청록색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="297"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="295"/>
         <source>Light cyan</source>
         <translation>밝은 청록색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="298"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="296"/>
         <source>Light-gray</source>
         <translation>밝은_회색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="299"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="297"/>
         <source>Light gray</source>
         <translation>밝은 회색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="300"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="298"/>
         <source>Light-magenta</source>
         <translation>밝은_자홍색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="301"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="299"/>
         <source>Light magenta</source>
         <translation>밝은 자홍색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="302"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="300"/>
         <source>Magenta</source>
         <translation>자홍색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="303"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="301"/>
         <source>Orange</source>
         <translation>주황색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="304"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="302"/>
         <source>Red</source>
         <translation>빨간색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="305"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="303"/>
         <source>Silver</source>
         <translation>은색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="306"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="304"/>
         <source>White</source>
         <translation>흰색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="307"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="305"/>
         <source>Yellow</source>
         <translation>노란색</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="308"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="306"/>
         <source>Waste</source>
         <translation>소모</translation>
     </message>

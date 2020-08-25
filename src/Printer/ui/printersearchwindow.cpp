@@ -139,6 +139,11 @@ void PrinterSearchWindow::initUi()
     m_pPrinterListModel = new QStandardItemModel(m_pPrinterListViewAuto);
     m_pPrinterListViewAuto->setModel(m_pPrinterListModel);
 
+    m_pInfoAuto = new QLabel(m_pPrinterListViewAuto);
+    m_pInfoAuto->setVisible(false);
+    m_pInfoAuto->setText(tr("No printers found"));
+    m_pInfoAuto->setAlignment(Qt::AlignCenter);
+
     QVBoxLayout *pVlayoutAuto1 = new QVBoxLayout();
     pVlayoutAuto1->addLayout(pHLayout1);
     pVlayoutAuto1->addWidget(m_pPrinterListViewAuto);
@@ -211,6 +216,12 @@ void PrinterSearchWindow::initUi()
     m_pPrinterListViewManual->setItemSpacing(10);
     m_pPrinterListModelManual = new QStandardItemModel();
     m_pPrinterListViewManual->setModel(m_pPrinterListModelManual);
+
+    m_pInfoManual = new QLabel(m_pPrinterListViewManual);
+    m_pInfoManual->setVisible(false);
+    m_pInfoManual->setText(tr("No printers found"));
+    m_pInfoManual->setAlignment(Qt::AlignCenter);
+
     QVBoxLayout *pVLayoutMan2 = new QVBoxLayout();
     pVLayoutMan2->addWidget(m_pPrinterListViewManual);
     pVLayoutMan2->setContentsMargins(10, 10, 10, 10);
@@ -497,8 +508,11 @@ void PrinterSearchWindow::getDeviceResultSlot(int id, int state)
         m_pAutoInstallDriverBtn->setVisible(true);
         if (m_pPrinterListViewAuto->count() > 0) {
             m_pAutoInstallDriverBtn->setEnabled(true);
+            m_pInfoAuto->setVisible(false);
         } else {
             m_pAutoInstallDriverBtn->setEnabled(false);
+            m_pInfoAuto->resize(m_pPrinterListViewAuto->size());
+            m_pInfoAuto->setVisible(true);
         }
         m_pBtnRefresh->blockSignals(false);
         m_pPrinterListViewAuto->blockSignals(false);
@@ -543,8 +557,11 @@ void PrinterSearchWindow::getDeviceResultByManualSlot(int id, int state)
         m_pManInstallDriverBtn->setVisible(true);
         if (m_pPrinterListViewManual->count() > 0) {
             m_pManInstallDriverBtn->setEnabled(true);
+            m_pInfoManual->setVisible(false);
         } else {
             m_pManInstallDriverBtn->setEnabled(false);
+            m_pInfoManual->resize(m_pPrinterListViewManual->size());
+            m_pInfoManual->setVisible(true);
         }
         //解除阻塞
         m_pBtnFind->blockSignals(false);

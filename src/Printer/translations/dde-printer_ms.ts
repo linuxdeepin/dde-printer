@@ -279,22 +279,22 @@
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="114"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="115"/>
         <source>The amounts are estimated, last updated at %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="143"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="145"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="218"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="220"/>
         <source>Low level</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="249"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="247"/>
         <source>Unknown</source>
         <translation>Tidak diketahui</translation>
     </message>
@@ -610,82 +610,82 @@
 <context>
     <name>DPrintersShowWindow</name>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="81"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="83"/>
         <source>Settings</source>
         <translation>Tetapan</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="87"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="89"/>
         <source>Printers</source>
         <translation>Pencetak</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="91"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="93"/>
         <source>Add printer</source>
         <translation>Tambah pencetak</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="94"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="96"/>
         <source>Delete printer</source>
         <translation>Padam pencetak</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="115"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="117"/>
         <source>Shared</source>
         <translation>Dikongsi</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="118"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="120"/>
         <source>Enabled</source>
         <translation>Dibenarkan</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="121"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="123"/>
         <source>Accept jobs</source>
         <translation>Terima kerja</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="125"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="127"/>
         <source>Set as default</source>
         <translation>Tetapkan sebagai lalai</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="136"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="138"/>
         <source>No Printers</source>
         <translation>Tiada Pencetak</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="160"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="162"/>
         <source>Location:</source>
         <translation>Lokasi:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="164"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="165"/>
         <source>Model:</source>
         <translation>Model:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="167"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="168"/>
         <source>Status:</source>
         <translation>Status:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="195"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="196"/>
         <source>Properties</source>
         <translation>Sifat</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="205"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="206"/>
         <source>Print Queue</source>
         <translation>Baris Gilir Pencetak</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="215"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="216"/>
         <source>Print Test Page</source>
         <translation>Cetak Halaman Uji</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="237"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="238"/>
         <source>Supplies</source>
         <translation type="unfinished"/>
     </message>
@@ -700,69 +700,69 @@
         <translation>Klik + untuk menambah pencetak</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="330"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="326"/>
         <source>As print jobs are in process, you cannot rename the printer now, please try later</source>
         <translation>Bila kerja cetak diproses, anda tidak boleh menamakan semula pencetak sekarang, cuba lagi sekali nanti</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="334"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="382"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="601"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="330"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="377"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="593"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="360"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="354"/>
         <source>Idle</source>
         <translation>Melahu</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="362"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="356"/>
         <source>Printing</source>
         <translation>Mencetak</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="364"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="358"/>
         <source>Disabled</source>
         <translation>Dilumpuhkan</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="379"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="374"/>
         <source>CUPS server is not running, and can’t manage printers.</source>
         <translation>Pelayan CUPS tidak berjalan, dan tidak dapat mengurus pencetak.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="559"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="551"/>
         <source>Are you sure you want to delete the printer &quot;%1&quot; ?</source>
         <translation>Anda pasti mahu memadam pencetak &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="565"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="557"/>
         <source>Delete</source>
         <translation>Padam</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="597"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="589"/>
         <source>The name already exists</source>
         <translation>Nama sudah wujud</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="616"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="608"/>
         <source>You will not be able to reprint the completed jobs if continue. Are you sure you want to rename the printer?</source>
         <translation>Anda tidak boleh mencetak semula kerja yang telah selesai sekiranya diteruskan. Anda pasti mahu menamakan semula pencetak ini?</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="621"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="613"/>
         <source>Confirm</source>
         <translation>Sah</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="679"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="671"/>
         <source>The driver is damaged, please install it again.</source>
         <translation>Pemacu telah rosak, sila pasang ia sekali lagi.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="682"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="674"/>
         <source>Install Driver</source>
         <translation>Pasang Pemacu</translation>
     </message>
@@ -1062,44 +1062,44 @@
 <context>
     <name>JobListView</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="214"/>
-        <location filename="../ui/jobmanagerwindow.cpp" line="371"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="250"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="410"/>
         <source>Cancel</source>
         <translation>Batal</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="215"/>
-        <location filename="../ui/jobmanagerwindow.cpp" line="372"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="251"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="411"/>
         <source>Delete</source>
         <translation>Padam</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="216"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="252"/>
         <source>Pause</source>
         <translation>Jeda</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="217"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="253"/>
         <source>Resume</source>
         <translation>Sambung Semula</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="218"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="254"/>
         <source>Print first</source>
         <translation>Cetak dahulu</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="219"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="255"/>
         <source>Reprint</source>
         <translation>Cetak semula</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="221"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="257"/>
         <source>No print jobs</source>
         <translation>Tiada kerja cetak</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="365"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="404"/>
         <source>Are you sure you want to delete this job?</source>
         <translation>Anda pasti mahu memadam kerja ini?</translation>
     </message>
@@ -1115,32 +1115,32 @@
 <context>
     <name>JobManagerWindow</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1008"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1046"/>
         <source>Refresh</source>
         <translation>Segar semula</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1012"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1050"/>
         <source>All</source>
         <translation>Semua</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1013"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1051"/>
         <source>Print Queue</source>
         <translation>Baris Gilir Cetak</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1014"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1052"/>
         <source>Completed</source>
         <translation>Selesai</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1071"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1111"/>
         <source> failed</source>
         <translation>gagal</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1092"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1132"/>
         <source>%1 jobs</source>
         <translation>%1 kerja</translation>
     </message>
@@ -1148,42 +1148,42 @@
 <context>
     <name>JobsDataModel</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="631"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="671"/>
         <source>Job</source>
         <translation>Kerja</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="633"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="673"/>
         <source>User</source>
         <translation>Pengguna</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="635"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="675"/>
         <source>Document</source>
         <translation>Dokumen</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="637"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="677"/>
         <source>Printer</source>
         <translation>Pencetak</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="639"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="679"/>
         <source>Size</source>
         <translation>Saiz</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="641"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="681"/>
         <source>Time submitted</source>
         <translation>Masa diserah</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="643"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="683"/>
         <source>Status</source>
         <translation>Status</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="645"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="685"/>
         <source>Action</source>
         <translation>Tindakan</translation>
     </message>
@@ -1265,47 +1265,53 @@
         <translation>Segar semula</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="162"/>
+        <location filename="../ui/printersearchwindow.cpp" line="144"/>
+        <location filename="../ui/printersearchwindow.cpp" line="222"/>
+        <source>No printers found</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/printersearchwindow.cpp" line="167"/>
         <source>Install Driver</source>
         <translation>Pasang Pemacu</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="190"/>
+        <location filename="../ui/printersearchwindow.cpp" line="195"/>
         <source>Address</source>
         <translation>Alamat</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="192"/>
+        <location filename="../ui/printersearchwindow.cpp" line="197"/>
         <source>Enter an address</source>
         <translation>Masukkan satu alamat</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="193"/>
+        <location filename="../ui/printersearchwindow.cpp" line="198"/>
         <source>Find</source>
         <translation>Cari</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="266"/>
+        <location filename="../ui/printersearchwindow.cpp" line="277"/>
         <source>URI</source>
         <translation>URI</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="270"/>
+        <location filename="../ui/printersearchwindow.cpp" line="281"/>
         <source>Enter device URI</source>
         <translation>Masukkan URI peranti</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="281"/>
+        <location filename="../ui/printersearchwindow.cpp" line="292"/>
         <source>Examples:</source>
         <translation>Contoh:</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="559"/>
+        <location filename="../ui/printersearchwindow.cpp" line="576"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="647"/>
+        <location filename="../ui/printersearchwindow.cpp" line="664"/>
         <source> (recommended)</source>
         <translation>(disarankan)</translation>
     </message>
@@ -1334,37 +1340,37 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="103"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="104"/>
         <source>1 min ago</source>
         <translation>1 min yang lalu</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="106"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="107"/>
         <source>%1 mins ago</source>
         <translation>%1 min yang lalu</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="110"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="111"/>
         <source>1 hr ago</source>
         <translation>1 j yang lalu</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="112"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="113"/>
         <source>%1 hrs ago</source>
         <translation>%1 jam yang lalu</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="117"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="118"/>
         <source>Yesterday</source>
         <translation>Semalam</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="119"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="120"/>
         <source>%1 days ago</source>
         <translation>%1 hari yang lalu</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="484"/>
+        <location filename="../ui/printersearchwindow.cpp" line="495"/>
         <source>(use %1 protocol)</source>
         <translation>(guna protokol %1)</translation>
     </message>
@@ -1426,132 +1432,132 @@ atau</translation>
         <translation>Fail</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="283"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="281"/>
         <source>Black</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="284"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="282"/>
         <source>Blue</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="285"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="283"/>
         <source>Brown</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="286"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="284"/>
         <source>Cyan</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="287"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="285"/>
         <source>Dark-gray</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="288"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="286"/>
         <source>Dark gray</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="289"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="287"/>
         <source>Dark-yellow</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="290"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="288"/>
         <source>Dark yellow</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="291"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="289"/>
         <source>Gold</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="292"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="290"/>
         <source>Gray</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="293"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="291"/>
         <source>Green</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="294"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="292"/>
         <source>Light-black</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="295"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="293"/>
         <source>Light black</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="296"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="294"/>
         <source>Light-cyan</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="297"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="295"/>
         <source>Light cyan</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="298"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="296"/>
         <source>Light-gray</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="299"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="297"/>
         <source>Light gray</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="300"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="298"/>
         <source>Light-magenta</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="301"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="299"/>
         <source>Light magenta</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="302"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="300"/>
         <source>Magenta</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="303"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="301"/>
         <source>Orange</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="304"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="302"/>
         <source>Red</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="305"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="303"/>
         <source>Silver</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="306"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="304"/>
         <source>White</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="307"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="305"/>
         <source>Yellow</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="308"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="306"/>
         <source>Waste</source>
         <translation type="unfinished"/>
     </message>

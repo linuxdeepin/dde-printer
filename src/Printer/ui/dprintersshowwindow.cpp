@@ -160,7 +160,6 @@ void DPrintersShowWindow::initUI()
     DFontSizeManager::instance()->bind(m_pLabelPrinterName, DFontSizeManager::T4, QFont::DemiBold);
 
     QLabel *pLabelLocation = new QLabel(tr("Location:"));
-    pLabelLocation->setFixedWidth(60);
     m_pLabelLocationShow = new QLabel(tr(""));
     DFontSizeManager::instance()->bind(m_pLabelLocationShow, DFontSizeManager::T5, QFont::DemiBold);
     QLabel *pLabelType = new QLabel(tr("Model:"));
@@ -257,8 +256,7 @@ void DPrintersShowWindow::initUI()
     pRightVLayout->addLayout(pRightTopHLayout);
     pRightVLayout->addSpacing(100);
     pRightVLayout->addLayout(pRightBottomGLayout);
-    pRightVLayout->setContentsMargins(60, 100, 60, 181);
-
+    pRightVLayout->setContentsMargins(20, 100, 20, 140);
     m_pPrinterInfoWidget = new QWidget();
     m_pPrinterInfoWidget->setLayout(pRightVLayout);
     m_pPRightTipLabel1 = new QLabel(tr("No printer configured"));
@@ -416,31 +414,19 @@ QIcon DPrintersShowWindow::getSupplyIconByLevel(int iLevel)
 {
     QIcon icon;
 
-    if(iLevel == 0)
-    {
+    if (iLevel == 0) {
         icon = QIcon::fromTheme("filter_icon_normal6");
-    }
-    else if(iLevel <= 20)
-    {
+    } else if (iLevel <= 20) {
         icon = QIcon::fromTheme("filter_icon_normal5");
-    }
-    else if(iLevel <= 40)
-    {
+    } else if (iLevel <= 40) {
         icon = QIcon::fromTheme("filter_icon_normal4");
-    }
-    else if(iLevel <= 60)
-    {
+    } else if (iLevel <= 60) {
         icon = QIcon::fromTheme("filter_icon_normal3");
-    }
-    else if(iLevel <= 80)
-    {
+    } else if (iLevel <= 80) {
         icon = QIcon::fromTheme("filter_icon_normal2");
-    }
-    else if(iLevel <= 100)
-    {
+    } else if (iLevel <= 100) {
         icon = QIcon::fromTheme("filter_icon_normal1");
-    }
-    else {
+    } else {
         icon = QIcon::fromTheme("filter_icon_unknown");
     }
 
@@ -550,7 +536,7 @@ void DPrintersShowWindow::addPrinterClickSlot()
     //设置了parent会导致moveToCenter失效
     if (!m_pSearchWindow) {
         m_pSearchWindow = new PrinterSearchWindow();
-	connect(m_pSearchWindow, &PrinterSearchWindow::updatePrinterList, this, &DPrintersShowWindow::refreshPrinterListView);
+        connect(m_pSearchWindow, &PrinterSearchWindow::updatePrinterList, this, &DPrintersShowWindow::refreshPrinterListView);
     }
     m_pSearchWindow->show();
 }
@@ -772,12 +758,12 @@ void DPrintersShowWindow::printerListWidgetItemChangedSlot(const QModelIndex &pr
         m_pLabelTypeShow->setText(model);
         m_pLabelTypeShow->setToolTip(basePrinterInfo.at(1));
         m_pLabelStatusShow->setText(basePrinterInfo.at(2));
-        DDestination* pDest = m_pPrinterManager->getDestinationByName(printerName);
+        DDestination *pDest = m_pPrinterManager->getDestinationByName(printerName);
 
-        if(PRINTER == pDest->getType()){
-            DPrinter* pPrinter = static_cast<DPrinter*>(pDest);
+        if (PRINTER == pDest->getType()) {
+            DPrinter *pPrinter = static_cast<DPrinter *>(pDest);
 
-            if(!pPrinter->isPpdFileBroken()){
+            if (!pPrinter->isPpdFileBroken()) {
                 pPrinter->updateSupplys();
                 int iMinValue = pPrinter->getMinMarkerLevel();
                 QIcon pix = getSupplyIconByLevel(iMinValue);
