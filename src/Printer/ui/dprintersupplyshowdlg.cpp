@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2019 ~ 2019 Deepin Technology Co., Ltd.
+ * Copyright (C) 2019 ~ 2020 Uniontech Software Co., Ltd.
  *
- * Author:     shenfusheng <shenfusheng_cm@deepin.com>
+ * Author:     shenfusheng <shenfusheng@uniontech.com>
  *
- * Maintainer: shenfusheng <shenfusheng_cm@deepin.com>
+ * Maintainer: shenfusheng <shenfusheng@uniontech.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,126 +34,79 @@
 #include <QVBoxLayout>
 #include <QPalette>
 #include <QTime>
+#include <QSpacerItem>
 
 DPrinterSupplyShowDlg::DPrinterSupplyShowDlg(const QString &strPrinterName, QWidget *parent): DDialog(parent)
     , m_strPrinterName(strPrinterName)
 {
+    initUI();
+    initConnection();
     initColorTrans();
 }
 
 DPrinterSupplyShowDlg::~DPrinterSupplyShowDlg()
 {
+    if (m_pFreshTask)
+        m_pFreshTask->deleteLater();
 
+    if (m_pFreshSpinner) {
+        m_pFreshSpinner->deleteLater();
+    }
 }
 
-bool DPrinterSupplyShowDlg::isDriveBroken()
-{
-    bool bRet = true;
-    DPrinterManager *pManager = DPrinterManager::getInstance();
-    DDestination *pDest = pManager->getDestinationByName(m_strPrinterName);
 
-    if (pDest != nullptr) {
-        if (DESTTYPE::PRINTER == pDest->getType()) {
-            DPrinter *pPrinter = static_cast<DPrinter *>(pDest);
-            bRet = pPrinter->isPpdFileBroken();
-        } else {
-            bRet = false;
-        }
+void DPrinterSupplyShowDlg::showEvent(QShowEvent *event)
+{
+    DDialog::showEvent(event);
+    QStringList strNames;
+
+    if (m_pFreshSpinner)
+        m_pFreshSpinner->start();
+
+    strNames.push_back(m_strPrinterName);
+
+    if (m_pFreshTask) {
+        m_pFreshTask->setPrinters(strNames);
+        m_pFreshTask->beginTask();
+    }
+}
+
+void DPrinterSupplyShowDlg::closeEvent(QCloseEvent *event)
+{
+    if (m_pFreshSpinner)
+        m_pFreshSpinner->stop();
+
+    if (m_pFreshTask) {
+        disconnect(m_pFreshTask, &RefreshSnmpBackendTask::refreshsnmpfinished,
+                   this, &DPrinterSupplyShowDlg::supplyFreshed);
     }
 
-    return bRet;
+    DDialog::closeEvent(event);
 }
 
 void DPrinterSupplyShowDlg::initUI()
 {
     setIcon(QIcon(":/images/dde-printer.svg"));
+    m_pContentWidget = new QWidget;
     QVBoxLayout *pVlayout = new QVBoxLayout;
     pVlayout->setSpacing(0);
-    DWidget *pWidget = new DWidget(this);
-    QLabel *pLabel = new QLabel;
-    DFontSizeManager::instance()->bind(pLabel, DFontSizeManager::T6, int(QFont::Medium));
-    pLabel->setText(tr("Ink/Toner Status"));
-    pVlayout->addWidget(pLabel, 0, Qt::AlignHCenter | Qt::AlignTop);
-
-    if (isDriveBroken()) {
-        pVlayout->addStretch(500);
-        QLabel *pLabel2 = new QLabel;
-        pLabel2->setText(tr("Unknown amount"));
-        DFontSizeManager::instance()->bind(pLabel2, DFontSizeManager::T4, int(QFont::Medium));
-        QPalette pal = pLabel2->palette();
-        QColor color = pal.color(QPalette::WindowText);
-        pal.setColor(QPalette::WindowText, QColor(color.red(), color.green(), color.blue(), 160));
-        pLabel2->setPalette(pal);
-        QLabel *pLabel3 = new QLabel;
-        pLabel3->setText(tr("Unable to get the remaining amount"));
-        pVlayout->addWidget(pLabel2, 0, Qt::AlignHCenter);
-        pVlayout->addSpacing(10);
-        pVlayout->addWidget(pLabel3, 0, Qt::AlignHCenter);
-        DFontSizeManager::instance()->bind(pLabel3, DFontSizeManager::T6, int(QFont::Light));
-        pal = pLabel3->palette();
-        color = pal.color(QPalette::WindowText);
-        pal.setColor(QPalette::WindowText, QColor(color.red(), color.green(), color.blue(), 120));
-        pLabel3->setPalette(pal);
-    } else {
-        if (canGetSupplyMsg()) {
-            pVlayout->addSpacing(20);
-            bool bColor = isColorPrinter();
-
-            for (int i = 0; i < m_supplyInfos.size(); i++) {
-                QWidget *pColorWidget = initColorSupplyItem(m_supplyInfos[i], bColor);
-                pVlayout->addWidget(pColorWidget);
-                pVlayout->addSpacing(1);
-            }
-
-            pVlayout->addSpacing(10);
-            DLabel *pTimelLabel = new DLabel;
-            pTimelLabel->setWordWrap(true);
-            pTimelLabel->setAlignment(Qt::AlignHCenter);
-            DFontSizeManager::instance()->bind(pTimelLabel, DFontSizeManager::T8, int(QFont::ExtraLight));
-            QTime time = QTime::currentTime();
-            QString strTime = QString("%1:%2").arg(time.hour(), 2, 10, QLatin1Char('0')).arg(time.minute(), 2, 10, QLatin1Char('0'));
-            pTimelLabel->setText(tr("The amounts are estimated, last updated at %1").arg(strTime));
-            pVlayout->addWidget(pTimelLabel, 0, Qt::AlignHCenter);
-        } else {
-            pVlayout->addStretch(500);
-            QLabel *pLabel2 = new QLabel;
-            pLabel2->setText(tr("Unknown amount"));
-            DFontSizeManager::instance()->bind(pLabel2, DFontSizeManager::T4, int(QFont::Medium));
-            QPalette pal = pLabel2->palette();
-            QColor color = pal.color(QPalette::WindowText);
-            pal.setColor(QPalette::WindowText, QColor(color.red(), color.green(), color.blue(), 160));
-            pLabel2->setPalette(pal);
-            QLabel *pLabel3 = new QLabel;
-            pLabel3->setText(tr("Unable to get the remaining amount"));
-            pLabel3->setWordWrap(true);
-            pLabel3->setAlignment(Qt::AlignHCenter);
-            pVlayout->addWidget(pLabel2, 0, Qt::AlignHCenter);
-            pVlayout->addSpacing(10);
-            pVlayout->addWidget(pLabel3, 0, Qt::AlignHCenter);
-            DFontSizeManager::instance()->bind(pLabel3, DFontSizeManager::T6, int(QFont::Light));
-            pal = pLabel3->palette();
-            color = pal.color(QPalette::WindowText);
-            pal.setColor(QPalette::WindowText, QColor(color.red(), color.green(), color.blue(), 120));
-            pLabel3->setPalette(pal);
-        }
-    }
-
-    pVlayout->addStretch(500);
-    m_pConfirmBtn = new DPushButton();
-    m_pConfirmBtn->setFixedSize(230, 36);
-    DFontSizeManager::instance()->bind(m_pConfirmBtn, DFontSizeManager::T6, int(QFont::ExtraLight));
-    m_pConfirmBtn->setText(tr("OK"));
-    pVlayout->addWidget(m_pConfirmBtn, 0, Qt::AlignCenter | Qt::AlignBottom);
     pVlayout->setContentsMargins(10, 0, 10, 0);
-    pWidget->setLayout(pVlayout);
-    addContent(pWidget);
+    m_pFreshSpinner = new DSpinner;
+    m_pFreshSpinner->setFixedSize(36, 36);
+    pVlayout->addWidget(m_pFreshSpinner, 0, Qt::AlignCenter);
+    m_pContentWidget->setLayout(pVlayout);
+    addContent(m_pContentWidget);
     setFixedSize(380, 356);
     moveToParentCenter();
+    m_pFreshTask = new RefreshSnmpBackendTask;
 }
 
 void DPrinterSupplyShowDlg::initConnection()
 {
-    connect(m_pConfirmBtn, &DPushButton::clicked, this, &QDialog::accept);
+    if (m_pFreshTask) {
+        connect(m_pFreshTask, &RefreshSnmpBackendTask::refreshsnmpfinished,
+                this, &DPrinterSupplyShowDlg::supplyFreshed);
+    }
 }
 
 void DPrinterSupplyShowDlg::moveToParentCenter()
@@ -275,6 +228,19 @@ bool DPrinterSupplyShowDlg::isColorPrinter()
     return bRet;
 }
 
+QString DPrinterSupplyShowDlg::getTranslatedColor(const QString &strColor)
+{
+    QString strRet;
+
+    if (m_mapColorTrans.contains(strColor)) {
+        strRet = m_mapColorTrans.value(strColor);
+    } else {
+        strRet = strColor;
+    }
+
+    return strRet;
+}
+
 void DPrinterSupplyShowDlg::initColorTrans()
 {
     m_mapColorTrans.clear();
@@ -306,50 +272,71 @@ void DPrinterSupplyShowDlg::initColorTrans()
     m_mapColorTrans.insert("Waste", QObject::tr("Waste"));
 }
 
-QString DPrinterSupplyShowDlg::getTranslatedColor(const QString &strColor)
+void DPrinterSupplyShowDlg::supplyFreshed(const QString &strName, bool bRet)
 {
-    QString strRet;
+    m_pFreshSpinner->stop();
+    m_pFreshSpinner->hide();
+    QVBoxLayout *pVlayout = static_cast<QVBoxLayout *>(m_pContentWidget->layout());
+    QLabel *pLabel = new QLabel;
+    DFontSizeManager::instance()->bind(pLabel, DFontSizeManager::T6, int(QFont::Medium));
+    pLabel->setText(tr("Ink/Toner Status"));
+    pVlayout->addWidget(pLabel, 0, Qt::AlignHCenter | Qt::AlignTop);
 
-    if (m_mapColorTrans.contains(strColor)) {
-        strRet = m_mapColorTrans.value(strColor);
+    if (!bRet) {
+        pVlayout->addStretch(500);
+        QLabel *pLabel2 = new QLabel;
+        pLabel2->setText(tr("Unknown amount"));
+        DFontSizeManager::instance()->bind(pLabel2, DFontSizeManager::T4, int(QFont::Medium));
+        QPalette pal = pLabel2->palette();
+        QColor color = pal.color(QPalette::WindowText);
+        pal.setColor(QPalette::WindowText, QColor(color.red(), color.green(), color.blue(), 160));
+        pLabel2->setPalette(pal);
+        QLabel *pLabel3 = new QLabel;
+        pLabel3->setText(tr("Unable to get the remaining amount"));
+        pVlayout->addWidget(pLabel2, 0, Qt::AlignHCenter);
+        pVlayout->addSpacing(10);
+        pVlayout->addWidget(pLabel3, 0, Qt::AlignHCenter);
+        DFontSizeManager::instance()->bind(pLabel3, DFontSizeManager::T6, int(QFont::Light));
+        pal = pLabel3->palette();
+        color = pal.color(QPalette::WindowText);
+        pal.setColor(QPalette::WindowText, QColor(color.red(), color.green(), color.blue(), 120));
+        pLabel3->setPalette(pal);
     } else {
-        strRet = strColor;
-    }
+        pVlayout->addSpacing(20);
+        DPrinterManager *pManager = DPrinterManager::getInstance();
+        DDestination *pDest = pManager->getDestinationByName(strName);
 
-    return strRet;
-}
+        if (pDest != nullptr) {
+            if (DESTTYPE::PRINTER == pDest->getType()) {
+                DPrinter *pPrinter = static_cast<DPrinter *>(pDest);
+                QVector<SUPPLYSDATA> supplyInfos = m_pFreshTask->getSupplyData(strName);
+                bool bColor = pPrinter->canSetColorModel();
 
-bool DPrinterSupplyShowDlg::canGetSupplyMsg()
-{
-    bool bRet = false;
-
-    DPrinterManager *pManager = DPrinterManager::getInstance();
-    DDestination *pDest = pManager->getDestinationByName(m_strPrinterName);
-
-    if (pDest != nullptr) {
-        if (DESTTYPE::PRINTER == pDest->getType()) {
-            DPrinter *pPrinter = static_cast<DPrinter *>(pDest);
-
-            if (pPrinter->isPpdFileBroken()) {
-                bRet = false;
-            } else {
-                pPrinter->disableSupplys();
-                pPrinter->updateSupplys();
-                m_supplyInfos.clear();
-                m_supplyInfos = pPrinter->getSupplys();
-
-                if (m_supplyInfos.size() > 0) {
-                    bRet = true;
+                for (int i = 0; i < supplyInfos.size(); i++) {
+                    QWidget *pColorWidget = initColorSupplyItem(supplyInfos[i], bColor);
+                    pVlayout->addWidget(pColorWidget);
+                    pVlayout->addSpacing(1);
                 }
+
+                pVlayout->addSpacing(10);
+                DLabel *pTimelLabel = new DLabel;
+                pTimelLabel->setWordWrap(true);
+                pTimelLabel->setAlignment(Qt::AlignHCenter);
+                DFontSizeManager::instance()->bind(pTimelLabel, DFontSizeManager::T8, int(QFont::ExtraLight));
+                QTime time = QTime::currentTime();
+                QString strTime = QString("%1:%2").arg(time.hour(), 2, 10, QLatin1Char('0')).arg(time.minute(), 2, 10, QLatin1Char('0'));
+                pTimelLabel->setText(tr("The amounts are estimated, last updated at %1").arg(strTime));
+                pVlayout->addWidget(pTimelLabel);
             }
         }
     }
 
-    return bRet;
-}
-
-void DPrinterSupplyShowDlg::updateUI()
-{
-    initUI();
-    initConnection();
+    pVlayout->addStretch(500);
+    m_pConfirmBtn = new DPushButton();
+    m_pConfirmBtn->setFixedSize(230, 36);
+    DFontSizeManager::instance()->bind(m_pConfirmBtn, DFontSizeManager::T6, int(QFont::ExtraLight));
+    m_pConfirmBtn->setText(tr("OK"));
+    pVlayout->addWidget(m_pConfirmBtn, 0, Qt::AlignCenter | Qt::AlignBottom);
+    m_pContentWidget->setLayout(pVlayout);
+    connect(m_pConfirmBtn, &DPushButton::clicked, this, &QDialog::accept);
 }

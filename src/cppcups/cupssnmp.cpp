@@ -214,18 +214,23 @@ vector<SUPPLYSDATA> cupssnmp::getMarkInfo()
 bool cupssnmp::SNMPSupport()
 {
     bool bRet = false;
-    PPD ppd;
-    ppd.load(m_strPPD.c_str());
 
-    Attribute attr = ppd.findAttr("cupsSNMPSupplies", nullptr);
-    string strAttrValue = attr.getValue();
+    try {
+        PPD ppd;
+        ppd.load(m_strPPD.c_str());
 
-    if(strAttrValue.empty() || !strncmp(strAttrValue.c_str(), "true", strlen("true")))
-    {
-        bRet = true;
-    }
-    else
-    {
+        Attribute attr = ppd.findAttr("cupsSNMPSupplies", nullptr);
+        string strAttrValue = attr.getValue();
+
+        if(strAttrValue.empty() || !strncmp(strAttrValue.c_str(), "true", strlen("true")))
+        {
+            bRet = true;
+        }
+        else
+        {
+            bRet = false;
+        }
+    } catch (const std::runtime_error &e) {
         bRet = false;
     }
 

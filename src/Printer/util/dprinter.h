@@ -165,6 +165,7 @@ public:
     void updateSupplys();
     void disableSupplys();
     int getMinMarkerLevel();
+    void SetSupplys(const QVector<SUPPLYSDATA>& vecMarkInfo);
 
 
     QStringList getDefaultPpdOpts();
@@ -186,6 +187,8 @@ public:
 
     //通过关键词读取选项
     OPTNODE getOptionNodeByKeyword(const QString &strKey);
+
+    QString getPPDName();
 
 private:
     QString getOptionValue(const QString &strOptName);

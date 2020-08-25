@@ -23,6 +23,7 @@
 #include "dprintermanager.h"
 #include "printersearchwindow.h"
 #include "renameprinterwindow.h"
+#include "util/refreshsnmpbackendtask.h"
 
 #include <DMainWindow>
 #include <DListView>
@@ -278,6 +279,7 @@ private slots:
     void printTestClickSlot();
     void printFalutClickSlot();
     void printSupplyClickSlot();
+    void supplyFreshed(const QString&, bool);
 
     void printerListWidgetItemChangedSlot(const QModelIndex &previous);
     // 响应列表的右键菜单
@@ -332,6 +334,7 @@ private:
     DPrinterManager *m_pPrinterManager;
     // 当前选中的打印机名称
     QString m_CurPrinterName;
+    RefreshSnmpBackendTask* m_pSupplyFreshTask;
 };
 
 #endif // DPRINTERSSHOWWINDOW_H

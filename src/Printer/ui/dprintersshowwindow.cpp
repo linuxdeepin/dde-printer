@@ -73,6 +73,8 @@ DPrintersShowWindow::~DPrintersShowWindow()
         m_pSearchWindow->deleteLater();
     if (m_pSettingsDialog)
         m_pSettingsDialog->deleteLater();
+    if (m_pSupplyFreshTask)
+        m_pSupplyFreshTask->deleteLater();
 }
 
 void DPrintersShowWindow::initUI()
@@ -295,6 +297,7 @@ void DPrintersShowWindow::initUI()
     pCentralWidget1->setLayout(pMainLayout1);
     takeCentralWidget();
     setCentralWidget(pCentralWidget1);
+    m_pSupplyFreshTask = new RefreshSnmpBackendTask;
 }
 
 void DPrintersShowWindow::initConnections()
@@ -345,6 +348,8 @@ void DPrintersShowWindow::initConnections()
     connect(m_pRejectAction, &QAction::triggered, this, &DPrintersShowWindow::listWidgetMenuActionSlot);
 
     connect(m_pSettings, &QAction::triggered, this, &DPrintersShowWindow::serverSettingsSlot);
+    connect(m_pSupplyFreshTask, &RefreshSnmpBackendTask::refreshsnmpfinished,
+            this, &DPrintersShowWindow::supplyFreshed);
 
     connect(g_cupsMonitor, &CupsMonitor::signalPrinterStateChanged, this, [this](const QString & printer, int state, const QString & message) {
         Q_UNUSED(message)
@@ -380,6 +385,12 @@ void DPrintersShowWindow::showEvent(QShowEvent *event)
             dlg.setFixedSize(422, 202);
             dlg.exec();
         }
+    });
+
+    QTimer::singleShot(3000,  this, [ = ]() {
+        QStringList printerList = m_pPrinterManager->getPrintersList();
+        m_pSupplyFreshTask->setPrinters(printerList);
+        m_pSupplyFreshTask->beginTask();
     });
 }
 
@@ -529,6 +540,8 @@ void DPrintersShowWindow::closeEvent(QCloseEvent *event)
     DMainWindow::closeEvent(event);
 
     QTimer::singleShot(10, g_printerApplication, &PrinterApplication::slotMainWindowClosed);
+    disconnect(m_pSupplyFreshTask, &RefreshSnmpBackendTask::refreshsnmpfinished,
+               this, &DPrintersShowWindow::supplyFreshed);
 }
 
 void DPrintersShowWindow::addPrinterClickSlot()
@@ -728,8 +741,32 @@ void DPrintersShowWindow::printSupplyClickSlot()
         return ;
     QString strPrinterName = m_pPrinterListView->currentIndex().data().toString();
     DPrinterSupplyShowDlg dlg(strPrinterName, this);
-    dlg.updateUI();
     dlg.exec();
+}
+
+void DPrintersShowWindow::supplyFreshed(const QString &strName, bool bVal)
+{
+    Q_UNUSED(bVal);
+    DDestination *pDest = m_pPrinterManager->getDestinationByName(strName);
+
+    if (pDest != nullptr) {
+        if (PRINTER == pDest->getType()) {
+            QVector<SUPPLYSDATA> vecSupplys = m_pSupplyFreshTask->getSupplyData(strName);
+            DPrinter *pPrinter = static_cast<DPrinter *>(pDest);
+            pPrinter->SetSupplys(vecSupplys);
+
+            if (!m_pPrinterListView->currentIndex().isValid())
+                return;
+
+            QString printerName = m_pPrinterListView->currentIndex().data(Qt::DisplayRole).toString();
+
+            if (printerName == strName) {
+                int iMinValue = pPrinter->getMinMarkerLevel();
+                QIcon pix = getSupplyIconByLevel(iMinValue);
+                m_pTBtnSupply->setIcon(pix);
+            }
+        }
+    }
 }
 
 void DPrintersShowWindow::printerListWidgetItemChangedSlot(const QModelIndex &previous)
@@ -760,11 +797,9 @@ void DPrintersShowWindow::printerListWidgetItemChangedSlot(const QModelIndex &pr
         m_pLabelStatusShow->setText(basePrinterInfo.at(2));
         DDestination *pDest = m_pPrinterManager->getDestinationByName(printerName);
 
-        if (PRINTER == pDest->getType()) {
-            DPrinter *pPrinter = static_cast<DPrinter *>(pDest);
-
-            if (!pPrinter->isPpdFileBroken()) {
-                pPrinter->updateSupplys();
+        if (pDest != nullptr) {
+            if (PRINTER == pDest->getType()) {
+                DPrinter *pPrinter = static_cast<DPrinter *>(pDest);
                 int iMinValue = pPrinter->getMinMarkerLevel();
                 QIcon pix = getSupplyIconByLevel(iMinValue);
                 m_pTBtnSupply->setIcon(pix);

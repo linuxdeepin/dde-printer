@@ -25,9 +25,11 @@
 
 #include <DDialog>
 #include <DPushButton>
+#include <DSpinner>
 
 #include <QStackedWidget>
 #include <QMap>
+#include <refreshsnmpbackendtask.h>
 
 DCORE_USE_NAMESPACE
 DWIDGET_USE_NAMESPACE
@@ -39,10 +41,9 @@ public:
     DPrinterSupplyShowDlg(const QString& strPrinterName, QWidget *parent = nullptr);
     ~DPrinterSupplyShowDlg();
 
-public:
-    bool isDriveBroken();
-    bool canGetSupplyMsg();
-    void updateUI();
+protected:
+    virtual void showEvent(QShowEvent *event);
+    virtual void closeEvent(QCloseEvent *event);
 
 private:
     void initUI();
@@ -53,12 +54,17 @@ private:
     void initColorTrans();
     QString getTranslatedColor(const QString& strColor);
 
+private slots:
+    void supplyFreshed(const QString&, bool);
+
 private:
     QString m_strPrinterName;
     QStackedWidget* m_pStackedWidget;
-    QVector<SUPPLYSDATA> m_supplyInfos;
     DPushButton* m_pConfirmBtn;
     QMap<QString,QString> m_mapColorTrans;
+    QWidget* m_pContentWidget;
+    RefreshSnmpBackendTask* m_pFreshTask;
+    DSpinner* m_pFreshSpinner;
 };
 
 #endif // DPRINTERSUPPLYSHOWDLG_H

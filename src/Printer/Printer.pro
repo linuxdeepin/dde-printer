@@ -40,7 +40,8 @@ SOURCES += \
     ui/printertestpagedialog.cpp \
     ui/troubleshootdialog.cpp\
     util/dprintertanslator.cpp \
-    ui/dprintersupplyshowdlg.cpp
+    ui/dprintersupplyshowdlg.cpp \
+    util/refreshsnmpbackendtask.cpp
 
 
 RESOURCES +=         resources.qrc \
@@ -85,7 +86,8 @@ HEADERS += \
     ui/troubleshootdialog.h\
     util/dprintertanslator.h \
     ui/dprinterpropertytemplate.h \
-    ui/dprintersupplyshowdlg.h
+    ui/dprintersupplyshowdlg.h \
+    util/refreshsnmpbackendtask.h
 
 
 INCLUDEPATH +=  \
