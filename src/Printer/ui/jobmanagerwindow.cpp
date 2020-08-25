@@ -1065,12 +1065,12 @@ void JobManagerWindow::initUi()
     m_jobsView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
     m_jobsView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Fixed);
     m_jobsView->horizontalHeader()->setSectionResizeMode(4, QHeaderView::Fixed);
-    m_jobsView->horizontalHeader()->setSectionResizeMode(5, QHeaderView::Fixed);
+    m_jobsView->horizontalHeader()->setSectionResizeMode(5, QHeaderView::Interactive);
     m_jobsView->horizontalHeader()->setSectionResizeMode(6, QHeaderView::Interactive);
     m_jobsView->setColumnWidth(0, 72);
     m_jobsView->setColumnWidth(1, 82);
     m_jobsView->setColumnWidth(4, 65);
-    m_jobsView->setColumnWidth(5, 146);
+    m_jobsView->setColumnWidth(5, 166);
     m_jobsView->setColumnWidth(6, 146);
 
     m_jobCountLabel->setAlignment(Qt::AlignCenter);
