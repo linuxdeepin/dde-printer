@@ -225,7 +225,7 @@ void InstallDriverWindow::initUI()
     m_pManuAndTypeLineEdit->setToolTip(tr("Enter a complete vendor and model (Only letters, numbers and whitespaces)"));
     m_pManuAndTypeLineEdit->setValidator(new QRegExpValidator(QRegExp("^[a-zA-Z0-9 ]*$")));
     m_pSearchBtn = new QPushButton(tr("Search"));
-    m_pSearchBtn->setFixedSize(60, 36);
+    m_pSearchBtn->setMinimumSize(80, 36);
     QHBoxLayout *pMakerHL1 = new QHBoxLayout;
     pMakerHL1->addWidget(pMakerAndTypeLabel, 1);
     pMakerHL1->addWidget(m_pManuAndTypeLineEdit, 3);
