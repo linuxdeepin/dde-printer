@@ -188,69 +188,66 @@ void DPrintersShowWindow::initUI()
 
     // 右侧下方控件
     QStringList strList =  QIcon::themeSearchPaths();
-    m_pTBtnSetting = new DFloatingButton(this);
-    m_pTBtnSetting->setIcon(QIcon::fromTheme("dp_set"));
-    m_pTBtnSetting->setIconSize(QSize(32, 32));
-    m_pTBtnSetting->setFixedSize(60, 60);
-    m_pTBtnSetting->setBackgroundRole(QPalette::Button);
-
+    m_pIBtnSetting = new DIconButton(this);
+    m_pIBtnSetting->setIcon(QIcon::fromTheme("dp_set"));
+    m_pIBtnSetting->setIconSize(QSize(32, 32));
+    m_pIBtnSetting->setFixedSize(60, 60);
+    m_pIBtnSetting->setEnabledCircle(true);
     QLabel *pLabelSetting = new QLabel();
     pLabelSetting->setText(tr("Properties"));
     pLabelSetting->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
     DFontSizeManager::instance()->bind(pLabelSetting, DFontSizeManager::T8);
 
-    m_pTBtnPrintQueue = new DFloatingButton(this);
-    m_pTBtnPrintQueue->setIcon(QIcon::fromTheme("dp_print_queue"));
-    m_pTBtnPrintQueue->setIconSize(QSize(32, 32));
-    m_pTBtnPrintQueue->setFixedSize(60, 60);
-    m_pTBtnPrintQueue->setBackgroundRole(QPalette::Button);
+    m_pIBtnPrintQueue = new DIconButton(this);
+    m_pIBtnPrintQueue->setIcon(QIcon::fromTheme("dp_print_queue"));
+    m_pIBtnPrintQueue->setIconSize(QSize(32, 32));
+    m_pIBtnPrintQueue->setFixedSize(60, 60);
+    m_pIBtnPrintQueue->setEnabledCircle(true);
     QLabel *pLabelPrintQueue = new QLabel();
     pLabelPrintQueue->setText(tr("Print Queue"));
     pLabelPrintQueue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
     DFontSizeManager::instance()->bind(pLabelPrintQueue, DFontSizeManager::T8);
 
-    m_pTBtnPrintTest = new DFloatingButton(this);
-    m_pTBtnPrintTest->setIcon(QIcon::fromTheme("dp_test_page"));
-    m_pTBtnPrintTest->setIconSize(QSize(32, 32));
-    m_pTBtnPrintTest->setFixedSize(60, 60);
-    m_pTBtnPrintTest->setBackgroundRole(QPalette::Button);
+    m_pIBtnPrintTest = new DIconButton(this);
+    m_pIBtnPrintTest->setIcon(QIcon::fromTheme("dp_test_page"));
+    m_pIBtnPrintTest->setIconSize(QSize(32, 32));
+    m_pIBtnPrintTest->setFixedSize(60, 60);
+    m_pIBtnPrintTest->setEnabledCircle(true);
     QLabel *pLabelPrintTest = new QLabel();
     pLabelPrintTest->setText(tr("Print Test Page"));
     pLabelPrintTest->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
     DFontSizeManager::instance()->bind(pLabelPrintTest, DFontSizeManager::T8);
 
-    m_pTBtnFault = new DFloatingButton(this);
-    m_pTBtnFault->setIcon(QIcon::fromTheme("dp_fault"));
-    m_pTBtnFault->setIconSize(QSize(32, 32));
-    m_pTBtnFault->setFixedSize(60, 60);
-    m_pTBtnFault->setBackgroundRole(QPalette::Button);
-
+    m_pIBtnFault = new DIconButton(this);
+    m_pIBtnFault->setIcon(QIcon::fromTheme("dp_fault"));
+    m_pIBtnFault->setIconSize(QSize(32, 32));
+    m_pIBtnFault->setFixedSize(60, 60);
+    m_pIBtnFault->setEnabledCircle(true);
     QLabel *pLabelPrintFault = new QLabel();
     pLabelPrintFault->setText(UI_PRINTERSHOW_TROUBLE);
     pLabelPrintFault->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
     DFontSizeManager::instance()->bind(pLabelPrintFault, DFontSizeManager::T8);
 
-    m_pTBtnSupply = new DFloatingButton(this);
-    m_pTBtnSupply->setIcon(QIcon::fromTheme("filter_icon_unknown"));
-    m_pTBtnSupply->setIconSize(QSize(32, 32));
-    m_pTBtnSupply->setFixedSize(60, 60);
-    m_pTBtnSupply->setBackgroundRole(QPalette::Button);
-
+    m_pIBtnSupply = new DIconButton(this);
+    m_pIBtnSupply->setIcon(QIcon::fromTheme("filter_icon_unknown"));
+    m_pIBtnSupply->setIconSize(QSize(32, 32));
+    m_pIBtnSupply->setFixedSize(60, 60);
+    m_pIBtnSupply->setEnabledCircle(true);
     QLabel *pLabelSupply = new QLabel;
     pLabelSupply->setText(tr("Supplies"));
     pLabelSupply->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
     DFontSizeManager::instance()->bind(pLabelSupply, DFontSizeManager::T8);
 
     QGridLayout *pRightBottomGLayout = new QGridLayout();
-    pRightBottomGLayout->addWidget(m_pTBtnSetting, 0, 0, Qt::AlignHCenter);
+    pRightBottomGLayout->addWidget(m_pIBtnSetting, 0, 0, Qt::AlignHCenter);
     pRightBottomGLayout->addWidget(pLabelSetting, 1, 0);
-    pRightBottomGLayout->addWidget(m_pTBtnPrintQueue, 0, 1, Qt::AlignHCenter);
+    pRightBottomGLayout->addWidget(m_pIBtnPrintQueue, 0, 1, Qt::AlignHCenter);
     pRightBottomGLayout->addWidget(pLabelPrintQueue, 1, 1);
-    pRightBottomGLayout->addWidget(m_pTBtnPrintTest, 0, 2, Qt::AlignHCenter);
+    pRightBottomGLayout->addWidget(m_pIBtnPrintTest, 0, 2, Qt::AlignHCenter);
     pRightBottomGLayout->addWidget(pLabelPrintTest, 1, 2);
-    pRightBottomGLayout->addWidget(m_pTBtnSupply, 0, 3, Qt::AlignHCenter);
+    pRightBottomGLayout->addWidget(m_pIBtnSupply, 0, 3, Qt::AlignHCenter);
     pRightBottomGLayout->addWidget(pLabelSupply, 1, 3);
-    pRightBottomGLayout->addWidget(m_pTBtnFault, 0, 4, Qt::AlignHCenter);
+    pRightBottomGLayout->addWidget(m_pIBtnFault, 0, 4, Qt::AlignHCenter);
     pRightBottomGLayout->addWidget(pLabelPrintFault, 1, 4);
 
     // 右侧整体布局
@@ -305,11 +302,11 @@ void DPrintersShowWindow::initConnections()
     connect(m_pBtnAddPrinter, &DIconButton::clicked, this, &DPrintersShowWindow::addPrinterClickSlot);
     connect(m_pBtnDeletePrinter, &DIconButton::clicked, this, &DPrintersShowWindow::deletePrinterClickSlot);
 
-    connect(m_pTBtnSetting, &DIconButton::clicked, this, &DPrintersShowWindow::printSettingClickSlot);
-    connect(m_pTBtnPrintQueue, &DIconButton::clicked, this, &DPrintersShowWindow::printQueueClickSlot);
-    connect(m_pTBtnPrintTest, &DIconButton::clicked, this, &DPrintersShowWindow::printTestClickSlot);
-    connect(m_pTBtnSupply, &DIconButton::clicked, this, &DPrintersShowWindow::printSupplyClickSlot);
-    connect(m_pTBtnFault, &DIconButton::clicked, this, &DPrintersShowWindow::printFalutClickSlot);
+    connect(m_pIBtnSetting, &DIconButton::clicked, this, &DPrintersShowWindow::printSettingClickSlot);
+    connect(m_pIBtnPrintQueue, &DIconButton::clicked, this, &DPrintersShowWindow::printQueueClickSlot);
+    connect(m_pIBtnPrintTest, &DIconButton::clicked, this, &DPrintersShowWindow::printTestClickSlot);
+    connect(m_pIBtnSupply, &DIconButton::clicked, this, &DPrintersShowWindow::printSupplyClickSlot);
+    connect(m_pIBtnFault, &DIconButton::clicked, this, &DPrintersShowWindow::printFalutClickSlot);
 
     connect(m_pPrinterListView, QOverload<const QModelIndex &>::of(&DListView::currentChanged), this, &DPrintersShowWindow::printerListWidgetItemChangedSlot);
     //    //此处修改文字和修改图标都会触发这个信号，导致bug，修改图标之前先屏蔽信号
@@ -714,12 +711,12 @@ void DPrintersShowWindow::printTestClickSlot()
 {
     if (!m_pPrinterListView->currentIndex().isValid())
         return;
-    m_pTBtnPrintTest->blockSignals(true);
+    m_pIBtnPrintTest->blockSignals(true);
     QString printerName = m_pPrinterListView->currentIndex().data().toString();
 
     PrinterTestPageDialog *dlg = new PrinterTestPageDialog(printerName, this);
     connect(dlg, &PrinterTestPageDialog::signalFinished, this, [ = ]() {
-        m_pTBtnPrintTest->blockSignals(false);
+        m_pIBtnPrintTest->blockSignals(false);
     });
     dlg->printTestPage();
 }
@@ -763,7 +760,7 @@ void DPrintersShowWindow::supplyFreshed(const QString &strName, bool bVal)
             if (printerName == strName) {
                 int iMinValue = pPrinter->getMinMarkerLevel();
                 QIcon pix = getSupplyIconByLevel(iMinValue);
-                m_pTBtnSupply->setIcon(pix);
+                m_pIBtnSupply->setIcon(pix);
             }
         }
     }
@@ -802,7 +799,7 @@ void DPrintersShowWindow::printerListWidgetItemChangedSlot(const QModelIndex &pr
                 DPrinter *pPrinter = static_cast<DPrinter *>(pDest);
                 int iMinValue = pPrinter->getMinMarkerLevel();
                 QIcon pix = getSupplyIconByLevel(iMinValue);
-                m_pTBtnSupply->setIcon(pix);
+                m_pIBtnSupply->setIcon(pix);
             }
         }
     }
