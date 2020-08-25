@@ -749,6 +749,12 @@ int DPrinter::getMinMarkerLevel()
     return iMinValue;
 }
 
+void DPrinter::SetSupplys(const QVector<SUPPLYSDATA>& vecMarkInfo)
+{
+    m_bNeedUpdateInk = false;
+    m_vecMarkInfo = vecMarkInfo;
+}
+
 QStringList DPrinter::getDefaultPpdOpts()
 {
     QStringList strDefaultOptions;
@@ -933,6 +939,22 @@ bool DPrinter::isConflict(const QString &strModule, const QString &strValue, QVe
          qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
      }
      return node;
+ }
+
+ QString DPrinter::getPPDName()
+ {
+     QString strPpdName;
+
+     try {
+         time_t tm = 0;
+         string strVal = m_pCon->getPPD3(m_strName.toStdString().c_str(), &tm, nullptr);
+         strPpdName = QString::fromStdString(strVal);
+     } catch (const std::runtime_error &e) {
+         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+         strPpdName.clear();
+     }
+
+     return strPpdName;
  }
 
 QString DPrinter::getOptionValue(const QString &strOptName)
