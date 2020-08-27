@@ -279,7 +279,7 @@ private slots:
     void printTestClickSlot();
     void printFalutClickSlot();
     void printSupplyClickSlot();
-    void supplyFreshed(const QString&, bool);
+    void supplyFreshed(const QString &, bool);
 
     void printerListWidgetItemChangedSlot(const QModelIndex &previous);
     // 响应列表的右键菜单
@@ -295,6 +295,8 @@ private slots:
     //    bool eventFilter(QObject *watched, QEvent *event) override;
 
     void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
+
+    void resizeEvent(QResizeEvent *event) override;
 
 private:
     // UI成员变量
@@ -334,7 +336,7 @@ private:
     DPrinterManager *m_pPrinterManager;
     // 当前选中的打印机名称
     QString m_CurPrinterName;
-    RefreshSnmpBackendTask* m_pSupplyFreshTask;
+    RefreshSnmpBackendTask *m_pSupplyFreshTask;
 };
 
 #endif // DPRINTERSSHOWWINDOW_H
