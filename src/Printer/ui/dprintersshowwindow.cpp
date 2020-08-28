@@ -381,18 +381,6 @@ void DPrintersShowWindow::showEvent(QShowEvent *event)
             dlg.exec();
         }
     });
-
-    QTimer::singleShot(3000,  this, [ = ]() {
-        RefreshSnmpBackendTask *task = new RefreshSnmpBackendTask;
-        connect(task, &RefreshSnmpBackendTask::refreshsnmpfinished,
-                this, &DPrintersShowWindow::supplyFreshed);
-        connect(task, &RefreshSnmpBackendTask::finished, this, [=]() {
-                task->deleteLater();
-        });
-        QStringList printerList = m_pPrinterManager->getPrintersList();
-        task->setPrinters(printerList);
-        task->beginTask();
-    });
 }
 
 void DPrintersShowWindow::selectPrinterByName(const QString &printerName)
@@ -487,6 +475,17 @@ void DPrintersShowWindow::refreshPrinterListView(const QString &newPrinterName)
     } else {
         selectPrinterByName(newPrinterName);
     }
+
+    QTimer::singleShot(1000,  this, [ = ]() {
+        RefreshSnmpBackendTask *task = new RefreshSnmpBackendTask;
+        connect(task, &RefreshSnmpBackendTask::refreshsnmpfinished,
+                this, &DPrintersShowWindow::supplyFreshed);
+        connect(task, &RefreshSnmpBackendTask::finished, this, [ = ]() {
+            task->deleteLater();
+        });
+        task->setPrinters(printerList);
+        task->beginTask();
+    });
 }
 
 void DPrintersShowWindow::serverSettingsSlot()
@@ -747,8 +746,8 @@ void DPrintersShowWindow::printSupplyClickSlot()
     RefreshSnmpBackendTask *task = new RefreshSnmpBackendTask;
     connect(task, &RefreshSnmpBackendTask::refreshsnmpfinished,
             this, &DPrintersShowWindow::supplyFreshed);
-    connect(task, &RefreshSnmpBackendTask::finished, this, [=]() {
-            task->deleteLater();
+    connect(task, &RefreshSnmpBackendTask::finished, this, [ = ]() {
+        task->deleteLater();
     });
     task->setPrinters(QStringList(strPrinterName));
     DPrinterSupplyShowDlg *dlg = new DPrinterSupplyShowDlg(task, this);
