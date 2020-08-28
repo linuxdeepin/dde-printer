@@ -62,11 +62,14 @@ protected:
 
 private:
     bool canGetSupplyMsg(const SNMPFRESHNODE&);
+    void initColorTable();
+    QString getColorName(const QString&);
 
 private:
     QStringList m_strPrinterNames;
     QMap<QString, QVector<SUPPLYSDATA>> m_mapSupplyInfo;
     QVector<SNMPFRESHNODE> m_vecFreshNode;
+    QMap<QString,QString> m_colorTable;
     bool m_bExit;
 };
 

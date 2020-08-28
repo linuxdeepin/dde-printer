@@ -27,6 +27,7 @@
 RefreshSnmpBackendTask::RefreshSnmpBackendTask(QObject *parent) : QThread(parent)
 {
     m_bExit = true;
+    initColorTable();
 }
 
 RefreshSnmpBackendTask::~RefreshSnmpBackendTask()
@@ -114,11 +115,9 @@ void RefreshSnmpBackendTask::run()
 
 bool RefreshSnmpBackendTask::canGetSupplyMsg(const SNMPFRESHNODE &node)
 {
-    bool bRet = false;
     QVector<SUPPLYSDATA> vecMarkInfo;
 
     if (node.strUrl.startsWith("socket://")) {
-        time_t tm = 0;
         cupssnmp snmp;
         snmp.setIP(node.strLoc.toStdString());
         snmp.setPPDName(node.strPpdName.toStdString().c_str());
@@ -131,25 +130,37 @@ bool RefreshSnmpBackendTask::canGetSupplyMsg(const SNMPFRESHNODE &node)
     } else if (node.strUrl.startsWith("ipp://")) {
         try {
             Connection c;
-            QString strMarkerLevel;
-            QString strMarkerName;
             QStringList strLevelList;
             QStringList strNameList;
+            QStringList strHighLevels;
+            QStringList strTypes;
+            QStringList strColors;
             c.init(node.strLoc.toStdString().c_str(), ippPort(), 0);
             vector<string> requestAttrs;
             requestAttrs.push_back("marker-names");
             requestAttrs.push_back("marker-levels");
             requestAttrs.push_back("marker-high-levels");
+            requestAttrs.push_back("marker-types");
+            requestAttrs.push_back("marker-colors");
             map<string, string> attrs = c.getPrinterAttributes(node.strName.toStdString().c_str(),
                                                                nullptr, &requestAttrs);
 
             for (auto iter = attrs.begin(); iter != attrs.end(); iter++) {
                 if (iter->first == "marker-names") {
-                    strMarkerName = QString::fromStdString(iter->second);
-                    strNameList = strMarkerName.split('\0');
-                } else {
-                    strMarkerLevel = QString::fromStdString(iter->second);
-                    strLevelList = strMarkerLevel.split('\0');
+                    QString strVal = QString::fromStdString(iter->second);
+                    strNameList = strVal.split('\0');
+                } else if (iter->first == "marker-levels") {
+                    QString strVal = QString::fromStdString(iter->second);
+                    strLevelList = strVal.split('\0');
+                } else if (iter->first == "marker-high-levels") {
+                    QString strVal = QString::fromStdString(iter->second);
+                    strHighLevels = strVal.split('\0');
+                } else if (iter->first == "marker-types") {
+                    QString strVal = QString::fromStdString(iter->second);
+                    strTypes = strVal.split('\0');
+                } else if (iter->first == "marker-colors") {
+                    QString strVal = QString::fromStdString(iter->second);
+                    strColors = strVal.split('\0');
                 }
             }
 
@@ -166,6 +177,34 @@ bool RefreshSnmpBackendTask::canGetSupplyMsg(const SNMPFRESHNODE &node)
                 strLevel = strLevel.remove(0, 2);
                 strcpy(info.name, strName.toStdString().c_str());
                 info.level = strLevel.toInt();
+
+                if (strHighLevels.isEmpty()) {
+                    info.max_capacity = 100;
+                } else {
+                    QString strMaxCapacity = strHighLevels.at(i).trimmed();
+
+                    if (strMaxCapacity.isEmpty()) {
+                        info.max_capacity = 100;
+                    } else {
+                        strMaxCapacity = strMaxCapacity.remove(0, 2);
+                        info.max_capacity = strMaxCapacity.toInt();
+                    }
+                }
+
+                QString strType = strTypes.at(i).trimmed();
+                strType = strType.remove(0, 2);
+
+                if (strType == "toner") {
+                    info.type = 3;
+                    QString strColor = strColors.at(i).trimmed();
+                    strColor = strColor.remove(0, 2);
+                    QString strColorName = getColorName(strColor);
+                    strcpy(info.color, strColor.toStdString().c_str());
+                    strcpy(info.colorName, strColorName.toStdString().c_str());
+                } else if (strType == "waste-toner") {
+                    info.type = 4;
+                }
+
                 vecMarkInfo.push_back(info);
             }
         } catch (const std::runtime_error &e) {
@@ -175,4 +214,39 @@ bool RefreshSnmpBackendTask::canGetSupplyMsg(const SNMPFRESHNODE &node)
 
     m_mapSupplyInfo.insert(node.strName, vecMarkInfo);
     return (vecMarkInfo.size() > 0);
+}
+
+void RefreshSnmpBackendTask::initColorTable()
+{
+    m_colorTable.insert("#000000", "Black");
+    m_colorTable.insert("#0000FF", "Blue");
+    m_colorTable.insert("#A52A2A", "Brown");
+    m_colorTable.insert("#00FFFF", "Cyan");
+    m_colorTable.insert("#404040", "Dark-gray");
+    m_colorTable.insert("#404040", "Dark gray");
+    m_colorTable.insert("#FFCC00", "Dark-yellow");
+    m_colorTable.insert("#FFCC00", "Dark yellow");
+    m_colorTable.insert("#FFD700", "Gold");
+    m_colorTable.insert("#808080", "Gray");
+    m_colorTable.insert("#00FF00", "Green");
+    m_colorTable.insert("#606060", "Light-black");
+    m_colorTable.insert("#606060", "Light black");
+    m_colorTable.insert("#E0FFFF", "Light-cyan");
+    m_colorTable.insert("#E0FFFF", "Light cyan");
+    m_colorTable.insert("#D3D3D3", "Light-gray");
+    m_colorTable.insert("#D3D3D3", "Light gray");
+    m_colorTable.insert("#FF77FF", "Light-magenta");
+    m_colorTable.insert("#FF77FF", "Light magenta");
+    m_colorTable.insert("#FF00FF", "Magenta");
+    m_colorTable.insert("#FFA500", "Orange");
+    m_colorTable.insert("#FF0000", "Red");
+    m_colorTable.insert("#C0C0C0", "Silver");
+    m_colorTable.insert("#FFFFFF", "White");
+    m_colorTable.insert("#FFFF00", "Yellow");
+}
+
+QString RefreshSnmpBackendTask::getColorName(const QString &strColor)
+{
+    QString strTmp = strColor.toUpper();
+    return m_colorTable.value(strTmp);
 }

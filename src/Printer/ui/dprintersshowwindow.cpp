@@ -162,6 +162,8 @@ void DPrintersShowWindow::initUI()
     DFontSizeManager::instance()->bind(m_pLabelPrinterName, DFontSizeManager::T4, QFont::DemiBold);
 
     QLabel *pLabelLocation = new QLabel(tr("Location:"));
+    QFontMetrics fm(pLabelLocation->font());
+    pLabelLocation->setFixedWidth(fm.width(pLabelLocation->text()) + 30);
     m_pLabelLocationShow = new QLabel(tr(""));
     DFontSizeManager::instance()->bind(m_pLabelLocationShow, DFontSizeManager::T5, QFont::DemiBold);
     QLabel *pLabelType = new QLabel(tr("Model:"));
@@ -178,13 +180,14 @@ void DPrintersShowWindow::initUI()
     pRightGridLayout->addWidget(m_pLabelTypeShow, 2, 1);
     pRightGridLayout->addWidget(pLabelStatus, 3, 0);
     pRightGridLayout->addWidget(m_pLabelStatusShow, 3, 1);
+
     pRightGridLayout->setColumnStretch(0, 1);
-    pRightGridLayout->setColumnStretch(1, 2);
+    pRightGridLayout->setColumnStretch(1, 3);
 
     QHBoxLayout *pRightTopHLayout = new QHBoxLayout();
-    pRightTopHLayout->addWidget(pLabelImage, 0, Qt::AlignHCenter);
+    pRightTopHLayout->addWidget(pLabelImage, 1, Qt::AlignHCenter);
     pRightTopHLayout->addSpacing(30);
-    pRightTopHLayout->addLayout(pRightGridLayout);
+    pRightTopHLayout->addLayout(pRightGridLayout, 2);
 
     // 右侧下方控件
     QStringList strList =  QIcon::themeSearchPaths();
@@ -539,6 +542,13 @@ void DPrintersShowWindow::closeEvent(QCloseEvent *event)
     QTimer::singleShot(10, g_printerApplication, &PrinterApplication::slotMainWindowClosed);
     disconnect(m_pSupplyFreshTask, &RefreshSnmpBackendTask::refreshsnmpfinished,
                this, &DPrintersShowWindow::supplyFreshed);
+}
+
+void DPrintersShowWindow::resizeEvent(QResizeEvent *event)
+{
+    /*界面缩放时动态调整打印机信息显示的宽度*/
+    printerListWidgetItemChangedSlot(QModelIndex());
+    DMainWindow::resizeEvent(event);
 }
 
 void DPrintersShowWindow::addPrinterClickSlot()
