@@ -336,7 +336,6 @@ private:
     DPrinterManager *m_pPrinterManager;
     // 当前选中的打印机名称
     QString m_CurPrinterName;
-    RefreshSnmpBackendTask *m_pSupplyFreshTask;
 };
 
 #endif // DPRINTERSSHOWWINDOW_H

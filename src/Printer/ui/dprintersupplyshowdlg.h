@@ -38,7 +38,7 @@ class DPrinterSupplyShowDlg : public DDialog
 {
     Q_OBJECT
 public:
-    DPrinterSupplyShowDlg(const QString& strPrinterName, QWidget *parent = nullptr);
+    DPrinterSupplyShowDlg(RefreshSnmpBackendTask *task, QWidget *parent = nullptr);
     ~DPrinterSupplyShowDlg();
 
 protected:
@@ -58,7 +58,6 @@ private slots:
     void supplyFreshed(const QString&, bool);
 
 private:
-    QString m_strPrinterName;
     QStackedWidget* m_pStackedWidget;
     DPushButton* m_pConfirmBtn;
     QMap<QString,QString> m_mapColorTrans;

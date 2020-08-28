@@ -36,8 +36,8 @@
 #include <QTime>
 #include <QSpacerItem>
 
-DPrinterSupplyShowDlg::DPrinterSupplyShowDlg(const QString &strPrinterName, QWidget *parent): DDialog(parent)
-    , m_strPrinterName(strPrinterName)
+DPrinterSupplyShowDlg::DPrinterSupplyShowDlg(RefreshSnmpBackendTask *task, QWidget *parent): DDialog(parent)
+    , m_pFreshTask(task)
 {
     initUI();
     initConnection();
@@ -46,9 +46,6 @@ DPrinterSupplyShowDlg::DPrinterSupplyShowDlg(const QString &strPrinterName, QWid
 
 DPrinterSupplyShowDlg::~DPrinterSupplyShowDlg()
 {
-    if (m_pFreshTask)
-        m_pFreshTask->deleteLater();
-
     if (m_pFreshSpinner) {
         m_pFreshSpinner->deleteLater();
     }
@@ -58,15 +55,11 @@ DPrinterSupplyShowDlg::~DPrinterSupplyShowDlg()
 void DPrinterSupplyShowDlg::showEvent(QShowEvent *event)
 {
     DDialog::showEvent(event);
-    QStringList strNames;
 
     if (m_pFreshSpinner)
         m_pFreshSpinner->start();
 
-    strNames.push_back(m_strPrinterName);
-
     if (m_pFreshTask) {
-        m_pFreshTask->setPrinters(strNames);
         m_pFreshTask->beginTask();
     }
 }
@@ -75,11 +68,6 @@ void DPrinterSupplyShowDlg::closeEvent(QCloseEvent *event)
 {
     if (m_pFreshSpinner)
         m_pFreshSpinner->stop();
-
-    if (m_pFreshTask) {
-        disconnect(m_pFreshTask, &RefreshSnmpBackendTask::refreshsnmpfinished,
-                   this, &DPrinterSupplyShowDlg::supplyFreshed);
-    }
 
     DDialog::closeEvent(event);
 }
@@ -98,7 +86,6 @@ void DPrinterSupplyShowDlg::initUI()
     addContent(m_pContentWidget);
     setFixedSize(380, 356);
     moveToParentCenter();
-    m_pFreshTask = new RefreshSnmpBackendTask;
 }
 
 void DPrinterSupplyShowDlg::initConnection()
@@ -208,24 +195,6 @@ QWidget *DPrinterSupplyShowDlg::initColorSupplyItem(const SUPPLYSDATA &info, boo
     pWidget->setLayout(pHlayout);
     pWidget->setMinimumHeight(32);
     return pWidget;
-}
-
-bool DPrinterSupplyShowDlg::isColorPrinter()
-{
-    bool bRet = true;
-    DPrinterManager *pManager = DPrinterManager::getInstance();
-    DDestination *pDest = pManager->getDestinationByName(m_strPrinterName);
-
-    if (pDest != nullptr) {
-        if (DESTTYPE::PRINTER == pDest->getType()) {
-            DPrinter *pPrinter = static_cast<DPrinter *>(pDest);
-            bRet = pPrinter->canSetColorModel();
-        } else {
-            bRet = false;
-        }
-    }
-
-    return bRet;
 }
 
 QString DPrinterSupplyShowDlg::getTranslatedColor(const QString &strColor)

@@ -73,8 +73,6 @@ DPrintersShowWindow::~DPrintersShowWindow()
         m_pSearchWindow->deleteLater();
     if (m_pSettingsDialog)
         m_pSettingsDialog->deleteLater();
-    if (m_pSupplyFreshTask)
-        m_pSupplyFreshTask->deleteLater();
 }
 
 void DPrintersShowWindow::initUI()
@@ -297,7 +295,6 @@ void DPrintersShowWindow::initUI()
     pCentralWidget1->setLayout(pMainLayout1);
     takeCentralWidget();
     setCentralWidget(pCentralWidget1);
-    m_pSupplyFreshTask = new RefreshSnmpBackendTask;
 }
 
 void DPrintersShowWindow::initConnections()
@@ -348,8 +345,6 @@ void DPrintersShowWindow::initConnections()
     connect(m_pRejectAction, &QAction::triggered, this, &DPrintersShowWindow::listWidgetMenuActionSlot);
 
     connect(m_pSettings, &QAction::triggered, this, &DPrintersShowWindow::serverSettingsSlot);
-    connect(m_pSupplyFreshTask, &RefreshSnmpBackendTask::refreshsnmpfinished,
-            this, &DPrintersShowWindow::supplyFreshed);
 
     connect(g_cupsMonitor, &CupsMonitor::signalPrinterStateChanged, this, [this](const QString & printer, int state, const QString & message) {
         Q_UNUSED(message)
@@ -388,9 +383,15 @@ void DPrintersShowWindow::showEvent(QShowEvent *event)
     });
 
     QTimer::singleShot(3000,  this, [ = ]() {
+        RefreshSnmpBackendTask *task = new RefreshSnmpBackendTask;
+        connect(task, &RefreshSnmpBackendTask::refreshsnmpfinished,
+                this, &DPrintersShowWindow::supplyFreshed);
+        connect(task, &RefreshSnmpBackendTask::finished, this, [=]() {
+                task->deleteLater();
+        });
         QStringList printerList = m_pPrinterManager->getPrintersList();
-        m_pSupplyFreshTask->setPrinters(printerList);
-        m_pSupplyFreshTask->beginTask();
+        task->setPrinters(printerList);
+        task->beginTask();
     });
 }
 
@@ -540,8 +541,6 @@ void DPrintersShowWindow::closeEvent(QCloseEvent *event)
     DMainWindow::closeEvent(event);
 
     QTimer::singleShot(10, g_printerApplication, &PrinterApplication::slotMainWindowClosed);
-    disconnect(m_pSupplyFreshTask, &RefreshSnmpBackendTask::refreshsnmpfinished,
-               this, &DPrintersShowWindow::supplyFreshed);
 }
 
 void DPrintersShowWindow::resizeEvent(QResizeEvent *event)
@@ -744,26 +743,34 @@ void DPrintersShowWindow::printFalutClickSlot()
 
 void DPrintersShowWindow::printSupplyClickSlot()
 {
-    if (!m_pPrinterListView->currentIndex().isValid())
-        return ;
     QString strPrinterName = m_pPrinterListView->currentIndex().data().toString();
-    DPrinterSupplyShowDlg dlg(strPrinterName, this);
-    dlg.exec();
+    RefreshSnmpBackendTask *task = new RefreshSnmpBackendTask;
+    connect(task, &RefreshSnmpBackendTask::refreshsnmpfinished,
+            this, &DPrintersShowWindow::supplyFreshed);
+    connect(task, &RefreshSnmpBackendTask::finished, this, [=]() {
+            task->deleteLater();
+    });
+    task->setPrinters(QStringList(strPrinterName));
+    DPrinterSupplyShowDlg *dlg = new DPrinterSupplyShowDlg(task, this);
+    dlg->setModal(true);
+    dlg->setAttribute(Qt::WA_DeleteOnClose, true);
+    dlg->show();
 }
 
 void DPrintersShowWindow::supplyFreshed(const QString &strName, bool bVal)
 {
     Q_UNUSED(bVal);
-    DDestination *pDest = m_pPrinterManager->getDestinationByName(strName);
+    RefreshSnmpBackendTask *task = static_cast<RefreshSnmpBackendTask *>(sender());
 
+    if (!m_pPrinterListView->currentIndex().isValid())
+        return;
+
+    DDestination *pDest = m_pPrinterManager->getDestinationByName(strName);
     if (pDest != nullptr) {
         if (PRINTER == pDest->getType()) {
-            QVector<SUPPLYSDATA> vecSupplys = m_pSupplyFreshTask->getSupplyData(strName);
+            QVector<SUPPLYSDATA> vecSupplys = task->getSupplyData(strName);
             DPrinter *pPrinter = static_cast<DPrinter *>(pDest);
             pPrinter->SetSupplys(vecSupplys);
-
-            if (!m_pPrinterListView->currentIndex().isValid())
-                return;
 
             QString printerName = m_pPrinterListView->currentIndex().data(Qt::DisplayRole).toString();
 
@@ -771,6 +778,7 @@ void DPrintersShowWindow::supplyFreshed(const QString &strName, bool bVal)
                 int iMinValue = pPrinter->getMinMarkerLevel();
                 QIcon pix = getSupplyIconByLevel(iMinValue);
                 m_pIBtnSupply->setIcon(pix);
+                m_pIBtnSupply->update();
             }
         }
     }
