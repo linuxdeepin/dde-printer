@@ -84,7 +84,8 @@ void DPrinterSupplyShowDlg::initUI()
     pVlayout->addWidget(m_pFreshSpinner, 0, Qt::AlignCenter);
     m_pContentWidget->setLayout(pVlayout);
     addContent(m_pContentWidget);
-    setFixedSize(380, 356);
+    /*耗材信息的列表长度无法确定，固定高度窗口会导致内容显示不全*/
+    setFixedWidth(380);
     moveToParentCenter();
 }
 
