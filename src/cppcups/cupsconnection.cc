@@ -636,18 +636,18 @@ map<string, string> Connection::getClasses(void)
 }
 
 map<string, map<string, string>>
-Connection::do_getPPDs(int limit,
-                       const vector<string> *exclude_schemes,
-                       const vector<string> *include_schemes,
-                       const char *ppd_natural_language,
-                       const char *ppd_device_id,
-                       const char *ppd_make,
-                       const char *ppd_make_and_model,
-                       int ppd_model_number,
-                       const char *ppd_product,
-                       const char *ppd_psversion,
-                       const char *ppd_type,
-                       bool all_lists)
+                              Connection::do_getPPDs(int limit,
+                                                     const vector<string> *exclude_schemes,
+                                                     const vector<string> *include_schemes,
+                                                     const char *ppd_natural_language,
+                                                     const char *ppd_device_id,
+                                                     const char *ppd_make,
+                                                     const char *ppd_make_and_model,
+                                                     int ppd_model_number,
+                                                     const char *ppd_product,
+                                                     const char *ppd_psversion,
+                                                     const char *ppd_type,
+                                                     bool all_lists)
 {
     ipp_t *request = nullptr, *answer = nullptr;
     ipp_attribute_t *attr = nullptr;
@@ -746,7 +746,7 @@ Connection::do_getPPDs(int limit,
 
         map<string, string> dict;
         for (; attr && ippGetGroupTag(attr) == IPP_TAG_PRINTER;
-             attr = ippNextAttribute(answer)) {
+                attr = ippNextAttribute(answer)) {
             const char *attrName = ippGetName(attr);
             debugprintf("Attribute: %s\n", attrName);
             if (!strcmp(attrName, "ppd-name") && ippGetValueTag(attr) == IPP_TAG_NAME) {
@@ -884,13 +884,13 @@ map<string, string> Connection::getDocument(const char *uri, int jobid, int docn
 
     if ((attr = ippFindAttribute(answer, "document-format",
                                  IPP_TAG_MIMETYPE))
-        != nullptr) {
+            != nullptr) {
         format = ippGetString(attr, 0, nullptr);
     }
 
     if ((attr = ippFindAttribute(answer, "document-name",
                                  IPP_TAG_NAME))
-        != nullptr) {
+            != nullptr) {
         name = ippGetString(attr, 0, nullptr);
     }
 
@@ -917,10 +917,10 @@ map<string, string> Connection::getDocument(const char *uri, int jobid, int docn
 }
 
 map<string, map<string, string>> Connection::getDevices(
-    const vector<string> *exclude_schemes,
-    const vector<string> *include_schemes,
-    int limit,
-    int timeout)
+                                  const vector<string> *exclude_schemes,
+                                  const vector<string> *include_schemes,
+                                  int limit,
+                                  int timeout)
 {
     ipp_t *request = nullptr, *answer = nullptr;
     ipp_attribute_t *attr = nullptr;
@@ -2063,7 +2063,8 @@ map<string, string> Connection::getPrinterAttributes(const char *name,
     size_t n_attrs = 0; /* initialised to calm compiler */
     ipp_t *request = nullptr, *answer = nullptr;
     ipp_attribute_t *attr = nullptr;
-    char consuri[HTTP_MAX_URI];
+    char consuri[HTTP_MAX_URI] = {0};
+
     int i;
     map<string, string> ret;
 
@@ -2168,7 +2169,8 @@ map<string, string> Connection::getPrinterAttributes(const char *name,
                     "marker-types",
                     "marker-levels",
                     "member-names",
-                    nullptr};
+                    nullptr
+                };
 
                 switch (valTag) {
                 case IPP_TAG_NAME:
@@ -2279,7 +2281,8 @@ void Connection::deletePrinterFromClass(const char *printername, const char *cla
 {
     const char *requested_attrs[] = {
         "member-names",
-        "member-uris"};
+        "member-uris"
+    };
     char classuri[HTTP_MAX_URI];
     ipp_t *request = nullptr, *answer = nullptr;
     ipp_attribute_t *printers = nullptr;
@@ -2470,7 +2473,8 @@ int Connection::printTestPage(const char *printer, const char *file,
     if (!file) {
         const char *testprint[] = {"%s/data/testprint",
                                    "%s/data/testprint.ps",
-                                   nullptr};
+                                   nullptr
+                                  };
         if ((datadir = getenv("CUPS_DATADIR")) != nullptr) {
             const char **pattern = nullptr;
             for (pattern = testprint; *pattern != nullptr; pattern++) {
@@ -2482,7 +2486,8 @@ int Connection::printTestPage(const char *printer, const char *file,
         } else {
             const char *const dirs[] = {"/usr/share/cups",
                                         "/usr/local/share/cups",
-                                        nullptr};
+                                        nullptr
+                                       };
             int found = 0;
             int i;
             for (i = 0; (datadir = dirs[i]) != nullptr; i++) {

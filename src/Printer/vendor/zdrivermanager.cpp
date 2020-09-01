@@ -145,7 +145,7 @@ static QStringList getPPDNameFromCommandSet(QString strCMD)
     strCMD = strCMD.toLower();
     cmds = strCMD.split(",");
     if (cmds.contains("postscript") || cmds.contains("postscript2")
-        || cmds.contains("postscript level 2 emulation"))
+            || cmds.contains("postscript level 2 emulation"))
         mdls << "postscript";
     else if (cmds.contains("pclxl") || cmds.contains("pcl-xl") || cmds.contains("pcl6") || cmds.contains("pcl 6 emulation"))
         mdls << "PCL 6/PCL XL"
@@ -163,7 +163,7 @@ static QStringList getPPDNameFromCommandSet(QString strCMD)
         mdls << "PCL 3"
              << "PCL Laser";
     if (cmds.contains("escpl2") || cmds.contains("esc/p2")
-        || cmds.contains("escp2e"))
+            || cmds.contains("escp2e"))
         mdls << "ESC/P Dot Matrix";
 
     foreach (QString mdl, mdls) {
@@ -786,7 +786,9 @@ QMap<QString, QVariant> DriverManager::getEveryWhereDriver(const QString &strUri
      * but it may contains utf-8 encoded character, so we don't use
      * everywhere model unless this issuse solved.
      * CUPS issue #5362 */
-    if ((strUri.startsWith("dnssd://") && strUri.contains("/cups")) || ((strUri.startsWith("ipp://") || strUri.startsWith("ipps")) && strUri.contains("/printers"))) {
+    /*http equal ipp */
+    if ((strUri.startsWith("dnssd://") && strUri.contains("/cups")) ||
+            ((strUri.startsWith("ipp://") || strUri.startsWith("ipps") || strUri.startsWith("http") || strUri.startsWith("https")) && strUri.contains("/printers"))) {
         driver.insert(SD_KEY_from, PPDFrom_EveryWhere);
         driver.insert(CUPS_PPD_MAKE_MODEL, tr("EveryWhere driver"));
         driver.insert(CUPS_PPD_NAME, "EveryWhere driver");

@@ -92,7 +92,7 @@ private slots:
     // 手动查找
     void searchPrintersByManual();
     // URI输入检查
-    void lineEditURIChanged(QString uri);
+    void lineEditURIChanged(const QString &uri);
     // 响应安装打印机
     void installDriverSlot();
     // 驱动下拉框切换

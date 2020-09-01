@@ -766,7 +766,7 @@ void PrinterSearchWindow::searchPrintersByManual()
     m_pManDriverCom->addItem(UI_PRINTERSEARCH_MANUAL);
 }
 
-void PrinterSearchWindow::lineEditURIChanged(QString uri)
+void PrinterSearchWindow::lineEditURIChanged(const QString &uri)
 {
     //QRegExp reg("(\\S+)(://)(\\S+)");
     QString strVal = uri.trimmed();

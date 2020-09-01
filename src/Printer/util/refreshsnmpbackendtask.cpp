@@ -142,8 +142,9 @@ bool RefreshSnmpBackendTask::canGetSupplyMsg(const SNMPFRESHNODE &node)
             requestAttrs.push_back("marker-high-levels");
             requestAttrs.push_back("marker-types");
             requestAttrs.push_back("marker-colors");
-            map<string, string> attrs = c.getPrinterAttributes(node.strName.toStdString().c_str(),
-                                                               nullptr, &requestAttrs);
+            /*获取属性的接口，如果传入名称，会默认构造localhost的uri，导致多次共享的ipp无法获取正确的属性，这里改为传入uri*/
+            map<string, string> attrs = c.getPrinterAttributes(nullptr,
+                                                               node.strUrl.toLocal8Bit().data(), &requestAttrs);
 
             for (auto iter = attrs.begin(); iter != attrs.end(); iter++) {
                 if (iter->first == "marker-names") {
@@ -193,7 +194,8 @@ bool RefreshSnmpBackendTask::canGetSupplyMsg(const SNMPFRESHNODE &node)
 
                 QString strType = strTypes.at(i).trimmed();
                 strType = strType.remove(0, 2);
-
+                /*only support toner,ink not support*/
+                bool valid = false;
                 if (strType == "toner") {
                     info.type = 3;
                     QString strColor = strColors.at(i).trimmed();
@@ -201,11 +203,14 @@ bool RefreshSnmpBackendTask::canGetSupplyMsg(const SNMPFRESHNODE &node)
                     QString strColorName = getColorName(strColor);
                     strcpy(info.color, strColor.toStdString().c_str());
                     strcpy(info.colorName, strColorName.toStdString().c_str());
+                    valid = true;
                 } else if (strType == "waste-toner") {
                     info.type = 4;
+                    valid = true;
                 }
-
-                vecMarkInfo.push_back(info);
+                /*过滤其他无法识别的耗材信息*/
+                if (valid)
+                    vecMarkInfo.push_back(info);
             }
         } catch (const std::runtime_error &e) {
             qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
