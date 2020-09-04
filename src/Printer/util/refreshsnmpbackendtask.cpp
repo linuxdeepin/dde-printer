@@ -50,6 +50,7 @@ void RefreshSnmpBackendTask::beginTask()
     }
 
     m_vecFreshNode.clear();
+    m_vecFreshNode.reserve(m_strPrinterNames.size());
     DPrinterManager *pManager = DPrinterManager::getInstance();
 
     for (int i = 0; i < m_strPrinterNames.size(); i++) {
@@ -104,9 +105,8 @@ void RefreshSnmpBackendTask::run()
         if (m_bExit)
             break;
 
-        SNMPFRESHNODE node = m_vecFreshNode[i];
-        bool bRet = canGetSupplyMsg(node);
-        QString strName = node.strName;
+        bool bRet = canGetSupplyMsg(m_vecFreshNode[i]);
+        QString strName = m_vecFreshNode[i].strName;
         emit refreshsnmpfinished(strName, bRet);
     }
 

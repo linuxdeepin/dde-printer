@@ -96,11 +96,13 @@ static bool isHplipDrv(const QString &ppd_name)
 
 static QDBusInterface *getPackageInterface()
 {
-    static QDBusInterface interface {
+    static QDBusInterface interface
+    {
         "com.deepin.lastore",
         "/com/deepin/lastore",
         "com.deepin.lastore.Manager",
-        QDBusConnection::systemBus()};
+        QDBusConnection::systemBus()
+    };
     return &interface;
 }
 
@@ -346,11 +348,11 @@ InstallDriver::InstallDriver(const QMap<QString, QVariant> &solution, QObject *p
 void InstallDriver::doWork()
 {
     qDebug() << "Search driver for" << m_solution;
-    m_serverInterface = g_printerServer->searchDriver(m_solution[SD_KEY_sid].toInt());
+    PrinterServerInterface *pServerInterface = g_printerServer->searchDriver(m_solution[SD_KEY_sid].toInt());
 
-    if (m_serverInterface) {
-        connect(m_serverInterface, &PrinterServerInterface::signalDone, this, &InstallDriver::slotServerDone);
-        m_serverInterface->postToServer();
+    if (pServerInterface) {
+        connect(pServerInterface, &PrinterServerInterface::signalDone, this, &InstallDriver::slotServerDone);
+        pServerInterface->postToServer();
     } else {
         emit signalStatus(TStat_Fail);
     }
@@ -359,21 +361,18 @@ void InstallDriver::doWork()
 void InstallDriver::stop()
 {
     InstallInterface::stop();
-
-    if (m_serverInterface) {
-        disconnect(m_serverInterface, &PrinterServerInterface::signalDone, this, &InstallDriver::slotServerDone);
-    }
 }
 
 void InstallDriver::slotServerDone(int iCode, const QByteArray &result)
 {
+    sender()->deleteLater();
     if (m_bQuit)
         return;
 
     if (iCode != QNetworkReply::NoError) {
         m_strErr = tr("Failed to find the driver solution: %1, error: %2")
-                       .arg(m_solution[SD_KEY_sid].toInt())
-                       .arg(iCode);
+                   .arg(m_solution[SD_KEY_sid].toInt())
+                   .arg(iCode);
         qWarning() << "Request " << m_solution[SD_KEY_sid] << "failed:" << iCode;
         emit signalStatus(TStat_Fail);
         return;

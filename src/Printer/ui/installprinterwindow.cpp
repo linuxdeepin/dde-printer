@@ -44,8 +44,10 @@
 InstallPrinterWindow::InstallPrinterWindow(QWidget *parent)
     : DMainWindow(parent)
     , m_pParentWidget(parent)
+    , m_status(Unknown)
     , m_bInstallFail(false)
     , m_testJob(nullptr)
+
 {
     initUI();
     initConnections();

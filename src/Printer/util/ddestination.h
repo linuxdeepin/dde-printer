@@ -32,11 +32,12 @@ enum DESTTYPE {
     CLASS
 };
 
-class DDestination : public QObject
+class DDestination
 {
-    Q_OBJECT
+
 public:
     DDestination(Connection *con);
+    virtual ~DDestination() {}
 
 public:
     QString getName();

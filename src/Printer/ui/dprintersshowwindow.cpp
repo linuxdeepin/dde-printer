@@ -109,7 +109,7 @@ void DPrintersShowWindow::initUI()
     m_pPrinterListView->setModel(m_pPrinterModel);
     m_pPrinterListView->setFocusPolicy(Qt::NoFocus);
 
-    ItemDelegate *pItemDelegate = new ItemDelegate();
+    ItemDelegate *pItemDelegate = new ItemDelegate(m_pPrinterListView);
     m_pPrinterListView->setItemDelegate(pItemDelegate);
 
     // 列表的右键菜单

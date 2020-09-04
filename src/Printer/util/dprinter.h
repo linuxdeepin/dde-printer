@@ -78,7 +78,7 @@ typedef OPTNODE GENERALOPTNODE;
 
 class DPrinter : public DDestination
 {
-    Q_OBJECT
+
 public:
     DPrinter(Connection *con);
 
@@ -165,7 +165,7 @@ public:
     void updateSupplys();
     void disableSupplys();
     int getMinMarkerLevel();
-    void SetSupplys(const QVector<SUPPLYSDATA>& vecMarkInfo);
+    void SetSupplys(const QVector<SUPPLYSDATA> &vecMarkInfo);
 
 
     QStringList getDefaultPpdOpts();

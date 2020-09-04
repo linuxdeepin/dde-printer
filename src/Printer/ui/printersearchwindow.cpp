@@ -78,7 +78,7 @@ void PrinterSearchWindow::initUi()
     //自动填充背景之后就去掉了DTK的圆角边框，变成了默认的直角边框（UI设计）
     pLeftWidget->setAutoFillBackground(true);
     // 左侧菜单列表
-    m_pTabListView = new DListView();
+    m_pTabListView = new DListView(this);
     QStandardItemModel *pTabModel = new QStandardItemModel(m_pTabListView);
     DStandardItem *pWidgetItemAuto = new DStandardItem(QIcon::fromTheme("dp_auto_searching"), tr("Discover printer"));
     pWidgetItemAuto->setData(VListViewItemMargin, Dtk::MarginsRole);
@@ -208,13 +208,13 @@ void PrinterSearchWindow::initUi()
     QWidget *pManFrame1 = new QWidget();
     pManFrame1->setLayout(pHLayout4);
 
-    m_pPrinterListViewManual = new DListView();
+    m_pPrinterListViewManual = new DListView(this);
     m_pPrinterListViewManual->setEditTriggers(DListView::NoEditTriggers);
     m_pPrinterListViewManual->setTextElideMode(Qt::ElideRight);
     m_pPrinterListViewManual->setSelectionMode(QAbstractItemView::NoSelection);
     m_pPrinterListViewManual->setFocusPolicy(Qt::NoFocus);
     m_pPrinterListViewManual->setItemSpacing(10);
-    m_pPrinterListModelManual = new QStandardItemModel();
+    m_pPrinterListModelManual = new QStandardItemModel(m_pPrinterListViewManual);
     m_pPrinterListViewManual->setModel(m_pPrinterListModelManual);
 
     m_pInfoManual = new QLabel(m_pPrinterListViewManual);

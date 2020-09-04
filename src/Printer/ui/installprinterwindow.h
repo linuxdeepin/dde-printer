@@ -44,7 +44,8 @@ enum InstallationStatus {
     Printing,
     Printed,
     PrintFailed,
-    Reinstall
+    Reinstall,
+    Unknown
 };
 
 class PrinterTestJob;
@@ -115,18 +116,19 @@ private:
 
     QComboBox *m_pDriverCombo;
 
-    AddPrinterTask *m_pAddPrinterTask;
-
+    // 用于安装失败之后，返回上级界面，有两种情况
+    QWidget *m_pParentWidget;
 private:
     InstallationStatus m_status;
     QString m_printerName;
 
     TDeviceInfo m_device;
-    // 用于安装失败之后，返回上级界面，有两种情况
-    QWidget *m_pParentWidget;
+
     bool m_bInstallFail;
 
     PrinterTestJob *m_testJob;
+
+    AddPrinterTask *m_pAddPrinterTask;
 };
 
 #endif // INSTALLPRINTERWINDOW_H

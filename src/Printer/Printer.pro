@@ -150,5 +150,5 @@ polkit.files = $${PWD}/policy/com.deepin.pkexec.devPrinter.policy
 #ppa.path =  /etc/apt/sources.list.d
 #ppa.files = $${PWD}/ppa/printer.list
 
-INSTALLS += target watch desktop hicolor trans polkit keyring gpgfile ppa
+INSTALLS += target watch desktop hicolor trans polkit
 }
