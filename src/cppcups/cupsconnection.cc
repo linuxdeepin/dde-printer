@@ -1011,14 +1011,13 @@ map<string, map<string, string>> Connection::getDevices(
 
 static void free_requested_attrs(size_t n_attrs, char **attrs)
 {
-#if DUP_STRING
-    for (int i = 0; i < n_attrs; i++) {
+#ifdef DUP_STRING
+    for (size_t i = 0; i < n_attrs; i++) {
         free(attrs[i]);
     }
 #else
     (void)n_attrs;
 #endif
-
     free(attrs);
 }
 
@@ -1032,7 +1031,7 @@ static int get_requested_attrs(const vector<string> *requested_attrs,
     n = requested_attrs->size();
     as = (char **)malloc((n + 1) * sizeof(char *));
     for (i = 0; i < n; i++) {
-#if DUP_STRING
+#ifdef DUP_STRING
         as[i] = strdup(requested_attrs->at(i).data());
 #else
         as[i] = (char *)requested_attrs->at(i).data();
@@ -1041,7 +1040,7 @@ static int get_requested_attrs(const vector<string> *requested_attrs,
     as[n] = nullptr;
 
     debugprintf("Requested attributes:\n");
-    for (i = 0; as[i] != NULL; i++) {
+    for (i = 0; as[i] != nullptr; i++) {
         debugprintf("  %s\n", as[i]);
     }
 
@@ -1960,22 +1959,19 @@ void Connection::addPrinterOptionDefault(const char *name, const char *option,
                                          const vector<string> *values)
 {
     const char suffix[] = "-default";
-    char *opt = nullptr;
+    std::string opt;
+    opt.append(option);
+    opt.append(suffix);
     ipp_t *request = nullptr, *answer = nullptr;
     int i;
-    size_t optionlen;
 
-    optionlen = strlen(option);
-    opt = (char *)malloc(optionlen + sizeof(suffix) + 1);
-    memcpy(opt, option, optionlen);
-    strcpy(opt + optionlen, suffix);
     request = add_modify_printer_request(name);
     for (i = 0; i < 2; i++) {
         ipp_attribute_t *attr = nullptr;
         int len = values->size();
         int j;
         attr = ippAddStrings(request, IPP_TAG_PRINTER, IPP_TAG_NAME,
-                             opt, len, nullptr, nullptr);
+                             opt.c_str(), len, nullptr, nullptr);
         for (j = 0; j < len; j++) {
             ippSetString(request, &attr, j, values->at(j).data());
         }
@@ -2106,6 +2102,7 @@ map<string, string> Connection::getPrinterAttributes(const char *name,
         answer = cupsDoRequest(this->http, request, "/");
         if (answer && ippGetStatusCode(answer) == IPP_NOT_POSSIBLE) {
             ippDelete(answer);
+            answer = nullptr;
             if (!name)
                 break;
 
@@ -2208,7 +2205,8 @@ map<string, string> Connection::getPrinterAttributes(const char *name,
             break;
         }
     }
-
+    if (answer)
+        ippDelete(answer);
     debugprintf("<- Connection::getPrinterAttributes() = dict\n");
 
     return ret;

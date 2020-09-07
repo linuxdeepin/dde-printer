@@ -2,27 +2,27 @@
 <context>
     <name>AddPrinterTask</name>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="547"/>
+        <location filename="../vendor/addprinter.cpp" line="546"/>
         <source>URI and driver do not match.</source>
         <translation>URI ve sürücü eşleşmiyor.</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="549"/>
+        <location filename="../vendor/addprinter.cpp" line="548"/>
         <source>Install hplip first and restart the app to install the driver again.</source>
         <translation>Önce hplip&apos;i kurun ve sürücüyü tekrar kurmakiçin uygulamayı yeniden başlatın.</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="557"/>
+        <location filename="../vendor/addprinter.cpp" line="556"/>
         <source>Please select an hplip driver and try again.</source>
         <translation>Lütfen bir hplip sürücüsü seçin ve tekrar deneyin.</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="570"/>
+        <location filename="../vendor/addprinter.cpp" line="569"/>
         <source>URI can&apos;t be empty</source>
         <translation>URI boş olamaz</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="577"/>
+        <location filename="../vendor/addprinter.cpp" line="576"/>
         <source> not found</source>
         <translation>bulunamadı</translation>
     </message>
@@ -230,71 +230,63 @@
 <context>
     <name>DDestination</name>
     <message>
-        <location filename="../util/ddestination.cpp" line="148"/>
-        <location filename="../util/ddestination.cpp" line="202"/>
         <source>Unknown</source>
-        <translation>Bilinmiyor</translation>
+        <translation type="vanished">Bilinmiyor</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="209"/>
         <source>Idle</source>
-        <translation>Boş</translation>
+        <translation type="vanished">Boş</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="212"/>
         <source>Printing</source>
-        <translation>Yazdırılıyor</translation>
+        <translation type="vanished">Yazdırılıyor</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="215"/>
         <source>Disabled</source>
-        <translation>Devre dışı</translation>
+        <translation type="vanished">Devre dışı</translation>
     </message>
 </context>
 <context>
     <name>DPrinter</name>
     <message>
-        <location filename="../util/dprinter.cpp" line="255"/>
         <source>(recommended)</source>
-        <translation>(önerilen)</translation>
+        <translation type="vanished">(önerilen)</translation>
     </message>
 </context>
 <context>
     <name>DPrinterSupplyShowDlg</name>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="75"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="252"/>
         <source>Ink/Toner Status</source>
         <translation>Mürekkep/Toner Durumu</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="81"/>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="120"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="258"/>
         <source>Unknown amount</source>
         <translation>Bilinmeyen miktar</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="88"/>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="127"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="265"/>
         <source>Unable to get the remaining amount</source>
         <translation>Kalan miktar alınamıyor</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="115"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="298"/>
         <source>The amounts are estimated, last updated at %1</source>
         <translation>Tutarlar tahminidir, en son %1 tarihinde güncellendi</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="145"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="308"/>
         <source>OK</source>
         <translation>Tamam</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="220"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="161"/>
         <source>Low level</source>
         <translation>Düşük seviye</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="247"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="188"/>
         <source>Unknown</source>
         <translation>Bilinmiyor</translation>
     </message>
@@ -660,27 +652,27 @@
         <translation>Konum:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="165"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="167"/>
         <source>Model:</source>
         <translation>Model:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="168"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="170"/>
         <source>Status:</source>
         <translation>Durum:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="196"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="198"/>
         <source>Properties</source>
         <translation>Özellikler</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="206"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="208"/>
         <source>Print Queue</source>
         <translation>Yazdırma Kuyruğu</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="216"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="218"/>
         <source>Print Test Page</source>
         <translation>Test Sayfası Yazdır</translation>
     </message>
@@ -707,7 +699,7 @@
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="330"/>
         <location filename="../ui/dprintersshowwindow.cpp" line="377"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="593"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="611"/>
         <source>OK</source>
         <translation>Tamam</translation>
     </message>
@@ -732,37 +724,37 @@
         <translation>CUPS sunucusu çalışmıyor ve yazıcıları yönetemiyor.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="551"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="569"/>
         <source>Are you sure you want to delete the printer &quot;%1&quot; ?</source>
         <translation>&quot;%1&quot; yazıcısını silmek istediğinize emin misiniz?</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="557"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="575"/>
         <source>Delete</source>
         <translation>Sil</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="589"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="607"/>
         <source>The name already exists</source>
         <translation>İsim zaten var</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="608"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="626"/>
         <source>You will not be able to reprint the completed jobs if continue. Are you sure you want to rename the printer?</source>
         <translation>Devam ederse tamamlanan işleri yeniden yazdıramazsınız. Yazıcıyı yeniden adlandırmak istediğinizden emin misiniz?</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="613"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="631"/>
         <source>Confirm</source>
         <translation>Onayla</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="671"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="689"/>
         <source>The driver is damaged, please install it again.</source>
         <translation>Sürücü hasarlı, lütfen tekrar kur.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="674"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="692"/>
         <source>Install Driver</source>
         <translation>Sürücü Kur</translation>
     </message>
@@ -839,7 +831,7 @@
 <context>
     <name>DriverManager</name>
     <message>
-        <location filename="../vendor/zdrivermanager.cpp" line="791"/>
+        <location filename="../vendor/zdrivermanager.cpp" line="794"/>
         <source>EveryWhere driver</source>
         <translation>Her yerde sürücü</translation>
     </message>
@@ -847,12 +839,12 @@
 <context>
     <name>InstallDriver</name>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="374"/>
+        <location filename="../vendor/addprinter.cpp" line="373"/>
         <source>Failed to find the driver solution: %1, error: %2</source>
         <translation>Sürücü çözümü bulunamadı: %1, hata: %2</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="385"/>
+        <location filename="../vendor/addprinter.cpp" line="384"/>
         <source>The solution is invalid</source>
         <translation>Çözüm geçersiz</translation>
     </message>
@@ -952,17 +944,17 @@
 <context>
     <name>InstallInterface</name>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="252"/>
+        <location filename="../vendor/addprinter.cpp" line="254"/>
         <source>is invalid</source>
         <translation>geçersizdir</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="281"/>
+        <location filename="../vendor/addprinter.cpp" line="283"/>
         <source>Failed to install the driver by calling dbus interface</source>
         <translation>Dbus arayüzünü çağırarak sürücü kurulamadı</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="326"/>
+        <location filename="../vendor/addprinter.cpp" line="328"/>
         <source>Failed to install %1</source>
         <translation>%1 kurulamadı</translation>
     </message>
@@ -970,91 +962,91 @@
 <context>
     <name>InstallPrinterWindow</name>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="85"/>
-        <location filename="../ui/installprinterwindow.cpp" line="148"/>
+        <location filename="../ui/installprinterwindow.cpp" line="87"/>
+        <location filename="../ui/installprinterwindow.cpp" line="150"/>
         <source>Installing driver...</source>
         <translation>Sürücü kuruluyor...</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="95"/>
+        <location filename="../ui/installprinterwindow.cpp" line="97"/>
         <source>Cancel</source>
         <translation>İptal</translation>
-    </message>
-    <message>
-        <location filename="../ui/installprinterwindow.cpp" line="98"/>
-        <location filename="../ui/installprinterwindow.cpp" line="171"/>
-        <location filename="../ui/installprinterwindow.cpp" line="188"/>
-        <source>View Printer</source>
-        <translation>Yazıcıyı Göster</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="100"/>
         <location filename="../ui/installprinterwindow.cpp" line="173"/>
         <location filename="../ui/installprinterwindow.cpp" line="190"/>
+        <source>View Printer</source>
+        <translation>Yazıcıyı Göster</translation>
+    </message>
+    <message>
+        <location filename="../ui/installprinterwindow.cpp" line="102"/>
+        <location filename="../ui/installprinterwindow.cpp" line="175"/>
+        <location filename="../ui/installprinterwindow.cpp" line="192"/>
         <source>Print Test Page</source>
         <translation>Test Sayfası Yazdır</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="160"/>
+        <location filename="../ui/installprinterwindow.cpp" line="162"/>
         <source>Successfully installed </source>
         <translation>Başarıyla kuruldu</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="166"/>
-        <location filename="../ui/installprinterwindow.cpp" line="184"/>
+        <location filename="../ui/installprinterwindow.cpp" line="168"/>
+        <location filename="../ui/installprinterwindow.cpp" line="186"/>
         <source>You have successfully added the printer. Print a test page to check if it works properly.</source>
         <translation>Yazıcıyı başarıyla eklediniz. Düzgün çalışıp çalışmadığını kontrol etmek için bir test sayfası yazdırın.</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="178"/>
+        <location filename="../ui/installprinterwindow.cpp" line="180"/>
         <source>Printing test page...</source>
         <translation>Test sayfası yazdırılıyor...</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="195"/>
+        <location filename="../ui/installprinterwindow.cpp" line="197"/>
         <source>Did you print the test page successfully?</source>
         <translation>Test sayfasını başarıyla yazdırdınız mı?</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="201"/>
+        <location filename="../ui/installprinterwindow.cpp" line="203"/>
         <source>If succeeded, click Yes; if failed, click No</source>
         <translation>Başarılı olursa, Evet; başarısız olursa Hayır&apos;ı tıkla</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="204"/>
+        <location filename="../ui/installprinterwindow.cpp" line="206"/>
         <source>No</source>
         <translation>Hayır</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="206"/>
+        <location filename="../ui/installprinterwindow.cpp" line="208"/>
         <source>Yes</source>
         <translation>Evet</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="211"/>
-        <location filename="../ui/installprinterwindow.cpp" line="231"/>
+        <location filename="../ui/installprinterwindow.cpp" line="213"/>
+        <location filename="../ui/installprinterwindow.cpp" line="233"/>
         <source>Print failed</source>
         <translation>Yazdırma başarısız</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="217"/>
+        <location filename="../ui/installprinterwindow.cpp" line="219"/>
         <source>Click Reinstall to install the printer driver again, or click Troubleshoot to start troubleshooting.</source>
         <translation>Yazıcı sürücüsünü tekrar kurmak için Yeniden Kur&apos;a tıkla veya sorun gidermeye başlamak için Sorun Gider&apos;i tıkla.</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="220"/>
-        <location filename="../ui/installprinterwindow.cpp" line="241"/>
+        <location filename="../ui/installprinterwindow.cpp" line="222"/>
+        <location filename="../ui/installprinterwindow.cpp" line="243"/>
         <source>Reinstall</source>
         <translation>Yeniden kur</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="222"/>
-        <location filename="../ui/installprinterwindow.cpp" line="243"/>
+        <location filename="../ui/installprinterwindow.cpp" line="224"/>
+        <location filename="../ui/installprinterwindow.cpp" line="245"/>
         <source>Troubleshoot</source>
         <translation>Sorun gider</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="229"/>
+        <location filename="../ui/installprinterwindow.cpp" line="231"/>
         <source>Installation failed</source>
         <translation>Kurulum başarısız</translation>
     </message>
@@ -1268,7 +1260,7 @@
         <location filename="../ui/printersearchwindow.cpp" line="144"/>
         <location filename="../ui/printersearchwindow.cpp" line="222"/>
         <source>No printers found</source>
-        <translation type="unfinished"/>
+        <translation>Yazıcı bulunamadı</translation>
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="167"/>
@@ -1432,134 +1424,160 @@ yada</translation>
         <translation>Dosya</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="281"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="217"/>
         <source>Black</source>
         <translation>Siyah</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="282"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="218"/>
         <source>Blue</source>
         <translation>Mavi</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="283"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="219"/>
         <source>Brown</source>
         <translation>Kahverengi</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="284"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="220"/>
         <source>Cyan</source>
         <translation>Camgöbeği</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="285"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="221"/>
         <source>Dark-gray</source>
         <translation>Koyu-gri</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="286"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="222"/>
         <source>Dark gray</source>
         <translation>Koyu gri</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="287"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="223"/>
         <source>Dark-yellow</source>
         <translation>Koyu-sarı</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="288"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="224"/>
         <source>Dark yellow</source>
         <translation>Koyu sarı</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="289"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="225"/>
         <source>Gold</source>
         <translation>Altın</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="290"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="226"/>
         <source>Gray</source>
         <translation>Gri</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="291"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="227"/>
         <source>Green</source>
         <translation>Yeşil</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="292"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="228"/>
         <source>Light-black</source>
         <translation>Açık-siyah</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="293"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="229"/>
         <source>Light black</source>
         <translation>Açık siyah</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="294"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="230"/>
         <source>Light-cyan</source>
         <translation>Açık-camgöbeği</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="295"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="231"/>
         <source>Light cyan</source>
         <translation>Açık camgöbeği</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="296"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="232"/>
         <source>Light-gray</source>
         <translation>Açık-gri</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="297"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="233"/>
         <source>Light gray</source>
         <translation>Açık gri</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="298"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="234"/>
         <source>Light-magenta</source>
         <translation>Açık-eflatun</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="299"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="235"/>
         <source>Light magenta</source>
         <translation>Açık eflatun</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="300"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="236"/>
         <source>Magenta</source>
         <translation>Eflatun</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="301"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="237"/>
         <source>Orange</source>
         <translation>Turuncu</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="302"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="238"/>
         <source>Red</source>
         <translation>Kırmızı</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="303"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="239"/>
         <source>Silver</source>
         <translation>Gümüş</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="304"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="240"/>
         <source>White</source>
         <translation>Beyaz</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="305"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="241"/>
         <source>Yellow</source>
         <translation>Sarı</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="306"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="242"/>
         <source>Waste</source>
         <translation>Atık</translation>
+    </message>
+    <message>
+        <location filename="../util/ddestination.cpp" line="148"/>
+        <location filename="../util/ddestination.cpp" line="202"/>
+        <source>Unknown</source>
+        <translation>Bilinmiyor</translation>
+    </message>
+    <message>
+        <location filename="../util/ddestination.cpp" line="209"/>
+        <source>Idle</source>
+        <translation>Boş</translation>
+    </message>
+    <message>
+        <location filename="../util/ddestination.cpp" line="212"/>
+        <source>Printing</source>
+        <translation>Yazdırılıyor</translation>
+    </message>
+    <message>
+        <location filename="../util/ddestination.cpp" line="215"/>
+        <source>Disabled</source>
+        <translation>Devre dışı</translation>
+    </message>
+    <message>
+        <location filename="../util/dprinter.cpp" line="255"/>
+        <source>(recommended)</source>
+        <translation>(önerilen)</translation>
     </message>
 </context>
 <context>
@@ -1598,27 +1616,27 @@ yada</translation>
 <context>
     <name>ServerSettingsWindow</name>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="85"/>
+        <location filename="../ui/dprintersshowwindow.h" line="86"/>
         <source>Basic Server Settings</source>
         <translation>Basit Sunucu Ayarları</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="93"/>
+        <location filename="../ui/dprintersshowwindow.h" line="94"/>
         <source>Publish shared printers connected to this system</source>
         <translation>Bu sisteme bağlı paylaşılan yazıcıları yayınla</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="94"/>
+        <location filename="../ui/dprintersshowwindow.h" line="95"/>
         <source>Allow printing from the Internet</source>
         <translation>İnternetten yazdırmaya izin ver</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="96"/>
+        <location filename="../ui/dprintersshowwindow.h" line="97"/>
         <source>Allow remote administration</source>
         <translation>Uzaktan yönetime izin ver</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="98"/>
+        <location filename="../ui/dprintersshowwindow.h" line="99"/>
         <source>Save debugging information for troubleshooting</source>
         <translation>Sorun giderme için hata ayıklama bilgilerini kaydet</translation>
     </message>

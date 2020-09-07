@@ -4,27 +4,27 @@
 <context>
     <name>AddPrinterTask</name>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="547"/>
+        <location filename="../vendor/addprinter.cpp" line="546"/>
         <source>URI and driver do not match.</source>
         <translation>URI and driver do not match.</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="549"/>
+        <location filename="../vendor/addprinter.cpp" line="548"/>
         <source>Install hplip first and restart the app to install the driver again.</source>
         <translation>Install hplip first and restart the app to install the driver again.</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="557"/>
+        <location filename="../vendor/addprinter.cpp" line="556"/>
         <source>Please select an hplip driver and try again.</source>
         <translation>Please select an hplip driver and try again.</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="570"/>
+        <location filename="../vendor/addprinter.cpp" line="569"/>
         <source>URI can&apos;t be empty</source>
         <translation>URI can&apos;t be empty</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="577"/>
+        <location filename="../vendor/addprinter.cpp" line="576"/>
         <source> not found</source>
         <translation> not found</translation>
     </message>
@@ -232,71 +232,63 @@
 <context>
     <name>DDestination</name>
     <message>
-        <location filename="../util/ddestination.cpp" line="148"/>
-        <location filename="../util/ddestination.cpp" line="202"/>
         <source>Unknown</source>
-        <translation>Unknown</translation>
+        <translation type="vanished">Unknown</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="209"/>
         <source>Idle</source>
-        <translation>Idle</translation>
+        <translation type="vanished">Idle</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="212"/>
         <source>Printing</source>
-        <translation>Printing</translation>
+        <translation type="vanished">Printing</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="215"/>
         <source>Disabled</source>
-        <translation>Disabled</translation>
+        <translation type="vanished">Disabled</translation>
     </message>
 </context>
 <context>
     <name>DPrinter</name>
     <message>
-        <location filename="../util/dprinter.cpp" line="255"/>
         <source>(recommended)</source>
-        <translation>(recommended)</translation>
+        <translation type="vanished">(recommended)</translation>
     </message>
 </context>
 <context>
     <name>DPrinterSupplyShowDlg</name>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="75"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="252"/>
         <source>Ink/Toner Status</source>
         <translation>Ink/Toner Status</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="81"/>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="120"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="258"/>
         <source>Unknown amount</source>
         <translation>Unknown amount</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="88"/>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="127"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="265"/>
         <source>Unable to get the remaining amount</source>
         <translation>Unable to get the remaining amount</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="115"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="298"/>
         <source>The amounts are estimated, last updated at %1</source>
         <translation>The amounts are estimated, last updated at %1</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="145"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="308"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="220"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="161"/>
         <source>Low level</source>
         <translation>Low level</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="247"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="188"/>
         <source>Unknown</source>
         <translation>Unknown</translation>
     </message>
@@ -662,27 +654,27 @@
         <translation>Location:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="165"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="167"/>
         <source>Model:</source>
         <translation>Model:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="168"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="170"/>
         <source>Status:</source>
         <translation>Status:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="196"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="198"/>
         <source>Properties</source>
         <translation>Properties</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="206"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="208"/>
         <source>Print Queue</source>
         <translation>Print Queue</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="216"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="218"/>
         <source>Print Test Page</source>
         <translation>Print Test Page</translation>
     </message>
@@ -709,7 +701,7 @@
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="330"/>
         <location filename="../ui/dprintersshowwindow.cpp" line="377"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="593"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="611"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -734,37 +726,37 @@
         <translation>CUPS server is not running, and can’t manage printers.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="551"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="569"/>
         <source>Are you sure you want to delete the printer &quot;%1&quot; ?</source>
         <translation>Are you sure you want to delete the printer &quot;%1&quot; ?</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="557"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="575"/>
         <source>Delete</source>
         <translation>Delete</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="589"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="607"/>
         <source>The name already exists</source>
         <translation>The name already exists</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="608"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="626"/>
         <source>You will not be able to reprint the completed jobs if continue. Are you sure you want to rename the printer?</source>
         <translation>You will not be able to reprint the completed jobs if continue. Are you sure you want to rename the printer?</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="613"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="631"/>
         <source>Confirm</source>
         <translation>Confirm</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="671"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="689"/>
         <source>The driver is damaged, please install it again.</source>
         <translation>The driver is damaged, please install it again.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="674"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="692"/>
         <source>Install Driver</source>
         <translation>Install Driver</translation>
     </message>
@@ -841,7 +833,7 @@
 <context>
     <name>DriverManager</name>
     <message>
-        <location filename="../vendor/zdrivermanager.cpp" line="791"/>
+        <location filename="../vendor/zdrivermanager.cpp" line="794"/>
         <source>EveryWhere driver</source>
         <translation>EveryWhere driver</translation>
     </message>
@@ -849,12 +841,12 @@
 <context>
     <name>InstallDriver</name>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="374"/>
+        <location filename="../vendor/addprinter.cpp" line="373"/>
         <source>Failed to find the driver solution: %1, error: %2</source>
         <translation>Failed to find the driver solution: %1, error: %2</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="385"/>
+        <location filename="../vendor/addprinter.cpp" line="384"/>
         <source>The solution is invalid</source>
         <translation>The solution is invalid</translation>
     </message>
@@ -954,17 +946,17 @@
 <context>
     <name>InstallInterface</name>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="252"/>
+        <location filename="../vendor/addprinter.cpp" line="254"/>
         <source>is invalid</source>
         <translation>is invalid</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="281"/>
+        <location filename="../vendor/addprinter.cpp" line="283"/>
         <source>Failed to install the driver by calling dbus interface</source>
         <translation>Failed to install the driver by calling dbus interface</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="326"/>
+        <location filename="../vendor/addprinter.cpp" line="328"/>
         <source>Failed to install %1</source>
         <translation>Failed to install %1</translation>
     </message>
@@ -972,91 +964,91 @@
 <context>
     <name>InstallPrinterWindow</name>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="85"/>
-        <location filename="../ui/installprinterwindow.cpp" line="148"/>
+        <location filename="../ui/installprinterwindow.cpp" line="87"/>
+        <location filename="../ui/installprinterwindow.cpp" line="150"/>
         <source>Installing driver...</source>
         <translation>Installing driver...</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="95"/>
+        <location filename="../ui/installprinterwindow.cpp" line="97"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
-    </message>
-    <message>
-        <location filename="../ui/installprinterwindow.cpp" line="98"/>
-        <location filename="../ui/installprinterwindow.cpp" line="171"/>
-        <location filename="../ui/installprinterwindow.cpp" line="188"/>
-        <source>View Printer</source>
-        <translation>View Printer</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="100"/>
         <location filename="../ui/installprinterwindow.cpp" line="173"/>
         <location filename="../ui/installprinterwindow.cpp" line="190"/>
+        <source>View Printer</source>
+        <translation>View Printer</translation>
+    </message>
+    <message>
+        <location filename="../ui/installprinterwindow.cpp" line="102"/>
+        <location filename="../ui/installprinterwindow.cpp" line="175"/>
+        <location filename="../ui/installprinterwindow.cpp" line="192"/>
         <source>Print Test Page</source>
         <translation>Print Test Page</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="160"/>
+        <location filename="../ui/installprinterwindow.cpp" line="162"/>
         <source>Successfully installed </source>
         <translation>Successfully installed </translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="166"/>
-        <location filename="../ui/installprinterwindow.cpp" line="184"/>
+        <location filename="../ui/installprinterwindow.cpp" line="168"/>
+        <location filename="../ui/installprinterwindow.cpp" line="186"/>
         <source>You have successfully added the printer. Print a test page to check if it works properly.</source>
         <translation>You have successfully added the printer. Print a test page to check if it works properly.</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="178"/>
+        <location filename="../ui/installprinterwindow.cpp" line="180"/>
         <source>Printing test page...</source>
         <translation>Printing test page...</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="195"/>
+        <location filename="../ui/installprinterwindow.cpp" line="197"/>
         <source>Did you print the test page successfully?</source>
         <translation>Did you print the test page successfully?</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="201"/>
+        <location filename="../ui/installprinterwindow.cpp" line="203"/>
         <source>If succeeded, click Yes; if failed, click No</source>
         <translation>If succeeded, click Yes; if failed, click No</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="204"/>
+        <location filename="../ui/installprinterwindow.cpp" line="206"/>
         <source>No</source>
         <translation>No</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="206"/>
+        <location filename="../ui/installprinterwindow.cpp" line="208"/>
         <source>Yes</source>
         <translation>Yes</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="211"/>
-        <location filename="../ui/installprinterwindow.cpp" line="231"/>
+        <location filename="../ui/installprinterwindow.cpp" line="213"/>
+        <location filename="../ui/installprinterwindow.cpp" line="233"/>
         <source>Print failed</source>
         <translation>Print failed</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="217"/>
+        <location filename="../ui/installprinterwindow.cpp" line="219"/>
         <source>Click Reinstall to install the printer driver again, or click Troubleshoot to start troubleshooting.</source>
         <translation>Click Reinstall to install the printer driver again, or click Troubleshoot to start troubleshooting.</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="220"/>
-        <location filename="../ui/installprinterwindow.cpp" line="241"/>
+        <location filename="../ui/installprinterwindow.cpp" line="222"/>
+        <location filename="../ui/installprinterwindow.cpp" line="243"/>
         <source>Reinstall</source>
         <translation>Reinstall</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="222"/>
-        <location filename="../ui/installprinterwindow.cpp" line="243"/>
+        <location filename="../ui/installprinterwindow.cpp" line="224"/>
+        <location filename="../ui/installprinterwindow.cpp" line="245"/>
         <source>Troubleshoot</source>
         <translation>Troubleshoot</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="229"/>
+        <location filename="../ui/installprinterwindow.cpp" line="231"/>
         <source>Installation failed</source>
         <translation>Installation failed</translation>
     </message>
@@ -1434,134 +1426,160 @@
         <translation>File</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="281"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="217"/>
         <source>Black</source>
         <translation>Black</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="282"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="218"/>
         <source>Blue</source>
         <translation>Blue</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="283"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="219"/>
         <source>Brown</source>
         <translation>Brown</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="284"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="220"/>
         <source>Cyan</source>
         <translation>Cyan</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="285"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="221"/>
         <source>Dark-gray</source>
         <translation>Dark-gray</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="286"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="222"/>
         <source>Dark gray</source>
         <translation>Dark gray</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="287"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="223"/>
         <source>Dark-yellow</source>
         <translation>Dark-yellow</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="288"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="224"/>
         <source>Dark yellow</source>
         <translation>Dark yellow</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="289"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="225"/>
         <source>Gold</source>
         <translation>Gold</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="290"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="226"/>
         <source>Gray</source>
         <translation>Gray</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="291"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="227"/>
         <source>Green</source>
         <translation>Green</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="292"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="228"/>
         <source>Light-black</source>
         <translation>Light-black</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="293"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="229"/>
         <source>Light black</source>
         <translation>Light black</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="294"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="230"/>
         <source>Light-cyan</source>
         <translation>Light-cyan</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="295"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="231"/>
         <source>Light cyan</source>
         <translation>Light cyan</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="296"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="232"/>
         <source>Light-gray</source>
         <translation>Light-gray</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="297"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="233"/>
         <source>Light gray</source>
         <translation>Light gray</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="298"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="234"/>
         <source>Light-magenta</source>
         <translation>Light-magenta</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="299"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="235"/>
         <source>Light magenta</source>
         <translation>Light magenta</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="300"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="236"/>
         <source>Magenta</source>
         <translation>Magenta</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="301"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="237"/>
         <source>Orange</source>
         <translation>Orange</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="302"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="238"/>
         <source>Red</source>
         <translation>Red</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="303"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="239"/>
         <source>Silver</source>
         <translation>Silver</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="304"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="240"/>
         <source>White</source>
         <translation>White</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="305"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="241"/>
         <source>Yellow</source>
         <translation>Yellow</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="306"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="242"/>
         <source>Waste</source>
         <translation>Waste</translation>
+    </message>
+    <message>
+        <location filename="../util/ddestination.cpp" line="148"/>
+        <location filename="../util/ddestination.cpp" line="202"/>
+        <source>Unknown</source>
+        <translation type="unfinished">Unknown</translation>
+    </message>
+    <message>
+        <location filename="../util/ddestination.cpp" line="209"/>
+        <source>Idle</source>
+        <translation type="unfinished">Idle</translation>
+    </message>
+    <message>
+        <location filename="../util/ddestination.cpp" line="212"/>
+        <source>Printing</source>
+        <translation type="unfinished">Printing</translation>
+    </message>
+    <message>
+        <location filename="../util/ddestination.cpp" line="215"/>
+        <source>Disabled</source>
+        <translation type="unfinished">Disabled</translation>
+    </message>
+    <message>
+        <location filename="../util/dprinter.cpp" line="255"/>
+        <source>(recommended)</source>
+        <translation type="unfinished">(recommended)</translation>
     </message>
 </context>
 <context>
@@ -1600,27 +1618,27 @@
 <context>
     <name>ServerSettingsWindow</name>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="85"/>
+        <location filename="../ui/dprintersshowwindow.h" line="86"/>
         <source>Basic Server Settings</source>
         <translation>Basic Server Settings</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="93"/>
+        <location filename="../ui/dprintersshowwindow.h" line="94"/>
         <source>Publish shared printers connected to this system</source>
         <translation>Publish shared printers connected to this system</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="94"/>
+        <location filename="../ui/dprintersshowwindow.h" line="95"/>
         <source>Allow printing from the Internet</source>
         <translation>Allow printing from the Internet</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="96"/>
+        <location filename="../ui/dprintersshowwindow.h" line="97"/>
         <source>Allow remote administration</source>
         <translation>Allow remote administration</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="98"/>
+        <location filename="../ui/dprintersshowwindow.h" line="99"/>
         <source>Save debugging information for troubleshooting</source>
         <translation>Save debugging information for troubleshooting</translation>
     </message>

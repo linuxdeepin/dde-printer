@@ -466,6 +466,7 @@ void DriverSearcher::startSearch()
         m_drivers.append(driver);
         qInfo() << "Got EveryWhere driver";
         emit signalDone();
+        return;
     }
 
     /*等待服务器查找结果返回之后再开始查找本地驱动
@@ -621,7 +622,7 @@ void DriverSearcher::slotDone(int iCode, const QByteArray &result)
             }
         }
     }
-
+    sender()->deleteLater();
     qInfo() << "Got driver count:" << m_drivers.count();
     askForFinish();
 }

@@ -145,7 +145,7 @@ QString DDestination::printerModel()
             strPrintModel = QString::fromStdString(attr[CUPS_OP_MAKE_MODEL].data());
             strPrintModel = strPrintModel.remove(0, 1);
         } else {
-            strPrintModel = tr("Unknown");
+            strPrintModel = QObject::tr("Unknown");
         }
     } catch (const std::runtime_error &e) {
         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
@@ -199,20 +199,20 @@ void DDestination::initPrinterAttr()
         if (!isPpdFileBroken()) {
             m_printerModel = attrMap.at(CUPS_OP_MAKE_MODEL).substr(1).data();
         } else {
-            m_printerModel = tr("Unknown");
+            m_printerModel = QObject::tr("Unknown");
         }
 
         m_printerURI = attrMap.at(CUPS_DEV_URI).substr(1).data();
         m_ppdFile = m_pCon->getPPD(m_strName.toStdString().data()).data();
         // 此处i3表示数据类型为int 值为3，其实是enumeration类型转换
         if (attrMap.at(CUPS_OP_STATE).substr(0, 2) == string("i3")) {
-            m_printerStatus = tr("Idle");
+            m_printerStatus = QObject::tr("Idle");
             m_isEnabled = true;
         } else if (attrMap.at(CUPS_OP_STATE).substr(0, 2) == string("i4")) {
-            m_printerStatus = tr("Printing");
+            m_printerStatus = QObject::tr("Printing");
             m_isEnabled = true;
         } else {
-            m_printerStatus = tr("Disabled");
+            m_printerStatus = QObject::tr("Disabled");
             m_isEnabled = false;
         }
     } catch (const std::runtime_error &e) {

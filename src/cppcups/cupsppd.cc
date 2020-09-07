@@ -56,11 +56,11 @@ static int ppd_encoding_is_utf8(PPD *ppd)
         from_encoding = "ISO-8859-1";
 
     cdf = iconv_open("UTF-8", from_encoding);
-    if (cdf == (iconv_t)-1)
+    if (cdf == (iconv_t) -1)
         cdf = iconv_open("UTF-8", "ISO-8859-1");
 
     cdt = iconv_open(from_encoding, "UTF-8");
-    if (cdt == (iconv_t)-1)
+    if (cdt == (iconv_t) -1)
         cdt = iconv_open("ISO-8859-1", "UTF-8");
 
     ppd->conv_from = (iconv_t *)malloc(sizeof(iconv_t));
@@ -89,7 +89,7 @@ static char *utf8_to_ppd_encoding(PPD *ppd, const char *inbuf)
     outsize = 1 + 6 * len;
     outbytesleft = outsize - 1;
     ret = outbuf = (char *)malloc(outsize);
-    if (iconv(cdt, (char **)&inbuf, &len, &outbuf, &outbytesleft) == (size_t)-1) {
+    if (iconv(cdt, (char **)&inbuf, &len, &outbuf, &outbytesleft) == (size_t) -1) {
         free(outbuf);
         return nullptr;
     }
@@ -112,6 +112,20 @@ PPD::PPD(void)
 
 void PPD::load(const char *filename)
 {
+    /*打开文件之前先确保关闭，可能重复打开*/
+    if (this->file) {
+        fclose(this->file);
+        this->file = nullptr;
+    }
+    if (this->ppd) {
+        ppdClose(this->ppd);
+        this->ppd = nullptr;
+    }
+    if (this->conv_from)
+        iconv_close(*this->conv_from);
+    if (this->conv_to)
+        iconv_close(*this->conv_to);
+
     this->file = fopen(filename, "r");
     if (!this->file) {
         throw runtime_error("fopen failed");
@@ -285,7 +299,7 @@ int PPD::nondefaultsMarked(void)
     ppd_group_t *g = nullptr;
     int gi;
     for (gi = 0, g = this->ppd->groups;
-         gi < this->ppd->num_groups && !nondefaults_marked; gi++, g++) {
+            gi < this->ppd->num_groups && !nondefaults_marked; gi++, g++) {
         ppd_group_t *sg = nullptr;
         int sgi;
         if (nondefaults_are_marked(g)) {
@@ -294,7 +308,7 @@ int PPD::nondefaultsMarked(void)
         }
 
         for (sgi = 0, sg = g->subgroups;
-             sgi < g->num_subgroups; sgi++, sg++) {
+                sgi < g->num_subgroups; sgi++, sg++) {
             if (nondefaults_are_marked(sg)) {
                 nondefaults_marked = 1;
                 break;

@@ -2,27 +2,27 @@
 <context>
     <name>AddPrinterTask</name>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="547"/>
+        <location filename="../vendor/addprinter.cpp" line="546"/>
         <source>URI and driver do not match.</source>
         <translation>URI dan driver tidak cocok</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="549"/>
+        <location filename="../vendor/addprinter.cpp" line="548"/>
         <source>Install hplip first and restart the app to install the driver again.</source>
         <translation>Pasang hplip terlebih dahulu dan muat ulang app untuk pasang driver kembali.</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="557"/>
+        <location filename="../vendor/addprinter.cpp" line="556"/>
         <source>Please select an hplip driver and try again.</source>
         <translation>Mohon pilih driver hplip dan coba kembali.</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="570"/>
+        <location filename="../vendor/addprinter.cpp" line="569"/>
         <source>URI can&apos;t be empty</source>
         <translation>URI tidak boleh kosong</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="577"/>
+        <location filename="../vendor/addprinter.cpp" line="576"/>
         <source> not found</source>
         <translation>tidak ditemukan</translation>
     </message>
@@ -230,71 +230,63 @@
 <context>
     <name>DDestination</name>
     <message>
-        <location filename="../util/ddestination.cpp" line="148"/>
-        <location filename="../util/ddestination.cpp" line="202"/>
         <source>Unknown</source>
-        <translation>Tidak diketahui</translation>
+        <translation type="vanished">Tidak diketahui</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="209"/>
         <source>Idle</source>
-        <translation>Diam</translation>
+        <translation type="vanished">Diam</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="212"/>
         <source>Printing</source>
-        <translation>Mencetak</translation>
+        <translation type="vanished">Mencetak</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="215"/>
         <source>Disabled</source>
-        <translation>Nonaktif</translation>
+        <translation type="vanished">Nonaktif</translation>
     </message>
 </context>
 <context>
     <name>DPrinter</name>
     <message>
-        <location filename="../util/dprinter.cpp" line="255"/>
         <source>(recommended)</source>
-        <translation>(direkomendasikan)</translation>
+        <translation type="vanished">(direkomendasikan)</translation>
     </message>
 </context>
 <context>
     <name>DPrinterSupplyShowDlg</name>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="75"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="252"/>
         <source>Ink/Toner Status</source>
         <translation>Status Tinta/Toner</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="81"/>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="120"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="258"/>
         <source>Unknown amount</source>
         <translation>Jumlah yang tidak diketahui</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="88"/>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="127"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="265"/>
         <source>Unable to get the remaining amount</source>
         <translation>tidak bisa mendapatkan jumlah yang tersisa</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="115"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="298"/>
         <source>The amounts are estimated, last updated at %1</source>
         <translation>Jumlahnya diperkirakan, terakhir update pada %1</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="145"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="308"/>
         <source>OK</source>
         <translation>Ya</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="220"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="161"/>
         <source>Low level</source>
         <translation>Level Rendah</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="247"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="188"/>
         <source>Unknown</source>
         <translation>Tidak diketahui</translation>
     </message>
@@ -660,27 +652,27 @@
         <translation>Lokasi</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="165"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="167"/>
         <source>Model:</source>
         <translation>Model:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="168"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="170"/>
         <source>Status:</source>
         <translation>Status:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="196"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="198"/>
         <source>Properties</source>
         <translation>Properti</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="206"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="208"/>
         <source>Print Queue</source>
         <translation>Antrian Cetak</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="216"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="218"/>
         <source>Print Test Page</source>
         <translation>Cetak Halaman Tes</translation>
     </message>
@@ -707,7 +699,7 @@
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="330"/>
         <location filename="../ui/dprintersshowwindow.cpp" line="377"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="593"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="611"/>
         <source>OK</source>
         <translation>Ya</translation>
     </message>
@@ -732,37 +724,37 @@
         <translation>Server CUPS tidak berjalan, dan tidak dapat mengelola printer.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="551"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="569"/>
         <source>Are you sure you want to delete the printer &quot;%1&quot; ?</source>
         <translation>Anda yakin ingin menghapus pencetak &quot;% 1&quot;?</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="557"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="575"/>
         <source>Delete</source>
         <translation>Hapus</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="589"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="607"/>
         <source>The name already exists</source>
         <translation>Nama sudah dipakai</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="608"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="626"/>
         <source>You will not be able to reprint the completed jobs if continue. Are you sure you want to rename the printer?</source>
         <translation>Anda tidak akan dapat mencetak ulang pekerjaan yang sudah selesai jika melanjutkan. Anda yakin ingin mengganti nama printer?</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="613"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="631"/>
         <source>Confirm</source>
         <translation>Konfirmasi</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="671"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="689"/>
         <source>The driver is damaged, please install it again.</source>
         <translation>Driver rusak, silahkan install lagi.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="674"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="692"/>
         <source>Install Driver</source>
         <translation>Pasang Driver</translation>
     </message>
@@ -839,7 +831,7 @@
 <context>
     <name>DriverManager</name>
     <message>
-        <location filename="../vendor/zdrivermanager.cpp" line="791"/>
+        <location filename="../vendor/zdrivermanager.cpp" line="794"/>
         <source>EveryWhere driver</source>
         <translation>EveryWhere driver</translation>
     </message>
@@ -847,12 +839,12 @@
 <context>
     <name>InstallDriver</name>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="374"/>
+        <location filename="../vendor/addprinter.cpp" line="373"/>
         <source>Failed to find the driver solution: %1, error: %2</source>
         <translation>Gagal menemukan solusi driver:% 1, error:% 2</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="385"/>
+        <location filename="../vendor/addprinter.cpp" line="384"/>
         <source>The solution is invalid</source>
         <translation>Solusinya tidak valid</translation>
     </message>
@@ -952,17 +944,17 @@
 <context>
     <name>InstallInterface</name>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="252"/>
+        <location filename="../vendor/addprinter.cpp" line="254"/>
         <source>is invalid</source>
         <translation>tidak benar</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="281"/>
+        <location filename="../vendor/addprinter.cpp" line="283"/>
         <source>Failed to install the driver by calling dbus interface</source>
         <translation>Gagal menginstal driver dengan memanggil interface dbus</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="326"/>
+        <location filename="../vendor/addprinter.cpp" line="328"/>
         <source>Failed to install %1</source>
         <translation>Gagal memasang %1</translation>
     </message>
@@ -970,91 +962,91 @@
 <context>
     <name>InstallPrinterWindow</name>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="85"/>
-        <location filename="../ui/installprinterwindow.cpp" line="148"/>
+        <location filename="../ui/installprinterwindow.cpp" line="87"/>
+        <location filename="../ui/installprinterwindow.cpp" line="150"/>
         <source>Installing driver...</source>
         <translation>Memasang Driver...</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="95"/>
+        <location filename="../ui/installprinterwindow.cpp" line="97"/>
         <source>Cancel</source>
         <translation>Batal</translation>
-    </message>
-    <message>
-        <location filename="../ui/installprinterwindow.cpp" line="98"/>
-        <location filename="../ui/installprinterwindow.cpp" line="171"/>
-        <location filename="../ui/installprinterwindow.cpp" line="188"/>
-        <source>View Printer</source>
-        <translation>Lihat Printer</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="100"/>
         <location filename="../ui/installprinterwindow.cpp" line="173"/>
         <location filename="../ui/installprinterwindow.cpp" line="190"/>
+        <source>View Printer</source>
+        <translation>Lihat Printer</translation>
+    </message>
+    <message>
+        <location filename="../ui/installprinterwindow.cpp" line="102"/>
+        <location filename="../ui/installprinterwindow.cpp" line="175"/>
+        <location filename="../ui/installprinterwindow.cpp" line="192"/>
         <source>Print Test Page</source>
         <translation>Cetak Halaman Tes</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="160"/>
+        <location filename="../ui/installprinterwindow.cpp" line="162"/>
         <source>Successfully installed </source>
         <translation>Berhasil dipasang</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="166"/>
-        <location filename="../ui/installprinterwindow.cpp" line="184"/>
+        <location filename="../ui/installprinterwindow.cpp" line="168"/>
+        <location filename="../ui/installprinterwindow.cpp" line="186"/>
         <source>You have successfully added the printer. Print a test page to check if it works properly.</source>
         <translation>Anda telah berhasil menambahkan printer. Cetak halaman tes untuk memeriksa apakah berfungsi dengan baik.</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="178"/>
+        <location filename="../ui/installprinterwindow.cpp" line="180"/>
         <source>Printing test page...</source>
         <translation>Mencetak halaman tes...</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="195"/>
+        <location filename="../ui/installprinterwindow.cpp" line="197"/>
         <source>Did you print the test page successfully?</source>
         <translation>Apakah Anda berhasil mencetak halaman tes?</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="201"/>
+        <location filename="../ui/installprinterwindow.cpp" line="203"/>
         <source>If succeeded, click Yes; if failed, click No</source>
         <translation>Jika sukses, klik Ya; JIka gagal, klik Tidak</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="204"/>
+        <location filename="../ui/installprinterwindow.cpp" line="206"/>
         <source>No</source>
         <translation>Tidak</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="206"/>
+        <location filename="../ui/installprinterwindow.cpp" line="208"/>
         <source>Yes</source>
         <translation>Ya</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="211"/>
-        <location filename="../ui/installprinterwindow.cpp" line="231"/>
+        <location filename="../ui/installprinterwindow.cpp" line="213"/>
+        <location filename="../ui/installprinterwindow.cpp" line="233"/>
         <source>Print failed</source>
         <translation>Gagal Mencetak</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="217"/>
+        <location filename="../ui/installprinterwindow.cpp" line="219"/>
         <source>Click Reinstall to install the printer driver again, or click Troubleshoot to start troubleshooting.</source>
         <translation>Klik Instal ulang untuk menginstal kembali driver printer, atau klik Troubleshoot untuk memulai pemecahan masalah.</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="220"/>
-        <location filename="../ui/installprinterwindow.cpp" line="241"/>
+        <location filename="../ui/installprinterwindow.cpp" line="222"/>
+        <location filename="../ui/installprinterwindow.cpp" line="243"/>
         <source>Reinstall</source>
         <translation>Pasang ulang</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="222"/>
-        <location filename="../ui/installprinterwindow.cpp" line="243"/>
+        <location filename="../ui/installprinterwindow.cpp" line="224"/>
+        <location filename="../ui/installprinterwindow.cpp" line="245"/>
         <source>Troubleshoot</source>
         <translation>Pemecahan Masalah</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="229"/>
+        <location filename="../ui/installprinterwindow.cpp" line="231"/>
         <source>Installation failed</source>
         <translation>Pemasangan Gagal</translation>
     </message>
@@ -1268,7 +1260,7 @@
         <location filename="../ui/printersearchwindow.cpp" line="144"/>
         <location filename="../ui/printersearchwindow.cpp" line="222"/>
         <source>No printers found</source>
-        <translation type="unfinished"/>
+        <translation>Printer tidak ditemukan</translation>
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="167"/>
@@ -1432,134 +1424,160 @@ atau</translation>
         <translation>File</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="281"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="217"/>
         <source>Black</source>
         <translation>Hitam</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="282"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="218"/>
         <source>Blue</source>
         <translation>Biru</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="283"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="219"/>
         <source>Brown</source>
         <translation>Cokelat</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="284"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="220"/>
         <source>Cyan</source>
         <translation>Kuning</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="285"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="221"/>
         <source>Dark-gray</source>
         <translation>Abu-abu gelap</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="286"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="222"/>
         <source>Dark gray</source>
         <translation>Abu-abu gelap</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="287"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="223"/>
         <source>Dark-yellow</source>
         <translation>Kuning gelap</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="288"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="224"/>
         <source>Dark yellow</source>
         <translation>Kuning gelap</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="289"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="225"/>
         <source>Gold</source>
         <translation>Emas</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="290"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="226"/>
         <source>Gray</source>
         <translation>Abu-abu</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="291"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="227"/>
         <source>Green</source>
         <translation>Hijau</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="292"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="228"/>
         <source>Light-black</source>
         <translation>Hitam terang</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="293"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="229"/>
         <source>Light black</source>
         <translation>Hitam terang</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="294"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="230"/>
         <source>Light-cyan</source>
         <translation>Cyan/Biru terang</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="295"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="231"/>
         <source>Light cyan</source>
         <translation>Biru terang</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="296"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="232"/>
         <source>Light-gray</source>
         <translation>Abu-abu terang</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="297"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="233"/>
         <source>Light gray</source>
         <translation>Abu-abu terang</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="298"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="234"/>
         <source>Light-magenta</source>
         <translation>Merah muda terang</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="299"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="235"/>
         <source>Light magenta</source>
         <translation>Merah muda terang</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="300"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="236"/>
         <source>Magenta</source>
         <translation>Merah muda</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="301"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="237"/>
         <source>Orange</source>
         <translation>Jingga</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="302"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="238"/>
         <source>Red</source>
         <translation>Merah</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="303"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="239"/>
         <source>Silver</source>
         <translation>Perak</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="304"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="240"/>
         <source>White</source>
         <translation>Putih</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="305"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="241"/>
         <source>Yellow</source>
         <translation>Kuning</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="306"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="242"/>
         <source>Waste</source>
         <translation>Limbah</translation>
+    </message>
+    <message>
+        <location filename="../util/ddestination.cpp" line="148"/>
+        <location filename="../util/ddestination.cpp" line="202"/>
+        <source>Unknown</source>
+        <translation>Tidak diketahui</translation>
+    </message>
+    <message>
+        <location filename="../util/ddestination.cpp" line="209"/>
+        <source>Idle</source>
+        <translation>Diam</translation>
+    </message>
+    <message>
+        <location filename="../util/ddestination.cpp" line="212"/>
+        <source>Printing</source>
+        <translation>Mencetak</translation>
+    </message>
+    <message>
+        <location filename="../util/ddestination.cpp" line="215"/>
+        <source>Disabled</source>
+        <translation>Nonaktif</translation>
+    </message>
+    <message>
+        <location filename="../util/dprinter.cpp" line="255"/>
+        <source>(recommended)</source>
+        <translation>(direkomendasikan)</translation>
     </message>
 </context>
 <context>
@@ -1598,27 +1616,27 @@ atau</translation>
 <context>
     <name>ServerSettingsWindow</name>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="85"/>
+        <location filename="../ui/dprintersshowwindow.h" line="86"/>
         <source>Basic Server Settings</source>
         <translation>Pengaturan Dasar Server</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="93"/>
+        <location filename="../ui/dprintersshowwindow.h" line="94"/>
         <source>Publish shared printers connected to this system</source>
         <translation>Pengaturan Dasar Server</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="94"/>
+        <location filename="../ui/dprintersshowwindow.h" line="95"/>
         <source>Allow printing from the Internet</source>
         <translation>Izinkan pencetakan dari Internet</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="96"/>
+        <location filename="../ui/dprintersshowwindow.h" line="97"/>
         <source>Allow remote administration</source>
         <translation>Izinkan administrasi jarak jauh</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="98"/>
+        <location filename="../ui/dprintersshowwindow.h" line="99"/>
         <source>Save debugging information for troubleshooting</source>
         <translation>Simpan informasi debugging untuk pemecahan masalah</translation>
     </message>

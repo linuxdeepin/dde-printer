@@ -229,7 +229,7 @@ JobListView::JobListView(QWidget *parent)
     setShowGrid(false);
     setFrameShape(QFrame::NoFrame);
 
-    m_itemDelegate = new JobItemDelegate();
+    m_itemDelegate = new JobItemDelegate(this);
     setItemDelegate(m_itemDelegate);
     verticalHeader()->setVisible(false);
     verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
@@ -1035,7 +1035,7 @@ void JobManagerWindow::createUi()
     m_whichList.append(new DButtonBoxButton(QIcon::fromTheme("dp_print_done")));
 
     m_jobsView = new JobListView(this);
-    m_jobsModel = new JobsDataModel();
+    m_jobsModel = new JobsDataModel(m_jobsView);
 
     m_jobCountLabel = new QLabel(this);
 }

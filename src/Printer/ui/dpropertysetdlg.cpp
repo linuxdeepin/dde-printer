@@ -169,7 +169,7 @@ void DPropertySetDlg::initUI()
     QTemporaryFile tmpFile;
     tmpFile.open();
     QString strTmpFileName = tmpFile.fileName();
-    auto backend = new Dtk::Core::QSettingBackend(strTmpFileName);
+    auto backend = new Dtk::Core::QSettingBackend(strTmpFileName, this);
     QPointer<DSettings> settings;
     QVector<QString> vecOption;
     vecOption.push_back(tr("Print Properties"));

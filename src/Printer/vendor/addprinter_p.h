@@ -83,7 +83,6 @@ protected slots:
 
 private:
     QMap<QString, QVariant> m_solution;
-    PrinterServerInterface *m_serverInterface;
 };
 
 class AddCanonCAPTPrinter : public AddPrinterTask

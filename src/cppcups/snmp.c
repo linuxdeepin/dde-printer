@@ -130,7 +130,7 @@ _cupsSNMPCopyOID(int       *dst,	/* I - Destination OID */
  * snmp.conf file. If no community name is defined there, "public" is used.
  */
 
-const char *				/* O - Default community name */
+ char *				/* O - Default community name */
 _cupsSNMPDefaultCommunity(void)
 {
     char* pRet = (char*)malloc(100);

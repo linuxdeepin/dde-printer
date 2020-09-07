@@ -189,7 +189,6 @@ public:
     ItemDelegate(QObject *parent = nullptr);
     virtual ~ItemDelegate() override;
 
-    void setEnabled(bool enabled);
 
 protected:
     QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
