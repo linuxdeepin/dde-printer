@@ -40,10 +40,14 @@ DPrinter::DPrinter(Connection *con)
     m_bNeedUpdateInk = true;
 }
 
+DPrinter::~DPrinter()
+{
+
+}
+
 bool DPrinter::initPrinterPPD()
 {
     bool bRet = false;
-
     try {
         time_t tm = 0;
         string strPPDName = m_pCon->getPPD3(m_strName.toStdString().c_str(), &tm, nullptr);

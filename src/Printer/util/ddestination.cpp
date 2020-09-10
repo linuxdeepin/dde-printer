@@ -196,7 +196,7 @@ void DDestination::initPrinterAttr()
         m_printerLocation = attrMap.at(CUPS_OP_LOCATION).substr(1).data();
         m_printerInfo = attrMap.at(CUPS_OP_INFO).substr(1).data();
 
-        if (!isPpdFileBroken()) {
+        if (attrMap.at(CUPS_OP_MAKE_MODEL).size() > 0) {
             m_printerModel = attrMap.at(CUPS_OP_MAKE_MODEL).substr(1).data();
         } else {
             m_printerModel = QObject::tr("Unknown");

@@ -30,8 +30,6 @@ DCORE_USE_NAMESPACE
 int main(int argc, char *argv[])
 {
     int iRet = 0;
-
-    DApplication::loadDXcbPlugin();
     DApplication a(argc, argv);
 
     if (0 != g_printerApplication->create()) {

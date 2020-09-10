@@ -250,6 +250,7 @@ void cupssnmp::SNMPWalk()
 
     if (iRet < 0) {
         g_iNumSupply = -1;
+        free(snmpCommunity);
         return;
     }
 
@@ -297,6 +298,7 @@ void cupssnmp::SNMPInit()
                         snmpCommunity, CUPS_ASN1_GET_REQUEST, 1,
                         hrDeviceDescr)) {
         m_bSNMPSupport = false;
+        free(snmpCommunity);
         return;
     }
 
@@ -304,6 +306,7 @@ void cupssnmp::SNMPInit()
             packet.object_type != CUPS_ASN1_OCTET_STRING) {
         g_iNumSupply = 0;
         m_bSNMPSupport = false;
+        free(snmpCommunity);
         return;
     }
 
