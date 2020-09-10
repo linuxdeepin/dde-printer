@@ -223,6 +223,10 @@ int PPD::markOption(const char *name, const char *value)
     }
 
     conflicts = ppdMarkOption(this->ppd, encname, encvalue);
+    if (encname)
+        free(encname);
+    if (encvalue)
+        free(encvalue);
 
     return conflicts;
 }
@@ -458,6 +462,8 @@ void PPD::writeFd(int fd)
                 fputs("\n", out);
                 written = 1;
             }
+            if (keyword)
+                free(keyword);
         }
 
         if (!written)

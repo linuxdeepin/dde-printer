@@ -81,6 +81,7 @@ class DPrinter : public DDestination
 
 public:
     DPrinter(Connection *con);
+    virtual ~DPrinter() override;
 
     //operator ppd
     virtual bool initPrinterPPD() override;
