@@ -25,6 +25,7 @@
 #include "zdevicemanager.h"
 
 #include <QList>
+#include <QFile>
 #include <QMap>
 #include <QVariant>
 

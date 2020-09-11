@@ -37,6 +37,7 @@
 #include <QCheckBox>
 #include <QVBoxLayout>
 #include <QEventLoop>
+#include <QCloseEvent>
 DWIDGET_USE_NAMESPACE
 DWIDGET_BEGIN_NAMESPACE
 class DImageButton;
