@@ -182,7 +182,6 @@ void DDestination::initPrinterAttr()
     printerAttrs.push_back(CUPS_OP_STATE);
     printerAttrs.push_back(CUPS_OP_INFO);
     printerAttrs.push_back(CUPS_DEV_URI);
-    printerAttrs.push_back(CUPS_OP_MAKE_MODEL);
 
     try {
         map<string, string> attrMap = m_pCon->getPrinterAttributes(m_strName.toStdString().data(), nullptr, &printerAttrs);
@@ -196,10 +195,10 @@ void DDestination::initPrinterAttr()
         m_printerLocation = attrMap.at(CUPS_OP_LOCATION).substr(1).data();
         m_printerInfo = attrMap.at(CUPS_OP_INFO).substr(1).data();
 
-        if (attrMap.at(CUPS_OP_MAKE_MODEL).size() > 0) {
+        if (attrMap.find(CUPS_OP_MAKE_MODEL) != attrMap.end()) {
             m_printerModel = attrMap.at(CUPS_OP_MAKE_MODEL).substr(1).data();
         } else {
-            m_printerModel = QObject::tr("Unknown");
+            m_printerModel = "";
         }
 
         m_printerURI = attrMap.at(CUPS_DEV_URI).substr(1).data();
