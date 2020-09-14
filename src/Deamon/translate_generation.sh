@@ -4,12 +4,11 @@
 
 cd $(dirname $0)
 
-lupdate -no-obsolete Deamon.pro
+lupdate -no-obsolete Deamon.pro -ts translations/dde-printer-helper_en_US.ts
 
 ts_list=(`ls translations/*.ts`)
 for ts in "${ts_list[@]}"
 do
     printf "\nprocess ${ts}\n"
-    lupdate -no-obsolete  Deamon.pro -ts "${ts}"
     lrelease "${ts}"
 done

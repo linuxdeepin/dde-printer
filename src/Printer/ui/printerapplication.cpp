@@ -164,7 +164,6 @@ int PrinterApplication::showMainWindow()
 
 void PrinterApplication::slotMainWindowClosed()
 {
-    qInfo() << "";
     if (m_mainWindow) {
         m_mainWindow->deleteLater();
         m_mainWindow = nullptr;

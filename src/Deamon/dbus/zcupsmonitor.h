@@ -84,9 +84,10 @@ protected slots:
     void spoolerEvent(QDBusMessage);
 
 signals:
-    void signalJobStateChanged(int id, int state, QString message);
-    void signalPrinterStateChanged(QString printer, int state, QString message);
-    void signalPrinterDelete(QString printer);
+    void signalJobStateChanged(int id, int state, const QString &message);
+    void signalPrinterStateChanged(const QString &printer, int state, const QString &message);
+    void signalPrinterDelete(const QString &printer);
+    void signalPrinterAdd(const QString &printer);
 
 private:
     QMap<int, QString> m_jobMessages;

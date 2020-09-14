@@ -947,27 +947,26 @@ OPTNODE DPrinter::getOptionNodeByKeyword(const QString &strKey)
     }
     return node;
 }
-<<< <<< < HEAD
 
 QString DPrinter::getPPDName()
 {
+    auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+    if (!conPtr)
+        return "";
     QString strPpdName;
-
     try {
         time_t tm = 0;
-        string strVal = m_pCon->getPPD3(m_strName.toStdString().c_str(), &tm, nullptr);
+        string strVal = conPtr->getPPD3(m_strName.toStdString().c_str(), &tm, nullptr);
         strPpdName = QString::fromStdString(strVal);
-    } catch (const std::runtime_error &e) {
+    } catch (const std::invalid_argument &e) {
         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
         strPpdName.clear();
     }
 
     return strPpdName;
 }
-== == == =
-    >>> >>> > feat: 重构代码
 
-    QString DPrinter::getOptionValue(const QString &strOptName)
+QString DPrinter::getOptionValue(const QString &strOptName)
 {
     QString strDefault;
 

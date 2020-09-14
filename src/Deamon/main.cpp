@@ -51,7 +51,6 @@ void handler(int signo)
 
 int main(int argc, char *argv[])
 {
-    DApplication::loadDXcbPlugin();
     DApplication a(argc, argv);
 
     qApp->loadTranslator();

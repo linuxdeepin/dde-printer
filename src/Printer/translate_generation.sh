@@ -4,7 +4,6 @@
 
 cd $(dirname $0)
 
-lupdate -no-obsolete  Printer.pro
 ts_list=(`ls translations/*.ts`)
 lupdate  -no-obsolete Printer.pro -ts translations/dde-printer_en_US.ts
 

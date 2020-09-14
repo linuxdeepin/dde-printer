@@ -253,7 +253,7 @@ int CupsMonitor::createSubscription()
 
     try {
         if (-1 == m_subId) {
-            vector<string> events = {"printer-deleted", "printer-state-changed", "job-progress", "job-state-changed"};
+            vector<string> events = {"printer-deleted", "printer-added", "printer-state-changed", "job-progress", "job-state-changed"};
             m_subId = conPtr->createSubscription(SUB_URI, &events, 0, nullptr, 86400, 0, nullptr);
             g_Settings->setSubscriptionId(m_subId);
             g_Settings->setSequenceNumber(0);
@@ -391,7 +391,15 @@ int CupsMonitor::getNotifications(int &notifysSize)
                     if (!QDBusConnection::sessionBus().send(msg)) {
                         qWarning() << "send message:" << msg << " error";
                     }
+                } else if ("printer-added" == strevent) {
+                    QString printerName = attrValueToQString(info[CUPS_OP_NAME]);
+                    QDBusMessage msg = QDBusMessage::createSignal(SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME, "signalPrinterAdd");
+                    msg << printerName;
+                    if (!QDBusConnection::sessionBus().send(msg)) {
+                        qWarning() << "send message:" << msg << " error";
+                    }
                 }
+
             }
         }
 
