@@ -29,13 +29,11 @@
 #include <QSet>
 #include <QDBusMessage>
 #include <QTime>
-#include <QSystemTrayIcon>
-
 
 class CupsMonitor : public QThread
 {
     Q_OBJECT
-    Q_CLASSINFO("D-Bus Interface", SERVICE_INTERFACE_NAME)
+
 public:
     CupsMonitor(QObject *parent = nullptr);
     ~CupsMonitor() override;
@@ -48,8 +46,6 @@ public:
     QString getJobMessage(int id);
     int getPrinterState(const QString &printer);
 
-    void registerDBus();
-    void unRegisterDBus();
 public slots:
     //dbus接口
     bool isJobPurged(int id);
@@ -74,10 +70,9 @@ protected:
     int sendDesktopNotification(int replaceId, const QString &summary, const QString &body, int expired);
 
     bool isCompletedState(int state);
-    void slotShowTrayIcon(bool bShow);
+
+
     void showJobsWindow();
-
-
 protected slots:
     void notificationInvoke(unsigned int, QString);
     void notificationClosed(unsigned int, unsigned int);
@@ -88,6 +83,7 @@ signals:
     void signalPrinterStateChanged(const QString &printer, int state, const QString &message);
     void signalPrinterDelete(const QString &printer);
     void signalPrinterAdd(const QString &printer);
+    void signalShowTrayIcon(bool show);
 
 private:
     QMap<int, QString> m_jobMessages;
@@ -104,7 +100,7 @@ private:
     QSet<unsigned int> m_pendingNotification;
     QMap<int, QTime> m_processingJob;
 
-    QSystemTrayIcon *m_systemTray;
+
 };
 
 

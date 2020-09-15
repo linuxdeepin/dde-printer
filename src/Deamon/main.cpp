@@ -20,6 +20,7 @@
  */
 
 #include "dbus/zcupsmonitor.h"
+#include "dbus/helperinterface.h"
 #include "zsettings.h"
 
 #include <DApplication>
@@ -98,12 +99,14 @@ int main(int argc, char *argv[])
     }
 
     CupsMonitor cupsMonitor;
-    cupsMonitor.registerDBus();
     cupsMonitor.initTranslations();
     cupsMonitor.initSubscription();
     cupsMonitor.initWatcher();
 
+    HelperInterface helper(&cupsMonitor);
+    helper.registerDBus();
+
     int ret = a.exec();
-    cupsMonitor.unRegisterDBus();
+    helper.unRegisterDBus();
     return ret;
 }

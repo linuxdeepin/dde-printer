@@ -34,12 +34,11 @@
 
 #include <QMap>
 #include <QVariant>
-#include <QDBusPendingReply>
 #include <QStringList>
 #include <QDebug>
-#include <QDBusConnection>
-#include <QDBusMessage>
 #include <QProcess>
+#include <QDBusConnection>
+#include <QDBusPendingReply>
 
 DWIDGET_USE_NAMESPACE
 
@@ -54,23 +53,13 @@ CupsMonitor::CupsMonitor(QObject *parent)
     : QThread(parent)
     , m_jobId(0)
     , m_bQuit(false)
-    , m_systemTray(new QSystemTrayIcon(QIcon(":/images/dde-printer.svg")))
 {
     m_subId = -1;
     m_seqNumber = -1;
-    /*托盘需要在主线程创建*/
-    connect(m_systemTray, &QSystemTrayIcon::activated, [&](QSystemTrayIcon::ActivationReason reason) {
-        if (reason == QSystemTrayIcon::Trigger) {
-            showJobsWindow();
-        }
-    });
-
 }
 
 CupsMonitor::~CupsMonitor()
 {
-    if (m_systemTray)
-        m_systemTray->deleteLater();
     stop();
 }
 
@@ -147,8 +136,7 @@ bool CupsMonitor::insertJobMessage(int id, int state, const QString &message)
             }
         }
     }
-
-    slotShowTrayIcon(hasRuningJobs);
+    emit signalShowTrayIcon(hasRuningJobs);
 
     //只有处理中的状态才通过事件触发的次数过滤事件
     if (IPP_JSTATE_PROCESSING != state) {
@@ -316,11 +304,7 @@ int CupsMonitor::getNotifications(int &notifysSize)
                 //通过判断同一个id，同一个状态插入的次数判断是否触发信号
                 if (insertJobMessage(iJob, iState, strReason)) {
                     qInfo() << "Emit job state changed signal" << iJob << iState << strReason;
-                    QDBusMessage msg = QDBusMessage::createSignal(SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME, "signalJobStateChanged");
-                    msg << iJob << iState << strReason;
-                    if (!QDBusConnection::sessionBus().send(msg)) {
-                        qWarning() << "send message:" << msg << " error";
-                    }
+                    emit signalJobStateChanged(iJob, iState, strReason);
                 }
 
                 switch (iState) {
@@ -377,27 +361,15 @@ int CupsMonitor::getNotifications(int &notifysSize)
                     if (m_printersState.value(printerName, -1) != iState) {
                         qInfo() << "Emit printer state changed signal: " << printerName << iState << strReason;
                         m_printersState.insert(printerName, iState);
-                        QDBusMessage msg = QDBusMessage::createSignal(SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME, "signalPrinterStateChanged");
-                        msg << printerName << iState << strReason;
-                        if (!QDBusConnection::sessionBus().send(msg)) {
-                            qWarning() << "send message:" << msg << " error";
-                        }
+                        emit signalPrinterStateChanged(printerName, iState, strReason);
 
                     }
                 } else if ("printer-deleted" == strevent) {
                     QString printerName = attrValueToQString(info[CUPS_OP_NAME]);
-                    QDBusMessage msg = QDBusMessage::createSignal(SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME, "signalPrinterDelete");
-                    msg << printerName;
-                    if (!QDBusConnection::sessionBus().send(msg)) {
-                        qWarning() << "send message:" << msg << " error";
-                    }
+                    emit signalPrinterDelete(printerName);
                 } else if ("printer-added" == strevent) {
                     QString printerName = attrValueToQString(info[CUPS_OP_NAME]);
-                    QDBusMessage msg = QDBusMessage::createSignal(SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME, "signalPrinterAdd");
-                    msg << printerName;
-                    if (!QDBusConnection::sessionBus().send(msg)) {
-                        qWarning() << "send message:" << msg << " error";
-                    }
+                    emit signalPrinterAdd(printerName);
                 }
 
             }
@@ -591,40 +563,3 @@ void CupsMonitor::showJobsWindow()
     }
 }
 
-void CupsMonitor::registerDBus()
-{
-    //注册dbus服务
-    QDBusConnection dbus = QDBusConnection::sessionBus();
-    bool ret = dbus.registerService(SERVICE_INTERFACE_NAME);
-    if (ret == false) {
-        qWarning("Register QDBus Service Error!");
-    }
-    ret = dbus.registerObject(SERVICE_INTERFACE_PATH, this,
-                              QDBusConnection::ExportAllSlots |
-                              QDBusConnection::ExportAllSignals);
-    if (ret == false) {
-        qDebug("Register QDBus Object Error!");
-    }
-
-}
-
-void CupsMonitor::unRegisterDBus()
-{
-    //注销dbus服务
-    QDBusConnection dbus = QDBusConnection::sessionBus();
-    bool ret = dbus.unregisterService(SERVICE_INTERFACE_NAME);
-    if (ret == false) {
-        qWarning("unregister QDBus Service Error!");
-
-    }
-    dbus.unregisterObject(SERVICE_INTERFACE_PATH);
-    dbus.disconnectFromBus(dbus.name());
-}
-
-void CupsMonitor::slotShowTrayIcon(bool bShow)
-{
-    if (bShow)
-        m_systemTray->show();
-    else if (m_systemTray)
-        m_systemTray->hide();
-}

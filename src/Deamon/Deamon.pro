@@ -9,7 +9,8 @@ PKGCONFIG += dtkwidget dtkgui
 
 SOURCES += \
         main.cpp \
-    dbus/zcupsmonitor.cpp
+    dbus/zcupsmonitor.cpp \
+    dbus/helperinterface.cpp
 
 RESOURCES +=         resources.qrc
 
@@ -28,10 +29,15 @@ LIBS += -lcups
 }
 
 HEADERS += \
-    dbus/zcupsmonitor.h
+    dbus/zcupsmonitor.h \
+    dbus/helperinterface.h
 
 DISTFILES +=
 linux {
+isEmpty(PREFIX){
+    PREFIX = /usr
+}
+
 target.path = $${PREFIX}/bin
 
 watch.path = /etc/xdg/autostart
