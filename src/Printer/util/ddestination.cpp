@@ -143,29 +143,6 @@ void DDestination::setPrinterLocation(const QString &location)
     }
 }
 
-QString DDestination::printerModel()
-{
-    QString strPrintModel;
-    vector<string> requestAttr;
-    requestAttr.push_back(CUPS_OP_MAKE_MODEL);
-
-    try {
-        if (!isPpdFileBroken()) {
-            auto conPtr = CupsConnectionFactory::createConnectionBySettings();
-            if (conPtr) {
-                map<string, string> attr = conPtr->getPrinterAttributes(m_strName.toStdString().c_str(), nullptr, &requestAttr);
-                strPrintModel = QString::fromStdString(attr[CUPS_OP_MAKE_MODEL].data());
-                strPrintModel = strPrintModel.remove(0, 1);
-            }
-        } else {
-            strPrintModel = QObject::tr("Unknown");
-        }
-    } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
-    }
-
-    return strPrintModel;
-}
 
 bool DDestination::initPrinterPPD()
 {
