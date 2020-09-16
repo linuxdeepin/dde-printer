@@ -29,6 +29,7 @@ DWIDGET_USE_NAMESPACE
 #include <QAbstractTableModel>
 #include <QItemDelegate>
 #include <QTableView>
+#include <QDBusMessage>
 
 DWIDGET_BEGIN_NAMESPACE
 class DIconButton;
@@ -159,7 +160,7 @@ protected:
 protected slots:
     void slotJobsCountChanged(int count);
     void slotWhichBoxClicked(QAbstractButton *whichbut);
-    void slotJobStateChanged(int id, int state, const QString &message);
+    void slotJobStateChanged(const QDBusMessage &msg);
     void slotDoActionFailed(int jobId, unsigned int iAction);
 
 private:

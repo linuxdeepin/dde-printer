@@ -42,7 +42,7 @@ class Connection;
 class ServerSettings
 {
 public:
-    ServerSettings(Connection *c = NULL, map<string, string> settings = map<string, string>());
+    ServerSettings();
     ServerSettings &enableDebugLogging(bool enabled);
     ServerSettings &enableRemoteAdmin(bool enabled);
     ServerSettings &enableRemoteAny(bool enabled);
@@ -55,10 +55,10 @@ public:
     bool isSharePrintersEnabled() const;
     bool isUserCancelAnyEnabled() const;
 
-    void commit();
+    void updateSettings(map<string, string> set);
+    void commit(const char *host_str, int port_n, int encryption_n);
 
 private:
-    Connection *c_;
     map<string, string> settings_;
 };
 
@@ -504,9 +504,6 @@ public:
     // @param settings: must be not null! refer to adminGetServerSettings
     // @exception: runtime_error
     void adminSetServerSettings(const map<string, string> *settings);
-
-    ServerSettings getServerSettings();
-    ServerSettings newServerSettings();
 
     // @param resource_uri: must be not null!
     // @param events: optional. Can be one or more of these:

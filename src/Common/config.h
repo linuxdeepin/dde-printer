@@ -19,34 +19,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ZSETTINGS_H
-#define ZSETTINGS_H
+#ifndef CONFIG_H
+#define CONFIG_H
 
-#include <QSettings>
+#include <QString>
 
-class zSettings : public QSettings
-{
-public:
-    static zSettings *getInstance();
+#define UTF8_T_S(str) QString::fromUtf8(str)
+#define STR_T_UTF8(str) str.toUtf8().data()
+#define UNUSED(x) (void)x
 
-    const QString getClientVersion();
-    const QString getClientCode();
-    const QString getHostName();
-    unsigned short getHostPort();
-    const QString getLogRules();
-    const QString getOSVersion();
+#define MAX_RETRY 30 //最大重试次数
+#define MAX_SEQUENCE_NUM 91
+#define MAX_SEQUENCE_SPEED 20
 
-    int getSubscriptionId();
-    void setSubscriptionId(int id);
+#define s_linkTemplate "<a href='%1' style='text-decoration: none; color: #0066ec;'>%2</a>"
 
-    int getSequenceNumber();
-    void setSequenceNumber(int number);
+#define SERVICE_INTERFACE_NAME "com.deepin.print.helper"
+#define SERVICE_INTERFACE_PATH "/com/deepin/print/helper"
 
-protected:
-    zSettings(const QString &fileName);
-    ~zSettings() {}
-};
-
-#define g_Settings zSettings::getInstance()
-
-#endif // ZSETTINGS_H
+#endif // CONFIG_H

@@ -3,9 +3,9 @@
 [Desktop Entry]
 Encoding=UTF-8
 Categories=Utility;System;
-Exec=dde-printer -m 1
+Exec=dde-printer-helper
 Icon=dde-printer
-Name=Print Manager
-Name[zh_CN]=打印管理器
+Name=Print Manager helper
+Name[zh_CN]=打印管理器助手
 Type=Application
 X-Deepin-AppID=dde-printer

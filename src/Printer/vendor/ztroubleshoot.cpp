@@ -26,9 +26,9 @@
 #include "qtconvert.h"
 #include "ztroubleshoot_p.h"
 #include "zdrivermanager.h"
-#include "zcupsmonitor.h"
+#include "config.h"
 #include "zjobmanager.h"
-#include "dprintermanager.h"
+#include "cupsconnectionfactory.h"
 #include "cupsppd.h"
 
 #include <QTcpSocket>
@@ -38,6 +38,10 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QThread>
+#include <QDBusConnection>
+#include <QDBusInterface>
+#include <QDBusReply>
+
 
 static bool isFilterMissing(const QString &filter)
 {
@@ -48,7 +52,8 @@ static bool isFilterMissing(const QString &filter)
                                     "local", "popd", "printf", "pushd", "pwd", "read",
                                     "readonly", "set", "shift", "shopt", "source",
                                     "test", "then", "trap", "type", "ulimit", "umask",
-                                    "unalias", "unset", "wait", "-", nullptr};
+                                    "unalias", "unset", "wait", "-", nullptr
+                                   };
 
     if ("%" == filter.right(1))
         return false;
@@ -79,7 +84,9 @@ static QStringList getDirectDevices()
     map<string, map<string, string>>::iterator itmap;
 
     try {
-        devs = g_cupsConnection->getDevices(nullptr, &inSechemes, 0, CUPS_TIMEOUT_DEFAULT);
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr)
+            devs = conPtr->getDevices(nullptr, &inSechemes, 0, CUPS_TIMEOUT_DEFAULT);
     } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return uris;
@@ -106,14 +113,8 @@ QString CheckCupsServer::getJobName()
 //诊断本地Cups服务是否正常
 bool CheckCupsServer::isPass()
 {
-    Connection c;
-
     emit signalStateChanged(TStat_Running, tr("Checking CUPS server..."));
-
-    try {
-        c.init(cupsServer(), ippPort(), 0);
-    } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+    if (!g_cupsConnection) {
         m_strMessage = tr("CUPS server is invalid");
         emit signalStateChanged(TStat_Fail, m_strMessage);
         return false;
@@ -320,7 +321,9 @@ bool CheckAttributes::isPass()
     }
 
     try {
-        attrs = g_cupsConnection->getPrinterAttributes(m_printerName.toUtf8().data(), nullptr, &reqs);
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr)
+            attrs = conPtr->getPrinterAttributes(m_printerName.toUtf8().data(), nullptr, &reqs);
     } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         emit signalStateChanged(TStat_Fail, tr("Failed to get printer attributes, error: ") + QString::fromUtf8(ex.what()));
@@ -372,8 +375,8 @@ QString PrinterTestJob::getJobName()
 void PrinterTestJob::stop()
 {
     TroubleShootJob::stop();
-
-    disconnect(g_cupsMonitor, &CupsMonitor::signalJobStateChanged, this, &PrinterTestJob::slotJobStateChanged);
+    QDBusConnection::sessionBus().disconnect(SERVICE_INTERFACE_NAME, SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME,
+                                             "signalJobStateChanged", this, SLOT(slotJobStateChanged(int id, int state, const QString & message)));
     if (m_eventLoop)
         m_eventLoop->exit(0);
 }
@@ -402,7 +405,14 @@ bool PrinterTestJob::findRunningJob()
                 job.insert(STQ(itjob->first), attrValueToQString(itjob->second));
             }
 
-            m_strMessage = g_cupsMonitor->getJobNotify(job);
+            QDBusInterface interface(SERVICE_INTERFACE_NAME, SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME, QDBusConnection::sessionBus());
+            if (interface.isValid()) {
+                QDBusReply<QString> result = interface.call("getJobNotify", job);
+                if (result.isValid()) {
+                    m_strMessage = result.value();
+                }
+            }
+
             emit signalStateChanged(TStat_Update, m_strMessage);
             return true;
         }
@@ -414,11 +424,10 @@ bool PrinterTestJob::findRunningJob()
 bool PrinterTestJob::isPass()
 {
     emit signalStateChanged(TStat_Running, tr("Printing test page..."));
-
-    connect(g_cupsMonitor, &CupsMonitor::signalJobStateChanged, this, &PrinterTestJob::slotJobStateChanged);
-    if (!g_cupsMonitor->isRunning())
-        g_cupsMonitor->start();
-
+    if (!QDBusConnection::sessionBus().connect(SERVICE_INTERFACE_NAME, SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME,
+                                               "signalJobStateChanged", this, SLOT(slotJobStateChanged(QDBusMessage)))) {
+        qWarning() << "connect to dbus signal(signalJobStateChanged) failed";
+    }
     if (-1 == m_jobId) {
         m_strMessage = g_jobManager->printTestPage(m_printerName.toUtf8().data(), m_jobId);
         if (!m_strMessage.isEmpty()) {
@@ -436,13 +445,24 @@ bool PrinterTestJob::isPass()
     return true;
 }
 
-void PrinterTestJob::slotJobStateChanged(int id, int state, const QString &message)
+void PrinterTestJob::slotJobStateChanged(const QDBusMessage &msg)
 {
+    if (msg.arguments().count() != 3) {
+        qWarning() << "JobStateChanged dbus arguments error";
+        return;
+    }
+    int id = msg.arguments().at(0).toInt();
+    int state = msg.arguments().at(1).toInt();
+    const QString message = msg.arguments().at(2).toString();
     if (id != m_jobId)
         return;
-
-    m_strMessage = g_cupsMonitor->getStateString(state) + " " + message;
-
+    QDBusInterface interface(SERVICE_INTERFACE_NAME, SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME, QDBusConnection::sessionBus());
+    if (interface.isValid()) {
+        QDBusReply<QString> result = interface.call("getStateString", state);
+        if (result.isValid()) {
+            m_strMessage = result.value() + " " + message;
+        }
+    }
     switch (state) {
     case IPP_JSTATE_PENDING:
     case IPP_JSTATE_PROCESSING:

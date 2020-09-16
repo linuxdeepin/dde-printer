@@ -80,7 +80,7 @@ class DPrinter : public DDestination
 {
 
 public:
-    DPrinter(Connection *con);
+    DPrinter();
     virtual ~DPrinter() override;
 
     //operator ppd

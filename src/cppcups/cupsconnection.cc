@@ -258,9 +258,7 @@ const char *password_callback_newstyle(const char *prompt,
 }
 #endif /* !HAVE_CUPS_1_4 */
 
-ServerSettings::ServerSettings(Connection *c, map<string, string> settings)
-    : c_(c)
-    , settings_(settings)
+ServerSettings::ServerSettings()
 {
 }
 
@@ -319,9 +317,20 @@ bool ServerSettings::isUserCancelAnyEnabled() const
     return atoi(settings_.at("_user_cancel_any").c_str()) == 1;
 }
 
-void ServerSettings::commit()
+void ServerSettings::updateSettings(map<string, string> set)
 {
-    c_->adminSetServerSettings(&settings_);
+    if (!set.empty())
+        std::swap(set, settings_);
+}
+
+void ServerSettings::commit(const char *host_str, int port_n, int encryption_n)
+{
+
+    Connection c;
+    if (0 != c.init(host_str, port_n, encryption_n)) {
+        return;
+    }
+    c.adminSetServerSettings(&settings_);
 }
 
 Connection::Connection(void)
@@ -2644,18 +2653,6 @@ void Connection::adminSetServerSettings(const map<string, string> *dict)
 
     cupsFreeOptions(num_settings, settings);
     debugprintf("<- Connection::adminSetServerSettings()\n");
-}
-
-ServerSettings Connection::getServerSettings()
-{
-    ServerSettings server_settings(this, adminGetServerSettings());
-    return server_settings;
-}
-
-ServerSettings Connection::newServerSettings()
-{
-    ServerSettings server_settings(this);
-    return server_settings;
 }
 
 vector<map<string, string>> Connection::getSubscriptions(const char *uri,

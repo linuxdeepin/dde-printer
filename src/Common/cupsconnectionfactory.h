@@ -1,9 +1,9 @@
 /*
  * Copyright (C) 2019 ~ 2020 Uniontech Software Co., Ltd.
  *
- * Author:     Wei xie <xiewei@deepin.com>
+ * Author:     liurui <liurui@uniontech.com>
  *
- * Maintainer: Wei xie  <xiewei@deepin.com>
+ * Maintainer: liurui <liurui@uniontech.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,20 +18,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#ifndef CUPSCONNECTIONFACTORY_H
+#define CUPSCONNECTIONFACTORY_H
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#include "cupsconnection.h"
 
 #include <QString>
 
-#define UTF8_T_S(str) QString::fromUtf8(str)
-#define STR_T_UTF8(str) str.toUtf8().data()
-#define UNUSED(x) (void)x
+#include <memory>
+using namespace std;
+class CupsConnectionFactory
+{
+public:
 
-#define MAX_RETRY 30 //最大重试次数
-#define MAX_SEQUENCE_NUM 91
-#define MAX_SEQUENCE_SPEED 20
+    static std::unique_ptr<Connection> createConnection(QString strHost, int port, int encryption = 0);
+    static std::unique_ptr<Connection> createConnectionBySettings();
+private:
+    CupsConnectionFactory() {}
+    Q_DISABLE_COPY(CupsConnectionFactory)
+};
 
-#define s_linkTemplate "<a href='%1' style='text-decoration: none; color: #0066ec;'>%2</a>"
 
-#endif // CONFIG_H
+#define g_cupsConnection CupsConnectionFactory::createConnectionBySettings()
+#endif // CUPSCONNECTIONFACTORY_H

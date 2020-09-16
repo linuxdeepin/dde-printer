@@ -28,7 +28,7 @@
 #include "common.h"
 #include "cupsconnection.h"
 #include "qtconvert.h"
-#include "dprintermanager.h"
+#include "cupsconnectionfactory.h"
 
 #include <QRegularExpression>
 #include <QFile>
@@ -730,7 +730,9 @@ QStringList GetSystemPrinterNames()
     map<string, map<string, string>>::iterator itmap;
 
     try {
-        printers = g_cupsConnection->getPrinters();
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr)
+            printers = conPtr->getPrinters();
 
         for (itmap = printers.begin(); itmap != printers.end(); itmap++) {
             printerNames << STQ(itmap->first);

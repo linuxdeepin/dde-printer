@@ -20,6 +20,7 @@
  */
 #include "ddestination.h"
 #include "cupsattrnames.h"
+#include "cupsconnectionfactory.h"
 
 #include <QDebug>
 
@@ -28,10 +29,9 @@
 
 using namespace std;
 
-DDestination::DDestination(Connection *con)
+DDestination::DDestination()
 {
-    assert(con != nullptr);
-    m_pCon = con;
+
 }
 
 QString DDestination::getName()
@@ -84,9 +84,12 @@ QString DDestination::printerInfo()
     requestAttr.push_back(CUPS_OP_INFO);
 
     try {
-        map<string, string> attr = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(), nullptr, &requestAttr);
-        strPrintInfo = QString::fromStdString(attr[CUPS_OP_INFO].data());
-        strPrintInfo = strPrintInfo.remove(0, 1);
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr) {
+            map<string, string> attr = conPtr->getPrinterAttributes(m_strName.toStdString().c_str(), nullptr, &requestAttr);
+            strPrintInfo = QString::fromStdString(attr[CUPS_OP_INFO].data());
+            strPrintInfo = strPrintInfo.remove(0, 1);
+        }
     } catch (const std::runtime_error &e) {
         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
     }
@@ -99,7 +102,9 @@ void DDestination::setPrinterInfo(const QString &info)
     m_printerInfo = info;
 
     try {
-        m_pCon->setPrinterInfo(m_strName.toStdString().c_str(), m_printerInfo.toStdString().c_str());
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr)
+            conPtr->setPrinterInfo(m_strName.toStdString().c_str(), m_printerInfo.toStdString().c_str());
     } catch (const std::runtime_error &e) {
         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
     }
@@ -112,9 +117,12 @@ QString DDestination::printerLocation()
     requestAttr.push_back(CUPS_OP_LOCATION);
 
     try {
-        map<string, string> attr = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(), nullptr, &requestAttr);
-        strLocation = QString::fromStdString(attr[CUPS_OP_LOCATION].data());
-        strLocation = strLocation.remove(0, 1);
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr) {
+            map<string, string> attr = conPtr->getPrinterAttributes(m_strName.toStdString().c_str(), nullptr, &requestAttr);
+            strLocation = QString::fromStdString(attr[CUPS_OP_LOCATION].data());
+            strLocation = strLocation.remove(0, 1);
+        }
     } catch (const std::runtime_error &e) {
         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
     }
@@ -127,7 +135,9 @@ void DDestination::setPrinterLocation(const QString &location)
     m_printerLocation = location;
 
     try {
-        m_pCon->setPrinterLocation(m_strName.toStdString().c_str(), m_printerLocation.toStdString().c_str());
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr)
+            conPtr->setPrinterLocation(m_strName.toStdString().c_str(), m_printerLocation.toStdString().c_str());
     } catch (const std::runtime_error &e) {
         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
     }
@@ -141,9 +151,12 @@ QString DDestination::printerModel()
 
     try {
         if (!isPpdFileBroken()) {
-            map<string, string> attr = m_pCon->getPrinterAttributes(m_strName.toStdString().c_str(), nullptr, &requestAttr);
-            strPrintModel = QString::fromStdString(attr[CUPS_OP_MAKE_MODEL].data());
-            strPrintModel = strPrintModel.remove(0, 1);
+            auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+            if (conPtr) {
+                map<string, string> attr = conPtr->getPrinterAttributes(m_strName.toStdString().c_str(), nullptr, &requestAttr);
+                strPrintModel = QString::fromStdString(attr[CUPS_OP_MAKE_MODEL].data());
+                strPrintModel = strPrintModel.remove(0, 1);
+            }
         } else {
             strPrintModel = QObject::tr("Unknown");
         }
@@ -184,7 +197,10 @@ void DDestination::initPrinterAttr()
     printerAttrs.push_back(CUPS_DEV_URI);
 
     try {
-        map<string, string> attrMap = m_pCon->getPrinterAttributes(m_strName.toStdString().data(), nullptr, &printerAttrs);
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (!conPtr)
+            return;
+        map<string, string> attrMap = conPtr->getPrinterAttributes(m_strName.toStdString().data(), nullptr, &printerAttrs);
         string strShared = attrMap.at(CUPS_OP_ISSHAED);
         if (strShared.substr(0, 2) == "b1") {
             m_isShared = true;
@@ -202,7 +218,7 @@ void DDestination::initPrinterAttr()
         }
 
         m_printerURI = attrMap.at(CUPS_DEV_URI).substr(1).data();
-        m_ppdFile = m_pCon->getPPD(m_strName.toStdString().data()).data();
+        m_ppdFile = conPtr->getPPD(m_strName.toStdString().data()).data();
         // 此处i3表示数据类型为int 值为3，其实是enumeration类型转换
         if (attrMap.at(CUPS_OP_STATE).substr(0, 2) == string("i3")) {
             m_printerStatus = QObject::tr("Idle");

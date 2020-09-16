@@ -23,7 +23,7 @@
 #include "config.h"
 #include "qtconvert.h"
 #include "cupsattrnames.h"
-#include "dprintermanager.h"
+#include "cupsconnectionfactory.h"
 
 #include <QVariant>
 #include <QJsonDocument>
@@ -38,14 +38,15 @@
 #include <QDebug>
 
 #include <netdb.h>
-extern int h_errno;
 
 QString getPrinterPPD(const char *name)
 {
     QString strPPD;
 
     try {
-        strPPD = STQ(g_cupsConnection->getPPD(name));
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr)
+            strPPD = STQ(conPtr->getPPD(name));
     } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return QString();
@@ -77,7 +78,9 @@ QString getPrinterUri(const char *name)
 
     try {
         requestList.push_back(CUPS_DEV_URI);
-        attrs = g_cupsConnection->getPrinterAttributes(name, nullptr, &requestList);
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr)
+            attrs = conPtr->getPrinterAttributes(name, nullptr, &requestList);
     } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return QString();

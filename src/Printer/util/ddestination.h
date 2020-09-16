@@ -36,7 +36,7 @@ class DDestination
 {
 
 public:
-    DDestination(Connection *con);
+    DDestination();
     virtual ~DDestination() {}
 
 public:
@@ -80,7 +80,6 @@ private:
 protected:
     DESTTYPE m_type;
     QString m_strName;
-    Connection *m_pCon;
 
     bool m_isShared;
     bool m_isEnabled;

@@ -29,7 +29,7 @@
 #include "printerservice.h"
 #include "zdrivermanager_p.h"
 #include "cupsppd.h"
-#include "dprintermanager.h"
+#include "cupsconnectionfactory.h"
 
 #include <QProcess>
 #include <QTcpSocket>
@@ -367,7 +367,9 @@ int RefreshLocalPPDS::doWork()
     g_iStatus = TStat_Running;
 
     try {
-        allPPDS = g_cupsConnection->getPPDs2(0, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, -1, nullptr, nullptr, nullptr);
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr)
+            allPPDS = conPtr->getPPDs2(0, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, -1, nullptr, nullptr, nullptr);
     } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
@@ -810,7 +812,10 @@ QStringList DriverManager::getDriverDepends(const char *strPPD)
         if (QFile::exists(strPPD)) {
             p.load(strPPD);
         } else {
-            string ppdfile = g_cupsConnection->getServerPPD(strPPD);
+            auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+            if (!conPtr)
+                return depends;
+            string ppdfile = conPtr->getServerPPD(strPPD);
 
             qDebug() << strPPD << STQ(ppdfile);
             p.load(ppdfile.c_str());

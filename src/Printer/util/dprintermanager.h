@@ -41,8 +41,7 @@ public:
     ~DPrinterManager();
 
 public:
-    bool InitConnection(const char *host_uri, int port, int encryption);
-    Connection *getConnection();
+
     //set allowed user
     void setAllowedUsers(const QString &strPrinterName, const QVector<QString> strUsers);
     void updateDestinationList();
@@ -99,6 +98,7 @@ public:
     * @author        liurui
     * @date          2019-11-09
     */
+    bool updateServerSetting();
     void commit();
     bool hasSamePrinter(const QString &printer);
     QString validataName(const QString &oldPrinterName);
@@ -112,7 +112,7 @@ private:
 
 private:
     static DPrinterManager *m_self;
-    Connection *m_conn;
+
     QMap<QString, DDestination *> m_mapDests;
     //QMap<QString, QString> m_mapLanguageTrans;
     DPrinterTanslator m_translator;
@@ -120,6 +120,5 @@ private:
     ServerSettings m_pServerSettings;
 };
 
-#define g_cupsConnection DPrinterManager::getInstance()->getConnection()
 
 #endif // DPRINTMANAGER_H

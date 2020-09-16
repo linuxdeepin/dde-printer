@@ -30,37 +30,37 @@
 <context>
     <name>CheckAttributes</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="306"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="307"/>
         <source>Check printer settings</source>
         <translation>Tarkista tulostimen asetukset</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="315"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="316"/>
         <source>Checking printer settings...</source>
         <translation>Tarkistetaan tulostimen asetuksia...</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="318"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="319"/>
         <source>Success</source>
         <translation>Onnistui</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="326"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="329"/>
         <source>Failed to get printer attributes, error: </source>
         <translation>Tulostimen ominaisuuksien nouto epäonnistui, virhe:</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="334"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="337"/>
         <source>%1 is disabled</source>
         <translation>%1 poistettu käytöstä</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="343"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="346"/>
         <source>is not accepting jobs</source>
         <translation>ei hyväksy työitä</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="348"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="351"/>
         <source>Printer settings are ok</source>
         <translation>Tulostimen asetukset ovat kunnossa</translation>
     </message>
@@ -68,42 +68,42 @@
 <context>
     <name>CheckConnected</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="211"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="212"/>
         <source>Check printer connection</source>
         <translation>Tarkista tulostimen yhteys</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="223"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="224"/>
         <source>Checking printer connection...</source>
         <translation>Tarkistetaan tulostimen yhteyttä...</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="226"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="227"/>
         <source>Success</source>
         <translation>Onnistui</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="263"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="264"/>
         <source>Cannot connect to the printer, error: %1</source>
         <translation>Tulostimeen ei voida muodostaa yhteyttä, virhe: %1</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="271"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="272"/>
         <source> is not connected, URI: </source>
         <translation>ei ole yhteyttä, osoitteessa:</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="280"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="281"/>
         <source>%1 does not exist</source>
         <translation>%1 ei ole olemassa</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="289"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="290"/>
         <source>Cannot connect to the printer</source>
         <translation>Tulostimeen ei saada yhteyttä</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="295"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="296"/>
         <source>The connection is valid</source>
         <translation>Yhteys on kelvollinen</translation>
     </message>
@@ -111,22 +111,22 @@
 <context>
     <name>CheckCupsServer</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="103"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="110"/>
         <source>Check CUPS server</source>
         <translation>Tarkista CUPS-palvelin</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="111"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="116"/>
         <source>Checking CUPS server...</source>
         <translation>Tarkistetaan CUPS-palvelinta...</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="117"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="118"/>
         <source>CUPS server is invalid</source>
         <translation>CUPS-palvelin ei kelpaa</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="122"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="123"/>
         <source>CUPS server is valid</source>
         <translation>CUPS-palvelin on kelvollinen</translation>
     </message>
@@ -134,127 +134,58 @@
 <context>
     <name>CheckDriver</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="140"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="141"/>
         <source>Checking driver...</source>
         <translation>Tarkistetaan ohjainta...</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="143"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="144"/>
         <source>Success</source>
         <translation>Onnistui</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="151"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="152"/>
         <source>PPD file %1 not found</source>
         <translation>PPD-tiedostoa %1 ei löydy</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="161"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="162"/>
         <source>The driver is damaged</source>
         <translation>Ohjain on viallinen</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="177"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="178"/>
         <source>Driver filter %1 not found</source>
         <translation>Ohjaimen suodatin %1 ei löydy</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="189"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="190"/>
         <source>%1 is not installed, cannot print now</source>
         <translation>%1 ei ole asennettuna, ei voi tulostaa</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="195"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="196"/>
         <source>Driver is valid</source>
         <translation>Ohjain on kelvollinen</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="201"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="202"/>
         <source>Check driver</source>
         <translation>Tarkista ohjain</translation>
     </message>
 </context>
 <context>
-    <name>CupsMonitor</name>
-    <message>
-        <location filename="../vendor/zcupsmonitor.cpp" line="74"/>
-        <source>Queuing</source>
-        <translation>Jonossa</translation>
-    </message>
-    <message>
-        <location filename="../vendor/zcupsmonitor.cpp" line="75"/>
-        <source>Paused</source>
-        <translation>Tauko</translation>
-    </message>
-    <message>
-        <location filename="../vendor/zcupsmonitor.cpp" line="76"/>
-        <source>Printing</source>
-        <translation>Tulostaa</translation>
-    </message>
-    <message>
-        <location filename="../vendor/zcupsmonitor.cpp" line="77"/>
-        <source>Stopped</source>
-        <translation>Pysäytetty</translation>
-    </message>
-    <message>
-        <location filename="../vendor/zcupsmonitor.cpp" line="78"/>
-        <source>Canceled</source>
-        <translation>Peruttu</translation>
-    </message>
-    <message>
-        <location filename="../vendor/zcupsmonitor.cpp" line="79"/>
-        <source>Error</source>
-        <translation>Virhe</translation>
-    </message>
-    <message>
-        <location filename="../vendor/zcupsmonitor.cpp" line="80"/>
-        <source>Completed</source>
-        <translation>Valmistunut</translation>
-    </message>
-    <message>
-        <location filename="../vendor/zcupsmonitor.cpp" line="293"/>
-        <source>%1 timed out, reason: %2</source>
-        <translation>%1 aikakatkaistu, syy: %2</translation>
-    </message>
-    <message>
-        <location filename="../vendor/zcupsmonitor.cpp" line="307"/>
-        <source>%1 printed successfully, please take away the paper in time!</source>
-        <translation>%1 tulostettu onnistuneesti, poista paperi!</translation>
-    </message>
-    <message>
-        <location filename="../vendor/zcupsmonitor.cpp" line="309"/>
-        <source>%1 %2, reason: %3</source>
-        <translation>%1 %2, syy: %3</translation>
-    </message>
-</context>
-<context>
-    <name>DDestination</name>
-    <message>
-        <source>Unknown</source>
-        <translation type="vanished">Tuntematon</translation>
-    </message>
-    <message>
-        <source>Idle</source>
-        <translation type="vanished">Joutilas</translation>
-    </message>
-    <message>
-        <source>Printing</source>
-        <translation type="vanished">Tulostaa</translation>
-    </message>
-    <message>
-        <source>Disabled</source>
-        <translation type="vanished">Estetty</translation>
-    </message>
-</context>
-<context>
-    <name>DPrinter</name>
-    <message>
-        <source>(recommended)</source>
-        <translation type="vanished">(suositus)</translation>
-    </message>
-</context>
-<context>
     <name>DPrinterSupplyShowDlg</name>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="161"/>
+        <source>Low level</source>
+        <translation>Matala taso</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="188"/>
+        <source>Unknown</source>
+        <translation>Tuntematon</translation>
+    </message>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="252"/>
         <source>Ink/Toner Status</source>
@@ -279,16 +210,6 @@
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="308"/>
         <source>OK</source>
         <translation>OK</translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="161"/>
-        <source>Low level</source>
-        <translation>Matala taso</translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="188"/>
-        <source>Unknown</source>
-        <translation>Tuntematon</translation>
     </message>
 </context>
 <context>
@@ -334,6 +255,19 @@
         <translation>Tulostuksen laatu</translation>
     </message>
     <message>
+        <location filename="../util/dprintertanslator.cpp" line="48"/>
+        <location filename="../util/dprintertanslator.cpp" line="60"/>
+        <source>Manual</source>
+        <translation>Manuaalinen</translation>
+    </message>
+    <message>
+        <location filename="../util/dprintertanslator.cpp" line="52"/>
+        <location filename="../util/dprintertanslator.cpp" line="53"/>
+        <location filename="../util/dprintertanslator.cpp" line="54"/>
+        <source>Paper Source</source>
+        <translation>Paperin lähde</translation>
+    </message>
+    <message>
         <location filename="../util/dprintertanslator.cpp" line="55"/>
         <location filename="../util/dprintertanslator.cpp" line="56"/>
         <source>Auto-Select</source>
@@ -350,19 +284,6 @@
         <location filename="../util/dprintertanslator.cpp" line="73"/>
         <source>Auto</source>
         <translation>Automaattinen</translation>
-    </message>
-    <message>
-        <location filename="../util/dprintertanslator.cpp" line="48"/>
-        <location filename="../util/dprintertanslator.cpp" line="60"/>
-        <source>Manual</source>
-        <translation>Manuaalinen</translation>
-    </message>
-    <message>
-        <location filename="../util/dprintertanslator.cpp" line="52"/>
-        <location filename="../util/dprintertanslator.cpp" line="53"/>
-        <location filename="../util/dprintertanslator.cpp" line="54"/>
-        <source>Paper Source</source>
-        <translation>Paperin lähde</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="61"/>
@@ -517,18 +438,6 @@
         <translation>Sidonta reuna</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="124"/>
-        <location filename="../util/dprintertanslator.cpp" line="125"/>
-        <source>Staple Location</source>
-        <translation>Nidonnan sijainti</translation>
-    </message>
-    <message>
-        <location filename="../util/dprintertanslator.cpp" line="136"/>
-        <location filename="../util/dprintertanslator.cpp" line="137"/>
-        <source>Resolution</source>
-        <translation>Tarkkuus</translation>
-    </message>
-    <message>
         <location filename="../util/dprintertanslator.cpp" line="108"/>
         <source>Left</source>
         <translation>Vasen</translation>
@@ -569,6 +478,12 @@
         <translation>Käänteinen</translation>
     </message>
     <message>
+        <location filename="../util/dprintertanslator.cpp" line="124"/>
+        <location filename="../util/dprintertanslator.cpp" line="125"/>
+        <source>Staple Location</source>
+        <translation>Nidonnan sijainti</translation>
+    </message>
+    <message>
         <location filename="../util/dprintertanslator.cpp" line="127"/>
         <source>Bind</source>
         <translation>Nitoja</translation>
@@ -598,163 +513,169 @@
         <source>Bind (top)</source>
         <translation>Nitoja (yläosa)</translation>
     </message>
+    <message>
+        <location filename="../util/dprintertanslator.cpp" line="136"/>
+        <location filename="../util/dprintertanslator.cpp" line="137"/>
+        <source>Resolution</source>
+        <translation>Tarkkuus</translation>
+    </message>
 </context>
 <context>
     <name>DPrintersShowWindow</name>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="83"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="88"/>
         <source>Settings</source>
         <translation>Asetukset</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="89"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="94"/>
         <source>Printers</source>
         <translation>Tulostimet</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="93"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="98"/>
         <source>Add printer</source>
         <translation>Lisää tulostin</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="96"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="101"/>
         <source>Delete printer</source>
         <translation>Poista tulostin</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="117"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="122"/>
         <source>Shared</source>
         <translation>Jaettu</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="120"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="125"/>
         <source>Enabled</source>
         <translation>Käytössä</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="123"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="128"/>
         <source>Accept jobs</source>
         <translation>Hyväksy työt</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="127"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="132"/>
         <source>Set as default</source>
         <translation>Aseta oletukseksi</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="138"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="143"/>
         <source>No Printers</source>
         <translation>Ei tulostimia</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="162"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="167"/>
         <source>Location:</source>
         <translation>Sijainti:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="167"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="172"/>
         <source>Model:</source>
         <translation>Malli:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="170"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="175"/>
         <source>Status:</source>
         <translation>Tila:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="198"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="203"/>
         <source>Properties</source>
         <translation>Ominaisuudet</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="208"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="213"/>
         <source>Print Queue</source>
         <translation>Tulostusjono</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="218"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="223"/>
         <source>Print Test Page</source>
         <translation>Tulosta testisivu</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="238"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="243"/>
         <source>Supplies</source>
         <translation>Tarvikkeet</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="262"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="267"/>
         <source>No printer configured</source>
         <translation>Tulostinta ei määritettynä</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="267"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="272"/>
         <source>Click + to add printers</source>
         <translation>Lisää tulostimia napsauttamalla</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="326"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="331"/>
         <source>As print jobs are in process, you cannot rename the printer now, please try later</source>
         <translation>Koska tulostustyöt ovat käynnissä, et voi nimetä tulostinta uudelleen, kokeile myöhemmin</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="330"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="377"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="611"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="335"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="366"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="629"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="354"/>
-        <source>Idle</source>
-        <translation>Joutilas</translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="356"/>
-        <source>Printing</source>
-        <translation>Tulostaa</translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="358"/>
-        <source>Disabled</source>
-        <translation>Estetty</translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="374"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="363"/>
         <source>CUPS server is not running, and can’t manage printers.</source>
         <translation>CUPS-palvelin ei ole käynnissä, eikä se pysty hallitsemaan tulostimia.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="569"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="560"/>
+        <source>Idle</source>
+        <translation>Joutilas</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="562"/>
+        <source>Printing</source>
+        <translation>Tulostaa</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="564"/>
+        <source>Disabled</source>
+        <translation>Estetty</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="587"/>
         <source>Are you sure you want to delete the printer &quot;%1&quot; ?</source>
         <translation>Haluatko varmasti poistaa tulostimen &quot;%1&quot; ?</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="575"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="593"/>
         <source>Delete</source>
         <translation>Poista</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="607"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="625"/>
         <source>The name already exists</source>
         <translation>Nimi on jo olemassa</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="626"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="644"/>
         <source>You will not be able to reprint the completed jobs if continue. Are you sure you want to rename the printer?</source>
         <translation>Valmiita töitä ei voi tulostaa uudelleen, jos jatketaan. Haluatko varmasti nimetä tulostimen uudelleen?</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="631"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="649"/>
         <source>Confirm</source>
         <translation>Vahvista</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="689"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="707"/>
         <source>The driver is damaged, please install it again.</source>
         <translation>Ohjain on viallinen, asenna se uudestaan.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="692"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="710"/>
         <source>Install Driver</source>
         <translation>Asenna ohjain</translation>
     </message>
@@ -831,7 +752,7 @@
 <context>
     <name>DriverManager</name>
     <message>
-        <location filename="../vendor/zdrivermanager.cpp" line="794"/>
+        <location filename="../vendor/zdrivermanager.cpp" line="796"/>
         <source>EveryWhere driver</source>
         <translation>Yleinen ohjain</translation>
     </message>
@@ -1054,44 +975,44 @@
 <context>
     <name>JobListView</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="250"/>
-        <location filename="../ui/jobmanagerwindow.cpp" line="410"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="254"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="414"/>
         <source>Cancel</source>
         <translation>Peru</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="251"/>
-        <location filename="../ui/jobmanagerwindow.cpp" line="411"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="255"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="415"/>
         <source>Delete</source>
         <translation>Poista</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="252"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="256"/>
         <source>Pause</source>
         <translation>Tauko</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="253"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="257"/>
         <source>Resume</source>
         <translation>Jatka</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="254"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="258"/>
         <source>Print first</source>
         <translation>Tulosta ensin</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="255"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="259"/>
         <source>Reprint</source>
         <translation>Uusinta</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="257"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="261"/>
         <source>No print jobs</source>
         <translation>Ei tulostustöitä</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="404"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="408"/>
         <source>Are you sure you want to delete this job?</source>
         <translation>Haluatko varmasti poistaa tämän työn?</translation>
     </message>
@@ -1099,7 +1020,7 @@
 <context>
     <name>JobManager</name>
     <message>
-        <location filename="../vendor/zjobmanager.cpp" line="279"/>
+        <location filename="../../Common/zjobmanager.cpp" line="307"/>
         <source> not found</source>
         <translation>ei löydy</translation>
     </message>
@@ -1107,32 +1028,32 @@
 <context>
     <name>JobManagerWindow</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1046"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1060"/>
         <source>Refresh</source>
         <translation>Virkistä</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1050"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1064"/>
         <source>All</source>
         <translation>Kaikki</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1051"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1065"/>
         <source>Print Queue</source>
         <translation>Tulostusjono</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1052"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1066"/>
         <source>Completed</source>
         <translation>Valmistunut</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1111"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1130"/>
         <source> failed</source>
         <translation>epäonnistui</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1132"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1151"/>
         <source>%1 jobs</source>
         <translation>%1 työtä</translation>
     </message>
@@ -1140,42 +1061,42 @@
 <context>
     <name>JobsDataModel</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="671"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="675"/>
         <source>Job</source>
         <translation>Työ</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="673"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="677"/>
         <source>User</source>
         <translation>Käyttäjä</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="675"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="679"/>
         <source>Document</source>
         <translation>Asiakirja</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="677"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="681"/>
         <source>Printer</source>
         <translation>Tulostin</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="679"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="683"/>
         <source>Size</source>
         <translation>Koko</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="681"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="685"/>
         <source>Time submitted</source>
         <translation>Lähetysaika</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="683"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="687"/>
         <source>Status</source>
         <translation>Tila</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="685"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="689"/>
         <source>Action</source>
         <translation>Toiminta</translation>
     </message>
@@ -1216,12 +1137,12 @@
 <context>
     <name>PrinterApplication</name>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="111"/>
+        <location filename="../ui/printerapplication.cpp" line="99"/>
         <source>Print Manager</source>
         <translation>Tulostimet</translation>
     </message>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="112"/>
+        <location filename="../ui/printerapplication.cpp" line="100"/>
         <source>Print Manager is a printer management tool, which supports adding and removing printers, managing print jobs and so on.</source>
         <translation>Tulostimet on hallintatyökalu, jolla asennat ja poistat tulostimet, sekä hallitset asetukset.</translation>
     </message>
@@ -1311,12 +1232,12 @@
 <context>
     <name>PrinterTestJob</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="369"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="372"/>
         <source>Check test page printing</source>
         <translation>Tarkista testisivun tulostus</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="416"/>
+        <location filename="../vendor/ztroubleshoot.cpp" line="426"/>
         <source>Printing test page...</source>
         <translation>Tulostetaan testisivua...</translation>
     </message>
@@ -1324,7 +1245,7 @@
 <context>
     <name>PrinterTestPageDialog</name>
     <message>
-        <location filename="../ui/printertestpagedialog.cpp" line="63"/>
+        <location filename="../ui/printertestpagedialog.cpp" line="62"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -1332,96 +1253,9 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="104"/>
-        <source>1 min ago</source>
-        <translation>1 minuutti sitten</translation>
-    </message>
-    <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="107"/>
-        <source>%1 mins ago</source>
-        <translation>%1 minuuttia sitten</translation>
-    </message>
-    <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="111"/>
-        <source>1 hr ago</source>
-        <translation>1 tunti sitten</translation>
-    </message>
-    <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="113"/>
-        <source>%1 hrs ago</source>
-        <translation>%1 tuntia sitten</translation>
-    </message>
-    <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="118"/>
-        <source>Yesterday</source>
-        <translation>Eilen</translation>
-    </message>
-    <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="120"/>
-        <source>%1 days ago</source>
-        <translation>%1 päivää sitten</translation>
-    </message>
-    <message>
-        <location filename="../ui/printersearchwindow.cpp" line="495"/>
-        <source>(use %1 protocol)</source>
-        <translation>(käytä %1 -protokollaa)</translation>
-    </message>
-    <message>
-        <location filename="../ui/uisourcestring.h" line="26"/>
-        <source>Select a driver</source>
-        <translation>Valitse ohjain</translation>
-    </message>
-    <message>
-        <location filename="../ui/uisourcestring.h" line="32"/>
-        <source>Driver</source>
-        <translation>Ohjain</translation>
-    </message>
-    <message>
-        <location filename="../ui/uisourcestring.h" line="33"/>
-        <source>Next</source>
-        <translation>Seuraava</translation>
-    </message>
-    <message>
-        <location filename="../ui/uisourcestring.h" line="34"/>
-        <source>Install Driver</source>
-        <translation>Asenna ohjain</translation>
-    </message>
-    <message>
-        <location filename="../ui/uisourcestring.h" line="36"/>
-        <source>Drag a PPD file here 
- or</source>
-        <translation>Vedä PPD-tiedosto tähän 
- tai</translation>
-    </message>
-    <message>
-        <location filename="../ui/uisourcestring.h" line="37"/>
-        <source>Select a PPD file</source>
-        <translation>Valitse PPD-tiedosto</translation>
-    </message>
-    <message>
-        <location filename="../ui/uisourcestring.h" line="39"/>
-        <source>Troubleshoot</source>
-        <translation>Vianmääritys</translation>
-    </message>
-    <message>
-        <location filename="../ui/uisourcestring.h" line="40"/>
-        <source>Cancel</source>
-        <translation>Peru</translation>
-    </message>
-    <message>
-        <location filename="../vendor/common.cpp" line="149"/>
+        <location filename="../../Common/common.cpp" line="152"/>
         <source> not found, please ask the administrator for help</source>
         <translation>ei löydy, kysy järjestelmänvalvojalta apua</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerapplication.cpp" line="138"/>
-        <source>Direct-attached Device</source>
-        <translation>Suoraankytketty laite</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerapplication.cpp" line="139"/>
-        <source>File</source>
-        <translation>Tiedosto</translation>
     </message>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="217"/>
@@ -1554,28 +1388,114 @@
         <translation>Hukkasäiliö</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="148"/>
-        <location filename="../util/ddestination.cpp" line="202"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="108"/>
+        <source>1 min ago</source>
+        <translation>1 minuutti sitten</translation>
+    </message>
+    <message>
+        <location filename="../ui/jobmanagerwindow.cpp" line="111"/>
+        <source>%1 mins ago</source>
+        <translation>%1 minuuttia sitten</translation>
+    </message>
+    <message>
+        <location filename="../ui/jobmanagerwindow.cpp" line="115"/>
+        <source>1 hr ago</source>
+        <translation>1 tunti sitten</translation>
+    </message>
+    <message>
+        <location filename="../ui/jobmanagerwindow.cpp" line="117"/>
+        <source>%1 hrs ago</source>
+        <translation>%1 tuntia sitten</translation>
+    </message>
+    <message>
+        <location filename="../ui/jobmanagerwindow.cpp" line="122"/>
+        <source>Yesterday</source>
+        <translation>Eilen</translation>
+    </message>
+    <message>
+        <location filename="../ui/jobmanagerwindow.cpp" line="124"/>
+        <source>%1 days ago</source>
+        <translation>%1 päivää sitten</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerapplication.cpp" line="110"/>
+        <source>Direct-attached Device</source>
+        <translation>Suoraankytketty laite</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerapplication.cpp" line="111"/>
+        <source>File</source>
+        <translation>Tiedosto</translation>
+    </message>
+    <message>
+        <location filename="../ui/printersearchwindow.cpp" line="495"/>
+        <source>(use %1 protocol)</source>
+        <translation>(käytä %1 -protokollaa)</translation>
+    </message>
+    <message>
+        <location filename="../ui/uisourcestring.h" line="26"/>
+        <source>Select a driver</source>
+        <translation>Valitse ohjain</translation>
+    </message>
+    <message>
+        <location filename="../ui/uisourcestring.h" line="32"/>
+        <source>Driver</source>
+        <translation>Ohjain</translation>
+    </message>
+    <message>
+        <location filename="../ui/uisourcestring.h" line="33"/>
+        <source>Next</source>
+        <translation>Seuraava</translation>
+    </message>
+    <message>
+        <location filename="../ui/uisourcestring.h" line="34"/>
+        <source>Install Driver</source>
+        <translation>Asenna ohjain</translation>
+    </message>
+    <message>
+        <location filename="../ui/uisourcestring.h" line="36"/>
+        <source>Drag a PPD file here 
+ or</source>
+        <translation>Vedä PPD-tiedosto tähän 
+ tai</translation>
+    </message>
+    <message>
+        <location filename="../ui/uisourcestring.h" line="37"/>
+        <source>Select a PPD file</source>
+        <translation>Valitse PPD-tiedosto</translation>
+    </message>
+    <message>
+        <location filename="../ui/uisourcestring.h" line="39"/>
+        <source>Troubleshoot</source>
+        <translation>Vianmääritys</translation>
+    </message>
+    <message>
+        <location filename="../ui/uisourcestring.h" line="40"/>
+        <source>Cancel</source>
+        <translation>Peru</translation>
+    </message>
+    <message>
+        <location filename="../util/ddestination.cpp" line="161"/>
         <source>Unknown</source>
         <translation>Tuntematon</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="209"/>
+        <location filename="../util/ddestination.cpp" line="224"/>
         <source>Idle</source>
         <translation>Joutilas</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="212"/>
+        <location filename="../util/ddestination.cpp" line="227"/>
         <source>Printing</source>
         <translation>Tulostaa</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="215"/>
+        <location filename="../util/ddestination.cpp" line="230"/>
         <source>Disabled</source>
         <translation>Estetty</translation>
     </message>
     <message>
-        <location filename="../util/dprinter.cpp" line="255"/>
+        <location filename="../util/dprinter.cpp" line="272"/>
         <source>(recommended)</source>
         <translation>(suositus)</translation>
     </message>
@@ -1616,27 +1536,27 @@
 <context>
     <name>ServerSettingsWindow</name>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="86"/>
+        <location filename="../ui/dprintersshowwindow.h" line="87"/>
         <source>Basic Server Settings</source>
         <translation>Palvelimen perusasetukset</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="94"/>
+        <location filename="../ui/dprintersshowwindow.h" line="95"/>
         <source>Publish shared printers connected to this system</source>
         <translation>Jaa tähän järjestelmään kytkettyjä tulostimia</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="95"/>
+        <location filename="../ui/dprintersshowwindow.h" line="96"/>
         <source>Allow printing from the Internet</source>
         <translation>Salli tulostus Internetistä</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="97"/>
+        <location filename="../ui/dprintersshowwindow.h" line="98"/>
         <source>Allow remote administration</source>
         <translation>Salli etähallinta</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="99"/>
+        <location filename="../ui/dprintersshowwindow.h" line="100"/>
         <source>Save debugging information for troubleshooting</source>
         <translation>Tallenna vianetsintätiedot vianetsintää varten</translation>
     </message>
@@ -1644,17 +1564,17 @@
 <context>
     <name>TroubleShootDialog</name>
     <message>
-        <location filename="../ui/troubleshootdialog.cpp" line="109"/>
+        <location filename="../ui/troubleshootdialog.cpp" line="108"/>
         <source>Troubleshoot: </source>
         <translation>Vianmääritys:</translation>
     </message>
     <message>
-        <location filename="../ui/troubleshootdialog.cpp" line="134"/>
+        <location filename="../ui/troubleshootdialog.cpp" line="133"/>
         <source>Cancel</source>
         <translation>Peru</translation>
     </message>
     <message>
-        <location filename="../ui/troubleshootdialog.cpp" line="165"/>
+        <location filename="../ui/troubleshootdialog.cpp" line="164"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>

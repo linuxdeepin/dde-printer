@@ -18,15 +18,10 @@ SOURCES += \
     ui/printersearchwindow.cpp \
     util/dprintclass.cpp \
     util/ddestination.cpp \ 
-    vendor/common.cpp \
-    vendor/ztaskinterface.cpp \
     vendor/zdevicemanager.cpp \
     vendor/addprinter.cpp \
-    vendor/zcupsmonitor.cpp \
     vendor/ztroubleshoot.cpp \
-    vendor/zjobmanager.cpp \
     vendor/zdrivermanager.cpp \
-    vendor/qtconvert.cpp \
     vendor/printerservice.cpp \
     ui/dpropertysetdlg.cpp \
     ui/installdriverwindow.cpp \
@@ -36,7 +31,6 @@ SOURCES += \
     ui/installprinterwindow.cpp \
     ui/permissionswindow.cpp \
     util/connectedtask.cpp \
-    vendor/zsettings.cpp \
     ui/printertestpagedialog.cpp \
     ui/troubleshootdialog.cpp\
     util/dprintertanslator.cpp \
@@ -56,22 +50,15 @@ HEADERS += \
     ui/printersearchwindow.h \
     util/ddestination.h \
     util/dprintclass.h \   
-    vendor/qtconvert.h \
     vendor/zdrivermanager_p.h \
-    vendor/zcupsmonitor.h \
     vendor/zdevicemanager.h \
     vendor/ztroubleshoot.h \
-    vendor/common.h \
-    vendor/zjobmanager.h \
-    vendor/ztaskinterface.h \
     vendor/addprinter.h \
     vendor/ztroubleshoot_p.h \
     vendor/cupsattrnames.h \
     vendor/zdrivermanager.h \
-    vendor/config.h \
     vendor/addprinter_p.h \
     vendor/printerservice.h \
-    vendor/cupsattrnames.h \
     ui/dpropertysetdlg.h \
     ui/installdriverwindow.h \
     ui/renameprinterwindow.h \
@@ -81,21 +68,22 @@ HEADERS += \
     ui/uisourcestring.h \
     ui/permissionswindow.h \
     util/connectedtask.h \
-    vendor/zsettings.h \
     ui/printertestpagedialog.h \
     ui/troubleshootdialog.h\
     util/dprintertanslator.h \
     ui/dprinterpropertytemplate.h \
     ui/dprintersupplyshowdlg.h \
     util/refreshsnmpbackendtask.h
-
+include(../Common/Common.pri)
 
 INCLUDEPATH +=  \
                 $$PWD/../cppcups \
                 vendor \
                 /usr/include/samba-4.0/ \
                 ui \
-                util
+                util \
+                $$PWD/../Common
+
 DEPENDPATH += $$PWD/../cppcups
 
 QMAKE_CFLAGS += -Wall -Wextra -Wformat=2 -Wno-format-nonliteral -Wshadow
@@ -126,8 +114,6 @@ isEmpty(PREFIX){
 
 target.path = $${PREFIX}/bin
 
-watch.path = /etc/xdg/autostart
-watch.files = $${PWD}/platform/linux/watch/dde-printer-watch.desktop
 
 desktop.path = $${PREFIX}/share/applications
 desktop.files = $${PWD}/platform/linux/dde-printer.desktop
@@ -150,5 +136,5 @@ polkit.files = $${PWD}/policy/com.deepin.pkexec.devPrinter.policy
 #ppa.path =  /etc/apt/sources.list.d
 #ppa.files = $${PWD}/ppa/printer.list
 
-INSTALLS += target watch desktop hicolor trans polkit
+INSTALLS += target desktop hicolor trans polkit
 }
