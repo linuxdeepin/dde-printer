@@ -2,52 +2,52 @@
 <context>
     <name>CupsMonitor</name>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="83"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="72"/>
         <source>Queuing</source>
         <translation>File d&apos;attente</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="84"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="73"/>
         <source>Paused</source>
         <translation>En pause</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="85"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="74"/>
         <source>Printing</source>
         <translation>Impression en cours</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="86"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="75"/>
         <source>Stopped</source>
         <translation>Arrêté</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="87"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="76"/>
         <source>Canceled</source>
         <translation>Annulé</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="88"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="77"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="89"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="78"/>
         <source>Completed</source>
         <translation>Terminé</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="331"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="315"/>
         <source>%1 timed out, reason: %2</source>
         <translation>%1 est dépassé, raison : %2</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="345"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="329"/>
         <source>%1 printed successfully, please take away the paper in time!</source>
         <translation>%1 imprimé avec succès, veuillez retirer le papier à temps !</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="347"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="331"/>
         <source>%1 %2, reason: %3</source>
         <translation>%1 %2, raison : %3</translation>
     </message>

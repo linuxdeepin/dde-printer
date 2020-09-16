@@ -2,47 +2,27 @@
 <context>
     <name>AddPrinterTask</name>
     <message>
-<<<<<<< HEAD
         <location filename="../vendor/addprinter.cpp" line="546"/>
-=======
-        <location filename="../vendor/addprinter.cpp" line="549"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>URI and driver do not match.</source>
         <translation>URI ve sürücü eşleşmiyor.</translation>
     </message>
     <message>
-<<<<<<< HEAD
         <location filename="../vendor/addprinter.cpp" line="548"/>
-=======
-        <location filename="../vendor/addprinter.cpp" line="551"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>Install hplip first and restart the app to install the driver again.</source>
         <translation>Önce hplip&apos;i kurun ve sürücüyü tekrar kurmakiçin uygulamayı yeniden başlatın.</translation>
     </message>
     <message>
-<<<<<<< HEAD
         <location filename="../vendor/addprinter.cpp" line="556"/>
-=======
-        <location filename="../vendor/addprinter.cpp" line="559"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>Please select an hplip driver and try again.</source>
         <translation>Lütfen bir hplip sürücüsü seçin ve tekrar deneyin.</translation>
     </message>
     <message>
-<<<<<<< HEAD
         <location filename="../vendor/addprinter.cpp" line="569"/>
-=======
-        <location filename="../vendor/addprinter.cpp" line="572"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>URI can&apos;t be empty</source>
         <translation>URI boş olamaz</translation>
     </message>
     <message>
-<<<<<<< HEAD
         <location filename="../vendor/addprinter.cpp" line="576"/>
-=======
-        <location filename="../vendor/addprinter.cpp" line="579"/>
->>>>>>> chore:更新翻译和desktop文件
         <source> not found</source>
         <translation>bulunamadı</translation>
     </message>
@@ -195,54 +175,17 @@
     </message>
 </context>
 <context>
-    <name>DDestination</name>
-    <message>
-<<<<<<< HEAD
-=======
-        <location filename="../util/ddestination.cpp" line="161"/>
-        <location filename="../util/ddestination.cpp" line="218"/>
->>>>>>> chore:更新翻译和desktop文件
-        <source>Unknown</source>
-        <translation type="vanished">Bilinmiyor</translation>
-    </message>
-    <message>
-<<<<<<< HEAD
-=======
-        <location filename="../util/ddestination.cpp" line="225"/>
->>>>>>> chore:更新翻译和desktop文件
-        <source>Idle</source>
-        <translation type="vanished">Boş</translation>
-    </message>
-    <message>
-<<<<<<< HEAD
-=======
-        <location filename="../util/ddestination.cpp" line="228"/>
->>>>>>> chore:更新翻译和desktop文件
-        <source>Printing</source>
-        <translation type="vanished">Yazdırılıyor</translation>
-    </message>
-    <message>
-<<<<<<< HEAD
-=======
-        <location filename="../util/ddestination.cpp" line="231"/>
->>>>>>> chore:更新翻译和desktop文件
-        <source>Disabled</source>
-        <translation type="vanished">Devre dışı</translation>
-    </message>
-</context>
-<context>
-    <name>DPrinter</name>
-    <message>
-<<<<<<< HEAD
-=======
-        <location filename="../util/dprinter.cpp" line="268"/>
->>>>>>> chore:更新翻译和desktop文件
-        <source>(recommended)</source>
-        <translation type="vanished">(önerilen)</translation>
-    </message>
-</context>
-<context>
     <name>DPrinterSupplyShowDlg</name>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="161"/>
+        <source>Low level</source>
+        <translation>Düşük seviye</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="188"/>
+        <source>Unknown</source>
+        <translation>Bilinmiyor</translation>
+    </message>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="252"/>
         <source>Ink/Toner Status</source>
@@ -267,16 +210,6 @@
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="308"/>
         <source>OK</source>
         <translation>Tamam</translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="161"/>
-        <source>Low level</source>
-        <translation>Düşük seviye</translation>
-    </message>
-    <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="188"/>
-        <source>Unknown</source>
-        <translation>Bilinmiyor</translation>
     </message>
 </context>
 <context>
@@ -322,6 +255,19 @@
         <translation>Baskı Kalitesi</translation>
     </message>
     <message>
+        <location filename="../util/dprintertanslator.cpp" line="48"/>
+        <location filename="../util/dprintertanslator.cpp" line="60"/>
+        <source>Manual</source>
+        <translation>Elle</translation>
+    </message>
+    <message>
+        <location filename="../util/dprintertanslator.cpp" line="52"/>
+        <location filename="../util/dprintertanslator.cpp" line="53"/>
+        <location filename="../util/dprintertanslator.cpp" line="54"/>
+        <source>Paper Source</source>
+        <translation>Kağıt Kaynağı</translation>
+    </message>
+    <message>
         <location filename="../util/dprintertanslator.cpp" line="55"/>
         <location filename="../util/dprintertanslator.cpp" line="56"/>
         <source>Auto-Select</source>
@@ -338,19 +284,6 @@
         <location filename="../util/dprintertanslator.cpp" line="73"/>
         <source>Auto</source>
         <translation>Otomatik</translation>
-    </message>
-    <message>
-        <location filename="../util/dprintertanslator.cpp" line="48"/>
-        <location filename="../util/dprintertanslator.cpp" line="60"/>
-        <source>Manual</source>
-        <translation>Elle</translation>
-    </message>
-    <message>
-        <location filename="../util/dprintertanslator.cpp" line="52"/>
-        <location filename="../util/dprintertanslator.cpp" line="53"/>
-        <location filename="../util/dprintertanslator.cpp" line="54"/>
-        <source>Paper Source</source>
-        <translation>Kağıt Kaynağı</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="61"/>
@@ -505,18 +438,6 @@
         <translation>Cilt Kenarı</translation>
     </message>
     <message>
-        <location filename="../util/dprintertanslator.cpp" line="124"/>
-        <location filename="../util/dprintertanslator.cpp" line="125"/>
-        <source>Staple Location</source>
-        <translation>Zımba Bölgesi</translation>
-    </message>
-    <message>
-        <location filename="../util/dprintertanslator.cpp" line="136"/>
-        <location filename="../util/dprintertanslator.cpp" line="137"/>
-        <source>Resolution</source>
-        <translation>Çözünürlük</translation>
-    </message>
-    <message>
         <location filename="../util/dprintertanslator.cpp" line="108"/>
         <source>Left</source>
         <translation>Sol</translation>
@@ -557,6 +478,12 @@
         <translation>Ters</translation>
     </message>
     <message>
+        <location filename="../util/dprintertanslator.cpp" line="124"/>
+        <location filename="../util/dprintertanslator.cpp" line="125"/>
+        <source>Staple Location</source>
+        <translation>Zımba Bölgesi</translation>
+    </message>
+    <message>
         <location filename="../util/dprintertanslator.cpp" line="127"/>
         <source>Bind</source>
         <translation>Cilt</translation>
@@ -586,150 +513,92 @@
         <source>Bind (top)</source>
         <translation>Cilt (üst)</translation>
     </message>
+    <message>
+        <location filename="../util/dprintertanslator.cpp" line="136"/>
+        <location filename="../util/dprintertanslator.cpp" line="137"/>
+        <source>Resolution</source>
+        <translation>Çözünürlük</translation>
+    </message>
 </context>
 <context>
     <name>DPrintersShowWindow</name>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="83"/>
-=======
-        <location filename="../ui/dprintersshowwindow.cpp" line="86"/>
->>>>>>> chore:更新翻译和desktop文件
+        <location filename="../ui/dprintersshowwindow.cpp" line="88"/>
         <source>Settings</source>
         <translation>Ayarlar</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="89"/>
-=======
-        <location filename="../ui/dprintersshowwindow.cpp" line="92"/>
->>>>>>> chore:更新翻译和desktop文件
+        <location filename="../ui/dprintersshowwindow.cpp" line="94"/>
         <source>Printers</source>
         <translation>Yazıcılar</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="93"/>
-=======
-        <location filename="../ui/dprintersshowwindow.cpp" line="96"/>
->>>>>>> chore:更新翻译和desktop文件
+        <location filename="../ui/dprintersshowwindow.cpp" line="98"/>
         <source>Add printer</source>
         <translation>Yazıcı ekle</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="96"/>
-=======
-        <location filename="../ui/dprintersshowwindow.cpp" line="99"/>
->>>>>>> chore:更新翻译和desktop文件
+        <location filename="../ui/dprintersshowwindow.cpp" line="101"/>
         <source>Delete printer</source>
         <translation>Yazıcı sil</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="117"/>
-=======
-        <location filename="../ui/dprintersshowwindow.cpp" line="120"/>
->>>>>>> chore:更新翻译和desktop文件
+        <location filename="../ui/dprintersshowwindow.cpp" line="122"/>
         <source>Shared</source>
         <translation>Paylaşılan</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="120"/>
-=======
-        <location filename="../ui/dprintersshowwindow.cpp" line="123"/>
->>>>>>> chore:更新翻译和desktop文件
+        <location filename="../ui/dprintersshowwindow.cpp" line="125"/>
         <source>Enabled</source>
         <translation>Etkin</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="123"/>
-=======
-        <location filename="../ui/dprintersshowwindow.cpp" line="126"/>
->>>>>>> chore:更新翻译和desktop文件
+        <location filename="../ui/dprintersshowwindow.cpp" line="128"/>
         <source>Accept jobs</source>
         <translation>İşleri kabul et</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="127"/>
-=======
-        <location filename="../ui/dprintersshowwindow.cpp" line="130"/>
->>>>>>> chore:更新翻译和desktop文件
+        <location filename="../ui/dprintersshowwindow.cpp" line="132"/>
         <source>Set as default</source>
         <translation>Varsayılan olarak ayarla</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="138"/>
-=======
-        <location filename="../ui/dprintersshowwindow.cpp" line="141"/>
->>>>>>> chore:更新翻译和desktop文件
+        <location filename="../ui/dprintersshowwindow.cpp" line="143"/>
         <source>No Printers</source>
         <translation>Yazıcı Yok</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="162"/>
-=======
-        <location filename="../ui/dprintersshowwindow.cpp" line="165"/>
->>>>>>> chore:更新翻译和desktop文件
+        <location filename="../ui/dprintersshowwindow.cpp" line="167"/>
         <source>Location:</source>
         <translation>Konum:</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="167"/>
-=======
-        <location filename="../ui/dprintersshowwindow.cpp" line="169"/>
->>>>>>> chore:更新翻译和desktop文件
+        <location filename="../ui/dprintersshowwindow.cpp" line="172"/>
         <source>Model:</source>
         <translation>Model:</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="170"/>
-=======
-        <location filename="../ui/dprintersshowwindow.cpp" line="172"/>
->>>>>>> chore:更新翻译和desktop文件
+        <location filename="../ui/dprintersshowwindow.cpp" line="175"/>
         <source>Status:</source>
         <translation>Durum:</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="198"/>
-=======
-        <location filename="../ui/dprintersshowwindow.cpp" line="200"/>
->>>>>>> chore:更新翻译和desktop文件
+        <location filename="../ui/dprintersshowwindow.cpp" line="203"/>
         <source>Properties</source>
         <translation>Özellikler</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="208"/>
-=======
-        <location filename="../ui/dprintersshowwindow.cpp" line="210"/>
->>>>>>> chore:更新翻译和desktop文件
+        <location filename="../ui/dprintersshowwindow.cpp" line="213"/>
         <source>Print Queue</source>
         <translation>Yazdırma Kuyruğu</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="218"/>
-=======
-        <location filename="../ui/dprintersshowwindow.cpp" line="220"/>
->>>>>>> chore:更新翻译和desktop文件
+        <location filename="../ui/dprintersshowwindow.cpp" line="223"/>
         <source>Print Test Page</source>
         <translation>Test Sayfası Yazdır</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="238"/>
-=======
-        <location filename="../ui/dprintersshowwindow.cpp" line="242"/>
->>>>>>> chore:更新翻译和desktop文件
+        <location filename="../ui/dprintersshowwindow.cpp" line="243"/>
         <source>Supplies</source>
         <translation>Gereçler</translation>
     </message>
@@ -744,123 +613,69 @@
         <translation>Yazıcı eklemek için + işaretini tıkla</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="326"/>
-=======
         <location filename="../ui/dprintersshowwindow.cpp" line="331"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>As print jobs are in process, you cannot rename the printer now, please try later</source>
         <translation>Yazdırma işleri devam ederken, yazıcıyı adlandırılamaz, lütfen daha sonra deneyin</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="330"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="377"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="611"/>
-=======
         <location filename="../ui/dprintersshowwindow.cpp" line="335"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="373"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="600"/>
->>>>>>> chore:更新翻译和desktop文件
+        <location filename="../ui/dprintersshowwindow.cpp" line="366"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="629"/>
         <source>OK</source>
         <translation>Tamam</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="354"/>
-=======
-        <location filename="../ui/dprintersshowwindow.cpp" line="531"/>
->>>>>>> chore:更新翻译和desktop文件
-        <source>Idle</source>
-        <translation>Boş</translation>
-    </message>
-    <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="356"/>
-=======
-        <location filename="../ui/dprintersshowwindow.cpp" line="533"/>
->>>>>>> chore:更新翻译和desktop文件
-        <source>Printing</source>
-        <translation>Yazdırılıyor</translation>
-    </message>
-    <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="358"/>
-=======
-        <location filename="../ui/dprintersshowwindow.cpp" line="535"/>
->>>>>>> chore:更新翻译和desktop文件
-        <source>Disabled</source>
-        <translation>Devre dışı</translation>
-    </message>
-    <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="374"/>
-=======
-        <location filename="../ui/dprintersshowwindow.cpp" line="370"/>
->>>>>>> chore:更新翻译和desktop文件
+        <location filename="../ui/dprintersshowwindow.cpp" line="363"/>
         <source>CUPS server is not running, and can’t manage printers.</source>
         <translation>CUPS sunucusu çalışmıyor ve yazıcıları yönetemiyor.</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="569"/>
-=======
-        <location filename="../ui/dprintersshowwindow.cpp" line="558"/>
->>>>>>> chore:更新翻译和desktop文件
+        <location filename="../ui/dprintersshowwindow.cpp" line="560"/>
+        <source>Idle</source>
+        <translation>Boş</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="562"/>
+        <source>Printing</source>
+        <translation>Yazdırılıyor</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="564"/>
+        <source>Disabled</source>
+        <translation>Devre dışı</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="587"/>
         <source>Are you sure you want to delete the printer &quot;%1&quot; ?</source>
         <translation>&quot;%1&quot; yazıcısını silmek istediğinize emin misiniz?</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="575"/>
-=======
-        <location filename="../ui/dprintersshowwindow.cpp" line="564"/>
->>>>>>> chore:更新翻译和desktop文件
+        <location filename="../ui/dprintersshowwindow.cpp" line="593"/>
         <source>Delete</source>
         <translation>Sil</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="607"/>
-=======
-        <location filename="../ui/dprintersshowwindow.cpp" line="596"/>
->>>>>>> chore:更新翻译和desktop文件
+        <location filename="../ui/dprintersshowwindow.cpp" line="625"/>
         <source>The name already exists</source>
         <translation>İsim zaten var</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="626"/>
-=======
-        <location filename="../ui/dprintersshowwindow.cpp" line="615"/>
->>>>>>> chore:更新翻译和desktop文件
+        <location filename="../ui/dprintersshowwindow.cpp" line="644"/>
         <source>You will not be able to reprint the completed jobs if continue. Are you sure you want to rename the printer?</source>
         <translation>Devam ederse tamamlanan işleri yeniden yazdıramazsınız. Yazıcıyı yeniden adlandırmak istediğinizden emin misiniz?</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="631"/>
-=======
-        <location filename="../ui/dprintersshowwindow.cpp" line="620"/>
->>>>>>> chore:更新翻译和desktop文件
+        <location filename="../ui/dprintersshowwindow.cpp" line="649"/>
         <source>Confirm</source>
         <translation>Onayla</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="689"/>
-=======
-        <location filename="../ui/dprintersshowwindow.cpp" line="678"/>
->>>>>>> chore:更新翻译和desktop文件
+        <location filename="../ui/dprintersshowwindow.cpp" line="707"/>
         <source>The driver is damaged, please install it again.</source>
         <translation>Sürücü hasarlı, lütfen tekrar kur.</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/dprintersshowwindow.cpp" line="692"/>
-=======
-        <location filename="../ui/dprintersshowwindow.cpp" line="681"/>
->>>>>>> chore:更新翻译和desktop文件
+        <location filename="../ui/dprintersshowwindow.cpp" line="710"/>
         <source>Install Driver</source>
         <translation>Sürücü Kur</translation>
     </message>
@@ -937,11 +752,7 @@
 <context>
     <name>DriverManager</name>
     <message>
-<<<<<<< HEAD
-        <location filename="../vendor/zdrivermanager.cpp" line="794"/>
-=======
-        <location filename="../vendor/zdrivermanager.cpp" line="793"/>
->>>>>>> chore:更新翻译和desktop文件
+        <location filename="../vendor/zdrivermanager.cpp" line="796"/>
         <source>EveryWhere driver</source>
         <translation>Her yerde sürücü</translation>
     </message>
@@ -949,20 +760,12 @@
 <context>
     <name>InstallDriver</name>
     <message>
-<<<<<<< HEAD
         <location filename="../vendor/addprinter.cpp" line="373"/>
-=======
-        <location filename="../vendor/addprinter.cpp" line="376"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>Failed to find the driver solution: %1, error: %2</source>
         <translation>Sürücü çözümü bulunamadı: %1, hata: %2</translation>
     </message>
     <message>
-<<<<<<< HEAD
         <location filename="../vendor/addprinter.cpp" line="384"/>
-=======
-        <location filename="../vendor/addprinter.cpp" line="387"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>The solution is invalid</source>
         <translation>Çözüm geçersiz</translation>
     </message>
@@ -1172,78 +975,44 @@
 <context>
     <name>JobListView</name>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="250"/>
-        <location filename="../ui/jobmanagerwindow.cpp" line="410"/>
-=======
         <location filename="../ui/jobmanagerwindow.cpp" line="254"/>
         <location filename="../ui/jobmanagerwindow.cpp" line="414"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>Cancel</source>
         <translation>İptal</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="251"/>
-        <location filename="../ui/jobmanagerwindow.cpp" line="411"/>
-=======
         <location filename="../ui/jobmanagerwindow.cpp" line="255"/>
         <location filename="../ui/jobmanagerwindow.cpp" line="415"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>Delete</source>
         <translation>Sil</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="252"/>
-=======
         <location filename="../ui/jobmanagerwindow.cpp" line="256"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>Pause</source>
         <translation>Duraklat</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="253"/>
-=======
         <location filename="../ui/jobmanagerwindow.cpp" line="257"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>Resume</source>
         <translation>Devam</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="254"/>
-=======
         <location filename="../ui/jobmanagerwindow.cpp" line="258"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>Print first</source>
         <translation>İlk önce yazdır</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="255"/>
-=======
         <location filename="../ui/jobmanagerwindow.cpp" line="259"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>Reprint</source>
         <translation>Yeniden yazdır</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="257"/>
-=======
         <location filename="../ui/jobmanagerwindow.cpp" line="261"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>No print jobs</source>
         <translation>Yazdırma işi yok</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="404"/>
-=======
         <location filename="../ui/jobmanagerwindow.cpp" line="408"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>Are you sure you want to delete this job?</source>
         <translation>Bu işi silmek istediğinden emin misin?</translation>
     </message>
@@ -1259,56 +1028,32 @@
 <context>
     <name>JobManagerWindow</name>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="1046"/>
-=======
         <location filename="../ui/jobmanagerwindow.cpp" line="1060"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>Refresh</source>
         <translation>Yenile</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="1050"/>
-=======
         <location filename="../ui/jobmanagerwindow.cpp" line="1064"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>All</source>
         <translation>Tümü</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="1051"/>
-=======
         <location filename="../ui/jobmanagerwindow.cpp" line="1065"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>Print Queue</source>
         <translation>Yazdırma Kuyruğu</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="1052"/>
-=======
         <location filename="../ui/jobmanagerwindow.cpp" line="1066"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>Completed</source>
         <translation>Tamamlandı</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="1111"/>
-=======
         <location filename="../ui/jobmanagerwindow.cpp" line="1130"/>
->>>>>>> chore:更新翻译和desktop文件
         <source> failed</source>
         <translation>başarısız</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="1132"/>
-=======
         <location filename="../ui/jobmanagerwindow.cpp" line="1151"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>%1 jobs</source>
         <translation>%1 iş</translation>
     </message>
@@ -1316,74 +1061,42 @@
 <context>
     <name>JobsDataModel</name>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="671"/>
-=======
         <location filename="../ui/jobmanagerwindow.cpp" line="675"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>Job</source>
         <translation>İş</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="673"/>
-=======
         <location filename="../ui/jobmanagerwindow.cpp" line="677"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>User</source>
         <translation>Kullanıcı</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="675"/>
-=======
         <location filename="../ui/jobmanagerwindow.cpp" line="679"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>Document</source>
         <translation>Belge</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="677"/>
-=======
         <location filename="../ui/jobmanagerwindow.cpp" line="681"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>Printer</source>
         <translation>Yazıcı</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="679"/>
-=======
         <location filename="../ui/jobmanagerwindow.cpp" line="683"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>Size</source>
         <translation>Boyut</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="681"/>
-=======
         <location filename="../ui/jobmanagerwindow.cpp" line="685"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>Time submitted</source>
         <translation>Gönderilen zaman</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="683"/>
-=======
         <location filename="../ui/jobmanagerwindow.cpp" line="687"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>Status</source>
         <translation>Durum</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="685"/>
-=======
         <location filename="../ui/jobmanagerwindow.cpp" line="689"/>
->>>>>>> chore:更新翻译和desktop文件
         <source>Action</source>
         <translation>Eylem</translation>
     </message>
@@ -1426,7 +1139,7 @@
     <message>
         <location filename="../ui/printerapplication.cpp" line="99"/>
         <source>Print Manager</source>
-        <translation>Yazdırma Yöneticisi</translation>
+        <translation>Yazıcı Yöneticisi</translation>
     </message>
     <message>
         <location filename="../ui/printerapplication.cpp" line="100"/>
@@ -1540,120 +1253,9 @@
 <context>
     <name>QObject</name>
     <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="104"/>
-=======
-        <location filename="../ui/jobmanagerwindow.cpp" line="108"/>
->>>>>>> chore:更新翻译和desktop文件
-        <source>1 min ago</source>
-        <translation>1 dakika önce</translation>
-    </message>
-    <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="107"/>
-=======
-        <location filename="../ui/jobmanagerwindow.cpp" line="111"/>
->>>>>>> chore:更新翻译和desktop文件
-        <source>%1 mins ago</source>
-        <translation>%1 dakika önce</translation>
-    </message>
-    <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="111"/>
-=======
-        <location filename="../ui/jobmanagerwindow.cpp" line="115"/>
->>>>>>> chore:更新翻译和desktop文件
-        <source>1 hr ago</source>
-        <translation>1 saat önce</translation>
-    </message>
-    <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="113"/>
-=======
-        <location filename="../ui/jobmanagerwindow.cpp" line="117"/>
->>>>>>> chore:更新翻译和desktop文件
-        <source>%1 hrs ago</source>
-        <translation>%1 saat önce</translation>
-    </message>
-    <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="118"/>
-=======
-        <location filename="../ui/jobmanagerwindow.cpp" line="122"/>
->>>>>>> chore:更新翻译和desktop文件
-        <source>Yesterday</source>
-        <translation>Dün</translation>
-    </message>
-    <message>
-<<<<<<< HEAD
-        <location filename="../ui/jobmanagerwindow.cpp" line="120"/>
-=======
-        <location filename="../ui/jobmanagerwindow.cpp" line="124"/>
->>>>>>> chore:更新翻译和desktop文件
-        <source>%1 days ago</source>
-        <translation>%1 gün önce</translation>
-    </message>
-    <message>
-        <location filename="../ui/printersearchwindow.cpp" line="495"/>
-        <source>(use %1 protocol)</source>
-        <translation>(%1 protokolünü kullan)</translation>
-    </message>
-    <message>
-        <location filename="../ui/uisourcestring.h" line="26"/>
-        <source>Select a driver</source>
-        <translation>Bir sürücü seç</translation>
-    </message>
-    <message>
-        <location filename="../ui/uisourcestring.h" line="32"/>
-        <source>Driver</source>
-        <translation>Sürücü</translation>
-    </message>
-    <message>
-        <location filename="../ui/uisourcestring.h" line="33"/>
-        <source>Next</source>
-        <translation>İleri</translation>
-    </message>
-    <message>
-        <location filename="../ui/uisourcestring.h" line="34"/>
-        <source>Install Driver</source>
-        <translation>Sürücü Kur</translation>
-    </message>
-    <message>
-        <location filename="../ui/uisourcestring.h" line="36"/>
-        <source>Drag a PPD file here 
- or</source>
-        <translation>PPD dosyasını buraya sürükle
-yada</translation>
-    </message>
-    <message>
-        <location filename="../ui/uisourcestring.h" line="37"/>
-        <source>Select a PPD file</source>
-        <translation>Bir PPD dosyası seç</translation>
-    </message>
-    <message>
-        <location filename="../ui/uisourcestring.h" line="39"/>
-        <source>Troubleshoot</source>
-        <translation>Sorun gider</translation>
-    </message>
-    <message>
-        <location filename="../ui/uisourcestring.h" line="40"/>
-        <source>Cancel</source>
-        <translation>İptal</translation>
-    </message>
-    <message>
         <location filename="../../Common/common.cpp" line="152"/>
         <source> not found, please ask the administrator for help</source>
         <translation>bulunamadı, lütfen yöneticiden yardım isteyin</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerapplication.cpp" line="110"/>
-        <source>Direct-attached Device</source>
-        <translation>Doğrudan bağlı Cihaz</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerapplication.cpp" line="111"/>
-        <source>File</source>
-        <translation>Dosya</translation>
     </message>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="217"/>
@@ -1786,28 +1388,114 @@ yada</translation>
         <translation>Atık</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="148"/>
-        <location filename="../util/ddestination.cpp" line="202"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="108"/>
+        <source>1 min ago</source>
+        <translation>1 dakika önce</translation>
+    </message>
+    <message>
+        <location filename="../ui/jobmanagerwindow.cpp" line="111"/>
+        <source>%1 mins ago</source>
+        <translation>%1 dakika önce</translation>
+    </message>
+    <message>
+        <location filename="../ui/jobmanagerwindow.cpp" line="115"/>
+        <source>1 hr ago</source>
+        <translation>1 saat önce</translation>
+    </message>
+    <message>
+        <location filename="../ui/jobmanagerwindow.cpp" line="117"/>
+        <source>%1 hrs ago</source>
+        <translation>%1 saat önce</translation>
+    </message>
+    <message>
+        <location filename="../ui/jobmanagerwindow.cpp" line="122"/>
+        <source>Yesterday</source>
+        <translation>Dün</translation>
+    </message>
+    <message>
+        <location filename="../ui/jobmanagerwindow.cpp" line="124"/>
+        <source>%1 days ago</source>
+        <translation>%1 gün önce</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerapplication.cpp" line="110"/>
+        <source>Direct-attached Device</source>
+        <translation>Doğrudan bağlı Cihaz</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerapplication.cpp" line="111"/>
+        <source>File</source>
+        <translation>Dosya</translation>
+    </message>
+    <message>
+        <location filename="../ui/printersearchwindow.cpp" line="495"/>
+        <source>(use %1 protocol)</source>
+        <translation>(%1 protokolünü kullan)</translation>
+    </message>
+    <message>
+        <location filename="../ui/uisourcestring.h" line="26"/>
+        <source>Select a driver</source>
+        <translation>Bir sürücü seç</translation>
+    </message>
+    <message>
+        <location filename="../ui/uisourcestring.h" line="32"/>
+        <source>Driver</source>
+        <translation>Sürücü</translation>
+    </message>
+    <message>
+        <location filename="../ui/uisourcestring.h" line="33"/>
+        <source>Next</source>
+        <translation>İleri</translation>
+    </message>
+    <message>
+        <location filename="../ui/uisourcestring.h" line="34"/>
+        <source>Install Driver</source>
+        <translation>Sürücü Kur</translation>
+    </message>
+    <message>
+        <location filename="../ui/uisourcestring.h" line="36"/>
+        <source>Drag a PPD file here 
+ or</source>
+        <translation>PPD dosyasını buraya sürükle
+yada</translation>
+    </message>
+    <message>
+        <location filename="../ui/uisourcestring.h" line="37"/>
+        <source>Select a PPD file</source>
+        <translation>Bir PPD dosyası seç</translation>
+    </message>
+    <message>
+        <location filename="../ui/uisourcestring.h" line="39"/>
+        <source>Troubleshoot</source>
+        <translation>Sorun gider</translation>
+    </message>
+    <message>
+        <location filename="../ui/uisourcestring.h" line="40"/>
+        <source>Cancel</source>
+        <translation>İptal</translation>
+    </message>
+    <message>
+        <location filename="../util/ddestination.cpp" line="161"/>
         <source>Unknown</source>
         <translation>Bilinmiyor</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="209"/>
+        <location filename="../util/ddestination.cpp" line="224"/>
         <source>Idle</source>
         <translation>Boş</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="212"/>
+        <location filename="../util/ddestination.cpp" line="227"/>
         <source>Printing</source>
         <translation>Yazdırılıyor</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="215"/>
+        <location filename="../util/ddestination.cpp" line="230"/>
         <source>Disabled</source>
         <translation>Devre dışı</translation>
     </message>
     <message>
-        <location filename="../util/dprinter.cpp" line="255"/>
+        <location filename="../util/dprinter.cpp" line="272"/>
         <source>(recommended)</source>
         <translation>(önerilen)</translation>
     </message>
@@ -1848,27 +1536,27 @@ yada</translation>
 <context>
     <name>ServerSettingsWindow</name>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="86"/>
+        <location filename="../ui/dprintersshowwindow.h" line="87"/>
         <source>Basic Server Settings</source>
         <translation>Basit Sunucu Ayarları</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="94"/>
+        <location filename="../ui/dprintersshowwindow.h" line="95"/>
         <source>Publish shared printers connected to this system</source>
         <translation>Bu sisteme bağlı paylaşılan yazıcıları yayınla</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="95"/>
+        <location filename="../ui/dprintersshowwindow.h" line="96"/>
         <source>Allow printing from the Internet</source>
         <translation>İnternetten yazdırmaya izin ver</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="97"/>
+        <location filename="../ui/dprintersshowwindow.h" line="98"/>
         <source>Allow remote administration</source>
         <translation>Uzaktan yönetime izin ver</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="99"/>
+        <location filename="../ui/dprintersshowwindow.h" line="100"/>
         <source>Save debugging information for troubleshooting</source>
         <translation>Sorun giderme için hata ayıklama bilgilerini kaydet</translation>
     </message>

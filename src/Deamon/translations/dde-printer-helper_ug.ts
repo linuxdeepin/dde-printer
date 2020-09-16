@@ -1,55 +1,55 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="ms" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="ug" version="2.1">
 <context>
     <name>CupsMonitor</name>
     <message>
         <location filename="../dbus/zcupsmonitor.cpp" line="72"/>
         <source>Queuing</source>
-        <translation>Membaris gilir</translation>
+        <translation>ساقلاۋاتىدۇ</translation>
     </message>
     <message>
         <location filename="../dbus/zcupsmonitor.cpp" line="73"/>
         <source>Paused</source>
-        <translation>Dijeda</translation>
+        <translation>ۋاقىتلىق توختىتىلدى</translation>
     </message>
     <message>
         <location filename="../dbus/zcupsmonitor.cpp" line="74"/>
         <source>Printing</source>
-        <translation>Mencetak</translation>
+        <translation>ئۇرۇلىۋاتىدۇ</translation>
     </message>
     <message>
         <location filename="../dbus/zcupsmonitor.cpp" line="75"/>
         <source>Stopped</source>
-        <translation>Terhenti</translation>
+        <translation>توختىتىلدى</translation>
     </message>
     <message>
         <location filename="../dbus/zcupsmonitor.cpp" line="76"/>
         <source>Canceled</source>
-        <translation>Dibatalkan</translation>
+        <translation>بىكار قىلىندى</translation>
     </message>
     <message>
         <location filename="../dbus/zcupsmonitor.cpp" line="77"/>
         <source>Error</source>
-        <translation>Ralat</translation>
+        <translation>ئۇرۇشتا بىنورماللىق كۆرۈلدى</translation>
     </message>
     <message>
         <location filename="../dbus/zcupsmonitor.cpp" line="78"/>
         <source>Completed</source>
-        <translation>Selesai</translation>
+        <translation>تاماملاندى</translation>
     </message>
     <message>
         <location filename="../dbus/zcupsmonitor.cpp" line="315"/>
         <source>%1 timed out, reason: %2</source>
-        <translation>%1 telah tamat masa, sebab: %2</translation>
+        <translation>%1 نى ئۇرۇش ۋاقتى ئۆتۈپ كەتتى، سەۋەبى: %2</translation>
     </message>
     <message>
         <location filename="../dbus/zcupsmonitor.cpp" line="329"/>
         <source>%1 printed successfully, please take away the paper in time!</source>
-        <translation>%1 berjaya dicetak, sila alih keluar kertas!</translation>
+        <translation>%1نى ئۇرۇش تاماملاندى، ھۆججەتنى ۋاقتىدا ئېلىۋېلىڭ!</translation>
     </message>
     <message>
         <location filename="../dbus/zcupsmonitor.cpp" line="331"/>
         <source>%1 %2, reason: %3</source>
-        <translation>%1 %2, sebab: %3</translation>
+        <translation>%1%2، سەۋەبى: %3</translation>
     </message>
 </context>
 <context>
@@ -57,7 +57,7 @@
     <message>
         <location filename="../../Common/zjobmanager.cpp" line="307"/>
         <source> not found</source>
-        <translation>tidak ditemui</translation>
+        <translation>تاپالمىدى</translation>
     </message>
 </context>
 <context>
@@ -65,17 +65,17 @@
     <message>
         <location filename="../../Common/common.cpp" line="152"/>
         <source> not found, please ask the administrator for help</source>
-        <translation>tidak ditemui, sila hubungi pentadbir untuk dapatkan bantuan</translation>
+        <translation>يەشكىلى بولمىدى، باشقۇرغۇچى بىلەن ئالاقىلىشىڭ</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="62"/>
         <source>Print Manager</source>
-        <translation>Pengurus Cetak</translation>
+        <translation>پىرىنتېر باشقۇرغۇچىسى</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="63"/>
         <source>Print Manager is a printer management tool, which supports adding and removing printers, managing print jobs and so on.</source>
-        <translation>Pengurus Cetak ialah sebuah alat pengurusan pencetak, yang menyokong penambahan dan pembuangan pencetak, pengurusan kerja cetak dan banyak lagi yang berkaitan.</translation>
+        <translation>پىرىنتېر باشقۇرغۇچ CUPS نى ئاساس قىلغان پرىنتېر باشقۇرۇش قورالى بولۇپ، پرىنتېر باشقۇرۇش ، بېسىش ۋەزىپىسىنى باشقۇرۇش قاتارلىقلارنى قوللايدۇ.</translation>
     </message>
 </context>
 </TS>
