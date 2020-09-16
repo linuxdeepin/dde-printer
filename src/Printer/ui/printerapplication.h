@@ -53,8 +53,6 @@ protected:
     PrinterApplication();
     ~PrinterApplication();
 
-    void detectHelperState();
-
 private:
     JobManagerWindow *m_jobsWindow;
     DPrintersShowWindow *m_mainWindow;

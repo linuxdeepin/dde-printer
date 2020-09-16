@@ -57,6 +57,8 @@
 #include <QCheckBox>
 #include <QLineEdit>
 #include <QDBusConnection>
+#include <QDBusInterface>
+#include <QProcess>
 
 DPrintersShowWindow::DPrintersShowWindow(QWidget *parent)
     : DMainWindow(parent),
@@ -348,11 +350,6 @@ void DPrintersShowWindow::initConnections()
     connect(m_pRejectAction, &QAction::triggered, this, &DPrintersShowWindow::listWidgetMenuActionSlot);
 
     connect(m_pSettings, &QAction::triggered, this, &DPrintersShowWindow::serverSettingsSlot);
-    //连接dbus信号
-    if (!QDBusConnection::sessionBus().connect(SERVICE_INTERFACE_NAME, SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME,
-                                               "signalPrinterStateChanged", this, SLOT(printerStateChanged(QDBusMessage)))) {
-        qWarning() << "connect to dbus signal(signalPrinterStateChanged) failed";
-    }
 
 }
 
@@ -361,8 +358,6 @@ void DPrintersShowWindow::showEvent(QShowEvent *event)
     Q_UNUSED(event)
 
     QTimer::singleShot(10, this, [ = ]() {
-        refreshPrinterListView(QString());
-
         CheckCupsServer cups(this);
         if (!cups.isPass()) {
             DDialog dlg("", tr("CUPS server is not running, and can’t manage printers."));
@@ -373,6 +368,25 @@ void DPrintersShowWindow::showEvent(QShowEvent *event)
             dlg.setModal(true);
             dlg.setFixedSize(422, 202);
             dlg.exec();
+        } else {
+            refreshPrinterListView(QString());
+        }
+    });
+
+    QTimer::singleShot(1000, this, [ = ]() {
+
+        /*第一次安装没有启动后台程序，需要手动启动*/
+        QDBusInterface interface(SERVICE_INTERFACE_NAME, SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME, QDBusConnection::sessionBus());
+        if (!interface.isValid()) {
+            qInfo() << "start dde-printer-helper";
+            QProcess proces;
+            proces.startDetached("bash", QStringList() << "-c" << "dde-printer-helper");
+        }
+
+        //连接dbus信号
+        if (!QDBusConnection::sessionBus().connect(SERVICE_INTERFACE_NAME, SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME,
+                                                   "signalPrinterStateChanged", this, SLOT(printerStateChanged(QDBusMessage)))) {
+            qWarning() << "connect to dbus signal(signalPrinterStateChanged) failed";
         }
     });
 }

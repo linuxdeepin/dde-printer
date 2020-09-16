@@ -474,6 +474,7 @@ int CupsMonitor::getPrinterState(const QString &printer)
 bool CupsMonitor::initWatcher()
 {
     QDBusConnection conn = QDBusConnection::systemBus();
+    /*关联系统的打印队列，当线程退出的时候，如果有新的打印队列，重新唤醒线程*/
     bool success = conn.connect("", "/com/redhat/PrinterSpooler", "com.redhat.PrinterSpooler", "", this, SLOT(spoolerEvent(QDBusMessage)));
 
     //启动前获取未完成的任务列表，防止遗漏没监听到的任务

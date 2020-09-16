@@ -188,17 +188,4 @@ PrinterApplication::~PrinterApplication()
         delete m_mainWindow;
 }
 
-void PrinterApplication::detectHelperState()
-{
-    /*第一次安装没有启动后台程序，需要手动启动*/
-    QProcess proces;
-    QString cmd = "bash";
-    QStringList args;
-    args << "-c" << "ps -ef |grep dde-printer-helper |grep -v 'grep'";
-    proces.start(cmd, args);
-    proces.waitForFinished();
-    if (proces.readAllStandardOutput().isEmpty()) {
-        qInfo() << "start dde-printer-helper";
-        proces.startDetached("bash", QStringList() << "-c" << "dde-printer-helper");
-    }
-}
+
