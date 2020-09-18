@@ -142,7 +142,12 @@ void zSettings::setSequenceNumber(int number)
     sync();
 }
 
-//返回默认本地服务器host port encryption,后续连接远程cups服务器再提供set接口存储在本地配置中
+/*
+ * 返回默认本地服务器host port encryption
+ * 提供切换服务器界面之后通过cupsSetServer()设置当前服务器host
+ * cupsSetEncryption()设置加密方式
+ * 不需要存储在本地配置中
+*/
 const QString zSettings::getCupsServerHost()
 {
     return value("CupsServerHost", cupsServer()).toString();
