@@ -30,6 +30,9 @@
 #include <QDBusMessage>
 #include <QTime>
 
+#include <string>
+#include <vector>
+
 class CupsMonitor : public QThread
 {
     Q_OBJECT
@@ -73,6 +76,9 @@ protected:
 
 
     void showJobsWindow();
+
+    bool isNeedUpdateSubscription(std::vector<std::string> &events);
+    void parseSubEvents(const std::string &events, std::vector<std::string> &ret);
 protected slots:
     void notificationInvoke(unsigned int, QString);
     void notificationClosed(unsigned int, unsigned int);
@@ -99,7 +105,6 @@ private:
 
     QSet<unsigned int> m_pendingNotification;
     QMap<int, QTime> m_processingJob;
-
 
 };
 

@@ -40,14 +40,19 @@
 #include <QDBusConnection>
 #include <QDBusPendingReply>
 
+#include <algorithm>
+#include <regex>
+
 DWIDGET_USE_NAMESPACE
 
 #define SUB_URI "/"
+#define USERDATA "dde-printer"
 #define IDLEEXIT 1000 * 60 * 5
 #define PROCESSINGTIP 1000 * 60
 
 DCORE_USE_NAMESPACE
 
+static vector<string> g_subEvents = {"printer-deleted", "printer-added", "printer-state-changed", "job-progress", "job-state-changed"};
 
 CupsMonitor::CupsMonitor(QObject *parent)
     : QThread(parent)
@@ -211,6 +216,11 @@ void CupsMonitor::clearSubscriptions()
 
 int CupsMonitor::createSubscription()
 {
+    /*
+     * 不能直接清空订阅，里面还有system-config-printer的订阅信息
+     * 采用notify-user-data来区分是哪个应用创建的订阅，data设置为dde-printer
+     * 对比获取的订阅events，然后比较当前订阅events，如果当前events存在上次订阅events没有的event，那么就更新订阅（这里不能简单比较订阅events的数量来判断）
+    */
     m_subId = g_Settings->getSubscriptionId();
     auto conPtr = CupsConnectionFactory::createConnectionBySettings();
     if (!conPtr) {
@@ -225,9 +235,23 @@ int CupsMonitor::createSubscription()
                 dumpStdMapValue(subs[i]);
 
                 if (m_subId == attrValueToQString(subs[i]["notify-subscription-id"]).toInt()) {
-                    qInfo() << "Use last subscription id: " << m_subId;
-                    isExists = true;
-                    break;
+                    auto it = subs[i].find("notify-user-data");
+                    if (it != subs[i].end()) {
+                        QString userData = QString::fromStdString(subs[i]["notify-user-data"].substr(1));
+                        userData.resize(strlen(USERDATA));
+                        vector<string> events;
+                        parseSubEvents(subs[i]["notify-events"], events);
+                        if (!userData.compare("dde-printer") && !isNeedUpdateSubscription(events)) {
+                            qInfo() << "Use last subscription id: " << m_subId;
+                            isExists = true;
+                        } else {
+                            qInfo() << "Cancel last subscription id: " << m_subId;
+                            cancelSubscription();
+                            isExists = false;
+                        }
+                        break;
+                    }
+
                 }
             }
 
@@ -241,8 +265,7 @@ int CupsMonitor::createSubscription()
 
     try {
         if (-1 == m_subId) {
-            vector<string> events = {"printer-deleted", "printer-added", "printer-state-changed", "job-progress", "job-state-changed"};
-            m_subId = conPtr->createSubscription(SUB_URI, &events, 0, nullptr, 86400, 0, nullptr);
+            m_subId = conPtr->createSubscription(SUB_URI, &g_subEvents, 0, nullptr, 86400, 0, USERDATA);
             g_Settings->setSubscriptionId(m_subId);
             g_Settings->setSequenceNumber(0);
             qDebug() << "createSubscription id: " << m_subId;
@@ -561,6 +584,25 @@ void CupsMonitor::showJobsWindow()
     args << "-m" << "4";
     if (!process.startDetached(cmd, args)) {
         qWarning() << QString("showJobsWindow failed because %1").arg(process.errorString());
+    }
+}
+
+bool CupsMonitor::isNeedUpdateSubscription(vector<string> &events)
+{
+    bool ret = false;
+    std::sort(events.begin(), events.end());
+    std::sort(g_subEvents.begin(), g_subEvents.end());
+    ret = std::includes(events.begin(), events.end(), g_subEvents.begin(), g_subEvents.end());
+    return !ret;
+}
+
+void CupsMonitor::parseSubEvents(const string &events,  std::vector<std::string> &ret)
+{
+    QStringList eventList = QString::fromStdString(events).split("`", QString::SkipEmptyParts);
+    foreach (QString var, eventList) {
+        string event = var.toStdString().substr(1);
+        event = event.replace(event.length() - 1, 1, "");
+        ret.push_back(event);
     }
 }
 

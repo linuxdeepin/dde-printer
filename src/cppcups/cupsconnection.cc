@@ -139,7 +139,6 @@ string string_from_attr_value(ipp_attribute_t *attr, int i)
     int xres, yres;
     ipp_res_t units;
     string val;
-
     switch (ippGetValueTag(attr)) {
     case IPP_TAG_NAME:
     case IPP_TAG_TEXT:
@@ -148,7 +147,7 @@ string string_from_attr_value(ipp_attribute_t *attr, int i)
     case IPP_TAG_CHARSET:
     case IPP_TAG_MIMETYPE:
     case IPP_TAG_LANGUAGE:
-        val = string_format("s%s", ippGetString(attr, i, NULL));
+        val = string_format("s%s", ippGetString(attr, i, nullptr));
         break;
     case IPP_TAG_INTEGER:
     case IPP_TAG_ENUM:
@@ -2703,7 +2702,13 @@ vector<map<string, string>> Connection::getSubscriptions(const char *uri,
         const char *attrName = ippGetName(attr);
         if (ippGetCount(attr) > 1 || !strcmp(attrName, "notify-events"))
             val = list_from_attr_values(attr);
-        else
+        else if (!strcmp(attrName, "notify-user-data")) {
+            if (ippGetValueTag(attr) == IPP_TAG_STRING) {
+                int length = strlen("dde-printer");
+                const char *temp = (char *)ippGetOctetString(attr, 0, &length);
+                val = string_format("s%s", temp);
+            }
+        } else
             val = string_from_attr_value(attr, 0);
 
         if (val.empty()) {
@@ -2755,8 +2760,8 @@ int Connection::createSubscription(const char *resource_uri,
     }
 
     if (user_data) {
-        ippAddString(request, IPP_TAG_SUBSCRIPTION, IPP_TAG_STRING,
-                     "notify-user-data", nullptr, user_data);
+        int length = strlen(user_data);
+        ippAddOctetString(request, IPP_TAG_SUBSCRIPTION, "notify-user-data", user_data, length);
     }
 
     if (events) {
