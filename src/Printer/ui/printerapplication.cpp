@@ -59,6 +59,7 @@ PrinterApplication *PrinterApplication::getInstance()
 void PrinterApplication::slotNewProcessInstance(qint64 pid, const QStringList &arguments)
 {
     Q_UNUSED(pid);
+    qInfo() << "enter slotNewProcessInstance";
 
     launchWithMode(arguments);
 }
@@ -118,7 +119,8 @@ int PrinterApplication::create()
         return -2;
     }
 
-    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::newProcessInstance, this, &PrinterApplication::slotNewProcessInstance);
+    bool isConnectSuc = connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::newProcessInstance, this, &PrinterApplication::slotNewProcessInstance);
+    qInfo() << "newProcessInstance connect: " << isConnectSuc;
 
     return 0;
 }

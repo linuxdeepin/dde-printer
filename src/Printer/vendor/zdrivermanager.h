@@ -27,6 +27,7 @@
 #include <QList>
 #include <QMap>
 #include <QVariant>
+#include <QFile>
 
 enum {
     PPDFrom_Database = 0,

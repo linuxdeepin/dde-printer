@@ -38,6 +38,8 @@
 #include <QVBoxLayout>
 #include <QEventLoop>
 #include <QDBusMessage>
+#include <QCloseEvent>
+#include <QMouseEvent>
 DWIDGET_USE_NAMESPACE
 DWIDGET_BEGIN_NAMESPACE
 class DImageButton;
