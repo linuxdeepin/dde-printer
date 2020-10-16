@@ -266,6 +266,7 @@ void DPrinterSupplyShowDlg::supplyFreshed(const QString &strName, bool bRet)
         pVlayout->addWidget(pLabel2, 0, Qt::AlignHCenter);
         pVlayout->addSpacing(10);
         pVlayout->addWidget(pLabel3, 0, Qt::AlignHCenter);
+        pVlayout->addSpacing(20);
         DFontSizeManager::instance()->bind(pLabel3, DFontSizeManager::T6, int(QFont::Light));
         pal = pLabel3->palette();
         color = pal.color(QPalette::WindowText);
@@ -297,6 +298,7 @@ void DPrinterSupplyShowDlg::supplyFreshed(const QString &strName, bool bRet)
                 QString strTime = QString("%1:%2").arg(time.hour(), 2, 10, QLatin1Char('0')).arg(time.minute(), 2, 10, QLatin1Char('0'));
                 pTimelLabel->setText(tr("The amounts are estimated, last updated at %1").arg(strTime));
                 pVlayout->addWidget(pTimelLabel);
+                pVlayout->addSpacing(20);
             }
         }
     }
