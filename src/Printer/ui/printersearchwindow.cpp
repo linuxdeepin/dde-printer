@@ -162,6 +162,7 @@ void PrinterSearchWindow::initUi()
     pHLayout2->addWidget(m_pAutoDriverCom, 1);
     pHLayout2->setContentsMargins(0, 0, 0, 0);
 
+    m_pAutoListSpinner = new DSpinner(m_pPrinterListViewAuto);
     m_pAutoSpinner = new DSpinner();
     m_pAutoSpinner->setFixedSize(36, 36);
     m_pAutoInstallDriverBtn = new QPushButton(tr("Install Driver"));
@@ -246,6 +247,8 @@ void PrinterSearchWindow::initUi()
     pHLayout5->addWidget(m_pManDriverCom, 1);
     pHLayout5->setContentsMargins(0, 0, 0, 0);
 
+    m_pManListSpinner = new DSpinner(m_pPrinterListViewManual);
+    m_pManListSpinner->setVisible(false);
     m_pManSpinner = new DSpinner();
     m_pManSpinner->setFixedSize(36, 36);
     m_pManSpinner->setVisible(false);
@@ -510,8 +513,8 @@ void PrinterSearchWindow::getDeviceResultSlot(int id, int state)
     Q_UNUSED(id)
     if (state == ETaskStatus::TStat_Suc || state == ETaskStatus::TStat_Fail) {
         sender()->deleteLater();
-        m_pAutoSpinner->stop();
-        m_pAutoSpinner->setVisible(false);
+        m_pAutoListSpinner->stop();
+        m_pAutoListSpinner->setVisible(false);
         m_pAutoInstallDriverBtn->setVisible(true);
         if (m_pPrinterListViewAuto->count() > 0) {
             m_pAutoInstallDriverBtn->setEnabled(true);
@@ -559,8 +562,8 @@ void PrinterSearchWindow::getDeviceResultByManualSlot(int id, int state)
     Q_UNUSED(id)
     if (state == ETaskStatus::TStat_Suc || state == ETaskStatus::TStat_Fail) {
         sender()->deleteLater();
-        m_pManSpinner->stop();
-        m_pManSpinner->setVisible(false);
+        m_pManListSpinner->stop();
+        m_pManListSpinner->setVisible(false);
         m_pManInstallDriverBtn->setVisible(true);
         if (m_pPrinterListViewManual->count() > 0) {
             m_pManInstallDriverBtn->setEnabled(true);
@@ -733,7 +736,6 @@ void PrinterSearchWindow::refreshPrinterListSlot()
     m_pBtnRefresh->blockSignals(true);
     m_pBtnRefresh->setVisible(true);
 
-    m_pAutoInstallDriverBtn->setVisible(false);
     m_pAutoInstallDriverBtn->setEnabled(false);
     //屏蔽点击信号，避免未刷新完打印机就开始刷新驱动，目前只有一个loading动画
     m_pPrinterListViewAuto->blockSignals(true);
@@ -742,9 +744,12 @@ void PrinterSearchWindow::refreshPrinterListSlot()
     connect(task, &RefreshDevicesByBackendTask::signalStatus, this, &PrinterSearchWindow::getDeviceResultSlot);
     task->start();
 
-    m_pAutoInstallDriverBtn->setVisible(false);
-    m_pAutoSpinner->setVisible(true);
-    m_pAutoSpinner->start();
+    m_pAutoListSpinner->move((m_pPrinterListViewAuto->width() - m_pAutoListSpinner->width()) / 2,
+                             (m_pPrinterListViewAuto->height() - m_pAutoListSpinner->height()) / 2);
+    m_pAutoListSpinner->setVisible(true);
+    m_pAutoListSpinner->start();
+    m_pInfoAuto->setVisible(false);
+    m_pAutoSpinner->setVisible(false);
     m_pPrinterListModel->clear();
     m_pAutoDriverCom->clear();
     m_pAutoDriverCom->addItem(UI_PRINTERSEARCH_MANUAL);
@@ -765,9 +770,11 @@ void PrinterSearchWindow::searchPrintersByManual()
     connect(task, &RefreshDevicesByHostTask::signalSmbPassWord, this, &PrinterSearchWindow::smbInfomationSlot, Qt::BlockingQueuedConnection);
     task->start();
 
-    m_pManInstallDriverBtn->setVisible(false);
-    m_pManSpinner->setVisible(true);
-    m_pManSpinner->start();
+    m_pManListSpinner->move((m_pPrinterListViewManual->width() - m_pManListSpinner->width()) / 2,
+                            (m_pPrinterListViewManual->height() - m_pManListSpinner->height()) / 2);
+    m_pManListSpinner->setVisible(true);
+    m_pManListSpinner->start();
+    m_pInfoManual->setVisible(false);
     m_pPrinterListModelManual->clear();
     m_pManDriverCom->clear();
     m_pManDriverCom->addItem(UI_PRINTERSEARCH_MANUAL);

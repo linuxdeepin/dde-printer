@@ -114,6 +114,7 @@ private:
     QComboBox *m_pAutoDriverCom;
 
     DSpinner *m_pAutoSpinner;
+    DSpinner *m_pAutoListSpinner;
 
     QPushButton *m_pAutoInstallDriverBtn;
     // 右侧打印机列表手动
@@ -125,6 +126,7 @@ private:
     QComboBox *m_pManDriverCom;
 
     DSpinner *m_pManSpinner;
+    DSpinner *m_pManListSpinner;
 
     QPushButton *m_pManInstallDriverBtn;
     // 右侧URI
