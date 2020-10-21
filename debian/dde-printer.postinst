@@ -1,24 +1,26 @@
-#!/bin/sh
-
-# the keyring in /var that gets fetched by apt-key net-update
-# if it does not yet exist, copy it to avoid uneeded net copy
-GPGGDIR="/usr/share/dde-printer"
-GPG="${GPGGDIR}/printer.gpg"
-
-# sensible default permissions if there is no keyring yet
-# (gpg will use 0600 otherwise and that will break release-upgrades later)
-#ETC_KEYRING="/etc/apt/trusted.gpg"
-#if [ ! -f $ETC_KEYRING ]; then
-#    touch $ETC_KEYRING
-#    chmod 0644 $ETC_KEYRING
-#fi
-
-# make sure apt knows about the new keys
-#if [ -x /usr/bin/apt-key ]; then
-#    /usr/bin/apt-key add $GPG
-#fi
+#!/bin/bash
 
 #kill UI process
 killall dde-printer
+
 #restart deamon process
 killall -USR1 dde-printer-helper
+
+REPO=""
+
+read -d '\n' ProductType EditionName < <(cat /etc/os-version | awk -F = '{ if ( $1 == "ProductType" || $1 == "EditionName" ) print $2}')
+
+if [[ ${ProductType} == "Desktop" && ${EditionName} == "Community" ]]; then
+    REPO="deb https://community-packages.deepin.com/printer eagle non-free"
+elif [[ ${ProductType} == "Desktop" && ${EditionName} == "Professional" ]]; then
+    REPO="deb https://professional-packages.chinauos.com/printer eagle non-free"
+elif [[ ${ProductType} == "Desktop" && ${EditionName} == "Home" ]]; then
+    REPO="deb https://home-packages.chinauos.com/printer eagle non-free"
+elif [[ ${ProductType} == "Server" && ${EditionName} == "Enterprise" ]]; then
+    REPO="deb https://server-enterprise-packages.chinauos.com/printer eagle non-free"
+fi
+
+if [ -n "${REPO}" ]; then
+    mkdir -p /etc/apt/sources.list.d/
+    echo "${REPO}" > /etc/apt/sources.list.d/printer.list
+fi
