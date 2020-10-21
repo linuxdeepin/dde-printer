@@ -4,15 +4,14 @@ Priority: extra
 Maintainer: Deepin Sysdev <sysdev@linuxdeepin.com>
 Build-Depends: debhelper (>= 9),
  qt5-default,
+ pkg-config,
  fakeroot,
  g++,
  libcups2-dev,
  qt5-qmake,
  libsmbclient-dev,
- libcrypto++-dev,
  libdtkwidget-dev,
  libgnutls28-dev,
- qt5-default,
  qttools5-dev-tools
 Standards-Version: 3.9.5
 Homepage: http://www.linuxdeepin.com/
