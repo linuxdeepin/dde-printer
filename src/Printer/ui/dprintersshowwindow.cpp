@@ -460,6 +460,7 @@ void DPrintersShowWindow::refreshPrinterListView(const QString &newPrinterName)
         }
         m_pPrinterModel->appendRow(pItem);
     }
+    m_pPrinterListView->setIconSize(QSize(52, 52));
     if (m_pPrinterListView->count() > 0) {
         m_pPrinterListView->setVisible(true);
         m_pLeftTipLabel->setVisible(false);

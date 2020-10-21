@@ -135,6 +135,7 @@ void PrinterSearchWindow::initUi()
     m_pPrinterListViewAuto->setSelectionMode(QAbstractItemView::NoSelection);
     m_pPrinterListViewAuto->setFocusPolicy(Qt::NoFocus);
     m_pPrinterListViewAuto->setItemSpacing(10);
+    m_pPrinterListViewAuto->setIconSize(QSize(52, 52));
 
     m_pPrinterListModel = new QStandardItemModel(m_pPrinterListViewAuto);
     m_pPrinterListViewAuto->setModel(m_pPrinterListModel);
@@ -222,6 +223,7 @@ void PrinterSearchWindow::initUi()
     m_pPrinterListViewManual->setItemSpacing(10);
     m_pPrinterListModelManual = new QStandardItemModel(m_pPrinterListViewManual);
     m_pPrinterListViewManual->setModel(m_pPrinterListModelManual);
+    m_pPrinterListViewManual->setIconSize(QSize(52, 52));
 
     m_pInfoManual = new QLabel(m_pPrinterListViewManual);
     m_pInfoManual->setVisible(false);
@@ -553,7 +555,7 @@ void PrinterSearchWindow::getDeviceResultSlot(int id, int state)
             pItem->setIcon(QIcon::fromTheme("dp_printer_list"));
             // 将结构体转化为QVariant,需要再转回来
             pItem->setData(QVariant::fromValue(info), Dtk::UserRole + 1);
-            pItem->setSizeHint(QSize(480, 50));
+            pItem->setSizeHint(QSize(480, 60));
             pItem->setToolTip(info.strName);
             m_pPrinterListModel->appendRow(pItem);
         }
@@ -609,7 +611,7 @@ void PrinterSearchWindow::getDeviceResultByManualSlot(int id, int state)
             pItem->setIcon(QIcon::fromTheme("dp_printer_list"));
             // 将结构体转化为QVariant,需要再转回来
             pItem->setData(QVariant::fromValue(info), Dtk::UserRole + 1);
-            pItem->setSizeHint(QSize(480, 50));
+            pItem->setSizeHint(QSize(480, 60));
             pItem->setToolTip(info.strName);
             m_pPrinterListModelManual->appendRow(pItem);
         }
