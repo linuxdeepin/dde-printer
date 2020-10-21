@@ -143,6 +143,11 @@ void PrinterSearchWindow::initUi()
     m_pInfoAuto->setVisible(false);
     m_pInfoAuto->setText(tr("No printers found"));
     m_pInfoAuto->setAlignment(Qt::AlignCenter);
+    DFontSizeManager::instance()->bind(m_pInfoAuto, DFontSizeManager::T5, int(QFont::DemiBold));
+    QPalette pa = m_pInfoAuto->palette();
+    QColor color = pa.color(QPalette::Inactive, QPalette::Text);
+    pa.setColor(QPalette::Text, QColor(color.red(), color.green(), color.blue(), 150));
+    m_pInfoAuto->setPalette(pa);
 
     QVBoxLayout *pVlayoutAuto1 = new QVBoxLayout();
     pVlayoutAuto1->addLayout(pHLayout1);
@@ -223,10 +228,8 @@ void PrinterSearchWindow::initUi()
     m_pInfoManual->setText(tr("No printers found"));
     m_pInfoManual->setAlignment(Qt::AlignCenter);
     DFontSizeManager::instance()->bind(m_pInfoManual, DFontSizeManager::T5, int(QFont::DemiBold));
-    QPalette pa = m_pInfoManual->palette();
-    QStyleOption opt;
-    opt.initFrom(m_pInfoManual);
-    QColor color = opt.palette.color(QPalette::Inactive, QPalette::Text);
+    pa = m_pInfoManual->palette();
+    color = pa.color(QPalette::Inactive, QPalette::Text);
     pa.setColor(QPalette::Text, QColor(color.red(), color.green(), color.blue(), 150));
     m_pInfoManual->setPalette(pa);
 
