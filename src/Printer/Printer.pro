@@ -86,10 +86,8 @@ INCLUDEPATH +=  \
 
 DEPENDPATH += $$PWD/../cppcups
 
-QMAKE_CFLAGS += -Wall -Wextra -Wformat=2 -Wno-format-nonliteral -Wshadow
-QMAKE_CXXFLAGS += -Wall -Wextra -Wformat=2 -Wno-format-nonliteral -Wshadow
-
-QMAKE_CXXFLAGS+= -fPIE
+QMAKE_CFLAGS += -Wall -Wextra -Wformat=2 -Wno-format-nonliteral -Wshadow -fPIE -Wl,--as-needed,-O1
+QMAKE_CXXFLAGS += -Wall -Wextra -Wformat=2 -Wno-format-nonliteral -Wshadow -fPIE -Wl,--as-needed,-O1
 QMAKE_LFLAGS += -pie
 
 unix:!macx:{
