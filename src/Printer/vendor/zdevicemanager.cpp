@@ -384,7 +384,12 @@ int RefreshDevicesByHostTask::probe_ipp(const QString &strHost)
     /*连接指定ip的cups服务器，不是全局的默认ip*/
     auto conPtr = CupsConnectionFactory::createConnection(strHost, 0, 0);
     if (conPtr) {
-        printersMap = conPtr->getPrinters();
+        try {
+            printersMap = conPtr->getPrinters();
+        } catch (const std::runtime_error &e) {
+            qWarning() << "runtime error:" << e.what();
+            return -1;
+        }
     } else {
         return -1;
     }
