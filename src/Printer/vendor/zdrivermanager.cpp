@@ -251,17 +251,16 @@ static QList<QMap<QString, QVariant>> getFuzzyMatchDrivers(const QString &strMak
 static QList<QMap<QString, QVariant>> getExactMatchDrivers(const QString &strMFG, const QString &strMDL)
 {
     QList<QMap<QString, QVariant>> list;
-    QString strMake, strModel;
     QStringList strKeys;
 
     if (strMFG.isEmpty() || strMDL.isEmpty())
         return list;
 
-    QMap<QString, QString> *modelMap = g_ppdsDirct.value(strMake);
+    QMap<QString, QString> *modelMap = g_ppdsDirct.value(strMFG);
     if (!modelMap)
         return list;
 
-    strKeys = modelMap->values(strModel);
+    strKeys = modelMap->values(strMDL);
     if (!strKeys.isEmpty()) {
         foreach (QString strKey, strKeys) {
             QMap<QString, QVariant> driver = stringToVariant(g_ppds.value(strKey.toLower()));
