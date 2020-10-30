@@ -136,3 +136,6 @@ polkit.files = $${PWD}/policy/com.deepin.pkexec.devPrinter.policy
 
 INSTALLS += target desktop hicolor trans polkit
 }
+
+#从debian/rules里面获取定义好的VERSION，然后转成字符串
+DEFINES += QMAKE_VERSION=\\\"$$VERSION\\\"

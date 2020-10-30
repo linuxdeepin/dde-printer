@@ -94,7 +94,7 @@ int PrinterApplication::create()
     qApp->setAttribute(Qt::AA_UseHighDpiPixmaps);
     qApp->setOrganizationName("deepin");
     qApp->setApplicationName("dde-printer");
-    qApp->setApplicationVersion(DApplication::buildVersion("1.0"));
+    qApp->setApplicationVersion(DApplication::buildVersion((QMAKE_VERSION)));
     qApp->setProductIcon(QIcon(":/images/dde-printer.svg"));
     qApp->setProductName(tr("Print Manager"));
     qApp->setApplicationDescription(tr("Print Manager is a printer management tool, which supports adding and removing printers, managing print jobs and so on."));
