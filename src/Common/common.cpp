@@ -368,15 +368,17 @@ QString normalize(const QString &strin)
 QMap<QString, QString> parseDeviceID(const QString &strId)
 {
     QMap<QString, QString> map;
-    QStringList list = strId.split(";");
+    QStringList list = strId.split(";", QString::SkipEmptyParts);
     foreach (QString str, list) {
-        QStringList val = str.split(":");
+        QStringList val = str.split(":", QString::SkipEmptyParts);
         if (val.count() > 1)
             map.insert(val[0].trimmed(), val[1].trimmed());
     }
 
     if (!map.contains("MFG") && map.contains("MANUFACTURER"))
         map.insert("MFG", map["MANUFACTURER"]);
+    if (!map.contains("MFG") && map.contains("G"))
+        map.insert("MFG", map["G"]);
     if (!map.contains("MDL") && map.contains("MODEL"))
         map.insert("MDL", map["MODEL"]);
     if (!map.contains("CMD") && map.contains("COMMAND SET"))

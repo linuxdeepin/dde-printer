@@ -45,6 +45,8 @@
 #include <QEventLoop>
 #include <QTimer>
 
+#include <map>
+
 static QMutex g_mutex;
 static QMap<QString, QMap<QString, QString>> g_ppds; //所以ppd文件的字典，以device_id(没有device_id则以make_and_model)作为key
 static QMap<QString, QMap<QString, QString> *> g_ppdsDirct; //将厂商和型号格式化之后作为key生成的字典，键值为g_ppds的key
@@ -63,9 +65,110 @@ static QMap<QString, QVariant> stringToVariant(const QMap<QString, QString> &dri
     return info;
 }
 
+/*计算两个字符串的编辑距离,并返回相似度*/
+double CalculateSimilarity(const string &source, const string &target)
+{
+    //step 1
+
+    size_t n = source.length();
+    size_t m = target.length();
+    if (m == 0) return n;
+    if (n == 0) return m;
+    //Construct a matrix
+    typedef vector< vector<size_t> >  Tmatrix;
+    Tmatrix matrix(n + 1);
+    for (size_t i = 0; i <= n; i++)  matrix[i].resize(m + 1);
+
+    //step 2 Initialize
+
+    for (size_t i = 1; i <= n; i++) matrix[i][0] = i;
+    for (size_t i = 1; i <= m; i++) matrix[0][i] = i;
+
+    //step 3
+    for (size_t i = 1; i <= n; i++) {
+        const char si = source[i - 1];
+        //step 4
+        for (size_t j = 1; j <= m; j++) {
+
+            const char dj = target[j - 1];
+            //step 5
+            size_t cost;
+            if (si == dj) {
+                cost = 0;
+            } else {
+                cost = 1;
+            }
+            //step 6
+            const size_t above = matrix[i - 1][j] + 1;
+            const size_t left = matrix[i][j - 1] + 1;
+            const size_t diag = matrix[i - 1][j - 1] + cost;
+            matrix[i][j] = min(above, min(left, diag));
+
+        }
+    }//step7
+    size_t distance = matrix[n][m];
+    double similarity = 1 - (static_cast<double>(distance) / qMax(source.length(), target.length()));
+    return similarity;
+}
+
+/*判断model里面的关键数字是否相同*/
+bool isMatchModelIDNumber(const QString &modelNumber, const QString &mdl)
+{
+    bool match = false;
+    //如果没有匹配到，取字符串里面的数字进行匹配
+    if (!modelNumber.isEmpty()) {
+        QStringList letters = mdl.split(" ");
+        if (letters.contains(modelNumber))
+            match = true;
+    }
+    return match;
+}
+
+/*获取model里面的关键数字型号*/
+bool getModelNumber(const QString &model, QString &modelNumber)
+{
+    if (!model.isEmpty()) {
+        bool success = false;
+        QStringList parts = model.split(" ");
+        foreach (const QString &part, parts) {
+            part.toInt(&success, 10);
+            if (success) {
+                modelNumber = part;
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+/*获取两个字符串相同前缀的长度*/
+int findPrefixLength(const QString source, const QString target)
+{
+    if (source.isEmpty() || target.isEmpty())
+        return 0;
+    int slength = source.length();
+    for (int i = 1; i < slength; i++) {
+        if (target.indexOf(source.left(i)) != 0) {
+            return i - 1;
+        }
+    }
+    return source.length();
+}
+
 static QStringList findBestMatchPPDs(QStringList &models, QString mdl)
 {
     QStringList list;
+    /*去掉无用信息*/
+    mdl = mdl.toLower();
+    if (mdl.endsWith(" series")) {
+        mdl.chop(QString(" series").length());
+    }
+    /*获取modelnumber*/
+    QString modelNumber;
+    if (!getModelNumber(mdl, modelNumber)) {
+        qWarning() << "Can not find modelnumber from model";
+    }
+    /*1.先使用插入排序规则匹配前缀相似的类型*/
     int index = 0, len = 0;
     QString left, right;
     int leftMatch = 0, rightMatch = 0;
@@ -88,47 +191,51 @@ static QStringList findBestMatchPPDs(QStringList &models, QString mdl)
     len = mdl.length();
     leftlen = left.length();
     rightlen = right.length();
-    foreach (QChar ch, mdl) {
-        if (leftMatch > -1 && leftMatch < leftlen && left[leftMatch] == ch)
-            leftMatch++;
-        else
-            leftlen = -1;
-
-        if (rightMatch > -1 && rightMatch < rightlen && right[rightMatch] == ch)
-            rightMatch++;
-        else
-            rightlen = -1;
-
-        if (rightlen < 1 && leftlen < 1)
-            break;
-    }
+    leftMatch = findPrefixLength(left, mdl);
+    rightMatch = findPrefixLength(right, mdl);
 
     //取匹配字符数较多并且超过mdl一半的项
     if (rightMatch > leftMatch && rightMatch > len / 2)
         list.append(right);
     else if (leftMatch > rightMatch && leftMatch > len / 2)
         list.append(left);
-    else {
-        //如果没有匹配到，取字符串里面的数字进行匹配
-        models.removeAll(mdl);
-        QStringList letters = mdl.split(" ");
-        QString number;
-        foreach (QString str, letters) {
-            if (str[0].isDigit()) {
-                number = str;
-                break;
-            }
+
+    /*2.使用编辑距离根据相似度进行匹配*/
+
+    /*降序排列*/
+    std::multimap<double, QString, std::greater<double>> simModelMap;
+    /*先通过计算相似度找到和mdl最相近的项*/
+    foreach (const QString &source, models) {
+        double sim = CalculateSimilarity(source.toStdString(), mdl.toStdString());
+        if (sim > 0.50) {
+            simModelMap.insert(std::make_pair(sim, source));
         }
-        if (!number.isEmpty()) {
-            foreach (QString str, models) {
-                letters = str.split(" ");
-                if (letters.contains(number))
-                    list.append(str);
+    }
+    /*保证最多返回三个结果*/
+    int need = 3 - list.count();
+    index = 0;
+    for (std::multimap<double, QString>::iterator iter = simModelMap.begin();
+            iter != simModelMap.end();
+            ++iter) {
+        qDebug() << iter->second << " " << iter->first;
+        if (index >= need)
+            break;
+        list.append(iter->second);
+        index++;
+    }
+
+    /*3.当前两次匹配没有结果，根据关键型号数字搜索*/
+    if (list.count() <= 0) {
+        foreach (const QString &source, models) {
+            if (isMatchModelIDNumber(modelNumber, source) && (!modelNumber.isEmpty())) {
+                if (list.count() >= 3)
+                    break;
+                list.append(source);
             }
         }
     }
 
-    qDebug() << QString("Got %1").arg(list.join(","));
+    qInfo() << QString("Got %1").arg(list.join(","));
     return list;
 }
 
