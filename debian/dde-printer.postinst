@@ -6,21 +6,25 @@ killall dde-printer
 #restart deamon process
 killall -USR1 dde-printer-helper
 
-REPO=""
-
-read -d '\n' ProductType EditionName < <(cat /etc/os-version | awk -F = '{ if ( $1 == "ProductType" || $1 == "EditionName" ) print $2}')
-
-if [[ ${ProductType} == "Desktop" && ${EditionName} == "Community" ]]; then
-    REPO="deb https://community-packages.deepin.com/printer eagle non-free"
-elif [[ ${ProductType} == "Desktop" && ${EditionName} == "Professional" ]]; then
-    REPO="deb https://professional-packages.chinauos.com/printer eagle non-free"
-elif [[ ${ProductType} == "Desktop" && ${EditionName} == "Home" ]]; then
-    REPO="deb https://home-packages.chinauos.com/printer eagle non-free"
-elif [[ ${ProductType} == "Server" && ${EditionName} == "Enterprise" ]]; then
-    REPO="deb https://server-enterprise-packages.chinauos.com/printer eagle non-free"
-fi
+REPO=$(cat /etc/os-version | awk -F '=' '{                                                  \
+if ( $1 == "ProductType" ) {                                                                \
+   ProductType=$2;                                                                          \
+}                                                                                           \
+else if ( $1 == "EditionName" ) {                                                           \
+   EditionName=$2;                                                                          \
+}}                                                                                          \
+END {                                                                                       \
+if ( ProductType == "Desktop" && EditionName == "Community") {                              \
+    print "deb https://community-packages.deepin.com/printer eagle non-free";               \
+} else if ( ProductType == "Desktop" && EditionName == "Professional" ) {                   \
+    print "deb https://professional-packages.chinauos.com/printer eagle non-free";          \
+} else if ( ProductType == "Desktop" && EditionName == "Home" ) {                           \
+    print "deb https://home-packages.chinauos.com/printer eagle non-free";                  \
+} else if ( ProductType == "Server" && EditionName == "Enterprise" ) {                      \
+    print "deb https://enterprise-packages.chinauos.com/printer eagle non-free";     \
+}}')
 
 if [ -n "${REPO}" ]; then
     mkdir -p /etc/apt/sources.list.d/
-    echo "${REPO}" > /etc/apt/sources.list.d/printer.list
+    echo -n "${REPO}" > /etc/apt/sources.list.d/printer.list
 fi
