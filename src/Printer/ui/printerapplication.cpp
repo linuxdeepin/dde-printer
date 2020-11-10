@@ -142,9 +142,8 @@ int PrinterApplication::showJobsWindow()
         });
         Dtk::Widget::moveToCenter(m_jobsWindow);
     }
+    m_jobsWindow->activateWindow();
     m_jobsWindow->showNormal();
-    qApp->setActiveWindow(m_jobsWindow);
-
     return 0;
 }
 
@@ -157,9 +156,8 @@ int PrinterApplication::showMainWindow()
         // 初始化驱动
         g_driverManager->refreshPpds();
     }
-
+    m_mainWindow->activateWindow();
     m_mainWindow->showNormal();
-    qApp->setActiveWindow(m_mainWindow);
 
     return 0;
 }
