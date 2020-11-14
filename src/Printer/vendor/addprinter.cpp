@@ -249,8 +249,8 @@ void InstallInterface::startInstallPackages()
             qInfo() << package.packageName << "need install";
         }
         QDBusReply<bool> installable = interface->call("PackageInstallable", package.packageName);
-
-        if (!installable.isValid() || !installable) {
+        /*hplip-plugin包 mips架构目前不存在，所以忽略无法安装的错误，避免安装打印机流程阻塞*/
+        if ((!installable.isValid() || !installable) && (!package.packageName.contains("hplip-plugin"))) {
             m_strErr = package.packageName + tr("is invalid");
             emit signalStatus(TStat_Fail);
             return;
