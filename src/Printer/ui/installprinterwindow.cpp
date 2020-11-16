@@ -298,7 +298,7 @@ void InstallPrinterWindow::cancelBtnClickedSlot()
     }
 }
 
-void InstallPrinterWindow::feedbackPrintTestPage()
+void InstallPrinterWindow::feedbackPrintTestPage(bool success)
 {
     if (m_pAddPrinterTask) {
         QMap<QString, QVariant> driver = m_pAddPrinterTask->getDriverInfo();
@@ -307,7 +307,7 @@ void InstallPrinterWindow::feedbackPrintTestPage()
             int sid = driver[SD_KEY_sid].toInt();
             QString strReason = m_testJob ? m_testJob->getMessage() : "User feedback";
             QString strFeedback = QString("Uri: %1, device: %2").arg(m_device.uriList.join(" ")).arg(m_device.strDeviceId.isEmpty() ? m_device.strMakeAndModel : m_device.strDeviceId);
-            PrinterServerInterface *server = g_printerServer->feedbackResult(sid, false, strReason, strFeedback);
+            PrinterServerInterface *server = g_printerServer->feedbackResult(sid, success, strReason, strFeedback);
             if (server)
                 server->postToServer();
         }
@@ -319,7 +319,7 @@ void InstallPrinterWindow::leftBtnClickedSlot()
     if (m_status == Installed) {
         close();
     } else if (m_status == Printed) {
-        feedbackPrintTestPage();
+        feedbackPrintTestPage(false);
         setStatus(PrintFailed);
     } else if (m_status == PrintFailed) {
         if (m_pDriverCombo->count() == 0) {
@@ -356,6 +356,7 @@ void InstallPrinterWindow::rightBtnClickedSlot()
         m_testJob->isPass();
         setStatus(Printed);
     } else if (m_status == Printed) {
+        feedbackPrintTestPage(true);
         close();
     } else if (m_status == PrintFailed) {
         TroubleShootDialog dlg(m_printerName, this);

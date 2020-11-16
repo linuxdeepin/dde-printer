@@ -75,7 +75,7 @@ private:
 
     void setStatus(InstallationStatus status);
 
-    void feedbackPrintTestPage();
+    void feedbackPrintTestPage(bool success);
 
 protected:
     void closeEvent(QCloseEvent *event) override;
