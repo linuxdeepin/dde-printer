@@ -338,6 +338,8 @@ private:
     DPrinterManager *m_pPrinterManager;
     // 当前选中的打印机名称
     QString m_CurPrinterName;
+
+    bool m_IsFirstShow;
 };
 
 #endif // DPRINTERSSHOWWINDOW_H

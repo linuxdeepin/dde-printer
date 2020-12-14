@@ -225,6 +225,11 @@ int RefreshDevicesByBackendTask::addDevices(const map<string, map<string, string
         info.strLocation = attrValueToQString(infomap[CUPS_DEV_LOCATION]);
         info.iType = InfoFrom_Detect;
         info.strName = info.strInfo;
+        /*当dnssd后端发现的打印机uri不包含cups，说明不是从cups共享出来的打印机，暂时过滤*/
+        if ((uri.startsWith("dnssd://") && !uri.contains("/cups"))) {
+            qInfo() << QString("Does not support non-cups shared dnssd protocol printers,uri=%1").arg(uri);
+            continue;
+        }
         if (uri.startsWith("dnssd://") && !info.strName.isEmpty()) {
             info.strName = info.strName.split("@").first().trimmed();
         }

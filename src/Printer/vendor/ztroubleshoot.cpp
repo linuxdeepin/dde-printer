@@ -499,7 +499,6 @@ TroubleShoot::TroubleShoot(const QString &printerName, QObject *parent)
 
 TroubleShoot::~TroubleShoot()
 {
-    qInfo() << "";
     stop();
 }
 
@@ -520,7 +519,6 @@ QList<TroubleShootJob *> TroubleShoot::getJobs()
 
 void TroubleShoot::stop()
 {
-    qInfo() << "";
     foreach (TroubleShootJob *job, m_jobs) {
         job->stop();
     }

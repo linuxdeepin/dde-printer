@@ -22,6 +22,7 @@
 #include "cupsppd.h"
 #include "mibpath.h"
 #include "snmp.h"
+#include "cupsmodule.h"
 
 #include <stdlib.h>
 #include <strings.h>
@@ -227,6 +228,7 @@ bool cupssnmp::SNMPSupport()
             bRet = false;
         }
     } catch (const std::runtime_error &e) {
+        debugprintf("runtime_error: %s\n", e.what());
         bRet = false;
     }
 

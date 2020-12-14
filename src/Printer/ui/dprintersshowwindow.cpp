@@ -61,9 +61,10 @@
 #include <QProcess>
 
 DPrintersShowWindow::DPrintersShowWindow(QWidget *parent)
-    : DMainWindow(parent),
-      m_pSearchWindow(nullptr),
-      m_pSettingsDialog(nullptr)
+    : DMainWindow(parent)
+    , m_pSearchWindow(nullptr)
+    , m_pSettingsDialog(nullptr)
+    , m_IsFirstShow(true)
 {
     m_pPrinterManager = DPrinterManager::getInstance();
 
@@ -357,7 +358,7 @@ void DPrintersShowWindow::initConnections()
 
 void DPrintersShowWindow::showEvent(QShowEvent *event)
 {
-    Q_UNUSED(event)
+    DMainWindow::showEvent(event);
 
     QTimer::singleShot(10, this, [ = ]() {
         CheckCupsServer cups(this);
@@ -375,6 +376,9 @@ void DPrintersShowWindow::showEvent(QShowEvent *event)
         }
     });
 
+    if (!m_IsFirstShow)
+        return;
+    m_IsFirstShow = false;
     QTimer::singleShot(1000, this, [ = ]() {
 
         /*第一次安装没有启动后台程序，需要手动启动*/
@@ -711,7 +715,8 @@ void DPrintersShowWindow::printSettingClickSlot()
         dialog.addSpacing(10);
         dialog.addButton(UI_PRINTERSHOW_CANCEL);
         int iIndex = dialog.addButton(tr("Install Driver"));
-        dialog.setIcon(QPixmap(":/images/warning_logo.svg"));
+
+        dialog.setIcon(QIcon(":/images/warning_logo.svg"));
         QAbstractButton *pBtn = dialog.getButton(iIndex);
         connect(pBtn, &QAbstractButton::clicked, this, &DPrintersShowWindow::addPrinterClickSlot);
         QPoint ptCen1 = this->geometry().center();
@@ -763,6 +768,8 @@ void DPrintersShowWindow::printFalutClickSlot()
 
 void DPrintersShowWindow::printSupplyClickSlot()
 {
+    if (!m_pPrinterListView->currentIndex().isValid())
+        return;
     QString strPrinterName = m_pPrinterListView->currentIndex().data().toString();
     RefreshSnmpBackendTask *task = new RefreshSnmpBackendTask;
     connect(task, &RefreshSnmpBackendTask::refreshsnmpfinished,
