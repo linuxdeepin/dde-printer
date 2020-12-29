@@ -51,6 +51,8 @@ public:
 
     TDeviceInfo getPrinter();
 
+    void setMatchLocalDriver(bool match);
+
 signals:
     void signalDone();
 
@@ -71,6 +73,8 @@ private:
     QString m_strMake;
     QString m_strModel;
     QString m_strCMD;
+
+    bool m_matchLocalDriver;
 };
 
 class DriverManager : public QObject

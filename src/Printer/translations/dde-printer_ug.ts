@@ -2,27 +2,27 @@
 <context>
     <name>AddPrinterTask</name>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="546"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="554"/>
         <source>URI and driver do not match.</source>
         <translation>URI بىلەن قوزغاتقۇچ ماس كەلمەيدۇ.</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="548"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="556"/>
         <source>Install hplip first and restart the app to install the driver again.</source>
         <translation>Hplip نى ئورناتقاندىن كېيىن قايتا قوشۇڭ.</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="556"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="564"/>
         <source>Please select an hplip driver and try again.</source>
         <translation>باشقا hplip قوزغاتقۇچنى تاللىغاندىن كېيىن قايتا سىناڭ.</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="569"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="577"/>
         <source>URI can&apos;t be empty</source>
         <translation>URI بوش قالسا بولمايدۇ</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="576"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="584"/>
         <source> not found</source>
         <translation>تاپالمىدى</translation>
     </message>
@@ -30,37 +30,37 @@
 <context>
     <name>CheckAttributes</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="307"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="307"/>
         <source>Check printer settings</source>
         <translation>پىرىنتېر تەڭشىكىنى تەكشۈرۈڭ</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="316"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="316"/>
         <source>Checking printer settings...</source>
         <translation>پىرىنتېر تەڭشىكىنى تەكشۈرۈۋاتىدۇ ...</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="319"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="319"/>
         <source>Success</source>
         <translation>تامام</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="329"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="329"/>
         <source>Failed to get printer attributes, error: </source>
         <translation>پىرىنتېرنىڭ خاسلىقىغا ئېرىشەلمىدى. خاتالىق سەۋەبى:</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="337"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="337"/>
         <source>%1 is disabled</source>
         <translation>%1 قوزغالمىدى</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="346"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="346"/>
         <source>is not accepting jobs</source>
         <translation>ۋەزىپىنى قوبۇل قىلمىدى</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="351"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="351"/>
         <source>Printer settings are ok</source>
         <translation>پىرىنتېر تەڭشىكى نورمال</translation>
     </message>
@@ -68,42 +68,42 @@
 <context>
     <name>CheckConnected</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="212"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="212"/>
         <source>Check printer connection</source>
         <translation>پىرىنتېرنىڭ ئۇلىنىش ھالىتىنى تەكشۈرۈڭ</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="224"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="224"/>
         <source>Checking printer connection...</source>
         <translation>پىرىنتېرنىڭ ئۇلىنىش ھالىتى تەكشۈرۈلۈۋاتىدۇ...</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="227"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="227"/>
         <source>Success</source>
         <translation>تامام</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="264"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="264"/>
         <source>Cannot connect to the printer, error: %1</source>
         <translation>پىرىنتېرغا ئۇلىنالمىدى، خاتالىق سەۋەبى:%1</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="272"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="272"/>
         <source> is not connected, URI: </source>
         <translation>ئۇلانمىدى، URI:</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="281"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="281"/>
         <source>%1 does not exist</source>
         <translation>%1 مۇندەرىجە مەۋجۇت ئەمەس</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="290"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="290"/>
         <source>Cannot connect to the printer</source>
         <translation>پىرىنتېرغا ئۇلانمىدى</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="296"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="296"/>
         <source>The connection is valid</source>
         <translation>پىرىنتېرغا ئۇلىنىش ھالىتى نورمال</translation>
     </message>
@@ -111,22 +111,22 @@
 <context>
     <name>CheckCupsServer</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="110"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="110"/>
         <source>Check CUPS server</source>
         <translation>CUPS مۇلازىمىتىنىڭ ئوچۇق ياكى ئەمەسلىكىنى تەكشۈرۈڭ</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="116"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="116"/>
         <source>Checking CUPS server...</source>
         <translation>CUPS مۇلازىمىتى تەكشۈرۈلاۋاتىدۇ ...</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="118"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="118"/>
         <source>CUPS server is invalid</source>
         <translation>CUPS مۇلازىمىتى بىنورمال</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="123"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="123"/>
         <source>CUPS server is valid</source>
         <translation>CUPS مۇلازىمىتى نورمال</translation>
     </message>
@@ -134,42 +134,42 @@
 <context>
     <name>CheckDriver</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="141"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="141"/>
         <source>Checking driver...</source>
         <translation>قوزغاتقۇچ ھۆججەتنى تەكشۈرۈۋاتىدۇ...</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="144"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="144"/>
         <source>Success</source>
         <translation>تامام</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="152"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="152"/>
         <source>PPD file %1 not found</source>
         <translation>PPD ھۆججىتى %1  تېپىلمىدى</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="162"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="162"/>
         <source>The driver is damaged</source>
         <translation>قوزغاتقۇچ ھۆججىتى بۇزۇلغان</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="178"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="178"/>
         <source>Driver filter %1 not found</source>
         <translation>قوزغاتقۇچ ھۆججىتى Filter %1  تېپىلمىدى</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="190"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="190"/>
         <source>%1 is not installed, cannot print now</source>
         <translation>%1  قاچىلانمىغان، ئۇرۇش بىنورمال</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="196"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="196"/>
         <source>Driver is valid</source>
         <translation>قوزغاتقۇچ ھۆججىتى تولۇق</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="202"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="202"/>
         <source>Check driver</source>
         <translation>قوزغاتقۇچنى تەكشۈرۈش</translation>
     </message>
@@ -202,12 +202,12 @@
         <translation>سىياھ مىقدارى سانلىق مەلۇماتقا ئېرىشەلمىدى</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="298"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="299"/>
         <source>The amounts are estimated, last updated at %1</source>
         <translation>قالدۇق مىقدار پەقەت پەرەز، يېڭىلانغان ۋاقىت بۈگۈن %1</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="308"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="310"/>
         <source>OK</source>
         <translation>مۇقىملاش</translation>
     </message>
@@ -523,159 +523,159 @@
 <context>
     <name>DPrintersShowWindow</name>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="88"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="90"/>
         <source>Settings</source>
         <translation>تەڭشەك</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="94"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="96"/>
         <source>Printers</source>
         <translation>پىرىنتېر ئۈسكۈنىسى</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="98"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="102"/>
         <source>Add printer</source>
         <translation>پىرىنتېر قوشۇش</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="101"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="105"/>
         <source>Delete printer</source>
         <translation>پىرىنتېرنى چىقىرىۋېتىش</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="122"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="134"/>
         <source>Shared</source>
         <translation>ئورتاقلىشىش</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="125"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="137"/>
         <source>Enabled</source>
         <translation>قوزغىتىش</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="128"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="140"/>
         <source>Accept jobs</source>
         <translation>ۋەزىپە قوبۇل قىلىش</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="132"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="144"/>
         <source>Set as default</source>
         <translation>سۈكۈتتىكى قىلىپ تەڭشەش</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="143"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="155"/>
         <source>No Printers</source>
         <translation>پىرىنتېر ئۈسكۈنىسى يوق</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="167"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="179"/>
         <source>Location:</source>
         <translation>ئورۇن:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="172"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="184"/>
         <source>Model:</source>
         <translation>تىپ:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="175"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="187"/>
         <source>Status:</source>
         <translation>ھالەت:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="203"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="215"/>
         <source>Properties</source>
         <translation>خاسلىق</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="213"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="225"/>
         <source>Print Queue</source>
         <translation>بېسىش تەرتىپى</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="223"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="235"/>
         <source>Print Test Page</source>
         <translation>سىناق بېسىش</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="243"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="255"/>
         <source>Supplies</source>
         <translation>ماتېرىيال</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="267"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="279"/>
         <source>No printer configured</source>
         <translation>پىرىنتېر سەپلەنمىگەن</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="272"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="284"/>
         <source>Click + to add printers</source>
         <translation>قوشۇش بەلگىسى （+） نى بېسىپ، پىرىنتېر قوشۇڭ</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="331"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="343"/>
         <source>As print jobs are in process, you cannot rename the printer now, please try later</source>
         <translation>بېسىش ۋەزىپىسى داۋاملىشىۋاتىدۇ، ئىسمىنى ئۆزگەرتكىلى بولمايدۇ، كېيىن قايتا سىناڭ</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="335"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="366"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="629"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="347"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="378"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="695"/>
         <source>OK</source>
         <translation>مۇقىملاش</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="363"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="375"/>
         <source>CUPS server is not running, and can’t manage printers.</source>
         <translation>CUPS مۇلازىمېتىرى ئىجرا بولمىدى، پىرىنتېرنى باشقۇرغىلى بولمايدۇ.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="560"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="601"/>
         <source>Idle</source>
         <translation>بوش</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="562"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="603"/>
         <source>Printing</source>
         <translation>ئۇرۇلىۋاتىدۇ</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="564"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="605"/>
         <source>Disabled</source>
         <translation>توختىتىلدى</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="587"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="653"/>
         <source>Are you sure you want to delete the printer &quot;%1&quot; ?</source>
         <translation>پىرىنتېر «%1» نى ئۆچۈرمەكچىمۇ؟</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="593"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="659"/>
         <source>Delete</source>
         <translation>ئۆچۈرۈش</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="625"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="691"/>
         <source>The name already exists</source>
         <translation>بۇ نام ئاللىبۇرۇن مەۋجۇت</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="644"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="710"/>
         <source>You will not be able to reprint the completed jobs if continue. Are you sure you want to rename the printer?</source>
         <translation>ئىسىم ئۆزگەرتىش تاماملانغان ۋەزىپىلەرنى قايتا باسقىلى بولماسلىقنى كەلتۈرۈپ چىقىرىدۇ. ئىسمىنى ئۆزگەرتەمسىز؟</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="649"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="715"/>
         <source>Confirm</source>
         <translation>ھەئە</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="707"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="773"/>
         <source>The driver is damaged, please install it again.</source>
         <translation>قوزغاتقۇچ ھۆججەت بۇزۇلغان، قايتا قاچىلاڭ.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="710"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="776"/>
         <source>Install Driver</source>
         <translation>قوزغاتقۇچنى قاچىلاڭ</translation>
     </message>
@@ -752,7 +752,7 @@
 <context>
     <name>DriverManager</name>
     <message>
-        <location filename="../vendor/zdrivermanager.cpp" line="796"/>
+        <location filename="../../Common/vendor/zdrivermanager.cpp" line="906"/>
         <source>EveryWhere driver</source>
         <translation>EveryWhere قوزغاتقۇچ يوق لايىھە</translation>
     </message>
@@ -760,12 +760,12 @@
 <context>
     <name>InstallDriver</name>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="373"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="371"/>
         <source>Failed to find the driver solution: %1, error: %2</source>
         <translation>قوزغاتقۇچنى ھەل قىلىش لايىھەسى: %1 مەغلۇپ بولدى، خاتالىق كودى: %2</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="384"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="382"/>
         <source>The solution is invalid</source>
         <translation>مۇلازىمېتىرنىڭ قوزغاتقۇچ سانلىق مەلۇماتلىرى خاتا</translation>
     </message>
@@ -865,17 +865,17 @@
 <context>
     <name>InstallInterface</name>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="254"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="252"/>
         <source>is invalid</source>
         <translation>قاچىلانمىدى</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="283"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="281"/>
         <source>Failed to install the driver by calling dbus interface</source>
         <translation>dbus ئارقىلىق قوزغاتقۇچ قاچىلاش مەغلۇپ بولدى</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="328"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="326"/>
         <source>Failed to install %1</source>
         <translation>%1 نى قاچىلاش مەغلۇپ بولدى</translation>
     </message>
@@ -1028,32 +1028,32 @@
 <context>
     <name>JobManagerWindow</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1060"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1093"/>
         <source>Refresh</source>
         <translation>يېڭىلاش</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1064"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1097"/>
         <source>All</source>
         <translation>ھەممىسى</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1065"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1098"/>
         <source>Print Queue</source>
         <translation>بېسىش تەرتىپى</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1066"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1099"/>
         <source>Completed</source>
         <translation>تاماملاندى</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1130"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1163"/>
         <source> failed</source>
         <translation>بېسىلمىدى</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1151"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1184"/>
         <source>%1 jobs</source>
         <translation>%1 ۋەزىپە</translation>
     </message>
@@ -1061,42 +1061,42 @@
 <context>
     <name>JobsDataModel</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="675"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="708"/>
         <source>Job</source>
         <translation>ۋەزىپە</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="677"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="710"/>
         <source>User</source>
         <translation>ئىشلەتكۈچى</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="679"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="712"/>
         <source>Document</source>
         <translation>ھۆججەت</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="681"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="714"/>
         <source>Printer</source>
         <translation>پىرىنتېر</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="683"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="716"/>
         <source>Size</source>
         <translation>سىغىمى</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="685"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="718"/>
         <source>Time submitted</source>
         <translation>تاپشۇرغان ۋاقىت</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="687"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="720"/>
         <source>Status</source>
         <translation>ھالەت</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="689"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="722"/>
         <source>Action</source>
         <translation>مەشغۇلات</translation>
     </message>
@@ -1137,12 +1137,12 @@
 <context>
     <name>PrinterApplication</name>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="99"/>
+        <location filename="../ui/printerapplication.cpp" line="107"/>
         <source>Print Manager</source>
         <translation>پىرىنتېر باشقۇرغۇچىسى</translation>
     </message>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="100"/>
+        <location filename="../ui/printerapplication.cpp" line="108"/>
         <source>Print Manager is a printer management tool, which supports adding and removing printers, managing print jobs and so on.</source>
         <translation>پىرىنتېر باشقۇرغۇچ CUPS نى ئاساس قىلغان پرىنتېر باشقۇرۇش قورالى بولۇپ، پرىنتېر باشقۇرۇش ، بېسىش ۋەزىپىسىنى باشقۇرۇش قاتارلىقلارنى قوللايدۇ.</translation>
     </message>
@@ -1150,81 +1150,81 @@
 <context>
     <name>PrinterSearchWindow</name>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="83"/>
-        <location filename="../ui/printersearchwindow.cpp" line="86"/>
+        <location filename="../ui/printersearchwindow.cpp" line="84"/>
+        <location filename="../ui/printersearchwindow.cpp" line="87"/>
         <source>Discover printer</source>
         <translation>ئاپتوماتىك ئىزدەش</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="89"/>
-        <location filename="../ui/printersearchwindow.cpp" line="92"/>
+        <location filename="../ui/printersearchwindow.cpp" line="90"/>
+        <location filename="../ui/printersearchwindow.cpp" line="93"/>
         <source>Find printer</source>
         <translation>قولدا ئىزدەش</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="94"/>
-        <location filename="../ui/printersearchwindow.cpp" line="97"/>
+        <location filename="../ui/printersearchwindow.cpp" line="95"/>
+        <location filename="../ui/printersearchwindow.cpp" line="98"/>
         <source>Enter URI</source>
         <translation>URI ئىزدەش</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="118"/>
+        <location filename="../ui/printersearchwindow.cpp" line="119"/>
         <source>Select a printer</source>
         <translation>پىرىنتېر تاللاش</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="124"/>
+        <location filename="../ui/printersearchwindow.cpp" line="125"/>
         <source>Refresh</source>
         <translation>يېڭىلاش</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="144"/>
-        <location filename="../ui/printersearchwindow.cpp" line="222"/>
+        <location filename="../ui/printersearchwindow.cpp" line="146"/>
+        <location filename="../ui/printersearchwindow.cpp" line="231"/>
         <source>No printers found</source>
         <translation>پىرىنتېرنى تاپالمىدى</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="167"/>
+        <location filename="../ui/printersearchwindow.cpp" line="175"/>
         <source>Install Driver</source>
         <translation>قوزغاتقۇچنى قاچىلاڭ</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="195"/>
+        <location filename="../ui/printersearchwindow.cpp" line="203"/>
         <source>Address</source>
         <translation>ئادرېس</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="197"/>
+        <location filename="../ui/printersearchwindow.cpp" line="205"/>
         <source>Enter an address</source>
         <translation>ئادرېسنى كىرگۈزۈڭ</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="198"/>
+        <location filename="../ui/printersearchwindow.cpp" line="206"/>
         <source>Find</source>
         <translation>ئىزدەش</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="277"/>
+        <location filename="../ui/printersearchwindow.cpp" line="293"/>
         <source>URI</source>
         <translation>URI</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="281"/>
+        <location filename="../ui/printersearchwindow.cpp" line="297"/>
         <source>Enter device URI</source>
         <translation>URI نى كىرگۈزۈڭ</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="292"/>
+        <location filename="../ui/printersearchwindow.cpp" line="308"/>
         <source>Examples:</source>
         <translation>مەسىلەن:</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="576"/>
+        <location filename="../ui/printersearchwindow.cpp" line="592"/>
         <source>OK</source>
         <translation>مۇقىملاش</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="664"/>
+        <location filename="../ui/printersearchwindow.cpp" line="680"/>
         <source> (recommended)</source>
         <translation>(تەۋسىيە)</translation>
     </message>
@@ -1232,12 +1232,12 @@
 <context>
     <name>PrinterTestJob</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="372"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="372"/>
         <source>Check test page printing</source>
         <translation>سىناق بەتنىڭ بېسىلىش ئەھۋالىنى تەكشۈرۈش</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="426"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="426"/>
         <source>Printing test page...</source>
         <translation>سىناق بەت بېسىۋاتىدۇ....</translation>
     </message>
@@ -1418,17 +1418,17 @@
         <translation>%1 كۈن بۇرۇن</translation>
     </message>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="110"/>
+        <location filename="../ui/printerapplication.cpp" line="118"/>
         <source>Direct-attached Device</source>
         <translation>ئۈسكۈنىگە بىۋاسىتە ئۇلاش</translation>
     </message>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="111"/>
+        <location filename="../ui/printerapplication.cpp" line="119"/>
         <source>File</source>
         <translation>ھۆججەت</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="495"/>
+        <location filename="../ui/printersearchwindow.cpp" line="511"/>
         <source>(use %1 protocol)</source>
         <translation>(%1 كېلىشىمىنى ئىشلىتىش)</translation>
     </message>
@@ -1475,22 +1475,17 @@
         <translation>بىكار قىلىش</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="161"/>
-        <source>Unknown</source>
-        <translation>نامەلۇم</translation>
-    </message>
-    <message>
-        <location filename="../util/ddestination.cpp" line="224"/>
+        <location filename="../util/ddestination.cpp" line="201"/>
         <source>Idle</source>
         <translation>بوش</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="227"/>
+        <location filename="../util/ddestination.cpp" line="204"/>
         <source>Printing</source>
         <translation>ئۇرۇلىۋاتىدۇ</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="230"/>
+        <location filename="../util/ddestination.cpp" line="207"/>
         <source>Disabled</source>
         <translation>توختىتىلدى</translation>
     </message>
@@ -1536,27 +1531,27 @@
 <context>
     <name>ServerSettingsWindow</name>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="87"/>
+        <location filename="../ui/dprintersshowwindow.h" line="89"/>
         <source>Basic Server Settings</source>
         <translation>ئاساسىي مۇلازىمىتر تەڭشىكى</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="95"/>
+        <location filename="../ui/dprintersshowwindow.h" line="97"/>
         <source>Publish shared printers connected to this system</source>
         <translation>بۇ سىستېمىغا ئۇلانغان ئورتاق پرىنتېرلارنى ئېلان قىلىش</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="96"/>
+        <location filename="../ui/dprintersshowwindow.h" line="98"/>
         <source>Allow printing from the Internet</source>
         <translation>تور ئارقىلىق بېسىشقا رۇخسەت قىلىش</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="98"/>
+        <location filename="../ui/dprintersshowwindow.h" line="100"/>
         <source>Allow remote administration</source>
         <translation>يىراقتىن باشقۇرۇشقا رۇخسەت قىلىش</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="100"/>
+        <location filename="../ui/dprintersshowwindow.h" line="102"/>
         <source>Save debugging information for troubleshooting</source>
         <translation>تەڭشەش-سىناش ئۇچۇرلىرىنى قالدۇرۇپ كاشىلا بىر تەرەپ قىلىشقا ئىشلىتىش</translation>
     </message>

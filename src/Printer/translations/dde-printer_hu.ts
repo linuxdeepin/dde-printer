@@ -2,131 +2,131 @@
 <context>
     <name>AddPrinterTask</name>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="546"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="554"/>
         <source>URI and driver do not match.</source>
-        <translation>Az url és a driver nem passzol egymáshoz.</translation>
+        <translation>Az URI és az illesztőprogram nem egyezik.</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="548"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="556"/>
         <source>Install hplip first and restart the app to install the driver again.</source>
-        <translation>Ahhoz hogy sikeres legyen a driver telepítése, először telepíteni kell hplip-et, majd újra kell indítani az alkalmazást.</translation>
+        <translation>Először telepítse a hplip alkalmazást, és az illesztőprogram újratelepítéséhez indítsa újra az alkalmazást.</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="556"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="564"/>
         <source>Please select an hplip driver and try again.</source>
-        <translation>Válasszon egy hplip drivert és próbálja újra.</translation>
+        <translation>Kérjük válasszon egy hplip illesztőprogramot és próbálja újra.</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="569"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="577"/>
         <source>URI can&apos;t be empty</source>
-        <translation>az URL nem lehet üres.</translation>
+        <translation>Az URI nem lehet üres</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="576"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="584"/>
         <source> not found</source>
-        <translation>nem található</translation>
+        <translation>Nem található</translation>
     </message>
 </context>
 <context>
     <name>CheckAttributes</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="307"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="307"/>
         <source>Check printer settings</source>
         <translation>Ellenőrizze a nyomtató beállításait</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="316"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="316"/>
         <source>Checking printer settings...</source>
         <translation>Nyomtató beállításainak ellenőrzése...</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="319"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="319"/>
         <source>Success</source>
-        <translation>Sikerült</translation>
+        <translation>Sikeres</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="329"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="329"/>
         <source>Failed to get printer attributes, error: </source>
-        <translation>Sikertelen elérés a nyomtató attribútumaihoz. Hiba:</translation>
+        <translation>Nem sikerült beszerezni a nyomtatóattribútumokat, hiba:</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="337"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="337"/>
         <source>%1 is disabled</source>
-        <translation>%1 tiltva van</translation>
+        <translation>%1 letiltva</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="346"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="346"/>
         <source>is not accepting jobs</source>
-        <translation>nem fogad munkákat</translation>
+        <translation>Nem fogad munkákat</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="351"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="351"/>
         <source>Printer settings are ok</source>
-        <translation>A nyomtató beállításai jók</translation>
+        <translation>A nyomtató beállításai megfelelőek</translation>
     </message>
 </context>
 <context>
     <name>CheckConnected</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="212"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="212"/>
         <source>Check printer connection</source>
-        <translation>Ellenőrizze a nyomtatás kapcsolatát</translation>
+        <translation>Ellenőrizze a nyomtató kapcsolódását</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="224"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="224"/>
         <source>Checking printer connection...</source>
-        <translation>Nyomtató kapcsolatának ellenőrzése...</translation>
+        <translation>Nyomtató kapcsolódásának ellenőrzése...</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="227"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="227"/>
         <source>Success</source>
-        <translation>Sikerült</translation>
+        <translation>Sikeres</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="264"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="264"/>
         <source>Cannot connect to the printer, error: %1</source>
         <translation>Nem sikerült kapcsolódni a nyomtatóhoz, hiba: %1</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="272"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="272"/>
         <source> is not connected, URI: </source>
-        <translation>nem kapcsolódott: URL:</translation>
+        <translation>nincs csatlakoztatva, URI:</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="281"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="281"/>
         <source>%1 does not exist</source>
         <translation>%1 nem létezik</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="290"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="290"/>
         <source>Cannot connect to the printer</source>
-        <translation>Nem tud kapcsolódni a nyomtatóhoz</translation>
+        <translation>Nem lehet csatlakozni a nyomtatóhoz</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="296"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="296"/>
         <source>The connection is valid</source>
-        <translation>A kapcsolat érvényesítve</translation>
+        <translation>A kapcsolat érvényes</translation>
     </message>
 </context>
 <context>
     <name>CheckCupsServer</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="110"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="110"/>
         <source>Check CUPS server</source>
         <translation>Ellenőrizze a CUPS szervert</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="116"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="116"/>
         <source>Checking CUPS server...</source>
         <translation>CUPS szerver ellenőrzése...</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="118"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="118"/>
         <source>CUPS server is invalid</source>
         <translation>A CUPS szerver érvénytelen</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="123"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="123"/>
         <source>CUPS server is valid</source>
         <translation>A CUPS szerver érvényes</translation>
     </message>
@@ -134,44 +134,44 @@
 <context>
     <name>CheckDriver</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="141"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="141"/>
         <source>Checking driver...</source>
-        <translation>Driver ellenőrzése...</translation>
+        <translation>Illesztőprogram ellenőrzése...</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="144"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="144"/>
         <source>Success</source>
-        <translation>Sikerült</translation>
+        <translation>Sikeres</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="152"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="152"/>
         <source>PPD file %1 not found</source>
         <translation>A %1 PPD fájl nem található</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="162"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="162"/>
         <source>The driver is damaged</source>
-        <translation>A driver sérült</translation>
+        <translation>Az illesztőprogram sérült</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="178"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="178"/>
         <source>Driver filter %1 not found</source>
-        <translation>A driver szűrő %1 nem található</translation>
+        <translation>A %1 illesztőprogram szűrő nem található</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="190"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="190"/>
         <source>%1 is not installed, cannot print now</source>
         <translation>%1 nincs telepítve, nem lehet most nyomtatni</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="196"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="196"/>
         <source>Driver is valid</source>
-        <translation>A driver érvényes</translation>
+        <translation>Az illesztőprogram érvényes</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="202"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="202"/>
         <source>Check driver</source>
-        <translation>Ellenőrizze a drivert</translation>
+        <translation>Illesztőprogram ellenőrzése</translation>
     </message>
 </context>
 <context>
@@ -202,12 +202,12 @@
         <translation>Nem sikerült megszerezni a fennmaradó összeget</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="298"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="299"/>
         <source>The amounts are estimated, last updated at %1</source>
         <translation>Becsült összegek, utoljára frissítve: %1</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="308"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="310"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -271,13 +271,13 @@
         <location filename="../util/dprintertanslator.cpp" line="55"/>
         <location filename="../util/dprintertanslator.cpp" line="56"/>
         <source>Auto-Select</source>
-        <translation>Automata kiválasztás</translation>
+        <translation>Automatikus kiválasztás</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="57"/>
         <location filename="../util/dprintertanslator.cpp" line="58"/>
         <source>Manual Feeder</source>
-        <translation>Külső tálcaadagoló</translation>
+        <translation>Kézi adagoló</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="59"/>
@@ -403,17 +403,17 @@
         <location filename="../util/dprintertanslator.cpp" line="96"/>
         <location filename="../util/dprintertanslator.cpp" line="97"/>
         <source>Duplex</source>
-        <translation>Duplex</translation>
+        <translation>Kétoldalas</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="98"/>
         <source>DuplexTumble</source>
-        <translation>Dupla-átfordítás</translation>
+        <translation>Kétoldalas átfordítva</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="99"/>
         <source>DuplexNoTumble</source>
-        <translation>Dupla-átfordítás nélkül</translation>
+        <translation>Kétoldalas átfordítás nélkül</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="100"/>
@@ -470,12 +470,12 @@
     <message>
         <location filename="../util/dprintertanslator.cpp" line="117"/>
         <source>Auto Rotation</source>
-        <translation>Automata elforgatás</translation>
+        <translation>Automatikus elforgatás</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="121"/>
         <source>Reverse</source>
-        <translation>Visszafelé</translation>
+        <translation>Fordított</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="124"/>
@@ -523,161 +523,161 @@
 <context>
     <name>DPrintersShowWindow</name>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="88"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="90"/>
         <source>Settings</source>
         <translation>Beállítások</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="94"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="96"/>
         <source>Printers</source>
         <translation>Nyomtatók</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="98"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="102"/>
         <source>Add printer</source>
         <translation>Nyomtató hozzáadása</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="101"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="105"/>
         <source>Delete printer</source>
         <translation>Nyomtató eltávolítása</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="122"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="134"/>
         <source>Shared</source>
         <translation>Megosztva</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="125"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="137"/>
         <source>Enabled</source>
         <translation>Engedélyezve</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="128"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="140"/>
         <source>Accept jobs</source>
         <translation>Munkák fogadása</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="132"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="144"/>
         <source>Set as default</source>
         <translation>Beállítás alapértelmezettként</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="143"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="155"/>
         <source>No Printers</source>
         <translation>Nincsenek nyomtatók</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="167"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="179"/>
         <source>Location:</source>
         <translation>Hely:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="172"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="184"/>
         <source>Model:</source>
         <translation>Tipus:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="175"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="187"/>
         <source>Status:</source>
         <translation>Státusz:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="203"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="215"/>
         <source>Properties</source>
         <translation>Beállítások</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="213"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="225"/>
         <source>Print Queue</source>
         <translation>Nyomtatási sor</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="223"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="235"/>
         <source>Print Test Page</source>
-        <translation>Tesztoldal nyomtatás</translation>
+        <translation>Tesztoldal nyomtatása</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="243"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="255"/>
         <source>Supplies</source>
         <translation>Kellékek</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="267"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="279"/>
         <source>No printer configured</source>
         <translation>A nyomtató nincs beállítva</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="272"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="284"/>
         <source>Click + to add printers</source>
         <translation>Kattints a + jelre a nyomtató hozzáadásához</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="331"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="343"/>
         <source>As print jobs are in process, you cannot rename the printer now, please try later</source>
-        <translation>Amíg a nyomtatás folymatban van, nem lehet átnevezni a nyomtatót. Próbálja később.</translation>
+        <translation>Amíg a nyomtatás folymatban van, nem lehet átnevezni a nyomtatót. Kérjük próbálja később.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="335"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="366"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="629"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="347"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="378"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="695"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="363"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="375"/>
         <source>CUPS server is not running, and can’t manage printers.</source>
         <translation>A CUPS szerver nem fut, nem tudja kezelni a nyomtatókat.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="560"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="601"/>
         <source>Idle</source>
         <translation>Várakozik</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="562"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="603"/>
         <source>Printing</source>
         <translation>Nyomtatás</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="564"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="605"/>
         <source>Disabled</source>
         <translation>Letiltva</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="587"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="653"/>
         <source>Are you sure you want to delete the printer &quot;%1&quot; ?</source>
         <translation>Biztosan törölni szeretné ezt a nyomtatót: &quot;%1&quot; ?</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="593"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="659"/>
         <source>Delete</source>
         <translation>Törlés</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="625"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="691"/>
         <source>The name already exists</source>
         <translation>Ez a név már létezik</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="644"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="710"/>
         <source>You will not be able to reprint the completed jobs if continue. Are you sure you want to rename the printer?</source>
         <translation>Nem fogja tudni újranyomtatni a már kinyomtatott munkákat, ha folytatja. Biztosan át akarja nevezni a nyomtatót?</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="649"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="715"/>
         <source>Confirm</source>
         <translation>Megerősítés</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="707"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="773"/>
         <source>The driver is damaged, please install it again.</source>
-        <translation>A driver megsérült, kérem telepítse újra.</translation>
+        <translation>Az illesztőprogram megsérült, kérjük telepítse újra.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="710"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="776"/>
         <source>Install Driver</source>
-        <translation>Driver telepítése</translation>
+        <translation>Illesztőprogram telepítése</translation>
     </message>
 </context>
 <context>
@@ -690,12 +690,12 @@
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="176"/>
         <source>Driver</source>
-        <translation>Driver</translation>
+        <translation>Illesztőprogram</translation>
     </message>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="177"/>
         <source>URI</source>
-        <translation>URL</translation>
+        <translation>URI</translation>
     </message>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="178"/>
@@ -710,12 +710,12 @@
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="180"/>
         <source>Color Mode</source>
-        <translation>Színmód</translation>
+        <translation>Színes mód</translation>
     </message>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="181"/>
         <source>Orientation</source>
-        <translation>Orientáció</translation>
+        <translation>Tájolás</translation>
     </message>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="182"/>
@@ -730,7 +730,7 @@
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="606"/>
         <source>Please resolve the conflict first, and then save the changes.</source>
-        <translation>Először szüntesse meg a problémákat okozó beállításokat, ezután mentse el a változtatásokat.</translation>
+        <translation>Kérjük először szüntesse meg a problémákat okozó beállításokat, ezután mentse el a változtatásokat.</translation>
     </message>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="625"/>
@@ -746,26 +746,26 @@
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="1122"/>
         <source>Invalid URI</source>
-        <translation>Érvénytelen URL</translation>
+        <translation>Érvénytelen URI</translation>
     </message>
 </context>
 <context>
     <name>DriverManager</name>
     <message>
-        <location filename="../vendor/zdrivermanager.cpp" line="796"/>
+        <location filename="../../Common/vendor/zdrivermanager.cpp" line="906"/>
         <source>EveryWhere driver</source>
-        <translation>EveryWhere driver</translation>
+        <translation>EveryWhere illesztőprogram</translation>
     </message>
 </context>
 <context>
     <name>InstallDriver</name>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="373"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="371"/>
         <source>Failed to find the driver solution: %1, error: %2</source>
-        <translation>Nem sikerült megtalálni az illesztőprogram-megoldást: %1, hiba: %2</translation>
+        <translation>Nem sikerült megtalálni az illesztőprogram megoldást: %1, hiba: %2</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="384"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="382"/>
         <source>The solution is invalid</source>
         <translation>Érvénytelen megoldás</translation>
     </message>
@@ -775,12 +775,12 @@
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="123"/>
         <source>Select a driver from</source>
-        <translation>Válassza ki a drivert</translation>
+        <translation>Válassza ki az illesztőprogramot</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="127"/>
         <source>Local driver</source>
-        <translation>Helyi driver</translation>
+        <translation>Helyi illesztőprogram</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="128"/>
@@ -790,13 +790,13 @@
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="129"/>
         <source>Search for a driver</source>
-        <translation>Driver keresése</translation>
+        <translation>Illesztőprogram keresése</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="143"/>
         <location filename="../ui/installdriverwindow.cpp" line="421"/>
         <source>Choose a local driver</source>
-        <translation>Válasszon egy helyi drivert</translation>
+        <translation>Válasszon egy helyi illesztőprogramot</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="146"/>
@@ -812,7 +812,7 @@
         <location filename="../ui/installdriverwindow.cpp" line="169"/>
         <location filename="../ui/installdriverwindow.cpp" line="238"/>
         <source>Driver</source>
-        <translation>Driver</translation>
+        <translation>Illesztőprogram</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="223"/>
@@ -832,7 +832,7 @@
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="268"/>
         <source>Install Driver</source>
-        <translation>Driver telepítés</translation>
+        <translation>Illesztőprogram telepítése</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="403"/>
@@ -849,7 +849,7 @@
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="438"/>
         <source>Search for printer driver</source>
-        <translation>Nyomtató driver keresése</translation>
+        <translation>Nyomtató illesztőprogramjának keresése</translation>
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="494"/>
@@ -865,17 +865,17 @@
 <context>
     <name>InstallInterface</name>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="254"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="252"/>
         <source>is invalid</source>
         <translation>érvénytelen</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="283"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="281"/>
         <source>Failed to install the driver by calling dbus interface</source>
-        <translation>Nem sikerült telepíteni a drivert a dbus onterfész lehívás miatt</translation>
+        <translation>Nem sikerült telepíteni az illesztőprogramot a dbus interfész lehívás miatt</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="328"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="326"/>
         <source>Failed to install %1</source>
         <translation>Nem sikerült telepíteni %1</translation>
     </message>
@@ -886,7 +886,7 @@
         <location filename="../ui/installprinterwindow.cpp" line="87"/>
         <location filename="../ui/installprinterwindow.cpp" line="150"/>
         <source>Installing driver...</source>
-        <translation>Driver telepítése...</translation>
+        <translation>Illesztőprogram telepítése...</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="97"/>
@@ -898,14 +898,14 @@
         <location filename="../ui/installprinterwindow.cpp" line="173"/>
         <location filename="../ui/installprinterwindow.cpp" line="190"/>
         <source>View Printer</source>
-        <translation>Nyomtató nézete</translation>
+        <translation>Nyomtatási kép</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="102"/>
         <location filename="../ui/installprinterwindow.cpp" line="175"/>
         <location filename="../ui/installprinterwindow.cpp" line="192"/>
         <source>Print Test Page</source>
-        <translation>Tesztoldal nyomtatás</translation>
+        <translation>Tesztoldal nyomtatása</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="162"/>
@@ -947,12 +947,12 @@
         <location filename="../ui/installprinterwindow.cpp" line="213"/>
         <location filename="../ui/installprinterwindow.cpp" line="233"/>
         <source>Print failed</source>
-        <translation>%1 napja</translation>
+        <translation>A nyomtatás sikertelen</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="219"/>
         <source>Click Reinstall to install the printer driver again, or click Troubleshoot to start troubleshooting.</source>
-        <translation>Kattintson a Újratelepítés gombra a nyomtató illesztőprogramjának újratelepítéséhez, vagy kattintson a Hibaelhárítás gombra a hibaelhárítás megkezdéséhez.</translation>
+        <translation>Kattintson a Újratelepítés gombra a nyomtató illesztőprogramjának újratelepítéséhez, vagy kattintson a Hibajavítás gombra a hibaelhárítás megkezdéséhez.</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="222"/>
@@ -964,7 +964,7 @@
         <location filename="../ui/installprinterwindow.cpp" line="224"/>
         <location filename="../ui/installprinterwindow.cpp" line="245"/>
         <source>Troubleshoot</source>
-        <translation>Hibamegoldás</translation>
+        <translation>Hibajavítás</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="231"/>
@@ -978,7 +978,7 @@
         <location filename="../ui/jobmanagerwindow.cpp" line="254"/>
         <location filename="../ui/jobmanagerwindow.cpp" line="414"/>
         <source>Cancel</source>
-        <translation>Mégse</translation>
+        <translation>Mégsem</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="255"/>
@@ -1009,7 +1009,7 @@
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="261"/>
         <source>No print jobs</source>
-        <translation>Nincs nyomtatnivaló</translation>
+        <translation>Nincs nyomtatási munka</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="408"/>
@@ -1022,38 +1022,38 @@
     <message>
         <location filename="../../Common/zjobmanager.cpp" line="307"/>
         <source> not found</source>
-        <translation>nem található</translation>
+        <translation>Nem található</translation>
     </message>
 </context>
 <context>
     <name>JobManagerWindow</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1060"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1093"/>
         <source>Refresh</source>
         <translation>Frissítés</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1064"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1097"/>
         <source>All</source>
         <translation>Mind</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1065"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1098"/>
         <source>Print Queue</source>
         <translation>Nyomtatási sor</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1066"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1099"/>
         <source>Completed</source>
         <translation>Kész</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1130"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1163"/>
         <source> failed</source>
-        <translation>sikertelen</translation>
+        <translation>Sikertelen</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1151"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1184"/>
         <source>%1 jobs</source>
         <translation>%1 munka</translation>
     </message>
@@ -1061,42 +1061,42 @@
 <context>
     <name>JobsDataModel</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="675"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="708"/>
         <source>Job</source>
         <translation>Munka</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="677"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="710"/>
         <source>User</source>
         <translation>Felhasználó</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="679"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="712"/>
         <source>Document</source>
         <translation>Dokumentum</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="681"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="714"/>
         <source>Printer</source>
         <translation>Nyomtató</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="683"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="716"/>
         <source>Size</source>
         <translation>Méret</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="685"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="718"/>
         <source>Time submitted</source>
-        <translation>Idő beküldése</translation>
+        <translation>Beküldési idő</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="687"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="720"/>
         <source>Status</source>
-        <translation>Státusz</translation>
+        <translation>Állapot</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="689"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="722"/>
         <source>Action</source>
         <translation>Esemény</translation>
     </message>
@@ -1106,12 +1106,12 @@
     <message>
         <location filename="../ui/permissionswindow.cpp" line="48"/>
         <source>Connect to %1 to find a printer</source>
-        <translation>Kapcsolódjon ehhez: %1 hogy megtalálja a nyomtatót</translation>
+        <translation>Kapcsolódjon a %1-hez, hogy megtalálja a nyomtatót</translation>
     </message>
     <message>
         <location filename="../ui/permissionswindow.cpp" line="74"/>
         <source>Username</source>
-        <translation>Felhasználói név</translation>
+        <translation>Felhasználónév</translation>
     </message>
     <message>
         <location filename="../ui/permissionswindow.cpp" line="76"/>
@@ -1126,7 +1126,7 @@
     <message>
         <location filename="../ui/permissionswindow.cpp" line="92"/>
         <source>Cancel</source>
-        <translation>Mégse</translation>
+        <translation>Mégsem</translation>
     </message>
     <message>
         <location filename="../ui/permissionswindow.cpp" line="93"/>
@@ -1137,94 +1137,94 @@
 <context>
     <name>PrinterApplication</name>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="99"/>
+        <location filename="../ui/printerapplication.cpp" line="107"/>
         <source>Print Manager</source>
-        <translation>Nyomtatás kezelő</translation>
+        <translation>Nyomtatás Kezelő</translation>
     </message>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="100"/>
+        <location filename="../ui/printerapplication.cpp" line="108"/>
         <source>Print Manager is a printer management tool, which supports adding and removing printers, managing print jobs and so on.</source>
-        <translation>Nyomtatás kezelő egy olyan eszköz, amivel hozzá lehet adni sé el lehet távolítani nyomtatókat, kezelni lehet a nyomtatási munkákat, és így tovább.</translation>
+        <translation>A Nyomtatás Kezelő egy olyan eszköz, amivel hozzá lehet adni és el lehet távolítani nyomtatókat, kezelni lehet a nyomtatási munkákat, és így tovább.</translation>
     </message>
 </context>
 <context>
     <name>PrinterSearchWindow</name>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="83"/>
-        <location filename="../ui/printersearchwindow.cpp" line="86"/>
+        <location filename="../ui/printersearchwindow.cpp" line="84"/>
+        <location filename="../ui/printersearchwindow.cpp" line="87"/>
         <source>Discover printer</source>
         <translation>Nyomtató felfedezése</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="89"/>
-        <location filename="../ui/printersearchwindow.cpp" line="92"/>
+        <location filename="../ui/printersearchwindow.cpp" line="90"/>
+        <location filename="../ui/printersearchwindow.cpp" line="93"/>
         <source>Find printer</source>
         <translation>Nyomtató megtalálása</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="94"/>
-        <location filename="../ui/printersearchwindow.cpp" line="97"/>
+        <location filename="../ui/printersearchwindow.cpp" line="95"/>
+        <location filename="../ui/printersearchwindow.cpp" line="98"/>
         <source>Enter URI</source>
-        <translation>Írja be az URL-t</translation>
+        <translation>Írja be az URI-t</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="118"/>
+        <location filename="../ui/printersearchwindow.cpp" line="119"/>
         <source>Select a printer</source>
         <translation>Nyomtató kiválasztása</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="124"/>
+        <location filename="../ui/printersearchwindow.cpp" line="125"/>
         <source>Refresh</source>
         <translation>Frissítés</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="144"/>
-        <location filename="../ui/printersearchwindow.cpp" line="222"/>
+        <location filename="../ui/printersearchwindow.cpp" line="146"/>
+        <location filename="../ui/printersearchwindow.cpp" line="231"/>
         <source>No printers found</source>
-        <translation>Nyomtató nem található</translation>
+        <translation>Nem található nyomtató</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="167"/>
+        <location filename="../ui/printersearchwindow.cpp" line="175"/>
         <source>Install Driver</source>
-        <translation>Driver telepítés</translation>
+        <translation>Illesztőprogram telepítése</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="195"/>
+        <location filename="../ui/printersearchwindow.cpp" line="203"/>
         <source>Address</source>
         <translation>Cím</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="197"/>
+        <location filename="../ui/printersearchwindow.cpp" line="205"/>
         <source>Enter an address</source>
         <translation>Írja be a címet</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="198"/>
+        <location filename="../ui/printersearchwindow.cpp" line="206"/>
         <source>Find</source>
         <translation>Találat</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="277"/>
+        <location filename="../ui/printersearchwindow.cpp" line="293"/>
         <source>URI</source>
-        <translation>URL</translation>
+        <translation>URI</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="281"/>
+        <location filename="../ui/printersearchwindow.cpp" line="297"/>
         <source>Enter device URI</source>
-        <translation>Írja be az eszköz URL-jét</translation>
+        <translation>Írja be az eszköz URI-ját</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="292"/>
+        <location filename="../ui/printersearchwindow.cpp" line="308"/>
         <source>Examples:</source>
         <translation>Példák:</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="576"/>
+        <location filename="../ui/printersearchwindow.cpp" line="592"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="664"/>
+        <location filename="../ui/printersearchwindow.cpp" line="680"/>
         <source> (recommended)</source>
         <translation>(ajánlott)</translation>
     </message>
@@ -1232,12 +1232,12 @@
 <context>
     <name>PrinterTestJob</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="372"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="372"/>
         <source>Check test page printing</source>
         <translation>Ellenőrizze a tesztoldal kinyomtatását</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="426"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="426"/>
         <source>Printing test page...</source>
         <translation>Tesztoldal nyomtatás...</translation>
     </message>
@@ -1255,7 +1255,7 @@
     <message>
         <location filename="../../Common/common.cpp" line="152"/>
         <source> not found, please ask the administrator for help</source>
-        <translation>nem található, kérje a rendszergazda segítségét</translation>
+        <translation>Nem található, kérje a rendszergazda segítségét</translation>
     </message>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="217"/>
@@ -1280,12 +1280,12 @@
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="221"/>
         <source>Dark-gray</source>
-        <translation>Sötét-szürke</translation>
+        <translation>Sötét szürke</translation>
     </message>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="222"/>
         <source>Dark gray</source>
-        <translation>Sötétszürke</translation>
+        <translation>Sötét szürke</translation>
     </message>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="223"/>
@@ -1418,29 +1418,29 @@
         <translation>%1 napja</translation>
     </message>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="110"/>
+        <location filename="../ui/printerapplication.cpp" line="118"/>
         <source>Direct-attached Device</source>
         <translation>Közvetlenül csatlakoztatott eszköz</translation>
     </message>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="111"/>
+        <location filename="../ui/printerapplication.cpp" line="119"/>
         <source>File</source>
         <translation>Fájl</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="495"/>
+        <location filename="../ui/printersearchwindow.cpp" line="511"/>
         <source>(use %1 protocol)</source>
         <translation>(használjon %1 protokollt)</translation>
     </message>
     <message>
         <location filename="../ui/uisourcestring.h" line="26"/>
         <source>Select a driver</source>
-        <translation>Driver kiválasztás</translation>
+        <translation>Illesztőprogram kiválasztása</translation>
     </message>
     <message>
         <location filename="../ui/uisourcestring.h" line="32"/>
         <source>Driver</source>
-        <translation>Driver</translation>
+        <translation>Illesztőprogram</translation>
     </message>
     <message>
         <location filename="../ui/uisourcestring.h" line="33"/>
@@ -1450,13 +1450,13 @@
     <message>
         <location filename="../ui/uisourcestring.h" line="34"/>
         <source>Install Driver</source>
-        <translation>Driver telepítés</translation>
+        <translation>Illesztőprogram telepítése</translation>
     </message>
     <message>
         <location filename="../ui/uisourcestring.h" line="36"/>
         <source>Drag a PPD file here 
  or</source>
-        <translation>Húzza ise a PPD fájlt 
+        <translation>Húzza ide a PPD fájlt 
 vagy</translation>
     </message>
     <message>
@@ -1472,25 +1472,20 @@ vagy</translation>
     <message>
         <location filename="../ui/uisourcestring.h" line="40"/>
         <source>Cancel</source>
-        <translation>Mégse</translation>
+        <translation>Mégsem</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="161"/>
-        <source>Unknown</source>
-        <translation>Ismeretlen</translation>
-    </message>
-    <message>
-        <location filename="../util/ddestination.cpp" line="224"/>
+        <location filename="../util/ddestination.cpp" line="201"/>
         <source>Idle</source>
         <translation>Várakozik</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="227"/>
+        <location filename="../util/ddestination.cpp" line="204"/>
         <source>Printing</source>
         <translation>Nyomtatás</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="230"/>
+        <location filename="../util/ddestination.cpp" line="207"/>
         <source>Disabled</source>
         <translation>Letiltva</translation>
     </message>
@@ -1525,7 +1520,7 @@ vagy</translation>
     <message>
         <location filename="../ui/renameprinterwindow.cpp" line="106"/>
         <source>Cancel</source>
-        <translation>Mégse</translation>
+        <translation>Mégsem</translation>
     </message>
     <message>
         <location filename="../ui/renameprinterwindow.cpp" line="107"/>
@@ -1536,29 +1531,29 @@ vagy</translation>
 <context>
     <name>ServerSettingsWindow</name>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="87"/>
+        <location filename="../ui/dprintersshowwindow.h" line="89"/>
         <source>Basic Server Settings</source>
-        <translation>Alapvető nyomtató beállítások</translation>
+        <translation>Alapvető szerver beállítások</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="95"/>
+        <location filename="../ui/dprintersshowwindow.h" line="97"/>
         <source>Publish shared printers connected to this system</source>
-        <translation>Nyilvános megosztott nyomtatók kapcsolódtak a rendszerhez</translation>
+        <translation>Nyilvánosan megosztott nyomtatók kapcsolódhatnak ehhez a rendszerhez</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="96"/>
+        <location filename="../ui/dprintersshowwindow.h" line="98"/>
         <source>Allow printing from the Internet</source>
         <translation>Nyomtatás engedélyezése az internetről</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="98"/>
+        <location filename="../ui/dprintersshowwindow.h" line="100"/>
         <source>Allow remote administration</source>
         <translation>Távoli elérés engedélyezése</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="100"/>
+        <location filename="../ui/dprintersshowwindow.h" line="102"/>
         <source>Save debugging information for troubleshooting</source>
-        <translation>Mentse el a log fájlt a hibajavításhoz</translation>
+        <translation>Mentse el a napló fájlt a hibajavításhoz</translation>
     </message>
 </context>
 <context>
@@ -1571,7 +1566,7 @@ vagy</translation>
     <message>
         <location filename="../ui/troubleshootdialog.cpp" line="133"/>
         <source>Cancel</source>
-        <translation>Mégse</translation>
+        <translation>Mégsem</translation>
     </message>
     <message>
         <location filename="../ui/troubleshootdialog.cpp" line="164"/>

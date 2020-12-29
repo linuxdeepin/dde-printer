@@ -230,7 +230,6 @@ QVariant ipp_attribute_value(ipp_attribute_t *attr, int i)
 
 int shellCmd(const QString &cmd, QString &out, QString &strErr, int timeout)
 {
-    qInfo() << "Start command: " << cmd;
     QProcess proc;
     proc.start(cmd);
     if (proc.waitForFinished(timeout)) {

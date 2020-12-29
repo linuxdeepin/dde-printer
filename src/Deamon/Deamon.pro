@@ -10,13 +10,16 @@ PKGCONFIG += dtkwidget dtkgui
 SOURCES += \
         main.cpp \
     dbus/zcupsmonitor.cpp \
-    dbus/helperinterface.cpp
+    dbus/helperinterface.cpp \
+    usbprinter/usbthread.cpp \
+    usbprinter/signalforwarder.cpp
 
 RESOURCES +=         resources.qrc
 
 INCLUDEPATH +=  \
                 $$PWD/../cppcups \
-                $$PWD/../Common
+                $$PWD/../Common \
+                $$PWD/../Common/vendor
 
 DEPENDPATH += $$PWD/../cppcups
 
@@ -25,12 +28,14 @@ QMAKE_CXXFLAGS += -Wall -Wextra -Wformat=2 -Wno-format-nonliteral -Wshadow
 
 unix:!macx:{
 LIBS += -L../cppcups/ -l:libcppcups.a
-LIBS += -lcups
+LIBS += -lcups -lusb-1.0
 }
 
 HEADERS += \
     dbus/zcupsmonitor.h \
-    dbus/helperinterface.h
+    dbus/helperinterface.h \
+    usbprinter/usbthread.h \
+    usbprinter/signalforwarder.h
 
 DISTFILES +=
 linux {

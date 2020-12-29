@@ -18,11 +18,6 @@ SOURCES += \
     ui/printersearchwindow.cpp \
     util/dprintclass.cpp \
     util/ddestination.cpp \ 
-    vendor/zdevicemanager.cpp \
-    vendor/addprinter.cpp \
-    vendor/ztroubleshoot.cpp \
-    vendor/zdrivermanager.cpp \
-    vendor/printerservice.cpp \
     ui/dpropertysetdlg.cpp \
     ui/installdriverwindow.cpp \
     ui/renameprinterwindow.cpp \
@@ -50,15 +45,6 @@ HEADERS += \
     ui/printersearchwindow.h \
     util/ddestination.h \
     util/dprintclass.h \   
-    vendor/zdrivermanager_p.h \
-    vendor/zdevicemanager.h \
-    vendor/ztroubleshoot.h \
-    vendor/addprinter.h \
-    vendor/ztroubleshoot_p.h \
-    vendor/cupsattrnames.h \
-    vendor/zdrivermanager.h \
-    vendor/addprinter_p.h \
-    vendor/printerservice.h \
     ui/dpropertysetdlg.h \
     ui/installdriverwindow.h \
     ui/renameprinterwindow.h \
@@ -78,8 +64,7 @@ include(../Common/Common.pri)
 
 INCLUDEPATH +=  \
                 $$PWD/../cppcups \
-                vendor \
-                /usr/include/samba-4.0/ \
+                $$PWD/../Common/vendor \
                 ui \
                 util \
                 $$PWD/../Common

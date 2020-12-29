@@ -2,27 +2,27 @@
 <context>
     <name>AddPrinterTask</name>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="546"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="554"/>
         <source>URI and driver do not match.</source>
         <translation>L&apos;URI et le pilote ne correspondent pas.</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="548"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="556"/>
         <source>Install hplip first and restart the app to install the driver again.</source>
         <translation>Installer d&apos;abord hplip et redémarrer l&apos;application pour réinstaller le pilote.</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="556"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="564"/>
         <source>Please select an hplip driver and try again.</source>
         <translation>Veuillez sélectionner un pilote hplip et réessayer.</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="569"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="577"/>
         <source>URI can&apos;t be empty</source>
         <translation>L&apos;URI ne peut pas être vide</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="576"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="584"/>
         <source> not found</source>
         <translation>non trouvé</translation>
     </message>
@@ -30,37 +30,37 @@
 <context>
     <name>CheckAttributes</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="307"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="307"/>
         <source>Check printer settings</source>
         <translation>Vérifier les paramètres de l&apos;imprimante</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="316"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="316"/>
         <source>Checking printer settings...</source>
         <translation>Vérification des paramètres de l&apos;imprimante en cours...</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="319"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="319"/>
         <source>Success</source>
         <translation>Succès</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="329"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="329"/>
         <source>Failed to get printer attributes, error: </source>
-        <translation>Impossible d&apos;obtenir les attributs de l&apos;imprimante, erreur :</translation>
+        <translation>Impossible d&apos;obtenir les attributs de l&apos;imprimante, erreur:</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="337"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="337"/>
         <source>%1 is disabled</source>
         <translation>%1 est désactivé</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="346"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="346"/>
         <source>is not accepting jobs</source>
         <translation>n&apos;accepte pas les travaux</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="351"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="351"/>
         <source>Printer settings are ok</source>
         <translation>Les paramètres de l&apos;imprimante sont corrects</translation>
     </message>
@@ -68,42 +68,42 @@
 <context>
     <name>CheckConnected</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="212"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="212"/>
         <source>Check printer connection</source>
         <translation>Vérifier la connexion de l&apos;imprimante</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="224"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="224"/>
         <source>Checking printer connection...</source>
         <translation>Vérification de la connexion de l&apos;imprimante...</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="227"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="227"/>
         <source>Success</source>
         <translation>Succès</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="264"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="264"/>
         <source>Cannot connect to the printer, error: %1</source>
-        <translation>Impossible de se connecter à l&apos;imprimante, erreur : %1</translation>
+        <translation>Impossible de se connecter à l&apos;imprimante, erreur: %1</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="272"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="272"/>
         <source> is not connected, URI: </source>
-        <translation>n&apos;est pas connecté, URI :</translation>
+        <translation>n&apos;est pas connecté, URI:</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="281"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="281"/>
         <source>%1 does not exist</source>
         <translation>%1 n&apos;existe pas</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="290"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="290"/>
         <source>Cannot connect to the printer</source>
         <translation>Impossible de se connecter à l&apos;imprimante</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="296"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="296"/>
         <source>The connection is valid</source>
         <translation>La connexion est valide</translation>
     </message>
@@ -111,22 +111,22 @@
 <context>
     <name>CheckCupsServer</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="110"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="110"/>
         <source>Check CUPS server</source>
         <translation>Vérifier le serveur CUPS</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="116"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="116"/>
         <source>Checking CUPS server...</source>
         <translation>Vérification du serveur CUPS...</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="118"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="118"/>
         <source>CUPS server is invalid</source>
         <translation>Le serveur CUPS n&apos;est pas valide</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="123"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="123"/>
         <source>CUPS server is valid</source>
         <translation>Le serveur CUPS est valide</translation>
     </message>
@@ -134,42 +134,42 @@
 <context>
     <name>CheckDriver</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="141"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="141"/>
         <source>Checking driver...</source>
         <translation>Vérification du pilote...</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="144"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="144"/>
         <source>Success</source>
         <translation>Succès</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="152"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="152"/>
         <source>PPD file %1 not found</source>
         <translation>Fichier PPD %1 introuvable</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="162"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="162"/>
         <source>The driver is damaged</source>
         <translation>Le pilote est endommagé</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="178"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="178"/>
         <source>Driver filter %1 not found</source>
         <translation>Filtre du pilote %1 introuvable</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="190"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="190"/>
         <source>%1 is not installed, cannot print now</source>
         <translation>%1 n&apos;est pas installé, impossible d&apos;imprimer maintenant</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="196"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="196"/>
         <source>Driver is valid</source>
         <translation>Le pilote n&apos;est pas valide</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="202"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="202"/>
         <source>Check driver</source>
         <translation>Vérifier le pilote</translation>
     </message>
@@ -189,25 +189,25 @@
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="252"/>
         <source>Ink/Toner Status</source>
-        <translation>État de l&apos;encre/du toner</translation>
+        <translation>Niveau de l&apos;encre/du toner</translation>
     </message>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="258"/>
         <source>Unknown amount</source>
-        <translation>Montant inconnu</translation>
+        <translation>Niveau inconnu</translation>
     </message>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="265"/>
         <source>Unable to get the remaining amount</source>
-        <translation>Impossible d&apos;obtenir le montant restant</translation>
+        <translation>Impossible d&apos;obtenir la quantité restante</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="298"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="299"/>
         <source>The amounts are estimated, last updated at %1</source>
-        <translation>Les montants sont estimés, la mise à jour a été effectué la dernière fois à %1</translation>
+        <translation>Les quantités sont estimées, la dernière mise à jour a été effectuée à %1</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="308"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="310"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -303,7 +303,7 @@
     <message>
         <location filename="../util/dprintertanslator.cpp" line="64"/>
         <source>Drawer 4</source>
-        <translation>Tiroir 3</translation>
+        <translation>Tiroir 4</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="65"/>
@@ -343,7 +343,7 @@
     <message>
         <location filename="../util/dprintertanslator.cpp" line="76"/>
         <source>Color Paper</source>
-        <translation>Couleur de papier</translation>
+        <translation>Papier en couleur</translation>
     </message>
     <message>
         <location filename="../util/dprintertanslator.cpp" line="77"/>
@@ -523,159 +523,159 @@
 <context>
     <name>DPrintersShowWindow</name>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="88"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="90"/>
         <source>Settings</source>
         <translation>Paramètres</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="94"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="96"/>
         <source>Printers</source>
         <translation>Imprimantes</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="98"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="102"/>
         <source>Add printer</source>
         <translation>Ajouter une imprimante</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="101"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="105"/>
         <source>Delete printer</source>
         <translation>Supprimer l&apos;imprimante</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="122"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="134"/>
         <source>Shared</source>
         <translation>Partagé</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="125"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="137"/>
         <source>Enabled</source>
         <translation>Activé</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="128"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="140"/>
         <source>Accept jobs</source>
         <translation>Accepter les travaux</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="132"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="144"/>
         <source>Set as default</source>
         <translation>Définir par défaut</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="143"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="155"/>
         <source>No Printers</source>
         <translation>Aucune imprimante</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="167"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="179"/>
         <source>Location:</source>
-        <translation>Emplacement :</translation>
+        <translation>Emplacement:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="172"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="184"/>
         <source>Model:</source>
-        <translation>Modèle :</translation>
+        <translation>Modèle:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="175"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="187"/>
         <source>Status:</source>
-        <translation>Statut :</translation>
+        <translation>Statut:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="203"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="215"/>
         <source>Properties</source>
         <translation>Propriétés</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="213"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="225"/>
         <source>Print Queue</source>
         <translation>File d&apos;attente d&apos;impression</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="223"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="235"/>
         <source>Print Test Page</source>
         <translation>Imprimer une page de Test</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="243"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="255"/>
         <source>Supplies</source>
         <translation>Provisions</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="267"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="279"/>
         <source>No printer configured</source>
         <translation>Aucune imprimante configurée</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="272"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="284"/>
         <source>Click + to add printers</source>
         <translation>Cliquer sur + pour ajouter des imprimantes</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="331"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="343"/>
         <source>As print jobs are in process, you cannot rename the printer now, please try later</source>
         <translation>Comme les travaux d&apos;impression sont en cours, vous ne pouvez pas renommer l&apos;imprimante maintenant, veuillez réessayer plus tard</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="335"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="366"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="629"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="347"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="378"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="695"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="363"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="375"/>
         <source>CUPS server is not running, and can’t manage printers.</source>
         <translation>Le serveur CUPS ne fonctionne pas et ne peut pas gérer les imprimantes.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="560"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="601"/>
         <source>Idle</source>
         <translation>Inactif</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="562"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="603"/>
         <source>Printing</source>
         <translation>Impression en cours</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="564"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="605"/>
         <source>Disabled</source>
         <translation>Désactivé</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="587"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="653"/>
         <source>Are you sure you want to delete the printer &quot;%1&quot; ?</source>
         <translation>Voulez-vous vraiment supprimer l&apos;imprimante &quot;%1&quot; ?</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="593"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="659"/>
         <source>Delete</source>
         <translation>Supprimer</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="625"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="691"/>
         <source>The name already exists</source>
         <translation>Ce nom existe déjà</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="644"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="710"/>
         <source>You will not be able to reprint the completed jobs if continue. Are you sure you want to rename the printer?</source>
         <translation>Vous ne pourrez pas réimprimer les travaux terminés si vous continuez. Voulez-vous vraiment renommer l&apos;imprimante ?</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="649"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="715"/>
         <source>Confirm</source>
         <translation>Confirmer</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="707"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="773"/>
         <source>The driver is damaged, please install it again.</source>
         <translation>Le pilote est endommagé, veuillez le réinstaller.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="710"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="776"/>
         <source>Install Driver</source>
         <translation>Installer le pilote</translation>
     </message>
@@ -735,7 +735,7 @@
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="625"/>
         <source>Conflict:</source>
-        <translation>Conflit :</translation>
+        <translation>Conflit:</translation>
     </message>
     <message>
         <location filename="../ui/dpropertysetdlg.cpp" line="636"/>
@@ -752,7 +752,7 @@
 <context>
     <name>DriverManager</name>
     <message>
-        <location filename="../vendor/zdrivermanager.cpp" line="796"/>
+        <location filename="../../Common/vendor/zdrivermanager.cpp" line="906"/>
         <source>EveryWhere driver</source>
         <translation>Tout pilote</translation>
     </message>
@@ -760,12 +760,12 @@
 <context>
     <name>InstallDriver</name>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="373"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="371"/>
         <source>Failed to find the driver solution: %1, error: %2</source>
         <translation>Impossible de trouver la solution du pilote : %1, erreur : %2</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="384"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="382"/>
         <source>The solution is invalid</source>
         <translation>La solution n&apos;est pas valide</translation>
     </message>
@@ -865,17 +865,17 @@
 <context>
     <name>InstallInterface</name>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="254"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="252"/>
         <source>is invalid</source>
         <translation>n&apos;est pas valide</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="283"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="281"/>
         <source>Failed to install the driver by calling dbus interface</source>
         <translation>Impossible d&apos;installer le pilote en appelant l&apos;interface dbus</translation>
     </message>
     <message>
-        <location filename="../vendor/addprinter.cpp" line="328"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="326"/>
         <source>Failed to install %1</source>
         <translation>Impossible d&apos;installer %1</translation>
     </message>
@@ -1028,32 +1028,32 @@
 <context>
     <name>JobManagerWindow</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1060"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1093"/>
         <source>Refresh</source>
         <translation>Actualiser</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1064"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1097"/>
         <source>All</source>
         <translation>Tout</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1065"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1098"/>
         <source>Print Queue</source>
         <translation>File d&apos;attente d&apos;impression</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1066"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1099"/>
         <source>Completed</source>
         <translation>Terminé</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1130"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1163"/>
         <source> failed</source>
         <translation>échoué</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1151"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1184"/>
         <source>%1 jobs</source>
         <translation>%1 travaux</translation>
     </message>
@@ -1061,42 +1061,42 @@
 <context>
     <name>JobsDataModel</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="675"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="708"/>
         <source>Job</source>
         <translation>Tâche</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="677"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="710"/>
         <source>User</source>
         <translation>Utilisateur</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="679"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="712"/>
         <source>Document</source>
         <translation>Document</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="681"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="714"/>
         <source>Printer</source>
         <translation>Imprimante</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="683"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="716"/>
         <source>Size</source>
         <translation>Taille</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="685"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="718"/>
         <source>Time submitted</source>
         <translation>Soumettre une heure</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="687"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="720"/>
         <source>Status</source>
         <translation>Statut</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="689"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="722"/>
         <source>Action</source>
         <translation>Action</translation>
     </message>
@@ -1137,12 +1137,12 @@
 <context>
     <name>PrinterApplication</name>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="99"/>
+        <location filename="../ui/printerapplication.cpp" line="107"/>
         <source>Print Manager</source>
         <translation>Gestionnaire d&apos;impression</translation>
     </message>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="100"/>
+        <location filename="../ui/printerapplication.cpp" line="108"/>
         <source>Print Manager is a printer management tool, which supports adding and removing printers, managing print jobs and so on.</source>
         <translation>Print Manager est un outil de gestion d&apos;imprimante qui prend en charge l&apos;ajout et la suppression d&apos;imprimantes, la gestion des travaux d&apos;impression, etc.</translation>
     </message>
@@ -1150,81 +1150,81 @@
 <context>
     <name>PrinterSearchWindow</name>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="83"/>
-        <location filename="../ui/printersearchwindow.cpp" line="86"/>
+        <location filename="../ui/printersearchwindow.cpp" line="84"/>
+        <location filename="../ui/printersearchwindow.cpp" line="87"/>
         <source>Discover printer</source>
         <translation>Découvrir l&apos;imprimante</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="89"/>
-        <location filename="../ui/printersearchwindow.cpp" line="92"/>
+        <location filename="../ui/printersearchwindow.cpp" line="90"/>
+        <location filename="../ui/printersearchwindow.cpp" line="93"/>
         <source>Find printer</source>
         <translation>Rechercher une imprimante</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="94"/>
-        <location filename="../ui/printersearchwindow.cpp" line="97"/>
+        <location filename="../ui/printersearchwindow.cpp" line="95"/>
+        <location filename="../ui/printersearchwindow.cpp" line="98"/>
         <source>Enter URI</source>
         <translation>Entrer l&apos;URI</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="118"/>
+        <location filename="../ui/printersearchwindow.cpp" line="119"/>
         <source>Select a printer</source>
         <translation>Sélectionner une imprimante</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="124"/>
+        <location filename="../ui/printersearchwindow.cpp" line="125"/>
         <source>Refresh</source>
         <translation>Actualiser</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="144"/>
-        <location filename="../ui/printersearchwindow.cpp" line="222"/>
+        <location filename="../ui/printersearchwindow.cpp" line="146"/>
+        <location filename="../ui/printersearchwindow.cpp" line="231"/>
         <source>No printers found</source>
         <translation>Aucune imprimante trouvée</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="167"/>
+        <location filename="../ui/printersearchwindow.cpp" line="175"/>
         <source>Install Driver</source>
         <translation>Installer le pilote</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="195"/>
+        <location filename="../ui/printersearchwindow.cpp" line="203"/>
         <source>Address</source>
         <translation>Adresse</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="197"/>
+        <location filename="../ui/printersearchwindow.cpp" line="205"/>
         <source>Enter an address</source>
         <translation>Entrer une adresse</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="198"/>
+        <location filename="../ui/printersearchwindow.cpp" line="206"/>
         <source>Find</source>
         <translation>Trouver</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="277"/>
+        <location filename="../ui/printersearchwindow.cpp" line="293"/>
         <source>URI</source>
         <translation>URI</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="281"/>
+        <location filename="../ui/printersearchwindow.cpp" line="297"/>
         <source>Enter device URI</source>
         <translation>Entrer l&apos;URI de l&apos;appareil</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="292"/>
+        <location filename="../ui/printersearchwindow.cpp" line="308"/>
         <source>Examples:</source>
         <translation>Exemples :</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="576"/>
+        <location filename="../ui/printersearchwindow.cpp" line="592"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="664"/>
+        <location filename="../ui/printersearchwindow.cpp" line="680"/>
         <source> (recommended)</source>
         <translation>(recommandé)</translation>
     </message>
@@ -1232,12 +1232,12 @@
 <context>
     <name>PrinterTestJob</name>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="372"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="372"/>
         <source>Check test page printing</source>
         <translation>Vérifier l&apos;impression de la page de test</translation>
     </message>
     <message>
-        <location filename="../vendor/ztroubleshoot.cpp" line="426"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="426"/>
         <source>Printing test page...</source>
         <translation>Impression de la page de test...</translation>
     </message>
@@ -1275,7 +1275,7 @@
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="220"/>
         <source>Cyan</source>
-        <translation>Bleu ciel</translation>
+        <translation>Cyan</translation>
     </message>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="221"/>
@@ -1315,22 +1315,22 @@
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="228"/>
         <source>Light-black</source>
-        <translation>Noir clair</translation>
+        <translation>Noir</translation>
     </message>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="229"/>
         <source>Light black</source>
-        <translation>Noir clair</translation>
+        <translation>Noir </translation>
     </message>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="230"/>
         <source>Light-cyan</source>
-        <translation>Bleu ciel clair</translation>
+        <translation>Cyan clair</translation>
     </message>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="231"/>
         <source>Light cyan</source>
-        <translation>Bleu ciel clair</translation>
+        <translation>Cyan clair</translation>
     </message>
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="232"/>
@@ -1418,17 +1418,17 @@
         <translation>Il y a %1 jours</translation>
     </message>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="110"/>
+        <location filename="../ui/printerapplication.cpp" line="118"/>
         <source>Direct-attached Device</source>
         <translation>Périphérique à connexion directe</translation>
     </message>
     <message>
-        <location filename="../ui/printerapplication.cpp" line="111"/>
+        <location filename="../ui/printerapplication.cpp" line="119"/>
         <source>File</source>
         <translation>Fichier</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="495"/>
+        <location filename="../ui/printersearchwindow.cpp" line="511"/>
         <source>(use %1 protocol)</source>
         <translation>(utiliser le protocole %1)</translation>
     </message>
@@ -1475,22 +1475,17 @@
         <translation>Annuler</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="161"/>
-        <source>Unknown</source>
-        <translation>Inconnu</translation>
-    </message>
-    <message>
-        <location filename="../util/ddestination.cpp" line="224"/>
+        <location filename="../util/ddestination.cpp" line="201"/>
         <source>Idle</source>
         <translation>Inactif</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="227"/>
+        <location filename="../util/ddestination.cpp" line="204"/>
         <source>Printing</source>
         <translation>Impression en cours</translation>
     </message>
     <message>
-        <location filename="../util/ddestination.cpp" line="230"/>
+        <location filename="../util/ddestination.cpp" line="207"/>
         <source>Disabled</source>
         <translation>Désactivé</translation>
     </message>
@@ -1536,27 +1531,27 @@
 <context>
     <name>ServerSettingsWindow</name>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="87"/>
+        <location filename="../ui/dprintersshowwindow.h" line="89"/>
         <source>Basic Server Settings</source>
         <translation>Paramètres de base du serveur</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="95"/>
+        <location filename="../ui/dprintersshowwindow.h" line="97"/>
         <source>Publish shared printers connected to this system</source>
         <translation>Publier des imprimantes partagées connectées à ce système</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="96"/>
+        <location filename="../ui/dprintersshowwindow.h" line="98"/>
         <source>Allow printing from the Internet</source>
         <translation>Autoriser l&apos;impression à partir d&apos;Internet</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="98"/>
+        <location filename="../ui/dprintersshowwindow.h" line="100"/>
         <source>Allow remote administration</source>
         <translation>Autoriser l&apos;administration à distance</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="100"/>
+        <location filename="../ui/dprintersshowwindow.h" line="102"/>
         <source>Save debugging information for troubleshooting</source>
         <translation>Enregistrer les informations de débogage pour le dépannage</translation>
     </message>

@@ -79,7 +79,11 @@ int PrinterApplication::launchWithMode(const QStringList &arguments)
     }
 
     if ((appModel & APPMODEL_MainWindow)) {
-        showMainWindow();
+        QString printerName = "";
+        if (arguments.count() == 3 && arguments[1] == "-p") {
+            printerName = arguments[2];
+        }
+        showMainWindow(printerName);
     }
 
     return 0;
@@ -147,10 +151,10 @@ int PrinterApplication::showJobsWindow()
     return 0;
 }
 
-int PrinterApplication::showMainWindow()
+int PrinterApplication::showMainWindow(const QString &printerName)
 {
     if (!m_mainWindow) {
-        m_mainWindow = new DPrintersShowWindow();
+        m_mainWindow = new DPrintersShowWindow(printerName);
         Dtk::Widget::moveToCenter(m_mainWindow);
 
         // 初始化驱动

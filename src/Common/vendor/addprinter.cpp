@@ -115,8 +115,6 @@ FixHplipBackend::FixHplipBackend(QObject *parent)
 
 int FixHplipBackend::startFixed()
 {
-    qInfo() << "";
-
     if (!m_installer) {
         m_installer = new InstallInterface(this);
 
@@ -519,6 +517,16 @@ AddPrinterTask::AddPrinterTask(const TDeviceInfo &printer, const QMap<QString, Q
     m_printer = printer;
     m_solution = solution;
     m_uri = uri;
+}
+
+AddPrinterTask::~AddPrinterTask()
+{
+    if (m_fixHplip)
+        m_fixHplip->deleteLater();
+    if (m_installDriver)
+        m_installDriver->deleteLater();
+    if (m_installDepends)
+        m_installDepends->deleteLater();
 }
 
 int AddPrinterTask::isUriAndDriverMatched()

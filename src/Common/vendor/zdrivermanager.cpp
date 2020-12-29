@@ -48,7 +48,7 @@
 #include <map>
 
 static QMutex g_mutex;
-static QMap<QString, QMap<QString, QString>> g_ppds; //所以ppd文件的字典，以device_id(没有device_id则以make_and_model)作为key
+static QMap<QString, QMap<QString, QString>> g_ppds; //所有ppd文件的字典，以device_id(没有device_id则以make_and_model)作为key
 static QMap<QString, QMap<QString, QString> *> g_ppdsDirct; //将厂商和型号格式化之后作为key生成的字典，键值为g_ppds的key
 static QMap<QString, QMap<QString, QString> *> g_ppdsMakeModelNames; //厂商和型号的字典，用于显示厂商和型号列表
 static QMap<QString, QString> g_textPPd; //没有找到驱动的情况，默认的驱动
@@ -172,7 +172,7 @@ static QStringList findBestMatchPPDs(QStringList &models, QString mdl)
     int index = 0, len = 0;
     QString left, right;
     int leftMatch = 0, rightMatch = 0;
-    int leftlen = 0, rightlen = 0;
+
 
     //先通过字符串排序找到和mdl最相近的项
     mdl = mdl.toLower();
@@ -189,8 +189,7 @@ static QStringList findBestMatchPPDs(QStringList &models, QString mdl)
 
     //找出左右两边和mdl匹配的字符数目
     len = mdl.length();
-    leftlen = left.length();
-    rightlen = right.length();
+
     leftMatch = findPrefixLength(left, mdl);
     rightMatch = findPrefixLength(right, mdl);
 
@@ -545,6 +544,7 @@ int RefreshLocalPPDS::doWork()
 
 DriverSearcher::DriverSearcher(const TDeviceInfo &printer, QObject *parent)
     : QObject(parent)
+    , m_matchLocalDriver(true)
 {
     m_printer = printer;
     m_localIndex = -1;
@@ -562,7 +562,7 @@ DriverSearcher::DriverSearcher(const TDeviceInfo &printer, QObject *parent)
         ppdMakeModelSplit(m_printer.strMakeAndModel, m_strMake, m_strModel);
     }
 
-    qInfo() << QString("Find driver for %1, %2, %3").arg(m_printer.uriList[0]).arg(m_printer.strMakeAndModel).arg(m_printer.strDeviceId);
+    qDebug() << QString("Find driver for %1, %2, %3").arg(m_printer.uriList[0]).arg(m_printer.strMakeAndModel).arg(m_printer.strDeviceId);
 }
 
 void DriverSearcher::startSearch()
@@ -600,6 +600,11 @@ TDeviceInfo DriverSearcher::getPrinter()
     return m_printer;
 }
 
+void DriverSearcher::setMatchLocalDriver(bool match)
+{
+    m_matchLocalDriver = match;
+}
+
 static void insertDriver(QList<QMap<QString, QVariant>> &drivers, QStringList &ppdNames, const QMap<QString, QVariant> &driver, int headerIndex)
 {
     bool isDup = false;
@@ -626,13 +631,12 @@ static void insertDriver(QList<QMap<QString, QVariant>> &drivers, QStringList &p
 
 void DriverSearcher::sortDrivers()
 {
-    QList<QMap<QString, QVariant>> drivers;
-    QStringList ppdNames;
-    int headerIndex = 0;
-
     if (m_drivers.isEmpty())
         return;
 
+    QList<QMap<QString, QVariant>> drivers;
+    QStringList ppdNames;
+    int headerIndex = 0;
     //没有通过本地查找的驱动，不需要进行排序
     if (m_localIndex < 0 || m_localIndex >= m_drivers.count()) {
         return;
@@ -676,7 +680,7 @@ void DriverSearcher::askForFinish()
      * 如果首次没有查找到精确匹配的驱动，等待本地驱动初始化完成之后再执行一次本地精确查找
      * 如果本地精确查找仍然没有找到驱动，在执行一次模糊查找
     */
-    if (!hasExcatDriver()) {
+    if (!hasExcatDriver() && m_matchLocalDriver) {
         if (-1 == m_localIndex) {
             if (g_iStatus < TStat_Suc) {
                 qInfo() << "Wait ppd init";

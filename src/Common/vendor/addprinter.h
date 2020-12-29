@@ -36,6 +36,7 @@ class AddPrinterTask : public QObject
 
 public:
     AddPrinterTask(const TDeviceInfo &printer, const QMap<QString, QVariant> &solution, const QString &uri, QObject *parent = nullptr);
+    ~AddPrinterTask();
 
     int doWork();
 

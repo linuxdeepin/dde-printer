@@ -40,7 +40,7 @@ public:
     int launchWithMode(const QStringList &arguments);
     int stop();
 
-    int showMainWindow();
+    int showMainWindow(const QString &printerName);
     int showJobsWindow();
 
 public slots:

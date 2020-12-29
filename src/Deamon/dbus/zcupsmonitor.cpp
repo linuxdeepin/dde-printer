@@ -389,9 +389,11 @@ int CupsMonitor::getNotifications(int &notifysSize)
                     }
                 } else if ("printer-deleted" == strevent) {
                     QString printerName = attrValueToQString(info[CUPS_OP_NAME]);
+                    qInfo() << "signalPrinterDelete";
                     emit signalPrinterDelete(printerName);
                 } else if ("printer-added" == strevent) {
                     QString printerName = attrValueToQString(info[CUPS_OP_NAME]);
+                    qInfo() << "signalPrinterAdd";
                     emit signalPrinterAdd(printerName);
                 }
 
@@ -528,7 +530,7 @@ int CupsMonitor::sendDesktopNotification(int replaceId, const QString &summary, 
 
     QDBusPendingReply<unsigned int> reply = DUtil::DNotifySender(summary)
                                             .appName("dde-printer")
-                                            .appIcon(":/images/printer.svg")
+                                            .appIcon(":/images/dde-printer.svg")
                                             .appBody(body)
                                             .replaceId(replaceId)
                                             .timeOut(expired)

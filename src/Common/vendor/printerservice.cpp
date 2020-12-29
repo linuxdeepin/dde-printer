@@ -65,7 +65,8 @@ void PrinterServerInterface::postToServer()
         disconnect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
         qWarning() << m_url << "timeout(10s)";
     }
-    qInfo() << m_url << "return " << reply->error();
+    if (reply->error() != QNetworkReply::NoError)
+        qInfo() << reply->error();
     emit signalDone(reply->error(), reply->readAll());
     reply->deleteLater();
 }

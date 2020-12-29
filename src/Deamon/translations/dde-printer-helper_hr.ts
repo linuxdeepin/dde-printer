@@ -1,30 +1,30 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="id" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="hr" version="2.1">
 <context>
     <name>AddPrinterTask</name>
     <message>
         <location filename="../../Common/vendor/addprinter.cpp" line="554"/>
         <source>URI and driver do not match.</source>
-        <translation>URI dan driver tidak cocok</translation>
+        <translation>URI i upravljački program se ne podudaraju..</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/addprinter.cpp" line="556"/>
         <source>Install hplip first and restart the app to install the driver again.</source>
-        <translation>Pasang hplip terlebih dahulu dan muat ulang app untuk pasang driver kembali.</translation>
+        <translation>Najprije instaliraj hplip i zatim ponovno pokreni aplikaciju da bi ponovno instalirali upravljački program.</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/addprinter.cpp" line="564"/>
         <source>Please select an hplip driver and try again.</source>
-        <translation>Mohon pilih driver hplip dan coba kembali.</translation>
+        <translation>Molim odaberite hplip upravljački program i probajte ponovno.</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/addprinter.cpp" line="577"/>
         <source>URI can&apos;t be empty</source>
-        <translation>URI tidak boleh kosong</translation>
+        <translation>URI ne može biti prazan</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/addprinter.cpp" line="584"/>
         <source> not found</source>
-        <translation>Tidak ditemukan</translation>
+        <translation>nije nađen</translation>
     </message>
 </context>
 <context>
@@ -32,37 +32,37 @@
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="307"/>
         <source>Check printer settings</source>
-        <translation>Periksa pengaturan pencetak</translation>
+        <translation>Provjeri postavke pisača</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="316"/>
         <source>Checking printer settings...</source>
-        <translation>Memeriksa pengaturan pencetak...</translation>
+        <translation>Provjeravam postavke pisača...</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="319"/>
         <source>Success</source>
-        <translation>Sukses</translation>
+        <translation>Uspjeh</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="329"/>
         <source>Failed to get printer attributes, error: </source>
-        <translation>Gagal mendapatkan atribut printer, error:</translation>
+        <translation>Neuspjeh u dobavljanju atributa pisača, greška:</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="337"/>
         <source>%1 is disabled</source>
-        <translation>%1 dinonaktifkan</translation>
+        <translation>%1 je onemogućen</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="346"/>
         <source>is not accepting jobs</source>
-        <translation>Tidak menerima tugas cetak</translation>
+        <translation>ne prihvaća poslove</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="351"/>
         <source>Printer settings are ok</source>
-        <translation>Pengaturan pencetak sukses</translation>
+        <translation>Postavke pisača su u redu</translation>
     </message>
 </context>
 <context>
@@ -70,42 +70,42 @@
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="212"/>
         <source>Check printer connection</source>
-        <translation>Cek sambungan pencetak</translation>
+        <translation>Provjerite vezu pisača</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="224"/>
         <source>Checking printer connection...</source>
-        <translation>Sedang memeriksa sambungan pencetak</translation>
+        <translation>Provjeravam vezu pisača...</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="227"/>
         <source>Success</source>
-        <translation>Sukses</translation>
+        <translation>Uspjeh</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="264"/>
         <source>Cannot connect to the printer, error: %1</source>
-        <translation>Tidak bisa terhubung ke pencetak, error: %1</translation>
+        <translation>Ne mogu se spojiti na pisač, greška: %1</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="272"/>
         <source> is not connected, URI: </source>
-        <translation>Tidak terhubung, URI:</translation>
+        <translation>nije spojen, URI: </translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="281"/>
         <source>%1 does not exist</source>
-        <translation>%1 tidak ada</translation>
+        <translation>%1 ne postoji</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="290"/>
         <source>Cannot connect to the printer</source>
-        <translation>Tidak dapat terhubung ke printer</translation>
+        <translation>Ne mogu se spojiti na pisač</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="296"/>
         <source>The connection is valid</source>
-        <translation>Sambungan sudah benar</translation>
+        <translation>Veza je valjana</translation>
     </message>
 </context>
 <context>
@@ -113,22 +113,22 @@
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="110"/>
         <source>Check CUPS server</source>
-        <translation>Periksa CUPS server</translation>
+        <translation>Provjeri CUPS poslužitelj</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="116"/>
         <source>Checking CUPS server...</source>
-        <translation>Memeriksa CUPS server</translation>
+        <translation>Provjeravam CUPS poslužitelj...</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="118"/>
         <source>CUPS server is invalid</source>
-        <translation> CUPS server tidak benar</translation>
+        <translation>CUPS poslužitelj nije valjan</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="123"/>
         <source>CUPS server is valid</source>
-        <translation> CUPS server sudah benar</translation>
+        <translation>CUPS poslužitelj je valjan</translation>
     </message>
 </context>
 <context>
@@ -136,42 +136,42 @@
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="141"/>
         <source>Checking driver...</source>
-        <translation>Memeriksa Driver...</translation>
+        <translation>Provjeravam upravljački program...</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="144"/>
         <source>Success</source>
-        <translation>Sukses</translation>
+        <translation>Uspjeh</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="152"/>
         <source>PPD file %1 not found</source>
-        <translation>PPD File %1 tidak ditemukan</translation>
+        <translation>PPD datoteka %1 nije nađena</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="162"/>
         <source>The driver is damaged</source>
-        <translation>Driver dalam kondisi rusak</translation>
+        <translation>Upravljački program je oštećen</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="178"/>
         <source>Driver filter %1 not found</source>
-        <translation>Penyaring Driver %1 tidak ditemukan</translation>
+        <translation>Filter upravljačkog programa %1 nije nađen</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="190"/>
         <source>%1 is not installed, cannot print now</source>
-        <translation>%1 belum terpasang, tidak bisa mencetak sekarang</translation>
+        <translation>%1 nije instaliran, ne mogu ispisivati sada</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="196"/>
         <source>Driver is valid</source>
-        <translation>Driver sudah benar</translation>
+        <translation>Upravljački program je valjan</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="202"/>
         <source>Check driver</source>
-        <translation>Memeriksai driver</translation>
+        <translation>Provjeri upravljački program</translation>
     </message>
 </context>
 <context>
@@ -179,52 +179,52 @@
     <message>
         <location filename="../dbus/zcupsmonitor.cpp" line="77"/>
         <source>Queuing</source>
-        <translation>Antrian</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dbus/zcupsmonitor.cpp" line="78"/>
         <source>Paused</source>
-        <translation>Berhenti</translation>
+        <translation>Pauzirano</translation>
     </message>
     <message>
         <location filename="../dbus/zcupsmonitor.cpp" line="79"/>
         <source>Printing</source>
-        <translation>Mencetak</translation>
+        <translation>Ispisujem</translation>
     </message>
     <message>
         <location filename="../dbus/zcupsmonitor.cpp" line="80"/>
         <source>Stopped</source>
-        <translation>Dihentikan</translation>
+        <translation>Zaustavljen</translation>
     </message>
     <message>
         <location filename="../dbus/zcupsmonitor.cpp" line="81"/>
         <source>Canceled</source>
-        <translation>Dibatalkan</translation>
+        <translation>Otkazano</translation>
     </message>
     <message>
         <location filename="../dbus/zcupsmonitor.cpp" line="82"/>
         <source>Error</source>
-        <translation>Kesalahan</translation>
+        <translation>Greška</translation>
     </message>
     <message>
         <location filename="../dbus/zcupsmonitor.cpp" line="83"/>
         <source>Completed</source>
-        <translation>Lengkap</translation>
+        <translation>Kompletirano</translation>
     </message>
     <message>
         <location filename="../dbus/zcupsmonitor.cpp" line="338"/>
         <source>%1 timed out, reason: %2</source>
-        <translation>%1 waktu habis, alasan: %2</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dbus/zcupsmonitor.cpp" line="352"/>
         <source>%1 printed successfully, please take away the paper in time!</source>
-        <translation>% 1 berhasil dicetak, harap ambil kertasnya tepat waktu!</translation>
+        <translation>%1 uspješno ispisan, molim uklonite papir na vrijeme!</translation>
     </message>
     <message>
         <location filename="../dbus/zcupsmonitor.cpp" line="354"/>
         <source>%1 %2, reason: %3</source>
-        <translation>%1 %2, alasan: %3</translation>
+        <translation>%1 %2, razlog: %3</translation>
     </message>
 </context>
 <context>
@@ -232,7 +232,7 @@
     <message>
         <location filename="../../Common/vendor/zdrivermanager.cpp" line="906"/>
         <source>EveryWhere driver</source>
-        <translation>EveryWhere driver</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -240,12 +240,12 @@
     <message>
         <location filename="../../Common/vendor/addprinter.cpp" line="371"/>
         <source>Failed to find the driver solution: %1, error: %2</source>
-        <translation>Gagal menemukan solusi driver:% 1, error:% 2</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../../Common/vendor/addprinter.cpp" line="382"/>
         <source>The solution is invalid</source>
-        <translation>Solusinya tidak valid</translation>
+        <translation>Solucija je neispravna</translation>
     </message>
 </context>
 <context>
@@ -253,17 +253,17 @@
     <message>
         <location filename="../../Common/vendor/addprinter.cpp" line="252"/>
         <source>is invalid</source>
-        <translation>tidak benar</translation>
+        <translation>nije valjan</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/addprinter.cpp" line="281"/>
         <source>Failed to install the driver by calling dbus interface</source>
-        <translation>Gagal menginstal driver dengan memanggil interface dbus</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../../Common/vendor/addprinter.cpp" line="326"/>
         <source>Failed to install %1</source>
-        <translation>Gagal memasang %1</translation>
+        <translation>Neuspjeh pri instalaciji %1</translation>
     </message>
 </context>
 <context>
@@ -271,7 +271,7 @@
     <message>
         <location filename="../../Common/zjobmanager.cpp" line="307"/>
         <source> not found</source>
-        <translation>Tidak ditemukan</translation>
+        <translation>nije nađen</translation>
     </message>
 </context>
 <context>
@@ -279,12 +279,12 @@
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="372"/>
         <source>Check test page printing</source>
-        <translation>Periksa pencetakan halaman tes</translation>
+        <translation>Provjeri ispis testne stranice</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="426"/>
         <source>Printing test page...</source>
-        <translation>Mencetak halaman tes...</translation>
+        <translation>Ispisujem testnu stranicu...</translation>
     </message>
 </context>
 <context>
@@ -292,17 +292,17 @@
     <message>
         <location filename="../../Common/common.cpp" line="152"/>
         <source> not found, please ask the administrator for help</source>
-        <translation>tidak ditemukan, silakan minta bantuan administrator</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../main.cpp" line="65"/>
         <source>Print Manager</source>
-        <translation>Manajer Pencetakan</translation>
+        <translation>Upravitelj pisačem</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="66"/>
         <source>Print Manager is a printer management tool, which supports adding and removing printers, managing print jobs and so on.</source>
-        <translation>Print Manager adalah alat manajemen printer, yang mendukung penambahan dan penghapusan printer, mengelola pekerjaan cetak, dan sebagainya.</translation>
+        <translation>Upravitelj pisača je upraviteljski alat pisača, koji podržava dodavanje i uklanjanje pisača, upravljanje poslovima ispisa itd.</translation>
     </message>
 </context>
 <context>

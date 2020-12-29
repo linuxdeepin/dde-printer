@@ -14,7 +14,8 @@ Build-Depends:
  libcups2-dev,
  qt5-qmake,
  libsmbclient-dev,
- libgnutls28-dev
+ libgnutls28-dev,
+ libusb-1.0-0-dev
 Standards-Version: 4.1.3
 Homepage: http://www.linuxdeepin.com/
 

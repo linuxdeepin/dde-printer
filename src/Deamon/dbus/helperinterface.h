@@ -42,6 +42,8 @@ signals:
     void signalPrinterDelete(const QString &printer);
     void signalPrinterAdd(const QString &printer);
 
+    void deviceStatusChanged(const QString &defaultPrinterName, int status);
+
 public slots:
     //dbus接口
     bool isJobPurged(int id);

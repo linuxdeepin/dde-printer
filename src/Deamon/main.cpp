@@ -22,6 +22,8 @@
 #include "dbus/zcupsmonitor.h"
 #include "dbus/helperinterface.h"
 #include "zsettings.h"
+#include "usbprinter/usbthread.h"
+#include "usbprinter/signalforwarder.h"
 
 #include <DApplication>
 #include <DLog>
@@ -52,6 +54,7 @@ void handler(int signo)
 
 int main(int argc, char *argv[])
 {
+
     DApplication a(argc, argv);
 
     qApp->loadTranslator();
@@ -103,7 +106,18 @@ int main(int argc, char *argv[])
     cupsMonitor.initSubscription();
     cupsMonitor.initWatcher();
 
+    USBThread usbThread;
+    usbThread.start();
+
+    /*转发usbthread发送的主线程信号*/
+    SignalForwarder forwarder;
+    QObject::connect(&usbThread, &USBThread::deviceStatusChanged, &forwarder, &SignalForwarder::slotDeviceStatusChanged);
+    QThread forwarderThread;
+    forwarder.moveToThread(&forwarderThread);
+    forwarderThread.start();
+
     HelperInterface helper(&cupsMonitor);
+    QObject::connect(&forwarder, &SignalForwarder::deviceStatusChanged, &helper, &HelperInterface::deviceStatusChanged);
     helper.registerDBus();
 
     int ret = a.exec();

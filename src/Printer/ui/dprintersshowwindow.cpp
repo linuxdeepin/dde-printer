@@ -60,10 +60,11 @@
 #include <QDBusInterface>
 #include <QProcess>
 
-DPrintersShowWindow::DPrintersShowWindow(QWidget *parent)
+DPrintersShowWindow::DPrintersShowWindow(const QString &printerName, QWidget *parent)
     : DMainWindow(parent)
     , m_pSearchWindow(nullptr)
     , m_pSettingsDialog(nullptr)
+    , m_CurPrinterName(printerName)
     , m_IsFirstShow(true)
 {
     m_pPrinterManager = DPrinterManager::getInstance();
@@ -119,6 +120,14 @@ void DPrintersShowWindow::initUI()
 
     ItemDelegate *pItemDelegate = new ItemDelegate(m_pPrinterListView);
     m_pPrinterListView->setItemDelegate(pItemDelegate);
+
+    /*添加隐藏加载控件*/
+    m_pLoading = new DSpinner(m_pPrinterListView);
+    m_pLoading->setAutoFillBackground(true);
+    m_pLoading->setFixedSize(32, 32);
+    m_pLoading->setVisible(false);
+    m_pLoading->move(300 - 32 - 10, 10);
+
 
     // 列表的右键菜单
     m_pListViewMenu = new QMenu();
@@ -372,7 +381,7 @@ void DPrintersShowWindow::showEvent(QShowEvent *event)
             dlg.setFixedSize(422, 202);
             dlg.exec();
         } else {
-            refreshPrinterListView(QString());
+            refreshPrinterListView(m_CurPrinterName);
         }
     });
 
@@ -394,6 +403,10 @@ void DPrintersShowWindow::showEvent(QShowEvent *event)
                                                    "signalPrinterStateChanged", this, SLOT(printerStateChanged(QDBusMessage)))) {
             qWarning() << "connect to dbus signal(signalPrinterStateChanged) failed";
         }
+        if (!QDBusConnection::sessionBus().connect(SERVICE_INTERFACE_NAME, SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME,
+                                                   "deviceStatusChanged", this, SLOT(deviceStatusChanged(QDBusMessage)))) {
+            qWarning() << "connect to dbus signal(deviceStatusChanged) failed";
+        }
     });
 }
 
@@ -403,6 +416,8 @@ void DPrintersShowWindow::selectPrinterByName(const QString &printerName)
     for (int i = 0; i < rowCount; ++i) {
         if (m_pPrinterModel->item(i)->text() == printerName) {
             m_pPrinterListView->setCurrentIndex(m_pPrinterModel->item(i)->index());
+            m_CurPrinterName = printerName;
+            return;
         }
     }
 }
@@ -452,7 +467,25 @@ void DPrintersShowWindow::refreshPrinterListView(const QString &newPrinterName)
     m_pPrinterManager->updateDestinationList();
     m_pPrinterModel->clear();
     QStringList printerList = m_pPrinterManager->getPrintersList();
-    foreach (QString printerName, printerList) {
+    /*先插入正在配置的打印机列表，无法点击*/
+    foreach (const QString &name, m_ConfigingPrinterNameList) {
+        DStandardItem *pItem = new DStandardItem(name);
+        pItem->setData(VListViewItemMargin, Dtk::MarginsRole);
+        pItem->setSizeHint(QSize(300, 50));
+        pItem->setToolTip(name);
+        pItem->setIcon(QIcon::fromTheme("dp_printer_list"));
+        pItem->setFlags(pItem->flags() & ~Qt::ItemFlag::ItemIsEnabled);
+        m_pPrinterModel->appendRow(pItem);
+    }
+    if (m_ConfigingPrinterNameList.count() > 0) {
+        m_pLoading->setVisible(true);
+        m_pLoading->start();
+    } else {
+        m_pLoading->setVisible(false);
+        m_pLoading->stop();
+    }
+
+    foreach (const QString &printerName, printerList) {
         DStandardItem *pItem = new DStandardItem(printerName);
         pItem->setData(VListViewItemMargin, Dtk::MarginsRole);
         pItem->setSizeHint(QSize(300, 50));
@@ -571,6 +604,31 @@ void DPrintersShowWindow::printerStateChanged(const QDBusMessage &msg)
             stateStr = tr("Disabled");
         }
         m_pLabelStatusShow->setText(stateStr);
+    }
+}
+
+void DPrintersShowWindow::deviceStatusChanged(const QDBusMessage &msg)
+{
+    if (msg.arguments().count() != 2) {
+        qWarning() << "deviceStatusChanged dbus arguments error";
+        return;
+    }
+    const QString printer = msg.arguments().at(0).toString();
+    int state = msg.arguments().at(1).toInt();
+    if (state == 0) {
+        if (!m_ConfigingPrinterNameList.contains(printer))
+            m_ConfigingPrinterNameList.append(printer);
+        refreshPrinterListView("");
+    } else if (state == 1) {
+        /*刷新打印机列表，选中配置成功的打印机*/
+        if (m_ConfigingPrinterNameList.contains(printer))
+            m_ConfigingPrinterNameList.removeOne(printer);
+        refreshPrinterListView(printer);
+    } else if (state == 2) {
+        /*刷新打印机列表*/
+        if (m_ConfigingPrinterNameList.contains(printer))
+            m_ConfigingPrinterNameList.removeOne(printer);
+        refreshPrinterListView(m_CurPrinterName);
     }
 }
 

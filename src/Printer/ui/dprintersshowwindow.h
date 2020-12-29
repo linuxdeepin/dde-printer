@@ -226,7 +226,7 @@ class DPrintersShowWindow : public DMainWindow
 {
     Q_OBJECT
 public:
-    explicit DPrintersShowWindow(QWidget *parent = nullptr);
+    explicit DPrintersShowWindow(const QString &selectedPrinter = "", QWidget *parent = nullptr);
     virtual ~DPrintersShowWindow() override;
 
 private:
@@ -298,7 +298,11 @@ private slots:
 
     void resizeEvent(QResizeEvent *event) override;
 
+    /*已经添加的打印机状态变化*/
     void printerStateChanged(const QDBusMessage &msg);
+
+    /*正在后台自动添加的打印机状态变化*/
+    void deviceStatusChanged(const QDBusMessage &msg);
 
 private:
     // UI成员变量
@@ -318,6 +322,8 @@ private:
     DIconButton *m_pIBtnSupply;
 
     PrinterListView *m_pPrinterListView;
+    DSpinner *m_pLoading;
+
     QStandardItemModel *m_pPrinterModel;
     QMenu *m_pListViewMenu;
     QAction *m_pShareAction;
@@ -338,6 +344,8 @@ private:
     DPrinterManager *m_pPrinterManager;
     // 当前选中的打印机名称
     QString m_CurPrinterName;
+    // 当前正在添加的打印机名称,可能存在多个
+    QStringList m_ConfigingPrinterNameList;
 
     bool m_IsFirstShow;
 };

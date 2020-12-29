@@ -1,55 +1,269 @@
 <?xml version="1.0" ?><!DOCTYPE TS><TS language="hu" version="2.1">
 <context>
+    <name>AddPrinterTask</name>
+    <message>
+        <location filename="../../Common/vendor/addprinter.cpp" line="554"/>
+        <source>URI and driver do not match.</source>
+        <translation>Az URI és az illesztőprogram nem egyezik.</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/addprinter.cpp" line="556"/>
+        <source>Install hplip first and restart the app to install the driver again.</source>
+        <translation>Először telepítse a hplip alkalmazást, és az illesztőprogram újratelepítéséhez indítsa újra az alkalmazást.</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/addprinter.cpp" line="564"/>
+        <source>Please select an hplip driver and try again.</source>
+        <translation>Kérjük válasszon egy hplip illesztőprogramot és próbálja újra.</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/addprinter.cpp" line="577"/>
+        <source>URI can&apos;t be empty</source>
+        <translation>Az URI nem lehet üres</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/addprinter.cpp" line="584"/>
+        <source> not found</source>
+        <translation>Nem található</translation>
+    </message>
+</context>
+<context>
+    <name>CheckAttributes</name>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="307"/>
+        <source>Check printer settings</source>
+        <translation>Ellenőrizze a nyomtató beállításait</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="316"/>
+        <source>Checking printer settings...</source>
+        <translation>Nyomtató beállításainak ellenőrzése...</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="319"/>
+        <source>Success</source>
+        <translation>Sikeres</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="329"/>
+        <source>Failed to get printer attributes, error: </source>
+        <translation>Nem sikerült beszerezni a nyomtatóattribútumokat, hiba:</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="337"/>
+        <source>%1 is disabled</source>
+        <translation>%1 letiltva</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="346"/>
+        <source>is not accepting jobs</source>
+        <translation>Nem fogad munkákat</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="351"/>
+        <source>Printer settings are ok</source>
+        <translation>A nyomtató beállításai megfelelőek</translation>
+    </message>
+</context>
+<context>
+    <name>CheckConnected</name>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="212"/>
+        <source>Check printer connection</source>
+        <translation>Ellenőrizze a nyomtató kapcsolódását</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="224"/>
+        <source>Checking printer connection...</source>
+        <translation>Nyomtató kapcsolódásának ellenőrzése...</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="227"/>
+        <source>Success</source>
+        <translation>Sikeres</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="264"/>
+        <source>Cannot connect to the printer, error: %1</source>
+        <translation>Nem sikerült kapcsolódni a nyomtatóhoz, hiba: %1</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="272"/>
+        <source> is not connected, URI: </source>
+        <translation>nincs csatlakoztatva, URI:</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="281"/>
+        <source>%1 does not exist</source>
+        <translation>%1 nem létezik</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="290"/>
+        <source>Cannot connect to the printer</source>
+        <translation>Nem lehet csatlakozni a nyomtatóhoz</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="296"/>
+        <source>The connection is valid</source>
+        <translation>A kapcsolat érvényes</translation>
+    </message>
+</context>
+<context>
+    <name>CheckCupsServer</name>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="110"/>
+        <source>Check CUPS server</source>
+        <translation>Ellenőrizze a CUPS szervert</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="116"/>
+        <source>Checking CUPS server...</source>
+        <translation>CUPS szerver ellenőrzése...</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="118"/>
+        <source>CUPS server is invalid</source>
+        <translation>A CUPS szerver érvénytelen</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="123"/>
+        <source>CUPS server is valid</source>
+        <translation>A CUPS szerver érvényes</translation>
+    </message>
+</context>
+<context>
+    <name>CheckDriver</name>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="141"/>
+        <source>Checking driver...</source>
+        <translation>Illesztőprogram ellenőrzése...</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="144"/>
+        <source>Success</source>
+        <translation>Sikeres</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="152"/>
+        <source>PPD file %1 not found</source>
+        <translation>A %1 PPD fájl nem található</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="162"/>
+        <source>The driver is damaged</source>
+        <translation>Az illesztőprogram sérült</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="178"/>
+        <source>Driver filter %1 not found</source>
+        <translation>A %1 illesztőprogram szűrő nem található</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="190"/>
+        <source>%1 is not installed, cannot print now</source>
+        <translation>%1 nincs telepítve, nem lehet most nyomtatni</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="196"/>
+        <source>Driver is valid</source>
+        <translation>Az illesztőprogram érvényes</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="202"/>
+        <source>Check driver</source>
+        <translation>Illesztőprogram ellenőrzése</translation>
+    </message>
+</context>
+<context>
     <name>CupsMonitor</name>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="72"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="77"/>
         <source>Queuing</source>
         <translation>Sorban áll</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="73"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="78"/>
         <source>Paused</source>
         <translation>Felfüggesztve</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="74"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="79"/>
         <source>Printing</source>
         <translation>Nyomtatás</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="75"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="80"/>
         <source>Stopped</source>
         <translation>Megállítva</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="76"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="81"/>
         <source>Canceled</source>
         <translation>Törölve</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="77"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="82"/>
         <source>Error</source>
         <translation>Hiba</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="78"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="83"/>
         <source>Completed</source>
         <translation>Kész</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="315"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="338"/>
         <source>%1 timed out, reason: %2</source>
         <translation>%1 időtúllépése, oka: %2</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="329"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="352"/>
         <source>%1 printed successfully, please take away the paper in time!</source>
         <translation>%1 sikeresen kinyomtatva, vegye ki időben a papírt!</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="331"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="354"/>
         <source>%1 %2, reason: %3</source>
         <translation>%1 %2, oka: %3</translation>
+    </message>
+</context>
+<context>
+    <name>DriverManager</name>
+    <message>
+        <location filename="../../Common/vendor/zdrivermanager.cpp" line="906"/>
+        <source>EveryWhere driver</source>
+        <translation>EveryWhere illesztőprogram</translation>
+    </message>
+</context>
+<context>
+    <name>InstallDriver</name>
+    <message>
+        <location filename="../../Common/vendor/addprinter.cpp" line="371"/>
+        <source>Failed to find the driver solution: %1, error: %2</source>
+        <translation>Nem sikerült megtalálni az illesztőprogram megoldást: %1, hiba: %2</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/addprinter.cpp" line="382"/>
+        <source>The solution is invalid</source>
+        <translation>Érvénytelen megoldás</translation>
+    </message>
+</context>
+<context>
+    <name>InstallInterface</name>
+    <message>
+        <location filename="../../Common/vendor/addprinter.cpp" line="252"/>
+        <source>is invalid</source>
+        <translation>érvénytelen</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/addprinter.cpp" line="281"/>
+        <source>Failed to install the driver by calling dbus interface</source>
+        <translation>Nem sikerült telepíteni az illesztőprogramot a dbus interfész lehívás miatt</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/addprinter.cpp" line="326"/>
+        <source>Failed to install %1</source>
+        <translation>Nem sikerült telepíteni %1</translation>
     </message>
 </context>
 <context>
@@ -61,21 +275,52 @@
     </message>
 </context>
 <context>
+    <name>PrinterTestJob</name>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="372"/>
+        <source>Check test page printing</source>
+        <translation>Ellenőrizze a tesztoldal kinyomtatását</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="426"/>
+        <source>Printing test page...</source>
+        <translation>Tesztoldal nyomtatás...</translation>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message>
         <location filename="../../Common/common.cpp" line="152"/>
         <source> not found, please ask the administrator for help</source>
-        <translation>nem található, kérje a rendszergazda segítségét</translation>
+        <translation>Nem található, kérje a rendszergazda segítségét</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="62"/>
+        <location filename="../main.cpp" line="65"/>
         <source>Print Manager</source>
-        <translation>Nyomtatáskezelő</translation>
+        <translation>Nyomtatás Kezelő</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="63"/>
+        <location filename="../main.cpp" line="66"/>
         <source>Print Manager is a printer management tool, which supports adding and removing printers, managing print jobs and so on.</source>
-        <translation>Nyomtatás kezelő egy olyan eszköz, amivel hozzá lehet adni sé el lehet távolítani nyomtatókat, kezelni lehet a nyomtatási munkákat, és így tovább.</translation>
+        <translation>A Nyomtatás Kezelő egy olyan eszköz, amivel hozzá lehet adni és el lehet távolítani nyomtatókat, kezelni lehet a nyomtatási munkákat, és így tovább.</translation>
+    </message>
+</context>
+<context>
+    <name>USBThread</name>
+    <message>
+        <location filename="../usbprinter/usbthread.cpp" line="257"/>
+        <source>Configuring the printer %1 ...</source>
+        <translation>A%1 nyomtató konfigurálása...</translation>
+    </message>
+    <message>
+        <location filename="../usbprinter/usbthread.cpp" line="303"/>
+        <source>Configuration successful. Click to view %1.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../usbprinter/usbthread.cpp" line="307"/>
+        <source>Configuration failed. Click to add the printer %1.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>
