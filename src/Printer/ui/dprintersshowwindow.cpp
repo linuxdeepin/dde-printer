@@ -44,6 +44,7 @@
 #include <DFrame>
 #include <DBackgroundGroup>
 #include <DErrorMessage>
+#include <DSysInfo>
 
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -85,10 +86,14 @@ void DPrintersShowWindow::initUI()
 {
     titlebar()->setTitle("");
     titlebar()->setIcon(QIcon(":/images/dde-printer.svg"));
-    QMenu *pMenu = new QMenu();
-    m_pSettings = new QAction(tr("Settings"));
-    pMenu->addAction(m_pSettings);
-    titlebar()->setMenu(pMenu);
+
+    /*在欧拉上隐藏设置菜单*/
+    if (DSysInfo::uosEditionType() != DSysInfo::UosEdition::UosEuler) {
+        QMenu *pMenu = new QMenu();
+        m_pSettings = new QAction(tr("Settings"));
+        pMenu->addAction(m_pSettings);
+        titlebar()->setMenu(pMenu);
+    }
     setMinimumSize(942, 656);
 
     // 左边上面的控制栏
@@ -351,8 +356,9 @@ void DPrintersShowWindow::initConnections()
     connect(m_pEnableAction, &QAction::triggered, this, &DPrintersShowWindow::listWidgetMenuActionSlot);
     connect(m_pDefaultAction, &QAction::triggered, this, &DPrintersShowWindow::listWidgetMenuActionSlot);
     connect(m_pRejectAction, &QAction::triggered, this, &DPrintersShowWindow::listWidgetMenuActionSlot);
-
-    connect(m_pSettings, &QAction::triggered, this, &DPrintersShowWindow::serverSettingsSlot);
+    if (DSysInfo::uosEditionType() != DSysInfo::UosEdition::UosEuler) {
+        connect(m_pSettings, &QAction::triggered, this, &DPrintersShowWindow::serverSettingsSlot);
+    }
 
 }
 
