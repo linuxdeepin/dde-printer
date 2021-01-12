@@ -487,12 +487,18 @@ void JobListView::slotMenuTriggered(QAction *action)
 }
 
 JobItemDelegate::JobItemDelegate(QObject *parent)
-    : QItemDelegate(parent)
+    : QStyledItemDelegate(parent)
 {
+}
+
+JobItemDelegate::~JobItemDelegate()
+{
+
 }
 
 void JobItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+    painter->setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing | QPainter::SmoothPixmapTransform);
     QMap<unsigned int, QRect> actions;
     QList<unsigned int> flags;
     QStyleOptionViewItem newoption = option;
@@ -503,10 +509,35 @@ void JobItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &optio
         newoption.rect.setLeft(10);
     }
 
-    if (index.row() % 2) {
-        DPalette pl(DApplicationHelper::instance()->palette(option.widget));
-        painter->fillRect(newoption.rect, QColor(137, 144, 161, 30));
+    painter->save();
+    painter->setPen(Qt::NoPen);
+    QPainterPath canDrawingPathArea; // 裁剪区域
+    canDrawingPathArea.setFillRule(Qt::WindingFill); // 多块区域组合填充模式
+    canDrawingPathArea.addRoundedRect(newoption.rect, 8, 8);
+    int width = newoption.rect.width();
+    int height = newoption.rect.height();
+    /*第一列和最后一列分别裁剪左边、右边两个圆角*/
+    if (index.column() == 0) {
+        painter->setClipping(true);
+        canDrawingPathArea.addRect(newoption.rect.center().x(), newoption.rect.y(), width / 2 + 1, height);
+        painter->setClipPath(canDrawingPathArea);
+    } else if (index.column() == 7) {
+        painter->setClipping(true);
+        canDrawingPathArea.addRect(newoption.rect.x(), newoption.rect.y(), width / 2, height);
+        painter->setClipPath(canDrawingPathArea);
     }
+
+    if (option.state & QStyle::State_Selected) {
+        QBrush brush = option.palette.highlight();
+        painter->setBrush(brush);
+        painter->drawRect(newoption.rect);
+
+    } else {
+        if (index.row() % 2) {
+            painter->fillRect(newoption.rect, QColor(137, 144, 161, 30));
+        }
+    }
+    painter->restore();
 
     int iState = index.data(JOB_ITEM_ROLE_STATE).toInt();
 
@@ -531,6 +562,8 @@ void JobItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &optio
         DApplication::style()->drawItemText(painter, newoption.rect, static_cast<int>(newoption.displayAlignment), newoption.palette, true, index.data(Qt::DisplayRole).toString(), QPalette::Text);
     }
 }
+
+
 
 QSize JobItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {

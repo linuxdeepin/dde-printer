@@ -28,6 +28,7 @@ DWIDGET_USE_NAMESPACE
 
 #include <QAbstractTableModel>
 #include <QItemDelegate>
+#include <QStyledItemDelegate>
 #include <QTableView>
 #include <QDBusMessage>
 
@@ -96,12 +97,13 @@ private:
     friend class JobListView;
 };
 
-class JobItemDelegate : public QItemDelegate
+class JobItemDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 
 public:
     explicit JobItemDelegate(QObject *parent = nullptr);
+    virtual ~JobItemDelegate() override;
 
 protected:
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
