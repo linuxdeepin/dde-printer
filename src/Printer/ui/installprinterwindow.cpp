@@ -243,11 +243,6 @@ void InstallPrinterWindow::setStatus(InstallationStatus status)
             m_pCheckPrinterListBtn->setText(tr("Reinstall"));
             m_pPrinterTestPageBtn->setVisible(true);
             m_pPrinterTestPageBtn->setText(tr("Troubleshoot"));
-            if (m_pDriverCombo->count() == 0)
-                m_pPrinterTestPageBtn->setEnabled(false);
-            else {
-                m_pPrinterTestPageBtn->setEnabled(true);
-            }
         }
     }
 }
@@ -322,20 +317,12 @@ void InstallPrinterWindow::leftBtnClickedSlot()
         feedbackPrintTestPage(false);
         setStatus(PrintFailed);
     } else if (m_status == PrintFailed) {
-        if (m_pDriverCombo->count() == 0) {
-            if (m_pParentWidget) {
-                emit showParentWindows();
-            }
-            close();
-        } else {
-//由于以前的重新安装驱动界面没有完成，导致在打印测试页失败后点击重新安装会多出一个无用的setStatus(Reinstall)生成的界面
-//现在将这里修改成跳过setStatus(Reinstall)的界面，直接回到上一级界面
-//            setStatus(Reinstall);
-            if (m_pParentWidget) {
-                emit showParentWindows();
-            }
-            close();
+        //由于以前的重新安装驱动界面没有完成，导致在打印测试页失败后点击重新安装会多出一个无用的setStatus(Reinstall)生成的界面
+        //现在将这里修改成跳过setStatus(Reinstall)的界面，直接回到上一级界面
+        if (m_pParentWidget) {
+            emit showParentWindows();
         }
+        close();
     } else if (m_status == Reinstall) {
         if (m_pParentWidget) {
             emit showParentWindows();
@@ -363,13 +350,10 @@ void InstallPrinterWindow::rightBtnClickedSlot()
         dlg.setModal(true);
         dlg.exec();
     } else if (m_status == Reinstall) {
-        if (m_pDriverCombo->count() <= 0)
-            return;
-        setStatus(Installing);
-        QMap<QString, QVariant> solution = m_pDriverCombo->currentData().value<QMap<QString, QVariant>>();
-        m_pAddPrinterTask = g_addPrinterFactoty->createAddPrinterTask(m_device, solution);
-        connect(m_pAddPrinterTask, &AddPrinterTask::signalStatus, this, &InstallPrinterWindow::receiveInstallationStatusSlot);
-        m_pAddPrinterTask->doWork();
+
+        TroubleShootDialog dlg(m_printerName, this);
+        dlg.setModal(true);
+        dlg.exec();
     }
 }
 

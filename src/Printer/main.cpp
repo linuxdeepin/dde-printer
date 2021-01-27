@@ -24,6 +24,8 @@
 #include <DApplication>
 #include <DLog>
 
+#include <DApplicationSettings>
+
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 
@@ -43,6 +45,8 @@ int main(int argc, char *argv[])
         qCritical() << "Init printer application failed";
         return -2;
     }
+    /*自动保存主题设置,需要在main里面设置*/
+    DApplicationSettings saveTheme;
 
     iRet = a.exec();
     g_printerApplication->stop();

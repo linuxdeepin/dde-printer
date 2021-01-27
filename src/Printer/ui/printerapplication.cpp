@@ -32,8 +32,8 @@
 #include <DLog>
 #include <DWidgetUtil>
 #include <DGuiApplicationHelper>
-#include <QTranslator>
 
+#include <QTranslator>
 #include <QDBusError>
 #include <QDBusConnection>
 
