@@ -13,7 +13,7 @@ src/Printer/Printer.pro \
 CONFIG += ordered
 DEFINES += QT_MESSAGELOGCONTEXT
 
-#debian.files = $$PWD/debian/*
-#debian.path = $$OUT_PWD/dde-printer/debian/
+manual_dir.files = $$PWD/assets/dde-printer
+manual_dir.path = /usr/share/deepin-manual/manual-assets/application
 
-#INSTALLS +=debian
+INSTALLS += manual_dir
