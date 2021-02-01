@@ -303,7 +303,7 @@ void USBThread::addingJobFinished(int status)
         strReason = tr("Configuration successful. Click to view %1.").arg(m_deviceInfo.strName);
         qInfo() << QString("add printer(%1) success").arg(m_deviceInfo.strName);
     } else {
-        emit deviceStatusChanged("", 2);
+        emit deviceStatusChanged(m_configingPrinterName, 2);
         strReason = tr("Configuration failed. Click to add the printer %1.").arg(m_deviceInfo.strName);
         qWarning() << QString("add printer(%1) failed").arg(m_deviceInfo.strName);
     }

@@ -297,6 +297,7 @@ void DPrinterSupplyShowDlg::supplyFreshed(const QString &strName, bool bRet)
                 QTime time = QTime::currentTime();
                 QString strTime = QString("%1:%2").arg(time.hour(), 2, 10, QLatin1Char('0')).arg(time.minute(), 2, 10, QLatin1Char('0'));
                 pTimelLabel->setText(tr("The amounts are estimated, last updated at %1").arg(strTime));
+                pTimelLabel->setMinimumHeight(60);
                 pVlayout->addWidget(pTimelLabel);
                 pVlayout->addSpacing(20);
             }

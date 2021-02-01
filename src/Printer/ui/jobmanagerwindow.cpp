@@ -545,6 +545,12 @@ void JobItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &optio
         newoption.palette.setColor(QPalette::Inactive, QPalette::Text, QColor(255, 87, 54, 100));
     }
 
+    if (option.state & QStyle::State_Selected) {
+        painter->setPen(option.palette.color(QPalette::HighlightedText));
+    } else {
+        painter->setPen(option.palette.color(QPalette::Text));
+    }
+
     if (index.column() == ACTION_Column) {
         actions = getItemActionRect(newoption.rect, index);
         flags = actions.keys();
@@ -556,10 +562,14 @@ void JobItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &optio
             actionButton.features = QStyleOptionButton::Flat;
             actionButton.rect.setX(actionButton.rect.x() - ACTION_BUT_SPACE);
             actionButton.rect.setY(actionButton.rect.y() - ACTION_BUT_SPACE);
+            /*icon没有应用painter的画笔颜色，应该是fromTheme的问题*/
             DApplication::style()->drawControl(QStyle::CE_PushButton, &actionButton, painter);
+
         }
     } else {
-        DApplication::style()->drawItemText(painter, newoption.rect, static_cast<int>(newoption.displayAlignment), newoption.palette, true, index.data(Qt::DisplayRole).toString(), QPalette::Text);
+        /*选中采用HighlightedText，没选中采用TEXT*/
+        DApplication::style()->drawItemText(painter, newoption.rect, static_cast<int>(newoption.displayAlignment), newoption.palette, true, index.data(Qt::DisplayRole).toString());
+
     }
 }
 

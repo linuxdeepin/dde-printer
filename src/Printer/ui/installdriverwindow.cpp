@@ -66,29 +66,6 @@ QSize QtCompleterDelegate::sizeHint(const QStyleOptionViewItem &option, const QM
     return QSize(400, 30);
 }
 
-void QtCompleterDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
-{
-    painter->save();
-    QRect rc = QRect(option.rect.left() + 2, option.rect.top() + 2,
-                     option.rect.width() - 4, option.rect.height() - 4);
-    painter->setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing);
-
-    if (option.state.testFlag(QStyle::State_MouseOver)) {
-        painter->setPen(QPen(Qt::blue));
-        painter->setBrush(Qt::NoBrush);
-        painter->drawRoundedRect(rc, 8, 8);
-    } else {
-        painter->setPen(QPen(Qt::white));
-        painter->setBrush(Qt::NoBrush);
-        painter->drawRoundedRect(rc, 8, 8);
-    }
-
-    painter->setPen(Qt::black);
-    QString strText = index.data(Qt::DisplayRole).toString();
-    painter->drawText(rc, Qt::AlignLeft | Qt::AlignVCenter, strText);
-    painter->restore();
-}
-
 InstallDriverWindow::InstallDriverWindow(QWidget *parent)
     : DMainWindow(parent)
     , m_pManufactureCompleter(nullptr)
