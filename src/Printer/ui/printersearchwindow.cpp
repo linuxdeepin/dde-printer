@@ -693,7 +693,6 @@ void PrinterSearchWindow::driverAutoSearchedSlot()
             //将驱动结构体存在item中，方便后续安装打印机
             m_pAutoDriverCom->addItem(driverDescription(driver), QVariant::fromValue(driver));
         }
-        //        m_pAutoDriverCom->insertSeparator(m_pAutoDriverCom->count() - 1);
         m_pAutoDriverCom->addItem(UI_PRINTERSEARCH_MANUAL);
     }
     m_pAutoSpinner->stop();
@@ -797,9 +796,13 @@ void PrinterSearchWindow::lineEditURIChanged(const QString &uri)
     if (state == QValidator::Acceptable) {
         QMap<QString, QVariant> driver = g_driverManager->getEveryWhereDriver(uri);
         if (m_pURIDriverCom->count() < 2 && !driver.isEmpty()) {
+            //手动屏蔽m_pURIDriverCom信号处理，避免清空和插入操作触发currentIndexChanged对应的槽函数，添加完成之后在手动调用修改对应的按钮文案
+            m_pURIDriverCom->blockSignals(true);
             m_pURIDriverCom->clear();
             m_pURIDriverCom->addItem(driver[CUPS_PPD_MAKE_MODEL].toString(), QVariant::fromValue(driver));
             m_pURIDriverCom->addItem(UI_PRINTERSEARCH_MANUAL);
+            m_pURIDriverCom->blockSignals(false);
+            driverChangedSlot(0);
         } else if (m_pURIDriverCom->count() > 1 && driver.isEmpty()) {
             m_pURIDriverCom->clear();
             m_pURIDriverCom->addItem(UI_PRINTERSEARCH_MANUAL);
