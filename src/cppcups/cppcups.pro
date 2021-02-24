@@ -28,5 +28,3 @@ HEADERS += cupsconnection.h \
     snmp.h \
     types.h \
     mibpath.h
-
-#INCLUDEPATH += $${PWD}/cups_private
