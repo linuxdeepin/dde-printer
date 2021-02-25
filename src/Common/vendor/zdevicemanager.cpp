@@ -163,7 +163,7 @@ int RefreshDevicesByBackendTask::mergeDevice(TDeviceInfo &device, const char *ba
                 //只合并不同后端发现的uri，相同后端发现的URI应该对应不同设备，比如打印机和传真
                 if (!device.strClass.compare(item.strClass) && (item.uriList[0].startsWith("hp:") != isHP) && !serial.compare(item.serial)) {
                     item.uriList << uri;
-                    qInfo() << "merge uri " << item.uriList;
+                    qInfo() << "merge hp uri";
                     emit signalStatus(m_iTaskId, TStat_Update);
                     return 1;
                 }
@@ -177,7 +177,7 @@ int RefreshDevicesByBackendTask::mergeDevice(TDeviceInfo &device, const char *ba
                 if (item.uriList[0].startsWith("ipp:")) {
                     item.uriList.clear();
                     item.uriList = device.uriList;
-                    qInfo() << item.strInfo + "change uri to" + uri;
+                    qInfo() << item.strInfo + ":Uri has been changed";
                     emit signalStatus(m_iTaskId, TStat_Update);
                 }
                 qInfo() << "remove same device use samsung_schemes";

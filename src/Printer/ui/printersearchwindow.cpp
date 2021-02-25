@@ -603,8 +603,6 @@ void PrinterSearchWindow::getDeviceResultByManualSlot(int id, int state)
         int index = m_pPrinterListViewManual->count();
         for (; index < deviceList.count(); index++) {
             const TDeviceInfo &info = deviceList[index];
-
-            qInfo() << "Update" << info.toString();
             DStandardItem *pItem = new DStandardItem(info.strName);
             // 设置item的margin，这两个dataRole的枚举值一样，需要区分开
             pItem->setData(VListViewItemMargin, Dtk::MarginsRole);

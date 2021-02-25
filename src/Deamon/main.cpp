@@ -71,7 +71,6 @@ int main(int argc, char *argv[])
     DLogManager::registerFileAppender();
     QString logRules = g_Settings->getLogRules();
     QLoggingCategory::setFilterRules(logRules);
-    qInfo() << "save log to:" << DLogManager::getlogFilePath();
 
     if (qApp->arguments().contains("-r")) {
         //重启模式先kill原始进程

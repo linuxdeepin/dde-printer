@@ -844,7 +844,6 @@ int DriverManager::refreshPpds()
     if (TStat_Running == g_iStatus || m_refreshTask)
         return 0;
 
-    qInfo() << "";
     m_refreshTask = new RefreshLocalPPDS();
     connect(m_refreshTask, &RefreshLocalPPDS::signalStatus, this, &DriverManager::signalStatus);
     m_refreshTask->start();

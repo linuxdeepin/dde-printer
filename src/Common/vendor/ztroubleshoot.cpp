@@ -96,7 +96,6 @@ static QStringList getDirectDevices()
         uris << STQ(itmap->first);
     }
 
-    qInfo() << uris;
     return uris;
 }
 
@@ -260,7 +259,7 @@ bool CheckConnected::isPass()
         QTcpSocket socket;
         socket.connectToHost(strHost, iPort);
         if (!socket.waitForConnected(3000)) {
-            qWarning() << "Can't connect to uri: " << strUri << socket.errorString();
+            qWarning() << "Can't connect to host,because " << socket.errorString();
             m_strMessage = tr("Cannot connect to the printer, error: %1").arg(socket.errorString());
             emit signalStateChanged(TStat_Fail, m_strMessage);
             return false;
@@ -268,7 +267,7 @@ bool CheckConnected::isPass()
     } else if (strHost.isEmpty() && ("hp" == strScheme || "usb" == strScheme)) {
         QStringList uris = getDirectDevices();
         if (!uris.contains(strUri)) {
-            qWarning() << "Not found" << strUri;
+            qWarning() << "Not found direct devices";
             m_strMessage = m_printerName + tr(" is not connected, URI: ") + strUri;
             emit signalStateChanged(TStat_Fail, m_strMessage);
             return false;
@@ -286,7 +285,6 @@ bool CheckConnected::isPass()
         pingCmd = QString("ping %1 -c 3").arg(strHost);
         shellCmd(pingCmd, strOut, strErr, 5000);
         if (!strOut.contains("ttl=")) {
-            qWarning() << "Can't connect printer host: " << strHost;
             m_strMessage = tr("Cannot connect to the printer");
             emit signalStateChanged(TStat_Fail, m_strMessage);
             return false;

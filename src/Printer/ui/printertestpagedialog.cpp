@@ -39,7 +39,6 @@ PrinterTestPageDialog::PrinterTestPageDialog(const QString &printerName, QWidget
 
 void PrinterTestPageDialog::printTestPage()
 {
-    qInfo() << m_printerName;
     m_testJob = new PrinterTestJob(m_printerName, this, false);
     if (m_testJob->findRunningJob()) {
         emit signalFinished();

@@ -115,7 +115,7 @@ static bool isArrivedUSBPrinterAdded(const map<string, string> &infoMap, TDevice
         }
     }
     if (uriList.isEmpty() || devices.size() == 0) {
-        qWarning() << QString("device not found from cups,product:%1,serialnum:%2");
+        qWarning() << QString("device not found from cups,product:%1");
         return true;
     }
     /*从cups返回的已经添加的打印机中查找是否存在对应的uri*/
@@ -273,7 +273,7 @@ bool USBThread::addArrivedUSBPrinter()
                 return true;
             }
         }
-        qWarning() << QString("could not find avaliable dirvers for printer(%1)").arg(m_deviceInfo.strName);
+        qWarning() << QString("could not find avaliable dirvers");
     }
     nextConfiguration();
     return false;

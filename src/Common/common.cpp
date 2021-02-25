@@ -240,7 +240,7 @@ int shellCmd(const QString &cmd, QString &out, QString &strErr, int timeout)
             return -1;
         }
     } else {
-        qWarning() << cmd << " timeout";
+        qWarning() << "shellCmd timeout";
         return -2;
     }
 

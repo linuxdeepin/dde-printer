@@ -159,8 +159,6 @@ static QPixmap getActionPixmap(unsigned int iAction, QIcon::Mode mode)
     }
 
     pixmap = QIcon::fromTheme(iconpath).pixmap(QSize(16, 16), mode);
-
-    //    qInfo() << iAction << " pixmap size:"<<pixmap.size();
     return pixmap;
 }
 
@@ -321,8 +319,6 @@ void JobListView::mouseMoveEvent(QMouseEvent *event)
             m_tipsTimer->start();
         }
     }
-
-    //    qInfo() << iRow << action;
 
     //如果有按钮处于hover状态
     if (-1 != action) {
@@ -579,8 +575,6 @@ QSize JobItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModel
 {
     Q_UNUSED(index);
     int iRow = index.row();
-
-    //    qInfo() << ITEM_Height;
 
     if (0 == iRow)
         return QSize(72, ITEM_Height);

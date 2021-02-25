@@ -149,8 +149,6 @@ QString FixHplipBackend::getMatchHplipUri(const QString &strUri)
 {
     QString strMatch;
 
-    qInfo() << strUri;
-
     if (m_deviceTask) {
         QList<TDeviceInfo> devices = m_deviceTask->getResult();
 
@@ -164,7 +162,7 @@ QString FixHplipBackend::getMatchHplipUri(const QString &strUri)
                 QString devSerial = devMatch.hasMatch() ? match.captured(1).toLower() : "";
 
                 if (!devSerial.isEmpty() && devSerial == serial) {
-                    qInfo() << "Got " << devices[i].uriList[0];
+                    qInfo() << "getMatchHplipUri";
                     return devices[i].uriList[0];
                 }
             }
@@ -419,8 +417,6 @@ int AddCanonCAPTPrinter::addPrinter()
     QString ppd_name;
     ppd_name = m_solution[CUPS_PPD_NAME].toString();
 
-    qInfo() << m_printer.strName << ppd_name << m_uri;
-
     if (!QFile::exists(g_captexec)) {
         qWarning() << g_captexec << "not found";
         return -1;
@@ -484,7 +480,6 @@ int DefaultAddPrinter::addPrinter()
     if (!m_printer.strLocation.isEmpty())
         args << "-L" << m_printer.strLocation;
 
-    qInfo() << args.join(" ");
     m_proc.start("/usr/sbin/lpadmin", args);
 
     return 1;
@@ -813,7 +808,7 @@ AddPrinterTask *AddPrinterFactory::createAddPrinterTask(const TDeviceInfo &print
     if (ppd_name.isEmpty())
         return nullptr;
 
-    qInfo() << "add printer task:" << device_uri << solution[SD_KEY_from] << ppd_name;
+    qInfo() << "add printer task:" << solution[SD_KEY_from] << ppd_name;
     /* Canon CAPT local printer must use ccp backend */
     if (isCanonCAPTDrv(ppd_name) && !printer.strClass.compare("direct")) {
         device_uri = probeDevName(printer.serial);

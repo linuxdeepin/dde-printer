@@ -109,8 +109,6 @@ int PrinterApplication::create()
     DLogManager::registerFileAppender();
     QString logRules = g_Settings->getLogRules();
     QLoggingCategory::setFilterRules(logRules);
-    qInfo() << "save log to:" << DLogManager::getlogFilePath();
-
 
     QObject::tr("Direct-attached Device");
     QObject::tr("File");

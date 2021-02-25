@@ -29,7 +29,7 @@ std::unique_ptr<Connection> CupsConnectionFactory::createConnection(QString strH
     std::unique_ptr<Connection> connectionPtr = std::unique_ptr<Connection>(new Connection());
     try {
         if (0 != connectionPtr->init(strHost.toUtf8().data(), port, encryption)) {
-            qWarning() << "Unable to connect " << strHost;
+            qWarning() << "Unable to connect cups server"  ;
             connectionPtr.reset();
         }
     } catch (const std::exception &ex) {
@@ -45,7 +45,7 @@ std::unique_ptr<Connection> CupsConnectionFactory::createConnectionBySettings()
     std::unique_ptr<Connection> connectionPtr = std::unique_ptr<Connection>(new Connection());
     try {
         if (0 != connectionPtr->init(g_Settings->getCupsServerHost().toLocal8Bit(), g_Settings->getCupsServerPort(), g_Settings->getCupsServerEncryption())) {
-            qWarning() << "Unable to connect " << g_Settings->getCupsServerHost().toLocal8Bit();
+            qWarning() << "Unable to connect deafult cups server";
             connectionPtr.reset();
         }
     } catch (const std::exception &ex) {
