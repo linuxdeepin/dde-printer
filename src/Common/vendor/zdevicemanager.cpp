@@ -237,7 +237,7 @@ int RefreshDevicesByBackendTask::addDevices(const map<string, map<string, string
         if (0 != mergeDevice(info, backend))
             continue;
 
-        qInfo() << QString("Add printer %1, by:%2").arg(info.toString()).arg(backend ? backend : "other");
+        qDebug() << QString("Add printer %1, by:%2").arg(info.toString()).arg(backend ? backend : "other");
         addDevice(info);
     }
 

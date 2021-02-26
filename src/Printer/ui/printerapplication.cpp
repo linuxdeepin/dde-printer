@@ -122,7 +122,8 @@ int PrinterApplication::create()
     }
 
     bool isConnectSuc = connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::newProcessInstance, this, &PrinterApplication::slotNewProcessInstance);
-    qInfo() << "newProcessInstance connect: " << isConnectSuc;
+    if (!isConnectSuc)
+        qWarning() << "newProcessInstance connect: " << isConnectSuc;
 
     return 0;
 }
