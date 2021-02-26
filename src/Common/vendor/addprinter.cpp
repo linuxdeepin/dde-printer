@@ -586,7 +586,7 @@ int AddPrinterTask::checkUriAndDriver()
 
 int AddPrinterTask::doWork()
 {
-    qInfo() << m_printer.uriList << m_solution[CUPS_PPD_NAME].toString();
+    qDebug() << m_printer.uriList << m_solution[CUPS_PPD_NAME].toString();
 
     nextStep();
 

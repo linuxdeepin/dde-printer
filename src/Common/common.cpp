@@ -236,7 +236,8 @@ int shellCmd(const QString &cmd, QString &out, QString &strErr, int timeout)
         out = proc.readAll();
         if (proc.exitCode() != 0 || proc.exitStatus() != QProcess::NormalExit) {
             strErr = QString("err %1, string: %2").arg(proc.exitCode()).arg(QString::fromUtf8(proc.readAllStandardError()));
-            qWarning() << cmd << " exit with err: " << strErr;
+            qDebug() << cmd;
+            qWarning() << "shellCmd exit with err: " << strErr;
             return -1;
         }
     } else {
