@@ -181,7 +181,6 @@ static map<string, string>  getInfomationFromDescription(libusb_device_handle *p
     if (desc.iSerialNumber) {
         ret = libusb_get_string_descriptor_ascii(pHandle, desc.iSerialNumber, ustring, sizeof(ustring));
         if (ret > 0) {
-            qInfo() << QString("SerialNumber:%1").arg((char *)ustring);
             infoMap.insert(make_pair<string, string>("SerialNumber", (char *)ustring));
         }
 

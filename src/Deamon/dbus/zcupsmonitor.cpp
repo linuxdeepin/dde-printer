@@ -314,7 +314,7 @@ int CupsMonitor::getNotifications(int &notifysSize)
                 QString strReason = attrValueToQString(info[CUPS_NOTIY_TEXT]);
                 QStringList list = attrValueToQString(info[JOB_ATTR_NAME]).split("/", QString::SkipEmptyParts);
                 QString strJobName = list.isEmpty() ? "" : list.last();
-                qInfo() << "Got a job event: " << iJob << iState << strReason;
+                qDebug() << "Got a job event: " << iJob << iState << strReason;
 
                 if (iJob == m_jobId) {
                     skip = false;
@@ -326,7 +326,7 @@ int CupsMonitor::getNotifications(int &notifysSize)
 
                 //通过判断同一个id，同一个状态插入的次数判断是否触发信号
                 if (insertJobMessage(iJob, iState, strReason)) {
-                    qInfo() << "Emit job state changed signal" << iJob << iState << strReason;
+                    qDebug() << "Emit job state changed signal" << iJob << iState << strReason;
                     emit signalJobStateChanged(iJob, iState, strReason);
                 }
 
@@ -382,7 +382,7 @@ int CupsMonitor::getNotifications(int &notifysSize)
 
                     //只有状态改变的时候才触发信号
                     if (m_printersState.value(printerName, -1) != iState) {
-                        qInfo() << "Emit printer state changed signal: " << printerName << iState << strReason;
+                        qDebug() << "Emit printer state changed signal: " << printerName << iState << strReason;
                         m_printersState.insert(printerName, iState);
                         emit signalPrinterStateChanged(printerName, iState, strReason);
 
