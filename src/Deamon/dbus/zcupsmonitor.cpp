@@ -571,8 +571,8 @@ void CupsMonitor::spoolerEvent(QDBusMessage msg)
     QList<QVariant> args = msg.arguments();
     qDebug() << args;
 
-    if (args.size() == 3) {
-        if (!isRunning())
+    if (!isRunning()) {
+        if (args.size() == 3)
             m_jobId = args[1].toInt();
         start();
     }
