@@ -303,8 +303,10 @@ void InstallPrinterWindow::feedbackPrintTestPage(bool success)
             QString strReason = m_testJob ? m_testJob->getMessage() : "User feedback";
             QString strFeedback = QString("Uri: %1, device: %2").arg(m_device.uriList.join(" ")).arg(m_device.strDeviceId.isEmpty() ? m_device.strMakeAndModel : m_device.strDeviceId);
             PrinterServerInterface *server = g_printerServer->feedbackResult(sid, success, strReason, strFeedback);
-            if (server)
+            if (server) {
                 server->postToServer();
+                server->deleteLater();
+            }
         }
     }
 }

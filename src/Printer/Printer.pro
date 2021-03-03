@@ -110,15 +110,6 @@ trans.files = $${PWD}/translations/*.qm
 polkit.path = $${PREFIX}/share/polkit-1/actions
 polkit.files = $${PWD}/policy/com.deepin.pkexec.devPrinter.policy
 
-#keyring.path =  $${PREFIX}/share/keyrings
-#keyring.files = $${PWD}/ppa/printer-keyring.gpg
-
-#gpgfile.path =  $${PREFIX}/share/dde-printer
-#gpgfile.files = $${PWD}/ppa/printer.gpg
-
-#ppa.path =  /etc/apt/sources.list.d
-#ppa.files = $${PWD}/ppa/printer.list
-
 INSTALLS += target desktop hicolor trans polkit
 }
 

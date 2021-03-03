@@ -67,7 +67,10 @@ void PrinterServerInterface::postToServer()
     }
     if (reply->error() != QNetworkReply::NoError)
         qWarning() << reply->error();
-    emit signalDone(reply->error(), reply->readAll());
+    QByteArray data = "";
+    if (reply->isOpen())
+        data = reply->readAll();
+    emit signalDone(reply->error(), data);
     reply->deleteLater();
 }
 

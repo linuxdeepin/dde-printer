@@ -40,7 +40,6 @@ DPrinterManager::DPrinterManager()
 
 DPrinterManager::~DPrinterManager()
 {
-
     clearDestinationList();
 }
 
@@ -82,6 +81,9 @@ void DPrinterManager::updateDestinationList()
         map<string, map<string, string>> mapPrinters = conPtr->getPrinters();
 
         for (auto iter = mapPrinters.begin(); iter != mapPrinters.end(); iter++) {
+            QString strName = QString::fromStdString(iter->first);
+            if (m_mapDests.contains(strName))
+                continue;
             map<string, string> mapProperty = iter->second;
             string strValue = mapProperty["device-uri"];
 
@@ -99,9 +101,13 @@ void DPrinterManager::updateDestinationList()
                 pDest = new DPrinter();
             }
 
-            QString strName = QString::fromStdString(iter->first);
-            pDest->setName(strName);
-            m_mapDests.insert(strName, pDest);
+            if (pDest) {
+                pDest->setName(strName);
+                m_mapDests.insert(strName, pDest);
+            } else {
+                qWarning() << "not enough memory";
+            }
+
         }
     } catch (const std::runtime_error &e) {
         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
@@ -140,7 +146,6 @@ bool DPrinterManager::deletePrinterByName(QString PrinterName)
         if (conPtr) {
             conPtr->deletePrinter(PrinterName.toStdString().data(), "");
             bRet = true;
-            m_mapDests.remove(PrinterName);
         }
     } catch (const std::runtime_error &e) {
         qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
@@ -439,10 +444,10 @@ QString DPrinterManager::validataName(const QString &oldPrinterName)
 void DPrinterManager::clearDestinationList()
 {
     if (m_mapDests.size() > 0) {
-        for (auto iter = m_mapDests.begin(); iter != m_mapDests.end();) {
+        for (auto iter = m_mapDests.begin(); iter != m_mapDests.end(); iter++) {
             delete iter.value();
-            iter = m_mapDests.erase(iter);
         }
+        m_mapDests.clear();
     }
 }
 

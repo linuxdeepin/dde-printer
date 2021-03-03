@@ -95,7 +95,6 @@ void DPrintersShowWindow::initUI()
     // 左边上面的控制栏
     QLabel *pLabel = new QLabel(tr("Printers"));
     DFontSizeManager::instance()->bind(pLabel, DFontSizeManager::T5, int(QFont::DemiBold));
-    m_pBtnAddPrinter = new DIconButton(DStyle::SP_IncreaseElement);
     m_pBtnAddPrinter = new DIconButton(this);
     m_pBtnAddPrinter->setIcon(QIcon::fromTheme("dp_add"));
     m_pBtnAddPrinter->setFixedSize(36, 36);

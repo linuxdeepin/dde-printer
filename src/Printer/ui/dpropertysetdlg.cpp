@@ -213,6 +213,9 @@ void DPropertySetDlg::initUI()
     m_bShow = false;
     setResetVisible(false);
     setWindowIcon(QIcon(":/images/dde-printer.svg"));
+    if (settings.data()) {
+        settings.data()->deleteLater();
+    }
 }
 
 void DPropertySetDlg::initConnection()

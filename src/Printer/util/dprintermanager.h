@@ -114,7 +114,7 @@ private:
     static DPrinterManager *m_self;
 
     QMap<QString, DDestination *> m_mapDests;
-    //QMap<QString, QString> m_mapLanguageTrans;
+
     DPrinterTanslator m_translator;
     //服务器设置
     ServerSettings m_pServerSettings;
