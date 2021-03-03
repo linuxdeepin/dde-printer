@@ -307,8 +307,6 @@ QString JobManager::printTestPage(const char *dest, int &jobId, const char *form
         return testFile + tr(" not found");
     }
 
-    qInfo() << dest;
-
     try {
         auto conPtr = CupsConnectionFactory::createConnectionBySettings();
         if (conPtr)
