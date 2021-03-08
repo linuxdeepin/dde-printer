@@ -1,8 +1,9 @@
 TEMPLATE = app
 CONFIG -= app_bundle
-QT += core testlib
+QT += core testlib dbus
 
-CONFIG += testcase no_testcase_installs
+CONFIG += testcase no_testcase_installs c++11 link_pkgconfig
+PKGCONFIG += dtkwidget dtkgui
 
 unix:QMAKE_RPATHDIR += $$OUT_PWD/../src
 unix:LIBS += -lgtest -lcups
@@ -15,7 +16,12 @@ CONFIG(debug, debug|release) {
     QMAKE_LFLAGS += -g -Wall -fprofile-arcs -ftest-coverage  -O0
 }
 
+INCLUDEPATH += $$PWD/../src/cppcups
+
+unix:LIBS += -L$$PWD/../src/cppcups -lcppcups
+
 include($$PWD/cppcups/cppcups.pri)
+include($$PWD/Common/Common.pri)
 
 SOURCES += \
     $$PWD/main.cpp
