@@ -21,13 +21,15 @@ INCLUDEPATH +=  \
                 $$PWD/../Common \
                 $$PWD/../Common/vendor
 
+DESTDIR += $$PWD
+
 DEPENDPATH += $$PWD/../cppcups
 
 QMAKE_CFLAGS += -Wall -Wextra -Wformat=2 -Wno-format-nonliteral -Wshadow
 QMAKE_CXXFLAGS += -Wall -Wextra -Wformat=2 -Wno-format-nonliteral -Wshadow
 
 unix:!macx:{
-LIBS += -L../cppcups/ -l:libcppcups.a
+LIBS += -L$$PWD/../cppcups/ -lcppcups
 LIBS += -lcups -lusb-1.0
 }
 

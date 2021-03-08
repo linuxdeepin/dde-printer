@@ -28,3 +28,5 @@ HEADERS += cupsconnection.h \
     snmp.h \
     types.h \
     mibpath.h
+
+DESTDIR += $$PWD

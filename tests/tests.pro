@@ -19,3 +19,6 @@ include($$PWD/cppcups/cppcups.pri)
 
 SOURCES += \
     $$PWD/main.cpp
+
+DESTDIR += $$PWD
+

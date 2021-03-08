@@ -75,8 +75,10 @@ QMAKE_CFLAGS += -Wall -Wextra -Wformat=2 -Wno-format-nonliteral -Wshadow -fPIE -
 QMAKE_CXXFLAGS += -Wall -Wextra -Wformat=2 -Wno-format-nonliteral -Wshadow -fPIE -Wl,--as-needed,-O1
 QMAKE_LFLAGS += -pie
 
+DESTDIR += $$PWD
+
 unix:!macx:{
-LIBS += -L../cppcups/ -l:libcppcups.a
+LIBS += -L$$PWD/../cppcups/ -lcppcups
 LIBS += -lcups
 }
 
