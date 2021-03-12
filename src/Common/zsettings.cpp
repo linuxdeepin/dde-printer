@@ -107,7 +107,9 @@ const QString zSettings::getLogRules()
 
 const QString zSettings::getOSVersion()
 {
-    QString defaultVersion = DeepinTypeStrMap.value(DTK_CORE_NAMESPACE::DSysInfo::deepinType(), OS_VERSION);
+    /*教育版先按照DTK_CORE_NAMESPACE::DSysInfo::UosEdition来判断，由于没有对应的仓库，先按照专业版来处理*/
+    QString defaultVersion = DeepinTypeStrMap.value(2);
+
     QString archName = sysArch();
 
     qInfo() << QLocale::languageToString(QLocale::system().language());

@@ -14,15 +14,8 @@ else if ( $1 == "EditionName" ) {                                               
    EditionName=$2;                                                                          \
 }}                                                                                          \
 END {                                                                                       \
-if ( ProductType == "Desktop" && EditionName == "Community") {                              \
-    print "deb https://community-packages.deepin.com/printer eagle non-free";               \
-} else if ( ProductType == "Desktop" && EditionName == "Professional" ) {                   \
-    print "deb https://professional-packages.chinauos.com/printer eagle non-free";          \
-} else if ( ProductType == "Desktop" && EditionName == "Home" ) {                           \
-    print "deb https://home-packages.chinauos.com/printer eagle non-free";                  \
-} else if ( ProductType == "Server" && EditionName == "Enterprise" ) {                      \
-    print "deb https://enterprise-packages.chinauos.com/printer eagle non-free";     \
-}}')
+print "deb https://professional-packages.chinauos.com/printer eagle non-free";          \
+}')
 
 if [ -n "${REPO}" ]; then
     mkdir -p /etc/apt/sources.list.d/
