@@ -1,4 +1,4 @@
-# 列印管理器|../common/dde_printer_96.svg|
+# 列印管理器|dde-printer|
 
 ## 概述
 
@@ -172,7 +172,7 @@
 
 ## 刪除印表機
 
-在列印管理器主介面，單擊![edit_delete](../common/edit_delete.svg)，可刪除選中的印表機。
+在列印管理器主介面，單擊![edit-delete](../common/edit_delete.svg)，可刪除選中的印表機。
 
 ![0|delete](fig/delete.png)
 

@@ -1,4 +1,4 @@
-# Print Manager|../common/dde_printer_96.svg|
+# Print Manager|dde-printer|
 
 ## Overview
 
@@ -187,7 +187,7 @@ Select the printer and right-click, you will have four options such as "Shared",
 
 ## Delete Printer
 
-On the main interface, click![edit_delete](../common/edit_delete.svg) to delete selected printer. 
+On the main interface, click![-](../common/edit_delete.svg) to delete selected printer. 
 
 ![0|14delete](fig/14delete.png)
 

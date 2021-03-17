@@ -1,4 +1,4 @@
-# 打印管理器|../common/dde_printer_96.svg|
+# 打印管理器|dde-printer|
 
 ## 概述
 
