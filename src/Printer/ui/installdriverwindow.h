@@ -24,6 +24,7 @@
 
 #include <DMainWindow>
 #include <DComboBox>
+
 #include <QStyledItemDelegate>
 
 DWIDGET_USE_NAMESPACE

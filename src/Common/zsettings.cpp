@@ -37,7 +37,7 @@
 #define HOST_PORT       80
 #define SERVER_ADDR     "printer.deepin.com"
 #define OS_VERSION      "eagle"
-static QMap<int, QString> DeepinTypeStrMap({{0, "unknown"}, {1, "apricot"}, {2, "eagle"}, {3, "fou"}, {4, "plum"}});
+static const QMap<int, QString> UosTypeStrMap({{0, "unknown"}, {1, "apricot"}, {2, "eagle"}, {3, "fou"}, {4, "plum"}});
 
 QString sysArch()
 {
@@ -107,7 +107,19 @@ const QString zSettings::getLogRules()
 
 const QString zSettings::getOSVersion()
 {
-    QString defaultVersion = DeepinTypeStrMap.value(DTK_CORE_NAMESPACE::DSysInfo::deepinType(), OS_VERSION);
+    int version = 0;
+    if (DTK_CORE_NAMESPACE::DSysInfo::uosType() == DTK_CORE_NAMESPACE::DSysInfo::UosServer) {
+        version = 3;
+    } else {
+        if (DTK_CORE_NAMESPACE::DSysInfo::uosEditionType() == DTK_CORE_NAMESPACE::DSysInfo::UosCommunity) {
+            version = 1;
+        } else if (DTK_CORE_NAMESPACE::DSysInfo::uosEditionType() == DTK_CORE_NAMESPACE::DSysInfo::UosProfessional) {
+            version = 2;
+        } else if (DTK_CORE_NAMESPACE::DSysInfo::uosEditionType() == DTK_CORE_NAMESPACE::DSysInfo::UosHome) {
+            version = 4;
+        }
+    }
+    QString defaultVersion = UosTypeStrMap.value(version, OS_VERSION);
     QString archName = sysArch();
 
     qInfo() << QLocale::languageToString(QLocale::system().language());
