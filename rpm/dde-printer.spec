@@ -52,8 +52,10 @@ popd
 %install
 %make_install -C build INSTALL_ROOT="%buildroot"
 
-%post
-killall  -USR1  dde-printer-helper
+%posttrans
+if [ -n "$(ps -ef | grep dde-printer | grep -v grep)" ];then 
+    killall -USR1 dde-printer-helper
+fi
 
 %files
 %doc README.md
