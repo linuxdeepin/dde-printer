@@ -7,7 +7,7 @@
 %endif
 
 Name:       dde-printer
-Version:    0.7.10+rpm
+Version:    0.7.11
 Release:    %{specrelease}
 Summary:    Printer Manager is tool to manage printers
 License:    GPLv3
