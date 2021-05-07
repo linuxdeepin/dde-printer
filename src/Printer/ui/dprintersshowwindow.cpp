@@ -88,6 +88,7 @@ void DPrintersShowWindow::initUI()
     titlebar()->setIcon(QIcon(":/images/dde-printer.svg"));
 
     /*在欧拉上隐藏设置菜单*/
+    qInfo() << "uosEditionType:" << DSysInfo::uosEditionType();
     if (DSysInfo::uosEditionType() != DSysInfo::UosEdition::UosEuler) {
         QMenu *pMenu = new QMenu();
         m_pSettings = new QAction(tr("Settings"));
