@@ -563,7 +563,8 @@ int RefreshDevicesByHostTask::doWork()
     if (m_bQuit)
         return 0;
 
-    if (getResult().size() <= 0)
-        probe_smb(m_strHost);
+    /*去掉smb协议的打印机探测，网络不通的情况下必然会出现，但是用户一般都不知道samba协议的用法，以为需要登陆才能查找打印机
+     *后面考虑把samba协议挪到手动输入uri中，检测smb协议的前缀然后根据是否需要认证选择性弹出对话框
+    */
     return 0;
 }
