@@ -263,57 +263,58 @@ ServerSettings::ServerSettings()
 
 ServerSettings &ServerSettings::enableDebugLogging(bool enabled)
 {
-    settings_["_debug_logging"] = enabled ? "1" : "0";
+    settings_[CUPS_SERVER_DEBUG_LOGGING] = enabled ? "1" : "0";
     return *this;
 }
 
 ServerSettings &ServerSettings::enableRemoteAdmin(bool enabled)
 {
-    settings_["_remote_admin"] = enabled ? "1" : "0";
+    settings_[CUPS_SERVER_REMOTE_ADMIN] = enabled ? "1" : "0";
     return *this;
 }
 
 ServerSettings &ServerSettings::enableRemoteAny(bool enabled)
 {
-    settings_["_remote_any"] = enabled ? "1" : "0";
+
+    settings_[CUPS_SERVER_REMOTE_ANY] = enabled ? "1" : "0";
     return *this;
 }
 
 ServerSettings &ServerSettings::enableSharePrinters(bool enabled)
 {
-    settings_["_share_printers"] = enabled ? "1" : "0";
+    settings_[CUPS_SERVER_SHARE_PRINTERS] = enabled ? "1" : "0";
     return *this;
 }
 
 ServerSettings &ServerSettings::enableUserCancelAny(bool enabled)
 {
-    settings_["_user_cancel_any"] = enabled ? "1" : "0";
+    settings_[CUPS_SERVER_USER_CANCEL_ANY] = enabled ? "1" : "0";
     return *this;
 }
 
 bool ServerSettings::isDebugLoggingEnabled() const
 {
-    return atoi(settings_.at("_debug_logging").c_str()) == 1;
+    return atoi(settings_.at(CUPS_SERVER_DEBUG_LOGGING).c_str()) == 1;
 }
 
 bool ServerSettings::isRemoteAdminEnabled() const
 {
-    return atoi(settings_.at("_remote_admin").c_str()) == 1;
+    return atoi(settings_.at(CUPS_SERVER_REMOTE_ADMIN).c_str()) == 1;
 }
 
 bool ServerSettings::isRemoteAnyEnabled() const
 {
-    return atoi(settings_.at("_remote_any").c_str()) == 1;
+    return atoi(settings_.at(CUPS_SERVER_REMOTE_ANY).c_str()) == 1;
 }
 
 bool ServerSettings::isSharePrintersEnabled() const
 {
-    return atoi(settings_.at("_share_printers").c_str()) == 1;
+    return atoi(settings_.at(CUPS_SERVER_SHARE_PRINTERS).c_str()) == 1;
 }
 
 bool ServerSettings::isUserCancelAnyEnabled() const
 {
-    return atoi(settings_.at("_user_cancel_any").c_str()) == 1;
+    return atoi(settings_.at(CUPS_SERVER_USER_CANCEL_ANY).c_str()) == 1;
 }
 
 void ServerSettings::updateSettings(map<string, string> set)
@@ -322,14 +323,14 @@ void ServerSettings::updateSettings(map<string, string> set)
         std::swap(set, settings_);
 }
 
-void ServerSettings::commit(const char *host_str, int port_n, int encryption_n)
+void ServerSettings::commit(const char *host_str, int port_n, int encryption_n, const map<string, string> &options)
 {
 
     Connection c;
     if (0 != c.init(host_str, port_n, encryption_n)) {
         return;
     }
-    c.adminSetServerSettings(&settings_);
+    c.adminSetServerSettings(&options);
 }
 
 Connection::Connection(void)

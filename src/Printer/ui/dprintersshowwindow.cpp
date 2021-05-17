@@ -556,6 +556,21 @@ void DPrintersShowWindow::serverSettingsSlot()
     m_pSettingsDialog->m_pCheckRemote->setChecked(m_pPrinterManager->isRemoteAdminEnabled());
     m_pSettingsDialog->m_pCheckSaveDebugInfo->setChecked(m_pPrinterManager->isDebugLoggingEnabled());
     m_pSettingsDialog->exec();
+    /*找出变化的选项进行设置*/
+    map<string, string> options;
+    if (m_pPrinterManager->isSharePrintersEnabled() != m_pSettingsDialog->m_pCheckShared->isChecked()) {
+        options.insert({CUPS_SERVER_SHARE_PRINTERS, m_pSettingsDialog->m_pCheckShared->isChecked() ? "1" : "0"});
+    }
+    if (m_pPrinterManager->isRemoteAnyEnabled() != m_pSettingsDialog->m_pCheckIPP->isChecked()) {
+        options.insert({CUPS_SERVER_REMOTE_ANY, m_pSettingsDialog->m_pCheckIPP->isChecked() ? "1" : "0"});
+    }
+    if (m_pPrinterManager->isRemoteAdminEnabled() != m_pSettingsDialog->m_pCheckRemote->isChecked()) {
+        options.insert({CUPS_SERVER_REMOTE_ADMIN, m_pSettingsDialog->m_pCheckRemote->isChecked() ? "1" : "0"});
+    }
+    if (m_pPrinterManager->isDebugLoggingEnabled() != m_pSettingsDialog->m_pCheckSaveDebugInfo->isChecked()) {
+        options.insert({CUPS_SERVER_DEBUG_LOGGING, m_pSettingsDialog->m_pCheckSaveDebugInfo->isChecked() ? "1" : "0"});
+    }
+
     if (m_pSettingsDialog->m_pCheckShared->isChecked()) {
         m_pPrinterManager->enableSharePrinters(true);
         m_pPrinterManager->enableRemoteAny(m_pSettingsDialog->m_pCheckIPP->isChecked());
@@ -565,10 +580,12 @@ void DPrintersShowWindow::serverSettingsSlot()
     }
     m_pPrinterManager->enableRemoteAdmin(m_pSettingsDialog->m_pCheckRemote->isChecked());
     m_pPrinterManager->enableDebugLogging(m_pSettingsDialog->m_pCheckSaveDebugInfo->isChecked());
-    m_pPrinterManager->commit();
-    //触发本地cups服务启动
-    if (!g_cupsConnection) {
-        qInfo() << "Try to restart the cups service";
+    if (options.size() > 0) {
+        m_pPrinterManager->commit(options);
+        //触发本地cups服务启动
+        if (!g_cupsConnection) {
+            qInfo() << "Try to restart the cups service";
+        }
     }
 }
 

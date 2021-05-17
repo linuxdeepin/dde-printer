@@ -412,10 +412,10 @@ bool DPrinterManager::updateServerSetting()
 
 }
 
-void DPrinterManager::commit()
+void DPrinterManager::commit(const map<string, string> &options)
 {
     try {
-        m_pServerSettings.commit(g_Settings->getCupsServerHost().toLocal8Bit(), g_Settings->getCupsServerPort(), g_Settings->getCupsServerEncryption());
+        m_pServerSettings.commit(g_Settings->getCupsServerHost().toLocal8Bit(), g_Settings->getCupsServerPort(), g_Settings->getCupsServerEncryption(), options);
     } catch (const std::runtime_error &e) {
         qWarning() << e.what();
     }

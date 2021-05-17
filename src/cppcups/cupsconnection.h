@@ -56,7 +56,7 @@ public:
     bool isUserCancelAnyEnabled() const;
 
     void updateSettings(map<string, string> set);
-    void commit(const char *host_str, int port_n, int encryption_n);
+    void commit(const char *host_str, int port_n, int encryption_n, const map<string, string> &options);
 
 private:
     map<string, string> settings_;

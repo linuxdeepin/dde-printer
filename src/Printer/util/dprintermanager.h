@@ -99,7 +99,7 @@ public:
     * @date          2019-11-09
     */
     bool updateServerSetting();
-    void commit();
+    void commit(const map<string, string> &options);
     bool hasSamePrinter(const QString &printer);
     QString validataName(const QString &oldPrinterName);
 
