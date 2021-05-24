@@ -50,6 +50,7 @@
 #include <QCheckBox>
 #include <QStackedWidget>
 #include <QRegExp>
+#include <QRegularExpression>
 
 PrinterSearchWindow::PrinterSearchWindow(QWidget *parent)
     : DMainWindow(parent)
@@ -501,14 +502,23 @@ QString PrinterSearchWindow::printerDescription(const TDeviceInfo &info, bool ma
     if (strDesc.isEmpty())
         strDesc = strUri;
     else {
+        /*
+         *网络打印机在局域网中存在多台同型号时，普通用户无法通过ip区分打印机，如果用户设置了打印机位置属性
+         * 比如办公室等，显示在查找界面方便用户区分打印机。
+        */
+        QString protocol = strUri.left(strUri.indexOf(":/"));
+        if (protocol == "socket" && !info.strLocation.isEmpty() && !isIpv4Address(info.strLocation)) {
+            strDesc += "-" + info.strLocation;
+        }
         if (!manual) {
             QString strHost = getHostFromUri(strUri);
             if (!strHost.isEmpty())
                 strDesc += QString(" (%1)").arg(strHost);
         }
-        QString protocol = strUri.left(strUri.indexOf(":/"));
+
         if (!protocol.isEmpty())
             strDesc += QObject::tr("(use %1 protocol)").arg(protocol);
+
     }
 
     return strDesc;

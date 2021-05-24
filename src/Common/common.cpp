@@ -585,3 +585,9 @@ void ppdMakeModelSplit(const QString &strMakeAndModel, QString &strMake, QString
 
     formatModelName(strMake, strModel);
 }
+
+bool isIpv4Address(const QString &str)
+{
+    QRegularExpression reg("((25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d)))\\.){3}(25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d)))");
+    return reg.match(str).hasMatch();
+}

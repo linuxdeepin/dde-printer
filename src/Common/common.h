@@ -69,4 +69,6 @@ QString getPrinterNameFromUri(const QString &uri);
 
 QString toNormalName(const QString &name);
 
+bool isIpv4Address(const QString &str);
+
 #endif // COMMON_H

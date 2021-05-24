@@ -869,6 +869,15 @@ QString AddPrinterFactory::defaultPrinterName(const TDeviceInfo &printer, const 
     while (installedPrinters.contains(strDefaultName)) {
         strDefaultName = strName + "-" + QString::number(i++);
     }
-
+    /*
+     *网络打印机在局域网中存在多台同型号时，普通用户无法通过ip区分打印机，如果用户设置了打印机位置属性
+     * 比如办公室等，显示在界面方便用户区分打印机。
+    */
+    if (printer.uriList.count() > 0) {
+        QString protocol = printer.uriList.at(0).left(printer.uriList.at(0).indexOf(":/"));
+        if (protocol == "socket" && !printer.strLocation.isEmpty() && !isIpv4Address(printer.strLocation)) {
+            strDefaultName += "-" + printer.strLocation;
+        }
+    }
     return strDefaultName;
 }
