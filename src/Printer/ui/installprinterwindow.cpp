@@ -94,12 +94,12 @@ void InstallPrinterWindow::initUI()
 
     m_pDriverCombo = new QComboBox();
     m_pDriverCombo->setMinimumSize(300, 36);
-    m_pCancelInstallBtn = new QPushButton(tr("Cancel"));
+    m_pCancelInstallBtn = new QPushButton(tr("Cancel", "button"));
     m_pCancelInstallBtn->setFixedSize(200, 36);
 
-    m_pCheckPrinterListBtn = new QPushButton(tr("View Printer"));
+    m_pCheckPrinterListBtn = new QPushButton(tr("View Printer", "button"));
     m_pCheckPrinterListBtn->setFixedSize(170, 36);
-    m_pPrinterTestPageBtn = new QPushButton(tr("Print Test Page"));
+    m_pPrinterTestPageBtn = new QPushButton(tr("Print Test Page", "button"));
     m_pPrinterTestPageBtn->setFixedSize(170, 36);
     QHBoxLayout *pHLayout = new QHBoxLayout();
     pHLayout->setSpacing(20);
@@ -170,9 +170,9 @@ void InstallPrinterWindow::setStatus(InstallationStatus status)
 
             m_pDriverCombo->setVisible(false);
             m_pCheckPrinterListBtn->setVisible(true);
-            m_pCheckPrinterListBtn->setText(tr("View Printer"));
+            m_pCheckPrinterListBtn->setText(tr("View Printer", "button"));
             m_pPrinterTestPageBtn->setVisible(true);
-            m_pPrinterTestPageBtn->setText(tr("Print Test Page"));
+            m_pPrinterTestPageBtn->setText(tr("Print Test Page", "button"));
         } else if (m_status == Printing) {
             m_pSpinner->setVisible(false);
             m_pSpinner->stop();
@@ -187,9 +187,9 @@ void InstallPrinterWindow::setStatus(InstallationStatus status)
                                     " Print a test page to check if it works properly."));
             m_pDriverCombo->setVisible(false);
             m_pCheckPrinterListBtn->setVisible(true);
-            m_pCheckPrinterListBtn->setText(tr("View Printer"));
+            m_pCheckPrinterListBtn->setText(tr("View Printer", "button"));
             m_pPrinterTestPageBtn->setVisible(true);
-            m_pPrinterTestPageBtn->setText(tr("Print Test Page"));
+            m_pPrinterTestPageBtn->setText(tr("Print Test Page", "button"));
         } else if (m_status == Printed) {
             m_pSpinner->setVisible(false);
             m_pSpinner->stop();
@@ -219,9 +219,9 @@ void InstallPrinterWindow::setStatus(InstallationStatus status)
             m_pTipLabel->setText(tr("Click Reinstall to install the printer driver again, or click Troubleshoot to start troubleshooting."));
             m_pDriverCombo->setVisible(false);
             m_pCheckPrinterListBtn->setVisible(true);
-            m_pCheckPrinterListBtn->setText(tr("Reinstall"));
+            m_pCheckPrinterListBtn->setText(tr("Reinstall", "button"));
             m_pPrinterTestPageBtn->setVisible(true);
-            m_pPrinterTestPageBtn->setText(tr("Troubleshoot"));
+            m_pPrinterTestPageBtn->setText(tr("Troubleshoot", "button"));
         } else if (m_status == Reinstall) {
             m_pSpinner->setVisible(false);
             m_pSpinner->stop();
@@ -240,9 +240,9 @@ void InstallPrinterWindow::setStatus(InstallationStatus status)
             if (m_pAddPrinterTask)
                 m_pTipLabel->setText(m_pAddPrinterTask->getErrorMassge());
             m_pCheckPrinterListBtn->setVisible(true);
-            m_pCheckPrinterListBtn->setText(tr("Reinstall"));
+            m_pCheckPrinterListBtn->setText(tr("Reinstall", "button"));
             m_pPrinterTestPageBtn->setVisible(true);
-            m_pPrinterTestPageBtn->setText(tr("Troubleshoot"));
+            m_pPrinterTestPageBtn->setText(tr("Troubleshoot", "button"));
         }
     }
 }

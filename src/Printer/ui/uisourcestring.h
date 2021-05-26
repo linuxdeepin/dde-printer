@@ -25,16 +25,16 @@
 #include <QVariant>
 #define UI_PRINTERSEARCH_MANUAL QObject::tr("Select a driver")
 #define UI_PRINTERSEARCH_URITIP "ipp://printer.mydomain/ipp\n" \
-                                "ipp://cups-sever/printers/printer-queue\n" \
-                                "smb://[username:password@][workgroup/]server/printer\n" \
-                                "lpd://sever/printer-queue\n" \
-                                "socket://server[:port]"
+    "ipp://cups-sever/printers/printer-queue\n" \
+    "smb://[username:password@][workgroup/]server/printer\n" \
+    "lpd://sever/printer-queue\n" \
+    "socket://server[:port]"
 #define UI_PRINTERSEARCH_DRIVER QObject::tr("Driver")
-#define UI_PRINTERSEARCH_INSTALLDRIVER_NEXT QObject::tr("Next")
-#define UI_PRINTERSEARCH_INSTALLDRIVER_AUTO QObject::tr("Install Driver")
+#define UI_PRINTERSEARCH_INSTALLDRIVER_NEXT QObject::tr("Next","button")
+#define UI_PRINTERSEARCH_INSTALLDRIVER_AUTO QObject::tr("Install Driver","button")
 
 #define UI_PRINTERDRIVER_PPDLABEL_NORMAL QObject::tr("Drag a PPD file here \n or")
-#define UI_PRINTERDRIVER_PPDBTN_NORMAL QObject::tr("Select a PPD file")
+#define UI_PRINTERDRIVER_PPDBTN_NORMAL QObject::tr("Select a PPD file","button")
 
 #define UI_PRINTERSHOW_TROUBLE QObject::tr("Troubleshoot")
 #define UI_PRINTERSHOW_CANCEL QObject::tr("Cancel")

@@ -11,6 +11,7 @@ X-Deepin-AppID=dde-printer
 # Translations:
 # Do not manually modify!
 GenericName[ar]=مدير الطباعة
+GenericName[az]=Print idarəetməsi
 GenericName[bo]=པར་འདེབས་དོ་དམ་ཆས།
 GenericName[br]=Merer ar mouladurioù
 GenericName[ca]=Gestor d'impressió
@@ -45,6 +46,7 @@ GenericName[zh_CN]=打印管理器
 GenericName[zh_HK]=打印管理器
 GenericName[zh_TW]=列印管理器
 Name[ar]=مدير الطباعة
+Name[az]=Print idarəetməsi
 Name[bo]=པར་འདེབས་དོ་དམ་ཆས།
 Name[br]=Merer ar mouladurioù
 Name[ca]=Gestor d'impressió

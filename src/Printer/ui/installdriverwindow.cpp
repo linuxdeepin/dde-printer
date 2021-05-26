@@ -201,7 +201,7 @@ void InstallDriverWindow::initUI()
     m_pManuAndTypeLineEdit = new QLineEdit(this);
     m_pManuAndTypeLineEdit->setToolTip(tr("Enter a complete vendor and model (Only letters, numbers and whitespaces)"));
     m_pManuAndTypeLineEdit->setValidator(new QRegExpValidator(QRegExp("^[a-zA-Z0-9 ]*$")));
-    m_pSearchBtn = new QPushButton(tr("Search"), this);
+    m_pSearchBtn = new QPushButton(tr("Search", "button"), this);
     m_pSearchBtn->setMinimumSize(80, 36);
     QHBoxLayout *pMakerHL1 = new QHBoxLayout();
     pMakerHL1->addWidget(pMakerAndTypeLabel, 1);
@@ -242,7 +242,7 @@ void InstallDriverWindow::initUI()
     m_pStackWidget->addWidget(pSettingWidget1);
 
     //安装按钮
-    m_pInstallBtn = new QPushButton(tr("Install Driver"), this);
+    m_pInstallBtn = new QPushButton(tr("Install Driver", "button"), this);
     m_pInstallBtn->setFixedSize(200, 36);
     m_pSpinner = new DSpinner();
     m_pSpinner->setFixedSize(32, 32);
