@@ -1728,7 +1728,7 @@ _cups_toupper(int ch)			/* I - Character to convert */
 
  char* getValue(char* pLine)
  {
-     char* pRetVal;
+     char* pRetVal = NULL;
      char* p = pLine;
 
      while (p&&(*p != ' ')) {
