@@ -36,12 +36,7 @@ protected:
 void ut_Connection::SetUp()
 {
     /*编译打包环境可能存在cups服务异常的情况*/
-    try {
-        int ret = m_cupsConnection.init(cupsServer(), ippPort(), cupsEncryption());
-        ASSERT_EQ(ret, 0);
-    } catch (const std::runtime_error &e) {
-        qInfo() << e.what();
-    }
+    m_cupsConnection.http = NULL;
 }
 
 void ut_Connection::TearDown()
