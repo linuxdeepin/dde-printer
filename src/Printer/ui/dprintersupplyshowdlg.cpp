@@ -308,7 +308,7 @@ void DPrinterSupplyShowDlg::supplyFreshed(const QString &strName, bool bRet)
     m_pConfirmBtn = new DPushButton();
     m_pConfirmBtn->setFixedSize(230, 36);
     DFontSizeManager::instance()->bind(m_pConfirmBtn, DFontSizeManager::T6, int(QFont::ExtraLight));
-    m_pConfirmBtn->setText(tr("OK"));
+    m_pConfirmBtn->setText(tr("OK", "button"));
     pVlayout->addWidget(m_pConfirmBtn, 0, Qt::AlignCenter | Qt::AlignBottom);
     m_pContentWidget->setLayout(pVlayout);
     connect(m_pConfirmBtn, &DPushButton::clicked, this, &QDialog::accept);

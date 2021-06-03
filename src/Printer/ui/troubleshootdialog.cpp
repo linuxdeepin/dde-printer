@@ -130,7 +130,7 @@ TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *pare
 
     m_button = new QPushButton(contentWidget);
     m_button->setFixedWidth(200);
-    m_button->setText(tr("Cancel"));
+    m_button->setText(tr("Cancel", "button"));
     m_button->setFocusPolicy(Qt::NoFocus);
     QVBoxLayout *lay = new QVBoxLayout(contentWidget);
     lay->setSpacing(0);
@@ -161,6 +161,6 @@ void TroubleShootDialog::slotTroubleShootStatus(int id, int state)
     Q_UNUSED(id);
 
     if (TStat_Suc <= state) {
-        m_button->setText(tr("OK"));
+        m_button->setText(tr("OK", "button"));
     }
 }

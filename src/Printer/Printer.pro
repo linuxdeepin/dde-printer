@@ -84,8 +84,7 @@ LIBS += -lcups
 
 DISTFILES +=
 
-TRANSLATIONS  +=  translations/dde-printer_zh_CN.ts \
-                  translations/dde-printer_en_AU.ts
+TRANSLATIONS  +=  translations/dde-printer.ts
 
 CONFIG(release, debug|release) {
     !system($$PWD/translate_generation.sh): error("Failed to generate translation")

@@ -5,13 +5,13 @@ mode = developer
 
 [deepin-print-manager.dde-printer]
 file_filter = src/Printer/translations/dde-printer_<lang>.ts
-source_file = src/Printer/translations/dde-printer_en_US.ts
+source_file = src/Printer/translations/dde-printer.ts
 source_lang = en
 type = QT
 
 [deepin-print-manager.dde-printer-helper]
 file_filter = src/Deamon/translations/dde-printer-helper_<lang>.ts
-source_file = src/Deamon/translations/dde-printer-helper_en_US.ts
+source_file = src/Deamon/translations/dde-printer-helper.ts
 source_lang = en
 type = QT
 

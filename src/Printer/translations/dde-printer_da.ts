@@ -209,6 +209,7 @@
     <message>
         <location filename="../ui/dprintersupplyshowdlg.cpp" line="311"/>
         <source>OK</source>
+        <comment>button</comment>
         <translation>OK</translation>
     </message>
 </context>
@@ -1157,82 +1158,82 @@
 <context>
     <name>PrinterSearchWindow</name>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="84"/>
-        <location filename="../ui/printersearchwindow.cpp" line="87"/>
+        <location filename="../ui/printersearchwindow.cpp" line="85"/>
+        <location filename="../ui/printersearchwindow.cpp" line="88"/>
         <source>Discover printer</source>
         <translation>Opdag printer</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="90"/>
-        <location filename="../ui/printersearchwindow.cpp" line="93"/>
+        <location filename="../ui/printersearchwindow.cpp" line="91"/>
+        <location filename="../ui/printersearchwindow.cpp" line="94"/>
         <source>Find printer</source>
         <translation>Find printer</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="95"/>
-        <location filename="../ui/printersearchwindow.cpp" line="98"/>
+        <location filename="../ui/printersearchwindow.cpp" line="96"/>
+        <location filename="../ui/printersearchwindow.cpp" line="99"/>
         <source>Enter URI</source>
         <translation>Indtast URI</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="119"/>
+        <location filename="../ui/printersearchwindow.cpp" line="120"/>
         <source>Select a printer</source>
         <translation>Vælg en printer</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="125"/>
+        <location filename="../ui/printersearchwindow.cpp" line="126"/>
         <source>Refresh</source>
         <translation>Opdater</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="146"/>
-        <location filename="../ui/printersearchwindow.cpp" line="231"/>
+        <location filename="../ui/printersearchwindow.cpp" line="147"/>
+        <location filename="../ui/printersearchwindow.cpp" line="232"/>
         <source>No printers found</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="175"/>
+        <location filename="../ui/printersearchwindow.cpp" line="176"/>
         <source>Install Driver</source>
         <translation>Installer driver</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="203"/>
+        <location filename="../ui/printersearchwindow.cpp" line="204"/>
         <source>Address</source>
         <translation>Adresse</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="205"/>
+        <location filename="../ui/printersearchwindow.cpp" line="206"/>
         <source>Enter an address</source>
         <translation>Indtast en adresse</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="206"/>
+        <location filename="../ui/printersearchwindow.cpp" line="207"/>
         <source>Find</source>
         <comment>button</comment>
         <translation>Find</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="293"/>
+        <location filename="../ui/printersearchwindow.cpp" line="294"/>
         <source>URI</source>
         <translation>URI</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="297"/>
+        <location filename="../ui/printersearchwindow.cpp" line="298"/>
         <source>Enter device URI</source>
         <translation>Indtast enheds-URI</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="308"/>
+        <location filename="../ui/printersearchwindow.cpp" line="309"/>
         <source>Examples:</source>
         <translation>Eksempler:</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="592"/>
+        <location filename="../ui/printersearchwindow.cpp" line="602"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="678"/>
+        <location filename="../ui/printersearchwindow.cpp" line="688"/>
         <source> (recommended)</source>
         <translation>(anbefales)</translation>
     </message>
@@ -1436,7 +1437,7 @@
         <translation>Fil</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="511"/>
+        <location filename="../ui/printersearchwindow.cpp" line="520"/>
         <source>(use %1 protocol)</source>
         <translation>(brug %1-protokol)</translation>
     </message>
@@ -1463,17 +1464,17 @@
         <translation>Installer driver</translation>
     </message>
     <message>
-        <location filename="../ui/uisourcestring.h" line="37"/>
-        <source>Select a PPD file</source>
-        <comment>button</comment>
-        <translation>Vælg en PPD-fil</translation>
-    </message>
-    <message>
         <location filename="../ui/uisourcestring.h" line="36"/>
         <source>Drag a PPD file here 
  or</source>
         <translation>Træk en PPD-fil her 
  eller</translation>
+    </message>
+    <message>
+        <location filename="../ui/uisourcestring.h" line="37"/>
+        <source>Select a PPD file</source>
+        <comment>button</comment>
+        <translation>Vælg en PPD-fil</translation>
     </message>
     <message>
         <location filename="../ui/uisourcestring.h" line="39"/>
@@ -1577,11 +1578,13 @@
     <message>
         <location filename="../ui/troubleshootdialog.cpp" line="133"/>
         <source>Cancel</source>
+        <comment>button</comment>
         <translation>Annuller</translation>
     </message>
     <message>
         <location filename="../ui/troubleshootdialog.cpp" line="164"/>
         <source>OK</source>
+        <comment>button</comment>
         <translation>OK</translation>
     </message>
 </context>

@@ -4,7 +4,7 @@
 
 cd $(dirname $0)
 
-lupdate -no-obsolete Deamon.pro -ts translations/dde-printer-helper_en_US.ts
+lupdate -no-obsolete Deamon.pro -ts translations/dde-printer-helper.ts
 
 ts_list=(`ls translations/*.ts`)
 for ts in "${ts_list[@]}"
