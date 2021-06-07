@@ -69,6 +69,7 @@ fi
 %{_bindir}/dde-printer-helper
 %{_datadir}/dde-printer-helper/translations/*.qm
 /etc/xdg/autostart/dde-printer-watch.desktop
+%{_datadir}/deepin-manual/manual-assets/application
 
 %changelog
 
