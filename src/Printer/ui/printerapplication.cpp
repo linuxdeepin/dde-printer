@@ -97,7 +97,7 @@ int PrinterApplication::create()
     qApp->setOrganizationName("deepin");
     qApp->setApplicationName("dde-printer");
     if (DSysInfo::uosEditionType() == DSysInfo::UosEuler || DSysInfo::uosEditionType() == DSysInfo::UosEnterpriseC)
-        qApp->setApplicationVersion("0.7.13");
+        qApp->setApplicationVersion("0.7.15");
     else {
         qApp->setApplicationVersion(DApplication::buildVersion((QMAKE_VERSION)));
     }
