@@ -12,8 +12,8 @@ QMAKE_CXXFLAGS += -fno-access-control
 QMAKE_LFLAGS += -fno-access-control
 
 CONFIG(debug, debug|release) {
-    QMAKE_CXXFLAGS += -g -Wall  -fprofile-arcs -ftest-coverage -O0
-    QMAKE_LFLAGS += -g -Wall -fprofile-arcs -ftest-coverage  -O0
+    QMAKE_CXXFLAGS += -g -fsanitize=address -Wall  -fprofile-arcs -ftest-coverage -O0
+    QMAKE_LFLAGS += -g -fsanitize=address -Wall -fprofile-arcs -ftest-coverage  -O0
 }
 
 INCLUDEPATH += $$PWD/../src/cppcups
