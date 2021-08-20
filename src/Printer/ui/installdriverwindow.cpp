@@ -444,12 +444,10 @@ void InstallDriverWindow::currentMakerChangedSlot(const QString &maker)
             index = modelList.indexOf(strModel);
         }
 
-        //如果没有匹配的，则选择通用的驱动
-        if (0 > index) {
-            QMap<QString, QString> textdriver = g_driverManager->getTextPPD();
-            index = modelList.indexOf(textdriver[CUPS_PPD_MODEL]);
-        }
-        index = index > -1 ? index : 0;
+        /* 如果没有匹配的，则保留厂商，型号及驱动为空白，上面处理strModel时其实有问题的，
+           大小写可能和modelList中不一样，导致index为-1。
+        */
+
         m_pTypeCombo->setCurrentIndex(index);
     }
 }
