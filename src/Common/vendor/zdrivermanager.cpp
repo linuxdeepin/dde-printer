@@ -581,7 +581,8 @@ void DriverSearcher::startSearch()
      * 如果服务有精确查找到驱动，则不需要从本地查找
     */
 
-    PrinterServerInterface *search = g_printerServer->searchSolution(m_strMake, m_strModel, m_printer.strDeviceId);
+    strModel = getPrinterFullModel();
+    PrinterServerInterface *search = g_printerServer->searchSolution(m_strMake, strModel, m_printer.strDeviceId);
     if (search) {
         connect(search, &PrinterServerInterface::signalDone, this, &DriverSearcher::slotDone);
         search->postToServer();

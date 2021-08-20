@@ -39,6 +39,8 @@
 
 #include <netdb.h>
 
+static QString g_strModelFull;
+
 QString getPrinterPPD(const char *name)
 {
     QString strPPD;
@@ -547,6 +549,9 @@ void formatModelName(const QString &strMake, QString &strModel)
         }
     }
 
+    // 用于在平台上查询驱动，需保留原始型号
+    g_strModelFull = strModel;
+
     //remove right string contains ignores suffix
     int index = modell.indexOf(QRegularExpression(_RE_ignore_suffix));
     if (index > 0) {
@@ -590,4 +595,9 @@ bool isIpv4Address(const QString &str)
 {
     QRegularExpression reg("((25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d)))\\.){3}(25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d)))");
     return reg.match(str).hasMatch();
+}
+
+QString getPrinterFullModel()
+{
+    return g_strModelFull;
 }
