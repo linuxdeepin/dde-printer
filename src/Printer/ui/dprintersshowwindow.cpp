@@ -130,6 +130,7 @@ void DPrintersShowWindow::initUI()
 
     // 列表的右键菜单
     m_pListViewMenu = new QMenu();
+    m_pPrinterRename = new QAction(tr("Rename"), m_pListViewMenu);
     m_pShareAction = new QAction(tr("Shared"), m_pListViewMenu);
     m_pShareAction->setObjectName("Share");
     m_pShareAction->setCheckable(true);
@@ -144,6 +145,7 @@ void DPrintersShowWindow::initUI()
     m_pDefaultAction->setObjectName("Default");
     m_pDefaultAction->setCheckable(true);
 
+    m_pListViewMenu->addAction(m_pPrinterRename);
     m_pListViewMenu->addAction(m_pShareAction);
     m_pListViewMenu->addAction(m_pEnableAction);
     m_pListViewMenu->addAction(m_pRejectAction);
@@ -313,6 +315,35 @@ void DPrintersShowWindow::initUI()
     setCentralWidget(pCentralWidget1);
 }
 
+void DPrintersShowWindow::setPrinterNameEditable(const QModelIndex &index)
+{
+    // 存在未完成的任务无法进入编辑状态
+    if (!index.isValid())
+        return;
+
+    m_pPrinterListView->blockSignals(true);
+    m_pPrinterModel->blockSignals(true);
+    QStandardItem *pItem = m_pPrinterModel->itemFromIndex(index);
+    // 判断当前打印机的状态
+    if (m_pPrinterManager->hasUnfinishedJob(pItem->text())) {
+        DDialog *pDialog = new DDialog();
+        pDialog->setIcon(QIcon(":/images/warning_logo.svg"));
+        QLabel *pMessage = new QLabel(tr("As print jobs are in process, you cannot rename the printer now, please try later"));
+        pMessage->setWordWrap(true);
+        pMessage->setAlignment(Qt::AlignCenter);
+        pDialog->addContent(pMessage);
+        pDialog->addButton(tr("OK"));
+        pDialog->exec();
+        pDialog->deleteLater();
+        pItem->setFlags(pItem->flags() & ~Qt::ItemIsEditable);
+    } else {
+        pItem->setFlags(pItem->flags() | Qt::ItemIsEditable);
+    }
+
+    m_pPrinterListView->blockSignals(false);
+    m_pPrinterModel->blockSignals(false);
+}
+
 void DPrintersShowWindow::initConnections()
 {
     connect(m_pBtnAddPrinter, &DIconButton::clicked, this, &DPrintersShowWindow::addPrinterClickSlot);
@@ -328,31 +359,17 @@ void DPrintersShowWindow::initConnections()
     //    //此处修改文字和修改图标都会触发这个信号，导致bug，修改图标之前先屏蔽信号
     connect(m_pPrinterModel, &QStandardItemModel::itemChanged, this, &DPrintersShowWindow::renamePrinterSlot);
     connect(m_pPrinterListView, &DListView::customContextMenuRequested, this, &DPrintersShowWindow::contextMenuRequested);
-    connect(m_pPrinterListView, &DListView::doubleClicked, this, [this](const QModelIndex & index) {
-        // 存在未完成的任务无法进入编辑状态
-        if (!index.isValid())
+    connect(m_pPrinterListView, &DListView::doubleClicked, this, &DPrintersShowWindow::setPrinterNameEditable);
+    connect(m_pPrinterRename, &QAction::triggered, this, [this]() {
+        QModelIndex index= m_pPrinterListView->currentIndex();
+        if (!index.isValid()) {
             return;
-        m_pPrinterListView->blockSignals(true);
-        m_pPrinterModel->blockSignals(true);
-        QStandardItem *pItem = m_pPrinterModel->itemFromIndex(index);
-        // 判断当前打印机的状态
-        if (m_pPrinterManager->hasUnfinishedJob(pItem->text())) {
-            DDialog *pDialog = new DDialog();
-            pDialog->setIcon(QIcon(":/images/warning_logo.svg"));
-            QLabel *pMessage = new QLabel(tr("As print jobs are in process, you cannot rename the printer now, please try later"));
-            pMessage->setWordWrap(true);
-            pMessage->setAlignment(Qt::AlignCenter);
-            pDialog->addContent(pMessage);
-            pDialog->addButton(tr("OK"));
-            pDialog->exec();
-            pDialog->deleteLater();
-            pItem->setFlags(pItem->flags() & ~Qt::ItemIsEditable);
-        } else {
-            pItem->setFlags(pItem->flags() | Qt::ItemIsEditable);
         }
 
-        m_pPrinterListView->blockSignals(false);
-        m_pPrinterModel->blockSignals(false);
+        m_pPrinterRename->blockSignals(true);
+        setPrinterNameEditable(index);
+        m_pPrinterListView->edit(index);
+        m_pPrinterRename->blockSignals(false);
     });
 
     connect(m_pShareAction, &QAction::triggered, this, &DPrintersShowWindow::listWidgetMenuActionSlot);

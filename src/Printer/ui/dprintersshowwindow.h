@@ -275,6 +275,8 @@ private slots:
     * @date          2019-11-07
     */
     void renamePrinterSlot(QStandardItem *pItem);
+    // 打印机名称可编辑状态
+    void setPrinterNameEditable(const QModelIndex &index);
 
     void printSettingClickSlot();
     void printQueueClickSlot();
@@ -326,6 +328,7 @@ private:
 
     QStandardItemModel *m_pPrinterModel;
     QMenu *m_pListViewMenu;
+    QAction *m_pPrinterRename;
     QAction *m_pShareAction;
     QAction *m_pEnableAction;
     QAction *m_pRejectAction;
