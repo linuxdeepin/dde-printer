@@ -246,6 +246,11 @@ void InstallDriverWindow::initUI()
     m_pInstallBtn->setFixedSize(200, 36);
     m_pSpinner = new DSpinner();
     m_pSpinner->setFixedSize(32, 32);
+
+    m_pSearchSpinner = new DSpinner(m_pStackWidget);
+    m_pSearchSpinner->setFixedSize(36, 36);
+    m_pSearchSpinner->setVisible(false);
+
     // 右侧整体布局
     QVBoxLayout *pRightVLayout = new QVBoxLayout();
     pRightVLayout->addWidget(m_pRightTitleLabel);
@@ -549,8 +554,17 @@ void InstallDriverWindow::installDriverSlot()
 
 void InstallDriverWindow::searchDriverSlot()
 {
-    if (m_pManuAndTypeLineEdit->text().isEmpty())
+    m_pSearchSpinner->move((m_pStackWidget->width() - m_pSearchSpinner->width()) / 2,
+                            (m_pStackWidget->height() - m_pSearchSpinner->height()) / 2 + 65);
+    m_pSearchSpinner->setVisible(true);
+    m_pSearchSpinner->start();
+
+    if (m_pManuAndTypeLineEdit->text().isEmpty()) {
+        m_pSearchSpinner->stop();
+        m_pSearchSpinner->setVisible(false);
         return;
+    }
+
     m_pSearchBtn->blockSignals(true);
     // 拷贝结构体数据，避免修改原始数据
     TDeviceInfo device = m_device;
@@ -644,6 +658,9 @@ void InstallDriverWindow::driverSearchedSlot()
             m_pInstallBtn->setEnabled(true);
         }
     }
+
+    m_pSearchSpinner->stop();
+    m_pSearchSpinner->setVisible(false);
     m_pSearchBtn->blockSignals(false);
 }
 

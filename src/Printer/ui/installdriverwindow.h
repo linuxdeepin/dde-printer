@@ -183,6 +183,8 @@ private:
     // 上级界面
     QWidget *m_pParentWidget;
 
+    DSpinner *m_pSearchSpinner;
+
 private:
     TDeviceInfo m_device;
 };
