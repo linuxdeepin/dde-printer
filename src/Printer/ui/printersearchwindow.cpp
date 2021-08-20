@@ -152,9 +152,16 @@ void PrinterSearchWindow::initUi()
     pa.setColor(QPalette::Text, QColor(color.red(), color.green(), color.blue(), 150));
     m_pInfoAuto->setPalette(pa);
 
+    m_pAutoDriverWebLink = new QLabel();
+    m_pAutoDriverWebLink->setContentsMargins(10, 0, 0, 0);
+    m_pAutoDriverWebLink->setOpenExternalLinks(true);
+    m_pAutoDriverWebLink->setWordWrap(true);
+    m_pAutoDriverWebLink->setText(UI_PRINTER_DRIVER_MESSAGE + tr(UI_PRINTER_DRIVER_WEB_LINK).arg(UI_PRINTER_DRIVER_WEBSITE));
+
     QVBoxLayout *pVlayoutAuto1 = new QVBoxLayout();
     pVlayoutAuto1->addLayout(pHLayout1);
     pVlayoutAuto1->addWidget(m_pPrinterListViewAuto);
+    pVlayoutAuto1->addWidget(m_pAutoDriverWebLink);
     pVlayoutAuto1->setContentsMargins(10, 10, 10, 10);
     QWidget *pAutoFrame1 = new QWidget();
     pAutoFrame1->setLayout(pVlayoutAuto1);
@@ -237,8 +244,15 @@ void PrinterSearchWindow::initUi()
     pa.setColor(QPalette::Text, QColor(color.red(), color.green(), color.blue(), 150));
     m_pInfoManual->setPalette(pa);
 
+    m_pManDriverWebLink = new QLabel();
+    m_pManDriverWebLink->setContentsMargins(10, 0, 0, 0);
+    m_pManDriverWebLink->setOpenExternalLinks(true);
+    m_pManDriverWebLink->setWordWrap(true);
+    m_pManDriverWebLink->setText(UI_PRINTER_DRIVER_MESSAGE + tr(UI_PRINTER_DRIVER_WEB_LINK).arg(UI_PRINTER_DRIVER_WEBSITE));
+
     QVBoxLayout *pVLayoutMan2 = new QVBoxLayout();
     pVLayoutMan2->addWidget(m_pPrinterListViewManual);
+    pVLayoutMan2->addWidget(m_pManDriverWebLink);
     pVLayoutMan2->setContentsMargins(10, 10, 10, 10);
     QWidget *pManFrame2 = new QWidget();
     pManFrame2->setLayout(pVLayoutMan2);
@@ -311,9 +325,19 @@ void PrinterSearchWindow::initUi()
     QPalette pe;
     pe.setColor(QPalette::WindowText, QColor("#92A8BA"));
     m_pLabelTip->setPalette(pe);
+    m_pLabelTip->setContentsMargins(70, 0, 0, 0);
+    m_pURIDriverWebLink = new QLabel();
+    m_pURIDriverWebLink->setContentsMargins(10, 0, 0, 20);
+    m_pURIDriverWebLink->setOpenExternalLinks(true);
+    m_pURIDriverWebLink->setWordWrap(true);
+    m_pURIDriverWebLink->setText(UI_PRINTER_DRIVER_MESSAGE + tr(UI_PRINTER_DRIVER_WEB_LINK).arg(UI_PRINTER_DRIVER_WEBSITE));
+
     QVBoxLayout *pURIVLayout2 = new QVBoxLayout();
+    pURIVLayout2->addStretch();
     pURIVLayout2->addWidget(m_pLabelTip);
-    pURIVLayout2->setContentsMargins(80, 10, 10, 10);
+    pURIVLayout2->addStretch();
+    pURIVLayout2->addWidget(m_pURIDriverWebLink);
+    pURIVLayout2->setContentsMargins(10, 10, 10, 10);
     QWidget *pURIFrame2 = new QWidget();
     pURIFrame2->setLayout(pURIVLayout2);
     pURIFrame2->setFixedHeight(284);

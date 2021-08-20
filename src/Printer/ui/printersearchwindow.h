@@ -110,6 +110,7 @@ private:
     DListView *m_pTabListView;
     // 右侧打印机列表自动
     QLabel *m_pLabelPrinter;
+	QLabel *m_pAutoDriverWebLink;
     DIconButton *m_pBtnRefresh;
     DListView *m_pPrinterListViewAuto;
     QStandardItemModel *m_pPrinterListModel;
@@ -121,6 +122,7 @@ private:
     QPushButton *m_pAutoInstallDriverBtn;
     // 右侧打印机列表手动
     QLabel *m_pLabelLocation;
+	QLabel *m_pManDriverWebLink;
     QLineEdit *m_pLineEditLocation;
     QPushButton *m_pBtnFind;
     DListView *m_pPrinterListViewManual;
@@ -140,7 +142,7 @@ private:
     QComboBox *m_pURIDriverCom;
 
     QPushButton *m_pURIInstallDriverBtn;
-
+    QLabel *m_pURIDriverWebLink;
     QLabel *m_pInfoAuto;
     QLabel *m_pInfoManual;
 
