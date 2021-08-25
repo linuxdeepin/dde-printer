@@ -545,138 +545,143 @@
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="133"/>
+        <source>Rename</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="134"/>
         <source>Shared</source>
         <translation>مشترك</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="136"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="137"/>
         <source>Enabled</source>
         <translation>ممكّن</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="139"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="140"/>
         <source>Accept jobs</source>
         <translation>قبول العمليات</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="143"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="144"/>
         <source>Set as default</source>
         <translation>تعيين كافتراضي</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="154"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="156"/>
         <source>No Printers</source>
         <translation>عدم وجود الطابعات</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="178"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="180"/>
         <source>Location:</source>
         <translation>المكان:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="183"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="185"/>
         <source>Model:</source>
         <translation>نموذج:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="186"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="188"/>
         <source>Status:</source>
         <translation>الحالة :</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="214"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="216"/>
         <source>Properties</source>
         <translation>الخاصيات</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="224"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="226"/>
         <source>Print Queue</source>
         <translation>قائمة الطبع</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="234"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="236"/>
         <source>Print Test Page</source>
         <translation>طبع صفحة مسودة</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="254"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="256"/>
         <source>Supplies</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="278"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="280"/>
         <source>No printer configured</source>
         <translation>لا توجد طابعة مبرمجة</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="283"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="285"/>
         <source>Click + to add printers</source>
         <translation>إضغط على + لإضافة طابعات</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="342"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="331"/>
         <source>As print jobs are in process, you cannot rename the printer now, please try later</source>
         <translation>لا يمكن تغيير إسم الطابعة لأن عملية الطبع جارية، حاول لاحقا</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="346"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="377"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="710"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="335"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="394"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="727"/>
         <source>OK</source>
         <translation>جيد</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="374"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="391"/>
         <source>CUPS server is not running, and can’t manage printers.</source>
         <translation>خادم CUPS ليس قيد التشغيل ولا يمكنه إدارة الطابعات.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="616"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="633"/>
         <source>Idle</source>
         <translation>قيد اﻹسبات</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="618"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="635"/>
         <source>Printing</source>
         <translation>طبع</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="620"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="637"/>
         <source>Disabled</source>
         <translation>معطل</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="668"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="685"/>
         <source>Are you sure you want to delete the printer &quot;%1&quot; ?</source>
         <translation>هل أنت متأكد من حذف الطابعة &quot;1%&quot; ؟</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="674"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="691"/>
         <source>Delete</source>
         <translation>حذف</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="706"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="723"/>
         <source>The name already exists</source>
         <translation>الإسم موجود</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="725"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="742"/>
         <source>You will not be able to reprint the completed jobs if continue. Are you sure you want to rename the printer?</source>
         <translation>لن تتمكن من تكرار عمليات الطبع التامة إن واصلت. هل أنت متأكد من تغيير إسم الطابعة ؟</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="730"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="747"/>
         <source>Confirm</source>
         <translation>تأكيد</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="788"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="805"/>
         <source>The driver is damaged, please install it again.</source>
         <translation>ملف التعريف تالف ، يرجى تثبيته مرة أخرى.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="791"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="808"/>
         <source>Install Driver</source>
         <translation>تثبيت محرك الأقراص</translation>
     </message>
@@ -753,7 +758,7 @@
 <context>
     <name>DriverManager</name>
     <message>
-        <location filename="../../Common/vendor/zdrivermanager.cpp" line="905"/>
+        <location filename="../../Common/vendor/zdrivermanager.cpp" line="906"/>
         <source>EveryWhere driver</source>
         <translation>ملف تعريف EveryWhere</translation>
     </message>
@@ -795,7 +800,7 @@
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="120"/>
-        <location filename="../ui/installdriverwindow.cpp" line="398"/>
+        <location filename="../ui/installdriverwindow.cpp" line="403"/>
         <source>Choose a local driver</source>
         <translation>اختار ملف تعريف محلي</translation>
     </message>
@@ -838,29 +843,29 @@
         <translation>تثبيت محرك الأقراص</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="380"/>
-        <location filename="../ui/installdriverwindow.cpp" line="492"/>
+        <location filename="../ui/installdriverwindow.cpp" line="385"/>
+        <location filename="../ui/installdriverwindow.cpp" line="495"/>
         <source>Reselect</source>
         <translation>إعادة تعيين</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="406"/>
-        <location filename="../ui/installdriverwindow.cpp" line="489"/>
+        <location filename="../ui/installdriverwindow.cpp" line="411"/>
+        <location filename="../ui/installdriverwindow.cpp" line="492"/>
         <source>Select a PPD file</source>
         <translation>اختيار ملف PPD</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="415"/>
+        <location filename="../ui/installdriverwindow.cpp" line="420"/>
         <source>Search for printer driver</source>
         <translation>البحث عن مشغل الطابعة</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="471"/>
+        <location filename="../ui/installdriverwindow.cpp" line="474"/>
         <source>(recommended)</source>
         <translation>(موصى به)</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="634"/>
+        <location filename="../ui/installdriverwindow.cpp" line="646"/>
         <source> (recommended)</source>
         <translation>(موصى به)</translation>
     </message>
@@ -1187,55 +1192,71 @@
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="147"/>
-        <location filename="../ui/printersearchwindow.cpp" line="232"/>
+        <location filename="../ui/printersearchwindow.cpp" line="239"/>
         <source>No printers found</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="176"/>
+        <location filename="../ui/printersearchwindow.cpp" line="183"/>
         <source>Install Driver</source>
         <translation>تثبيت مشغل</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="204"/>
+        <location filename="../ui/printersearchwindow.cpp" line="211"/>
         <source>Address</source>
         <translation>العنوان</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="206"/>
+        <location filename="../ui/printersearchwindow.cpp" line="213"/>
         <source>Enter an address</source>
         <translation>إدخال عنوان</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="207"/>
+        <location filename="../ui/printersearchwindow.cpp" line="214"/>
         <source>Find</source>
         <comment>button</comment>
         <translation>إيجاد</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="294"/>
+        <location filename="../ui/printersearchwindow.cpp" line="308"/>
         <source>URI</source>
         <translation>الرابط URI</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="298"/>
+        <location filename="../ui/printersearchwindow.cpp" line="312"/>
         <source>Enter device URI</source>
         <translation>إدخال URI التابع لجهازك</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="309"/>
+        <location filename="../ui/printersearchwindow.cpp" line="323"/>
         <source>Examples:</source>
         <translation>أمثلة:</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="602"/>
+        <location filename="../ui/printersearchwindow.cpp" line="626"/>
         <source>OK</source>
         <translation>جيد</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="688"/>
+        <location filename="../ui/printersearchwindow.cpp" line="712"/>
         <source> (recommended)</source>
         <translation>(موصى به)</translation>
+    </message>
+    <message>
+        <location filename="../ui/printersearchwindow.cpp" line="720"/>
+        <source>Cannot find the driver</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/printersearchwindow.cpp" line="722"/>
+        <source>Please try to install it manually or search its official website</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/printersearchwindow.cpp" line="729"/>
+        <source>OK</source>
+        <comment>button</comment>
+        <translation>جيد</translation>
     </message>
 </context>
 <context>
@@ -1262,7 +1283,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../Common/common.cpp" line="152"/>
+        <location filename="../../Common/common.cpp" line="154"/>
         <source> not found, please ask the administrator for help</source>
         <translation>غير موجود ، الرجاء طلب المساعدة من المسؤول</translation>
     </message>
@@ -1437,7 +1458,7 @@
         <translation>ملف</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="520"/>
+        <location filename="../ui/printersearchwindow.cpp" line="544"/>
         <source>(use %1 protocol)</source>
         <translation>(استخدم ٪ 1 بروتوكول)</translation>
     </message>
@@ -1485,6 +1506,11 @@
         <location filename="../ui/uisourcestring.h" line="40"/>
         <source>Cancel</source>
         <translation>إلغاء</translation>
+    </message>
+    <message>
+        <location filename="../ui/uisourcestring.h" line="43"/>
+        <source>For more drivers, please refer to our official website: </source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../util/ddestination.cpp" line="201"/>

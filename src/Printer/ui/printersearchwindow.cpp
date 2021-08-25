@@ -726,7 +726,7 @@ void PrinterSearchWindow::driverSearchNoMatchDialog()
     pMessage2->setAlignment(Qt::AlignCenter);
     pDialog.addContent(pMessage1);
     pDialog.addContent(pMessage2);
-    pDialog.addButton(tr("OK"), false, DDialog::ButtonRecommend);
+    pDialog.addButton(tr("OK", "button"), false, DDialog::ButtonRecommend);
     pDialog.setIcon(QIcon(":/images/warning_logo.svg"));
 
     QRect rect = this->geometry();

@@ -545,138 +545,143 @@
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="133"/>
+        <source>Rename</source>
+        <translation>Canvia&apos;n el nom</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="134"/>
         <source>Shared</source>
         <translation>Compartida</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="136"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="137"/>
         <source>Enabled</source>
         <translation>Habilitada</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="139"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="140"/>
         <source>Accept jobs</source>
         <translation>Accepta tasques.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="143"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="144"/>
         <source>Set as default</source>
         <translation>Estableix-la com a predeterminada.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="154"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="156"/>
         <source>No Printers</source>
         <translation>No hi ha cap impressora.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="178"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="180"/>
         <source>Location:</source>
         <translation>Ubicació:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="183"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="185"/>
         <source>Model:</source>
         <translation>Model:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="186"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="188"/>
         <source>Status:</source>
         <translation>Estat:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="214"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="216"/>
         <source>Properties</source>
         <translation>Propietats</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="224"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="226"/>
         <source>Print Queue</source>
         <translation>Cua d&apos;impressió</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="234"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="236"/>
         <source>Print Test Page</source>
         <translation>Imprimeix una pàgina de mostra.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="254"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="256"/>
         <source>Supplies</source>
         <translation>Subministraments</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="278"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="280"/>
         <source>No printer configured</source>
         <translation>No hi ha cap impressora configurada.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="283"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="285"/>
         <source>Click + to add printers</source>
         <translation>Cliqueu a + per afegir-hi impressores.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="342"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="331"/>
         <source>As print jobs are in process, you cannot rename the printer now, please try later</source>
         <translation>Com que hi ha tasques d&apos;impressió en progrés, no podeu canviar el nom de la impressora ara. Si us plau, proveu-ho més tard.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="346"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="377"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="710"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="335"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="394"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="727"/>
         <source>OK</source>
         <translation>D&apos;acord</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="374"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="391"/>
         <source>CUPS server is not running, and can’t manage printers.</source>
         <translation>El servidor CUPS no s&apos;executa i no es poden gestionar les impressores.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="616"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="633"/>
         <source>Idle</source>
         <translation>No fa res.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="618"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="635"/>
         <source>Printing</source>
         <translation>S&apos;imprimeix</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="620"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="637"/>
         <source>Disabled</source>
         <translation>Inhabilitada</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="668"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="685"/>
         <source>Are you sure you want to delete the printer &quot;%1&quot; ?</source>
         <translation>Segur que voleu eliminar la impressora %1?</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="674"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="691"/>
         <source>Delete</source>
         <translation>Elimina</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="706"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="723"/>
         <source>The name already exists</source>
         <translation>El nom ja existeix.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="725"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="742"/>
         <source>You will not be able to reprint the completed jobs if continue. Are you sure you want to rename the printer?</source>
         <translation>No podreu tornar a imprimir les tasques acabades si continueu. Segur que voleu canviar el nom de la impressora?</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="730"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="747"/>
         <source>Confirm</source>
         <translation>Confirmeu-ho</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="788"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="805"/>
         <source>The driver is damaged, please install it again.</source>
         <translation>El controlador està malmès. Si us plau, torneu-lo a instal·lar.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="791"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="808"/>
         <source>Install Driver</source>
         <translation>Instal·la el controlador</translation>
     </message>
@@ -753,7 +758,7 @@
 <context>
     <name>DriverManager</name>
     <message>
-        <location filename="../../Common/vendor/zdrivermanager.cpp" line="905"/>
+        <location filename="../../Common/vendor/zdrivermanager.cpp" line="906"/>
         <source>EveryWhere driver</source>
         <translation>Controlador EveryWhere</translation>
     </message>
@@ -795,7 +800,7 @@
     </message>
     <message>
         <location filename="../ui/installdriverwindow.cpp" line="120"/>
-        <location filename="../ui/installdriverwindow.cpp" line="398"/>
+        <location filename="../ui/installdriverwindow.cpp" line="403"/>
         <source>Choose a local driver</source>
         <translation>Trieu un controlador local</translation>
     </message>
@@ -838,29 +843,29 @@
         <translation>Instal·la el controlador</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="380"/>
-        <location filename="../ui/installdriverwindow.cpp" line="492"/>
+        <location filename="../ui/installdriverwindow.cpp" line="385"/>
+        <location filename="../ui/installdriverwindow.cpp" line="495"/>
         <source>Reselect</source>
         <translation>Torneu a seleccionar</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="406"/>
-        <location filename="../ui/installdriverwindow.cpp" line="489"/>
+        <location filename="../ui/installdriverwindow.cpp" line="411"/>
+        <location filename="../ui/installdriverwindow.cpp" line="492"/>
         <source>Select a PPD file</source>
         <translation>Seleccioneu un fitxer PPD</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="415"/>
+        <location filename="../ui/installdriverwindow.cpp" line="420"/>
         <source>Search for printer driver</source>
         <translation>Cerqueu un controlador per a la impressora.</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="471"/>
+        <location filename="../ui/installdriverwindow.cpp" line="474"/>
         <source>(recommended)</source>
         <translation>(recomanat)</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="634"/>
+        <location filename="../ui/installdriverwindow.cpp" line="646"/>
         <source> (recommended)</source>
         <translation>(recomanat)</translation>
     </message>
@@ -1187,55 +1192,71 @@
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="147"/>
-        <location filename="../ui/printersearchwindow.cpp" line="232"/>
+        <location filename="../ui/printersearchwindow.cpp" line="239"/>
         <source>No printers found</source>
         <translation>No s&apos;ha trobat cap impressora.</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="176"/>
+        <location filename="../ui/printersearchwindow.cpp" line="183"/>
         <source>Install Driver</source>
         <translation>Instal·la el controlador</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="204"/>
+        <location filename="../ui/printersearchwindow.cpp" line="211"/>
         <source>Address</source>
         <translation>Adreça</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="206"/>
+        <location filename="../ui/printersearchwindow.cpp" line="213"/>
         <source>Enter an address</source>
         <translation>Proporcioneu una adreça.</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="207"/>
+        <location filename="../ui/printersearchwindow.cpp" line="214"/>
         <source>Find</source>
         <comment>button</comment>
         <translation>Troba</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="294"/>
+        <location filename="../ui/printersearchwindow.cpp" line="308"/>
         <source>URI</source>
         <translation>URI</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="298"/>
+        <location filename="../ui/printersearchwindow.cpp" line="312"/>
         <source>Enter device URI</source>
         <translation>Proporcioneu un URI de dispositiu.</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="309"/>
+        <location filename="../ui/printersearchwindow.cpp" line="323"/>
         <source>Examples:</source>
         <translation>Exemples:</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="602"/>
+        <location filename="../ui/printersearchwindow.cpp" line="626"/>
         <source>OK</source>
         <translation>D&apos;acord</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="688"/>
+        <location filename="../ui/printersearchwindow.cpp" line="712"/>
         <source> (recommended)</source>
         <translation>(recomanat)</translation>
+    </message>
+    <message>
+        <location filename="../ui/printersearchwindow.cpp" line="720"/>
+        <source>Cannot find the driver</source>
+        <translation>No se&apos;n pot trobar el controlador.</translation>
+    </message>
+    <message>
+        <location filename="../ui/printersearchwindow.cpp" line="722"/>
+        <source>Please try to install it manually or search its official website</source>
+        <translation>Si us plau, proveu d&apos;instal·lar-lo manualment o cerqueu-lo a la pàgina oficial.</translation>
+    </message>
+    <message>
+        <location filename="../ui/printersearchwindow.cpp" line="729"/>
+        <source>OK</source>
+        <comment>button</comment>
+        <translation>D&apos;acord</translation>
     </message>
 </context>
 <context>
@@ -1262,7 +1283,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../Common/common.cpp" line="152"/>
+        <location filename="../../Common/common.cpp" line="154"/>
         <source> not found, please ask the administrator for help</source>
         <translation>no s&apos;ha trobat. Si us plau, demaneu ajuda a l&apos;administrador.</translation>
     </message>
@@ -1437,7 +1458,7 @@
         <translation>Fitxer</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="520"/>
+        <location filename="../ui/printersearchwindow.cpp" line="544"/>
         <source>(use %1 protocol)</source>
         <translation>(usa el protocol %1)</translation>
     </message>
@@ -1485,6 +1506,11 @@ o bé</translation>
         <location filename="../ui/uisourcestring.h" line="40"/>
         <source>Cancel</source>
         <translation>Cancel·la</translation>
+    </message>
+    <message>
+        <location filename="../ui/uisourcestring.h" line="43"/>
+        <source>For more drivers, please refer to our official website: </source>
+        <translation>Per a més controladors, consulteu la nostra pàgina oficial:</translation>
     </message>
     <message>
         <location filename="../util/ddestination.cpp" line="201"/>
