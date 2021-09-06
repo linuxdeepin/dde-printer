@@ -309,6 +309,7 @@ void InstallDriverWindow::initMakerAndType()
     if (!makerList.isEmpty()) {
         int index = -1;
         makerList.sort(Qt::CaseInsensitive);
+        m_pManufacturerCombo->clear();
         m_pManufacturerCombo->addItems(makerList);
         initCompleter(MANUFACTURER, makerList);
         //优先显示所选打印机对应的驱动
