@@ -4,8 +4,6 @@
 
 Print Manager is an easy-to-use CUPS-based tool that manages several printers at a time with a simple interface providing users with great convenience to add printers and install drivers quickly.
 
-![0|homepage](fig/homepage.png)
-
 ## Guide
 
 You can run, close or create a shortcut for Print Manager as follows.
@@ -42,37 +40,35 @@ You can add printers via USB connection directly. Or, on the main interface, cli
 
 1. Click **Discover Printer** to load printer list automatically. Select the printer you want to add.
 
-2. You can see a drop-down list of drivers for the printer selected. The recommended driver is selected by default. If you select "Select a driver" from the drop-down list, you will skip into an interface to select a driver you want.
-
    ![0|2automaticsearch](fig/2automaticsearch.png)
 
-3. Click  **Install Driver** to enter installing interface.
+2. Check the printer you want to add, the system will automatically find the proper driver.
 
+   - Driver matched successfully: Click **Install Driver** to enter the installation interface.
+   - Driver match failed: select **Select a driver** or click the website link to find, download and install the correct driver. Click **Next** to go to the driver selecting interface.
 
 **Find Printer**
 
-1. Click **Find Printer** , input user name or IP address to search printers through different protocols. 
+1. Click **Find Printer** , input user name or IP address (XX.XX.XX.XX) and click **Find** to search printers through different protocols. 
 
    ![0|3manualsearch](fig/3manualsearch.png)
 
-2. After you select a printer, its driver list is loaded below, and the recommended driver is selected by default. If no list is loaded, you can choose "Select a driver" from the drop down list to enter an interface to choose a driver.
+2. Check the printer you want to add, the system will automatically find the proper driver.
 
-3. Click **Install Driver** to enter installing interface. 
-
+   - Driver matched successfully: Click **Install Driver** to enter the installation interface.
+   - Driver match failed: select **Select a driver** or click the website link to find, download and install the correct driver. Click **Next** to go to the driver selecting interface.
 
 **Enter URI**
 
-1. If no printers are found by  **Discover Printer** and  **Find Printer** , you can find and install printer driver by entering URI.  
+If no printers are found by  **Discover Printer** and  **Find Printer** , you can find and install printer driver by entering URI.  
 
-2. Click **Enter URI** and input printer's URI.
+1. Click **Enter URI** and input printer's URI.
 
    ![0|4URIsearch](fig/4URIsearch.png)
 
-3. "Select a driver" is set by default. Click **Next** to enter driver installing interface.  
+2. "Select a driver" is set by default. Or, you can click the website link to find, download and install the correct driver. 
 
-4. Choose the correct driver and click **Install Driver** to enter installing interface. 
-
-
+3. Click **Next** to go to the driver selecting interface. 
 
 
 #### Select drivers
@@ -120,7 +116,6 @@ When the printer is connected to the computer through USB, the printer will be a
 ![usb_connection](fig/usb_connection.png)
 
 - Configuration failure: the notification of configuration failure will pop up. Click it to jump to Print Manager interface and add drivers manually. Refer to [Add printers via network](#Add printers via network) for operations. 
-  
 
 ## Print Manager Interface
 
@@ -130,23 +125,20 @@ Once a printer is added successfully, when you click the printer in the interfac
 
 ### Properties 
 
-1. Click **Properties** to view all settings of the printer.
-
-2. You can view the info about the printer's driver, URI, location, description, color mode and resolution instead of setting them.
+1. Click **Properties** to view all settings of the printer. You can view the info about the printer's driver, URI, location, description, color mode and resolution and so on.
 
 3. Settable items include: paper source, paper type, paper size, duplex, margins, orientation, page order and binding. It can be set according to your actual needs. For example, the paper size can be A4, A5, B5 or A3, and the printing direction can be vertical, horizontal or anti horizontal.
 
-> ![notes](../common/notes.svg)Notes: **Properties** are related to the printer model and its driver. Different printer models and drivers have different properties. You can set according to your practical situation. 
+> ![notes](../common/notes.svg)Notes: **Properties** are related to the printer model and its driver. You can set according to your practical situation. 
 
 ![0|10printersettings1](fig/10printersettings1.png)
 
 ### Print Queue
 
-1. Click **Print Queue**, you will enter an interface, you can select options such as "All", "Print queue","Completed" and "Refresh". **Print Queue** is displayed by default. 
+1. Click **Print Queue**, you can view all print jobs and information, including "All", "Print queue", and "Completed". **Print Queue** is displayed by default. 
 
-2. The list contains: "Job", "User", "Document", "Printer", "Size", "Time Submitted", "Status" and "Action". 
+2. Select a job, right-click and you can select **Cancel**, **Delete**, **Pause**, **Resume**, **Print first**,  and **Reprint**. 
 
-3. Select a job, right-click and you can select **Cancel**, **Delete**, **Pause**, **Resume**, **Print first**,  and **Reprint**. 
 
 ![0|11rightclicksetting](fig/11rightclicksetting.png)
 
@@ -179,7 +171,7 @@ If printing fails, you can click **Troubleshoot**, the checklist includes follow
 
 ### Right-click options 
 
-Select the printer and right-click, you will have four options such as "Shared", "Enabled", "Accept jobs", and "Set as default". 
+Select the printer and right-click, you will have options such as "Rename", "Shared", "Enabled", "Accept jobs", and "Set as default". 
 
 > ![notes](../common/notes.svg)Notes: Before sharing a printer, must sharing function in "Main Menu > Settings" be opened. Otherwise, it would not take effect even though it's selected in the tight-click menu.
 
