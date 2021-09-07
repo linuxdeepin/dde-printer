@@ -40,7 +40,7 @@ QMap<QString, QString> parseDeviceID(const QString &strId);
 QString replaceMakeName(QString &make_and_model, int *len);
 
 //移除model中的make信息
-void removeMakeInModel(QString &strMake, QString &strModel);
+void removeMakeInModel(const QString &strMake, QString &strModel);
 
 //解析make-and-model字段中的厂商和型号信息
 void ppdMakeModelSplit(const QString &strMakeAndModel, QString &strMake, QString &strModel);
