@@ -54,6 +54,10 @@ TroubleShootItem::TroubleShootItem(TroubleShootJob *job, int index, QWidget *par
     m_messageLabel = new QLabel(this);
     m_messageLabel->setFont(DFontSizeManager::instance()->t7());
 
+    m_iconLabel->setAccessibleName("iconLabel_shootItem");
+    m_titleLabel->setAccessibleName("titleLabel_shootItem");
+    m_messageLabel->setAccessibleName("msgLabel_shootItem");
+
     QGridLayout *lay = new QGridLayout(this);
     lay->setContentsMargins(10, 5, 10, 5);
     lay->setColumnStretch(1, 100);
@@ -62,6 +66,7 @@ TroubleShootItem::TroubleShootItem(TroubleShootJob *job, int index, QWidget *par
     lay->addWidget(m_messageLabel, 1, 1, Qt::AlignLeft | Qt::AlignHCenter);
     setLayout(lay);
     setFixedHeight(60);
+    this->setAccessibleName("shootItem_troubleShoot");
 
     connect(job, &TroubleShootJob::signalStateChanged, this, &TroubleShootItem::slotStateChanged);
 }
@@ -98,6 +103,7 @@ TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *pare
     titleBar->setIcon(QIcon(":/images/dde-printer.svg"));
     titleBar->setMenuVisible(false);
     titleBar->setTitle("");
+    titleBar->setAccessibleName("titleBar_troubleShoot");
 
     m_trobleShoot = new TroubleShoot(printerName, this);
     m_trobleShoot->addJob(new CheckConnected(printerName, m_trobleShoot));
@@ -107,6 +113,7 @@ TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *pare
 
     QLabel *title = new QLabel(tr("Troubleshoot: "), contentWidget);
     title->setFixedHeight(30);
+    title->setAccessibleName("title_contentWidget");
     DFontSizeManager::instance()->bind(title, DFontSizeManager::T5, QFont::DemiBold);
     QHBoxLayout *pHLayout = new QHBoxLayout();
     pHLayout->setContentsMargins(0, 0, 0, 0);
@@ -127,11 +134,13 @@ TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *pare
     }
     itemlay->addStretch(100);
     frame->setLayout(itemlay);
+    frame->setAccessibleName("frame_contentWidget");
 
     m_button = new QPushButton(contentWidget);
     m_button->setFixedWidth(200);
     m_button->setText(tr("Cancel", "button"));
     m_button->setFocusPolicy(Qt::NoFocus);
+    m_button->setAccessibleName("button_contentWidget");
     QVBoxLayout *lay = new QVBoxLayout(contentWidget);
     lay->setSpacing(0);
     lay->setContentsMargins(10, 10, 10, 10);
@@ -141,6 +150,7 @@ TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *pare
 
     contentWidget->setFixedSize(692, 432);
     contentWidget->setLayout(lay);
+    contentWidget->setAccessibleName("contentWidget_troubleShoot");
 
     QVBoxLayout *mainlay = new QVBoxLayout(this);
     mainlay->setContentsMargins(0, 0, 0, 0);
@@ -149,6 +159,7 @@ TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *pare
     setLayout(mainlay);
 
     this->setFixedSize(692, 487);
+    this->setAccessibleName("troubleShoot_mainWindow");
 
     connect(m_trobleShoot, &TroubleShoot::signalStatus, this, &TroubleShootDialog::slotTroubleShootStatus);
     connect(m_button, &QPushButton::clicked, this, &DDialog::close);

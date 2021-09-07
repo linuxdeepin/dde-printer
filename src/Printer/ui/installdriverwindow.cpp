@@ -87,17 +87,20 @@ void InstallDriverWindow::initUI()
     titlebar()->setIcon(QIcon(":/images/dde-printer.svg"));
     m_pPreBtn = new DButtonBoxButton(QIcon::fromTheme("dp_arrow_left"), "", this);
     m_pPreBtn->setIconSize(QSize(7, 10));
+    m_pPreBtn->setAccessibleName("preBtn_installDriver");
     DButtonBox *pBtnBox = new DButtonBox(titlebar());
     QList<DButtonBoxButton *> btnList;
     btnList.append(m_pPreBtn);
     pBtnBox->setButtonList(btnList, false);
     titlebar()->addWidget(pBtnBox, Qt::AlignLeft);
+    titlebar()->setAccessibleName("titleBar_installDriver");
     // 去掉最大最小按钮
     setWindowFlags(Qt::Dialog);
     setWindowModality(Qt::ApplicationModal);
     setFixedSize(682, 532);
     // 左侧
     QLabel *pLabelTitle1 = new QLabel(tr("Select a driver from"), this);
+    pLabelTitle1->setAccessibleName("leftTitle_installDriver");
     DFontSizeManager::instance()->bind(pLabelTitle1, DFontSizeManager::T5, QFont::DemiBold);
     m_pTabListView = new DListView(this);
     m_pTabListModel = new QStandardItemModel(m_pTabListView);
@@ -114,10 +117,12 @@ void InstallDriverWindow::initUI()
     pLeftVBoxlayout->addWidget(m_pTabListView);
     QWidget *pLeftFrame = new QWidget(this);
     pLeftFrame->setLayout(pLeftVBoxlayout);
+    pLeftFrame->setAccessibleName("leftFrame_installDriver");
 
     // 切换控件
     m_pStackWidget = new QStackedWidget(this);
     m_pRightTitleLabel = new QLabel(tr("Choose a local driver"), this); // 这个标题栏三个界面公用
+    m_pRightTitleLabel->setAccessibleName("rightTitle_installDriver");
     DFontSizeManager::instance()->bind(m_pRightTitleLabel, DFontSizeManager::T5, QFont::DemiBold);
     //右侧 本地
     QLabel *pLabelManufacturer = new QLabel(tr("Vendor"), this);
@@ -125,6 +130,8 @@ void InstallDriverWindow::initUI()
     m_pManufacturerCombo->setMaxVisibleItems(10);
     m_pManufacturerCombo->setEditable(true);
     m_pManufacturerCombo->setInsertPolicy(QComboBox::NoInsert);
+    pLabelManufacturer->setAccessibleName("mfgLabel_installDriver");
+    m_pManufacturerCombo->setAccessibleName("mfgCombo_installDriver");
     QHBoxLayout *pLocalHL1 = new QHBoxLayout();
     pLocalHL1->addWidget(pLabelManufacturer, 1);
     pLocalHL1->addWidget(m_pManufacturerCombo, 3);
@@ -133,9 +140,11 @@ void InstallDriverWindow::initUI()
     pLocalWidget1->setLayout(pLocalHL1);
 
     QLabel *pLabelType = new QLabel(tr("Model"), this);
+    pLabelType->setAccessibleName("labelType_installDriver");
     m_pTypeCombo = new DComboBox(this);
     m_pTypeCombo->setEditable(true);
     m_pTypeCombo->setInsertPolicy(QComboBox::NoInsert);
+    m_pTypeCombo->setAccessibleName("typeCombo_installDriver");
     QHBoxLayout *pLocalHL2 = new QHBoxLayout();
     pLocalHL2->addWidget(pLabelType, 1);
     pLocalHL2->addWidget(m_pTypeCombo, 3);
@@ -147,6 +156,7 @@ void InstallDriverWindow::initUI()
     m_pDriverCombo = new DComboBox(this);
     m_pDriverCombo->setEditable(true);
     m_pDriverCombo->setInsertPolicy(QComboBox::NoInsert);
+    m_pDriverCombo->setAccessibleName("driverCombo_installDriver");
     QHBoxLayout *pLocalHL3 = new QHBoxLayout();
     pLocalHL3->addWidget(pLabelDriver, 1);
     pLocalHL3->addWidget(m_pDriverCombo, 3);
@@ -154,6 +164,10 @@ void InstallDriverWindow::initUI()
     QWidget *pLocalWidget3 = new QWidget(this);
     pLocalWidget3->setLayout(pLocalHL3);
     pLocalWidget3->setFixedHeight(56);
+
+    pLocalWidget1->setAccessibleName("localWidget1_installDriver");
+    pLocalWidget2->setAccessibleName("localWidget2_installDriver");
+    pLocalWidget3->setAccessibleName("localWidget3_installDriver");
 
     QVBoxLayout *pLocalVLayout = new QVBoxLayout();
     pLocalVLayout->addWidget(pLocalWidget1);
@@ -166,6 +180,7 @@ void InstallDriverWindow::initUI()
     pLocalWidget->setItemSpacing(1);
     pLocalWidget->setItemMargins(QMargins(0, 0, 0, 0));
     pLocalWidget->setBackgroundRole(this->backgroundRole());
+    pLocalWidget->setAccessibleName("localWidget_installDriver");
 
     QVBoxLayout *pVLayoutLocal = new QVBoxLayout();
     pVLayoutLocal->addWidget(pLocalWidget, 0);
@@ -173,6 +188,7 @@ void InstallDriverWindow::initUI()
     pVLayoutLocal->setMargin(0);
     QWidget *pLocalWidget4 = new QWidget(this);
     pLocalWidget4->setLayout(pVLayoutLocal);
+    pLocalWidget4->setAccessibleName("localWidget4_installDriver");
     //将中间控件设置为DMainWindow的背景颜色
     m_pStackWidget->addWidget(pLocalWidget4);
 
@@ -183,7 +199,9 @@ void InstallDriverWindow::initUI()
     m_pPPDPath->setAcceptDrops(true);
     m_pPPDPath->setAlignment(Qt::AlignCenter);
     m_pPPDPath->setWordWrap(true);
+    m_pPPDPath->setAccessibleName("ppdPath_installDriver");
     m_pSelectPPDBtn = new QPushButton(UI_PRINTERDRIVER_PPDBTN_NORMAL, this);
+    m_pSelectPPDBtn->setAccessibleName("ppdBtn_installDriver");
     DFontSizeManager::instance()->bind(m_pPPDPath, DFontSizeManager::T6, QFont::Medium);
     QVBoxLayout *pVLayout = new QVBoxLayout(this);
     pVLayout->setContentsMargins(0, 100, 0, 100);
@@ -201,8 +219,10 @@ void InstallDriverWindow::initUI()
     m_pManuAndTypeLineEdit = new QLineEdit(this);
     m_pManuAndTypeLineEdit->setToolTip(tr("Enter a complete vendor and model (Only letters, numbers and whitespaces)"));
     m_pManuAndTypeLineEdit->setValidator(new QRegExpValidator(QRegExp("^[a-zA-Z0-9 ]*$")));
+    m_pManuAndTypeLineEdit->setAccessibleName("manuBtn_installDriver");
     m_pSearchBtn = new QPushButton(tr("Search", "button"), this);
     m_pSearchBtn->setMinimumSize(80, 36);
+    m_pSearchBtn->setAccessibleName("searchBtn_installDriver");
     QHBoxLayout *pMakerHL1 = new QHBoxLayout();
     pMakerHL1->addWidget(pMakerAndTypeLabel, 1);
     pMakerHL1->addWidget(m_pManuAndTypeLineEdit, 3);
@@ -213,7 +233,9 @@ void InstallDriverWindow::initUI()
     pMakerWidget1->setFixedHeight(56);
 
     QLabel *pDriverLabel = new QLabel(tr("Driver"), this);
+    pDriverLabel->setAccessibleName("driverLabel_installDriver");
     m_pDriverManualCombo = new DComboBox(this);
+    m_pDriverManualCombo->setAccessibleName("manualCombo_installDriver");
     QHBoxLayout *pMakerHL2 = new QHBoxLayout();
     pMakerHL2->setSpacing(0);
     pMakerHL2->addWidget(pDriverLabel, 1);
@@ -222,6 +244,9 @@ void InstallDriverWindow::initUI()
     pMakerHL2->setContentsMargins(20, 10, 10, 10);
     QWidget *pMakerWidget2 = new QWidget(this);
     pMakerWidget2->setLayout(pMakerHL2);
+
+    pMakerWidget1->setAccessibleName("makerWidget1_installDriver");
+    pMakerWidget2->setAccessibleName("makerWidget2_installDriver");
 
     QVBoxLayout *pMakerVLayout1 = new QVBoxLayout();
     pMakerVLayout1->addWidget(pMakerWidget1);
@@ -233,12 +258,14 @@ void InstallDriverWindow::initUI()
     pSettingWidget->setItemSpacing(1);
     pSettingWidget->setItemMargins(QMargins(0, 0, 0, 0));
     pSettingWidget->setBackgroundRole(this->backgroundRole());
+    pSettingWidget->setAccessibleName("backGroup_installDriver");
     QVBoxLayout *pVLayoutMaker = new QVBoxLayout();
     pVLayoutMaker->addWidget(pSettingWidget, 0);
     pVLayoutMaker->addStretch();
     pVLayoutMaker->setMargin(0);
     QWidget *pSettingWidget1 = new QWidget(this);
     pSettingWidget1->setLayout(pVLayoutMaker);
+    pSettingWidget1->setAccessibleName("settingWidget1_installDriver");
     m_pStackWidget->addWidget(pSettingWidget1);
 
     //安装按钮
@@ -250,6 +277,12 @@ void InstallDriverWindow::initUI()
     m_pSearchSpinner = new DSpinner(m_pStackWidget);
     m_pSearchSpinner->setFixedSize(36, 36);
     m_pSearchSpinner->setVisible(false);
+    m_pSearchSpinner->setAccessibleName("searchSpinner_stackWidget");
+
+    m_pRightTitleLabel->setAccessibleName("titleLabel_installDriver");
+    m_pStackWidget->setAccessibleName("stackWidget_installDriver");
+    m_pInstallBtn->setAccessibleName("installBtn_installDriver");
+    m_pSpinner->setAccessibleName("spinner_rightFrame");
 
     // 右侧整体布局
     QVBoxLayout *pRightVLayout = new QVBoxLayout();
@@ -261,6 +294,7 @@ void InstallDriverWindow::initUI()
     pRightVLayout->setContentsMargins(10, 20, 10, 10);
     QWidget *pRightFrame1 = new QWidget(this);
     pRightFrame1->setLayout(pRightVLayout);
+    pRightFrame1->setAccessibleName("rightFrame_installDriver");
 
     // 整体布局
     QHBoxLayout *pMainLayout = new QHBoxLayout();
@@ -268,6 +302,7 @@ void InstallDriverWindow::initUI()
     pMainLayout->addWidget(pRightFrame1, 2);
     pMainLayout->setContentsMargins(0, 0, 0, 0);
     DBackgroundGroup *pCentralWidget = new DBackgroundGroup;
+    pCentralWidget->setAccessibleName("backWidget_centralWidget");
     pCentralWidget->setLayout(pMainLayout);
     pCentralWidget->setItemSpacing(2);
     QHBoxLayout *pMainLayout1 = new QHBoxLayout();
@@ -275,6 +310,7 @@ void InstallDriverWindow::initUI()
     pMainLayout1->setContentsMargins(10, 10, 10, 10);
     QWidget *pCentralWidget1 = new QWidget(this);
     pCentralWidget1->setLayout(pMainLayout1);
+    pCentralWidget1->setAccessibleName("centralWidget_installDriver");
 
     takeCentralWidget();
     setCentralWidget(pCentralWidget1);

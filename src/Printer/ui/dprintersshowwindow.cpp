@@ -89,7 +89,9 @@ void DPrintersShowWindow::initUI()
     QMenu *pMenu = new QMenu();
     m_pSettings = new QAction(tr("Settings"));
     pMenu->addAction(m_pSettings);
+    pMenu->setAccessibleName("menu_titleBar");
     titlebar()->setMenu(pMenu);
+    titlebar()->setAccessibleName("titleBar_mainWindow");
     setMinimumSize(942, 656);
 
     // 左边上面的控制栏
@@ -102,6 +104,11 @@ void DPrintersShowWindow::initUI()
     m_pBtnDeletePrinter = new DIconButton(DStyle::SP_DecreaseElement);
     m_pBtnDeletePrinter->setFixedSize(36, 36);
     m_pBtnDeletePrinter->setToolTip(tr("Delete printer"));
+
+    pLabel->setAccessibleName("label_leftWidget");
+    m_pBtnAddPrinter->setAccessibleName("addPrinter_mainWindow");
+    m_pBtnDeletePrinter->setAccessibleName("deletePrinter_leftWidget");
+
     QHBoxLayout *pLeftTopHLayout = new QHBoxLayout();
     pLeftTopHLayout->addWidget(pLabel, 6, Qt::AlignLeft);
     pLeftTopHLayout->addWidget(m_pBtnAddPrinter, 1);
@@ -119,6 +126,7 @@ void DPrintersShowWindow::initUI()
 
     ItemDelegate *pItemDelegate = new ItemDelegate(m_pPrinterListView);
     m_pPrinterListView->setItemDelegate(pItemDelegate);
+    m_pPrinterListView->setAccessibleName("printerList_mainWindow");
 
     /*添加隐藏加载控件*/
     m_pLoading = new DSpinner(m_pPrinterListView);
@@ -126,7 +134,7 @@ void DPrintersShowWindow::initUI()
     m_pLoading->setFixedSize(32, 32);
     m_pLoading->setVisible(false);
     m_pLoading->move(300 - 32 - 10, 10);
-
+    m_pLoading->setAccessibleName("loader_printerList");
 
     // 列表的右键菜单
     m_pListViewMenu = new QMenu();
@@ -151,10 +159,12 @@ void DPrintersShowWindow::initUI()
     m_pListViewMenu->addAction(m_pRejectAction);
     m_pListViewMenu->addSeparator();
     m_pListViewMenu->addAction(m_pDefaultAction);
+    m_pListViewMenu->setAccessibleName("listView_printerList");
 
     // 没有打印机时的提示
     m_pLeftTipLabel = new QLabel(tr("No Printers"));
     m_pLeftTipLabel->setVisible(false);
+    m_pLeftTipLabel->setAccessibleName("tipLabel_leftWidget");
     QPalette pa = m_pLeftTipLabel->palette();
     QColor color = pa.color(QPalette::WindowText);
     pa.setColor(QPalette::WindowText, QColor(color.red(), color.green(), color.blue(), int(255 * 0.3)));
@@ -168,6 +178,7 @@ void DPrintersShowWindow::initUI()
     pLeftVLayout->setContentsMargins(0, 0, 0, 0);
     QWidget *pLeftWidget = new QWidget(this);
     pLeftWidget->setLayout(pLeftVLayout);
+    pLeftWidget->setAccessibleName("leftWidget_mainWindow");
 
     // 右侧上方
     QLabel *pLabelImage = new QLabel("");
@@ -189,6 +200,14 @@ void DPrintersShowWindow::initUI()
     m_pLabelStatusShow = new QLabel(tr(""));
     DFontSizeManager::instance()->bind(m_pLabelStatusShow, DFontSizeManager::T5, QFont::DemiBold);
     QGridLayout *pRightGridLayout = new QGridLayout();
+
+    // 添加AT测试控件标签
+    pLabelImage->setAccessibleName("labelImage_printerInfoWidget");
+    m_pLabelPrinterName->setAccessibleName("printerName_printerInfoWidget");
+    m_pLabelLocationShow->setAccessibleName("locationShow_printerInfoWidget");
+    m_pLabelTypeShow->setAccessibleName("typeShow_printerInfoWidget");
+    m_pLabelStatusShow->setAccessibleName("statusShow_printerInfoWidget");
+
     pRightGridLayout->addWidget(m_pLabelPrinterName, 0, 0, 1, 2, Qt::AlignLeft);
     pRightGridLayout->addWidget(pLabelLocation, 1, 0);
     pRightGridLayout->addWidget(m_pLabelLocationShow, 1, 1);
@@ -257,6 +276,17 @@ void DPrintersShowWindow::initUI()
     pLabelSupply->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
     DFontSizeManager::instance()->bind(pLabelSupply, DFontSizeManager::T8);
 
+    m_pIBtnSetting->setAccessibleName("setting_mainWindow");
+    m_pIBtnPrintQueue->setAccessibleName("printQueue_mainWindow");
+    m_pIBtnPrintTest->setAccessibleName("printTest_mainWindow");
+    m_pIBtnSupply->setAccessibleName("supply_mainWindow");
+    m_pIBtnFault->setAccessibleName("fault_mainWindow");
+    pLabelSetting->setAccessibleName("labelSetting_printerInfoWidget");
+    pLabelPrintQueue->setAccessibleName("labelPrintQueue_printerInfoWidget");
+    pLabelPrintTest->setAccessibleName("labelPrintTest_printerInfoWidget");
+    pLabelSupply->setAccessibleName("labelSupply_printerInfoWidget");
+    pLabelPrintFault->setAccessibleName("labelFault_printerInfoWidget");
+
     QGridLayout *pRightBottomGLayout = new QGridLayout();
     pRightBottomGLayout->addWidget(m_pIBtnSetting, 0, 0, Qt::AlignHCenter);
     pRightBottomGLayout->addWidget(pLabelSetting, 1, 0);
@@ -277,15 +307,18 @@ void DPrintersShowWindow::initUI()
     pRightVLayout->setContentsMargins(20, 100, 20, 140);
     m_pPrinterInfoWidget = new QWidget();
     m_pPrinterInfoWidget->setLayout(pRightVLayout);
+    m_pPrinterInfoWidget->setAccessibleName("printerInfoWidget_rightWidget");
     m_pPRightTipLabel1 = new QLabel(tr("No printer configured"));
     m_pPRightTipLabel1->setAlignment(Qt::AlignCenter);
     m_pPRightTipLabel1->setVisible(false);
     m_pPRightTipLabel1->setPalette(pa);
+    m_pPRightTipLabel1->setAccessibleName("rightTipLabel1_rightWidget");
     DFontSizeManager::instance()->bind(m_pPRightTipLabel1, DFontSizeManager::T5, QFont::DemiBold);
     m_pPRightTipLabel2 = new QLabel(tr("Click + to add printers"));
     m_pPRightTipLabel2->setAlignment(Qt::AlignCenter);
     m_pPRightTipLabel2->setVisible(false);
     m_pPRightTipLabel2->setPalette(pa);
+    m_pPRightTipLabel2->setAccessibleName("rightTipLabel2_rightWidget");
     DFontSizeManager::instance()->bind(m_pPRightTipLabel2, DFontSizeManager::T6, QFont::DemiBold);
     QVBoxLayout *pRightMainVLayout = new QVBoxLayout();
     pRightMainVLayout->addWidget(m_pPrinterInfoWidget);
@@ -296,6 +329,7 @@ void DPrintersShowWindow::initUI()
     //DFrame 会导致上面的QLabel显示颜色不正常
     QWidget *pRightWidgwt = new QWidget();
     pRightWidgwt->setLayout(pRightMainVLayout);
+    pRightWidgwt->setAccessibleName("rightWidget_centralWidget");
 
     QHBoxLayout *pMainHLayout = new QHBoxLayout();
     pMainHLayout->setSpacing(2);
@@ -306,6 +340,7 @@ void DPrintersShowWindow::initUI()
     DBackgroundGroup *pCentralWidget = new DBackgroundGroup();
     pCentralWidget->setLayout(pMainHLayout);
     pCentralWidget->setItemSpacing(2);
+    pCentralWidget->setAccessibleName("centralWidget_mainWindow");
     QHBoxLayout *pMainLayout1 = new QHBoxLayout();
     pMainLayout1->addWidget(pCentralWidget);
     pMainLayout1->setContentsMargins(10, 10, 10, 10);
@@ -817,6 +852,7 @@ void DPrintersShowWindow::printSettingClickSlot()
         dialogRc.moveCenter(dialogRc.center() + mvPhasor);
         dialog.setGeometry(dialogRc);
         dialog.exec();
+        dialog.setAccessibleName("driveBroken_mainWindow");
     } else {
         dlg.initUI();
         dlg.initConnection();

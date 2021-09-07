@@ -108,6 +108,17 @@ void InstallPrinterWindow::initUI()
     pHLayout->addWidget(m_pPrinterTestPageBtn);
     pHLayout->addStretch();
 
+    // AT标记设置
+    titlebar()->setAccessibleName("titleBar_searchWindow");
+    m_pSpinner->setAccessibleName("spinner_mainWidget");
+    m_pStatusImageLabel->setAccessibleName("imageLabel_mainWidget");
+    m_pStatusLabel->setAccessibleName("statusLabel_mainWidget");
+    m_pTipLabel->setAccessibleName("tipLabel_mainWidget");
+    m_pDriverCombo->setAccessibleName("driverCombo_mainWidget");
+    m_pCancelInstallBtn->setAccessibleName("cancelBtn_mainWidget");
+    m_pCheckPrinterListBtn->setAccessibleName("listBtn_mainWidget");
+    m_pPrinterTestPageBtn->setAccessibleName("pageBtn_mainWidget");
+
     QVBoxLayout *pMainLayout = new QVBoxLayout();
     pMainLayout->setSpacing(0);
     QSpacerItem *pSpaceItem = new QSpacerItem(300, 52, QSizePolicy::Preferred, QSizePolicy::Preferred);
@@ -126,10 +137,12 @@ void InstallPrinterWindow::initUI()
     pMainLayout->setContentsMargins(0, 66, 0, 20);
     QWidget *widget = new QWidget;
     widget->setLayout(pMainLayout);
+    widget->setAccessibleName("mainWidget_installWindow");
     takeCentralWidget();
     setCentralWidget(widget);
 
     moveToCenter(this);
+    this->setAccessibleName("installWindow_searchWindow");
 }
 
 void InstallPrinterWindow::initConnections()

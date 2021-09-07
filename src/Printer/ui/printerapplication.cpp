@@ -147,6 +147,7 @@ int PrinterApplication::showJobsWindow()
     }
     m_jobsWindow->activateWindow();
     m_jobsWindow->showNormal();
+    m_jobsWindow->setAccessibleName("jobsWindow");
     return 0;
 }
 
@@ -161,6 +162,7 @@ int PrinterApplication::showMainWindow(const QString &printerName)
     }
     m_mainWindow->activateWindow();
     m_mainWindow->showNormal();
+    m_mainWindow->setAccessibleName("mainWindow");
 
     return 0;
 }

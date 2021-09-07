@@ -81,12 +81,15 @@ void DPrinterSupplyShowDlg::initUI()
     pVlayout->setContentsMargins(10, 0, 10, 0);
     m_pFreshSpinner = new DSpinner;
     m_pFreshSpinner->setFixedSize(36, 36);
+    m_pFreshSpinner->setAccessibleName("freshSpinner_contentWidget");
     pVlayout->addWidget(m_pFreshSpinner, 0, Qt::AlignCenter);
     m_pContentWidget->setLayout(pVlayout);
+    m_pContentWidget->setAccessibleName("contentWidget_printerSupply");
     addContent(m_pContentWidget);
     /*耗材信息的列表长度无法确定，固定高度窗口会导致内容显示不全*/
     setFixedWidth(380);
     moveToParentCenter();
+    this->setAccessibleName("printerSupply_mainWindow");
 }
 
 void DPrinterSupplyShowDlg::initConnection()
@@ -134,6 +137,7 @@ QWidget *DPrinterSupplyShowDlg::initColorSupplyItem(const SUPPLYSDATA &info, boo
         painter.drawRoundedRect(QRect(0, 0, 12, 12), 4, 4);
         DLabel *pColorLabel = new DLabel;
         pColorLabel->setPixmap(colorPix);
+        pColorLabel->setAccessibleName("colorLabel_colorWidget");
         pHlayout->addWidget(pColorLabel);
 
         if ((info.level < 0) || (info.level > 100)) {
@@ -150,6 +154,7 @@ QWidget *DPrinterSupplyShowDlg::initColorSupplyItem(const SUPPLYSDATA &info, boo
     }
 
     DLabel *pLabel = new DLabel(strColorName, this);
+    pLabel->setAccessibleName("colorName_colorWidget");
     DFontSizeManager::instance()->bind(pLabel, DFontSizeManager::T6, int(QFont::ExtraLight));
     pHlayout->addWidget(pLabel);
 
@@ -159,6 +164,7 @@ QWidget *DPrinterSupplyShowDlg::initColorSupplyItem(const SUPPLYSDATA &info, boo
         QPixmap pix = icon.pixmap(QSize(14, 14));
         pImageLabel->setPixmap(pix);
         pImageLabel->setToolTip(tr("Low level"));
+        pImageLabel->setAccessibleName("imageLabel_colorWidget");
         DProgressBar *pProcessBar = new DProgressBar;
         pProcessBar->setTextVisible(false);
         pProcessBar->setFixedSize(230, 8);
@@ -167,6 +173,7 @@ QWidget *DPrinterSupplyShowDlg::initColorSupplyItem(const SUPPLYSDATA &info, boo
         pal.setColor(QPalette::Background, QColor(0, 0, 0, int(0.1 * 255)));
         pProcessBar->setAutoFillBackground(true);
         pProcessBar->setPalette(pal);
+        pProcessBar->setAccessibleName("processBar_colorWidget");
         pHlayout->addStretch(46);
         pHlayout->addWidget(pImageLabel, Qt::AlignRight);
         pHlayout->addWidget(pProcessBar, Qt::AlignRight);
@@ -185,7 +192,9 @@ QWidget *DPrinterSupplyShowDlg::initColorSupplyItem(const SUPPLYSDATA &info, boo
         QPixmap pix = icon.pixmap(QSize(14, 14));
         DLabel *pImageLabel = new DLabel(this);
         pImageLabel->setPixmap(pix);
+        pImageLabel->setAccessibleName("imageLabel_colorWidget");
         DLabel *pTextLabel = new DLabel(tr("Unknown"), this);
+        pTextLabel->setAccessibleName("textLabel_colorWidget");
         DFontSizeManager::instance()->bind(pTextLabel, DFontSizeManager::T8, int(QFont::ExtraLight));
         pHlayout->addSpacing(13);
         pHlayout->addWidget(pImageLabel, Qt::AlignRight);
@@ -250,12 +259,14 @@ void DPrinterSupplyShowDlg::supplyFreshed(const QString &strName, bool bRet)
     QLabel *pLabel = new QLabel;
     DFontSizeManager::instance()->bind(pLabel, DFontSizeManager::T6, int(QFont::Medium));
     pLabel->setText(tr("Ink/Toner Status"));
+    pLabel->setAccessibleName("label_contentWidget");
     pVlayout->addWidget(pLabel, 0, Qt::AlignHCenter | Qt::AlignTop);
 
     if (!bRet) {
         pVlayout->addStretch(500);
         QLabel *pLabel2 = new QLabel;
         pLabel2->setText(tr("Unknown amount"));
+        pLabel2->setAccessibleName("label2_contentWidget");
         DFontSizeManager::instance()->bind(pLabel2, DFontSizeManager::T4, int(QFont::Medium));
         QPalette pal = pLabel2->palette();
         QColor color = pal.color(QPalette::WindowText);
@@ -272,6 +283,7 @@ void DPrinterSupplyShowDlg::supplyFreshed(const QString &strName, bool bRet)
         color = pal.color(QPalette::WindowText);
         pal.setColor(QPalette::WindowText, QColor(color.red(), color.green(), color.blue(), 120));
         pLabel3->setPalette(pal);
+        pLabel3->setAccessibleName("label3_contentWidget");
     } else {
         pVlayout->addSpacing(20);
         DPrinterManager *pManager = DPrinterManager::getInstance();
@@ -285,6 +297,7 @@ void DPrinterSupplyShowDlg::supplyFreshed(const QString &strName, bool bRet)
 
                 for (int i = 0; i < supplyInfos.size(); i++) {
                     QWidget *pColorWidget = initColorSupplyItem(supplyInfos[i], bColor);
+                    pColorWidget->setAccessibleName("colorWidget_contentWidget");
                     pVlayout->addWidget(pColorWidget);
                     pVlayout->addSpacing(1);
                 }
@@ -298,6 +311,7 @@ void DPrinterSupplyShowDlg::supplyFreshed(const QString &strName, bool bRet)
                 QString strTime = QString("%1:%2").arg(time.hour(), 2, 10, QLatin1Char('0')).arg(time.minute(), 2, 10, QLatin1Char('0'));
                 pTimelLabel->setText(tr("The amounts are estimated, last updated at %1").arg(strTime));
                 pTimelLabel->setMinimumHeight(60);
+                pTimelLabel->setAccessibleName("timeLabel_contentWidget");
                 pVlayout->addWidget(pTimelLabel);
                 pVlayout->addSpacing(20);
             }
@@ -309,7 +323,9 @@ void DPrinterSupplyShowDlg::supplyFreshed(const QString &strName, bool bRet)
     m_pConfirmBtn->setFixedSize(230, 36);
     DFontSizeManager::instance()->bind(m_pConfirmBtn, DFontSizeManager::T6, int(QFont::ExtraLight));
     m_pConfirmBtn->setText(tr("OK", "button"));
+    m_pConfirmBtn->setAccessibleName("confirmBtn_contentWidget");
     pVlayout->addWidget(m_pConfirmBtn, 0, Qt::AlignCenter | Qt::AlignBottom);
     m_pContentWidget->setLayout(pVlayout);
+    m_pContentWidget->setAccessibleName("contentWidget_printerSupply");
     connect(m_pConfirmBtn, &DPushButton::clicked, this, &QDialog::accept);
 }

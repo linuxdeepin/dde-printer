@@ -265,6 +265,7 @@ JobListView::JobListView(QWidget *parent)
     QColor color = opt.palette.color(QPalette::Inactive, QPalette::Text);
     pa.setColor(QPalette::WindowText, QColor(color.red(), color.green(), color.blue(), 100));
     m_label->setPalette(pa);
+    m_label->setAccessibleName("label_jobsView");
 }
 
 QString JobListView::getActionName(unsigned int iAction)
@@ -1095,8 +1096,10 @@ void JobManagerWindow::initUi()
 {
     m_refreshBut->setIcon(QIcon::fromTheme("dp_refresh"));
     m_refreshBut->setToolTip(tr("Refresh"));
+    m_refreshBut->setAccessibleName("refreshBut_jobsWindow");
 
     m_whichButBox->setButtonList(m_whichList, true);
+    m_whichButBox->setAccessibleName("whichButBox_jobsWindow");
     m_whichList[WHICH_JOB_RUNING]->setChecked(true);
     m_whichList[WHICH_JOB_ALL]->setToolTip(tr("All"));
     m_whichList[WHICH_JOB_RUNING]->setToolTip(tr("Print Queue"));
@@ -1112,6 +1115,7 @@ void JobManagerWindow::initUi()
     titlebar()->setMenuVisible(false);
 
     m_jobsView->setModel(m_jobsModel);
+    m_jobsView->setAccessibleName("jobsView_jobsWindow");
     m_jobsView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     m_jobsView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
     m_jobsView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Fixed);
@@ -1126,6 +1130,7 @@ void JobManagerWindow::initUi()
 
     m_jobCountLabel->setAlignment(Qt::AlignCenter);
     m_jobCountLabel->setFixedHeight(30);
+    m_jobCountLabel->setAccessibleName("jobCountLabel_jobsWindow");
     QPalette pa = m_jobCountLabel->palette();
     QStyleOption opt;
     opt.initFrom(m_jobCountLabel);
@@ -1144,6 +1149,7 @@ void JobManagerWindow::initUi()
     lay->setContentsMargins(10, 10, 10, 0);
     centWidget->setLayout(lay);
     setCentralWidget(centWidget);
+    centWidget->setAccessibleName("centWidget_jobsWindow");
 }
 
 void JobManagerWindow::initConnect()

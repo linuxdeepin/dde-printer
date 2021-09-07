@@ -81,12 +81,14 @@ private:
         titlebar()->setMenuVisible(false);
         titlebar()->setTitle("");
         titlebar()->setIcon(QIcon(":/images/dde-printer.svg"));
+        titlebar()->setAccessibleName("titleBar_settingsWindow");
         setWindowFlags(Qt::Dialog);
 
         setWindowModality(Qt::ApplicationModal);
         setFixedSize(480, 261);
 
         QLabel *pBaseSettings = new QLabel(tr("Basic Server Settings"));
+        pBaseSettings->setAccessibleName("baseSetting_mainSetting");
         DFontSizeManager::instance()->bind(pBaseSettings, DFontSizeManager::T5, QFont::DemiBold);
         QHBoxLayout *pHLayout = new QHBoxLayout();
         pHLayout->setSpacing(0);
@@ -100,6 +102,12 @@ private:
         m_pCheckRemote = new QCheckBox(tr("Allow remote administration"));
         //        m_pCheckCancelJobs = new QCheckBox(tr("Allow users to cancel all tasks (not just their own)"));
         m_pCheckSaveDebugInfo = new QCheckBox(tr("Save debugging information for troubleshooting"));
+
+        m_pCheckShared->setAccessibleName("checkShare_frame1");
+        m_pCheckIPP->setAccessibleName("checkIpp_frame1");
+        m_pCheckRemote->setAccessibleName("checkRemote_frame2");
+        m_pCheckSaveDebugInfo->setAccessibleName("checkSaveInfo_frame3");
+
         QVBoxLayout *pSettingsVLayout = new QVBoxLayout();
         pSettingsVLayout->setSpacing(0);
         pSettingsVLayout->setContentsMargins(0, 0, 0, 0);
@@ -114,7 +122,7 @@ private:
         QWidget *pFrame1 = new QWidget();
         pFrame1->setFixedHeight(64);
         pFrame1->setLayout(pSettingsVLayout1);
-
+        pFrame1->setAccessibleName("frame1_SettingWidget");
         pSettingsVLayout->addWidget(pFrame1);
 
         QVBoxLayout *pSettingsVLayout2 = new QVBoxLayout();
@@ -122,7 +130,7 @@ private:
         QWidget *pFrame2 = new QWidget();
         pFrame2->setLayout(pSettingsVLayout2);
         pFrame2->setFixedHeight(36);
-
+        pFrame2->setAccessibleName("frame2_SettingWidget");
         pSettingsVLayout->addWidget(pFrame2);
 
         //        pSettingsVLayout->addWidget(m_pCheckCancelJobs);
@@ -132,12 +140,14 @@ private:
         QWidget *pFrame3 = new QWidget();
         pFrame3->setFixedHeight(36);
         pFrame3->setLayout(pSettingsVLayout3);
+        pFrame3->setAccessibleName("frame3_SettingWidget");
         pSettingsVLayout->addWidget(pFrame3);
 
         DBackgroundGroup *pSettingWidget = new DBackgroundGroup();
         pSettingWidget->setLayout(pSettingsVLayout);
         pSettingWidget->setItemSpacing(1);
         pSettingWidget->setBackgroundRole(this->backgroundRole());
+        pSettingWidget->setAccessibleName("SettingWidget_mainSetting");
 
         DFrame *pSettingWidget1 = new DFrame(this);
         QVBoxLayout *pMainVlaout1 = new QVBoxLayout();
@@ -145,16 +155,19 @@ private:
         pMainVlaout1->addWidget(pSettingWidget);
         pMainVlaout1->setContentsMargins(10, 10, 10, 10);
         pSettingWidget1->setLayout(pMainVlaout1);
+        pSettingWidget1->setAccessibleName("mainSetting_settingsWindow");
 
         QHBoxLayout *pMainLayout1 = new QHBoxLayout();
         pMainLayout1->addWidget(pSettingWidget1);
         pMainLayout1->setContentsMargins(10, 10, 10, 10);
         QWidget *pCentralWidget = new QWidget();
         pCentralWidget->setLayout(pMainLayout1);
+        pCentralWidget->setAccessibleName("centralWidget_settingsWindow");
 
         takeCentralWidget();
         setCentralWidget(pCentralWidget);
         moveToCenter(this);
+        this->setAccessibleName("settingsWindow_mainWindow");
     }
     void initConnections()
     {

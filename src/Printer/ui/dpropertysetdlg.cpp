@@ -216,6 +216,7 @@ void DPropertySetDlg::initUI()
     if (settings.data()) {
         settings.data()->deleteLater();
     }
+    this->setAccessibleName("propertySetDlg_mainWindow");
 }
 
 void DPropertySetDlg::initConnection()
