@@ -115,6 +115,7 @@ TEST_F(ut_zdrivermanager, startSearch2)
 //    EXPECT_TRUE((m_pdriverSearcher->getDrivers()).size() > 0);
 }
 
+/*
 TEST_F(ut_zdrivermanager, feedbackResult)
 {
     QString reason = "ut test";
@@ -129,5 +130,5 @@ TEST_F(ut_zdrivermanager, searchDriver)
     auto server = g_printerServer->searchDriver(11111111);
 //    EXPECT_TRUE(server != nullptr);
 }
-
+*/
 
