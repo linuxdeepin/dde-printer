@@ -9,6 +9,9 @@ mkdir $BUILD_DIR
 rm -f asan*
 
 cd $BUILD_DIR
+qmake CONFIG+=debug ../../src/cppcups
+make
+
 qmake CONFIG+=debug ../
 make -j 8
 
