@@ -71,9 +71,9 @@ INCLUDEPATH +=  \
 
 DEPENDPATH += $$PWD/../cppcups
 
-QMAKE_CFLAGS += -Wall -Wextra -Wformat=2 -Wno-format-nonliteral -Wshadow -fPIE -Wl,--as-needed,-O1
-QMAKE_CXXFLAGS += -Wall -Wextra -Wformat=2 -Wno-format-nonliteral -Wshadow -fPIE -Wl,--as-needed,-O1
-QMAKE_LFLAGS += -pie
+QMAKE_CFLAGS += -Wall -Wextra -Wformat=2 -Wno-format-nonliteral -Wshadow -fPIE -fstack-protector-strong -D_FORTITY_SOURCE=1 -fPIC
+QMAKE_CXXFLAGS += -Wall -Wextra -Wformat=2 -Wno-format-nonliteral -Wshadow -fPIE -fstack-protector-strong -D_FORTITY_SOURCE=1 -fPIC
+QMAKE_LFLAGS += -Wl,--as-needed,-O1 -z noexecstack -pie -z lazy
 
 DESTDIR += $$PWD
 

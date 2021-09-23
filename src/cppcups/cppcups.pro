@@ -10,6 +10,8 @@ CONFIG += staticlib
 TARGET = cppcups
 TEMPLATE = lib
 
+QMAKE_CFLAGS += -fstack-protector-strong -D_FORTITY_SOURCE=1 -fPIC
+QMAKE_CXXFLAGS += -fstack-protector-strong -D_FORTITY_SOURCE=1 -fPIC
 DEFINES += CPPCUPS_LIBRARY
 
 SOURCES += cupsconnection.cc\

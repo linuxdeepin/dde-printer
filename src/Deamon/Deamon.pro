@@ -25,8 +25,9 @@ DESTDIR += $$PWD
 
 DEPENDPATH += $$PWD/../cppcups
 
-QMAKE_CFLAGS += -Wall -Wextra -Wformat=2 -Wno-format-nonliteral -Wshadow
-QMAKE_CXXFLAGS += -Wall -Wextra -Wformat=2 -Wno-format-nonliteral -Wshadow
+QMAKE_CFLAGS += -Wall -Wextra -Wformat=2 -Wno-format-nonliteral -Wshadow -fstack-protector-strong -D_FORTITY_SOURCE=1 -fPIC
+QMAKE_CXXFLAGS += -Wall -Wextra -Wformat=2 -Wno-format-nonliteral -Wshadow -fstack-protector-strong -D_FORTITY_SOURCE=1 -fPIC
+QMAKE_LFLAGS += -z noexecstack -pie -z lazy
 
 unix:!macx:{
 LIBS += -L$$PWD/../cppcups/ -lcppcups
