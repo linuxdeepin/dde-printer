@@ -55,7 +55,8 @@ QString sysArch()
         {"i386", "x86"},
         {"i686", "x86"},
         {"mips64", "mips64"},
-        {"aarch64", "aarch64"}
+        {"aarch64", "aarch64"},
+        {"loongarch64", "loongarch64"}
     };
     qInfo() << machine;
     return archMap[machine];
