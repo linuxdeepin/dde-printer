@@ -147,6 +147,12 @@ void DPrinter::setColorModel(const QString &strColorMode)
         setOptionValue("ColorModel", "Gray");
     }
     */
+
+    if (getOptionValue("ColorModel").isEmpty()) {
+        setOptionValue("ColorMode", strColorMode);
+        return;
+    }
+
     setOptionValue("ColorModel", strColorMode);
 }
 
@@ -154,33 +160,40 @@ QString DPrinter::getColorModel()
 {
     QString strColorModel = getOptionValue("ColorModel");
 
-    if (strColorModel.isEmpty()) {
-        strColorModel = getColorAttr();
+    if (!strColorModel.isEmpty()) {
+        return strColorModel;
     }
 
-    return strColorModel;
+    strColorModel = getOptionValue("ColorMode");
+    return strColorModel.isEmpty() ? getColorAttr() : strColorModel;
 }
 
 QVector<QMap<QString, QString>> DPrinter::getColorModelChooses()
 {
     QVector<QMap<QString, QString>> vecChoose = getOptionChooses("ColorModel");
 
-    if (vecChoose.isEmpty()) {
-        QString strVal = getColorAttr();
+    if (!vecChoose.isEmpty()) {
+        return vecChoose;
+    }
 
-        if (!strVal.isEmpty()) {
-            QMap<QString, QString> choose;
+    if (!(vecChoose = getOptionChooses("ColorMode")).isEmpty()) {
+        return vecChoose;
+    }
 
-            if (strVal == "Gray") {
-                choose["choice"] = "Gray";
-                choose["text"] = "Grayscale";
-            } else {
-                choose["choice"] = "RGB";
-                choose["text"] = "Color";
-            }
+    QString strVal = getColorAttr();
 
-            vecChoose.push_back(choose);
+    if (!strVal.isEmpty()) {
+        QMap<QString, QString> choose;
+
+        if (strVal == "Gray") {
+            choose["choice"] = "Gray";
+            choose["text"] = "Grayscale";
+        } else {
+            choose["choice"] = "RGB";
+            choose["text"] = "Color";
         }
+
+        vecChoose.push_back(choose);
     }
 
     return vecChoose;
@@ -892,7 +905,9 @@ QVector<GENERALOPTNODE> DPrinter::getGeneralNodes()
                     GENERALOPTNODE node;
                     node.strOptName = QString::fromStdString(opt.getKeyword());
 
-                    if (node.strOptName == QString("ColorModel") || (node.strOptName == QString("PageRegion"))) {
+                    if (node.strOptName == QString("ColorModel") || /* add ppd file's ColorMode */
+                       (node.strOptName == QString("PageRegion")) ||
+                       !(node.strOptName.compare("ColorMode", Qt::CaseInsensitive))) {
                         continue;
                     }
 

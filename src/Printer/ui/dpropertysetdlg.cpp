@@ -188,7 +188,7 @@ void DPropertySetDlg::initUI()
         for (int i = 0; i < generalNodes.size(); i++) {
             GENERALOPTNODE node = generalNodes[i];
 
-            if (node.strOptName == QString("ColorModel")) {
+            if (node.strOptName == QString("ColorModel") || node.strOptName == QString("ColorMode")) {
                 generalNodes.remove(i);
                 break;
             }
