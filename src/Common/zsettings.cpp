@@ -37,6 +37,7 @@
 #define HOST_PORT       80
 #define SERVER_ADDR     "printer.deepin.com"
 #define OS_VERSION      "eagle"
+#define DRIVER_PLATFORM_URL "https://drive.uniontech.com/api/v1/drive/search"
 static QMap<int, QString> DeepinTypeStrMap({{0, "unknown"}, {1, "apricot"}, {2, "eagle"}, {3, "fou"}, {4, "plum"}});
 
 QString sysArch()
@@ -51,11 +52,12 @@ QString sysArch()
 
     // map arch
     auto archMap = QMap<QString, QString> {
-        {"x86_64", "x86"},
-        {"i386", "x86"},
+        {"x86_64", "amd64"},
+        {"i386", "i386"},
         {"i686", "x86"},
-        {"mips64", "mips64"},
-        {"aarch64", "aarch64"},
+        {"mips64", "mips64el"},
+        {"aarch64", "arm64"},
+        {"sw_64", "sw_64"},
         {"loongarch64", "loongarch64"}
     };
     qInfo() << machine;
@@ -164,3 +166,11 @@ int zSettings::getCupsServerEncryption()
     return value("CupsServerEncryption", cupsEncryption()).toInt();
 }
 
+const QString zSettings::getDriverPlatformUrl()
+{
+    return DRIVER_PLATFORM_URL;
+}
+const QString zSettings::getSystemArch()
+{
+    return sysArch();
+}

@@ -38,6 +38,9 @@ enum {
 
 class RefreshLocalPPDS;
 
+void getPackageInfo(QString &packageName, QString &packageVer);
+void initPackageInfo();
+
 class DriverSearcher : public QObject
 {
     Q_OBJECT
@@ -53,11 +56,16 @@ public:
 
     void setMatchLocalDriver(bool match);
 
+    bool searchOffineDriver(QString mfg, QString model);
+
+    void parseJsonInfo(QJsonArray value);
+
+    bool hasOfflineDriver();
 signals:
     void signalDone();
 
 protected slots:
-    void slotDone(int iCode, const QByteArray &result);
+    void slotDriverDone(int iCode, const QByteArray &result);
     void slotDriverInit(int id, int state);
 
 private:
@@ -72,9 +80,12 @@ private:
 
     QString m_strMake;
     QString m_strModel;
+    QString m_strFullMake;
     QString m_strCMD;
 
     bool m_matchLocalDriver;
+    bool m_isOfflineDriverExist = false;
+    bool m_isNetOffline = false;
 };
 
 class DriverManager : public QObject

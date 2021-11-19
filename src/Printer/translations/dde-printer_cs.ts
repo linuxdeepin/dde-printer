@@ -2,27 +2,27 @@
 <context>
     <name>AddPrinterTask</name>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="549"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="552"/>
         <source>URI and driver do not match.</source>
         <translation>URI a ovladač se neshodují.</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="551"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="554"/>
         <source>Install hplip first and restart the app to install the driver again.</source>
         <translation>Nejprve nainstalujte hplip, pak tuto aplikaci spusťte znovu a ovladač nainstalujte.</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="559"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="562"/>
         <source>Please select an hplip driver and try again.</source>
         <translation>Vyberte ovladač hplip a zkuste to znovu.</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="572"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="575"/>
         <source>URI can&apos;t be empty</source>
         <translation>URI identifikátor nemůže být prázdný</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="579"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="582"/>
         <source> not found</source>
         <translation>nenalezeno</translation>
     </message>
@@ -177,37 +177,37 @@
 <context>
     <name>DPrinterSupplyShowDlg</name>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="161"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="166"/>
         <source>Low level</source>
         <translation>Nízká hladina</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="188"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="196"/>
         <source>Unknown</source>
         <translation>Neznámé</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="252"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="261"/>
         <source>Ink/Toner Status</source>
         <translation>Stav inkoustu/toneru</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="258"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="268"/>
         <source>Unknown amount</source>
         <translation>Neznámé množství</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="265"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="276"/>
         <source>Unable to get the remaining amount</source>
         <translation>Nedaří se zjistit zbývající množství</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="299"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="312"/>
         <source>The amounts are estimated, last updated at %1</source>
         <translation>Množství jsou odhadovaná, naposledy aktualizováno %1</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="311"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="325"/>
         <source>OK</source>
         <comment>button</comment>
         <translation>OK</translation>
@@ -529,159 +529,159 @@
         <translation>Nastavení</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="96"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="98"/>
         <source>Printers</source>
         <translation>Tiskárny</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="101"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="103"/>
         <source>Add printer</source>
         <translation>Přidat tiskárnu</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="104"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="106"/>
         <source>Delete printer</source>
         <translation>Smazat tiskárnu</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="133"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="141"/>
         <source>Rename</source>
-        <translation type="unfinished"/>
+        <translation>Přejmenovat</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="134"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="142"/>
         <source>Shared</source>
         <translation>Sdíleno</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="137"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="145"/>
         <source>Enabled</source>
         <translation>Povoleno</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="140"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="148"/>
         <source>Accept jobs</source>
         <translation>Přijmout úlohy</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="144"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="152"/>
         <source>Set as default</source>
         <translation>Nastavit jako výchozí</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="156"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="165"/>
         <source>No Printers</source>
         <translation>Žádné tiskárny</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="180"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="191"/>
         <source>Location:</source>
         <translation>Umístění:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="185"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="196"/>
         <source>Model:</source>
         <translation>Model:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="188"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="199"/>
         <source>Status:</source>
         <translation>Stav:</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="216"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="235"/>
         <source>Properties</source>
         <translation>Vlastnosti</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="226"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="245"/>
         <source>Print Queue</source>
         <translation>Tisková fronta</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="236"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="255"/>
         <source>Print Test Page</source>
         <translation>Vytisknout zkušební stránku</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="256"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="275"/>
         <source>Supplies</source>
         <translation>Spotřební materiál</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="280"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="311"/>
         <source>No printer configured</source>
         <translation>Nenastavena žádná tiskárna</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="285"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="317"/>
         <source>Click + to add printers</source>
         <translation>Tiskárny přidáte klepnutím na +</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="331"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="366"/>
         <source>As print jobs are in process, you cannot rename the printer now, please try later</source>
         <translation>Protože probíhají tiskové úlohy, tiskárnu nyní nelze přejmenovat. Prosím zkuste to později</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="335"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="394"/>
-        <location filename="../ui/dprintersshowwindow.cpp" line="727"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="370"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="429"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="762"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="391"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="426"/>
         <source>CUPS server is not running, and can’t manage printers.</source>
         <translation>CUPS server není spuštěný a proto nelze spravovat tiskárny.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="633"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="668"/>
         <source>Idle</source>
         <translation>Nečinný</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="635"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="670"/>
         <source>Printing</source>
         <translation>Tiskne se</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="637"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="672"/>
         <source>Disabled</source>
         <translation>Zakázáno</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="685"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="720"/>
         <source>Are you sure you want to delete the printer &quot;%1&quot; ?</source>
         <translation>Opravdu chcete tiskárnu „%1“ smazat?</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="691"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="726"/>
         <source>Delete</source>
         <translation>Smazat</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="723"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="758"/>
         <source>The name already exists</source>
         <translation>Název už existuje</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="742"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="777"/>
         <source>You will not be able to reprint the completed jobs if continue. Are you sure you want to rename the printer?</source>
         <translation>Pokud tiskárnu přejmenujete, nebudete moci už dokončené úlohy vytisknout znovu. Opravdu chcete pokračovat?</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="747"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="782"/>
         <source>Confirm</source>
         <translation>Potvrdit</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="805"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="840"/>
         <source>The driver is damaged, please install it again.</source>
         <translation>Ovladač je poškozený – přeinstalujte ho prosím.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="808"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="843"/>
         <source>Install Driver</source>
         <translation>Nainstalovat ovladač</translation>
     </message>
@@ -729,28 +729,28 @@
         <translation>Pořadí stránek</translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="606"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="607"/>
         <source>Options conflict!</source>
         <translation>Střet voleb!</translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="609"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="610"/>
         <source>Please resolve the conflict first, and then save the changes.</source>
         <translation>Nejprve vyřešte střet a potom změny uložte.</translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="628"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="629"/>
         <source>Conflict:</source>
         <translation>Střet:</translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="639"/>
-        <location filename="../ui/dpropertysetdlg.cpp" line="1126"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="640"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="1127"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../ui/dpropertysetdlg.cpp" line="1125"/>
+        <location filename="../ui/dpropertysetdlg.cpp" line="1126"/>
         <source>Invalid URI</source>
         <translation>Neplatný URI identifikátor</translation>
     </message>
@@ -758,7 +758,7 @@
 <context>
     <name>DriverManager</name>
     <message>
-        <location filename="../../Common/vendor/zdrivermanager.cpp" line="906"/>
+        <location filename="../../Common/vendor/zdrivermanager.cpp" line="1042"/>
         <source>EveryWhere driver</source>
         <translation>Ovladač pro EveryWhere</translation>
     </message>
@@ -766,12 +766,12 @@
 <context>
     <name>InstallDriver</name>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="369"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="372"/>
         <source>Failed to find the driver solution: %1, error: %2</source>
         <translation>Nepodařilo se najít řešení ovladače: %1, chyba: %2</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="380"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="383"/>
         <source>The solution is invalid</source>
         <translation>Řešení není platné</translation>
     </message>
@@ -779,93 +779,93 @@
 <context>
     <name>InstallDriverWindow</name>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="100"/>
+        <location filename="../ui/installdriverwindow.cpp" line="102"/>
         <source>Select a driver from</source>
         <translation>Vybrat ovladač z</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="104"/>
+        <location filename="../ui/installdriverwindow.cpp" line="107"/>
         <source>Local driver</source>
         <translation>Místní ovladač</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="105"/>
+        <location filename="../ui/installdriverwindow.cpp" line="108"/>
         <source>Local PPD file</source>
         <translation>PPD soubor v počítači</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="106"/>
+        <location filename="../ui/installdriverwindow.cpp" line="109"/>
         <source>Search for a driver</source>
         <translation>Hledat ovladač</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="120"/>
-        <location filename="../ui/installdriverwindow.cpp" line="403"/>
+        <location filename="../ui/installdriverwindow.cpp" line="124"/>
+        <location filename="../ui/installdriverwindow.cpp" line="440"/>
         <source>Choose a local driver</source>
         <translation>Vybrat ovladač z počítače</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="123"/>
+        <location filename="../ui/installdriverwindow.cpp" line="128"/>
         <source>Vendor</source>
         <translation>Výrobce</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="135"/>
+        <location filename="../ui/installdriverwindow.cpp" line="142"/>
         <source>Model</source>
         <translation>Model</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="146"/>
-        <location filename="../ui/installdriverwindow.cpp" line="215"/>
+        <location filename="../ui/installdriverwindow.cpp" line="155"/>
+        <location filename="../ui/installdriverwindow.cpp" line="235"/>
         <source>Driver</source>
         <translation>Ovladač</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="200"/>
+        <location filename="../ui/installdriverwindow.cpp" line="218"/>
         <source>Vendor and Model</source>
         <translation>Výrobce a model</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="202"/>
+        <location filename="../ui/installdriverwindow.cpp" line="220"/>
         <source>Enter a complete vendor and model (Only letters, numbers and whitespaces)</source>
         <translation>Zadejte celý název výrobce a modelu (pouze písmena, číslice a prázdné znaky – např. mezery)</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="204"/>
+        <location filename="../ui/installdriverwindow.cpp" line="223"/>
         <source>Search</source>
         <comment>button</comment>
         <translation>Hledat</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="245"/>
+        <location filename="../ui/installdriverwindow.cpp" line="272"/>
         <source>Install Driver</source>
         <comment>button</comment>
         <translation>Nainstalovat ovladač</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="385"/>
-        <location filename="../ui/installdriverwindow.cpp" line="495"/>
+        <location filename="../ui/installdriverwindow.cpp" line="422"/>
+        <location filename="../ui/installdriverwindow.cpp" line="532"/>
         <source>Reselect</source>
         <translation>Vybrat znovu</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="411"/>
-        <location filename="../ui/installdriverwindow.cpp" line="492"/>
+        <location filename="../ui/installdriverwindow.cpp" line="448"/>
+        <location filename="../ui/installdriverwindow.cpp" line="529"/>
         <source>Select a PPD file</source>
         <translation>Vyberte PPD soubor</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="420"/>
+        <location filename="../ui/installdriverwindow.cpp" line="457"/>
         <source>Search for printer driver</source>
         <translation>Hledat ovladač tiskárny</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="474"/>
+        <location filename="../ui/installdriverwindow.cpp" line="511"/>
         <source>(recommended)</source>
         <translation>(doporučeno)</translation>
     </message>
     <message>
-        <location filename="../ui/installdriverwindow.cpp" line="646"/>
+        <location filename="../ui/installdriverwindow.cpp" line="683"/>
         <source> (recommended)</source>
         <translation>(doporučeno)</translation>
     </message>
@@ -873,17 +873,17 @@
 <context>
     <name>InstallInterface</name>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="250"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="249"/>
         <source>is invalid</source>
         <translation>není platný</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="279"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="278"/>
         <source>Failed to install the driver by calling dbus interface</source>
         <translation>Nepodařilo se nainstalovat ovladač voláním rozhraní DBUS</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="324"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="323"/>
         <source>Failed to install %1</source>
         <translation>Nepodařilo se nainstalovat %1</translation>
     </message>
@@ -892,7 +892,7 @@
     <name>InstallPrinterWindow</name>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="87"/>
-        <location filename="../ui/installprinterwindow.cpp" line="150"/>
+        <location filename="../ui/installprinterwindow.cpp" line="163"/>
         <source>Installing driver...</source>
         <translation>Instalace ovladače…</translation>
     </message>
@@ -900,87 +900,87 @@
         <location filename="../ui/installprinterwindow.cpp" line="97"/>
         <source>Cancel</source>
         <comment>button</comment>
-        <translation>Zrušit</translation>
+        <translation>Storno</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="100"/>
-        <location filename="../ui/installprinterwindow.cpp" line="173"/>
-        <location filename="../ui/installprinterwindow.cpp" line="190"/>
+        <location filename="../ui/installprinterwindow.cpp" line="186"/>
+        <location filename="../ui/installprinterwindow.cpp" line="203"/>
         <source>View Printer</source>
         <comment>button</comment>
         <translation>Zobrazit tiskárnu</translation>
     </message>
     <message>
         <location filename="../ui/installprinterwindow.cpp" line="102"/>
-        <location filename="../ui/installprinterwindow.cpp" line="175"/>
-        <location filename="../ui/installprinterwindow.cpp" line="192"/>
+        <location filename="../ui/installprinterwindow.cpp" line="188"/>
+        <location filename="../ui/installprinterwindow.cpp" line="205"/>
         <source>Print Test Page</source>
         <comment>button</comment>
         <translation>Vytisknout zkušební stránku</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="162"/>
+        <location filename="../ui/installprinterwindow.cpp" line="175"/>
         <source>Successfully installed </source>
         <translation>Úspěšně nainstalováno</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="168"/>
-        <location filename="../ui/installprinterwindow.cpp" line="186"/>
+        <location filename="../ui/installprinterwindow.cpp" line="181"/>
+        <location filename="../ui/installprinterwindow.cpp" line="199"/>
         <source>You have successfully added the printer. Print a test page to check if it works properly.</source>
         <translation>Úspěšně jste přidali tiskárnu. Vytiskněte zkušební stránku pro ověření, že funguje.</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="180"/>
+        <location filename="../ui/installprinterwindow.cpp" line="193"/>
         <source>Printing test page...</source>
         <translation>Tiskne se zkušební stránka…</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="197"/>
+        <location filename="../ui/installprinterwindow.cpp" line="210"/>
         <source>Did you print the test page successfully?</source>
         <translation>Vytiskla se zkušební stránka úspěšně?</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="203"/>
+        <location filename="../ui/installprinterwindow.cpp" line="216"/>
         <source>If succeeded, click Yes; if failed, click No</source>
         <translation>Pokud se podařilo, klepněte na Ano – v opačném případě na Ne</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="206"/>
+        <location filename="../ui/installprinterwindow.cpp" line="219"/>
         <source>No</source>
         <translation>Ne</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="208"/>
+        <location filename="../ui/installprinterwindow.cpp" line="221"/>
         <source>Yes</source>
         <translation>Ano</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="213"/>
-        <location filename="../ui/installprinterwindow.cpp" line="233"/>
+        <location filename="../ui/installprinterwindow.cpp" line="226"/>
+        <location filename="../ui/installprinterwindow.cpp" line="246"/>
         <source>Print failed</source>
         <translation>Tisk se nezdařil</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="219"/>
+        <location filename="../ui/installprinterwindow.cpp" line="232"/>
         <source>Click Reinstall to install the printer driver again, or click Troubleshoot to start troubleshooting.</source>
         <translation>Klepněte na Přeinstalovat a znovu tak nainstalujte ovladač tiskárny, nebo na „Řešit potíže“ a začněte řešit.</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="222"/>
-        <location filename="../ui/installprinterwindow.cpp" line="243"/>
+        <location filename="../ui/installprinterwindow.cpp" line="235"/>
+        <location filename="../ui/installprinterwindow.cpp" line="256"/>
         <source>Reinstall</source>
         <comment>button</comment>
         <translation>Přeinstalovat</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="224"/>
-        <location filename="../ui/installprinterwindow.cpp" line="245"/>
+        <location filename="../ui/installprinterwindow.cpp" line="237"/>
+        <location filename="../ui/installprinterwindow.cpp" line="258"/>
         <source>Troubleshoot</source>
         <comment>button</comment>
         <translation>Řešit potíže</translation>
     </message>
     <message>
-        <location filename="../ui/installprinterwindow.cpp" line="231"/>
+        <location filename="../ui/installprinterwindow.cpp" line="244"/>
         <source>Installation failed</source>
         <translation>Instalace se nezdařila</translation>
     </message>
@@ -989,13 +989,13 @@
     <name>JobListView</name>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="252"/>
-        <location filename="../ui/jobmanagerwindow.cpp" line="410"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="411"/>
         <source>Cancel</source>
-        <translation>Zrušit</translation>
+        <translation>Storno</translation>
     </message>
     <message>
         <location filename="../ui/jobmanagerwindow.cpp" line="253"/>
-        <location filename="../ui/jobmanagerwindow.cpp" line="411"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="412"/>
         <source>Delete</source>
         <translation>Smazat</translation>
     </message>
@@ -1025,7 +1025,7 @@
         <translation>Žádné tiskové úlohy</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="404"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="405"/>
         <source>Are you sure you want to delete this job?</source>
         <translation>Opravdu chcete tuto úlohu smazat?</translation>
     </message>
@@ -1041,32 +1041,32 @@
 <context>
     <name>JobManagerWindow</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1097"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1098"/>
         <source>Refresh</source>
         <translation>Obnovit</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1101"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1104"/>
         <source>All</source>
         <translation>Vše</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1102"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1105"/>
         <source>Print Queue</source>
         <translation>Tisková fronta</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1103"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1106"/>
         <source>Completed</source>
         <translation>Dokončeno</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1167"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1173"/>
         <source> failed</source>
         <translation>nezdařilo se</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="1188"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="1194"/>
         <source>%1 jobs</source>
         <translation>%1 úloh</translation>
     </message>
@@ -1074,42 +1074,42 @@
 <context>
     <name>JobsDataModel</name>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="712"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="713"/>
         <source>Job</source>
         <translation>Úloha</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="714"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="715"/>
         <source>User</source>
         <translation>Uživatel</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="716"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="717"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="718"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="719"/>
         <source>Printer</source>
         <translation>Tiskárna</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="720"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="721"/>
         <source>Size</source>
         <translation>Velikost</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="722"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="723"/>
         <source>Time submitted</source>
         <translation>Čas odeslání</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="724"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="725"/>
         <source>Status</source>
         <translation>Stav</translation>
     </message>
     <message>
-        <location filename="../ui/jobmanagerwindow.cpp" line="726"/>
+        <location filename="../ui/jobmanagerwindow.cpp" line="727"/>
         <source>Action</source>
         <translation>Akce</translation>
     </message>
@@ -1139,7 +1139,7 @@
     <message>
         <location filename="../ui/permissionswindow.cpp" line="92"/>
         <source>Cancel</source>
-        <translation>Zrušit</translation>
+        <translation>Storno</translation>
     </message>
     <message>
         <location filename="../ui/permissionswindow.cpp" line="93"/>
@@ -1163,97 +1163,107 @@
 <context>
     <name>PrinterSearchWindow</name>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="85"/>
-        <location filename="../ui/printersearchwindow.cpp" line="88"/>
+        <location filename="../ui/printersearchwindow.cpp" line="86"/>
+        <location filename="../ui/printersearchwindow.cpp" line="89"/>
         <source>Discover printer</source>
         <translation>Zjistit tiskárnu</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="91"/>
-        <location filename="../ui/printersearchwindow.cpp" line="94"/>
+        <location filename="../ui/printersearchwindow.cpp" line="92"/>
+        <location filename="../ui/printersearchwindow.cpp" line="95"/>
         <source>Find printer</source>
         <translation>Najít tiskárnu</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="96"/>
-        <location filename="../ui/printersearchwindow.cpp" line="99"/>
+        <location filename="../ui/printersearchwindow.cpp" line="97"/>
+        <location filename="../ui/printersearchwindow.cpp" line="100"/>
         <source>Enter URI</source>
         <translation>Zadat URI</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="120"/>
+        <location filename="../ui/printersearchwindow.cpp" line="123"/>
         <source>Select a printer</source>
         <translation>Vyberte tiskárnu</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="126"/>
+        <location filename="../ui/printersearchwindow.cpp" line="130"/>
         <source>Refresh</source>
         <translation>Načíst znovu</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="147"/>
-        <location filename="../ui/printersearchwindow.cpp" line="239"/>
+        <location filename="../ui/printersearchwindow.cpp" line="153"/>
+        <location filename="../ui/printersearchwindow.cpp" line="260"/>
         <source>No printers found</source>
         <translation>Nenalezeny žádné tiskárny</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="183"/>
+        <location filename="../ui/printersearchwindow.cpp" line="196"/>
         <source>Install Driver</source>
         <translation>Nainstalovat ovladač</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="211"/>
+        <location filename="../ui/printersearchwindow.cpp" line="227"/>
         <source>Address</source>
         <translation>Adresa</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="213"/>
+        <location filename="../ui/printersearchwindow.cpp" line="230"/>
         <source>Enter an address</source>
         <translation>Zadejte adresu</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="214"/>
+        <location filename="../ui/printersearchwindow.cpp" line="232"/>
         <source>Find</source>
         <comment>button</comment>
         <translation>Najít</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="308"/>
+        <location filename="../ui/printersearchwindow.cpp" line="338"/>
         <source>URI</source>
         <translation>URI</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="312"/>
+        <location filename="../ui/printersearchwindow.cpp" line="343"/>
         <source>Enter device URI</source>
         <translation>Zadat URI zařízení</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="323"/>
+        <location filename="../ui/printersearchwindow.cpp" line="356"/>
         <source>Examples:</source>
         <translation>Příklady:</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="626"/>
+        <location filename="../ui/printersearchwindow.cpp" line="676"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="712"/>
+        <location filename="../ui/printersearchwindow.cpp" line="771"/>
         <source> (recommended)</source>
         <translation>(doporučeno)</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="720"/>
+        <location filename="../ui/printersearchwindow.cpp" line="781"/>
+        <source>The driver was found</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/printersearchwindow.cpp" line="782"/>
+        <source>Connect to the network and try again</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/printersearchwindow.cpp" line="784"/>
         <source>Cannot find the driver</source>
-        <translation type="unfinished"/>
+        <translation>Nedaří se nalézt ovladač</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="722"/>
+        <location filename="../ui/printersearchwindow.cpp" line="785"/>
         <source>Please try to install it manually or search its official website</source>
-        <translation type="unfinished"/>
+        <translation>Pokuste se ho nainstalovat ručně nebo hledejte na oficiálních webových stránkách</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="729"/>
+        <location filename="../ui/printersearchwindow.cpp" line="795"/>
         <source>OK</source>
         <comment>button</comment>
         <translation>OK</translation>
@@ -1288,132 +1298,132 @@
         <translation>nenalezeno – požádejte o pomoc správce</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="217"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="226"/>
         <source>Black</source>
         <translation>Černá</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="218"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="227"/>
         <source>Blue</source>
         <translation>Modrá</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="219"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="228"/>
         <source>Brown</source>
         <translation>Šedá</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="220"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="229"/>
         <source>Cyan</source>
         <translation>Tyrkysová</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="221"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="230"/>
         <source>Dark-gray</source>
         <translation>Tmavě-šedá</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="222"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="231"/>
         <source>Dark gray</source>
         <translation>Tmavě šedá</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="223"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="232"/>
         <source>Dark-yellow</source>
         <translation>Tmavě-žlutá</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="224"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="233"/>
         <source>Dark yellow</source>
         <translation>Tmavě žlutá</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="225"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="234"/>
         <source>Gold</source>
         <translation>Zlatá</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="226"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="235"/>
         <source>Gray</source>
         <translation>Šedá</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="227"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="236"/>
         <source>Green</source>
         <translation>Zelená</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="228"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="237"/>
         <source>Light-black</source>
         <translation>Světle-černá</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="229"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="238"/>
         <source>Light black</source>
         <translation>Světle černá</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="230"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="239"/>
         <source>Light-cyan</source>
         <translation>Světle-tyrkysová</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="231"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="240"/>
         <source>Light cyan</source>
         <translation>Světle tyrkysová</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="232"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="241"/>
         <source>Light-gray</source>
         <translation>Světle-šedá</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="233"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="242"/>
         <source>Light gray</source>
         <translation>Světle šedá</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="234"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="243"/>
         <source>Light-magenta</source>
         <translation>Světle-purpurová</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="235"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="244"/>
         <source>Light magenta</source>
         <translation>Světle purpurová</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="236"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="245"/>
         <source>Magenta</source>
         <translation>Purpurová</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="237"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="246"/>
         <source>Orange</source>
         <translation>Oranžová</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="238"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="247"/>
         <source>Red</source>
         <translation>Červená</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="239"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="248"/>
         <source>Silver</source>
         <translation>Stříbrná</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="240"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="249"/>
         <source>White</source>
         <translation>Bílá</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="241"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="250"/>
         <source>Yellow</source>
         <translation>Žlutá</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersupplyshowdlg.cpp" line="242"/>
+        <location filename="../ui/dprintersupplyshowdlg.cpp" line="251"/>
         <source>Waste</source>
         <translation>Odpadní nádobka</translation>
     </message>
@@ -1458,7 +1468,7 @@
         <translation>Soubor</translation>
     </message>
     <message>
-        <location filename="../ui/printersearchwindow.cpp" line="544"/>
+        <location filename="../ui/printersearchwindow.cpp" line="594"/>
         <source>(use %1 protocol)</source>
         <translation>(použít protokol %1)</translation>
     </message>
@@ -1505,12 +1515,12 @@ nebo</translation>
     <message>
         <location filename="../ui/uisourcestring.h" line="40"/>
         <source>Cancel</source>
-        <translation>Zrušit</translation>
+        <translation>Storno</translation>
     </message>
     <message>
         <location filename="../ui/uisourcestring.h" line="43"/>
         <source>For more drivers, please refer to our official website: </source>
-        <translation type="unfinished"/>
+        <translation>Ohledně dalších ovladačů viz naše oficiální webové stránky:</translation>
     </message>
     <message>
         <location filename="../util/ddestination.cpp" line="201"/>
@@ -1558,7 +1568,7 @@ nebo</translation>
     <message>
         <location filename="../ui/renameprinterwindow.cpp" line="106"/>
         <source>Cancel</source>
-        <translation>Zrušit</translation>
+        <translation>Storno</translation>
     </message>
     <message>
         <location filename="../ui/renameprinterwindow.cpp" line="107"/>
@@ -1569,27 +1579,27 @@ nebo</translation>
 <context>
     <name>ServerSettingsWindow</name>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="89"/>
+        <location filename="../ui/dprintersshowwindow.h" line="90"/>
         <source>Basic Server Settings</source>
         <translation>Základní nastavení serveru</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="97"/>
+        <location filename="../ui/dprintersshowwindow.h" line="99"/>
         <source>Publish shared printers connected to this system</source>
         <translation>Zveřejnit sdílené tiskárny připojené k tomuto systému</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="98"/>
+        <location filename="../ui/dprintersshowwindow.h" line="100"/>
         <source>Allow printing from the Internet</source>
-        <translation>Umožnit tisk z internetu</translation>
+        <translation>Umožnit tisk z Internetu</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="100"/>
+        <location filename="../ui/dprintersshowwindow.h" line="102"/>
         <source>Allow remote administration</source>
         <translation>Povolit vzdálenou správu</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="102"/>
+        <location filename="../ui/dprintersshowwindow.h" line="104"/>
         <source>Save debugging information for troubleshooting</source>
         <translation>Uložit ladící informace pro účely řešení potíží</translation>
     </message>
@@ -1597,18 +1607,18 @@ nebo</translation>
 <context>
     <name>TroubleShootDialog</name>
     <message>
-        <location filename="../ui/troubleshootdialog.cpp" line="108"/>
+        <location filename="../ui/troubleshootdialog.cpp" line="114"/>
         <source>Troubleshoot: </source>
         <translation>Řešit potíže:</translation>
     </message>
     <message>
-        <location filename="../ui/troubleshootdialog.cpp" line="133"/>
+        <location filename="../ui/troubleshootdialog.cpp" line="141"/>
         <source>Cancel</source>
         <comment>button</comment>
-        <translation>Zrušit</translation>
+        <translation>Storno</translation>
     </message>
     <message>
-        <location filename="../ui/troubleshootdialog.cpp" line="164"/>
+        <location filename="../ui/troubleshootdialog.cpp" line="175"/>
         <source>OK</source>
         <comment>button</comment>
         <translation>OK</translation>

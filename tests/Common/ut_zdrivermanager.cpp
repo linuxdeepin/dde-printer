@@ -41,7 +41,7 @@ void ut_zdrivermanager::SetUp()
 void ut_zdrivermanager::TearDown()
 {
 }
-
+#if 0
 TEST_F(ut_zdrivermanager, startSearch)
 {
     /* uri: socket://10.20.41.241,
@@ -131,4 +131,5 @@ TEST_F(ut_zdrivermanager, searchDriver)
 //    EXPECT_TRUE(server != nullptr);
 }
 */
+#endif
 

@@ -35,7 +35,8 @@ public:
     unsigned short getHostPort();
     const QString getLogRules();
     const QString getOSVersion();
-
+    const QString getDriverPlatformUrl();
+    const QString getSystemArch(); 
     int getSubscriptionId();
     void setSubscriptionId(int id);
 

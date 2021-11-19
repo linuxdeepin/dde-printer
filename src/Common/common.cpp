@@ -527,7 +527,9 @@ void removeMakeInModel(const QString &strMake, QString &strModel)
 
 void formatModelName(const QString &strMake, QString &strModel)
 {
-    int len = 0;
+    // 去掉自带的bisheng字段
+    strModel = strModel.replace("(Bisheng)", "");
+
     QString makel = strMake.toLower();
     QString modell = strModel.toLower();
     /*# HP and Canon PostScript PPDs give NickNames like:
@@ -560,7 +562,7 @@ void formatModelName(const QString &strMake, QString &strModel)
     }
 
     if (makel == "hp") {
-        len = sizeof(_HP_MODEL_BY_NAME) / sizeof(THPMode);
+        int len = sizeof(_HP_MODEL_BY_NAME) / sizeof(THPMode);
         for (int i = 0; i < len; i++) {
             if (modell.startsWith(_HP_MODEL_BY_NAME[i].strShortName)) {
                 strModel = _HP_MODEL_BY_NAME[i].strFullName + strModel.right(strModel.length() - _HP_MODEL_BY_NAME[i].strShortName.length());

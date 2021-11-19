@@ -1,5 +1,6 @@
 #!/bin/bash
 
+export APTFILEPATH="/etc/apt/sources.list.d/driver.list"
 #kill UI process
 killall dde-printer
 
@@ -15,16 +16,17 @@ else if ( $1 == "EditionName" ) {                                               
 }}                                                                                          \
 END {                                                                                       \
 if ( ProductType == "Desktop" && EditionName == "Community") {                              \
-    print "deb https://community-packages.deepin.com/printer eagle non-free";               \
+    print "deb https://pro-driver-packages.uniontech.com eagle non-free";                    \
 } else if ( ProductType == "Desktop" && EditionName == "Professional" ) {                   \
-    print "deb https://professional-packages.chinauos.com/printer eagle non-free";          \
+    print "deb https://pro-driver-packages.uniontech.com eagle non-free";                    \
 } else if ( ProductType == "Desktop" && EditionName == "Home" ) {                           \
-    print "deb https://home-packages.chinauos.com/printer eagle non-free";                  \
+    print "deb https://pro-driver-packages.uniontech.com eagle non-free";                    \
 } else if ( ProductType == "Server" && (EditionName == "Enterprise" || EditionName == "d") ) {                      \
-    print "deb https://enterprise-packages.chinauos.com/printer eagle non-free";     \
+    print "deb https://pro-driver-packages.uniontech.com eagle non-free";                    \
 }}')
 
 if [ -n "${REPO}" ]; then
     mkdir -p /etc/apt/sources.list.d/
-    echo -n "${REPO}" > /etc/apt/sources.list.d/printer.list
+    echo "# Written by dde-printer" > $APTFILEPATH
+    echo "${REPO}" >> $APTFILEPATH
 fi

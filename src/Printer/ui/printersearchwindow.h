@@ -76,7 +76,7 @@ private:
     QString printerDescription(const TDeviceInfo &info, bool manual = false);
     QString driverDescription(const QMap<QString, QVariant> &driver);
     // 驱动未匹配提示
-    void driverSearchNoMatchDialog();
+    void driverSearchNoMatchDialog(bool isExist);
 
 private slots:
     void listWidgetClickedSlot(const QModelIndex &previous);

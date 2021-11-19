@@ -49,6 +49,7 @@ class PrinterServerInterface : public QObject
     Q_OBJECT
 
 public:
+    void getFromServer();
     void postToServer();
 
 signals:
@@ -58,6 +59,7 @@ protected:
     PrinterServerInterface(const QString &url, const QJsonObject &obj, QObject *parent = nullptr);
 
 private:
+    QNetworkReply *get_request(const QString &path);
     QNetworkReply *post_request(const QString &path, const QJsonObject &obj);
 
     QString m_url;
@@ -75,13 +77,11 @@ public:
 
     bool isInvaild();
 
-    PrinterServerInterface *searchSolution(const QString &manufacturer, const QString &model,
-                                           const QString &ieee1284_id = "");
-
-    PrinterServerInterface *searchDriver(int solution_id);
-
     PrinterServerInterface *feedbackResult(int solution_id, bool success,
                                            const QString &reason = "", const QString &feedback = "", int record_id = 0);
+    PrinterServerInterface *searchDriverSolution(const QString &manufacturer, const QString &model,
+                                                 const QString &ieee1284_id = "");
+
 
 protected:
     PrinterService();
@@ -93,6 +93,7 @@ private:
     QString m_urlPrefix;
     QString m_version;
     QString m_code;
+    QString m_urlDriver;
 };
 
 #define g_printerServer PrinterService::getInstance()

@@ -764,12 +764,19 @@ QString PrinterSearchWindow::driverDescription(const QMap<QString, QVariant> &dr
     return strDesc;
 }
 
-void PrinterSearchWindow::driverSearchNoMatchDialog()
+void PrinterSearchWindow::driverSearchNoMatchDialog(bool isExist)
 {
     DDialog pDialog;
-    QLabel *pMessage1 = new QLabel(tr("Cannot find the driver"));
+    QLabel *pMessage1, *pMessage2;
+    if (isExist) {
+        pMessage1 = new QLabel(tr("The driver was found"));
+        pMessage2 = new QLabel(tr("Connect to the network and try again"));
+    } else {
+        pMessage1 = new QLabel(tr("Cannot find the driver"));
+        pMessage2 = new QLabel(tr("Please try to install it manually or search its official website"));
+    }
+
     DFontSizeManager::instance()->bind(pMessage1, DFontSizeManager::T6);
-    QLabel *pMessage2 = new QLabel(tr("Please try to install it manually or search its official website"));
     DFontSizeManager::instance()->bind(pMessage2, DFontSizeManager::T7);
 
     pMessage1->setAlignment(Qt::AlignCenter);
@@ -809,7 +816,7 @@ void PrinterSearchWindow::driverAutoSearchedSlot()
         m_pAutoInstallDriverBtn->setText(UI_PRINTERSEARCH_INSTALLDRIVER_AUTO);
     } else {
         m_pAutoInstallDriverBtn->setText(UI_PRINTERSEARCH_INSTALLDRIVER_NEXT);
-        driverSearchNoMatchDialog();
+        driverSearchNoMatchDialog(pDriverSearcher->hasOfflineDriver());
     }
     //解除信号阻塞，重新响应列表的点击事件
 
@@ -837,7 +844,7 @@ void PrinterSearchWindow::driverManSearchedSlot()
         m_pManInstallDriverBtn->setText(UI_PRINTERSEARCH_INSTALLDRIVER_AUTO);
     } else {
         m_pManInstallDriverBtn->setText(UI_PRINTERSEARCH_INSTALLDRIVER_NEXT);
-        driverSearchNoMatchDialog();
+        driverSearchNoMatchDialog(pDriverSearcher->hasOfflineDriver());
     }
     //解除信号阻塞，重新响应列表的点击事件
 

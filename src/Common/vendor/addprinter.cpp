@@ -344,11 +344,15 @@ InstallDriver::InstallDriver(const QMap<QString, QVariant> &solution, QObject *p
 void InstallDriver::doWork()
 {
     qDebug() << "Search driver for" << m_solution;
-    PrinterServerInterface *pServerInterface = g_printerServer->searchDriver(m_solution[SD_KEY_sid].toInt());
-
-    if (pServerInterface) {
-        connect(pServerInterface, &PrinterServerInterface::signalDone, this, &InstallDriver::slotServerDone);
-        pServerInterface->postToServer();
+    QString strPackageName, strPackageVer;
+    getPackageInfo(strPackageName, strPackageVer);
+    if (!strPackageName.isNull()) { // packagename不为空，开始安装，安装完成后清空
+        TPackageInfo info;
+        info.packageName = strPackageName;
+        info.packageVer = strPackageVer;
+        m_packages.append(info);
+        initPackageInfo();
+        startInstallPackages();
     } else {
         emit signalStatus(TStat_Fail);
     }

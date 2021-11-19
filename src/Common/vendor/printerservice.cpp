@@ -111,39 +111,57 @@ PrinterService::PrinterService()
     m_code = g_Settings->getClientCode();
 
     QStringList osargs = m_osVersion.split("-");
-    m_urlPrefix = QString("http://%1:%2/%3/%4").arg(m_hostname).arg(m_port).arg(osargs[0]).arg(osargs[1]);
+    m_urlDriver = g_Settings->getDriverPlatformUrl() + QString("?arch=%1").arg(g_Settings->getSystemArch());
 }
 
-PrinterServerInterface *PrinterService::searchSolution(const QString &manufacturer,
-                                                       const QString &model, const QString &ieee1284_id)
+void PrinterServerInterface::getFromServer()
 {
-    QJsonObject obj = {
-        QPair<QString, QJsonValue>(SD_KEY_ver, m_version),
-        QPair<QString, QJsonValue>(SD_KEY_code, m_code),
-        QPair<QString, QJsonValue>(SD_KEY_mfg, manufacturer),
-        QPair<QString, QJsonValue>(SD_KEY_mdl, model),
-        QPair<QString, QJsonValue>(SD_KEY_ieeeid, ieee1284_id),
-    };
+    QNetworkReply *reply = get_request(m_url);
 
-    if (isInvaild())
-        return nullptr;
+    /* QNetworkReply默认超时时间太长，这里暂定设置为10s */
+    QTimer timer;
+    timer.setSingleShot(true);
+    QEventLoop loop;
+    connect(&timer, &QTimer::timeout, &loop, &QEventLoop::quit);
+    connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+    timer.start(10000);
+    loop.exec();
 
-    qDebug() << "search solution for " << manufacturer << " " << model << " " << ieee1284_id;
-    PrinterServerInterface *reply = new PrinterServerInterface(m_urlPrefix + "/search", obj);
-
-    return reply;
+    if (timer.isActive()) {
+        /* 正常返回 */
+        timer.stop();
+    } else {
+        /* timeout */
+        disconnect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+        qWarning() << "timeout(10s)";
+    }
+    if (reply->error() != QNetworkReply::NoError)
+        qWarning() << reply->error();
+    QByteArray data = "";
+    if (reply->isOpen())
+        data = reply->readAll();
+    emit signalDone(reply->error(), data);
+    reply->deleteLater();
 }
 
-PrinterServerInterface *PrinterService::searchDriver(int solution_id)
+QNetworkReply *PrinterServerInterface::get_request(const QString &path)
 {
-    QJsonObject obj = {
-        QPair<QString, QJsonValue>(SD_KEY_sid, solution_id),
-    };
+   QUrl url = path;
+   QNetworkRequest request(url);
+   request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
-    if (isInvaild())
-        return nullptr;
+   QNetworkReply *reply = g_networkManager.get(request);
+   return reply;
+}
 
-    PrinterServerInterface *reply = new PrinterServerInterface(m_urlPrefix + "/driver", obj);
+PrinterServerInterface *PrinterService::searchDriverSolution(const QString &manufacturer,
+                                                             const QString &model, const QString &ieee1284_id)
+{
+    Q_UNUSED(ieee1284_id);
+    QJsonObject obj;
+
+    QString urlDriver = m_urlDriver + QString("&deb_manufacturer=%1&desc=%1 %2").arg(manufacturer).arg(model);
+    PrinterServerInterface *reply = new PrinterServerInterface(urlDriver, obj);
 
     return reply;
 }
@@ -169,7 +187,6 @@ PrinterServerInterface *PrinterService::feedbackResult(int solution_id, bool suc
     if (isInvaild())
         return nullptr;
 
-    PrinterServerInterface *reply = new PrinterServerInterface(m_urlPrefix + "/report", obj);
-
-    return reply;
+    // todo: source changed
+    return nullptr;
 }

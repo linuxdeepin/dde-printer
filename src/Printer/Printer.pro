@@ -111,7 +111,10 @@ trans.files = $${PWD}/translations/*.qm
 polkit.path = $${PREFIX}/share/polkit-1/actions
 polkit.files = $${PWD}/policy/com.deepin.pkexec.devPrinter.policy
 
-INSTALLS += target desktop hicolor trans polkit
+offline.path = $${PREFIX}/share/dde-printer
+offline.files = $${PWD}/policy/offline.json
+
+INSTALLS += target desktop hicolor trans polkit offline
 }
 
 #从debian/rules里面获取定义好的VERSION，然后转成字符串
