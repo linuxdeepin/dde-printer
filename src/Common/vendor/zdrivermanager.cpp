@@ -783,6 +783,7 @@ void DriverSearcher::parseJsonInfo(QJsonArray value)
 
 void DriverSearcher::slotDriverDone(int iCode, const QByteArray &result)
 {
+    initPackageInfo();
     if (QNetworkReply::NoError == iCode && !result.isNull()) {
         QJsonParseError err;
         QJsonDocument doc = QJsonDocument::fromJson(result, &err);

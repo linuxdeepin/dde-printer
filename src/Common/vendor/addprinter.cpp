@@ -351,7 +351,6 @@ void InstallDriver::doWork()
         info.packageName = strPackageName;
         info.packageVer = strPackageVer;
         m_packages.append(info);
-        initPackageInfo();
         startInstallPackages();
     } else {
         emit signalStatus(TStat_Fail);
