@@ -230,7 +230,9 @@ void PrinterSearchWindow::initUi()
     m_pLineEditLocation->setPlaceholderText(tr("Enter an address"));
     m_pLineEditLocation->setAccessibleName("lineEditLocation_manFrame1");
     m_pBtnFind = new QPushButton(tr("Find", "button"));
-    m_pBtnFind->setFixedSize(60, 36);
+    m_pBtnFind->setMinimumSize(60, 36);
+    m_pBtnFind->setMaximumSize(110, 70);
+    m_pBtnFind->adjustSize();
     m_pBtnFind->setAccessibleName("btnFind_manFrame1");
     QHBoxLayout *pHLayout4 = new QHBoxLayout();
     pHLayout4->setSpacing(0);
