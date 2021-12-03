@@ -39,7 +39,7 @@
 #define UI_PRINTERSHOW_TROUBLE QObject::tr("Troubleshoot")
 #define UI_PRINTERSHOW_CANCEL QObject::tr("Cancel")
 
-#define UI_PRINTER_DRIVER_WEBSITE "https://ecology.chinauos.com/"
+#define UI_PRINTER_DRIVER_WEBSITE "https://ecology.chinauos.com"
 #define UI_PRINTER_DRIVER_MESSAGE QObject::tr("For more drivers, please refer to our official website: ")
 #define UI_PRINTER_DRIVER_WEB_LINK "<a href='%1' style='text-decoration: none; '>%1</a>"
 

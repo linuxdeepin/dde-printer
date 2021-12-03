@@ -27,6 +27,7 @@
 #include "printersearchwindow.h"
 #include "uisourcestring.h"
 #include "common.h"
+#include "qtconvert.h"
 
 #include <DListView>
 #include <DLineEdit>
@@ -99,14 +100,34 @@ void InstallDriverWindow::initUI()
     setWindowModality(Qt::ApplicationModal);
     setFixedSize(682, 532);
     // 左侧
-    QLabel *pLabelTitle1 = new QLabel(tr("Select a driver from"), this);
+    QString labelTitle = tr("Select a driver from");
+    QLabel *pLabelTitle1 = new QLabel(this);
+    geteElidedText(pLabelTitle1->font(), labelTitle, 90);
+    pLabelTitle1->setText(labelTitle);
+    pLabelTitle1->setToolTip(tr("Select a driver from"));
     pLabelTitle1->setAccessibleName("leftTitle_installDriver");
     DFontSizeManager::instance()->bind(pLabelTitle1, DFontSizeManager::T5, QFont::DemiBold);
     m_pTabListView = new DListView(this);
     m_pTabListModel = new QStandardItemModel(m_pTabListView);
-    m_pTabListModel->appendRow(new QStandardItem(tr("Local driver")));
-    m_pTabListModel->appendRow(new QStandardItem(tr("Local PPD file")));
-    m_pTabListModel->appendRow(new QStandardItem(tr("Search for a driver")));
+
+    DStandardItem *pLocalDriver = new DStandardItem(tr("Local driver"));
+    pLocalDriver->setData(VListViewItemMargin, Dtk::MarginsRole);
+    pLocalDriver->setSizeHint(QSize(108, 48));
+    pLocalDriver->setToolTip(tr("Local driver"));
+
+    DStandardItem *pPpdFile = new DStandardItem(tr("Local PPD file"));
+    pPpdFile->setData(VListViewItemMargin, Dtk::MarginsRole);
+    pPpdFile->setSizeHint(QSize(108, 48));
+    pPpdFile->setToolTip(tr("Local PPD file"));
+
+    DStandardItem *pSearchDriver = new DStandardItem(tr("Search for a driver"));
+    pSearchDriver->setData(VListViewItemMargin, Dtk::MarginsRole);
+    pSearchDriver->setSizeHint(QSize(108, 48));
+    pSearchDriver->setToolTip(tr("Search for a driver"));
+
+    m_pTabListModel->appendRow(pLocalDriver);
+    m_pTabListModel->appendRow(pPpdFile);
+    m_pTabListModel->appendRow(pSearchDriver);
     m_pTabListView->setModel(m_pTabListModel);
     m_pTabListView->setCurrentIndex(m_pTabListModel->index(0, 0));
     m_pTabListView->setEditTriggers(QListView::EditTrigger::NoEditTriggers);
@@ -116,6 +137,7 @@ void InstallDriverWindow::initUI()
     pLeftVBoxlayout->addWidget(pLabelTitle1);
     pLeftVBoxlayout->addWidget(m_pTabListView);
     QWidget *pLeftFrame = new QWidget(this);
+    pLeftFrame->setFixedWidth(150);
     pLeftFrame->setLayout(pLeftVBoxlayout);
     pLeftFrame->setAccessibleName("leftFrame_installDriver");
 
@@ -199,12 +221,14 @@ void InstallDriverWindow::initUI()
     m_pPPDPath->setAcceptDrops(true);
     m_pPPDPath->setAlignment(Qt::AlignCenter);
     m_pPPDPath->setWordWrap(true);
+    m_pPPDPath->setMinimumSize(200, 60);
+    m_pPPDPath->setMaximumSize(300, 90);
     m_pPPDPath->setAccessibleName("ppdPath_installDriver");
     m_pSelectPPDBtn = new QPushButton(UI_PRINTERDRIVER_PPDBTN_NORMAL, this);
     m_pSelectPPDBtn->setAccessibleName("ppdBtn_installDriver");
     DFontSizeManager::instance()->bind(m_pPPDPath, DFontSizeManager::T6, QFont::Medium);
     QVBoxLayout *pVLayout = new QVBoxLayout(this);
-    pVLayout->setContentsMargins(0, 100, 0, 100);
+    pVLayout->setContentsMargins(0, 80, 0, 80);
     pVLayout->addWidget(m_pPPDPath, 1, Qt::AlignCenter);
     pVLayout->addWidget(m_pSelectPPDBtn, 1, Qt::AlignCenter);
 
@@ -221,7 +245,7 @@ void InstallDriverWindow::initUI()
     m_pManuAndTypeLineEdit->setValidator(new QRegExpValidator(QRegExp("^[a-zA-Z0-9 ]*$")));
     m_pManuAndTypeLineEdit->setAccessibleName("manuBtn_installDriver");
     m_pSearchBtn = new QPushButton(tr("Search", "button"), this);
-    m_pSearchBtn->setMinimumSize(80, 36);
+	m_pSearchBtn->setMaximumSize(105, 36);
     m_pSearchBtn->setAccessibleName("searchBtn_installDriver");
     QHBoxLayout *pMakerHL1 = new QHBoxLayout();
     pMakerHL1->addWidget(pMakerAndTypeLabel, 1);

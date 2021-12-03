@@ -26,6 +26,7 @@
 #include "uisourcestring.h"
 #include "permissionswindow.h"
 #include "printerservice.h"
+#include "qtconvert.h"
 
 #include <DIconButton>
 #include <DComboBox>
@@ -51,6 +52,7 @@
 #include <QStackedWidget>
 #include <QRegExp>
 #include <QRegularExpression>
+#include <QScrollArea>
 
 PrinterSearchWindow::PrinterSearchWindow(QWidget *parent)
     : DMainWindow(parent)
@@ -159,11 +161,15 @@ void PrinterSearchWindow::initUi()
     m_pInfoAuto->setPalette(pa);
     m_pInfoAuto->setAccessibleName("infoAuto_listViewAuto");
 
+    QString webLink = QObject::tr(UI_PRINTER_DRIVER_WEB_LINK).arg(UI_PRINTER_DRIVER_WEBSITE);
+    QString tipInfo = UI_PRINTER_DRIVER_MESSAGE;
     m_pAutoDriverWebLink = new QLabel();
     m_pAutoDriverWebLink->setContentsMargins(10, 0, 0, 0);
     m_pAutoDriverWebLink->setOpenExternalLinks(true);
-    m_pAutoDriverWebLink->setWordWrap(true);
-    m_pAutoDriverWebLink->setText(UI_PRINTER_DRIVER_MESSAGE + tr(UI_PRINTER_DRIVER_WEB_LINK).arg(UI_PRINTER_DRIVER_WEBSITE));
+    int maxLen =  470 - 14 * DFontSizeManager::fontPixelSize(m_pAutoDriverWebLink->font());
+    geteElidedText(m_pAutoDriverWebLink->font(), tipInfo, maxLen);
+    m_pAutoDriverWebLink->setToolTip(UI_PRINTER_DRIVER_MESSAGE + UI_PRINTER_DRIVER_WEBSITE);
+    m_pAutoDriverWebLink->setText(tipInfo + webLink);
     m_pAutoDriverWebLink->setAccessibleName("autoWebLink_autoFrame1");
 
     QVBoxLayout *pVlayoutAuto1 = new QVBoxLayout();
@@ -271,8 +277,8 @@ void PrinterSearchWindow::initUi()
     m_pManDriverWebLink = new QLabel();
     m_pManDriverWebLink->setContentsMargins(10, 0, 0, 0);
     m_pManDriverWebLink->setOpenExternalLinks(true);
-    m_pManDriverWebLink->setWordWrap(true);
-    m_pManDriverWebLink->setText(UI_PRINTER_DRIVER_MESSAGE + tr(UI_PRINTER_DRIVER_WEB_LINK).arg(UI_PRINTER_DRIVER_WEBSITE));
+    m_pManDriverWebLink->setToolTip(UI_PRINTER_DRIVER_MESSAGE + UI_PRINTER_DRIVER_WEBSITE);
+    m_pManDriverWebLink->setText(tipInfo + webLink);
     m_pManDriverWebLink->setAccessibleName("manWebLink_manFrame2");
 
     QVBoxLayout *pVLayoutMan2 = new QVBoxLayout();
@@ -355,24 +361,38 @@ void PrinterSearchWindow::initUi()
     pURIFrame1->setLayout(pHLayoutURI1);
     pURIFrame1->setFixedHeight(76);
 
+    QScrollArea *tipScrollArea = new QScrollArea;
+    tipScrollArea->setContentsMargins(0, 0, 0, 0);
+    tipScrollArea->setWidgetResizable(true);
+    tipScrollArea->setFrameShape(QFrame::Shape::NoFrame);
+    tipScrollArea->setWidgetResizable(true);
+    tipScrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAsNeeded);
+
+    // 设置滑动条区域背景颜色为透明
+    QPalette pa1 = tipScrollArea->palette();
+    pa1.setBrush(QPalette::Window, Qt::transparent);
+    tipScrollArea->setPalette(pa1);
+
     m_pLabelTip = new QLabel(tr("Examples:") + "\n" + UI_PRINTERSEARCH_URITIP);
     DFontSizeManager::instance()->bind(m_pLabelTip, DFontSizeManager::T8);
     QPalette pe;
     pe.setColor(QPalette::WindowText, QColor("#92A8BA"));
     m_pLabelTip->setPalette(pe);
+    m_pLabelTip->setWordWrap(true);
     m_pLabelTip->setContentsMargins(70, 0, 0, 0);
     m_pLabelTip->setAccessibleName("labelTip_uriFrame2");
+    tipScrollArea->setWidget(m_pLabelTip);
     m_pURIDriverWebLink = new QLabel();
     m_pURIDriverWebLink->setContentsMargins(10, 0, 0, 20);
     m_pURIDriverWebLink->setOpenExternalLinks(true);
-    m_pURIDriverWebLink->setWordWrap(true);
-    m_pURIDriverWebLink->setText(UI_PRINTER_DRIVER_MESSAGE + tr(UI_PRINTER_DRIVER_WEB_LINK).arg(UI_PRINTER_DRIVER_WEBSITE));
+    m_pURIDriverWebLink->setToolTip(UI_PRINTER_DRIVER_MESSAGE + UI_PRINTER_DRIVER_WEBSITE);
+    m_pURIDriverWebLink->setText(tipInfo + webLink);
     m_pURIDriverWebLink->setAccessibleName("webLink_uriFrame2");
 
     QVBoxLayout *pURIVLayout2 = new QVBoxLayout();
-    pURIVLayout2->addStretch();
-    pURIVLayout2->addWidget(m_pLabelTip);
-    pURIVLayout2->addStretch();
+    pURIVLayout2->addSpacing(10);
+    pURIVLayout2->addWidget(tipScrollArea);
+    pURIVLayout2->addSpacing(10);
     pURIVLayout2->addWidget(m_pURIDriverWebLink);
     pURIVLayout2->setContentsMargins(10, 10, 10, 10);
     QWidget *pURIFrame2 = new QWidget();

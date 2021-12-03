@@ -23,6 +23,7 @@
 #include "ztroubleshoot.h"
 #include "zjobmanager.h"
 #include "ztroubleshoot_p.h"
+#include "qtconvert.h"
 
 #include <DPalette>
 #include <DApplicationHelper>
@@ -65,7 +66,7 @@ TroubleShootItem::TroubleShootItem(TroubleShootJob *job, int index, QWidget *par
     lay->addWidget(m_titleLabel, 0, 1, Qt::AlignLeft | Qt::AlignHCenter);
     lay->addWidget(m_messageLabel, 1, 1, Qt::AlignLeft | Qt::AlignHCenter);
     setLayout(lay);
-    setFixedHeight(60);
+    setMaximumHeight(125);
     this->setAccessibleName("shootItem_troubleShoot");
 
     connect(job, &TroubleShootJob::signalStateChanged, this, &TroubleShootItem::slotStateChanged);
@@ -92,7 +93,10 @@ void TroubleShootItem::slotStateChanged(int state, const QString &message)
     if (TStat_Suc == state)
         m_iconLabel->setPixmap(QIcon(":/images/success.svg").pixmap(17, 17));
 
-    m_messageLabel->setText(message);
+    QString messageInfo = message;
+    geteElidedText(m_messageLabel->font(), messageInfo, 600);
+    m_messageLabel->setToolTip(message);
+    m_messageLabel->setText(messageInfo);
 }
 
 TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *parent)
@@ -112,7 +116,7 @@ TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *pare
     QWidget *contentWidget = new QWidget(this);
 
     QLabel *title = new QLabel(tr("Troubleshoot: "), contentWidget);
-    title->setFixedHeight(30);
+    title->setMaximumHeight(45);
     title->setAccessibleName("title_contentWidget");
     DFontSizeManager::instance()->bind(title, DFontSizeManager::T5, QFont::DemiBold);
     QHBoxLayout *pHLayout = new QHBoxLayout();
@@ -132,7 +136,7 @@ TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *pare
         item->hide();
         itemlay->addWidget(item);
     }
-    itemlay->addStretch(100);
+    itemlay->addStretch();
     frame->setLayout(itemlay);
     frame->setAccessibleName("frame_contentWidget");
 
@@ -144,11 +148,10 @@ TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *pare
     QVBoxLayout *lay = new QVBoxLayout(contentWidget);
     lay->setSpacing(0);
     lay->setContentsMargins(10, 10, 10, 10);
-    lay->addWidget(frame, 100);
+    lay->addWidget(frame);
     lay->addSpacing(10);
     lay->addWidget(m_button, 0, Qt::AlignCenter);
 
-    contentWidget->setFixedSize(692, 432);
     contentWidget->setLayout(lay);
     contentWidget->setAccessibleName("contentWidget_troubleShoot");
 
@@ -158,7 +161,7 @@ TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *pare
     mainlay->addWidget(contentWidget);
     setLayout(mainlay);
 
-    this->setFixedSize(692, 487);
+    this->setFixedSize(692, 590);
     this->setAccessibleName("troubleShoot_mainWindow");
 
     connect(m_trobleShoot, &TroubleShoot::signalStatus, this, &TroubleShootDialog::slotTroubleShootStatus);

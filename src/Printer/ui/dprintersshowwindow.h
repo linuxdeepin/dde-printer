@@ -23,6 +23,7 @@
 #include "dprintermanager.h"
 #include "printersearchwindow.h"
 #include "renameprinterwindow.h"
+#include "qtconvert.h"
 #include "util/refreshsnmpbackendtask.h"
 
 #include <DMainWindow>
@@ -85,7 +86,8 @@ private:
         setWindowFlags(Qt::Dialog);
 
         setWindowModality(Qt::ApplicationModal);
-        setFixedSize(480, 261);
+        this->setMinimumSize(480, 261);
+        this->setMaximumSize(480, 355);
 
         QLabel *pBaseSettings = new QLabel(tr("Basic Server Settings"));
         pBaseSettings->setAccessibleName("baseSetting_mainSetting");
@@ -96,12 +98,17 @@ private:
         pHLayout->addSpacing(10);
         pHLayout->addWidget(pBaseSettings);
 
-        m_pCheckShared = new QCheckBox(tr("Publish shared printers connected to this system"));
+        QString checkShared = tr("Publish shared printers connected to this system");
+        m_pCheckShared = new QCheckBox();
         m_pCheckIPP = new QCheckBox(tr("Allow printing from the Internet"));
         m_pCheckIPP->setEnabled(false);
         m_pCheckRemote = new QCheckBox(tr("Allow remote administration"));
         //        m_pCheckCancelJobs = new QCheckBox(tr("Allow users to cancel all tasks (not just their own)"));
         m_pCheckSaveDebugInfo = new QCheckBox(tr("Save debugging information for troubleshooting"));
+        QString showCheckShared = checkShared;
+        geteElidedText(m_pCheckShared->font(), showCheckShared, m_pCheckShared->width() - 240);
+        m_pCheckShared->setText(showCheckShared);
+        m_pCheckShared->setToolTip(checkShared);
 
         m_pCheckShared->setAccessibleName("checkShare_frame1");
         m_pCheckIPP->setAccessibleName("checkIpp_frame1");
@@ -120,8 +127,9 @@ private:
         pSettingsHLayout->addWidget(m_pCheckIPP);
         pSettingsVLayout1->addLayout(pSettingsHLayout);
         QWidget *pFrame1 = new QWidget();
-        pFrame1->setFixedHeight(64);
+        pFrame1->setMaximumHeight(100);
         pFrame1->setLayout(pSettingsVLayout1);
+        pFrame1->setContentsMargins(0, 0, 0, 0);
         pFrame1->setAccessibleName("frame1_SettingWidget");
         pSettingsVLayout->addWidget(pFrame1);
 
@@ -129,7 +137,8 @@ private:
         pSettingsVLayout2->addWidget(m_pCheckRemote);
         QWidget *pFrame2 = new QWidget();
         pFrame2->setLayout(pSettingsVLayout2);
-        pFrame2->setFixedHeight(36);
+        pFrame2->setMaximumHeight(50);
+        pFrame2->setContentsMargins(0, 0, 0, 0);
         pFrame2->setAccessibleName("frame2_SettingWidget");
         pSettingsVLayout->addWidget(pFrame2);
 
@@ -138,8 +147,9 @@ private:
         QVBoxLayout *pSettingsVLayout3 = new QVBoxLayout();
         pSettingsVLayout3->addWidget(m_pCheckSaveDebugInfo);
         QWidget *pFrame3 = new QWidget();
-        pFrame3->setFixedHeight(36);
+        pFrame3->setMaximumHeight(50);
         pFrame3->setLayout(pSettingsVLayout3);
+        pFrame3->setContentsMargins(0, 0, 0, 0);
         pFrame3->setAccessibleName("frame3_SettingWidget");
         pSettingsVLayout->addWidget(pFrame3);
 
@@ -153,6 +163,7 @@ private:
         QVBoxLayout *pMainVlaout1 = new QVBoxLayout();
         pMainVlaout1->addLayout(pHLayout);
         pMainVlaout1->addWidget(pSettingWidget);
+        pMainVlaout1->addStretch();
         pMainVlaout1->setContentsMargins(10, 10, 10, 10);
         pSettingWidget1->setLayout(pMainVlaout1);
         pSettingWidget1->setAccessibleName("mainSetting_settingsWindow");
@@ -329,6 +340,9 @@ private:
     QLabel *m_pLabelLocationShow;
     QLabel *m_pLabelTypeShow;
     QLabel *m_pLabelStatusShow;
+    QLabel *m_pLabelPrintTest;
+    QLabel *m_pLabelPrintFault;
+    QLabel *m_pLabelPrintQueue;
 
     DIconButton *m_pIBtnSetting;
     DIconButton *m_pIBtnPrintQueue;
