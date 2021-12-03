@@ -37,7 +37,7 @@
 #define HOST_PORT       80
 #define SERVER_ADDR     "printer.deepin.com"
 #define OS_VERSION      "eagle"
-#define DRIVER_PLATFORM_URL "https://drive.uniontech.com/api/v1/drive/search"
+#define DRIVER_PLATFORM_URL "https://driver.uniontech.com/api/v1/drive/search"
 static QMap<int, QString> DeepinTypeStrMap({{0, "unknown"}, {1, "apricot"}, {2, "eagle"}, {3, "fou"}, {4, "plum"}});
 
 QString sysArch()
