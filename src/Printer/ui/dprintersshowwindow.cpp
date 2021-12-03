@@ -92,7 +92,7 @@ void DPrintersShowWindow::initUI()
     pMenu->setAccessibleName("menu_titleBar");
     titlebar()->setMenu(pMenu);
     titlebar()->setAccessibleName("titleBar_mainWindow");
-    setMinimumSize(942, 656);
+    setMinimumSize(950, 715);
 
     // 左边上面的控制栏
     QLabel *pLabel = new QLabel(tr("Printers"));
@@ -186,6 +186,7 @@ void DPrintersShowWindow::initUI()
 
     m_pLabelPrinterName = new QLabel("");
     m_pLabelPrinterName->setMinimumWidth(200);
+    m_pLabelPrinterName->setMaximumHeight(200);
     DFontSizeManager::instance()->bind(m_pLabelPrinterName, DFontSizeManager::T4, QFont::DemiBold);
 
     QLabel *pLabelLocation = new QLabel(tr("Location:"));
@@ -241,30 +242,27 @@ void DPrintersShowWindow::initUI()
     m_pIBtnPrintQueue->setIconSize(QSize(32, 32));
     m_pIBtnPrintQueue->setFixedSize(60, 60);
     m_pIBtnPrintQueue->setEnabledCircle(true);
-    QLabel *pLabelPrintQueue = new QLabel();
-    pLabelPrintQueue->setText(tr("Print Queue"));
-    pLabelPrintQueue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    DFontSizeManager::instance()->bind(pLabelPrintQueue, DFontSizeManager::T8);
+    m_pLabelPrintQueue = new QLabel();
+    m_pLabelPrintQueue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    DFontSizeManager::instance()->bind(m_pLabelPrintQueue, DFontSizeManager::T8);
 
     m_pIBtnPrintTest = new DIconButton(this);
     m_pIBtnPrintTest->setIcon(QIcon::fromTheme("dp_test_page"));
     m_pIBtnPrintTest->setIconSize(QSize(32, 32));
     m_pIBtnPrintTest->setFixedSize(60, 60);
     m_pIBtnPrintTest->setEnabledCircle(true);
-    QLabel *pLabelPrintTest = new QLabel();
-    pLabelPrintTest->setText(tr("Print Test Page"));
-    pLabelPrintTest->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    DFontSizeManager::instance()->bind(pLabelPrintTest, DFontSizeManager::T8);
+    m_pLabelPrintTest = new QLabel();
+    m_pLabelPrintTest->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    DFontSizeManager::instance()->bind(m_pLabelPrintTest, DFontSizeManager::T8);
 
     m_pIBtnFault = new DIconButton(this);
     m_pIBtnFault->setIcon(QIcon::fromTheme("dp_fault"));
     m_pIBtnFault->setIconSize(QSize(32, 32));
     m_pIBtnFault->setFixedSize(60, 60);
     m_pIBtnFault->setEnabledCircle(true);
-    QLabel *pLabelPrintFault = new QLabel();
-    pLabelPrintFault->setText(UI_PRINTERSHOW_TROUBLE);
-    pLabelPrintFault->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    DFontSizeManager::instance()->bind(pLabelPrintFault, DFontSizeManager::T8);
+    m_pLabelPrintFault = new QLabel();
+    m_pLabelPrintFault->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    DFontSizeManager::instance()->bind(m_pLabelPrintFault, DFontSizeManager::T8);
 
     m_pIBtnSupply = new DIconButton(this);
     m_pIBtnSupply->setIcon(QIcon::fromTheme("filter_icon_unknown"));
@@ -282,29 +280,29 @@ void DPrintersShowWindow::initUI()
     m_pIBtnSupply->setAccessibleName("supply_mainWindow");
     m_pIBtnFault->setAccessibleName("fault_mainWindow");
     pLabelSetting->setAccessibleName("labelSetting_printerInfoWidget");
-    pLabelPrintQueue->setAccessibleName("labelPrintQueue_printerInfoWidget");
-    pLabelPrintTest->setAccessibleName("labelPrintTest_printerInfoWidget");
+    m_pLabelPrintQueue->setAccessibleName("labelPrintQueue_printerInfoWidget");
+    m_pLabelPrintTest->setAccessibleName("labelPrintTest_printerInfoWidget");
     pLabelSupply->setAccessibleName("labelSupply_printerInfoWidget");
-    pLabelPrintFault->setAccessibleName("labelFault_printerInfoWidget");
+    m_pLabelPrintFault->setAccessibleName("labelFault_printerInfoWidget");
 
     QGridLayout *pRightBottomGLayout = new QGridLayout();
     pRightBottomGLayout->addWidget(m_pIBtnSetting, 0, 0, Qt::AlignHCenter);
     pRightBottomGLayout->addWidget(pLabelSetting, 1, 0);
     pRightBottomGLayout->addWidget(m_pIBtnPrintQueue, 0, 1, Qt::AlignHCenter);
-    pRightBottomGLayout->addWidget(pLabelPrintQueue, 1, 1);
+    pRightBottomGLayout->addWidget(m_pLabelPrintQueue, 1, 1);
     pRightBottomGLayout->addWidget(m_pIBtnPrintTest, 0, 2, Qt::AlignHCenter);
-    pRightBottomGLayout->addWidget(pLabelPrintTest, 1, 2);
+    pRightBottomGLayout->addWidget(m_pLabelPrintTest, 1, 2);
     pRightBottomGLayout->addWidget(m_pIBtnSupply, 0, 3, Qt::AlignHCenter);
     pRightBottomGLayout->addWidget(pLabelSupply, 1, 3);
     pRightBottomGLayout->addWidget(m_pIBtnFault, 0, 4, Qt::AlignHCenter);
-    pRightBottomGLayout->addWidget(pLabelPrintFault, 1, 4);
+    pRightBottomGLayout->addWidget(m_pLabelPrintFault, 1, 4);
 
     // 右侧整体布局
     QVBoxLayout *pRightVLayout = new QVBoxLayout();
     pRightVLayout->addLayout(pRightTopHLayout);
-    pRightVLayout->addSpacing(100);
+    pRightVLayout->addSpacing(120);
     pRightVLayout->addLayout(pRightBottomGLayout);
-    pRightVLayout->setContentsMargins(20, 100, 20, 140);
+    pRightVLayout->setContentsMargins(20, 100, 20, 120);
     m_pPrinterInfoWidget = new QWidget();
     m_pPrinterInfoWidget->setLayout(pRightVLayout);
     m_pPrinterInfoWidget->setAccessibleName("printerInfoWidget_rightWidget");
@@ -429,7 +427,8 @@ void DPrintersShowWindow::showEvent(QShowEvent *event)
             dlg.addButton(tr("OK"), true);
             dlg.setContentsMargins(10, 15, 10, 15);
             dlg.setModal(true);
-            dlg.setFixedSize(422, 202);
+            dlg.setMinimumSize(422, 202);
+            dlg.setMaximumSize(422, 250);
             dlg.exec();
         } else {
             refreshPrinterListView(m_CurPrinterName);
@@ -652,6 +651,22 @@ void DPrintersShowWindow::resizeEvent(QResizeEvent *event)
 {
     /*界面缩放时动态调整打印机信息显示的宽度*/
     printerListWidgetItemChangedSlot(QModelIndex());
+
+    /* 20号字体下调整界面图标宽度 */
+    QString printQueue = tr("Print Queue");
+    geteElidedText(m_pLabelPrintQueue->font(), printQueue, m_pLabelPrintQueue->width() > 600 ? 100 : m_pLabelPrintQueue->width() - 15);
+    m_pLabelPrintQueue->setToolTip(tr("Print Queue"));
+    m_pLabelPrintQueue->setText(printQueue);
+
+    QString testPage = tr("Print Test Page");
+    geteElidedText(m_pLabelPrintTest->font(), testPage, m_pLabelPrintTest->width() > 600 ? 100 : m_pLabelPrintTest->width() - 37);
+    m_pLabelPrintTest->setToolTip(tr("Print Test Page"));
+    m_pLabelPrintTest->setText(testPage);
+
+    QString printFault = UI_PRINTERSHOW_TROUBLE;
+    geteElidedText(m_pLabelPrintFault->font(), printFault, m_pLabelPrintFault->width() > 600 ? 100 : m_pLabelPrintFault->width() - 37);
+    m_pLabelPrintFault->setToolTip(UI_PRINTERSHOW_TROUBLE);
+    m_pLabelPrintFault->setText(printFault);
     DMainWindow::resizeEvent(event);
 }
 void DPrintersShowWindow::printerStateChanged(const QDBusMessage &msg)
@@ -836,7 +851,8 @@ void DPrintersShowWindow::printSettingClickSlot()
 
     if (dlg.isDriveBroken()) {
         DDialog dialog;
-        dialog.setFixedSize(QSize(400, 150));
+        dialog.setMinimumSize(400, 150);
+        dialog.setMaximumSize(400, 230);
         dialog.setMessage(tr("The driver is damaged, please install it again."));
         dialog.addSpacing(10);
         dialog.addButton(UI_PRINTERSHOW_CANCEL);
