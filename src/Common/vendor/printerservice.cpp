@@ -102,6 +102,7 @@ bool PrinterService::isInvaild()
 PrinterService::PrinterService()
 {
     m_osVersion = g_Settings->getOSVersion();
+    m_urlDriver = g_Settings->getDriverPlatformUrl() + QString("?arch=%1").arg(g_Settings->getSystemArch());
     if (isInvaild())
         return;
 
@@ -111,7 +112,6 @@ PrinterService::PrinterService()
     m_code = g_Settings->getClientCode();
 
     QStringList osargs = m_osVersion.split("-");
-    m_urlDriver = g_Settings->getDriverPlatformUrl() + QString("?arch=%1").arg(g_Settings->getSystemArch());
 }
 
 void PrinterServerInterface::getFromServer()
@@ -160,7 +160,11 @@ PrinterServerInterface *PrinterService::searchDriverSolution(const QString &manu
     Q_UNUSED(ieee1284_id);
     QJsonObject obj;
 
-    QString urlDriver = m_urlDriver + QString("&deb_manufacturer=%1&desc=%1 %2").arg(manufacturer).arg(model);
+    QString info = QString("&deb_manufacturer=%1&desc=%1 %2").arg(manufacturer).arg(model);
+    if (manufacturer == "HP" || manufacturer == "Hewlett-Packard") {
+        info = QString("&deb_manufacturer=HP&desc=%1").arg(model);
+    }
+    QString urlDriver = m_urlDriver + info;
     PrinterServerInterface *reply = new PrinterServerInterface(urlDriver, obj);
 
     return reply;
