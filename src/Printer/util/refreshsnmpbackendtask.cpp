@@ -21,6 +21,7 @@
 #include "refreshsnmpbackendtask.h"
 #include "dprintermanager.h"
 #include "dprinter.h"
+#include "common.h"
 
 #include <QDebug>
 
@@ -116,10 +117,14 @@ void RefreshSnmpBackendTask::run()
 bool RefreshSnmpBackendTask::canGetSupplyMsg(const SNMPFRESHNODE &node)
 {
     QVector<SUPPLYSDATA> vecMarkInfo;
+    QString strIp = node.strLoc;
+    if (!isIpv4Address(strIp)) {
+        strIp = getHostFromUri(node.strUrl);
+    }
 
     if (node.strUrl.startsWith("socket://")) {
         cupssnmp snmp;
-        snmp.setIP(node.strLoc.toStdString());
+        snmp.setIP(strIp.toStdString());
         snmp.setPPDName(node.strPpdName.toStdString().c_str());
         snmp.SNMPReadSupplies();
         vector<SUPPLYSDATA> tempVec = snmp.getMarkInfo();
@@ -135,7 +140,7 @@ bool RefreshSnmpBackendTask::canGetSupplyMsg(const SNMPFRESHNODE &node)
             QStringList strHighLevels;
             QStringList strTypes;
             QStringList strColors;
-            c.init(node.strLoc.toStdString().c_str(), ippPort(), 0);
+            c.init(strIp.toStdString().c_str(), ippPort(), 0);
             vector<string> requestAttrs;
             requestAttrs.push_back("marker-names");
             requestAttrs.push_back("marker-levels");
