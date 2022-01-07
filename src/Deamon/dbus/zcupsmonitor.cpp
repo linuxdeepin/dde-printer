@@ -349,7 +349,7 @@ int CupsMonitor::getNotifications(int &notifysSize)
                 case IPP_JSTATE_STOPPED:
                 case IPP_JSTATE_ABORTED: {
                     if (IPP_JSTATE_COMPLETED == iState) {
-                        strReason = tr("%1 printed successfully, please take away the paper in time!").arg(strJobName);
+                        strReason = tr("%1 has been sent to the printer, please take away the paper in time!").arg(strJobName);
                     } else {
                         strReason = tr("%1 %2, reason: %3")
                                     .arg(strJobName)

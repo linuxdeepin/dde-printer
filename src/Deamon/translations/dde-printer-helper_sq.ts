@@ -1,28 +1,28 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="sq" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="sq">
 <context>
     <name>AddPrinterTask</name>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="554"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="552"/>
         <source>URI and driver do not match.</source>
         <translation>URI dhe përudhësi nuk përputhen.</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="556"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="554"/>
         <source>Install hplip first and restart the app to install the driver again.</source>
         <translation>Së pari instaloni hplip dhe riniseni aplikacionin që të instalohet përudhësi sërish.</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="564"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="562"/>
         <source>Please select an hplip driver and try again.</source>
         <translation>Ju lutemi, përzgjidhni një përudhës hplip dhe riprovoni.</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="577"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="575"/>
         <source>URI can&apos;t be empty</source>
         <translation>URI s’mund të jetë e zbrazët</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="584"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="582"/>
         <source> not found</source>
         <translation> s’u gjet</translation>
     </message>
@@ -30,37 +30,37 @@
 <context>
     <name>CheckAttributes</name>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="307"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="305"/>
         <source>Check printer settings</source>
         <translation>Kontrolloni rregullimet e shtypësit</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="316"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="314"/>
         <source>Checking printer settings...</source>
         <translation>Po kontrollohen rregullimet e shtypësit…</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="319"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="317"/>
         <source>Success</source>
         <translation>Sukses</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="329"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="327"/>
         <source>Failed to get printer attributes, error: </source>
         <translation>S’u arrit të merren atribute shtypësi, gabim: </translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="337"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="335"/>
         <source>%1 is disabled</source>
         <translation>%1 është çaktivizuar</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="346"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="344"/>
         <source>is not accepting jobs</source>
         <translation>nuk pranon akte</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="351"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="349"/>
         <source>Printer settings are ok</source>
         <translation>Rregullimet e shtypësit janë në rregull</translation>
     </message>
@@ -68,42 +68,42 @@
 <context>
     <name>CheckConnected</name>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="212"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="211"/>
         <source>Check printer connection</source>
         <translation>Kontrollo lidhjen e shtypësit</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="224"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="223"/>
         <source>Checking printer connection...</source>
         <translation>Po kontrollohet lidhja e shtypësit…</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="227"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="226"/>
         <source>Success</source>
         <translation>Sukses</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="264"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="263"/>
         <source>Cannot connect to the printer, error: %1</source>
         <translation>S’lidhet dot me shtypësin, gabim: %1</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="272"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="271"/>
         <source> is not connected, URI: </source>
         <translation> s’është i lidhur, URI: </translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="281"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="280"/>
         <source>%1 does not exist</source>
         <translation>%1 s’ekziston</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="290"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="288"/>
         <source>Cannot connect to the printer</source>
         <translation>S’lidhet dot me shtypësin</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="296"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="294"/>
         <source>The connection is valid</source>
         <translation>Lidhja është e e vlefshme</translation>
     </message>
@@ -111,22 +111,22 @@
 <context>
     <name>CheckCupsServer</name>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="110"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="109"/>
         <source>Check CUPS server</source>
         <translation>Kontrollo shërbyesin CUPS</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="116"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="115"/>
         <source>Checking CUPS server...</source>
         <translation>Po kontrollohet shërbyesi CUPS…</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="118"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="117"/>
         <source>CUPS server is invalid</source>
         <translation>Shërbyesi CUPS është i pavlefshëm</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="123"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="122"/>
         <source>CUPS server is valid</source>
         <translation>Shërbyesi CUPS është i vlefshëm</translation>
     </message>
@@ -134,42 +134,42 @@
 <context>
     <name>CheckDriver</name>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="141"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="140"/>
         <source>Checking driver...</source>
         <translation>Po kontrollohet përudhësi…</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="144"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="143"/>
         <source>Success</source>
         <translation>Sukses</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="152"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="151"/>
         <source>PPD file %1 not found</source>
         <translation>S’u gjet kartelë PPD %1</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="162"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="161"/>
         <source>The driver is damaged</source>
         <translation>Përudhësi është i dëmtuar</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="178"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="177"/>
         <source>Driver filter %1 not found</source>
         <translation>S’u gjet filtër përudhësi %1</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="190"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="189"/>
         <source>%1 is not installed, cannot print now</source>
         <translation>%1 s’është i instaluar, s’mund të shtypet tani</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="196"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="195"/>
         <source>Driver is valid</source>
         <translation>Përudhësi është i vlefshëm</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="202"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="201"/>
         <source>Check driver</source>
         <translation>Kontrollo përudhësin</translation>
     </message>
@@ -218,8 +218,8 @@
     </message>
     <message>
         <location filename="../dbus/zcupsmonitor.cpp" line="352"/>
-        <source>%1 printed successfully, please take away the paper in time!</source>
-        <translation>%1 u shtyp me sukses, ju lutemi, merreni në kohë fletën e shtypur!</translation>
+        <source>%1 has been sent to the printer, please take away the paper in time!</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../dbus/zcupsmonitor.cpp" line="354"/>
@@ -230,7 +230,7 @@
 <context>
     <name>DriverManager</name>
     <message>
-        <location filename="../../Common/vendor/zdrivermanager.cpp" line="906"/>
+        <location filename="../../Common/vendor/zdrivermanager.cpp" line="1022"/>
         <source>EveryWhere driver</source>
         <translation>Përudhës EveryWhere</translation>
     </message>
@@ -238,12 +238,12 @@
 <context>
     <name>InstallDriver</name>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="371"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="372"/>
         <source>Failed to find the driver solution: %1, error: %2</source>
         <translation>S’u arrit të gjendej zgjidhje përudhësi: %1, gabim: %2</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="382"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="383"/>
         <source>The solution is invalid</source>
         <translation>Zgjidhja është e pavlefshme</translation>
     </message>
@@ -251,17 +251,17 @@
 <context>
     <name>InstallInterface</name>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="252"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="250"/>
         <source>is invalid</source>
         <translation>është i pavlefshëm</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="281"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="279"/>
         <source>Failed to install the driver by calling dbus interface</source>
         <translation>S’u arrit të instalohej përudhësi duke thirrur ndërfaqe dbus</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="326"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="324"/>
         <source>Failed to install %1</source>
         <translation>S’u arrit të instalohej %1</translation>
     </message>
@@ -277,12 +277,12 @@
 <context>
     <name>PrinterTestJob</name>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="372"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="370"/>
         <source>Check test page printing</source>
         <translation>Kontrolloni shtypjen e faqes test</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="426"/>
+        <location filename="../../Common/vendor/ztroubleshoot.cpp" line="424"/>
         <source>Printing test page...</source>
         <translation>Po shtypet faqja test…</translation>
     </message>
@@ -290,7 +290,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../Common/common.cpp" line="152"/>
+        <location filename="../../Common/common.cpp" line="154"/>
         <source> not found, please ask the administrator for help</source>
         <translation> s’u gjet, ju lutemi, kërkojini ndihmë përgjegjësit</translation>
     </message>
@@ -308,19 +308,19 @@
 <context>
     <name>USBThread</name>
     <message>
-        <location filename="../usbprinter/usbthread.cpp" line="257"/>
+        <location filename="../usbprinter/usbthread.cpp" line="256"/>
         <source>Configuring the printer %1 ...</source>
-        <translation type="unfinished"/>
+        <translation>Po formësohet shtypësi %1 …</translation>
     </message>
     <message>
-        <location filename="../usbprinter/usbthread.cpp" line="303"/>
+        <location filename="../usbprinter/usbthread.cpp" line="302"/>
         <source>Configuration successful. Click to view %1.</source>
-        <translation type="unfinished"/>
+        <translation>Formësim i suksesshëm. Klikoni  që të shihni %1.</translation>
     </message>
     <message>
-        <location filename="../usbprinter/usbthread.cpp" line="307"/>
+        <location filename="../usbprinter/usbthread.cpp" line="306"/>
         <source>Configuration failed. Click to add the printer %1.</source>
-        <translation type="unfinished"/>
+        <translation>Formësimi dështoi. Klikoni që të shtoni shtypësin %1.</translation>
     </message>
 </context>
 </TS>
