@@ -38,9 +38,6 @@ enum {
 
 class RefreshLocalPPDS;
 
-void getPackageInfo(QString &packageName, QString &packageVer);
-void initPackageInfo();
-
 class DriverSearcher : public QObject
 {
     Q_OBJECT

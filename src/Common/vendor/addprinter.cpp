@@ -233,7 +233,7 @@ void InstallInterface::startInstallPackages()
         qInfo() << "install package:" << package.toString();
         if (isPackageExists(package.packageName)) {
             QString strVer = getPackageVersion(package.packageName);
-            if (!package.packageVer.isEmpty() && strVer != package.packageVer) {
+            if (!package.packageVer.isEmpty() && strVer < package.packageVer) {
                 qInfo() << package.packageName << "need update";
                 m_installPackages.append(package.packageName);
             } else {
@@ -345,11 +345,11 @@ void InstallDriver::doWork()
 {
     qDebug() << "Search driver for" << m_solution;
     QString strPackageName, strPackageVer;
-    getPackageInfo(strPackageName, strPackageVer);
-    if (!strPackageName.isNull()) { // packagename不为空，开始安装，安装完成后清空
+    strPackageName = m_solution[SD_KEY_driver].toString();
+    if (!strPackageName.isEmpty()) {
         TPackageInfo info;
         info.packageName = strPackageName;
-        info.packageVer = strPackageVer;
+        info.packageVer = m_solution[SD_KEY_debver].toString();
         m_packages.append(info);
         startInstallPackages();
     } else {

@@ -48,8 +48,6 @@
 
 #include <map>
 
-static QString g_strPackageName;
-static QString g_strPackageVer;
 static QMutex g_mutex;
 static QMap<QString, QMap<QString, QString>> g_ppds; //所有ppd文件的字典，以device_id(没有device_id则以make_and_model)作为key
 static QMap<QString, QMap<QString, QString> *> g_ppdsDirct; //将厂商和型号格式化之后作为key生成的字典，键值为g_ppds的key
@@ -58,18 +56,6 @@ static QMap<QString, QString> g_textPPd; //没有找到驱动的情况，默认�
 static QSet<QString> g_offlineDriver;
 
 static int g_iStatus = TStat_None;
-
-void getPackageInfo(QString &packageName, QString &packageVer)
-{
-    packageName = g_strPackageName;
-    packageVer = g_strPackageVer;
-}
-
-void initPackageInfo()
-{
-    g_strPackageName.clear();
-    g_strPackageVer.clear();
-}
 
 static QMap<QString, QVariant> stringToVariant(const QMap<QString, QString> &driver)
 {
@@ -744,7 +730,7 @@ void DriverSearcher::askForFinish()
     }
 
     // 如果无匹配驱动，并且无网络状态，搜索是否存在离线驱动信息
-    if (m_drivers.isEmpty() && m_isNetOffline) {
+    if (m_drivers.isEmpty() && m_isNetOffline && m_matchLocalDriver) {
         QString strModel = getPrinterFullModel();
         m_isOfflineDriverExist = searchOffineDriver(m_strFullMake, strModel);
     }
@@ -755,35 +741,40 @@ void DriverSearcher::askForFinish()
 
 void DriverSearcher::parseJsonInfo(QJsonArray value)
 {
-    int maxIndex = 0;
-    QString maxVer;
-    for (int i = 0; i < value.size(); ++i) { // 多个版本取最高版本
-        QString version = value[i].toObject().value("deb_version").toString();
-        if (version.compare(maxVer) > 0) {
-            maxVer = version;
-            maxIndex = i;
+    QList<QMap<QString, QVariant>> ppds;
+    for (int i = 0; i < value.size(); ++i) {
+        QJsonObject ppdobject = value[i].toObject();
+        QJsonObject ppdsobject = ppdobject.value("ppds")[0].toObject();
+        QMap<QString, QVariant> ppd;
+        ppd.insert(SD_KEY_from, PPDFrom_Server);
+        ppd.insert(CUPS_PPD_MAKE_MODEL, ppdsobject.value("desc").toString());
+        ppd.insert(SD_KEY_driver, ppdobject.value("packages"));
+        ppd.insert(SD_KEY_excat, QJsonValue(true));
+        ppd.insert(CUPS_PPD_NAME, QJsonValue::fromVariant(ppdsobject.value("source").toString()));
+        ppd.insert(SD_KEY_debver, ppdobject.value(SD_KEY_debver).toString());
+
+        if (ppds.empty()) {
+           ppds.append(ppd);
+        }
+
+        foreach (const auto &ppdin, ppds) { // 选取高版本，保留多个不同名的包
+            if (ppdin[SD_KEY_driver].toString() == ppd[SD_KEY_driver].toString()) {
+                if (ppdin[SD_KEY_debver].toString() > ppd[SD_KEY_debver].toString()) {
+                    continue;
+                }
+                ppds.removeOne(ppdin);
+            }
+            ppds.append(ppd);
         }
     }
-    QJsonObject ppdobject = value[maxIndex].toObject();
-    QJsonObject ppdsobject = ppdobject.value("ppds")[0].toObject(); // todo: 此处需修改，当前服务返回了所有ppds值。如果使用desc字段，需要服务器端进行处理
 
-    QMap<QString, QVariant> ppd;
-
-    ppd.insert(SD_KEY_from, PPDFrom_Server);
-    ppd.insert(CUPS_PPD_MAKE_MODEL, ppdsobject.value("desc").toString());
-    ppd.insert(SD_KEY_driver, ppdobject.value("packages"));
-    ppd.insert(SD_KEY_excat, QJsonValue(true));
-    ppd.insert(CUPS_PPD_NAME, QJsonValue::fromVariant(ppdsobject.value("source").toString()));
-
-    g_strPackageName = ppdobject.value("packages").toString();
-    g_strPackageVer = ppdobject.value("deb_version").toString();
-
-    m_drivers.append(ppd);
+    foreach (const auto &ppd, ppds) {
+        m_drivers.append(ppd);
+    }
 }
 
 void DriverSearcher::slotDriverDone(int iCode, const QByteArray &result)
 {
-    initPackageInfo();
     if (QNetworkReply::NoError == iCode && !result.isNull()) {
         QJsonParseError err;
         QJsonDocument doc = QJsonDocument::fromJson(result, &err);

@@ -33,6 +33,7 @@
 #define SD_KEY_ppd "ppd"
 #define SD_KEY_sid "sid"
 #define SD_KEY_ver "version"
+#define SD_KEY_debver "deb_version"
 #define SD_KEY_code "client_code"
 #define SD_KEY_mfg "MFG"
 #define SD_KEY_mdl "MDL"
