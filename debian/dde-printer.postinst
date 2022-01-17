@@ -23,6 +23,8 @@ if ( ProductType == "Desktop" && EditionName == "Community") {                  
     print "deb https://pro-driver-packages.uniontech.com eagle non-free";                    \
 } else if ( ProductType == "Server" && (EditionName == "Enterprise" || EditionName == "d") ) {                      \
     print "deb https://pro-driver-packages.uniontech.com eagle non-free";                    \
+} else {                                                                                     \
+    print "deb https://pro-driver-packages.uniontech.com eagle non-free";                    \
 }}')
 
 if [ -n "${REPO}" ]; then
