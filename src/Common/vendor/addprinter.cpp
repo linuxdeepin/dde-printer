@@ -233,7 +233,7 @@ void InstallInterface::startInstallPackages()
         qInfo() << "install package:" << package.toString();
         if (isPackageExists(package.packageName)) {
             QString strVer = getPackageVersion(package.packageName);
-            if (!package.packageVer.isEmpty() && strVer < package.packageVer) {
+            if (!package.packageVer.isEmpty() && strVer != package.packageVer) {
                 qInfo() << package.packageName << "need update";
                 m_installPackages.append(package.packageName);
             } else {
@@ -852,10 +852,6 @@ QString AddPrinterFactory::defaultPrinterName(const TDeviceInfo &printer, const 
         }
     }
 
-    //打印机名字不能超过128个字符
-    if (strName.length() >= 128) {
-        strName = strName.left(120);
-    }
     strName.replace(QRegularExpression("[^\\w-]"), " ");
     //去掉多个连续空格的情况
     list = strName.split(" ", QString::SkipEmptyParts);
@@ -868,13 +864,17 @@ QString AddPrinterFactory::defaultPrinterName(const TDeviceInfo &printer, const 
     }
 
     /*
-     *网络打印机在局域网中存在多台同型号时，普通用户无法通过ip区分打印机，如果用户设置了打印机位置属性
+     * 网络打印机在局域网中存在多台同型号时，普通用户无法通过ip区分打印机，如果用户设置了打印机位置属性
      * 比如办公室等，显示在界面方便用户区分打印机。
     */
     if (printer.uriList.count() > 0) {
         QString protocol = printer.uriList.at(0).left(printer.uriList.at(0).indexOf(":/"));
         if (protocol == "socket" && !printer.strLocation.isEmpty() && !isIpv4Address(printer.strLocation)) {
-            strDefaultName += "-" + printer.strLocation;
+            QString tmpLocation = printer.strLocation;
+            QStringList tmpList = tmpLocation.split(" ", QString::SkipEmptyParts);
+            tmpLocation = tmpList.join(" ");
+            tmpLocation.replace(QRegularExpression("[/ ?'#\"\\\\]"), "-");
+            strDefaultName += "-" + tmpLocation;
         }
     }
 
@@ -883,6 +883,11 @@ QString AddPrinterFactory::defaultPrinterName(const TDeviceInfo &printer, const 
     int i = 1;
     while (installedPrinters.contains(strDefaultName)) {
         strDefaultName = strName + "-" + QString::number(i++);
+    }
+
+    // 打印机名字不能超过128个字符
+    if (strDefaultName.length() >= 128) {
+        strDefaultName = strDefaultName.left(127);
     }
     return strDefaultName;
 }

@@ -742,6 +742,7 @@ void DriverSearcher::askForFinish()
 void DriverSearcher::parseJsonInfo(QJsonArray value)
 {
     QList<QMap<QString, QVariant>> ppds;
+    QStringList ppdNames;
     for (int i = 0; i < value.size(); ++i) {
         QJsonObject ppdobject = value[i].toObject();
         QJsonObject ppdsobject = ppdobject.value("ppds")[0].toObject();
@@ -753,18 +754,26 @@ void DriverSearcher::parseJsonInfo(QJsonArray value)
         ppd.insert(CUPS_PPD_NAME, QJsonValue::fromVariant(ppdsobject.value("source").toString()));
         ppd.insert(SD_KEY_debver, ppdobject.value(SD_KEY_debver).toString());
 
+        QString ppdName = ppd[SD_KEY_driver].toString();
         if (ppds.empty()) {
            ppds.append(ppd);
+           ppdNames.append(ppdName);
+           continue;
         }
 
         foreach (const auto &ppdin, ppds) { // 选取高版本，保留多个不同名的包
-            if (ppdin[SD_KEY_driver].toString() == ppd[SD_KEY_driver].toString()) {
-                if (ppdin[SD_KEY_debver].toString() > ppd[SD_KEY_debver].toString()) {
+            if (ppdin[SD_KEY_driver].toString() == ppdName) {
+                if (ppdin[SD_KEY_debver].toString() >= ppd[SD_KEY_debver].toString()) {
                     continue;
                 }
                 ppds.removeOne(ppdin);
+                ppdNames.removeOne(ppdName);
             }
-            ppds.append(ppd);
+
+            if (!ppdNames.contains(ppdName)) {
+                ppdNames.append(ppdName);
+                ppds.append(ppd);
+            }
         }
     }
 
