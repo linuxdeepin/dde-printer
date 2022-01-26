@@ -46,6 +46,7 @@ public:
     const QString getCupsServerHost();
     int getCupsServerPort();
     int getCupsServerEncryption();
+    QString getSysInfo();
 protected:
     zSettings(const QString &fileName);
     ~zSettings();

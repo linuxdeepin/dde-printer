@@ -102,7 +102,7 @@ bool PrinterService::isInvaild()
 PrinterService::PrinterService()
 {
     m_osVersion = g_Settings->getOSVersion();
-    m_urlDriver = g_Settings->getDriverPlatformUrl() + QString("?arch=%1").arg(g_Settings->getSystemArch());
+    m_urlDriver = g_Settings->getDriverPlatformUrl() + QString("?arch=%1&system=%2").arg(g_Settings->getSystemArch()).arg(g_Settings->getSysInfo());
     if (isInvaild())
         return;
 

@@ -123,6 +123,14 @@ const QString zSettings::getOSVersion()
     return value("OSVersion", defaultVersion).toString();
 }
 
+QString zSettings::getSysInfo()
+{
+    int iType = DTK_CORE_NAMESPACE::DSysInfo::uosType();
+    int iEditionType = DTK_CORE_NAMESPACE::DSysInfo::uosEditionType();
+
+    return QString::number(iType) + '-' + QString::number(iEditionType);
+}
+
 int zSettings::getSubscriptionId()
 {
     return value("SubscriptionId", -1).toInt();
