@@ -384,7 +384,6 @@ Connection::~Connection(void)
 
 int Connection::init(const char *host_str, int port_n, int encryption_n)
 {
-    std::lock_guard<std::mutex> guard(g_lock);
     const char *host = host_str ? host_str : cupsServer();
     int port = port_n ? port_n : ippPort();
     int encryption = encryption_n ? encryption_n : (http_encryption_t)cupsEncryption();
@@ -405,29 +404,32 @@ int Connection::init(const char *host_str, int port_n, int encryption_n)
         throw runtime_error("failed to connect to server");
     }
 
-    if (g_numConnections == 0) {
-        g_connections = (Connection **)malloc(sizeof(Connection *));
-        if (g_connections == nullptr) {
-            debugprintf("<- Connection::init() = -1\n");
-            throw runtime_error("insufficient memory");
-        }
-    } else {
-        Connection **old_array = g_connections;
+    {
+        std::lock_guard<std::mutex> guard(g_lock);
+        if (g_numConnections == 0) {
+            g_connections = (Connection **)malloc(sizeof(Connection *));
+            if (g_connections == nullptr) {
+                debugprintf("<- Connection::init() = -1\n");
+                throw runtime_error("insufficient memory");
+            }
+        } else {
+            Connection **old_array = g_connections;
 
-        if ((1 + g_numConnections) >= MAX_CONN) {
-            debugprintf("<- Connection::init() == -1\n");
-            throw runtime_error("too many connections");
+            if ((1 + g_numConnections) >= MAX_CONN) {
+                debugprintf("<- Connection::init() == -1\n");
+                throw runtime_error("too many connections");
+            }
+
+            g_connections = (Connection **)realloc(g_connections, (1 + g_numConnections) * sizeof(Connection *));
+            if (g_connections == nullptr) {
+                g_connections = old_array;
+                debugprintf("<- Connection::init() = -1\n");
+                throw runtime_error("insufficient memory");
+            }
         }
 
-        g_connections = (Connection **)realloc(g_connections, (1 + g_numConnections) * sizeof(Connection *));
-        if (g_connections == nullptr) {
-            g_connections = old_array;
-            debugprintf("<- Connection::init() = -1\n");
-            throw runtime_error("insufficient memory");
-        }
+        g_connections[g_numConnections++] = this;
     }
-
-    g_connections[g_numConnections++] = this;
 
     debugprintf("<- Connection::init() = 0\n");
     return 0;
