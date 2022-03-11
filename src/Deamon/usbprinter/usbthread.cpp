@@ -137,6 +137,8 @@ static bool isArrivedUSBPrinterAdded(const map<string, string> &infoMap, TDevice
         return true;
     }
 
+    /* 清空历史信息 */
+    deviceInfo.uriList.clear();
     /*创建设备，用于后续查询驱动和添加打印机*/
     deviceInfo.uriList << uriList;
     deviceInfo.strClass = attrValueToQString(devices[CUPS_DEV_CLASS]);

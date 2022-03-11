@@ -314,8 +314,8 @@ void InstallInterface::propertyChanged(const QDBusMessage &msg)
             emit signalStatus(TStat_Suc);
             goto done;
         } else if (m_strStatus == "failed") {
+            stop(); // 失败时先disconnect，避免成员析构导致sigsegv
             emit signalStatus(TStat_Fail);
-            goto done;
         }
 
         return;
