@@ -26,6 +26,7 @@
 
 #include <stdlib.h>
 #include <strings.h>
+#include <stdexcept>
 
 #define CUPS_MAX_SUPPLIES   32  /* Maximum number of supplies for a printer */
 #define CUPS_SUPPLY_TIMEOUT 2.0 /* Timeout for SNMP lookups */
