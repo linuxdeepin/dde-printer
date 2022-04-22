@@ -547,6 +547,14 @@ void DPrintersShowWindow::refreshPrinterListView(const QString &newPrinterName)
         }
         m_pPrinterModel->appendRow(pItem);
     }
+
+    if (newPrinterName.isEmpty()) {
+        m_pLabelPrinterName->setText("");
+        m_pLabelLocationShow->setText("");
+        m_pLabelTypeShow->setText("");
+        m_pLabelStatusShow->setText("");
+    }
+
     m_pPrinterListView->setIconSize(QSize(52, 52));
     if (m_pPrinterListView->count() > 0) {
         m_pPrinterListView->setVisible(true);
