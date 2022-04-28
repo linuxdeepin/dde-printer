@@ -16,7 +16,7 @@ else if ( $1 == "EditionName" ) {                                               
 }}                                                                                          \
 END {                                                                                       \
 if ( ProductType == "Desktop" && EditionName == "Community") {                              \
-    print "deb https://pro-driver-packages.uniontech.com eagle non-free";                    \
+    print "deb https://community-packages.deepin.com/driver/ driver non-free";                    \
 } else if ( ProductType == "Desktop" && EditionName == "Professional" ) {                   \
     print "deb https://pro-driver-packages.uniontech.com eagle non-free";                    \
 } else if ( ProductType == "Desktop" && EditionName == "Home" ) {                           \
