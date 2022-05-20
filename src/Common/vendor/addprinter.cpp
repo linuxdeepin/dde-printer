@@ -532,11 +532,11 @@ int AddPrinterTask::isUriAndDriverMatched()
     bool is_hplip;
     QString ppd_name;
 
+    ppd_name = m_solution[CUPS_PPD_NAME].toString();
     //不是直连打印机不检查驱动是否匹配
-    if (m_printer.strClass.compare("direct"))
+    if (m_printer.strClass.compare("direct") || isCanonCAPTDrv(ppd_name))
         return 0;
 
-    ppd_name = m_solution[CUPS_PPD_NAME].toString();
     is_hplip = isHplipDrv(ppd_name);
 
     m_uri.clear();

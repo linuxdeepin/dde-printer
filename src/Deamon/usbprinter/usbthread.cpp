@@ -148,6 +148,8 @@ static bool isArrivedUSBPrinterAdded(const map<string, string> &infoMap, TDevice
     deviceInfo.strLocation = attrValueToQString(devices[CUPS_DEV_LOCATION]);
     deviceInfo.iType = InfoFrom_Detect;
     deviceInfo.strName = deviceInfo.strInfo;
+    deviceInfo.serial = QString::fromStdString(infoMap.at("SerialNumber"));
+
     return false;
 }
 
