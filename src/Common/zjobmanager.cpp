@@ -93,7 +93,7 @@ int JobManager::getJobs(map<int, map<string, string>> &jobs, int which, int myJo
     return 0;
 }
 
-int JobManager::getJobById(map<string, string> &job, int jobId)
+int JobManager::getJobById(map<string, string> &job, int jobId, int myJob)
 {
     map<int, map<string, string>> jobs;
     map<int, map<string, string>>::iterator itJobs;
@@ -106,7 +106,7 @@ int JobManager::getJobById(map<string, string> &job, int jobId)
     try {
         auto conPtr = CupsConnectionFactory::createConnectionBySettings();
         if (conPtr)
-            jobs = conPtr->getJobs(g_whichs[WHICH_JOB_ALL], 0, 1, jobId, &requst);
+            jobs = conPtr->getJobs(g_whichs[WHICH_JOB_ALL], myJob, 1, jobId, &requst);
     } catch (const std::exception &ex) {
         qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;

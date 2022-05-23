@@ -893,7 +893,7 @@ void JobsDataModel::slotRefreshJobsList()
 
     qInfo() << m_iWhichJob;
 
-    if (0 != g_jobManager->getJobs(jobsmap, m_iWhichJob))
+    if (0 != g_jobManager->getJobs(jobsmap, m_iWhichJob, 1))
         return;
 
     m_jobs.clear();

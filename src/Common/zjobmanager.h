@@ -59,7 +59,7 @@ public:
      */
     int getJobs(map<int, map<string, string>> &jobs, int which = WHICH_JOB_RUNING, int myJobs = 0);
 
-    int getJobById(map<string, string> &job, int jobId);
+    int getJobById(map<string, string> &job, int jobId, int myJob = 1);
 
     //取消任务
     int cancelJob(int job_id);

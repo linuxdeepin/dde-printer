@@ -384,7 +384,7 @@ bool PrinterTestJob::findRunningJob()
     map<int, map<string, string>> jobs;
     map<int, map<string, string>>::iterator itJobs;
 
-    if (0 != g_jobManager->getJobs(jobs, WHICH_JOB_RUNING))
+    if (0 != g_jobManager->getJobs(jobs, WHICH_JOB_RUNING, 1))
         return false;
 
     for (itJobs = jobs.begin(); itJobs != jobs.end(); itJobs++) {

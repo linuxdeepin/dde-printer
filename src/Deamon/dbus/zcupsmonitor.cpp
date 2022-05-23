@@ -43,6 +43,7 @@
 #include <algorithm>
 #include <regex>
 
+#include <pwd.h>
 DWIDGET_USE_NAMESPACE
 
 #define SUB_URI "/"
@@ -53,6 +54,27 @@ DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 
 static vector<string> g_subEvents = {"printer-deleted", "printer-added", "printer-state-changed", "job-progress", "job-state-changed"};
+
+static bool isLocalUserJob(int jobId)
+{
+    map<string, string> jobInfo;
+    QString jobOriginName;
+    if (g_jobManager->getJobById(jobInfo, jobId, 0) == 0) {
+        map<string, string>::const_iterator itjob;
+        for (itjob = jobInfo.begin(); itjob != jobInfo.end(); ++itjob) {
+            if (itjob->first == "job-originating-user-name") {
+                jobOriginName = attrValueToQString(itjob->second);
+                break;
+            }
+        }
+    }
+
+    struct passwd* pwd = getpwuid(getuid());
+    if (pwd != nullptr && (strcmp(jobOriginName.toStdString().c_str(), pwd->pw_name) != 0)) {
+        return false; // 如果打印任务名称与本地用户名不一致, 不处理通知
+    }
+    return true;
+}
 
 CupsMonitor::CupsMonitor(QObject *parent)
     : QThread(parent)
@@ -328,6 +350,15 @@ int CupsMonitor::getNotifications(int &notifysSize)
                 if (insertJobMessage(iJob, iState, strReason)) {
                     qDebug() << "Emit job state changed signal" << iJob << iState << strReason;
                     emit signalJobStateChanged(iJob, iState, strReason);
+                }
+
+                /* 过滤通知消息处理:
+                 * 1. 由于getNotifications没有origin name字段, jobid信息notify-job-id;
+                 * 2. 通过jobid获取job-originating-user-name字段
+                 * 3. job-originating-user-name与username不一致时, 结束通知处理
+                 */
+                if (!isLocalUserJob(iJob)) { // 非本地用户作业任务，不处理
+                    continue;
                 }
 
                 switch (iState) {
