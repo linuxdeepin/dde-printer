@@ -346,12 +346,6 @@ int CupsMonitor::getNotifications(int &notifysSize)
                 if (skip)
                     continue;
 
-                //通过判断同一个id，同一个状态插入的次数判断是否触发信号
-                if (insertJobMessage(iJob, iState, strReason)) {
-                    qDebug() << "Emit job state changed signal" << iJob << iState << strReason;
-                    emit signalJobStateChanged(iJob, iState, strReason);
-                }
-
                 /* 过滤通知消息处理:
                  * 1. 由于getNotifications没有origin name字段, jobid信息notify-job-id;
                  * 2. 通过jobid获取job-originating-user-name字段
@@ -359,6 +353,12 @@ int CupsMonitor::getNotifications(int &notifysSize)
                  */
                 if (!isLocalUserJob(iJob)) { // 非本地用户作业任务，不处理
                     continue;
+                }
+
+                //通过判断同一个id，同一个状态插入的次数判断是否触发信号
+                if (insertJobMessage(iJob, iState, strReason)) {
+                    qDebug() << "Emit job state changed signal" << iJob << iState << strReason;
+                    emit signalJobStateChanged(iJob, iState, strReason);
                 }
 
                 switch (iState) {
@@ -605,6 +605,10 @@ void CupsMonitor::spoolerEvent(QDBusMessage msg)
     if (!isRunning()) {
         if (args.size() == 3)
             m_jobId = args[1].toInt();
+
+        if (!isLocalUserJob(m_jobId)) {
+            return;
+        }
         start();
     }
 }
