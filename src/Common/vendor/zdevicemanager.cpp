@@ -67,7 +67,7 @@ static TBackendSchemes g_backendSchemes[] = {{"usb", CUPS_EXCLUDE_NONE},
     {"hp", CUPS_EXCLUDE_NONE},
     {"snmp", CUPS_EXCLUDE_NONE},
     {"smfpnetdiscovery", CUPS_EXCLUDE_NONE},
-    {CUPS_INCLUDE_ALL, "cups-brf,dcp,parallel,serial"}
+    {CUPS_INCLUDE_ALL, "cups-brf,dcp,parallel,serial,hpfax"}
 };
 
 static void smb_auth_func(SMBCCTX *c,

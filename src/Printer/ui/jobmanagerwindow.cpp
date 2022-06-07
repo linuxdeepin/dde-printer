@@ -125,7 +125,7 @@ static QString formatDataTimeString(const QDateTime &dataTime)
         }
     }
 
-    return dataTime.toString("yyyy:MM:dd HH::mm::ss");
+    return dataTime.toString("yyyy-MM-dd HH:mm:ss");
 }
 
 static QPixmap getActionPixmap(unsigned int iAction, QIcon::Mode mode = QIcon::Normal);
@@ -1117,9 +1117,11 @@ void JobManagerWindow::initUi()
     m_jobsView->setModel(m_jobsModel);
     m_jobsView->setAccessibleName("jobsView_jobsWindow");
     m_jobsView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    m_jobsView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
-    m_jobsView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Fixed);
-    m_jobsView->horizontalHeader()->setSectionResizeMode(4, QHeaderView::Fixed);
+    m_jobsView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Interactive);
+    m_jobsView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Interactive);
+    m_jobsView->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Interactive);
+    m_jobsView->horizontalHeader()->setSectionResizeMode(3, QHeaderView::Interactive);
+    m_jobsView->horizontalHeader()->setSectionResizeMode(4, QHeaderView::Interactive);
     m_jobsView->horizontalHeader()->setSectionResizeMode(5, QHeaderView::Interactive);
     m_jobsView->horizontalHeader()->setSectionResizeMode(6, QHeaderView::Interactive);
     m_jobsView->setColumnWidth(0, 72);

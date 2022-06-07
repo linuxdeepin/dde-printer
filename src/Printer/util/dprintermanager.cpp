@@ -437,7 +437,7 @@ QString DPrinterManager::validataName(const QString &oldPrinterName)
     if (newPrinterName.isEmpty())
         return QString();
     newPrinterName = (newPrinterName.length() > 40) ? newPrinterName.left(40) : newPrinterName;
-    newPrinterName.replace(QRegularExpression("[# /]"), "-");
+    newPrinterName.replace(QRegularExpression("[/ ?'#\"\\\\<]"), "-");
     return newPrinterName;
 }
 
