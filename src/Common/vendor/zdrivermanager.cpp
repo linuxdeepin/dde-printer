@@ -549,7 +549,7 @@ DriverSearcher::DriverSearcher(const TDeviceInfo &printer, QObject *parent)
     , m_matchLocalDriver(true)
 {
     m_printer = printer;
-    m_localIndex = -1;
+    m_localIndex = 0;
     QString strFullMake;
 
     //通过device id中的MFG、MDL、CMD字段匹配

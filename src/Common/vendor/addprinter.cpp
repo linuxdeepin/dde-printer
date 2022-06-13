@@ -91,7 +91,8 @@ static bool isCanonCAPTDrv(const QString &ppd_name)
 
 static bool isHplipDrv(const QString &ppd_name)
 {
-    return (ppd_name.startsWith("drv:///hpcups.drv") || ppd_name.startsWith("drv:///hpijs.drv") || ppd_name.startsWith("lsb/usr/hplip/") || ppd_name.startsWith("hplip:") || ppd_name.startsWith("hplip-data:") || ppd_name.startsWith("hpijs-ppds:"));
+    return (ppd_name.startsWith("drv:///hpcups.drv") || ppd_name.startsWith("drv:///hpijs.drv") || ppd_name.startsWith("lsb/usr/hplip/") ||
+            ppd_name.startsWith("hplip:") || ppd_name.startsWith("hplip-data:") || ppd_name.startsWith("hpijs-ppds:") || ppd_name.startsWith("hp/hp-"));
 }
 
 static QDBusInterface *getPackageInterface()
@@ -529,28 +530,26 @@ AddPrinterTask::~AddPrinterTask()
 
 int AddPrinterTask::isUriAndDriverMatched()
 {
-    bool is_hplip;
-    QString ppd_name;
-
-    ppd_name = m_solution[CUPS_PPD_NAME].toString();
-    //不是直连打印机不检查驱动是否匹配
-    if (m_printer.strClass.compare("direct") || isCanonCAPTDrv(ppd_name))
+    // 不是直连打印机不检查驱动是否匹配, 或uri只有一个无需合并
+    if (m_printer.strClass.compare("direct") || m_printer.uriList.size() == 1) {
         return 0;
-
-    is_hplip = isHplipDrv(ppd_name);
-
-    m_uri.clear();
-    //如果是惠普打印机，匹配驱动和uri，hplip的驱动需要用hp:开头的uri添加
-    for (auto uri : m_printer.uriList) {
-        bool ishpuri = uri.startsWith("hp:");
-        if (ishpuri == is_hplip) {
-            m_uri = uri;
-            break;
-        }
     }
+
+    // 如果是惠普打印机，匹配驱动和uri，hplip的驱动需要用hp:开头的uri添加
+    m_uri.clear();
+    QString hpuri, usburi;
+    for (auto uri : m_printer.uriList) {
+        uri.startsWith("hp:") ? hpuri = uri : usburi = uri;
+    }
+
+    QString ppd_name = m_solution[CUPS_PPD_NAME].toString();
+    bool ishpdrv = isHplipDrv(ppd_name);
+
+    m_uri = ishpdrv ? hpuri : usburi;
+
     if (m_uri.isEmpty()) {
         m_strErr = tr("URI and driver do not match.");
-        if (is_hplip) {
+        if (ishpdrv) {
             m_strErr += tr("Install hplip first and restart the app to install the driver again.");
             if (!m_fixHplip) {
                 m_fixHplip = new FixHplipBackend(this);
