@@ -2,27 +2,27 @@
 <context>
     <name>AddPrinterTask</name>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="552"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="551"/>
         <source>URI and driver do not match.</source>
         <translation>URI und Treiber stimmen nicht überein.</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="554"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="553"/>
         <source>Install hplip first and restart the app to install the driver again.</source>
         <translation>Installieren Sie zuerst hplip und starten Sie die App neu, um den Treiber erneut zu installieren.</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="562"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="561"/>
         <source>Please select an hplip driver and try again.</source>
         <translation>Bitte wählen Sie einen hplib Treiber und versuchen es erneut.</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="575"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="574"/>
         <source>URI can&apos;t be empty</source>
-        <translation>URI kann nicht leer sein</translation>
+        <translation>URI darf nicht leer sein</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="582"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="581"/>
         <source> not found</source>
         <translation>nicht gefunden</translation>
     </message>
@@ -37,7 +37,7 @@
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="314"/>
         <source>Checking printer settings...</source>
-        <translation>Druckereinstellungen werden überprüft...</translation>
+        <translation>Druckereinstellungen werden überprüft ...</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="317"/>
@@ -57,7 +57,7 @@
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="344"/>
         <source>is not accepting jobs</source>
-        <translation>akzeptiert keine Druckaufträge</translation>
+        <translation>akzeptiert keine Aufträge</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="349"/>
@@ -75,7 +75,7 @@
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="223"/>
         <source>Checking printer connection...</source>
-        <translation>Druckerverbindung wird überprüft...</translation>
+        <translation>Druckerverbindung wird überprüft ...</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="226"/>
@@ -136,7 +136,7 @@
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="140"/>
         <source>Checking driver...</source>
-        <translation>Treiber wird überprüft...</translation>
+        <translation>Treiber wird überprüft ...</translation>
     </message>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="143"/>
@@ -177,52 +177,52 @@
 <context>
     <name>CupsMonitor</name>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="77"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="99"/>
         <source>Queuing</source>
         <translation>Warteschlange</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="78"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="100"/>
         <source>Paused</source>
         <translation>Pausiert</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="79"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="101"/>
         <source>Printing</source>
         <translation>Druckt</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="80"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="102"/>
         <source>Stopped</source>
         <translation>Gestoppt</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="81"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="103"/>
         <source>Canceled</source>
         <translation>Abgebrochen</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="82"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="104"/>
         <source>Error</source>
         <translation>Fehler</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="83"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="105"/>
         <source>Completed</source>
         <translation>Abgeschlossen</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="338"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="369"/>
         <source>%1 timed out, reason: %2</source>
         <translation>%1 Zeitüberschreitung, Grund: %2</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="352"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="383"/>
         <source>%1 has been sent to the printer, please take away the paper in time!</source>
-        <translation type="unfinished"/>
+        <translation>%1 wurde an den Drucker gesendet, bitte nehmen Sie das Papier rechtzeitig weg!</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="354"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="385"/>
         <source>%1 %2, reason: %3</source>
         <translation>%1 %2, Grund: %3</translation>
     </message>
@@ -230,7 +230,7 @@
 <context>
     <name>DriverManager</name>
     <message>
-        <location filename="../../Common/vendor/zdrivermanager.cpp" line="1022"/>
+        <location filename="../../Common/vendor/zdrivermanager.cpp" line="1031"/>
         <source>EveryWhere driver</source>
         <translation>EveryWhere-Treiber</translation>
     </message>
@@ -238,12 +238,12 @@
 <context>
     <name>InstallDriver</name>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="372"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="373"/>
         <source>Failed to find the driver solution: %1, error: %2</source>
         <translation>Die Treiberlösung konnte nicht gefunden werden: %1, Fehler: %2</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="383"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="384"/>
         <source>The solution is invalid</source>
         <translation>Die Lösung ist ungültig</translation>
     </message>
@@ -251,17 +251,17 @@
 <context>
     <name>InstallInterface</name>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="250"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="251"/>
         <source>is invalid</source>
         <translation>ist ungültig</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="279"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="280"/>
         <source>Failed to install the driver by calling dbus interface</source>
         <translation>Fehler beim Installieren des Treibers durch Aufrufen der dbus-Schnittstelle</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="324"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="325"/>
         <source>Failed to install %1</source>
         <translation>%1 konnte nicht installiert werden</translation>
     </message>
@@ -290,11 +290,6 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../Common/common.cpp" line="154"/>
-        <source> not found, please ask the administrator for help</source>
-        <translation> nicht gefunden, bitte den Administrator um Hilfe bitten.</translation>
-    </message>
-    <message>
         <location filename="../main.cpp" line="65"/>
         <source>Print Manager</source>
         <translation>Print Manager</translation>
@@ -304,21 +299,26 @@
         <source>Print Manager is a printer management tool, which supports adding and removing printers, managing print jobs and so on.</source>
         <translation>Print Manager ist ein Druckermanagement-Tool, das das Hinzufügen und Entfernen von Druckern, das Verwalten von Druckaufträgen usw. unterstützt.</translation>
     </message>
+    <message>
+        <location filename="../../Common/common.cpp" line="154"/>
+        <source>%1 not found, please ask the administrator for help, or enter the printer IP address in URI of Properties.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>USBThread</name>
     <message>
-        <location filename="../usbprinter/usbthread.cpp" line="256"/>
+        <location filename="../usbprinter/usbthread.cpp" line="260"/>
         <source>Configuring the printer %1 ...</source>
         <translation>Drucker %1 wird konfiguriert ...</translation>
     </message>
     <message>
-        <location filename="../usbprinter/usbthread.cpp" line="302"/>
+        <location filename="../usbprinter/usbthread.cpp" line="306"/>
         <source>Configuration successful. Click to view %1.</source>
         <translation>Konfiguration erfolgreich. Zum Ansehen von %1 klicken.</translation>
     </message>
     <message>
-        <location filename="../usbprinter/usbthread.cpp" line="306"/>
+        <location filename="../usbprinter/usbthread.cpp" line="310"/>
         <source>Configuration failed. Click to add the printer %1.</source>
         <translation>Konfiguration fehlgeschlagen. Zum Hinzufügen des Druckers %1 klicken.</translation>
     </message>

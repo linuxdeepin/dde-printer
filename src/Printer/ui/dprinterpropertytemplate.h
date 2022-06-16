@@ -30,6 +30,7 @@
 #include "util/dprintermanager.h"
 
 #define PROPERTYOPTIONNUM 8
+#define PREFERENCE QObject::tr("Preferences")
 
 const QString generatePropertyDialogJson(const QVector<QString> &vecOption)
 {
@@ -178,6 +179,33 @@ const QString formatGroupString(const QVector<OptNode> &nodes)
     }
 
     qDebug() << strAll;
+    return strAll;
+}
+
+const QString formatPreferenceString()
+{
+    QString strAll;
+
+        QString strOptName = PREFERENCE;
+        QString strNode = QString("\
+          {\
+            \"key\": \"%1_Label\",\
+            \"name\": \"%2\",\
+            \"options\": [\
+                {\
+                    \"name\": \"%3\",\
+                    \"type\": \"custom-pushbutton\"\
+                }\
+            ]\
+          }\
+        ")
+                              .arg(strOptName)
+                              .arg(strOptName)
+                              .arg(strOptName);
+
+        strAll += ",";
+        strAll += strNode;
+
     return strAll;
 }
 

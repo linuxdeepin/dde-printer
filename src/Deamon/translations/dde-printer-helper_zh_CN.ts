@@ -2,27 +2,27 @@
 <context>
     <name>AddPrinterTask</name>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="552"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="551"/>
         <source>URI and driver do not match.</source>
         <translation>URI和驱动不匹配。</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="554"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="553"/>
         <source>Install hplip first and restart the app to install the driver again.</source>
         <translation>请安装hplip后重新添加。</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="562"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="561"/>
         <source>Please select an hplip driver and try again.</source>
         <translation>请选择其他hplip驱动后重试。</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="575"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="574"/>
         <source>URI can&apos;t be empty</source>
         <translation>URI不能为空</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="582"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="581"/>
         <source> not found</source>
         <translation>未找到</translation>
     </message>
@@ -177,52 +177,52 @@
 <context>
     <name>CupsMonitor</name>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="77"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="99"/>
         <source>Queuing</source>
         <translation>排队中</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="78"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="100"/>
         <source>Paused</source>
         <translation>暂停</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="79"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="101"/>
         <source>Printing</source>
         <translation>打印中</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="80"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="102"/>
         <source>Stopped</source>
         <translation>已停止</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="81"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="103"/>
         <source>Canceled</source>
         <translation>已取消</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="82"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="104"/>
         <source>Error</source>
         <translation>打印异常</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="83"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="105"/>
         <source>Completed</source>
         <translation>已完成</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="338"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="369"/>
         <source>%1 timed out, reason: %2</source>
         <translation>%1打印超时，原因：%2</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="352"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="383"/>
         <source>%1 has been sent to the printer, please take away the paper in time!</source>
         <translation>%1已传送至打印机，请及时取走纸质文件！</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="354"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="385"/>
         <source>%1 %2, reason: %3</source>
         <translation>%1 %2，原因：%3</translation>
     </message>
@@ -230,7 +230,7 @@
 <context>
     <name>DriverManager</name>
     <message>
-        <location filename="../../Common/vendor/zdrivermanager.cpp" line="1022"/>
+        <location filename="../../Common/vendor/zdrivermanager.cpp" line="1031"/>
         <source>EveryWhere driver</source>
         <translation>EveryWhere 无驱方案</translation>
     </message>
@@ -238,12 +238,12 @@
 <context>
     <name>InstallDriver</name>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="372"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="373"/>
         <source>Failed to find the driver solution: %1, error: %2</source>
         <translation>查找驱动解决方案：%1失败，错误码：%2</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="383"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="384"/>
         <source>The solution is invalid</source>
         <translation>服务器的驱动数据不对</translation>
     </message>
@@ -251,17 +251,17 @@
 <context>
     <name>InstallInterface</name>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="250"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="251"/>
         <source>is invalid</source>
         <translation>无法安装</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="279"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="280"/>
         <source>Failed to install the driver by calling dbus interface</source>
         <translation>通过dbus安装驱动失败</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="324"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="325"/>
         <source>Failed to install %1</source>
         <translation>安装%1失败</translation>
     </message>
@@ -290,11 +290,6 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../Common/common.cpp" line="154"/>
-        <source> not found, please ask the administrator for help</source>
-        <translation>无法解析，请联系管理员</translation>
-    </message>
-    <message>
         <location filename="../main.cpp" line="65"/>
         <source>Print Manager</source>
         <translation>打印管理器</translation>
@@ -304,21 +299,26 @@
         <source>Print Manager is a printer management tool, which supports adding and removing printers, managing print jobs and so on.</source>
         <translation>打印管理器是一款基于CUPS的打印机管理工具，支持打印机管理，打印任务管理等。</translation>
     </message>
+    <message>
+        <location filename="../../Common/common.cpp" line="154"/>
+        <source>%1 not found, please ask the administrator for help, or enter the printer IP address in URI of Properties.</source>
+        <translation>%1无法解析，请联系管理员，或前往属性-URI手动输入打印机IP</translation>
+    </message>
 </context>
 <context>
     <name>USBThread</name>
     <message>
-        <location filename="../usbprinter/usbthread.cpp" line="256"/>
+        <location filename="../usbprinter/usbthread.cpp" line="260"/>
         <source>Configuring the printer %1 ...</source>
         <translation>正在配置打印机%1，请稍候...</translation>
     </message>
     <message>
-        <location filename="../usbprinter/usbthread.cpp" line="302"/>
+        <location filename="../usbprinter/usbthread.cpp" line="306"/>
         <source>Configuration successful. Click to view %1.</source>
         <translation>配置成功，请点击查看%1</translation>
     </message>
     <message>
-        <location filename="../usbprinter/usbthread.cpp" line="306"/>
+        <location filename="../usbprinter/usbthread.cpp" line="310"/>
         <source>Configuration failed. Click to add the printer %1.</source>
         <translation>配置失败，请点击手动添加%1</translation>
     </message>

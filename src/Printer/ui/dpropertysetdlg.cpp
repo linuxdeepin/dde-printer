@@ -43,12 +43,14 @@
 #include <QLocale>
 #include <QPalette>
 #include <QFile>
+#include <QProcess>
 
 #include <QJsonParseError>
 #include <QJsonObject>
 
 #include "../util/dprintermanager.h"
 #include "../util/dprinter.h"
+#include "common.h"
 
 #define FLAGITEMSPACE "\b\b\b\b\b\b\b\b"
 #define ITEMWIDTH 100
@@ -166,6 +168,19 @@ void DPropertySetDlg::initUI()
         return nullptr;
     });
 
+    widgetFactory()->registerWidget("custom-pushbutton", [this](QObject * obj) -> QWidget * {
+        if (DSettingsOption *option = qobject_cast<DSettingsOption *>(obj)) {
+            QString strItem = option->name();
+            DPushButton *pBtn = new DPushButton(strItem);
+            pBtn->setObjectName(strItem);
+            pBtn->setFixedSize(200, 36);
+            m_mapOfListWidget[strItem] = pBtn;
+            return pBtn;
+        }
+
+        return nullptr;
+    });
+
     QTemporaryFile tmpFile;
     tmpFile.open();
     QString strTmpFileName = tmpFile.fileName();
@@ -205,6 +220,10 @@ void DPropertySetDlg::initUI()
         strJson = appendGroupString(strJson, strGroup);
     }
 
+    if (isBishengDriver()) {
+        QString strGroup = formatPreferenceString();
+        strJson = appendGroupString(strJson, strGroup);
+    }
     settings = Dtk::Core::DSettings::fromJson(strJson.toUtf8());
     settings->setBackend(backend);
     updateSettings(settings);
@@ -266,6 +285,12 @@ void DPropertySetDlg::initConnection()
         pCombo = qobject_cast<DComboBox *>(m_mapOfListWidget[strComboName]);
         QObject::connect(pCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(generalCombo_clicked(int)));
     };
+
+    if (isBishengDriver()) {
+        QString strButtonName = PREFERENCE;
+        DPushButton *pBtn = qobject_cast<DPushButton *>(m_mapOfListWidget[strButtonName]);
+        QObject::connect(pBtn, SIGNAL(clicked()), this,  SLOT(preferenceClickSlot()));
+    }
 }
 
 void DPropertySetDlg::updateComboByName(const QString &strWidgetName, const QString &strDefault, const QVector<QMap<QString, QString>> &vecChoices)
@@ -1296,4 +1321,69 @@ void DPropertySetDlg::closeEvent(QCloseEvent *event)
     }
 
     DSettingsDialog::closeEvent(event);
+}
+
+bool DPropertySetDlg::isBishengDriver()
+{
+    DPrinterManager *pManager = DPrinterManager::getInstance();
+    DDestination *pDest = pManager->getDestinationByName(m_strPrinterName);
+    QString strDriver;
+
+    if (pDest != nullptr) {
+        if (DESTTYPE::PRINTER == pDest->getType()) {
+            DPrinter *pPrinter = static_cast<DPrinter *>(pDest);
+            strDriver = pPrinter->getPrinterMakeAndModel();
+            m_strPpdName = pPrinter->getDriverName();
+        }
+    }
+
+    if (!strDriver.contains("Bisheng")) {
+        return false;
+    }
+
+    // 毕昇驱动支持首选项时pdd字段BishengPreferences为true
+    QString preference = getBishengInfo("BishengPreferences");
+    if (preference.isEmpty()) {
+        return false;
+    }
+
+    preference.replace(QRegExp(" "), "").replace(QRegExp("\""), "");
+    return preference.toLower() == "true";
+}
+
+void DPropertySetDlg::preferenceClickSlot()
+{
+    QStringList args;
+    QString model = getBishengInfo("PrinterName").replace(QRegExp("^ "), "").replace("\"", "");
+    QString prefix = getBishengInfo("PackageName").replace(QRegExp("^ "), "").replace(QRegExp("\""), "");
+
+    args << "setprinter" << prefix << model;
+    qInfo() << args;
+    QProcess::startDetached("/bin/bash", args, "/usr/bin");
+}
+
+QString DPropertySetDlg::getBishengInfo(QString info)
+{
+    QString strOut, strErr;
+    QString commond;
+    commond += "cat " + m_strPpdName;
+    if (shellCmd(commond, strOut, strErr) == 0) {
+        QStringList list = strOut.split("\n", QString::SkipEmptyParts);
+        int index = 0;
+        for (; index < list.size(); index++) {
+            if (list[index].contains(info))
+            break;
+        }
+        if (index == list.size()) {
+            return nullptr;
+        }
+
+        QStringList val = list[index].split(":", QString::SkipEmptyParts);
+        if (val.count() <= 1) {
+            return nullptr;
+        }
+        return val[1];
+    }
+
+    return nullptr;
 }

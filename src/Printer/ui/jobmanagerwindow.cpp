@@ -408,8 +408,8 @@ bool JobListView::askDeleteJobs(unsigned int flag)
         return true;
 
     dlg.setIcon(QIcon(":/images/warning_logo.svg"));
-    dlg.addButton(tr("Cancel"), true);
-    iAccept = dlg.addButton(tr("Delete"), false, DDialog::ButtonWarning);
+    dlg.addButton(tr("Cancel", "button"), true);
+    iAccept = dlg.addButton(tr("Delete", "button"), false, DDialog::ButtonWarning);
     dlg.getButton(0)->setFixedSize(170, 36);
     dlg.getButton(1)->setFixedSize(170, 36);
     dlg.setModal(true);
@@ -1094,6 +1094,7 @@ void JobManagerWindow::createUi()
 
 void JobManagerWindow::initUi()
 {
+    setWindowFlags(windowFlags() & ~Qt::WindowMaximizeButtonHint);
     m_refreshBut->setIcon(QIcon::fromTheme("dp_refresh"));
     m_refreshBut->setToolTip(tr("Refresh"));
     m_refreshBut->setAccessibleName("refreshBut_jobsWindow");
@@ -1140,7 +1141,7 @@ void JobManagerWindow::initUi()
     pa.setColor(QPalette::WindowText, color);
     m_jobCountLabel->setPalette(pa);
 
-    setMinimumSize(JOB_VIEW_WIDTH, 546);
+    setFixedSize(JOB_VIEW_WIDTH, 546);
     takeCentralWidget();
 
     QWidget *centWidget = new QWidget(this);

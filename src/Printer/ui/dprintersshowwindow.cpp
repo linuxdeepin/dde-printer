@@ -84,6 +84,7 @@ DPrintersShowWindow::~DPrintersShowWindow()
 
 void DPrintersShowWindow::initUI()
 {
+    setWindowFlags(windowFlags() & ~Qt::WindowMaximizeButtonHint);
     titlebar()->setTitle("");
     titlebar()->setIcon(QIcon(":/images/dde-printer.svg"));
     QMenu *pMenu = new QMenu();
@@ -92,7 +93,7 @@ void DPrintersShowWindow::initUI()
     pMenu->setAccessibleName("menu_titleBar");
     titlebar()->setMenu(pMenu);
     titlebar()->setAccessibleName("titleBar_mainWindow");
-    setMinimumSize(950, 715);
+    setFixedSize(942, 656);
 
     // 左边上面的控制栏
     QLabel *pLabel = new QLabel(tr("Printers"));

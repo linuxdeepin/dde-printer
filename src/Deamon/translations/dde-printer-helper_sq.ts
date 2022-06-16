@@ -2,27 +2,27 @@
 <context>
     <name>AddPrinterTask</name>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="552"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="551"/>
         <source>URI and driver do not match.</source>
         <translation>URI dhe përudhësi nuk përputhen.</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="554"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="553"/>
         <source>Install hplip first and restart the app to install the driver again.</source>
         <translation>Së pari instaloni hplip dhe riniseni aplikacionin që të instalohet përudhësi sërish.</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="562"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="561"/>
         <source>Please select an hplip driver and try again.</source>
         <translation>Ju lutemi, përzgjidhni një përudhës hplip dhe riprovoni.</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="575"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="574"/>
         <source>URI can&apos;t be empty</source>
         <translation>URI s’mund të jetë e zbrazët</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="582"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="581"/>
         <source> not found</source>
         <translation> s’u gjet</translation>
     </message>
@@ -177,52 +177,52 @@
 <context>
     <name>CupsMonitor</name>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="77"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="99"/>
         <source>Queuing</source>
         <translation>Po vihet në radhë</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="78"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="100"/>
         <source>Paused</source>
         <translation>U pushua</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="79"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="101"/>
         <source>Printing</source>
         <translation>Shtypje</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="80"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="102"/>
         <source>Stopped</source>
         <translation>U ndal</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="81"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="103"/>
         <source>Canceled</source>
         <translation>U anulua</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="82"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="104"/>
         <source>Error</source>
         <translation>Gabim</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="83"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="105"/>
         <source>Completed</source>
         <translation>E përfunduar</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="338"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="369"/>
         <source>%1 timed out, reason: %2</source>
         <translation>%1 i mbaroi koha, arsye: %2</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="352"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="383"/>
         <source>%1 has been sent to the printer, please take away the paper in time!</source>
-        <translation type="unfinished"/>
+        <translation>%1 është dërguar te shtypësi, ju lutemi, hiqeni letrën kur t’i vijë koha!</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="354"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="385"/>
         <source>%1 %2, reason: %3</source>
         <translation>%1 %2, arsye: %3</translation>
     </message>
@@ -230,7 +230,7 @@
 <context>
     <name>DriverManager</name>
     <message>
-        <location filename="../../Common/vendor/zdrivermanager.cpp" line="1022"/>
+        <location filename="../../Common/vendor/zdrivermanager.cpp" line="1031"/>
         <source>EveryWhere driver</source>
         <translation>Përudhës EveryWhere</translation>
     </message>
@@ -238,12 +238,12 @@
 <context>
     <name>InstallDriver</name>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="372"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="373"/>
         <source>Failed to find the driver solution: %1, error: %2</source>
         <translation>S’u arrit të gjendej zgjidhje përudhësi: %1, gabim: %2</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="383"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="384"/>
         <source>The solution is invalid</source>
         <translation>Zgjidhja është e pavlefshme</translation>
     </message>
@@ -251,17 +251,17 @@
 <context>
     <name>InstallInterface</name>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="250"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="251"/>
         <source>is invalid</source>
         <translation>është i pavlefshëm</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="279"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="280"/>
         <source>Failed to install the driver by calling dbus interface</source>
         <translation>S’u arrit të instalohej përudhësi duke thirrur ndërfaqe dbus</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="324"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="325"/>
         <source>Failed to install %1</source>
         <translation>S’u arrit të instalohej %1</translation>
     </message>
@@ -290,11 +290,6 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../Common/common.cpp" line="154"/>
-        <source> not found, please ask the administrator for help</source>
-        <translation> s’u gjet, ju lutemi, kërkojini ndihmë përgjegjësit</translation>
-    </message>
-    <message>
         <location filename="../main.cpp" line="65"/>
         <source>Print Manager</source>
         <translation>Përgjegjës Shtypjesh</translation>
@@ -304,21 +299,26 @@
         <source>Print Manager is a printer management tool, which supports adding and removing printers, managing print jobs and so on.</source>
         <translation>Përgjegjësi i Shtypjeve është një mjet administrimi shtypjesh, i cili mbulon shtim dhe heqje shtypësish, administrim aktesh shtypjeje, e me radhë.</translation>
     </message>
+    <message>
+        <location filename="../../Common/common.cpp" line="154"/>
+        <source>%1 not found, please ask the administrator for help, or enter the printer IP address in URI of Properties.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>USBThread</name>
     <message>
-        <location filename="../usbprinter/usbthread.cpp" line="256"/>
+        <location filename="../usbprinter/usbthread.cpp" line="260"/>
         <source>Configuring the printer %1 ...</source>
         <translation>Po formësohet shtypësi %1 …</translation>
     </message>
     <message>
-        <location filename="../usbprinter/usbthread.cpp" line="302"/>
+        <location filename="../usbprinter/usbthread.cpp" line="306"/>
         <source>Configuration successful. Click to view %1.</source>
         <translation>Formësim i suksesshëm. Klikoni  që të shihni %1.</translation>
     </message>
     <message>
-        <location filename="../usbprinter/usbthread.cpp" line="306"/>
+        <location filename="../usbprinter/usbthread.cpp" line="310"/>
         <source>Configuration failed. Click to add the printer %1.</source>
         <translation>Formësimi dështoi. Klikoni që të shtoni shtypësin %1.</translation>
     </message>

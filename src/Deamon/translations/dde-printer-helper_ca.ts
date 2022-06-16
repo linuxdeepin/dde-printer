@@ -2,27 +2,27 @@
 <context>
     <name>AddPrinterTask</name>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="552"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="551"/>
         <source>URI and driver do not match.</source>
         <translation>L&apos;URI i el controlador no coincideixen.</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="554"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="553"/>
         <source>Install hplip first and restart the app to install the driver again.</source>
         <translation>Instal·leu primer l&apos;hplip i reinicieu l&apos;aplicació per tornar a instal·lar el controlador.</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="562"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="561"/>
         <source>Please select an hplip driver and try again.</source>
         <translation>Si us plau, seleccioneu un controlador d&apos;hplip i torneu-ho a provar.</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="575"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="574"/>
         <source>URI can&apos;t be empty</source>
         <translation>L&apos;URI no pot estar en blanc.</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="582"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="581"/>
         <source> not found</source>
         <translation>no s&apos;ha trobat</translation>
     </message>
@@ -177,52 +177,52 @@
 <context>
     <name>CupsMonitor</name>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="77"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="99"/>
         <source>Queuing</source>
         <translation>A la cua</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="78"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="100"/>
         <source>Paused</source>
         <translation>En pausa</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="79"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="101"/>
         <source>Printing</source>
         <translation>S&apos;imprimeix</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="80"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="102"/>
         <source>Stopped</source>
         <translation>Aturada</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="81"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="103"/>
         <source>Canceled</source>
         <translation>Cancel·lada</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="82"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="104"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="83"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="105"/>
         <source>Completed</source>
         <translation>Completada</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="338"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="369"/>
         <source>%1 timed out, reason: %2</source>
         <translation>%1 ha esgotat el temps d&apos;espera. Raó: %2</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="352"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="383"/>
         <source>%1 has been sent to the printer, please take away the paper in time!</source>
-        <translation type="unfinished"/>
+        <translation>%1 s&apos;ha enviat a la impressora. Si us plau, traieu-ne el paper a temps!</translation>
     </message>
     <message>
-        <location filename="../dbus/zcupsmonitor.cpp" line="354"/>
+        <location filename="../dbus/zcupsmonitor.cpp" line="385"/>
         <source>%1 %2, reason: %3</source>
         <translation>%1 %2, raó: %3</translation>
     </message>
@@ -230,7 +230,7 @@
 <context>
     <name>DriverManager</name>
     <message>
-        <location filename="../../Common/vendor/zdrivermanager.cpp" line="1022"/>
+        <location filename="../../Common/vendor/zdrivermanager.cpp" line="1031"/>
         <source>EveryWhere driver</source>
         <translation>Controlador EveryWhere</translation>
     </message>
@@ -238,12 +238,12 @@
 <context>
     <name>InstallDriver</name>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="372"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="373"/>
         <source>Failed to find the driver solution: %1, error: %2</source>
         <translation>Ha fallat trobar la solució del controlador: %1. Error: %2</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="383"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="384"/>
         <source>The solution is invalid</source>
         <translation>La solució no és vàlida.</translation>
     </message>
@@ -251,17 +251,17 @@
 <context>
     <name>InstallInterface</name>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="250"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="251"/>
         <source>is invalid</source>
         <translation>no és vàlid</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="279"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="280"/>
         <source>Failed to install the driver by calling dbus interface</source>
         <translation>Ha fallat instal·lar el controlador cridant la interfície dbus.</translation>
     </message>
     <message>
-        <location filename="../../Common/vendor/addprinter.cpp" line="324"/>
+        <location filename="../../Common/vendor/addprinter.cpp" line="325"/>
         <source>Failed to install %1</source>
         <translation>Ha fallat instal·lar %1.</translation>
     </message>
@@ -290,11 +290,6 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../Common/common.cpp" line="154"/>
-        <source> not found, please ask the administrator for help</source>
-        <translation>no s&apos;ha trobat. Si us plau, demaneu ajuda a l&apos;administrador.</translation>
-    </message>
-    <message>
         <location filename="../main.cpp" line="65"/>
         <source>Print Manager</source>
         <translation>Gestor d&apos;impressió</translation>
@@ -304,21 +299,26 @@
         <source>Print Manager is a printer management tool, which supports adding and removing printers, managing print jobs and so on.</source>
         <translation>El Gestor d&apos;impressió és una eina de gestió d&apos;impressió que admet afegir i eliminar impressores, gestionar les tasques d&apos;impressió i moltes altres coses.</translation>
     </message>
+    <message>
+        <location filename="../../Common/common.cpp" line="154"/>
+        <source>%1 not found, please ask the administrator for help, or enter the printer IP address in URI of Properties.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>USBThread</name>
     <message>
-        <location filename="../usbprinter/usbthread.cpp" line="256"/>
+        <location filename="../usbprinter/usbthread.cpp" line="260"/>
         <source>Configuring the printer %1 ...</source>
         <translation>Es configura la impressors %1...</translation>
     </message>
     <message>
-        <location filename="../usbprinter/usbthread.cpp" line="302"/>
+        <location filename="../usbprinter/usbthread.cpp" line="306"/>
         <source>Configuration successful. Click to view %1.</source>
         <translation>Configuració correcta. Cliqueu per veure-ho: %1.</translation>
     </message>
     <message>
-        <location filename="../usbprinter/usbthread.cpp" line="306"/>
+        <location filename="../usbprinter/usbthread.cpp" line="310"/>
         <source>Configuration failed. Click to add the printer %1.</source>
         <translation>Ha fallat la configuració. Cliqueu per afegir la impressora %1.</translation>
     </message>

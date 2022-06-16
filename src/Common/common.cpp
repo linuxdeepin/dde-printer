@@ -151,7 +151,7 @@ QString reslovedHost(const QString &strHost)
 
     struct hostent *host = gethostbyname(strHost.toUtf8().data());
     if (nullptr == host && HOST_NOT_FOUND == h_errno) {
-        return strHost + QObject::tr(" not found, please ask the administrator for help");
+        return QObject::tr("%1 not found, please ask the administrator for help, or enter the printer IP address in URI of Properties.").arg(strHost);
     }
 
     return QString();

@@ -76,6 +76,8 @@ private:
     void checkAllConflicts(QSet<QString> &, vector<CONFLICTPAIR> &);
     QVector<INSTALLABLEOPTNODE> getInstallableNodes();
     QVector<GENERALOPTNODE> getGeneralNodes();
+    bool isBishengDriver();
+    QString getBishengInfo(QString info);
 
 private slots:
     void pageSizeCombo_clicked(int iIndex);
@@ -96,6 +98,7 @@ private slots:
     void printDescriptionUI_EditFinished();
     void confirmBtn_clicked();
     void cancelBtn_clicked();
+    void preferenceClickSlot();
 
 private:
     QMap<QString, QWidget *> m_mapOfListWidget;
@@ -104,6 +107,7 @@ private:
     QMap<QString, QString> m_mapOfConflict;
     QSet<QString> m_setConflictOptions;
     QString m_strPrinterName;
+    QString m_strPpdName;
     bool m_bShow;
 };
 
