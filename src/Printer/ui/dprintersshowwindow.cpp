@@ -599,7 +599,7 @@ void DPrintersShowWindow::serverSettingsSlot()
 {
     //设置对话框
     if (!m_pSettingsDialog) {
-        m_pSettingsDialog = new ServerSettingsWindow();
+        m_pSettingsDialog = new ServerSettingsWindow(this);
     }
     /*打开设置界面之前先更新设置接口数据，避免外部程序修改了cups设置，导致数据不同步*/
     if (!m_pPrinterManager->updateServerSetting())
@@ -726,9 +726,8 @@ void DPrintersShowWindow::deviceStatusChanged(const QDBusMessage &msg)
 
 void DPrintersShowWindow::addPrinterClickSlot()
 {
-    //设置了parent会导致moveToCenter失效
     if (!m_pSearchWindow) {
-        m_pSearchWindow = new PrinterSearchWindow();
+        m_pSearchWindow = new PrinterSearchWindow(this);
         connect(m_pSearchWindow, &PrinterSearchWindow::updatePrinterList, this, &DPrintersShowWindow::refreshPrinterListView);
     }
     m_pSearchWindow->show();
