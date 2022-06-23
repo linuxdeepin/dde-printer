@@ -32,3 +32,26 @@ if [ -n "${REPO}" ]; then
     echo "# Written by dde-printer" > $APTFILEPATH
     echo "${REPO}" >> $APTFILEPATH
 fi
+
+# add wins
+export CONFIGFILENAME=/etc/nsswitch.conf
+
+if [ ! -f $CONFIGFILENAME ]; then
+  exit 0;
+fi
+
+export HOSTSSUPPORTTYPE=`grep "^hosts" $CONFIGFILENAME | awk -F ':' '{print $2}'`
+insertstr=wins
+
+inserthosts()
+{
+   sed -i '/^hosts/{s/$/'" ${insertstr} "'/}' $CONFIGFILENAME
+}
+
+if [[ $HOSTSSUPPORTTYPE =~ $insertstr ]];then
+  exit 0;
+else
+  inserthosts
+fi
+
+exit 0;
