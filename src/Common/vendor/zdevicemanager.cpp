@@ -330,7 +330,7 @@ int RefreshDevicesByHostTask::probe_snmp(const QString &strHost)
                 return -2;
 
             TDeviceInfo info;
-            info.iType = InfoFrom_Detect;
+            info.iType = InfoFrom_Host;
             info.strClass = list[0];
             info.uriList << list[1];
             info.strName = info.strMakeAndModel = list[2];
@@ -357,7 +357,7 @@ int RefreshDevicesByHostTask::probe_hplip(const QString &strHost)
         //TODO get uri and info
         TDeviceInfo info;
         info.uriList << strRet;
-        info.iType = InfoFrom_Detect;
+        info.iType = InfoFrom_Host;
         addDevice(info);
     }
 
@@ -372,7 +372,7 @@ int RefreshDevicesByHostTask::probe_jetdirect(const QString &strHost)
     if (socket.waitForConnected(SOCKET_Timeout)) {
         TDeviceInfo info;
         info.uriList << QString("socket://%1:%2").arg(strHost).arg(9100);
-        info.iType = InfoFrom_Detect;
+        info.iType = InfoFrom_Host;
         qDebug() << info.uriList;
         addDevice(info);
         return 0;
@@ -424,7 +424,7 @@ int RefreshDevicesByHostTask::probe_lpd(const QString &strHost)
     socket.connectToHost(strHost, 515);
     if (socket.waitForConnected(SOCKET_Timeout)) {
         TDeviceInfo info;
-        info.iType = InfoFrom_Detect;
+        info.iType = InfoFrom_Host;
         info.uriList << QString("lpd://%1/%2").arg(strHost).arg("Unknown");
         addDevice(info);
         return 0;
@@ -518,7 +518,7 @@ int RefreshDevicesByHostTask::probe_smb(const QString &strHost)
 
         info.strMakeAndModel = dirent->comment;
         info.strName = info.strInfo = info.strMakeAndModel;
-        info.iType = InfoFrom_Guess;
+        info.iType = InfoFrom_Host;
         addDevice(info);
     }
 

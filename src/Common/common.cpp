@@ -36,10 +36,55 @@
 #include <QDBusReply>
 #include <QRegExpValidator>
 #include <QDebug>
+#include <QDateTime>
+#include <QLibrary>
 
 #include <netdb.h>
 
 static QString g_strModelFull;
+
+static bool isSdkInit = false;
+typedef bool (*pfInitialize)(const std::string&, bool);
+static pfInitialize InitializeSdk = nullptr;
+static pfWriteEventLog WriteEventLog = nullptr;
+const QString LibEventLog = "/usr/lib/libdeepin-event-log.so";
+
+void loadEventlib()
+{
+    if (!isSdkInit) {
+        QLibrary *eventLib = new QLibrary(LibEventLog);
+        eventLib->load();
+        if (!eventLib->isLoaded()) {
+            qInfo() << "Load libdeepin-event-log.so failed!";
+            return;
+        }
+
+        InitializeSdk = (pfInitialize)(eventLib->resolve("Initialize"));
+        WriteEventLog = (pfWriteEventLog)eventLib->resolve("WriteEventLog");
+        eventLib->unload();
+        if (InitializeSdk != nullptr && InitializeSdk(APPNAME, true)) {
+            qInfo() << "sdk load success" ;
+            isSdkInit = true; // sdk初始化状态
+        }
+    }
+}
+
+bool isEventSdkInit()
+{
+    return isSdkInit;
+}
+
+pfWriteEventLog getWriteEventLog()
+{
+    return WriteEventLog;
+}
+
+QString getCurrentTime()
+{
+    QDateTime current_date_time = QDateTime::currentDateTime();
+    QString time = current_date_time.toString("yyyy-MM-dd hh:mm:ss");
+    return time;
+}
 
 QString getPrinterPPD(const char *name)
 {

@@ -39,6 +39,10 @@
 #include <QProcess>
 #include <QDBusConnection>
 #include <QDBusPendingReply>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QDateTime>
+#include <QFile>
 
 #include <algorithm>
 #include <regex>
@@ -74,6 +78,76 @@ static bool isLocalUserJob(int jobId)
         return false; // 如果打印任务名称与本地用户名不一致, 不处理通知
     }
     return true;
+}
+
+static QString getPrinterInfo(const QString &strName)
+{
+    QString strMakeAndModel;
+
+    try {
+        vector<string> requestAttrs;
+        requestAttrs.push_back("printer-make-and-model");
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (!conPtr) {
+            return strMakeAndModel;
+        }
+        map<string, string> attrs = conPtr->getPrinterAttributes(strName.toStdString().c_str(), nullptr, &requestAttrs);
+
+        for (auto iter = attrs.begin(); iter != attrs.end(); ++iter) {
+            strMakeAndModel = QString::fromStdString(iter->second.data());
+            strMakeAndModel = strMakeAndModel.remove(0, 1);
+        }
+    } catch (const std::runtime_error &e) {
+        qWarning() << "Report execpt: " << QString::fromUtf8(e.what());
+        strMakeAndModel.clear();
+    }
+
+    return strMakeAndModel;
+}
+
+static QString getPpdInfo(const QString &strPpdName, const QString &info)
+{
+    QString strOut, strErr;
+    QString commond;
+    commond += "cat " + strPpdName;
+    if (shellCmd(commond, strOut, strErr) == 0) {
+        QStringList list = strOut.split("\n", QString::SkipEmptyParts);
+        int index = 0;
+        for (; index < list.size(); index++) {
+            if (list[index].contains(info))
+            break;
+        }
+        if (index == list.size()) {
+            return nullptr;
+        }
+
+        QStringList val = list[index].split(":", QString::SkipEmptyParts);
+        if (val.count() <= 1) {
+            return nullptr;
+        }
+        return val[1];
+    }
+
+    return nullptr;
+}
+
+static QString getPackageVerByName(const QString &packageName)
+{
+    QString strOut, strErr;
+    if (shellCmd(QString("dpkg -l %1").arg(packageName), strOut, strErr) == 0) {
+        QStringList list = strOut.split("\n", QString::SkipEmptyParts);
+        strOut = list.isEmpty() ? "" : list.last();
+        list = strOut.split(" ", QString::SkipEmptyParts);
+        return list.count() > 2 ? list[2] : QString();
+    }
+
+    return nullptr;
+}
+
+static QString formatDateTime(const QString &time)
+{
+    QDateTime timetemp = QDateTime::fromSecsSinceEpoch(static_cast<uint>(time.toInt()));
+    return timetemp.toString("yyyy-MM-dd hh:mm:ss");
 }
 
 CupsMonitor::CupsMonitor(QObject *parent)
@@ -393,6 +467,8 @@ int CupsMonitor::getNotifications(int &notifysSize)
                 }
                 case IPP_JOB_CANCELLED:
                     m_processingJob.remove(iJob);
+
+                    reportJobData(iState == IPP_JSTATE_COMPLETED, iJob);
                     break;
                 default:
                     break;
@@ -456,6 +532,70 @@ int CupsMonitor::cancelSubscription()
     }
 
     return 0;
+}
+
+void CupsMonitor::reportJobData(bool isSuccess, int jobId)
+{
+    if (!isEventSdkInit()) {
+        loadEventlib();
+    }
+
+    QJsonObject obj;
+    obj.insert("Status", isSuccess ? "Success" : "Abort");
+    QString strJobAddTime, strJobEndTime, strJobUri, strReason;
+    map<string, string> jobInfo;
+    if (g_jobManager->getJobById(jobInfo, jobId, 0) == 0) {
+        map<string, string>::const_iterator itjob;
+        for (itjob = jobInfo.begin(); itjob != jobInfo.end(); ++itjob) {
+            if (itjob->first == "time-at-creation") {
+                strJobAddTime = attrValueToQString(itjob->second);
+            } else if (itjob->first == "time-at-completed") {
+                strJobEndTime = attrValueToQString(itjob->second);
+            } else if (itjob->first == "job-printer-uri") {
+                strJobUri = attrValueToQString(itjob->second);
+            }
+        }
+    }
+
+    strJobAddTime = formatDateTime(strJobAddTime);
+    strJobEndTime = formatDateTime(strJobEndTime);
+
+    obj.insert("JobAddTime", strJobAddTime);
+    obj.insert("JobEndTime", strJobEndTime);
+    obj.insert("PrinterInfo", strJobUri);
+
+    QString jobPrinterName = getPrinterNameFromUri(strJobUri);
+    QString  strFilePath = getPrinterPPD(jobPrinterName.toStdString().c_str());
+    QString pddPath = QFile::symLinkTarget(strFilePath);
+    QString driverInfo = getPrinterInfo(jobPrinterName);
+
+    obj.insert("PrinterName", jobPrinterName);
+    obj.insert("DriverInfo", driverInfo);
+
+    QString driverType;
+    if (driverInfo.contains("Bisheng")) { // 是否毕昇驱动，非毕昇驱动不会有下面字段信息
+        QString packageName = getPpdInfo(pddPath, "PackageName").replace(QRegExp("^ "), "").replace(QRegExp("\""), "");
+
+        // 获取包版本信息
+        QString ver = getPackageVerByName(packageName);
+        qInfo() << "packageName: " << packageName << ver;
+        obj.insert("PackageName", packageName);
+        obj.insert("PackageVer", ver);
+        obj.insert("DriverType", "bisheng");
+    } else {
+        obj.insert("DriverType", "other");
+    }
+    obj.insert("Version", getPackageVerByName(APPNAME));
+    obj.insert("tid", 1000100009); // 事件ID由sdk分配
+
+    QString reportData = QString(QJsonDocument(obj).toJson());
+    qDebug() << "json data: " << reportData;
+    // 调用SDK接口上报
+    pfWriteEventLog WriteEventLog = getWriteEventLog();
+    if (WriteEventLog != nullptr) {
+        qDebug() << "job report";
+        WriteEventLog(reportData.toStdString());
+    }
 }
 
 int CupsMonitor::initSubscription()

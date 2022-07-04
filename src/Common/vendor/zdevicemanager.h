@@ -39,7 +39,7 @@ using namespace std;
 enum {
     InfoFrom_Invalid = -1,
     InfoFrom_Detect = 0, /*准确的打印机信息，通过探测发现的*/
-    InfoFrom_Guess, /*通过host猜测的打印机信息*/
+    InfoFrom_Host, /*通过host猜测的打印机信息*/
     InfoFrom_Manual /*用户手动填写的打印机信息*/
 };
 

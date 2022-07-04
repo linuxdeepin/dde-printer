@@ -29,6 +29,8 @@
 #include <QDebug>
 #include <cups/adminutil.h>
 
+#define APPNAME "dde-printer"
+
 //将输入字符串转为小写，分隔出字母和数字
 QString normalize(const QString &strin);
 
@@ -72,4 +74,14 @@ QString toNormalName(const QString &name);
 bool isIpv4Address(const QString &str);
 
 QString getPrinterFullModel();
+
+void loadEventlib();
+
+bool isEventSdkInit();
+
+QString getCurrentTime();
+
+typedef void (*pfWriteEventLog)(const std::string &);
+pfWriteEventLog getWriteEventLog();
+
 #endif // COMMON_H
