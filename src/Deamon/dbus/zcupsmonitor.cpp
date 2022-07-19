@@ -162,6 +162,7 @@ CupsMonitor::CupsMonitor(QObject *parent)
 CupsMonitor::~CupsMonitor()
 {
     stop();
+    unloadEventLib();
 }
 
 void CupsMonitor::initTranslations()
@@ -468,7 +469,7 @@ int CupsMonitor::getNotifications(int &notifysSize)
                 case IPP_JOB_CANCELLED:
                     m_processingJob.remove(iJob);
 
-                    reportJobData(iState == IPP_JSTATE_COMPLETED, iJob);
+                    writeJobLog(iState == IPP_JSTATE_COMPLETED, iJob);
                     break;
                 default:
                     break;
@@ -534,22 +535,20 @@ int CupsMonitor::cancelSubscription()
     return 0;
 }
 
-void CupsMonitor::reportJobData(bool isSuccess, int jobId)
+void CupsMonitor::writeJobLog(bool isSuccess, int jobId)
 {
     if (!isEventSdkInit()) {
         loadEventlib();
     }
 
     QJsonObject obj;
-    obj.insert("Status", isSuccess ? "Success" : "Abort");
-    QString strJobAddTime, strJobEndTime, strJobUri, strReason;
+    obj.insert("status", isSuccess ? "Success" : "Abort");
+    QString strJobEndTime, strJobUri, strReason;
     map<string, string> jobInfo;
     if (g_jobManager->getJobById(jobInfo, jobId, 0) == 0) {
         map<string, string>::const_iterator itjob;
         for (itjob = jobInfo.begin(); itjob != jobInfo.end(); ++itjob) {
-            if (itjob->first == "time-at-creation") {
-                strJobAddTime = attrValueToQString(itjob->second);
-            } else if (itjob->first == "time-at-completed") {
+            if (itjob->first == "time-at-completed") {
                 strJobEndTime = attrValueToQString(itjob->second);
             } else if (itjob->first == "job-printer-uri") {
                 strJobUri = attrValueToQString(itjob->second);
@@ -557,44 +556,40 @@ void CupsMonitor::reportJobData(bool isSuccess, int jobId)
         }
     }
 
-    strJobAddTime = formatDateTime(strJobAddTime);
     strJobEndTime = formatDateTime(strJobEndTime);
-
-    obj.insert("JobAddTime", strJobAddTime);
-    obj.insert("JobEndTime", strJobEndTime);
-    obj.insert("PrinterInfo", strJobUri);
+    obj.insert("jobEndTime", strJobEndTime);
+    obj.insert("printerInfo", strJobUri);
 
     QString jobPrinterName = getPrinterNameFromUri(strJobUri);
     QString  strFilePath = getPrinterPPD(jobPrinterName.toStdString().c_str());
     QString pddPath = QFile::symLinkTarget(strFilePath);
     QString driverInfo = getPrinterInfo(jobPrinterName);
 
-    obj.insert("PrinterName", jobPrinterName);
-    obj.insert("DriverInfo", driverInfo);
+    obj.insert("printerName", jobPrinterName);
+    obj.insert("driverInfo", driverInfo);
 
     QString driverType;
-    if (driverInfo.contains("Bisheng")) { // 是否毕昇驱动，非毕昇驱动不会有下面字段信息
+    if (driverInfo.contains("Bisheng")) {
         QString packageName = getPpdInfo(pddPath, "PackageName").replace(QRegExp("^ "), "").replace(QRegExp("\""), "");
 
         // 获取包版本信息
         QString ver = getPackageVerByName(packageName);
-        qInfo() << "packageName: " << packageName << ver;
-        obj.insert("PackageName", packageName);
-        obj.insert("PackageVer", ver);
-        obj.insert("DriverType", "bisheng");
+        obj.insert("packageName", packageName);
+        obj.insert("packageVer", ver);
+        obj.insert("driverType", "bisheng");
     } else {
-        obj.insert("DriverType", "other");
+        obj.insert("driverType", "other");
     }
-    obj.insert("Version", getPackageVerByName(APPNAME));
-    obj.insert("tid", 1000100009); // 事件ID由sdk分配
+    obj.insert("version", getPackageVerByName(APPNAME));
+    obj.insert("tid", 1000100001); // 事件ID
 
-    QString reportData = QString(QJsonDocument(obj).toJson());
-    qDebug() << "json data: " << reportData;
-    // 调用SDK接口上报
+    QString logInfo = QString(QJsonDocument(obj).toJson(QJsonDocument::Compact));
+    qDebug() << "json data: " << logInfo;
+
     pfWriteEventLog WriteEventLog = getWriteEventLog();
-    if (WriteEventLog != nullptr) {
-        qDebug() << "job report";
-        WriteEventLog(reportData.toStdString());
+    if (WriteEventLog) {
+        qDebug() << "job info";
+        WriteEventLog(logInfo.toStdString());
     }
 }
 

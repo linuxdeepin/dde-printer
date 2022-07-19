@@ -83,5 +83,6 @@ QString getCurrentTime();
 
 typedef void (*pfWriteEventLog)(const std::string &);
 pfWriteEventLog getWriteEventLog();
+void unloadEventLib();
 
 #endif // COMMON_H

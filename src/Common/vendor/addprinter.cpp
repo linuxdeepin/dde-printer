@@ -562,7 +562,7 @@ AddPrinterTask::AddPrinterTask(const TDeviceInfo &printer, const QMap<QString, Q
     m_printer = printer;
     m_solution = solution;
     m_uri = uri;
-    connect(this, &AddPrinterTask::signalStatus, this, &AddPrinterTask::slotReportData);
+    connect(this, &AddPrinterTask::signalStatus, this, &AddPrinterTask::slotWriteLog);
 }
 
 AddPrinterTask::~AddPrinterTask()
@@ -839,13 +839,12 @@ void AddPrinterTask::slotFixHplipStatus(int iStatus)
     nextStep();
 }
 
-void AddPrinterTask::slotReportData(int status)
+void AddPrinterTask::slotWriteLog(int status)
 {
     if (!isEventSdkInit()) {
         loadEventlib();
     }
 
-    // 1. 获取需上传数据
     TDeviceInfo printerInfo = getPrinterInfo();
     QMap<QString, QVariant> driverInfo = getDriverInfo();
 
@@ -853,38 +852,36 @@ void AddPrinterTask::slotReportData(int status)
     QString from = getDriverFrom(driverInfo[SD_KEY_from].toInt());
     QString searchMethod = getSearchType(printerInfo.iType);
 
-    // 2. 组装上报数据
     QString ppdMake = driverInfo[CUPS_PPD_MAKE_MODEL].toString();
     ppdMake = ppdMake.contains("(recommended)") ? ppdMake.remove(" (recommended)") : ppdMake;
-    obj.insert("DriverInfo", QJsonValue(ppdMake));
-    obj.insert("PrinterInfo", QJsonValue(printerInfo.strMakeAndModel));
-    obj.insert("Serial", QJsonValue(printerInfo.serial));
-    obj.insert("PrinterName", QJsonValue(printerInfo.strName));
+    obj.insert("driverInfo", QJsonValue(ppdMake));
+    obj.insert("printerInfo", QJsonValue(printerInfo.strMakeAndModel));
+    obj.insert("serial", QJsonValue(printerInfo.serial));
+    obj.insert("printerName", QJsonValue(printerInfo.strName));
 
     if (driverInfo[SD_KEY_from].toInt() == PPDFrom_Server) { // 网络方式存在包名和版本号信息
-        obj.insert("PackageName", QJsonValue(driverInfo[SD_KEY_driver].toString()));
-        obj.insert("PackageVer", QJsonValue(driverInfo[SD_KEY_debver].toString()));
+        obj.insert("packageName", QJsonValue(driverInfo[SD_KEY_driver].toString()));
+        obj.insert("packageVer", QJsonValue(driverInfo[SD_KEY_debver].toString()));
     }
 
-    obj.insert("PpdInfo", QJsonValue(driverInfo[CUPS_PPD_NAME].toString()));
-    obj.insert("From", QJsonValue(from));
-    obj.insert("SearchType", QJsonValue(searchMethod));
-    obj.insert("FinishTime", QJsonValue(getCurrentTime()));
-    obj.insert("Status", QJsonValue(status == TStat_Suc ? "Success" : "Failed"));
+    obj.insert("ppdInfo", QJsonValue(driverInfo[CUPS_PPD_NAME].toString()));
+    obj.insert("from", QJsonValue(from));
+    obj.insert("searchType", QJsonValue(searchMethod));
+    obj.insert("finishTime", QJsonValue(getCurrentTime()));
+    obj.insert("status", QJsonValue(status == TStat_Suc ? "Success" : "Failed"));
 
     if (status != TStat_Suc) {
         QString reason = getErrorMassge();
-        obj.insert("Reason", QJsonValue(reason));
+        obj.insert("reason", QJsonValue(reason));
     }
-    obj.insert("Version", getPackageVersion(APPNAME));
-    obj.insert("tid", 1000100008); // 事件ID由sdk分配
+    obj.insert("version", getPackageVersion(APPNAME));
+    obj.insert("tid", 1000100000); // 事件ID
 
-    QString reportData = QString(QJsonDocument(obj).toJson());
-    // 3. 调用SDK接口上报
+    QString installInfo = QString(QJsonDocument(obj).toJson(QJsonDocument::Compact));
+
     pfWriteEventLog WriteEventLog = getWriteEventLog();
-    if (WriteEventLog != nullptr) {
-        qDebug() << "data report";
-        WriteEventLog(reportData.toStdString());
+    if (WriteEventLog) {
+        WriteEventLog(installInfo.toStdString());
     }
 }
 

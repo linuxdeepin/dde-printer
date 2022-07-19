@@ -79,6 +79,7 @@ InstallDriverWindow::InstallDriverWindow(QWidget *parent)
 
 InstallDriverWindow::~InstallDriverWindow()
 {
+    unloadEventLib();
 }
 
 void InstallDriverWindow::initUI()

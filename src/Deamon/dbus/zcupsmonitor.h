@@ -80,7 +80,7 @@ protected:
     bool isNeedUpdateSubscription(std::vector<std::string> &events);
     void parseSubEvents(const std::string &events, std::vector<std::string> &ret);
 
-    void reportJobData(bool isSuccess, int jobId);
+    void writeJobLog(bool isSuccess, int jobId);
 
 protected slots:
     void notificationInvoke(unsigned int, QString);

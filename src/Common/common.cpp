@@ -48,21 +48,28 @@ typedef bool (*pfInitialize)(const std::string&, bool);
 static pfInitialize InitializeSdk = nullptr;
 static pfWriteEventLog WriteEventLog = nullptr;
 const QString LibEventLog = "/usr/lib/libdeepin-event-log.so";
+static QLibrary *eventLib = nullptr;
 
 void loadEventlib()
 {
     if (!isSdkInit) {
-        QLibrary *eventLib = new QLibrary(LibEventLog);
+        eventLib = new QLibrary(LibEventLog);
+        if (eventLib == nullptr) {
+            qInfo() << "no mem";
+            return;
+        }
+
         eventLib->load();
         if (!eventLib->isLoaded()) {
+            delete eventLib;
+            eventLib = nullptr;
             qInfo() << "Load libdeepin-event-log.so failed!";
             return;
         }
 
         InitializeSdk = (pfInitialize)(eventLib->resolve("Initialize"));
         WriteEventLog = (pfWriteEventLog)eventLib->resolve("WriteEventLog");
-        eventLib->unload();
-        if (InitializeSdk != nullptr && InitializeSdk(APPNAME, true)) {
+        if (InitializeSdk && InitializeSdk(APPNAME, true)) {
             qInfo() << "sdk load success" ;
             isSdkInit = true; // sdk初始化状态
         }
@@ -72,6 +79,20 @@ void loadEventlib()
 bool isEventSdkInit()
 {
     return isSdkInit;
+}
+
+void unloadEventLib()
+{
+    if (eventLib != nullptr && eventLib->isLoaded()) {
+        eventLib->unload();
+        eventLib = nullptr;
+    }
+
+    if (isSdkInit) {
+        isSdkInit = false;
+        InitializeSdk = nullptr;
+        WriteEventLog = nullptr;
+    }
 }
 
 pfWriteEventLog getWriteEventLog()
