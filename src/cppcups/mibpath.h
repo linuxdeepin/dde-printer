@@ -1,12 +1,7 @@
-/*
- * SNMP functions for CUPS.
- *
- * Copyright © 2007-2014 by Apple Inc.
- * Copyright © 2006-2007 by Easy Software Products, all rights reserved.
- *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more
- * information.
- */
+// SPDX-FileCopyrightText: 2019 - 2022 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #ifndef MIBPATH_H
 #define MIBPATH_H
 
