@@ -1,6 +1,6 @@
 # Deepin Desktop Environment Print Manager {#mainpage}
 
-Deepin Desktop Environment Print Manager(dde-printer) is a eazy tool to manage printers.
+Deepin Desktop Environment Print Manager(dde-printer) is an easy tool to manage printers.
 
 ## Installation
 
