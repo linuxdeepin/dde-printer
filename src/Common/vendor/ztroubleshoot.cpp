@@ -115,7 +115,6 @@ CheckDriver::CheckDriver(const QString &printerName, QObject *parent)
 bool CheckDriver::isPass()
 {
     QString strPPD;
-    QFile ppdFile;
     QStringList depends;
     PPD p;
     std::vector<Attribute> attrs;
@@ -128,8 +127,7 @@ bool CheckDriver::isPass()
     }
 
     strPPD = getPrinterPPD(m_printerName.toUtf8().data());
-    ppdFile.setFileName(strPPD);
-    if (!ppdFile.open(QFile::ReadOnly)) {
+    if (!QFile::exists(strPPD)) {
         qWarning() << strPPD << "not found";
         m_strMessage = tr("PPD file %1 not found").arg(strPPD);
         emit signalStateChanged(TStat_Fail, m_strMessage);
