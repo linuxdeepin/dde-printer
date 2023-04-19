@@ -142,9 +142,12 @@ _cupsSNMPDefaultCommunity(void)
               char* pValue = getValue(line);
 
               if(pValue){
-                  if (strlen(pValue) > sizeof(pRet))
-                      throw "overlength pValue in line from /etc/cups/snmp.conf";
-                  strcpy(pRet, pValue);
+	      	  if (strlen(pValue) > sizeof(pRet)) {
+                      strcpy(pRet, "public");
+                  }
+                  else {
+                      strcpy(pRet, pValue);
+                  }
                   break;
               }
               else {
