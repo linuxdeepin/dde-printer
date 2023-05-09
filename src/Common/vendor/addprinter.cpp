@@ -80,6 +80,26 @@ static bool isHplipDrv(const QString &ppd_name)
 
 static QDBusInterface *getPackageInterface()
 {
+    QDBusInterface newinterface
+    {
+        "org.deepin.dde.Lastore1",
+        "/org/deepin/dde/Lastore1",
+        "org.deepin.dde.Lastore1.Manager",
+        QDBusConnection::systemBus()
+    };
+
+    if (newinterface.isValid()) {
+        static QDBusInterface interface
+        {
+            "org.deepin.dde.Lastore1",
+            "/org/deepin/dde/Lastore1",
+            "org.deepin.dde.Lastore1.Manager",
+            QDBusConnection::systemBus()
+        };
+
+        return &interface;
+    }
+
     static QDBusInterface interface
     {
         "com.deepin.lastore",
@@ -87,6 +107,7 @@ static QDBusInterface *getPackageInterface()
         "com.deepin.lastore.Manager",
         QDBusConnection::systemBus()
     };
+
     return &interface;
 }
 
@@ -246,7 +267,7 @@ void InstallInterface::startInstallPackages()
 
     if (objPath.isValid()) {
         m_jobPath = objPath.value().path();
-        if (QDBusConnection::systemBus().connect("com.deepin.lastore",
+        if (QDBusConnection::systemBus().connect(interface->service(),
                                                  m_jobPath,
                                                  "org.freedesktop.DBus.Properties",
                                                  "PropertiesChanged",
@@ -267,8 +288,7 @@ void InstallInterface::startInstallPackages()
 void InstallInterface::stop()
 {
     m_bQuit = true;
-
-    QDBusConnection::systemBus().disconnect("com.deepin.lastore",
+    QDBusConnection::systemBus().disconnect(getPackageInterface()->service(),
                                             m_jobPath,
                                             "org.freedesktop.DBus.Properties",
                                             "PropertiesChanged",
@@ -310,7 +330,7 @@ void InstallInterface::propertyChanged(const QDBusMessage &msg)
 
 done:
     qDebug() << "Disconnect com.deepin.lastore PropertiesChanged";
-    QDBusConnection::systemBus().disconnect("com.deepin.lastore",
+    QDBusConnection::systemBus().disconnect(getPackageInterface()->service(),
                                             m_jobPath,
                                             "org.freedesktop.DBus.Properties",
                                             "PropertiesChanged",
