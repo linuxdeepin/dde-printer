@@ -142,16 +142,28 @@ QString reslovedHost(const QString &strHost)
 
 bool isPackageExists(const QString &package)
 {
-    QDBusInterface interface
+    QDBusInterface newinterface
     {
-        "com.deepin.lastore",
-        "/com/deepin/lastore",
-        "com.deepin.lastore.Manager",
+        "org.deepin.dde.Lastore1",
+        "/org/deepin/dde/Lastore1",
+        "org.deepin.dde.Lastore1.Manager",
         QDBusConnection::systemBus()
     };
 
-    QDBusReply<bool> isExists = interface.call("PackageExists", package);
+    QDBusReply<bool> isExists;
+    if (newinterface.isValid()) {
+        isExists = newinterface.call("PackageExists", package);
+    } else {
+        QDBusInterface interface
+        {
+            "com.deepin.lastore",
+            "/com/deepin/lastore",
+            "com.deepin.lastore.Manager",
+            QDBusConnection::systemBus()
+        };
 
+        isExists = interface.call("PackageExists", package);
+    }
     return isExists.isValid() && isExists;
 }
 
