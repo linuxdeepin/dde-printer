@@ -880,6 +880,10 @@ int DriverSearcher::getLocalDrivers()
         return -3;
     }
 
+    if (strMake == "hp" && strModel.contains("colorlaserjet")) {
+        strModel.replace("colorlaserjet", "color laserjet");
+    }
+
     QList<QMap<QString, QVariant>> list = getExactMatchDrivers(strMake, strModel);
     if (!list.isEmpty()) {
         m_drivers += list;
