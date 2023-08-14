@@ -114,6 +114,16 @@ QString zSettings::getSysInfo()
     return QString::number(iType) + '-' + QString::number(iEditionType);
 }
 
+QString zSettings::majorVersion()
+{
+    return DTK_CORE_NAMESPACE::DSysInfo::majorVersion();
+}
+
+QString zSettings::minorVersion()
+{
+    return DTK_CORE_NAMESPACE::DSysInfo::minorVersion();
+}
+
 int zSettings::getSubscriptionId()
 {
     return value("SubscriptionId", -1).toInt();

@@ -30,6 +30,9 @@ public:
     int getCupsServerPort();
     int getCupsServerEncryption();
     QString getSysInfo();
+    QString majorVersion();
+    QString minorVersion();
+
 protected:
     zSettings(const QString &fileName);
     ~zSettings();
