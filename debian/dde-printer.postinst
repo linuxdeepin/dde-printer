@@ -13,10 +13,17 @@ if ( $1 == "ProductType" ) {                                                    
 }                                                                                           \
 else if ( $1 == "EditionName" ) {                                                           \
    EditionName=$2;                                                                          \
+}
+else if ( $1 == "MajorVersion" ) {                                                           \
+   MajorVersion=$2;                                                                          \
 }}                                                                                          \
 END {                                                                                       \
 if ( ProductType == "Desktop" && EditionName == "Community") {                              \
-    print "deb https://community-packages.deepin.com/driver/ driver non-free";                    \
+    if ( MajorVersion == "20" ) {                                                            \
+      print "deb https://community-packages.deepin.com/driver/ driver non-free";           \
+    } else if ( MajorVersion == "23" ) {                                                    \
+      print "deb https://community-packages.deepin.com/driver-23/ driver non-free";            \
+    }   
 } else if ( ProductType == "Desktop" && EditionName == "Professional" ) {                   \
     print "deb https://pro-driver-packages.uniontech.com eagle non-free";                    \
 } else if ( ProductType == "Desktop" && EditionName == "Home" ) {                           \
@@ -26,6 +33,7 @@ if ( ProductType == "Desktop" && EditionName == "Community") {                  
 } else {                                                                                     \
     print "deb https://pro-driver-packages.uniontech.com eagle non-free";                    \
 }}')
+
 
 if [ -n "${REPO}" ]; then
     mkdir -p /etc/apt/sources.list.d/

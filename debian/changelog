@@ -1,3 +1,9 @@
+dde-printer (0.9.20-1) unstable; urgency=medium
+
+  * update v23 driver repo.
+
+ -- LiChengGang <lichenggang@uniontech.com>  Tue, 22 Aug 2023 10:40:50 +0800
+
 dde-printer (0.9.19-1) unstable; urgency=medium
 
   * interface change
