@@ -378,6 +378,8 @@ private:
     QStringList m_ConfigingPrinterNameList;
 
     bool m_IsFirstShow;
+
+    QTimer* m_timer;
 };
 
 #endif // DPRINTERSSHOWWINDOW_H

@@ -459,6 +459,18 @@ void DPrintersShowWindow::showEvent(QShowEvent *event)
             qWarning() << "connect to dbus signal(deviceStatusChanged) failed";
         }
     });
+
+    /* 启动定时器，向服务端dde-printer-helper发送心跳 */
+    m_timer = new QTimer(this);
+    /* 30s发送一次心跳 */
+    m_timer->start(1000 * 30);
+    connect(m_timer,&QTimer::timeout,[=](){
+        QDBusInterface interface(SERVICE_INTERFACE_NAME, SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME, QDBusConnection::sessionBus());
+        if (interface.isValid()) {
+            interface.call("setDdePrinterState");
+        }
+    });
+
 }
 
 void DPrintersShowWindow::selectPrinterByName(const QString &printerName)

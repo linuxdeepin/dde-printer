@@ -41,6 +41,7 @@ public:
     static int LIBUSB_CALL static_usb_arrived_callback(libusb_context *ctx, libusb_device *dev, libusb_hotplug_event event, void *userdata);
 
     int  usb_arrived_callback(libusb_context *ctx, libusb_device *dev, libusb_hotplug_event event);
+    void usbThreadExit();
 
 protected:
     void run() override;
@@ -60,6 +61,8 @@ private:
     void getDriver();
 
     void nextConfiguration();
+
+    void getUsbDevice();
 
 private slots:
     void processArrivedUSBDevice();

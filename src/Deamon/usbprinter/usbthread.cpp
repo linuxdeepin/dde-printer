@@ -207,12 +207,75 @@ USBThread::USBThread(QObject *parent)
     ret = conn.connect("org.freedesktop.Notifications", "/org/freedesktop/Notifications", "org.freedesktop.Notifications", "ActionInvoked", this, SLOT(notificationActionInvoked(uint, const QString &)));
     if (!ret)
         qWarning() << "connect to org.freedesktop.Notifications:" << ret;
-
+    /*重新拉起dde-printer-helper时获取usb设备.*/
+    getUsbDevice();
 }
 
 USBThread::~USBThread()
 {
+    usbThreadExit();
+}
 
+void USBThread::getUsbDevice()
+{
+    libusb_context *ctx = nullptr;
+    libusb_device **devs = nullptr;
+    int ret;
+    ssize_t count;
+
+    ret = libusb_init(&ctx);
+    if (ret != 0) {
+        return;
+    }
+
+    count = libusb_get_device_list(ctx, &devs);
+    if (count < 0) {
+        libusb_exit(ctx);
+        return;
+    }
+
+    for (ssize_t i = 0; i < count; ++i) {
+        libusb_device *dev = devs[i];
+        struct libusb_device_descriptor desc;
+
+        ret = libusb_get_device_descriptor(dev, &desc);
+        if (ret < 0) {
+            continue;
+        }
+
+        for (uint8_t j = 0; j < desc.bNumConfigurations; j++) {
+            struct libusb_config_descriptor *config = nullptr;
+
+            ret = libusb_get_config_descriptor(dev, j, &config);
+            if (ret != LIBUSB_SUCCESS) {
+                qWarning() << "Couldn't retrieve descriptors";
+                continue;
+            }
+
+            bool isUSBPrinter = false;
+            isUSBPrinter = isUSBPrinterDevice(config);
+
+            libusb_free_config_descriptor(config);
+
+            if (isUSBPrinter) {
+                if (!m_usbDeviceList.contains(dev)) {
+                    m_usbDeviceList.push_back(dev);
+                }
+                if (m_usbDeviceList.count() > 0 && (m_currentUSBDevice == nullptr)) {
+                    emit newUSBDeviceArrived();
+                }
+            }
+        }
+    }
+
+    libusb_free_device_list(devs, 1);
+    libusb_exit(ctx);
+    return;
+}
+
+void USBThread::usbThreadExit()
+{
+    needExit = true;
 }
 
 void USBThread::run()
@@ -221,6 +284,10 @@ void USBThread::run()
     libusb_hotplug_callback_handle usb_arrived_handle;
     libusb_context *ctx;
     int rc = 0;
+    struct timeval tv;
+    tv.tv_sec = 2;
+    tv.tv_usec = 0;
+
     do {
 
         rc = libusb_init(&ctx);
@@ -236,8 +303,7 @@ void USBThread::run()
         }
 
         while (!needExit) {
-            libusb_handle_events_completed(ctx, nullptr);
-            sleep(1);
+            libusb_handle_events_timeout_completed(ctx, &tv, nullptr);
         }
 
         libusb_hotplug_deregister_callback(ctx, usb_arrived_handle);

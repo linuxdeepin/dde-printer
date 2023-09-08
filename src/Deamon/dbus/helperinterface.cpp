@@ -24,6 +24,9 @@
 #include <QDBusMessage>
 #include <QDBusPendingReply>
 #include <QProcess>
+#include <QCoreApplication>
+
+#define TIMEOUT 1000 * 60 * 5
 
 HelperInterface::HelperInterface(CupsMonitor *pCupsMonitor, QObject *parent)
     : QObject(parent)
@@ -45,6 +48,9 @@ HelperInterface::HelperInterface(CupsMonitor *pCupsMonitor, QObject *parent)
         });
     }
 
+    m_timer = new QTimer(this);
+    m_timer->start(TIMEOUT);
+    connect(m_timer, &QTimer::timeout, this, &HelperInterface::timeoutExit);
 }
 
 HelperInterface::~HelperInterface()
@@ -126,4 +132,9 @@ void HelperInterface::showJobsWindow()
     if (!process.startDetached(cmd, args)) {
         qWarning() << QString("showJobsWindow failed because %1").arg(process.errorString());
     }
+}
+
+void HelperInterface::setDdePrinterState()
+{
+    m_timer->start(TIMEOUT);
 }

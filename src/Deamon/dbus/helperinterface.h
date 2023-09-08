@@ -23,6 +23,7 @@
 
 #include <QObject>
 #include <QSystemTrayIcon>
+#include <QTimer>
 
 #include "zcupsmonitor.h"
 
@@ -41,7 +42,7 @@ signals:
     void signalPrinterStateChanged(const QString &printer, int state, const QString &message);
     void signalPrinterDelete(const QString &printer);
     void signalPrinterAdd(const QString &printer);
-
+    void timeoutExit();
     void deviceStatusChanged(const QString &defaultPrinterName, int status);
 
 public slots:
@@ -49,6 +50,7 @@ public slots:
     bool isJobPurged(int id);
     QString getJobNotify(const QMap<QString, QVariant> &job);
     QString getStateString(int iState);
+    void setDdePrinterState();
 
 protected:
     void slotShowTrayIcon(bool bShow);
@@ -57,6 +59,7 @@ protected:
 private:
     CupsMonitor *m_pCupsMonitor;
     QSystemTrayIcon *m_pSystemTray;
+    QTimer* m_timer;
 };
 
 #endif // HELPERINTERFACE_H

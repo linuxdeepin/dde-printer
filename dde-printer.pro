@@ -9,6 +9,7 @@ SUBDIRS += \
     src/cppcups/cppcups.pro \
     src/Printer/Printer.pro \
     src/Deamon              \
+    src/plugin              \
     tests
 
 CONFIG += ordered

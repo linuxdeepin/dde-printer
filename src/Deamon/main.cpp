@@ -102,6 +102,10 @@ int main(int argc, char *argv[])
 
     CupsMonitor cupsMonitor;
     cupsMonitor.initTranslations();
+
+    HelperInterface helper(&cupsMonitor);
+    helper.registerDBus();
+
     cupsMonitor.initSubscription();
     cupsMonitor.initWatcher();
 
@@ -115,9 +119,15 @@ int main(int argc, char *argv[])
     forwarder.moveToThread(&forwarderThread);
     forwarderThread.start();
 
-    HelperInterface helper(&cupsMonitor);
     QObject::connect(&forwarder, &SignalForwarder::deviceStatusChanged, &helper, &HelperInterface::deviceStatusChanged);
-    helper.registerDBus();
+    QObject::connect(&helper, &HelperInterface::timeoutExit, [&]() {
+        usbThread.usbThreadExit();
+        usbThread.quit();
+        usbThread.wait();
+        forwarderThread.quit();
+        forwarderThread.wait();
+        QCoreApplication::instance()->quit();
+    });
 
     int ret = a.exec();
     helper.unRegisterDBus();
