@@ -128,7 +128,7 @@ static bool isArrivedUSBPrinterAdded(const map<string, string> &infoMap, TDevice
                 continue;
             QString strValue = attrValueToQString(mapProperty[CUPS_DEV_URI]);
 
-            if (uriList.contains(strValue)) {
+            if (uriList.contains(strValue) || strValue.contains(QString::fromStdString(infoMap.at("SerialNumber")))) {
                 return true;
             }
         }
@@ -195,7 +195,6 @@ static map<string, string>  getInfomationFromDescription(libusb_device_handle *p
 
 USBThread::USBThread(QObject *parent)
     : QThread(parent)
-    , needExit(false)
     , m_currentUSBDevice(nullptr)
 {
     /*槽函数处于主线程执行*/
@@ -207,13 +206,10 @@ USBThread::USBThread(QObject *parent)
     ret = conn.connect("org.freedesktop.Notifications", "/org/freedesktop/Notifications", "org.freedesktop.Notifications", "ActionInvoked", this, SLOT(notificationActionInvoked(uint, const QString &)));
     if (!ret)
         qWarning() << "connect to org.freedesktop.Notifications:" << ret;
-    /*重新拉起dde-printer-helper时获取usb设备.*/
-    getUsbDevice();
 }
 
 USBThread::~USBThread()
 {
-    usbThreadExit();
 }
 
 void USBThread::getUsbDevice()
@@ -271,46 +267,6 @@ void USBThread::getUsbDevice()
     libusb_free_device_list(devs, 1);
     libusb_exit(ctx);
     return;
-}
-
-void USBThread::usbThreadExit()
-{
-    needExit = true;
-}
-
-void USBThread::run()
-{
-    qInfo() << "USB monitor running...";
-    libusb_hotplug_callback_handle usb_arrived_handle;
-    libusb_context *ctx;
-    int rc = 0;
-    struct timeval tv;
-    tv.tv_sec = 2;
-    tv.tv_usec = 0;
-
-    do {
-
-        rc = libusb_init(&ctx);
-        if (rc < 0) {
-            return;
-        }
-        rc = libusb_hotplug_register_callback(ctx, LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED,
-                                              LIBUSB_HOTPLUG_NO_FLAGS, LIBUSB_HOTPLUG_MATCH_ANY, LIBUSB_HOTPLUG_MATCH_ANY,
-                                              LIBUSB_HOTPLUG_MATCH_ANY, static_usb_arrived_callback, this, &usb_arrived_handle);
-        if (LIBUSB_SUCCESS != rc) {
-            qWarning() << "Error to register usb arrived callback";
-            break;
-        }
-
-        while (!needExit) {
-            libusb_handle_events_timeout_completed(ctx, &tv, nullptr);
-        }
-
-        libusb_hotplug_deregister_callback(ctx, usb_arrived_handle);
-
-    } while (false);
-    libusb_exit(ctx);
-    qInfo() << "USB monitor exit";
 }
 
 bool USBThread::addArrivedUSBPrinter()
@@ -485,43 +441,5 @@ void USBThread::processArrivedUSBDevice()
         nextConfiguration();
     }
 
-}
-
-int LIBUSB_CALL USBThread::static_usb_arrived_callback(struct libusb_context *ctx, struct libusb_device *dev,
-                                                       libusb_hotplug_event event, void *userdata)
-{
-    if (userdata)
-        return reinterpret_cast<USBThread *>(userdata)->usb_arrived_callback(ctx, dev, event);
-    else {
-        qWarning() << "userdata is null";
-        return -1;
-    }
-}
-
-int USBThread::usb_arrived_callback(libusb_context *ctx, libusb_device *dev, libusb_hotplug_event event)
-{
-    /*
-     * 1.先判断设备类型是否是打印机 bInterfaceClass =7 bInterfaceSubClass=1
-     * 2.获取serial
-     * 3.调用cups http api 获取 usb类型打印机
-     * 4.从列表中找到和serial对应的打印机
-     * 5.判断该打印机是否已经被添加过（uri）
-     * 6.自动添加打印机并给出系统通知
-    */
-    /*
-     * NOTE:回调函数结束后才能开始IO操作，不然会返回LIBUSB_ERROR_BUSY错误状态
-     * 考虑到多个设备同时插入的情况，需要做一个队列排队添加打印机。存在跨线程访问数据的情况，使用锁同步。
-     * 当m_currentUSBDevice为空时触发添加流程，添加完m_currentUSBDevice置为空，通过信号触发新的添加流程
-    */
-    Q_UNUSED(ctx)
-    Q_UNUSED(event)
-    if (!m_usbDeviceList.contains(dev))
-        m_usbDeviceList.push_back(dev);
-
-    if (m_usbDeviceList.count() > 0 && (m_currentUSBDevice == nullptr)) {
-        emit newUSBDeviceArrived();
-    }
-
-    return (dev) ? 0 : -1;
 }
 

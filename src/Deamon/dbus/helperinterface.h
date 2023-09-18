@@ -26,6 +26,7 @@
 #include <QTimer>
 
 #include "zcupsmonitor.h"
+#include "../usbprinter/usbthread.h"
 
 class HelperInterface : public QObject
 {
@@ -42,7 +43,6 @@ signals:
     void signalPrinterStateChanged(const QString &printer, int state, const QString &message);
     void signalPrinterDelete(const QString &printer);
     void signalPrinterAdd(const QString &printer);
-    void timeoutExit();
     void deviceStatusChanged(const QString &defaultPrinterName, int status);
 
 public slots:
@@ -50,14 +50,16 @@ public slots:
     bool isJobPurged(int id);
     QString getJobNotify(const QMap<QString, QVariant> &job);
     QString getStateString(int iState);
-    void setDdePrinterState();
+    void setTypeAndState(int status);
 
 protected:
     void slotShowTrayIcon(bool bShow);
     void showJobsWindow();
+    void usbDeviceProcess();
 
 private:
     CupsMonitor *m_pCupsMonitor;
+    USBThread *m_pUsbDevice;
     QSystemTrayIcon *m_pSystemTray;
     QTimer* m_timer;
 };

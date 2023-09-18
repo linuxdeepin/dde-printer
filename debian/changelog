@@ -1,3 +1,9 @@
+dde-printer (1.0.0-2) unstable; urgency=medium
+
+  * change plug-in
+
+ -- LiuJingLin <liujinglin@uniontech.com>  Mon, 18 Sep 2023 16:30:00 +0800
+
 dde-printer (0.9.18-1) unstable; urgency=medium
 
   * add v23 feature

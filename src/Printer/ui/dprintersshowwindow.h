@@ -379,7 +379,6 @@ private:
 
     bool m_IsFirstShow;
 
-    QTimer* m_timer;
 };
 
 #endif // DPRINTERSSHOWWINDOW_H

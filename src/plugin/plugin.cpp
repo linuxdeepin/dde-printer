@@ -3,69 +3,24 @@
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
 #include <QDBusConnection>
-#include <QProcess>
-#include <QDir>
-#include <QFile>
+#include <QDBusInterface>
 #include <QDebug>
 
 #include "service.h"
 #include "signalcups.h"
 #include "signalusb.h"
 
+#define SERVICE_INTERFACE_NAME "com.deepin.print.helper"
+#define SERVICE_INTERFACE_PATH "/com/deepin/print/helper"
+
 static MainJob *service = nullptr;
 static SignalCups *cupsSignal = nullptr;
 static SignalUSB *usbThread = nullptr;
 
-static bool isProcessRunning(const QString &processName) {
-    QDir procDir("/proc");
-    if (!procDir.exists()) {
-        qWarning() << "Proc dir does not exist!";
-        return false;
-    }
-
-    QStringList processDirs = procDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
-    for (const QString& processDir : processDirs) {
-        bool ok;
-        int pid = processDir.toInt(&ok);
-        if (ok) {
-            QString cmdPath = QString("/proc/%1/cmdline").arg(pid);
-            QFile cmdFile(cmdPath);
-            if (cmdFile.open(QIODevice::ReadOnly)) {
-                QByteArray cmdLine = cmdFile.readAll();
-                QString processCmdLine = QString::fromLocal8Bit(cmdLine).trimmed();
-                if (processCmdLine.contains(processName)) {
-                    return true;
-                }
-            }
-        }
-    }
-
-    return false;
-}
-
-static void startHelper()
+static void startHelper(int type)
 {
-     QDBusConnection connection = QDBusConnection::sessionBus();
-
-     if (!connection.isConnected()) {
-         qWarning() << "DBus connection is not available.";
-         return;
-     }
-
-     QDBusMessage message = QDBusMessage::createMethodCall(
-         "org.freedesktop.DBus",
-         "/org/freedesktop/DBus",
-         "org.freedesktop.DBus",
-         "StartServiceByName"
-     );
-
-     QList<QVariant> args;
-     quint32 flag = 0;
-     args << "com.deepin.print.helper";
-     args << flag;
-     message.setArguments(args);
-
-    connection.call(message, QDBus::NoBlock);
+   QDBusInterface interface(SERVICE_INTERFACE_NAME, SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME, QDBusConnection::sessionBus());
+   interface.call("setTypeAndState", type);
 }
 
 
@@ -128,7 +83,7 @@ bool SignalCups::initWatcher()
     bool success = conn.connect("", "/com/redhat/PrinterSpooler", "com.redhat.PrinterSpooler", "", this, SLOT(spoolerEvent(QDBusMessage)));
 
     if (!success) {
-        qInfo() << "failed to connect spooler dbus";
+        qWarning() << "failed to connect spooler dbus";
     }
     return success;
 }
@@ -137,9 +92,7 @@ void SignalCups::spoolerEvent(QDBusMessage msg)
 {
     (void)msg;
 
-    if (!isProcessRunning("dde-printer-helper")) {
-        startHelper();
-    }
+    startHelper(1);
 }
 
 SignalUSB::SignalUSB(QObject *parent)
@@ -246,7 +199,7 @@ int SignalUSB::usb_arrived_callback(libusb_context *ctx, libusb_device *dev, lib
 
     /* 监听到usb插拔消息后判断是否为打印机设备，如果为打印机设备，则调用dde-printer-helper进程进行处理. */
     if (isUsbPrinter(dev)) {
-        startHelper();
+        startHelper(2);
     }
     return (dev) ? 0 : -1;
 }

@@ -25,7 +25,6 @@
 #include <QMutex>
 
 #include "zdevicemanager.h"
-#include "signalforwarder.h"
 
 #include <libusb-1.0/libusb.h>
 
@@ -36,19 +35,9 @@ class USBThread : public QThread
 public:
     USBThread(QObject *parent = nullptr);
     ~USBThread() override;
-
-    /*用于注册libusb回调*/
-    static int LIBUSB_CALL static_usb_arrived_callback(libusb_context *ctx, libusb_device *dev, libusb_hotplug_event event, void *userdata);
-
-    int  usb_arrived_callback(libusb_context *ctx, libusb_device *dev, libusb_hotplug_event event);
-    void usbThreadExit();
-
-protected:
-    void run() override;
+    void getUsbDevice();
 
 private:
-    bool needExit;
-
     libusb_device *m_currentUSBDevice;
     QList<libusb_device *> m_usbDeviceList;
     QMutex m_mutex;
@@ -61,8 +50,6 @@ private:
     void getDriver();
 
     void nextConfiguration();
-
-    void getUsbDevice();
 
 private slots:
     void processArrivedUSBDevice();
