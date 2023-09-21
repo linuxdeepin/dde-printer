@@ -13,7 +13,6 @@ Build-Depends:
  g++ (>= 8.3.0),
  libcups2-dev,
  qt5-qmake,
- libsmbclient-dev,
  libgnutls28-dev,
  libusb-1.0-0-dev,
  libgtest-dev
