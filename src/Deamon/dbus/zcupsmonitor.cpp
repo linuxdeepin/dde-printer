@@ -114,7 +114,7 @@ bool CupsMonitor::insertJobMessage(int id, int state, const QString &message)
 {
     QString str;
     int times = 0;
-    bool hasRuningJobs = false;
+    bool hasRunningJobs = false;
 
     {
         QMutexLocker locker(&m_mutex);
@@ -140,13 +140,13 @@ bool CupsMonitor::insertJobMessage(int id, int state, const QString &message)
                 int iState = str.left(1).toInt();
 
                 if (!isCompletedState(iState)) {
-                    hasRuningJobs = true;
+                    hasRunningJobs = true;
                     break;
                 }
             }
         }
     }
-    emit signalShowTrayIcon(hasRuningJobs);
+    emit signalShowTrayIcon(hasRunningJobs);
 
     //只有处理中的状态才通过事件触发的次数过滤事件
     if (IPP_JSTATE_PROCESSING != state) {
