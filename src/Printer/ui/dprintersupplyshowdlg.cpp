@@ -88,6 +88,7 @@ void DPrinterSupplyShowDlg::initUI()
     addContent(m_pContentWidget);
     /*耗材信息的列表长度无法确定，固定高度窗口会导致内容显示不全*/
     setFixedWidth(380);
+    setMinimumHeight(356);
     moveToParentCenter();
     this->setAccessibleName("printerSupply_mainWindow");
 }
@@ -320,7 +321,7 @@ void DPrinterSupplyShowDlg::supplyFreshed(const QString &strName, bool bRet)
 
     pVlayout->addStretch(500);
     m_pConfirmBtn = new DPushButton();
-    m_pConfirmBtn->setFixedSize(230, 36);
+    m_pConfirmBtn->setFixedWidth(230);
     DFontSizeManager::instance()->bind(m_pConfirmBtn, DFontSizeManager::T6, int(QFont::ExtraLight));
     m_pConfirmBtn->setText(tr("OK", "button"));
     m_pConfirmBtn->setAccessibleName("confirmBtn_contentWidget");

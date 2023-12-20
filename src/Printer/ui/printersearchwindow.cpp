@@ -128,7 +128,6 @@ void PrinterSearchWindow::initUi()
 
     m_pBtnRefresh = new DIconButton(this);
     m_pBtnRefresh->setIcon(QIcon::fromTheme("dp_refresh"));
-    m_pBtnRefresh->setFixedSize(36, 36);
     m_pBtnRefresh->setToolTip(tr("Refresh"));
     m_pBtnRefresh->setAccessibleName("btnRefresh_mainWindow");
     QHBoxLayout *pHLayout1 = new QHBoxLayout();
@@ -201,7 +200,7 @@ void PrinterSearchWindow::initUi()
     m_pAutoSpinner->setAccessibleName("autoSpinner_autoFrame2");
     m_pAutoInstallDriverBtn = new QPushButton(tr("Install Driver"));
     m_pAutoInstallDriverBtn->setEnabled(false);
-    m_pAutoInstallDriverBtn->setFixedSize(200, 36);
+    m_pAutoInstallDriverBtn->setFixedSize(DSizeModeHelper::element(QSize(200, 24), QSize(200, 36)));
     m_pAutoInstallDriverBtn->setAccessibleName("autoInstallBtn_autoFrame2");
     QHBoxLayout *pHLayout3 = new QHBoxLayout();
     pHLayout3->addStretch();
@@ -236,9 +235,6 @@ void PrinterSearchWindow::initUi()
     m_pLineEditLocation->setPlaceholderText(tr("Enter an address"));
     m_pLineEditLocation->setAccessibleName("lineEditLocation_manFrame1");
     m_pBtnFind = new QPushButton(tr("Find", "button"));
-    m_pBtnFind->setMinimumSize(60, 36);
-    m_pBtnFind->setMaximumSize(110, 70);
-    m_pBtnFind->adjustSize();
     m_pBtnFind->setAccessibleName("btnFind_manFrame1");
     QHBoxLayout *pHLayout4 = new QHBoxLayout();
     pHLayout4->setSpacing(0);
@@ -310,7 +306,7 @@ void PrinterSearchWindow::initUi()
     m_pManSpinner->setAccessibleName("manSpinner_manFrame3");
     m_pManInstallDriverBtn = new QPushButton(UI_PRINTERSEARCH_INSTALLDRIVER_NEXT);
     m_pManInstallDriverBtn->setEnabled(false);
-    m_pManInstallDriverBtn->setFixedSize(200, 36);
+    m_pManInstallDriverBtn->setFixedSize(DSizeModeHelper::element(QSize(200, 24), QSize(200, 36)));
     m_pManInstallDriverBtn->setAccessibleName("manInstallBtn_manFrame3");
 
     QHBoxLayout *pHLayout6 = new QHBoxLayout();
@@ -415,7 +411,7 @@ void PrinterSearchWindow::initUi()
 
     m_pURIInstallDriverBtn = new QPushButton(UI_PRINTERSEARCH_INSTALLDRIVER_NEXT);
     m_pURIInstallDriverBtn->setEnabled(false);
-    m_pURIInstallDriverBtn->setFixedSize(200, 36);
+    m_pURIInstallDriverBtn->setFixedSize(DSizeModeHelper::element(QSize(200, 24), QSize(200, 36)));
     m_pURIInstallDriverBtn->setAccessibleName("uriInstallBtn_uriFrame3");
 
     QHBoxLayout *pHLayout8 = new QHBoxLayout();
@@ -500,6 +496,11 @@ void PrinterSearchWindow::initConnections()
 
     connect(m_pLineEditURI, &QLineEdit::textChanged, this, &PrinterSearchWindow::lineEditURIChanged);
 
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::sizeModeChanged, [&]() {
+        m_pAutoInstallDriverBtn->setFixedSize(DSizeModeHelper::element(QSize(200, 24), QSize(200, 36)));
+        m_pManInstallDriverBtn->setFixedSize(DSizeModeHelper::element(QSize(200, 24), QSize(200, 36)));
+        m_pURIInstallDriverBtn->setFixedSize(DSizeModeHelper::element(QSize(200, 24), QSize(200, 36)));
+    });
     connect(m_pLineEditLocation, &QLineEdit::editingFinished, this, [this]() {
         // 按下enter会触发两次信号，需要过滤掉失去焦点之后的信号 并且判断校验结果
         if (m_pLineEditLocation->hasFocus())

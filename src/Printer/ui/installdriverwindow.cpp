@@ -39,6 +39,7 @@
 #include <DBackgroundGroup>
 #include <DComboBox>
 #include <DButtonBox>
+#include <DSizeMode>
 
 #include <QStandardItemModel>
 #include <QStandardItem>
@@ -246,7 +247,7 @@ void InstallDriverWindow::initUI()
     m_pManuAndTypeLineEdit->setValidator(new QRegExpValidator(QRegExp("^[a-zA-Z0-9 ]*$")));
     m_pManuAndTypeLineEdit->setAccessibleName("manuBtn_installDriver");
     m_pSearchBtn = new QPushButton(tr("Search", "button"), this);
-	m_pSearchBtn->setMaximumSize(105, 36);
+	m_pSearchBtn->setFixedSize(DSizeModeHelper::element(QSize(105, 24), QSize(105, 36)));
     m_pSearchBtn->setAccessibleName("searchBtn_installDriver");
     QHBoxLayout *pMakerHL1 = new QHBoxLayout();
     pMakerHL1->addWidget(pMakerAndTypeLabel, 1);
@@ -295,7 +296,7 @@ void InstallDriverWindow::initUI()
 
     //安装按钮
     m_pInstallBtn = new QPushButton(tr("Install Driver", "button"), this);
-    m_pInstallBtn->setFixedSize(200, 36);
+    m_pInstallBtn->setFixedSize(DSizeModeHelper::element(QSize(200, 24), QSize(200, 36)));
     m_pSpinner = new DSpinner();
     m_pSpinner->setFixedSize(32, 32);
 
@@ -357,6 +358,10 @@ void InstallDriverWindow::initConnections()
     connect(m_pTypeCombo, &QComboBox::currentTextChanged, this, &InstallDriverWindow::currentModelChangedSlot);
     connect(m_pSearchBtn, &QPushButton::clicked, this, &InstallDriverWindow::searchDriverSlot);
 
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::sizeModeChanged, [&]() {
+        m_pSearchBtn->setFixedSize(DSizeModeHelper::element(QSize(105, 24), QSize(105, 36)));
+        m_pInstallBtn->setFixedSize(DSizeModeHelper::element(QSize(200, 24), QSize(200, 36)));
+    });
     connect(m_pManuAndTypeLineEdit, &QLineEdit::editingFinished, this, [this]() {
         // 按下enter会触发两次信号，需要过滤掉失去焦点之后的信号 并且判断校验结果
         if (m_pManuAndTypeLineEdit->hasFocus())

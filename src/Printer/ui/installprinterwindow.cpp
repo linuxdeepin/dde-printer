@@ -84,6 +84,7 @@ void InstallPrinterWindow::initUI()
     m_pStatusImageLabel = new QLabel();
     m_pStatusImageLabel->setFixedSize(128, 128);
     m_pStatusImageLabel->setAlignment(Qt::AlignCenter);
+    m_pStatusImageLabel->setScaledContents(true);
     m_pStatusLabel = new QLabel(tr("Installing driver..."));
     DFontSizeManager::instance()->bind(m_pStatusLabel, DFontSizeManager::T5, QFont::DemiBold);
     m_pStatusLabel->setAlignment(Qt::AlignCenter);
@@ -95,12 +96,11 @@ void InstallPrinterWindow::initUI()
     m_pDriverCombo = new QComboBox();
     m_pDriverCombo->setMinimumSize(300, 36);
     m_pCancelInstallBtn = new QPushButton(tr("Cancel", "button"));
-    m_pCancelInstallBtn->setFixedSize(200, 36);
-
     m_pCheckPrinterListBtn = new QPushButton(tr("View Printer", "button"));
-    m_pCheckPrinterListBtn->setFixedSize(170, 36);
     m_pPrinterTestPageBtn = new QPushButton(tr("Print Test Page", "button"));
-    m_pPrinterTestPageBtn->setFixedSize(170, 36);
+    m_pPrinterTestPageBtn->setFixedWidth(170);
+    m_pCheckPrinterListBtn->setFixedWidth(170);
+    m_pCancelInstallBtn->setFixedWidth(200);
     QHBoxLayout *pHLayout = new QHBoxLayout();
     pHLayout->setSpacing(20);
     pHLayout->addStretch();

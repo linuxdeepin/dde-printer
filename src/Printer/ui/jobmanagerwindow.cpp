@@ -36,6 +36,7 @@
 #include <DPalette>
 #include <DApplicationHelper>
 #include <DApplication>
+#include <DSizeMode>
 
 #include <QStandardItemModel>
 #include <QTableView>
@@ -410,8 +411,8 @@ bool JobListView::askDeleteJobs(unsigned int flag)
     dlg.setIcon(QIcon(":/images/warning_logo.svg"));
     dlg.addButton(tr("Cancel", "button"), true);
     iAccept = dlg.addButton(tr("Delete", "button"), false, DDialog::ButtonWarning);
-    dlg.getButton(0)->setFixedSize(170, 36);
-    dlg.getButton(1)->setFixedSize(170, 36);
+    dlg.getButton(0)->setFixedSize(DSizeModeHelper::element(QSize(170, 24), QSize(170, 36)));
+    dlg.getButton(1)->setFixedSize(DSizeModeHelper::element(QSize(170, 24), QSize(170, 36)));
     dlg.setModal(true);
     dlg.setFixedSize(372, 162);
 
