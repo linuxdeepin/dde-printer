@@ -112,24 +112,24 @@ void InstallDriverWindow::initUI()
     m_pTabListView = new DListView(this);
     m_pTabListModel = new QStandardItemModel(m_pTabListView);
 
-    DStandardItem *pLocalDriver = new DStandardItem(tr("Local driver"));
-    pLocalDriver->setData(VListViewItemMargin, Dtk::MarginsRole);
-    pLocalDriver->setSizeHint(QSize(108, 48));
-    pLocalDriver->setToolTip(tr("Local driver"));
+    m_pLocalDriver = new DStandardItem(tr("Local driver"));
+    m_pLocalDriver->setData(VListViewItemMargin, Dtk::MarginsRole);
+    m_pLocalDriver->setSizeHint(DSizeModeHelper::element(QSize(108, 36), QSize(108, 48)));
+    m_pLocalDriver->setToolTip(tr("Local driver"));
 
-    DStandardItem *pPpdFile = new DStandardItem(tr("Local PPD file"));
-    pPpdFile->setData(VListViewItemMargin, Dtk::MarginsRole);
-    pPpdFile->setSizeHint(QSize(108, 48));
-    pPpdFile->setToolTip(tr("Local PPD file"));
+    m_pPpdFile = new DStandardItem(tr("Local PPD file"));
+    m_pPpdFile->setData(VListViewItemMargin, Dtk::MarginsRole);
+    m_pPpdFile->setSizeHint(DSizeModeHelper::element(QSize(108, 36), QSize(108, 48)));
+    m_pPpdFile->setToolTip(tr("Local PPD file"));
 
-    DStandardItem *pSearchDriver = new DStandardItem(tr("Search for a driver"));
-    pSearchDriver->setData(VListViewItemMargin, Dtk::MarginsRole);
-    pSearchDriver->setSizeHint(QSize(108, 48));
-    pSearchDriver->setToolTip(tr("Search for a driver"));
+    m_pSearchDriver = new DStandardItem(tr("Search for a driver"));
+    m_pSearchDriver->setData(VListViewItemMargin, Dtk::MarginsRole);
+    m_pSearchDriver->setSizeHint(DSizeModeHelper::element(QSize(108, 36), QSize(108, 48)));
+    m_pSearchDriver->setToolTip(tr("Search for a driver"));
 
-    m_pTabListModel->appendRow(pLocalDriver);
-    m_pTabListModel->appendRow(pPpdFile);
-    m_pTabListModel->appendRow(pSearchDriver);
+    m_pTabListModel->appendRow(m_pLocalDriver);
+    m_pTabListModel->appendRow(m_pPpdFile);
+    m_pTabListModel->appendRow(m_pSearchDriver);
     m_pTabListView->setModel(m_pTabListModel);
     m_pTabListView->setCurrentIndex(m_pTabListModel->index(0, 0));
     m_pTabListView->setEditTriggers(QListView::EditTrigger::NoEditTriggers);
@@ -159,7 +159,7 @@ void InstallDriverWindow::initUI()
     QHBoxLayout *pLocalHL1 = new QHBoxLayout();
     pLocalHL1->addWidget(pLabelManufacturer, 1);
     pLocalHL1->addWidget(m_pManufacturerCombo, 3);
-    pLocalHL1->setContentsMargins(20, 10, 10, 10);
+    pLocalHL1->setContentsMargins(20, 8, 10, 8);
     QWidget *pLocalWidget1 = new QWidget(this);
     pLocalWidget1->setLayout(pLocalHL1);
 
@@ -172,7 +172,7 @@ void InstallDriverWindow::initUI()
     QHBoxLayout *pLocalHL2 = new QHBoxLayout();
     pLocalHL2->addWidget(pLabelType, 1);
     pLocalHL2->addWidget(m_pTypeCombo, 3);
-    pLocalHL2->setContentsMargins(20, 10, 10, 10);
+    pLocalHL2->setContentsMargins(20, 8, 10, 8);
     QWidget *pLocalWidget2 = new QWidget(this);
     pLocalWidget2->setLayout(pLocalHL2);
 
@@ -184,10 +184,10 @@ void InstallDriverWindow::initUI()
     QHBoxLayout *pLocalHL3 = new QHBoxLayout();
     pLocalHL3->addWidget(pLabelDriver, 1);
     pLocalHL3->addWidget(m_pDriverCombo, 3);
-    pLocalHL3->setContentsMargins(20, 10, 10, 10);
+    pLocalHL3->setContentsMargins(20, 8, 10, 8);
     QWidget *pLocalWidget3 = new QWidget(this);
     pLocalWidget3->setLayout(pLocalHL3);
-    pLocalWidget3->setFixedHeight(56);
+    // pLocalWidget3->setFixedHeight(56);
 
     pLocalWidget1->setAccessibleName("localWidget1_installDriver");
     pLocalWidget2->setAccessibleName("localWidget2_installDriver");
@@ -361,6 +361,9 @@ void InstallDriverWindow::initConnections()
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::sizeModeChanged, [&]() {
         m_pSearchBtn->setFixedSize(DSizeModeHelper::element(QSize(105, 24), QSize(105, 36)));
         m_pInstallBtn->setFixedSize(DSizeModeHelper::element(QSize(200, 24), QSize(200, 36)));
+        m_pLocalDriver->setSizeHint(DSizeModeHelper::element(QSize(108, 36), QSize(108, 48)));
+        m_pPpdFile->setSizeHint(DSizeModeHelper::element(QSize(108, 36), QSize(108, 48)));
+        m_pSearchDriver->setSizeHint(DSizeModeHelper::element(QSize(108, 36), QSize(108, 48)));
     });
     connect(m_pManuAndTypeLineEdit, &QLineEdit::editingFinished, this, [this]() {
         // 按下enter会触发两次信号，需要过滤掉失去焦点之后的信号 并且判断校验结果

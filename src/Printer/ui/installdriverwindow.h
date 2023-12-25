@@ -34,6 +34,7 @@ class DListView;
 class DLineEdit;
 class DSpinner;
 class DButtonBoxButton;
+class DStandardItem;
 DWIDGET_END_NAMESPACE
 
 QT_BEGIN_NAMESPACE
@@ -184,6 +185,10 @@ private:
     QWidget *m_pParentWidget;
 
     DSpinner *m_pSearchSpinner;
+
+    DStandardItem *m_pLocalDriver;
+    DStandardItem *m_pPpdFile;
+    DStandardItem *m_pSearchDriver;
 
 private:
     TDeviceInfo m_device;

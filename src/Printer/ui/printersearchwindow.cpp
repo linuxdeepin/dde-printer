@@ -41,6 +41,7 @@
 #include <DStandardItem>
 #include <DFrame>
 #include <DBackgroundGroup>
+#include <DSizeMode>
 
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -85,25 +86,25 @@ void PrinterSearchWindow::initUi()
     // 左侧菜单列表
     m_pTabListView = new DListView(this);
     QStandardItemModel *pTabModel = new QStandardItemModel(m_pTabListView);
-    DStandardItem *pWidgetItemAuto = new DStandardItem(QIcon::fromTheme("dp_auto_searching"), tr("Discover printer"));
-    pWidgetItemAuto->setData(VListViewItemMargin, Dtk::MarginsRole);
-    pWidgetItemAuto->setSizeHint(QSize(108, 48));
-    pWidgetItemAuto->setToolTip(tr("Discover printer"));
+    m_pWidgetItemAuto = new DStandardItem(QIcon::fromTheme("dp_auto_searching"), tr("Discover printer"));
+    m_pWidgetItemAuto->setData(VListViewItemMargin, Dtk::MarginsRole);
+    m_pWidgetItemAuto->setSizeHint(DSizeModeHelper::element(QSize(108, 36),QSize(108, 48)));
+    m_pWidgetItemAuto->setToolTip(tr("Discover printer"));
     //把Item的颜色和view的颜色设置一致
-    pWidgetItemAuto->setBackgroundRole(pLeftWidget->backgroundRole());
-    DStandardItem *pWidgetItemManual = new DStandardItem(QIcon::fromTheme("dp_manual_search"), tr("Find printer"));
-    pWidgetItemManual->setData(VListViewItemMargin, Dtk::MarginsRole);
-    pWidgetItemManual->setSizeHint(QSize(108, 48));
-    pWidgetItemManual->setToolTip(tr("Find printer"));
-    pWidgetItemManual->setBackgroundRole(pLeftWidget->backgroundRole());
-    DStandardItem *pWidgetItemURI = new DStandardItem(QIcon::fromTheme("dp_uri"), tr("Enter URI"));
-    pWidgetItemURI->setData(VListViewItemMargin, Dtk::MarginsRole);
-    pWidgetItemURI->setSizeHint(QSize(108, 48));
-    pWidgetItemURI->setToolTip(tr("Enter URI"));
-    pWidgetItemURI->setBackgroundRole(pLeftWidget->backgroundRole());
-    pTabModel->appendRow(pWidgetItemAuto);
-    pTabModel->appendRow(pWidgetItemManual);
-    pTabModel->appendRow(pWidgetItemURI);
+    m_pWidgetItemAuto->setBackgroundRole(pLeftWidget->backgroundRole());
+    m_pWidgetItemManual = new DStandardItem(QIcon::fromTheme("dp_manual_search"), tr("Find printer"));
+    m_pWidgetItemManual->setData(VListViewItemMargin, Dtk::MarginsRole);
+    m_pWidgetItemManual->setSizeHint(DSizeModeHelper::element(QSize(108, 36),QSize(108, 48)));
+    m_pWidgetItemManual->setToolTip(tr("Find printer"));
+    m_pWidgetItemManual->setBackgroundRole(pLeftWidget->backgroundRole());
+    m_pWidgetItemURI = new DStandardItem(QIcon::fromTheme("dp_uri"), tr("Enter URI"));
+    m_pWidgetItemURI->setData(VListViewItemMargin, Dtk::MarginsRole);
+    m_pWidgetItemURI->setSizeHint(DSizeModeHelper::element(QSize(108, 36),QSize(108, 48)));
+    m_pWidgetItemURI->setToolTip(tr("Enter URI"));
+    m_pWidgetItemURI->setBackgroundRole(pLeftWidget->backgroundRole());
+    pTabModel->appendRow(m_pWidgetItemAuto);
+    pTabModel->appendRow(m_pWidgetItemManual);
+    pTabModel->appendRow(m_pWidgetItemURI);
     m_pTabListView->setModel(pTabModel);
     m_pTabListView->setCurrentIndex(pTabModel->index(0, 0));
     m_pTabListView->setFocusPolicy(Qt::NoFocus);
@@ -500,6 +501,9 @@ void PrinterSearchWindow::initConnections()
         m_pAutoInstallDriverBtn->setFixedSize(DSizeModeHelper::element(QSize(200, 24), QSize(200, 36)));
         m_pManInstallDriverBtn->setFixedSize(DSizeModeHelper::element(QSize(200, 24), QSize(200, 36)));
         m_pURIInstallDriverBtn->setFixedSize(DSizeModeHelper::element(QSize(200, 24), QSize(200, 36)));
+        m_pWidgetItemAuto->setSizeHint(DSizeModeHelper::element(QSize(108, 36),QSize(108, 48)));
+        m_pWidgetItemManual->setSizeHint(DSizeModeHelper::element(QSize(108, 36),QSize(108, 48)));
+        m_pWidgetItemURI->setSizeHint(DSizeModeHelper::element(QSize(108, 36),QSize(108, 48)));
     });
     connect(m_pLineEditLocation, &QLineEdit::editingFinished, this, [this]() {
         // 按下enter会触发两次信号，需要过滤掉失去焦点之后的信号 并且判断校验结果

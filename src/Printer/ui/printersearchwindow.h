@@ -33,6 +33,7 @@ class DIconButton;
 class DSpinner;
 class DListView;
 class DLineEdit;
+class DStandardItem;
 DWIDGET_END_NAMESPACE
 
 QT_BEGIN_NAMESPACE
@@ -145,6 +146,10 @@ private:
     QLabel *m_pURIDriverWebLink;
     QLabel *m_pInfoAuto;
     QLabel *m_pInfoManual;
+
+    DStandardItem *m_pWidgetItemAuto;
+    DStandardItem *m_pWidgetItemManual;
+    DStandardItem *m_pWidgetItemURI;
 
     // 用于查找打印机切换界面
     QStackedWidget *m_pStackedWidget;

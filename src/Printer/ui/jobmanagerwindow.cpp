@@ -241,7 +241,7 @@ JobListView::JobListView(QWidget *parent)
     DFontSizeManager::instance()->bind(horizontalHeader(), DFontSizeManager::T6, int(QFont::Medium));
     DFontSizeManager::instance()->bind(this, DFontSizeManager::T7, int(QFont::Normal));
     horizontalHeader()->setFixedHeight(ITEM_Height);
-    horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+    horizontalHeader()->setDefaultAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
     m_tipsTimer = new QTimer(this);
     m_tipsTimer->setInterval(1000);
@@ -1081,8 +1081,8 @@ JobManagerWindow::JobManagerWindow(QWidget *parent)
 
 void JobManagerWindow::createUi()
 {
-    m_refreshBut = new DIconButton(titlebar());
-    m_whichButBox = new DButtonBox(titlebar());
+    m_refreshBut = new DIconButton();
+    m_whichButBox = new DButtonBox();
     m_whichList.append(new DButtonBoxButton(QIcon::fromTheme("dp_print_all")));
     m_whichList.append(new DButtonBoxButton(QIcon::fromTheme("dp_print_wait")));
     m_whichList.append(new DButtonBoxButton(QIcon::fromTheme("dp_print_done")));
@@ -1110,8 +1110,15 @@ void JobManagerWindow::initUi()
         but->setFocusPolicy(Qt::NoFocus);
     }
 
-    titlebar()->addWidget(m_whichButBox, Qt::AlignLeft);
-    titlebar()->addWidget(m_refreshBut, Qt::AlignLeft);
+    QHBoxLayout *hLayout = new QHBoxLayout();
+    hLayout->setContentsMargins(0, 0, 0, 0);
+    hLayout->addSpacing(10);
+    hLayout->addWidget(m_whichButBox, Qt::AlignLeft | Qt::AlignVCenter);
+    hLayout->addSpacing(10);
+    hLayout->addWidget(m_refreshBut, Qt::AlignLeft | Qt::AlignVCenter);
+    QWidget *pWidget = new QWidget();
+    pWidget->setLayout(hLayout);
+    titlebar()->addWidget(pWidget, Qt::AlignLeft | Qt::AlignVCenter);
     titlebar()->setIcon(QIcon(":/images/dde-printer.svg"));
     titlebar()->setTitle("");
     titlebar()->setMenuVisible(false);
