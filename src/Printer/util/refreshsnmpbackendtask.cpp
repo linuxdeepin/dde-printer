@@ -206,8 +206,10 @@ bool RefreshSnmpBackendTask::canGetSupplyMsg(const SNMPFRESHNODE &node)
                     QString strColor = strColors.at(i).trimmed();
                     strColor = strColor.remove(0, 2);
                     QString strColorName = getColorName(strColor);
-                    strncpy(info.color, strColor.toStdString().c_str(), sizeof(info.color));
-                    strncpy(info.colorName, strColorName.toStdString().c_str(), sizeof(info.colorName));
+                    strncpy(info.color, strColor.toStdString().c_str(), sizeof(info.color) - 1);
+                    info.color[sizeof(info.color) - 1] = '\0';
+                    strncpy(info.colorName, strColorName.toStdString().c_str(), sizeof(info.colorName) -1);
+                    info.colorName[sizeof(info.colorName) - 1] = '\0';
                     valid = true;
                 } else if (strType == "waste-toner") {
                     info.type = 4;

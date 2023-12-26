@@ -1080,8 +1080,8 @@ JobManagerWindow::JobManagerWindow(QWidget *parent)
 
 void JobManagerWindow::createUi()
 {
-    m_refreshBut = new DIconButton();
-    m_whichButBox = new DButtonBox();
+    m_refreshBut = new DIconButton(this);
+    m_whichButBox = new DButtonBox(this);
     m_whichList.append(new DButtonBoxButton(QIcon::fromTheme("dp_print_all")));
     m_whichList.append(new DButtonBoxButton(QIcon::fromTheme("dp_print_wait")));
     m_whichList.append(new DButtonBoxButton(QIcon::fromTheme("dp_print_done")));
