@@ -39,7 +39,10 @@
 #include <DBackgroundGroup>
 #include <DComboBox>
 #include <DButtonBox>
+
+#ifdef DTKWIDGET_CLASS_DSizeMode
 #include <DSizeMode>
+#endif
 
 #include <QStandardItemModel>
 #include <QStandardItem>
@@ -114,18 +117,25 @@ void InstallDriverWindow::initUI()
 
     m_pLocalDriver = new DStandardItem(tr("Local driver"));
     m_pLocalDriver->setData(VListViewItemMargin, Dtk::MarginsRole);
-    m_pLocalDriver->setSizeHint(DSizeModeHelper::element(QSize(108, 36), QSize(108, 48)));
     m_pLocalDriver->setToolTip(tr("Local driver"));
 
     m_pPpdFile = new DStandardItem(tr("Local PPD file"));
     m_pPpdFile->setData(VListViewItemMargin, Dtk::MarginsRole);
-    m_pPpdFile->setSizeHint(DSizeModeHelper::element(QSize(108, 36), QSize(108, 48)));
     m_pPpdFile->setToolTip(tr("Local PPD file"));
 
     m_pSearchDriver = new DStandardItem(tr("Search for a driver"));
     m_pSearchDriver->setData(VListViewItemMargin, Dtk::MarginsRole);
-    m_pSearchDriver->setSizeHint(DSizeModeHelper::element(QSize(108, 36), QSize(108, 48)));
     m_pSearchDriver->setToolTip(tr("Search for a driver"));
+
+#ifdef DTKWIDGET_CLASS_DSizeMode
+    m_pLocalDriver->setSizeHint(DSizeModeHelper::element(QSize(108, 36), QSize(108, 48)));
+    m_pPpdFile->setSizeHint(DSizeModeHelper::element(QSize(108, 36), QSize(108, 48)));
+    m_pSearchDriver->setSizeHint(DSizeModeHelper::element(QSize(108, 36), QSize(108, 48)));
+#else
+    m_pLocalDriver->setSizeHint(QSize(108, 48));
+    m_pPpdFile->setSizeHint(QSize(108, 48));
+    m_pSearchDriver->setSizeHint(QSize(108, 48));
+#endif
 
     m_pTabListModel->appendRow(m_pLocalDriver);
     m_pTabListModel->appendRow(m_pPpdFile);
@@ -247,7 +257,7 @@ void InstallDriverWindow::initUI()
     m_pManuAndTypeLineEdit->setValidator(new QRegExpValidator(QRegExp("^[a-zA-Z0-9 ]*$")));
     m_pManuAndTypeLineEdit->setAccessibleName("manuBtn_installDriver");
     m_pSearchBtn = new QPushButton(tr("Search", "button"), this);
-	m_pSearchBtn->setFixedSize(DSizeModeHelper::element(QSize(105, 24), QSize(105, 36)));
+    m_pSearchBtn->setMaximumWidth(105);
     m_pSearchBtn->setAccessibleName("searchBtn_installDriver");
     QHBoxLayout *pMakerHL1 = new QHBoxLayout();
     pMakerHL1->addWidget(pMakerAndTypeLabel, 1);
@@ -296,7 +306,7 @@ void InstallDriverWindow::initUI()
 
     //安装按钮
     m_pInstallBtn = new QPushButton(tr("Install Driver", "button"), this);
-    m_pInstallBtn->setFixedSize(DSizeModeHelper::element(QSize(200, 24), QSize(200, 36)));
+    m_pInstallBtn->setFixedWidth(200);
     m_pSpinner = new DSpinner();
     m_pSpinner->setFixedSize(32, 32);
 
@@ -358,13 +368,14 @@ void InstallDriverWindow::initConnections()
     connect(m_pTypeCombo, &QComboBox::currentTextChanged, this, &InstallDriverWindow::currentModelChangedSlot);
     connect(m_pSearchBtn, &QPushButton::clicked, this, &InstallDriverWindow::searchDriverSlot);
 
+#ifdef DTKWIDGET_CLASS_DSizeMode
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::sizeModeChanged, [&]() {
-        m_pSearchBtn->setFixedSize(DSizeModeHelper::element(QSize(105, 24), QSize(105, 36)));
-        m_pInstallBtn->setFixedSize(DSizeModeHelper::element(QSize(200, 24), QSize(200, 36)));
         m_pLocalDriver->setSizeHint(DSizeModeHelper::element(QSize(108, 36), QSize(108, 48)));
         m_pPpdFile->setSizeHint(DSizeModeHelper::element(QSize(108, 36), QSize(108, 48)));
         m_pSearchDriver->setSizeHint(DSizeModeHelper::element(QSize(108, 36), QSize(108, 48)));
     });
+#endif
+
     connect(m_pManuAndTypeLineEdit, &QLineEdit::editingFinished, this, [this]() {
         // 按下enter会触发两次信号，需要过滤掉失去焦点之后的信号 并且判断校验结果
         if (m_pManuAndTypeLineEdit->hasFocus())

@@ -44,7 +44,10 @@
 #include <DFrame>
 #include <DBackgroundGroup>
 #include <DErrorMessage>
+
+#ifdef DTKWIDGET_CLASS_DSizeMode
 #include <DSizeMode>
+#endif
 
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -101,10 +104,15 @@ void DPrintersShowWindow::initUI()
     DFontSizeManager::instance()->bind(pLabel, DFontSizeManager::T5, int(QFont::DemiBold));
     m_pBtnAddPrinter = new DIconButton(this);
     m_pBtnAddPrinter->setIcon(QIcon::fromTheme("dp_add"));
+
+#ifdef DTKWIDGET_CLASS_DSizeMode
     m_pBtnAddPrinter->setFixedSize(DSizeModeHelper::element(QSize(24, 24), QSize(36, 36)));
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::sizeModeChanged, [this]() {
         m_pBtnAddPrinter->setFixedSize(DSizeModeHelper::element(QSize(24, 24), QSize(36, 36)));
     });
+#else
+    m_pBtnAddPrinter->setFixedSize(36, 36);
+#endif
     m_pBtnAddPrinter->setToolTip(tr("Add printer"));
     m_pBtnDeletePrinter = new DIconButton(DStyle::SP_DecreaseElement);
     m_pBtnDeletePrinter->setToolTip(tr("Delete printer"));

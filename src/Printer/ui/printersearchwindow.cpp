@@ -41,7 +41,10 @@
 #include <DStandardItem>
 #include <DFrame>
 #include <DBackgroundGroup>
+
+#ifdef DTKWIDGET_CLASS_DSizeMode
 #include <DSizeMode>
+#endif
 
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -88,20 +91,28 @@ void PrinterSearchWindow::initUi()
     QStandardItemModel *pTabModel = new QStandardItemModel(m_pTabListView);
     m_pWidgetItemAuto = new DStandardItem(QIcon::fromTheme("dp_auto_searching"), tr("Discover printer"));
     m_pWidgetItemAuto->setData(VListViewItemMargin, Dtk::MarginsRole);
-    m_pWidgetItemAuto->setSizeHint(DSizeModeHelper::element(QSize(108, 36),QSize(108, 48)));
     m_pWidgetItemAuto->setToolTip(tr("Discover printer"));
     //把Item的颜色和view的颜色设置一致
     m_pWidgetItemAuto->setBackgroundRole(pLeftWidget->backgroundRole());
     m_pWidgetItemManual = new DStandardItem(QIcon::fromTheme("dp_manual_search"), tr("Find printer"));
     m_pWidgetItemManual->setData(VListViewItemMargin, Dtk::MarginsRole);
-    m_pWidgetItemManual->setSizeHint(DSizeModeHelper::element(QSize(108, 36),QSize(108, 48)));
     m_pWidgetItemManual->setToolTip(tr("Find printer"));
     m_pWidgetItemManual->setBackgroundRole(pLeftWidget->backgroundRole());
     m_pWidgetItemURI = new DStandardItem(QIcon::fromTheme("dp_uri"), tr("Enter URI"));
     m_pWidgetItemURI->setData(VListViewItemMargin, Dtk::MarginsRole);
-    m_pWidgetItemURI->setSizeHint(DSizeModeHelper::element(QSize(108, 36),QSize(108, 48)));
     m_pWidgetItemURI->setToolTip(tr("Enter URI"));
     m_pWidgetItemURI->setBackgroundRole(pLeftWidget->backgroundRole());
+
+#ifdef DTKWIDGET_CLASS_DSizeMode
+    m_pWidgetItemAuto->setSizeHint(DSizeModeHelper::element(QSize(108, 36),QSize(108, 48)));
+    m_pWidgetItemManual->setSizeHint(DSizeModeHelper::element(QSize(108, 36),QSize(108, 48)));
+    m_pWidgetItemURI->setSizeHint(DSizeModeHelper::element(QSize(108, 36),QSize(108, 48)));
+#else
+    m_pWidgetItemAuto->setSizeHint(QSize(108, 48));
+    m_pWidgetItemManual->setSizeHint(QSize(108, 48));
+    m_pWidgetItemURI->setSizeHint(QSize(108, 48));
+#endif
+
     pTabModel->appendRow(m_pWidgetItemAuto);
     pTabModel->appendRow(m_pWidgetItemManual);
     pTabModel->appendRow(m_pWidgetItemURI);
@@ -201,7 +212,7 @@ void PrinterSearchWindow::initUi()
     m_pAutoSpinner->setAccessibleName("autoSpinner_autoFrame2");
     m_pAutoInstallDriverBtn = new QPushButton(tr("Install Driver"));
     m_pAutoInstallDriverBtn->setEnabled(false);
-    m_pAutoInstallDriverBtn->setFixedSize(DSizeModeHelper::element(QSize(200, 24), QSize(200, 36)));
+    m_pAutoInstallDriverBtn->setFixedWidth(200);
     m_pAutoInstallDriverBtn->setAccessibleName("autoInstallBtn_autoFrame2");
     QHBoxLayout *pHLayout3 = new QHBoxLayout();
     pHLayout3->addStretch();
@@ -307,7 +318,7 @@ void PrinterSearchWindow::initUi()
     m_pManSpinner->setAccessibleName("manSpinner_manFrame3");
     m_pManInstallDriverBtn = new QPushButton(UI_PRINTERSEARCH_INSTALLDRIVER_NEXT);
     m_pManInstallDriverBtn->setEnabled(false);
-    m_pManInstallDriverBtn->setFixedSize(DSizeModeHelper::element(QSize(200, 24), QSize(200, 36)));
+    m_pManInstallDriverBtn->setFixedWidth(200);
     m_pManInstallDriverBtn->setAccessibleName("manInstallBtn_manFrame3");
 
     QHBoxLayout *pHLayout6 = new QHBoxLayout();
@@ -412,7 +423,7 @@ void PrinterSearchWindow::initUi()
 
     m_pURIInstallDriverBtn = new QPushButton(UI_PRINTERSEARCH_INSTALLDRIVER_NEXT);
     m_pURIInstallDriverBtn->setEnabled(false);
-    m_pURIInstallDriverBtn->setFixedSize(DSizeModeHelper::element(QSize(200, 24), QSize(200, 36)));
+    m_pURIInstallDriverBtn->setFixedWidth(200);
     m_pURIInstallDriverBtn->setAccessibleName("uriInstallBtn_uriFrame3");
 
     QHBoxLayout *pHLayout8 = new QHBoxLayout();
@@ -497,14 +508,14 @@ void PrinterSearchWindow::initConnections()
 
     connect(m_pLineEditURI, &QLineEdit::textChanged, this, &PrinterSearchWindow::lineEditURIChanged);
 
+#ifdef DTKWIDGET_CLASS_DSizeMode
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::sizeModeChanged, [&]() {
-        m_pAutoInstallDriverBtn->setFixedSize(DSizeModeHelper::element(QSize(200, 24), QSize(200, 36)));
-        m_pManInstallDriverBtn->setFixedSize(DSizeModeHelper::element(QSize(200, 24), QSize(200, 36)));
-        m_pURIInstallDriverBtn->setFixedSize(DSizeModeHelper::element(QSize(200, 24), QSize(200, 36)));
         m_pWidgetItemAuto->setSizeHint(DSizeModeHelper::element(QSize(108, 36),QSize(108, 48)));
         m_pWidgetItemManual->setSizeHint(DSizeModeHelper::element(QSize(108, 36),QSize(108, 48)));
         m_pWidgetItemURI->setSizeHint(DSizeModeHelper::element(QSize(108, 36),QSize(108, 48)));
     });
+#endif
+
     connect(m_pLineEditLocation, &QLineEdit::editingFinished, this, [this]() {
         // 按下enter会触发两次信号，需要过滤掉失去焦点之后的信号 并且判断校验结果
         if (m_pLineEditLocation->hasFocus())
