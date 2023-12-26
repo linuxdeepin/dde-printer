@@ -1532,8 +1532,8 @@
     </message>
     <message>
         <location filename="../ui/uisourcestring.h" line="43"/>
-        <source>For more drivers, please refer to our official website: </source>
-        <translation>For more drivers, please refer to our official website: </translation>
+        <source>Printer problem help: </source>
+        <translation>Printer problem help: </translation>
     </message>
     <message>
         <location filename="../util/ddestination.cpp" line="201"/>

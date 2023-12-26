@@ -702,37 +702,26 @@ bool DriverSearcher::hasExcatDriver()
 
 void DriverSearcher::askForFinish()
 {
-    /*首次尝试通过本地和服务器查找驱动之后，可能本地驱动还没有初始化完成。
+    /* 首次尝试通过本地和服务器查找驱动之后，可能本地驱动还没有初始化完成。
      * 如果首次没有查找到精确匹配的驱动，等待本地驱动初始化完成之后再执行一次本地精确查找
-     * 如果本地精确查找仍然没有找到驱动，再执行一次模糊查找
+     * usb即插即用时，网络驱动优先；如果没有网络驱动进行本地查找
     */
-    if (m_matchLocalDriver) {
-        if (g_iStatus < TStat_Suc) {
-            qInfo() << "Wait ppd init";
-            connect(g_driverManager, &DriverManager::signalStatus, this, &DriverSearcher::slotDriverInit, Qt::UniqueConnection);
-            return;
-        }
 
-        // 驱动初始化完成，再执行一次本地精确查找
-        getLocalDrivers();
-
-        if (TStat_Suc == g_iStatus && !hasExcatDriver() && (!m_strMake.isEmpty() || !m_strModel.isEmpty())) {
-            QMutexLocker locker(&g_mutex);
-
-            m_strMake = normalize(m_strMake);
-            m_strModel = normalize(m_strModel);
-            QList<QMap<QString, QVariant>> list = getFuzzyMatchDrivers(m_strMake, m_strModel, m_strCMD);
-            if (!list.isEmpty()) {
-                m_localIndex = m_drivers.count();
-                m_drivers += list;
-            }
-        }
+    if (m_drivers.isEmpty() && !m_matchLocalDriver) { // usb需要初始化驱动信息，有网络驱动不进行本地初始化
+        qDebug() << "usb init local ppds";
+        g_driverManager->refreshPpds();
     }
 
-    // 如果无匹配驱动，并且无网络状态，搜索是否存在离线驱动信息
-    if (m_drivers.isEmpty() && m_isNetOffline && m_matchLocalDriver) {
-        QString strModel = getPrinterFullModel();
-        m_isOfflineDriverExist = searchOffineDriver(m_strFullMake, strModel);
+    if ((m_matchLocalDriver && g_iStatus < TStat_Suc) ||
+       (m_drivers.isEmpty() && !m_matchLocalDriver && g_iStatus < TStat_Suc)){
+        qInfo() << "Wait ppd init";
+        connect(g_driverManager, &DriverManager::signalStatus, this, &DriverSearcher::slotDriverInit, Qt::UniqueConnection);
+        return;
+    }
+
+    // 驱动初始化完成，再执行一次本地精确查找；usb时，如果网络找到驱动，不进行本地查找
+    if (m_drivers.isEmpty() || m_matchLocalDriver) {
+        getLocalDrivers();
     }
 
     sortDrivers();

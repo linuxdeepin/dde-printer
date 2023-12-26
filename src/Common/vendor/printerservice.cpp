@@ -170,6 +170,7 @@ PrinterServerInterface *PrinterService::searchDriverSolution(const QString &manu
         info = QString("&deb_manufacturer=HP&desc=%1").arg(model);
     }
     QString urlDriver = m_urlDriver + info;
+    qDebug() << "Request urlinfo: " << urlDriver;
     PrinterServerInterface *reply = new PrinterServerInterface(urlDriver, obj);
 
     return reply;
