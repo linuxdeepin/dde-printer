@@ -78,7 +78,7 @@ private:
     QString driverDescription(const QMap<QString, QVariant> &driver);
     // 驱动未匹配提示
     void driverSearchNoMatchDialog(bool isExist);
-
+    void changeEvent(QEvent *event) override;
 private slots:
     void listWidgetClickedSlot(const QModelIndex &previous);
     // 连接自动查找打印机线程信号槽

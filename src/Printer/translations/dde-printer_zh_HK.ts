@@ -1530,8 +1530,8 @@
     </message>
     <message>
         <location filename="../ui/uisourcestring.h" line="43"/>
-        <source>For more drivers, please refer to our official website: </source>
-        <translation>更多驅動詳見官網：</translation>
+        <source>Printer problem help: </source>
+        <translation>打印機問題幫助: </translation>
     </message>
     <message>
         <location filename="../util/ddestination.cpp" line="201"/>

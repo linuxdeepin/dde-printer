@@ -172,13 +172,14 @@ void PrinterSearchWindow::initUi()
     m_pInfoAuto->setPalette(pa);
     m_pInfoAuto->setAccessibleName("infoAuto_listViewAuto");
 
-    QString webLink = QObject::tr(UI_PRINTER_DRIVER_WEB_LINK).arg(UI_PRINTER_DRIVER_WEBSITE);
     QString tipInfo = UI_PRINTER_DRIVER_MESSAGE;
+    QString webLinkinfo = UI_PRINTER_DRIVER_WEBSITE;
     m_pAutoDriverWebLink = new QLabel();
+    QFontMetrics fm(m_pAutoDriverWebLink->font());
     m_pAutoDriverWebLink->setContentsMargins(10, 0, 0, 0);
     m_pAutoDriverWebLink->setOpenExternalLinks(true);
-    int maxLen =  470 - 14 * DFontSizeManager::fontPixelSize(m_pAutoDriverWebLink->font());
-    geteElidedText(m_pAutoDriverWebLink->font(), tipInfo, maxLen);
+    geteElidedText(m_pAutoDriverWebLink->font(), webLinkinfo, 480 - fm.width(tipInfo));
+    QString webLink = QObject::tr(UI_PRINTER_DRIVER_WEB_LINK).arg(webLinkinfo);
     m_pAutoDriverWebLink->setToolTip(UI_PRINTER_DRIVER_MESSAGE + UI_PRINTER_DRIVER_WEBSITE);
     m_pAutoDriverWebLink->setText(tipInfo + webLink);
     m_pAutoDriverWebLink->setAccessibleName("autoWebLink_autoFrame1");
@@ -1037,4 +1038,20 @@ void PrinterSearchWindow::smbInfomationSlot(int &ret, const QString &host, QStri
         password = pPermissionsWindow->getPassword();
     }
     pPermissionsWindow->deleteLater();
+}
+
+void PrinterSearchWindow::changeEvent(QEvent *event)
+{
+    /* 字体改变时，调整显示 */
+    if (event->type() == QEvent::FontChange) {
+        QString tipInfo = UI_PRINTER_DRIVER_MESSAGE;
+        QString webLinkinfo = UI_PRINTER_DRIVER_WEBSITE;
+        QFontMetrics fm(m_pAutoDriverWebLink->font());
+        geteElidedText(m_pAutoDriverWebLink->font(), webLinkinfo, 480 - fm.width(tipInfo));
+        QString webLink = QObject::tr(UI_PRINTER_DRIVER_WEB_LINK).arg(webLinkinfo);
+        m_pAutoDriverWebLink->setText(tipInfo + webLink);
+
+        m_pManDriverWebLink->setText(tipInfo + webLink);
+        QWidget::changeEvent(event);
+    }
 }
