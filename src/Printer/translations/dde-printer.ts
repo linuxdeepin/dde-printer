@@ -665,6 +665,11 @@
         <translation>Delete</translation>
     </message>
     <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="795"/>
+        <source>Canon capt printer does not support name modification.</source>
+        <translation>Canon capt printer does not support name modification.</translation>
+    </message>
+    <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="782"/>
         <source>The name already exists</source>
         <translation>The name already exists</translation>
@@ -1564,6 +1569,11 @@
         <location filename="../../Common/common.cpp" line="154"/>
         <source>%1 not found, please ask the administrator for help, or enter the printer IP address in URI of Properties.</source>
         <translation>%1 not found, please ask the administrator for help, or enter the printer IP address in URI of Properties.</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/addprinter.cpp" line="489"/>
+        <source>The Canon capt printer has been added and is not allowed to be added again.</source>
+        <translation>The Canon capt printer has been added and is not allowed to be added again.</translation>
     </message>
 </context>
 <context>

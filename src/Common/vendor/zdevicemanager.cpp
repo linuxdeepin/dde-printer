@@ -157,11 +157,11 @@ int RefreshDevicesByBackendTask::mergeDevice(TDeviceInfo &device, const char *ba
         QRegularExpression re("serial=([^&]*)");
         QRegularExpressionMatch match = re.match(uri);
         if (match.hasMatch()) {
-            QString serial = match.captured(1).toLower();
+            QString serial = match.captured(1);
             device.serial = serial;
             for (auto &item : m_devices)
                 //只合并不同后端发现的uri，相同后端发现的URI应该对应不同设备，比如打印机和传真
-                if (!device.strClass.compare(item.strClass) && (item.uriList[0].startsWith("hp:") != isHP) && !serial.compare(item.serial)) {
+                if (!device.strClass.compare(item.strClass) && (item.uriList[0].startsWith("hp:") != isHP) && !serial.compare(item.serial, Qt::CaseInsensitive)) {
                     item.uriList << uri;
                     qInfo() << "merge hp uri";
                     emit signalStatus(m_iTaskId, TStat_Update);

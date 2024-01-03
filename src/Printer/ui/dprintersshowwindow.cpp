@@ -28,6 +28,7 @@
 #include "uisourcestring.h"
 #include "config.h"
 #include "cupsconnectionfactory.h"
+#include "common.h"
 
 #include "printertestpagedialog.h"
 #include "troubleshootdialog.h"
@@ -63,6 +64,15 @@
 #include <QDBusConnection>
 #include <QDBusInterface>
 #include <QProcess>
+
+static bool isCanonCaptPrinter(QString printerName)
+{
+    QString printerUri = getPrinterUri(printerName.toUtf8().data());
+    if (printerUri.contains("ccp://")) {
+        return true;
+    }
+    return false;
+}
 
 DPrintersShowWindow::DPrintersShowWindow(const QString &printerName, QWidget *parent)
     : DMainWindow(parent)
@@ -762,6 +772,14 @@ void DPrintersShowWindow::deletePrinterClickSlot()
         pDialog->setIcon(QIcon(":/images/warning_logo.svg"));
         int ret = pDialog->exec();
         if (ret > 0) {
+            if (isCanonCaptPrinter(printerName)) { // 判断是否canon capt打印机
+                QProcess p;
+                ret = p.execute("pkexec", QStringList {"/opt/cndrvcups-capt/remove", printerName});
+                if (ret != 0) {
+                    return;
+                }
+            }
+
             bool suc = m_pPrinterManager->deletePrinterByName(printerName);
             if (suc) {
                 // 刷新打印机列表
@@ -778,6 +796,26 @@ void DPrintersShowWindow::renamePrinterSlot(QStandardItem *pItem)
     //过滤掉空格
     if (!pItem)
         return;
+
+    if (isCanonCaptPrinter(m_CurPrinterName)) { // ccp打印机不支持修改名称
+        DDialog *pDialog = new DDialog();
+        pDialog->setIcon(QIcon(":/images/warning_logo.svg"));
+        QLabel *pMessage = new QLabel(tr("Canon capt printer does not support name modification."));
+        pMessage->setWordWrap(true);
+        pMessage->setAlignment(Qt::AlignCenter);
+        pDialog->addContent(pMessage);
+        pDialog->addButton(tr("Confirm"));
+        pDialog->exec();
+        pDialog->deleteLater();
+
+        m_pPrinterListView->blockSignals(true);
+        m_pPrinterModel->blockSignals(true);
+        pItem->setText(m_CurPrinterName);
+        m_pPrinterListView->blockSignals(false);
+        m_pPrinterModel->blockSignals(false);
+        return;
+    }
+
     QString newPrinterName = m_pPrinterManager->validataName(pItem->text());
     if (newPrinterName.isEmpty()) {
         m_pPrinterListView->blockSignals(true);

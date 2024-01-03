@@ -663,6 +663,11 @@
         <translation>刪除</translation>
     </message>
     <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="795"/>
+        <source>Canon capt printer does not support name modification.</source>
+        <translation>佳能capt打印機不支持名稱修改.</translation>
+    </message>
+    <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="782"/>
         <source>The name already exists</source>
         <translation>此名稱已存在</translation>
@@ -1562,6 +1567,11 @@
         <location filename="../../Common/common.cpp" line="154"/>
         <source>%1 not found, please ask the administrator for help, or enter the printer IP address in URI of Properties.</source>
         <translation>%1無法解析，請聯繫管理員，或前往屬性-URI手動輸入打印機IP</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/addprinter.cpp" line="489"/>
+        <source>The Canon capt printer has been added and is not allowed to be added again.</source>
+        <translation>佳能capt打印機已經添加，不允許重復添加.</translation>
     </message>
 </context>
 <context>

@@ -41,7 +41,7 @@
 #include <QJsonObject>
 #include <QJsonArray>
 
-static QString g_captexec = "/opt/cndrvcups-capt/addprinter.sh";
+static QString g_captexec = "/opt/cndrvcups-capt/add";
 
 static QString getPackageVersion(const QString &package)
 {
@@ -52,31 +52,6 @@ static QString getPackageVersion(const QString &package)
         qDebug() << strOut;
         list = strOut.split(" ", QString::SkipEmptyParts);
         return list.count() > 2 ? list[2] : QString();
-    }
-
-    return QString();
-}
-
-static QString probeDevName(const QString &serial)
-{
-    for (int i = 0; i < 10; ++i) {
-        QString path = QString("/dev/usb/lp%1").arg(i);
-        if (!QFile::exists(path))
-            continue;
-
-        QProcess proc;
-        proc.start("udevadm", QStringList {"info", "-a", path});
-        proc.waitForFinished();
-        if (proc.exitStatus() == QProcess::NormalExit && !proc.exitCode()) {
-            QRegularExpression re("ATTRS{serial}==\"(.*)\"");
-            QString line = proc.readLine();
-            while (!line.isEmpty()) {
-                QRegularExpressionMatch match = re.match(line);
-                if (match.hasMatch() && match.captured(1).toLower() == serial)
-                    return path;
-                line = proc.readLine();
-            }
-        }
     }
 
     return QString();
@@ -151,6 +126,12 @@ static QString getSearchType(int num)
             break;
     }
     return type;
+}
+
+static bool containsIpAddress(const QString &str) {
+    QRegularExpression ipRegex("\\b(?:\\d{1,3}\\.){3}\\d{1,3}\\b");
+    QRegularExpressionMatch match = ipRegex.match(str);
+    return match.hasMatch();
 }
 
 FixHplipBackend::FixHplipBackend(QObject *parent)
@@ -475,7 +456,26 @@ int AddCanonCAPTPrinter::addPrinter()
     if (m_bQuit)
         return -1;
 
-    m_proc.start("pkexec", QStringList {g_captexec, m_printer.strName, ppd_name, m_uri});
+    QString printInfo = "usb:";
+    if (containsIpAddress(m_uri)) {
+        printInfo = "net:";
+        QRegularExpression re("([0-9]{1,3}\\.){3}[0-9]{1,3}");
+        QRegularExpressionMatch match = re.match(m_uri);
+
+        if (match.hasMatch()) {
+            printInfo += match.captured(0);
+        }
+    } else {
+        printInfo += m_printer.serial;
+    }
+
+    int index = ppd_name.lastIndexOf('/');
+    if (index != -1) {
+        ppd_name = ppd_name.mid(index + 1);
+    }
+
+    qDebug() << "ppdname : " << ppd_name << "printInfo: " << printInfo;
+    m_proc.start("pkexec", QStringList {g_captexec, m_printer.strName, ppd_name, printInfo});
 
     return 1;
 }
@@ -485,6 +485,10 @@ void AddCanonCAPTPrinter::slotProcessFinished(int iCode, QProcess::ExitStatus ex
     qInfo() << iCode << exitStatus;
     if (exitStatus != QProcess::NormalExit || 0 != iCode) {
         m_strErr = m_proc.readAllStandardError();
+        if (iCode == 2) { // 佳能capt打印机已经添加，不允许重复添加
+            m_strErr = QObject::tr("The Canon capt printer has been added and is not allowed to be added again.");
+        }
+
         m_iStep = STEP_Failed;
     }
 
@@ -905,11 +909,9 @@ AddPrinterTask *AddPrinterFactory::createAddPrinterTask(const TDeviceInfo &print
 
     qInfo() << "add printer task:" << solution[SD_KEY_from] << ppd_name;
     /* Canon CAPT local printer must use ccp backend */
-    if (isCanonCAPTDrv(ppd_name) && !printer.strClass.compare("direct")) {
-        device_uri = probeDevName(printer.serial);
-        if (!device_uri.isEmpty()) {
-            return new AddCanonCAPTPrinter(printer, solution, device_uri);
-        }
+    if (isCanonCAPTDrv(ppd_name)) {
+        QString info = containsIpAddress(device_uri) ? device_uri : printer.serial;
+        return new AddCanonCAPTPrinter(printer, solution, info);
     }
 
     return new DefaultAddPrinter(printer, solution, device_uri);
