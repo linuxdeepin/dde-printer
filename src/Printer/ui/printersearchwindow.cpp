@@ -795,10 +795,9 @@ QString PrinterSearchWindow::driverDescription(const QMap<QString, QVariant> &dr
     //去掉自带的recommended字段
     strDesc.replace("(recommended)", "");
 
-    //如果是精确匹配添加 推荐 字段
-    bool isExcat = driver.value("excat").toBool();
-    if (isExcat)
+    if (driver.contains(SD_KEY_recommended) && driver[SD_KEY_recommended].toBool()) {
         strDesc += tr(" (recommended)");
+    }
 
     return strDesc;
 }
@@ -841,9 +840,37 @@ void PrinterSearchWindow::driverAutoSearchedSlot()
         m_pAutoDriverCom->clear();
         QList<QMap<QString, QVariant>> drivers = pDriverSearcher->getDrivers();
         pDriverSearcher->deleteLater();
-        foreach (const auto &driver, drivers) {
-            //将驱动结构体存在item中，方便后续安装打印机
-            m_pAutoDriverCom->addItem(driverDescription(driver), QVariant::fromValue(driver));
+
+        bool isInsert = false;
+        int indexSelect = -1;
+        int netCount = 0;
+        int index = 0;
+        foreach (const auto &driver, drivers) { // 驱动已排序，网络驱动前ipp居中本地在后
+            QString driverdesc = driverDescription(driver);
+            if (driver[SD_KEY_recommended].toBool() && (indexSelect == -1)) {
+                indexSelect = index;
+                ++netCount;
+            } else if (!driver.contains(SD_KEY_recommended)) { // 处理本地，网络驱动携带is_recommend字段
+                if (netCount >= 1 && !isInsert) {
+                    m_pAutoDriverCom->insertSeparator(m_pAutoDriverCom->count());
+                    isInsert = true;
+                    if ((driver[SD_KEY_from].toInt() == PPDFrom_EveryWhere) && (indexSelect == -1)) {
+                        indexSelect = index;
+                    } else if (indexSelect == -1) {
+                        indexSelect = index;
+                    }
+                }
+            } else {
+                ++netCount;
+            }
+            ++index;
+            m_pAutoDriverCom->addItem(driverdesc, QVariant::fromValue(driver));
+        }
+        if (indexSelect != -1) {
+            if (isInsert && (indexSelect != 0)) {
+                ++indexSelect;
+            }
+            m_pAutoDriverCom->setCurrentIndex(indexSelect);
         }
         m_pAutoDriverCom->addItem(UI_PRINTERSEARCH_MANUAL);
     }
@@ -869,9 +896,37 @@ void PrinterSearchWindow::driverManSearchedSlot()
         m_pManDriverCom->clear();
         QList<QMap<QString, QVariant>> drivers = pDriverSearcher->getDrivers();
         pDriverSearcher->deleteLater();
-        foreach (const auto &driver, drivers) {
-            //将驱动结构体存在item中，方便后续安装打印机
-            m_pManDriverCom->addItem(driverDescription(driver), QVariant::fromValue(driver));
+
+        bool isInsert = false;
+        int indexSelect = -1;
+        int netCount = 0;
+        int index = 0;
+        foreach (const auto &driver, drivers) { // 驱动已排序，网络驱动前ipp居中本地在后
+            QString driverdesc = driverDescription(driver);
+            if (driver[SD_KEY_recommended].toBool() && (indexSelect == -1)) {
+                indexSelect = index;
+                ++netCount;
+            } else if (!driver.contains(SD_KEY_recommended)) { // 处理本地，网络驱动携带is_recommend字段
+                if (netCount >= 1 && !isInsert) {
+                    m_pManDriverCom->insertSeparator(m_pManDriverCom->count());
+                    isInsert = true;
+                    if ((driver[SD_KEY_from].toInt() == PPDFrom_EveryWhere) && (indexSelect == -1)) {
+                        indexSelect = index;
+                    } else if (indexSelect == -1) {
+                        indexSelect = index;
+                    }
+                }
+            } else {
+                ++netCount;
+            }
+            ++index;
+            m_pManDriverCom->addItem(driverdesc, QVariant::fromValue(driver));
+        }
+        if (indexSelect != -1) {
+            if (isInsert && (indexSelect != 0)) {
+                ++indexSelect;
+            }
+            m_pManDriverCom->setCurrentIndex(indexSelect);
         }
         m_pManDriverCom->addItem(UI_PRINTERSEARCH_MANUAL);
     }

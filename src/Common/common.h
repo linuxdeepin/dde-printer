@@ -73,8 +73,6 @@ QString toNormalName(const QString &name);
 
 bool isIpv4Address(const QString &str);
 
-QString getPrinterFullModel();
-
 void loadEventlib();
 
 bool isEventSdkInit();

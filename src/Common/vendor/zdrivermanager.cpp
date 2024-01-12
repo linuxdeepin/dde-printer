@@ -575,20 +575,18 @@ void DriverSearcher::startSearch()
 {
     QString strMake, strModel;
 
-    /* 1. 匹配EveryWhere driver驱动 */
+    /* 1. 匹配EveryWhere driver驱动, 查询到需要继续查询其他可用驱动 */
     QMap<QString, QVariant> driver = g_driverManager->getEveryWhereDriver(m_printer.uriList[0]);
     if (!driver.isEmpty()) {
         m_drivers.append(driver);
         qInfo() << "Got EveryWhere driver";
-        emit signalDone();
-        return;
     }
 
     /* 等待服务器查找结果返回之后再开始查找本地驱动
      * 如果服务有精确查找到驱动，再执行一次本地精确查找
     */
-    strModel = getPrinterFullModel();
-    PrinterServerInterface *search = g_printerServer->searchDriverSolution(m_strFullMake, strModel, m_printer.strDeviceId);
+
+    PrinterServerInterface *search = g_printerServer->searchDriverSolution(m_strFullMake, m_strModel, m_printer.strDeviceId);
     if (search) {
         connect(search, &PrinterServerInterface::signalDone, this, &DriverSearcher::slotDriverDone);
         search->getFromServer();
@@ -614,53 +612,32 @@ void DriverSearcher::setMatchLocalDriver(bool match)
 
 static void insertDriver(QList<QMap<QString, QVariant>> &drivers, QList<QMap<QString, QVariant>> &mdrivers)
 {
-    QStringList ppdNames;
-    vector<int> local, open, net, bisheng;
-    for (int i = 0; i < mdrivers.count(); ++i) { // 识别当前可用驱动类型
-        bool isDup = false;
-        QString ppdname = mdrivers[i][CUPS_PPD_NAME].toString();
-        foreach (QString str, ppdNames) {
-            if (g_driverManager->isSamePPD(str, ppdname)) {
-                qInfo() << "Remove same ppd" << ppdname;
-                isDup = true;
+    QList<QMap<QString, QVariant>> net, local, open, migration;
+
+    for (int i = 0; i < mdrivers.count(); ++i) { // 可用驱动类型
+        auto item = mdrivers[i];
+        if (item.contains(SD_KEY_recommended)) {
+            net.append(item);
+        } else if (item[SD_KEY_from].toInt() != PPDFrom_EveryWhere) {
+            bool isMigration = item[CUPS_PPD_NAME].toString().contains("printer-driver-deepinwine");
+            bool isOpen = item[CUPS_PPD_MAKE_MODEL].toString().contains("cups");
+            if (!isMigration && !isOpen) {
+                local.append(item);
+            } else if (isOpen) {
+                open.append(item);
+            } else {
+                migration.append(item);
             }
         }
-
-        if (isDup)
-            continue;
-
-        bool isServer = mdrivers[i][SD_KEY_from].toInt() == PPDFrom_Server ? true : false;
-        bool isBisheng = mdrivers[i]["ppd-name"].toString().contains("printer-driver-deepinwine");
-        bool isOpen = mdrivers[i][CUPS_PPD_MAKE_MODEL].toString().contains("cups");
-        if (!isServer && !isBisheng && !isOpen) {
-            local.push_back(i);
-            continue;
-        }
-
-        if (!isServer && !isBisheng) {
-            open.push_back(i);
-            continue;
-        }
-
-        if (!isBisheng) {
-            net.push_back(i);
-            continue;
-        }
-        bisheng.push_back(i);
     }
 
-    foreach (int i, local) { // 添加本地非开源非毕昇驱动
-        drivers.append(mdrivers[i]);
+    drivers.append(net);
+    if (mdrivers[0][SD_KEY_from].toInt() == PPDFrom_EveryWhere) {
+        drivers.append(mdrivers[0]);
     }
-    foreach (int i, open) { // 非网络获取驱动
-        drivers.append(mdrivers[i]);
-    }
-    foreach (int i, net) { // 网络获取驱动
-        drivers.append(mdrivers[i]);
-    }
-    foreach (int i, bisheng) { // 毕昇驱动
-        drivers.append(mdrivers[i]);
-    }
+    drivers.append(local);
+    drivers.append(open);
+    drivers.append(migration);
 }
 
 void DriverSearcher::sortDrivers()
@@ -675,12 +652,7 @@ void DriverSearcher::sortDrivers()
         return;
     }
 
-    // Everywhere 驱动放在第一位
-    if (m_drivers[0][SD_KEY_from].toInt() == PPDFrom_EveryWhere) {
-        drivers.append(m_drivers[0]);
-    }
-
-    /*先从本地查找的驱动开始遍历，保证本地驱动先插入列表中
+    /* 先从本地查找的驱动开始遍历，保证本地驱动先插入列表中
      * 然后遍历从服务获取的驱动，如果服务器获取的是精确查找的结果，则可以插入到本地驱动之前
      * 如果服务器获取的不是精确查找的结果，则插入到本地驱动之后
      * 如果和本地驱动重复，则删除服务器查找的结果
@@ -724,6 +696,19 @@ void DriverSearcher::askForFinish()
         getLocalDrivers();
     }
 
+    if (TStat_Suc == g_iStatus && !hasExcatDriver() && m_matchLocalDriver &&
+        (!m_strMake.isEmpty() || !m_strModel.isEmpty())) { // 模糊匹配
+        QMutexLocker locker(&g_mutex);
+
+        m_strMake = normalize(m_strMake);
+        m_strModel = normalize(m_strModel);
+        QList<QMap<QString, QVariant>> list = getFuzzyMatchDrivers(m_strMake, m_strModel, m_strCMD);
+        if (!list.isEmpty()) {
+            m_localIndex = m_drivers.count();
+            m_drivers += list;
+        }
+    }
+
     sortDrivers();
     emit signalDone();
 }
@@ -742,6 +727,7 @@ void DriverSearcher::parseJsonInfo(QJsonArray value)
         ppd.insert(SD_KEY_excat, QJsonValue(true));
         ppd.insert(CUPS_PPD_NAME, QJsonValue::fromVariant(ppdsobject.value("source").toString()));
         ppd.insert(SD_KEY_debver, ppdobject.value(SD_KEY_debver).toString());
+        ppd.insert(SD_KEY_recommended,  ppdobject.value(SD_KEY_recommended).toBool());
 
         QString ppdName = ppd[SD_KEY_driver].toString();
         if (ppds.empty()) {

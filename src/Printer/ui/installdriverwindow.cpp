@@ -552,7 +552,6 @@ void InstallDriverWindow::currentModelChangedSlot(const QString &model)
                     ppdname = strPpd;
                 if (ppdname.contains("(recommended)")) {
                     ppdname.remove("(recommended)");
-                    ppdname.append(tr("(recommended)"));
                 }
                 m_pDriverCombo->addItem(ppdname, QVariant::fromValue(list[i]));
                 strValues.push_back(ppdname);

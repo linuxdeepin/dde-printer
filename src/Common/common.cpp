@@ -41,8 +41,6 @@
 
 #include <netdb.h>
 
-static QString g_strModelFull;
-
 static bool isSdkInit = false;
 typedef bool (*pfInitialize)(const std::string&, bool);
 static pfInitialize InitializeSdk = nullptr;
@@ -617,9 +615,6 @@ void formatModelName(const QString &strMake, QString &strModel)
         }
     }
 
-    // 用于在平台上查询驱动，需保留原始型号
-    g_strModelFull = strModel;
-
     //remove right string contains ignores suffix
     int index = modell.indexOf(QRegularExpression(_RE_ignore_suffix));
     if (index > 0) {
@@ -665,7 +660,3 @@ bool isIpv4Address(const QString &str)
     return reg.match(str).hasMatch();
 }
 
-QString getPrinterFullModel()
-{
-    return g_strModelFull;
-}
