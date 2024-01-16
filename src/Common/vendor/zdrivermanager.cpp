@@ -45,6 +45,7 @@
 #include <QJsonArray>
 #include <QEventLoop>
 #include <QTimer>
+#include <QVersionNumber>
 
 #include <map>
 
@@ -1048,7 +1049,17 @@ QStringList DriverManager::getDriverDepends(const char *strPPD)
             QString strMake, strModel;
             ppdMakeModelSplit(strValue, strMake, strModel);
             if (strMake.toLower() == "hp" && strValue.contains("requires proprietary plugin")) {
-                depends << "hplip-plugin";
+                QString arch = g_Settings->getSystemArch();
+                QRegExp regex("(\\d+\\.\\d+\\.\\d+)");
+                if (regex.indexIn(strValue) == -1) {
+                    break;
+                }
+
+                QVersionNumber curVer = QVersionNumber::fromString(regex.cap(1));
+                QVersionNumber baseVersion = QVersionNumber::fromString("3.18.12");
+                if (curVer <= baseVersion && !(arch.contains("mips") || arch.contains("loongarch"))) {
+                    depends << "hplip-plugin";
+                }
             }
             break;
         }

@@ -1,3 +1,9 @@
+dde-printer (1.0.1-2) unstable; urgency=medium
+
+  * Product requirements document v1.1
+
+ -- LiuJingLin <liujinglin@uniontech.com>  Tue, 16 Jan 2024 14:30:00 +0800
+
 dde-printer (1.0.0-2) unstable; urgency=medium
 
   * change plug-in
