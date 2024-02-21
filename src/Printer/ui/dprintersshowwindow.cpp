@@ -68,6 +68,8 @@
 #define FAQDOCUMENT_MESSAGE QObject::tr("Help on adding and using printers")
 static const QString faqDocPath = "/usr/share/deepin-manual/manual-assets/application/dde-printer/打印机使用FAQ文档.pdf";
 
+static const QString canonRemove = "/opt/cndrvcups-capt/remove";
+
 static bool isCanonCaptPrinter(QString printerName)
 {
     QString printerUri = getPrinterUri(printerName.toUtf8().data());
@@ -786,10 +788,13 @@ void DPrintersShowWindow::deletePrinterClickSlot()
         int ret = pDialog->exec();
         if (ret > 0) {
             if (isCanonCaptPrinter(printerName)) { // 判断是否canon capt打印机
-                QProcess p;
-                ret = p.execute("pkexec", QStringList {"/opt/cndrvcups-capt/remove", printerName});
-                if (ret != 0) {
-                    return;
+                QFile file(canonRemove);
+                if (file.exists()) {
+                    QProcess p;
+                    ret = p.execute("pkexec", QStringList {canonRemove, printerName});
+                    if (ret != 0) {
+                        return;
+                    }
                 }
             }
 
