@@ -1575,6 +1575,11 @@
         <source>The Canon capt printer has been added and is not allowed to be added again.</source>
         <translation>The Canon capt printer has been added and is not allowed to be added again.</translation>
     </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="69"/>
+        <source>Help on adding and using printers</source>
+        <translation>Help on adding and using printers</translation>
+    </message>
 </context>
 <context>
     <name>RenamePrinterWindow</name>

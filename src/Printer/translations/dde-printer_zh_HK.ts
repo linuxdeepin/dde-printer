@@ -1573,6 +1573,11 @@
         <source>The Canon capt printer has been added and is not allowed to be added again.</source>
         <translation>佳能capt打印機已經添加，不允許重復添加.</translation>
     </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="69"/>
+        <source>Help on adding and using printers</source>
+        <translation>打印機添加與使用幫助</translation>
+    </message>
 </context>
 <context>
     <name>RenamePrinterWindow</name>

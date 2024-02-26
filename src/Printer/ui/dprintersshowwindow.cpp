@@ -64,6 +64,9 @@
 #include <QDBusConnection>
 #include <QDBusInterface>
 #include <QProcess>
+#include <QDesktopServices>
+#define FAQDOCUMENT_MESSAGE QObject::tr("Help on adding and using printers")
+static const QString faqDocPath = "/usr/share/deepin-manual/manual-assets/application/dde-printer/打印机使用FAQ文档.pdf";
 
 static bool isCanonCaptPrinter(QString printerName)
 {
@@ -141,7 +144,7 @@ void DPrintersShowWindow::initUI()
     m_pPrinterModel = new QStandardItemModel(m_pPrinterListView);
     m_pPrinterListView->setTextElideMode(Qt::ElideRight);
     m_pPrinterListView->setContextMenuPolicy(Qt::CustomContextMenu);
-    m_pPrinterListView->setMinimumWidth(310);
+    m_pPrinterListView->setFixedWidth(310);
     m_pPrinterListView->setItemSpacing(10);
     m_pPrinterListView->setModel(m_pPrinterModel);
     m_pPrinterListView->setFocusPolicy(Qt::NoFocus);
@@ -183,6 +186,12 @@ void DPrintersShowWindow::initUI()
     m_pListViewMenu->addAction(m_pDefaultAction);
     m_pListViewMenu->setAccessibleName("listView_printerList");
 
+    m_pFaqDocBtn = new QPushButton();
+    m_pFaqDocBtn->setFixedWidth(310);
+    QString showFaqInfo = FAQDOCUMENT_MESSAGE;
+    geteElidedText(m_pFaqDocBtn->font(), showFaqInfo, m_pFaqDocBtn->width() - 20);
+    m_pFaqDocBtn->setText(showFaqInfo);
+    m_pFaqDocBtn->setToolTip(FAQDOCUMENT_MESSAGE);
     // 没有打印机时的提示
     m_pLeftTipLabel = new QLabel(tr("No Printers"));
     m_pLeftTipLabel->setVisible(false);
@@ -197,6 +206,7 @@ void DPrintersShowWindow::initUI()
     pLeftVLayout->addLayout(pLeftTopHLayout, 1);
     pLeftVLayout->addWidget(m_pPrinterListView, 4);
     pLeftVLayout->addWidget(m_pLeftTipLabel, 1, Qt::AlignCenter);
+    pLeftVLayout->addWidget(m_pFaqDocBtn, 0, Qt::AlignBottom);
     pLeftVLayout->setContentsMargins(0, 0, 0, 0);
     QWidget *pLeftWidget = new QWidget(this);
     pLeftWidget->setLayout(pLeftVLayout);
@@ -205,7 +215,6 @@ void DPrintersShowWindow::initUI()
     // 右侧上方
     QLabel *pLabelImage = new QLabel("");
     pLabelImage->setPixmap(QPixmap(":/images/printer_details.svg"));
-    pLabelImage->setScaledContents(true);
     m_pLabelPrinterName = new QLabel("");
     m_pLabelPrinterName->setMinimumWidth(200);
     m_pLabelPrinterName->setMaximumHeight(200);
@@ -433,7 +442,10 @@ void DPrintersShowWindow::initConnections()
     connect(m_pRejectAction, &QAction::triggered, this, &DPrintersShowWindow::listWidgetMenuActionSlot);
 
     connect(m_pSettings, &QAction::triggered, this, &DPrintersShowWindow::serverSettingsSlot);
-
+    connect(m_pFaqDocBtn, &QPushButton::clicked , this, []() {
+        QUrl url = QUrl::fromLocalFile(faqDocPath);
+        QDesktopServices::openUrl(url);
+    });
 }
 
 void DPrintersShowWindow::showEvent(QShowEvent *event)
@@ -1088,6 +1100,15 @@ void DPrintersShowWindow::listWidgetMenuActionSlot(bool checked)
     }
 }
 
+void DPrintersShowWindow::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::FontChange) {
+        QString showFaqInfo = FAQDOCUMENT_MESSAGE;
+        geteElidedText(m_pFaqDocBtn->font(), showFaqInfo, m_pFaqDocBtn->width() - 20);
+        m_pFaqDocBtn->setText(showFaqInfo);
+        QWidget::changeEvent(event);
+    }
+}
 ItemDelegate::ItemDelegate(QObject *parent)
     : QStyledItemDelegate(parent)
 {
