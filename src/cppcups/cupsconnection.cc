@@ -1689,12 +1689,12 @@ void Connection::addPrinter(const char *name,
         throw runtime_error("Only one PPD may be given");
     }
 
+    char templatestr[PATH_MAX] = {0};
+    snprintf(templatestr, sizeof(templatestr), "%s/scp-ppd-XXXXXX", _PATH_TMP);
+
     if (ppd) {
         // We've been given a cups.PPD object.  Construct a PPD file.
-        char templatestr[PATH_MAX];
         int fd;
-
-        snprintf(templatestr, sizeof(templatestr), "%s/scp-ppd-XXXXXX", _PATH_TMP);
         ppdfile = templatestr;
         fd = mkstemp((char *)ppdfile);
         if (fd < 0) {
