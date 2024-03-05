@@ -1671,6 +1671,7 @@ void Connection::addPrinter(const char *name,
 {
     ipp_t *request = nullptr, *answer = nullptr;
     int ppds_specified = 0;
+    char templatestr[PATH_MAX] = {0};
 
     debugprintf("-> Connection::addPrinter(%s,%s,%s,%s,%s,%s,%s)\n",
                 name, ppdfile ? ppdfile : "", ppdname ? ppdname : "",
@@ -1689,7 +1690,6 @@ void Connection::addPrinter(const char *name,
         throw runtime_error("Only one PPD may be given");
     }
 
-    char templatestr[PATH_MAX] = {0};
     snprintf(templatestr, sizeof(templatestr), "%s/scp-ppd-XXXXXX", _PATH_TMP);
 
     if (ppd) {
