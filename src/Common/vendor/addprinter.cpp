@@ -868,10 +868,13 @@ void AddPrinterTask::slotWriteLog(int status)
         obj.insert("packageVer", QJsonValue(driverInfo[SD_KEY_debver].toString()));
     }
 
+    QStringList timeListVal = getCurrentTime(FINISH_TIME);
+    QString finishTime = timeListVal.join(" ");
+    (void)getCurrentTime(RESET_TIME);
     obj.insert("ppdInfo", QJsonValue(driverInfo[CUPS_PPD_NAME].toString()));
     obj.insert("from", QJsonValue(from));
     obj.insert("searchType", QJsonValue(searchMethod));
-    obj.insert("finishTime", QJsonValue(getCurrentTime()));
+    obj.insert("finishTime", QJsonValue(finishTime));
     obj.insert("status", QJsonValue(status == TStat_Suc ? "Success" : "Failed"));
 
     if (status != TStat_Suc) {

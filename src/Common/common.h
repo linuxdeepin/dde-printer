@@ -31,6 +31,13 @@
 
 #define APPNAME "dde-printer"
 
+typedef enum time_record_e {
+    ADD_TIME = 0,
+    START_TIME,
+    FINISH_TIME,
+    RESET_TIME,
+    MAX_TIME
+} time_record_t;
 //将输入字符串转为小写，分隔出字母和数字
 QString normalize(const QString &strin);
 
@@ -77,7 +84,7 @@ void loadEventlib();
 
 bool isEventSdkInit();
 
-QString getCurrentTime();
+QStringList getCurrentTime(time_record_t type);
 
 typedef void (*pfWriteEventLog)(const std::string &);
 pfWriteEventLog getWriteEventLog();

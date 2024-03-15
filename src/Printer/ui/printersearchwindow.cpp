@@ -745,6 +745,7 @@ void PrinterSearchWindow::printerListClickedSlot(const QModelIndex &index)
     DriverManager *pDManager = DriverManager::getInstance();
     QList<QMap<QString, QString>> driverList;
     QVariant temp;
+    (void)getCurrentTime(START_TIME);
     if (sender() == m_pPrinterListViewAuto) {
         temp = m_pPrinterListViewAuto->currentIndex().data(Dtk::UserRole + 1);
         for (int row = 0; row < m_pPrinterListModel->rowCount(); ++row) {

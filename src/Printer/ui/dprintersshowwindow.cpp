@@ -765,6 +765,7 @@ void DPrintersShowWindow::addPrinterClickSlot()
         connect(m_pSearchWindow, &PrinterSearchWindow::updatePrinterList, this, &DPrintersShowWindow::refreshPrinterListView);
     }
     m_pSearchWindow->show();
+    (void)getCurrentTime(ADD_TIME);
 }
 
 void DPrintersShowWindow::deletePrinterClickSlot()

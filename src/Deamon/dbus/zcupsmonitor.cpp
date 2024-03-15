@@ -469,7 +469,7 @@ int CupsMonitor::getNotifications(int &notifysSize)
                 case IPP_JOB_CANCELLED:
                     m_processingJob.remove(iJob);
 
-                    writeJobLog(iState == IPP_JSTATE_COMPLETED, iJob);
+                    writeJobLog(iState == IPP_JSTATE_COMPLETED, iJob, strReason);
                     break;
                 default:
                     break;
@@ -535,7 +535,7 @@ int CupsMonitor::cancelSubscription()
     return 0;
 }
 
-void CupsMonitor::writeJobLog(bool isSuccess, int jobId)
+void CupsMonitor::writeJobLog(bool isSuccess, int jobId, QString strReason)
 {
     if (!isEventSdkInit()) {
         loadEventlib();
@@ -543,7 +543,8 @@ void CupsMonitor::writeJobLog(bool isSuccess, int jobId)
 
     QJsonObject obj;
     obj.insert("status", isSuccess ? "Success" : "Abort");
-    QString strJobEndTime, strJobUri, strReason;
+    QString strJobCreateTime, strJobEndTime, strJobUri;
+    QStringList strExtmsg;
     map<string, string> jobInfo;
     if (g_jobManager->getJobById(jobInfo, jobId, 0) == 0) {
         map<string, string>::const_iterator itjob;
@@ -552,11 +553,18 @@ void CupsMonitor::writeJobLog(bool isSuccess, int jobId)
                 strJobEndTime = attrValueToQString(itjob->second);
             } else if (itjob->first == "job-printer-uri") {
                 strJobUri = attrValueToQString(itjob->second);
+            } else if (itjob->first == JOB_ATTR_TIME_ADD) {
+                strJobCreateTime = attrValueToQString(itjob->second);
+            } else if (itjob->first == JOB_ATTR_STATE_MEG || itjob->first == JOB_ATTR_STATE_STR) {
+                strExtmsg << attrValueToQString(itjob->second);
             }
         }
     }
 
+    strJobCreateTime = formatDateTime(strJobCreateTime);
+    obj.insert("reason", isSuccess ? "" : strReason + strExtmsg.join(" "));
     strJobEndTime = formatDateTime(strJobEndTime);
+    obj.insert("jobCreateTime", strJobCreateTime);
     obj.insert("jobEndTime", strJobEndTime);
     obj.insert("printerInfo", strJobUri);
 

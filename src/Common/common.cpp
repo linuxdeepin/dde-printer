@@ -47,6 +47,7 @@ static pfInitialize InitializeSdk = nullptr;
 static pfWriteEventLog WriteEventLog = nullptr;
 const QString LibEventLog = "/usr/lib/libdeepin-event-log.so";
 static QLibrary *eventLib = nullptr;
+static QStringList timeList;
 
 void loadEventlib()
 {
@@ -83,6 +84,7 @@ void unloadEventLib()
 {
     if (eventLib != nullptr && eventLib->isLoaded()) {
         eventLib->unload();
+        delete eventLib;
         eventLib = nullptr;
     }
 
@@ -98,11 +100,19 @@ pfWriteEventLog getWriteEventLog()
     return WriteEventLog;
 }
 
-QString getCurrentTime()
+QStringList getCurrentTime(time_record_t type)
 {
     QDateTime current_date_time = QDateTime::currentDateTime();
     QString time = current_date_time.toString("yyyy-MM-dd hh:mm:ss");
-    return time;
+    if (type == RESET_TIME) {
+        timeList.clear();
+    } else {
+        if (type == ADD_TIME) {
+            timeList.clear();
+        }
+        timeList << time;
+    }
+    return timeList;
 }
 
 QString getPrinterPPD(const char *name)
