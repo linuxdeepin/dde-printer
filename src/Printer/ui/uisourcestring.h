@@ -43,6 +43,7 @@
 #define UI_PRINTER_DRIVER_MESSAGE QObject::tr("Printer problem help: ")
 #define UI_PRINTER_DRIVER_WEB_LINK "<a href='%1' style='text-decoration: none; '>%1</a>"
 
+#define UI_PRINTER_MANUAL_TIPINFO QObject::tr("Unable to connect to printer. Please check the IP address or hostname and try again. Make sure the printer is turned on and the IP address or hostname is correct.")
 Q_DECLARE_METATYPE(QMargins)
 const QMargins ListViweItemMargin(10, 8, 10, 8);
 const QVariant VListViewItemMargin = QVariant::fromValue(ListViweItemMargin);

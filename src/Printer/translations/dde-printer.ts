@@ -1231,8 +1231,8 @@
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="236"/>
-        <source>Enter an address</source>
-        <translation>Enter an address</translation>
+        <source>Please enter an IP address or hostname</source>
+        <translation>Please enter an IP address or hostname</translation>
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="238"/>
@@ -1539,6 +1539,11 @@
         <location filename="../ui/uisourcestring.h" line="43"/>
         <source>Printer problem help: </source>
         <translation>Printer problem help: </translation>
+    </message>
+    <message>
+        <location filename="../ui/uisourcestring.h" line="46"/>
+        <source>Unable to connect to printer. Please check the IP address or hostname and try again. Make sure the printer is turned on and the IP address or hostname is correct.</source>
+        <translation>Unable to connect to printer. Please check the IP address or hostname and try again. Make sure the printer is turned on and the IP address or hostname is correct.</translation>
     </message>
     <message>
         <location filename="../util/ddestination.cpp" line="201"/>

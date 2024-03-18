@@ -1229,8 +1229,8 @@
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="236"/>
-        <source>Enter an address</source>
-        <translation>請輸入地址</translation>
+        <source>Please enter an IP address or hostname</source>
+        <translation>請輸入IP位址或主機名</translation>
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="238"/>
@@ -1537,6 +1537,11 @@
         <location filename="../ui/uisourcestring.h" line="43"/>
         <source>Printer problem help: </source>
         <translation>印表機問題幫助：</translation>
+    </message>
+    <message>
+        <location filename="../ui/uisourcestring.h" line="46"/>
+        <source>Unable to connect to printer. Please check the IP address or hostname and try again. Make sure the printer is turned on and the IP address or hostname is correct.</source>
+        <translation>無法連接到印表機。請檢查 IP 位址或主機名稱並重試。請確保印表機已打開，並且 IP 位址或主機名稱正確輸入。</translation>
     </message>
     <message>
         <location filename="../util/ddestination.cpp" line="201"/>

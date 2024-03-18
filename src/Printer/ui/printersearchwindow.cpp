@@ -245,7 +245,7 @@ void PrinterSearchWindow::initUi()
     m_pLabelLocation = new QLabel(tr("Address"));
     m_pLabelLocation->setAccessibleName("labelLocation_manFrame1");
     m_pLineEditLocation = new QLineEdit();
-    m_pLineEditLocation->setPlaceholderText(tr("Enter an address"));
+    m_pLineEditLocation->setPlaceholderText(tr("Please enter an IP address or hostname"));
     m_pLineEditLocation->setAccessibleName("lineEditLocation_manFrame1");
     m_pBtnFind = new QPushButton(tr("Find", "button"));
     m_pBtnFind->setAccessibleName("btnFind_manFrame1");
@@ -706,11 +706,31 @@ void PrinterSearchWindow::getDeviceResultByManualSlot(int id, int state)
         m_pBtnFind->blockSignals(false);
         m_pLineEditLocation->blockSignals(false);
         m_pPrinterListViewManual->blockSignals(false);
-        if (TStat_Fail == state) {
+        if (TStat_Fail == state || m_pInfoManual->isVisible() == true) {
             DDialog dlg(this);
-            TaskInterface *task = static_cast<TaskInterface *>(sender());
+            QLabel *pLabelTip = new QLabel();
+            pLabelTip->setWordWrap(true);
+            pLabelTip->setAlignment(Qt::AlignCenter);
+            pLabelTip->setContentsMargins(0, 0, 0, 0);
 
-            dlg.setMessage(task->getErrorString());
+            if (TStat_Fail == state) {
+            TaskInterface *task = static_cast<TaskInterface *>(sender());
+                pLabelTip->setText(task->getErrorString());
+            } else {
+                pLabelTip->setText(UI_PRINTER_MANUAL_TIPINFO);
+                pLabelTip->setToolTip(UI_PRINTER_MANUAL_TIPINFO);
+            }
+
+            QScrollArea *tipScrollArea = new QScrollArea;
+            tipScrollArea->setContentsMargins(0, 0, 0, 0);
+            tipScrollArea->setWidgetResizable(true);
+            tipScrollArea->setFrameShape(QFrame::Shape::NoFrame);
+            tipScrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAsNeeded);
+            tipScrollArea->setWidget(pLabelTip);
+            QPalette pa1 = tipScrollArea->palette();
+            pa1.setBrush(QPalette::Window, Qt::transparent);
+            tipScrollArea->setPalette(pa1);
+            dlg.addContent(tipScrollArea);
             dlg.setIcon(QIcon(":/images/warning_logo.svg"));
             dlg.addButton(tr("OK"));
             dlg.setContentsMargins(10, 15, 10, 15);
