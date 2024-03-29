@@ -249,7 +249,47 @@ QString InstallInterface::getErrorString()
     return m_strErr;
 }
 
-void InstallInterface::startInstallPackages()
+void InstallInterface::updateSourceChanged(const QDBusMessage &msg)
+{
+    QList<QVariant> arguments = msg.arguments();
+    if (m_bQuit)
+        return;
+
+    if (arguments.count() == 3) {
+        QVariantMap changedProps = qdbus_cast<QVariantMap>(arguments[1].value<QDBusArgument>());
+        for (auto prop = changedProps.begin(); prop != changedProps.end(); ++prop) {
+            QString key = prop.key();
+            qDebug() << "key : " << key << " Value: " <<  prop.value().toString();
+            if (key == "Type") {
+                m_strUpdateType = prop.value().toString();
+            } else if (key == "Status") {
+                m_strUpdateStatus = prop.value().toString();
+            }
+
+            if (m_strUpdateType == "update_source" && (m_strUpdateStatus == "end" || m_strUpdateStatus == "succeed")) {
+                m_strUpdateType.clear();
+                m_strUpdateStatus.clear();
+                goto endUpdate;
+            } else if (m_strUpdateStatus == "failed") {
+                goto endUpdate;
+            }
+        }
+    }
+    return;
+
+endUpdate:
+    qDebug() << "Disconnect com.deepin.lastore updateSourceChanged";
+    QDBusConnection::systemBus().disconnect("com.deepin.lastore",
+                                            m_updatePath,
+                                            "org.freedesktop.DBus.Properties",
+                                            "PropertiesChanged",
+                                            this, SLOT(updateSourceChanged(QDBusMessage)));
+    sleep(1); // 等待1s为了update后进行安装
+    startInstallPackages(false);
+    return;
+}
+
+void InstallInterface::startInstallPackages(bool status)
 {
     /*检查包是否安装，并且校验版本，只有需要安装的时候才调用dbus接口安装
      * 防止驱动已经安装的情况因为apt报错导致添加打印机失败
@@ -275,6 +315,20 @@ void InstallInterface::startInstallPackages()
         QDBusReply<bool> installable = interface->call("PackageInstallable", package.packageName);
         /*hplip-plugin包 mips架构目前不存在，所以忽略无法安装的错误，避免安装打印机流程阻塞*/
         if ((!installable.isValid() || !installable) && (!package.packageName.contains("hplip-plugin"))) {
+            if (status) {
+                QDBusReply<QDBusObjectPath> updatePath = interface->call("UpdateSource");
+                m_updatePath = updatePath.value().path();
+
+                if (QDBusConnection::systemBus().connect("com.deepin.lastore",
+                                                         m_updatePath,
+                                                         "org.freedesktop.DBus.Properties",
+                                                         "PropertiesChanged",
+                                                         this, SLOT(updateSourceChanged(QDBusMessage)))) {
+                    qInfo() << "Start Update";
+                    return;
+                }
+            }
+
             m_strErr = package.packageName + tr("is invalid");
             emit signalStatus(TStat_Fail);
             return;
@@ -317,6 +371,12 @@ void InstallInterface::stop()
                                             "org.freedesktop.DBus.Properties",
                                             "PropertiesChanged",
                                             this, SLOT(propertyChanged(QDBusMessage)));
+
+    QDBusConnection::systemBus().disconnect("com.deepin.lastore",
+                                            m_updatePath,
+                                            "org.freedesktop.DBus.Properties",
+                                            "PropertiesChanged",
+                                            this, SLOT(updateSourceChanged(QDBusMessage)));
 }
 
 void InstallInterface::propertyChanged(const QDBusMessage &msg)
