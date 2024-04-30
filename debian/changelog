@@ -1,3 +1,9 @@
+dde-printer (1.0.3-3+1060) unstable; urgency=medium
+
+  * Fix bug
+
+ -- LiuJingLin <liujinglin@uniontech.com>  Tue, 30 Apr 2024 11:00:00 +0800
+
 dde-printer (1.0.3-2+1060) unstable; urgency=medium
 
   * Product requirements
