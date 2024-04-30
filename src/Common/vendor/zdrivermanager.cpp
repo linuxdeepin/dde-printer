@@ -730,6 +730,12 @@ void DriverSearcher::parseJsonInfo(QJsonArray value)
         ppd.insert(SD_KEY_debver, ppdobject.value(SD_KEY_debver).toString());
         ppd.insert(SD_KEY_recommended,  ppdobject.value(SD_KEY_recommended).toBool());
 
+        if (ppd[CUPS_PPD_MAKE_MODEL].toString().isEmpty() || ppd[SD_KEY_driver].toString().isEmpty() ||
+            ppd[CUPS_PPD_NAME].toString().isEmpty() || ppd[SD_KEY_recommended].toString().isEmpty()) {
+            qWarning() << "empty item";
+            continue;
+        }
+
         QString ppdName = ppd[SD_KEY_driver].toString();
         if (ppds.empty()) {
            ppds.append(ppd);
