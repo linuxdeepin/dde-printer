@@ -57,7 +57,7 @@ int JobManager::getJobs(map<int, map<string, string>> &jobs, int which, int myJo
 {
     vector<string> requst;
 
-    qDebug() << which << myJobs;
+    qCDebug(COMMONMOUDLE) << which << myJobs;
 
     for (int i = 0; jattrs[i]; i++) {
         requst.push_back(jattrs[i]);
@@ -68,21 +68,21 @@ int JobManager::getJobs(map<int, map<string, string>> &jobs, int which, int myJo
         if (conPtr)
             jobs = conPtr->getJobs(g_whichs[which], myJobs, 0, 0, &requst);
     } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+        qCWarning(COMMONMOUDLE) << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
     }
 
-    qInfo() << "Got jobs count: " << jobs.size();
+    qCDebug(COMMONMOUDLE) << "Got jobs count: " << jobs.size();
     map<int, map<string, string>>::iterator itJobs = jobs.begin();
     QDBusInterface interface(SERVICE_INTERFACE_NAME, SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME, QDBusConnection::sessionBus());
 
     while (itJobs != jobs.end()) {
         map<string, string> info = itJobs->second;
-        qDebug() << JOB_ATTR_ID << itJobs->first;
+        qCDebug(COMMONMOUDLE) << JOB_ATTR_ID << itJobs->first;
         if (interface.isValid()) {
             QDBusReply<bool> result = interface.call("isJobPurged", itJobs->first);
             if (result.isValid() && result.value()) {
-                qInfo() << itJobs->first << "is purged";
+                qCInfo(COMMONMOUDLE) << itJobs->first << "is purged";
                 itJobs = jobs.erase(itJobs);
             } else
                 itJobs++;
@@ -108,7 +108,7 @@ int JobManager::getJobById(map<string, string> &job, int jobId, int myJob)
         if (conPtr)
             jobs = conPtr->getJobs(g_whichs[WHICH_JOB_ALL], myJob, 1, jobId, &requst);
     } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+        qCWarning(COMMONMOUDLE) << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
     }
 
@@ -120,20 +120,20 @@ int JobManager::getJobById(map<string, string> &job, int jobId, int myJob)
         }
     }
 
-    qInfo() << "Not found " << jobId;
+    qCDebug(COMMONMOUDLE) << "Not found " << jobId;
     return -2;
 }
 
 int JobManager::cancelJob(int job_id)
 {
-    qInfo() << "Job: " << job_id;
+    qCInfo(COMMONMOUDLE) << "Job: " << job_id;
 
     try {
         auto conPtr = CupsConnectionFactory::createConnectionBySettings();
         if (conPtr)
             conPtr->cancelJob(job_id, 0);
     } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+        qCWarning(COMMONMOUDLE) << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
     }
 
@@ -142,7 +142,7 @@ int JobManager::cancelJob(int job_id)
 
 int JobManager::deleteJob(int job_id, const char *dest)
 {
-    qInfo() << "Job: " << job_id;
+    qCInfo(COMMONMOUDLE) << "Job: " << job_id;
 
     try {
         auto conPtr = CupsConnectionFactory::createConnectionBySettings();
@@ -154,7 +154,7 @@ int JobManager::deleteJob(int job_id, const char *dest)
             conPtr->cancelJob(job_id, 1);
         }
     } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+        qCWarning(COMMONMOUDLE) << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
     }
 
@@ -163,14 +163,14 @@ int JobManager::deleteJob(int job_id, const char *dest)
 
 int JobManager::holdJob(int job_id)
 {
-    qInfo() << "Job: " << job_id;
+    qCInfo(COMMONMOUDLE) << "Job: " << job_id;
 
     try {
         auto conPtr = CupsConnectionFactory::createConnectionBySettings();
         if (conPtr)
             conPtr->holdJob(job_id);
     } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+        qCWarning(COMMONMOUDLE) << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
     }
 
@@ -199,14 +199,14 @@ int JobManager::holdjobs(const QString &printerName)
 
 int JobManager::releaseJob(int job_id)
 {
-    qInfo() << "Job: " << job_id;
+    qCInfo(COMMONMOUDLE) << "Job: " << job_id;
 
     try {
         auto conPtr = CupsConnectionFactory::createConnectionBySettings();
         if (conPtr)
             conPtr->releaseJob(job_id);
     } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+        qCWarning(COMMONMOUDLE) << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
     }
 
@@ -215,14 +215,14 @@ int JobManager::releaseJob(int job_id)
 
 int JobManager::restartJob(int job_id)
 {
-    qInfo() << "Job: " << job_id;
+    qCInfo(COMMONMOUDLE) << "Job: " << job_id;
 
     try {
         auto conPtr = CupsConnectionFactory::createConnectionBySettings();
         if (conPtr)
             conPtr->restartJob(job_id, nullptr);
     } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+        qCWarning(COMMONMOUDLE) << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
     }
 
@@ -231,14 +231,14 @@ int JobManager::restartJob(int job_id)
 
 int JobManager::moveJob(const char *destUri, int job_id, const char *srcUri)
 {
-    qInfo() << "Job: " << job_id;
+    qCInfo(COMMONMOUDLE) << "Job: " << job_id;
 
     try {
         auto conPtr = CupsConnectionFactory::createConnectionBySettings();
         if (conPtr)
             conPtr->moveJob(destUri, job_id, srcUri);
     } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+        qCWarning(COMMONMOUDLE) << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
     }
 
@@ -247,14 +247,14 @@ int JobManager::moveJob(const char *destUri, int job_id, const char *srcUri)
 
 static int setJobPriority(int job_id, int iPriority)
 {
-    qInfo() << "Job: " << job_id << iPriority;
+    qCInfo(COMMONMOUDLE) << "Job: " << job_id << iPriority;
 
     try {
         auto conPtr = CupsConnectionFactory::createConnectionBySettings();
         if (conPtr)
             conPtr->setJobPriority(job_id, iPriority);
     } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+        qCWarning(COMMONMOUDLE) << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
     }
 
@@ -271,7 +271,7 @@ int JobManager::priorityJob(int job_id, int &iPriority)
     map<int, map<string, string>> jobs;
     map<int, map<string, string>>::const_iterator itmaps;
 
-    qInfo() << job_id << iPriority;
+    qCInfo(COMMONMOUDLE) << job_id << iPriority;
 
     if (0 != getJobs(jobs))
         return -1;
@@ -281,20 +281,20 @@ int JobManager::priorityJob(int job_id, int &iPriority)
         for (itmaps = jobs.begin(); itmaps != jobs.end(); itmaps++) {
             map<string, string> jobinfo = itmaps->second;
             int jobPriority = attrValueToQString(jobinfo[JOB_ATTR_PRIORITY]).toInt();
-            qDebug() << "Got " << itmaps->first << jobPriority;
+            qCDebug(COMMONMOUDLE) << "Got " << itmaps->first << jobPriority;
 
             if (jobPriority >= iPriority) {
                 iPriority = jobPriority;
                 if (++iPriority > HIGHEST_Priority) {
                     iPriority = HIGHEST_Priority;
-                    qDebug() << "Change " << itmaps->first << "to" << HIGHEST_Priority - 1;
+                    qCDebug(COMMONMOUDLE) << "Change " << itmaps->first << "to" << HIGHEST_Priority - 1;
                     setJobPriority(itmaps->first, HIGHEST_Priority - 1);
                 }
             }
         }
     }
 
-    qDebug() << "Set" << job_id << iPriority;
+    qCDebug(COMMONMOUDLE) << "Set" << job_id << iPriority;
     return setJobPriority(job_id, iPriority);
 }
 
@@ -303,7 +303,7 @@ QString JobManager::printTestPage(const char *dest, int &jobId, const char *form
     const char *testFile = "/usr/share/cups/data/testprint";
 
     if (!QFile::exists(testFile)) {
-        qWarning() << "No test file: " << testFile;
+        qCWarning(COMMONMOUDLE) << "No test file: " << testFile;
         return testFile + tr(" not found");
     }
 
@@ -312,7 +312,7 @@ QString JobManager::printTestPage(const char *dest, int &jobId, const char *form
         if (conPtr)
             jobId = conPtr->printTestPage(dest, testFile, PrintTestTitle, format, nullptr);
     } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+        qCWarning(COMMONMOUDLE) << "Got execpt: " << QString::fromUtf8(ex.what());
         return QString::fromUtf8(ex.what());
     }
 

@@ -98,7 +98,7 @@ static QString getPrinterInfo(const QString &strName)
             strMakeAndModel = strMakeAndModel.remove(0, 1);
         }
     } catch (const std::runtime_error &e) {
-        qWarning() << "Report execpt: " << QString::fromUtf8(e.what());
+        qCWarning(COMMONMOUDLE) << "Report execpt: " << QString::fromUtf8(e.what());
         strMakeAndModel.clear();
     }
 
@@ -188,12 +188,12 @@ QString CupsMonitor::getStateString(int iState)
 
 void CupsMonitor::run()
 {
-    qInfo() << "Task cupsmonitor running...";
+    qCInfo(COMMONMOUDLE) << "Task cupsmonitor running...";
     int iRet = 0;
 
     iRet = doWork();
 
-    qInfo() << "Task cupsmonitor finished " << iRet;
+    qCInfo(COMMONMOUDLE) << "Task cupsmonitor finished " << iRet;
 
 }
 
@@ -306,7 +306,7 @@ void CupsMonitor::clearSubscriptions()
             conPtr->cancelSubscription(m_subId);
         }
     } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+        qCWarning(COMMONMOUDLE) << "Got execpt: " << QString::fromUtf8(ex.what());
         return;
     }
 }
@@ -339,10 +339,10 @@ int CupsMonitor::createSubscription()
                         vector<string> events;
                         parseSubEvents(subs[i]["notify-events"], events);
                         if (!userData.compare("dde-printer") && !isNeedUpdateSubscription(events)) {
-                            qInfo() << "Use last subscription id: " << m_subId;
+                            qCInfo(COMMONMOUDLE) << "Use last subscription id: " << m_subId;
                             isExists = true;
                         } else {
-                            qInfo() << "Cancel last subscription id: " << m_subId;
+                            qCInfo(COMMONMOUDLE) << "Cancel last subscription id: " << m_subId;
                             cancelSubscription();
                             isExists = false;
                         }
@@ -356,7 +356,7 @@ int CupsMonitor::createSubscription()
                 m_subId = -1;
         }
     } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+        qCWarning(COMMONMOUDLE) << "Got execpt: " << QString::fromUtf8(ex.what());
         m_subId = -1;
     }
 
@@ -365,10 +365,10 @@ int CupsMonitor::createSubscription()
             m_subId = conPtr->createSubscription(SUB_URI, &g_subEvents, 0, nullptr, 86400, 0, USERDATA);
             g_Settings->setSubscriptionId(m_subId);
             g_Settings->setSequenceNumber(0);
-            qDebug() << "createSubscription id: " << m_subId;
+            qCDebug(COMMONMOUDLE) << "createSubscription id: " << m_subId;
         }
     } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+        qCWarning(COMMONMOUDLE) << "Got execpt: " << QString::fromUtf8(ex.what());
         m_subId = -1;
     }
 
@@ -389,14 +389,14 @@ int CupsMonitor::getNotifications(int &notifysSize)
         notifysSize = notifys.size();
 
         if (notifysSize)
-            qDebug() << "Got number:" << notifysSize << "after sequence:" << m_seqNumber;
+            qCDebug(COMMONMOUDLE) << "Got number:" << notifysSize << "after sequence:" << m_seqNumber;
 
         for (int i = 0; i < notifysSize; i++) {
             map<string, string> info = notifys.at(i);
             int number = attrValueToQString(info[CUPS_NOTIY_SEQ_NUM]).toInt();
             QString strevent = attrValueToQString(info[CUPS_NOTIY_EVENT]);
 
-            qDebug() << "******************************************************";
+            qCDebug(COMMONMOUDLE) << "******************************************************";
 
             dumpStdMapValue(info);
 
@@ -411,7 +411,7 @@ int CupsMonitor::getNotifications(int &notifysSize)
                 QString strReason = attrValueToQString(info[CUPS_NOTIY_TEXT]);
                 QStringList list = attrValueToQString(info[JOB_ATTR_NAME]).split("/", QString::SkipEmptyParts);
                 QString strJobName = list.isEmpty() ? "" : list.last();
-                qDebug() << "Got a job event: " << iJob << iState << strReason;
+                qCDebug(COMMONMOUDLE) << "Got a job event: " << iJob << iState << strReason;
 
                 if (iJob == m_jobId) {
                     skip = false;
@@ -432,7 +432,7 @@ int CupsMonitor::getNotifications(int &notifysSize)
 
                 //通过判断同一个id，同一个状态插入的次数判断是否触发信号
                 if (insertJobMessage(iJob, iState, strReason)) {
-                    qDebug() << "Emit job state changed signal" << iJob << iState << strReason;
+                    qCDebug(COMMONMOUDLE) << "Emit job state changed signal" << iJob << iState << strReason;
                     emit signalJobStateChanged(iJob, iState, strReason);
                 }
 
@@ -486,22 +486,22 @@ int CupsMonitor::getNotifications(int &notifysSize)
                     if ("none" == strReason)
                         strReason = attrValueToQString(info[CUPS_NOTIY_TEXT]);
 
-                    qDebug() << "Printer state changed: " << printerName << iState << strReason;
+                    qCDebug(COMMONMOUDLE) << "Printer state changed: " << printerName << iState << strReason;
 
                     //只有状态改变的时候才触发信号
                     if (m_printersState.value(printerName, -1) != iState) {
-                        qDebug() << "Emit printer state changed signal: " << printerName << iState << strReason;
+                        qCDebug(COMMONMOUDLE) << "Emit printer state changed signal: " << printerName << iState << strReason;
                         m_printersState.insert(printerName, iState);
                         emit signalPrinterStateChanged(printerName, iState, strReason);
 
                     }
                 } else if ("printer-deleted" == strevent) {
                     QString printerName = attrValueToQString(info[CUPS_OP_NAME]);
-                    qInfo() << "signalPrinterDelete";
+                    qCInfo(COMMONMOUDLE) << "signalPrinterDelete";
                     emit signalPrinterDelete(printerName);
                 } else if ("printer-added" == strevent) {
                     QString printerName = attrValueToQString(info[CUPS_OP_NAME]);
-                    qInfo() << "signalPrinterAdd";
+                    qCInfo(COMMONMOUDLE) << "signalPrinterAdd";
                     emit signalPrinterAdd(printerName);
                 }
 
@@ -509,9 +509,9 @@ int CupsMonitor::getNotifications(int &notifysSize)
         }
 
         if (notifysSize)
-            qDebug() << "------------------------------------------------------------";
+            qCDebug(COMMONMOUDLE) << "------------------------------------------------------------";
     } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+        qCWarning(COMMONMOUDLE) << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
     }
 
@@ -528,7 +528,7 @@ int CupsMonitor::cancelSubscription()
         }
 
     } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+        qCWarning(COMMONMOUDLE) << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
     }
 
@@ -592,11 +592,11 @@ void CupsMonitor::writeJobLog(bool isSuccess, int jobId, QString strReason)
     obj.insert("tid", 1000100001); // 事件ID
 
     QString logInfo = QString(QJsonDocument(obj).toJson(QJsonDocument::Compact));
-    qDebug() << "json data: " << logInfo;
+    qCDebug(COMMONMOUDLE) << "json data: " << logInfo;
 
     pfWriteEventLog WriteEventLog = getWriteEventLog();
     if (WriteEventLog) {
-        qDebug() << "job info";
+        qCDebug(COMMONMOUDLE) << "job info";
         WriteEventLog(logInfo.toStdString());
     }
 }
@@ -610,9 +610,9 @@ int CupsMonitor::initSubscription()
     m_subId = createSubscription();
     m_seqNumber = g_Settings->getSequenceNumber();
 
-    qInfo() << QString("subscription: %1, sequence: %2").arg(m_subId).arg(m_seqNumber);
+    qCInfo(COMMONMOUDLE) << QString("subscription: %1, sequence: %2").arg(m_subId).arg(m_seqNumber);
     if (-1 == m_subId) {
-        qWarning() << "Invaild subcription id";
+        qCWarning(COMMONMOUDLE) << "Invaild subcription id";
         return -1;
     }
 
@@ -693,7 +693,7 @@ bool CupsMonitor::initWatcher()
     }
 
     if (!success) {
-        qInfo() << "failed to connect spooler dbus";
+        qCInfo(COMMONMOUDLE) << "failed to connect spooler dbus";
     }
     return success;
 }
@@ -743,7 +743,7 @@ void CupsMonitor::notificationClosed(unsigned int notificationId, unsigned int r
 void CupsMonitor::spoolerEvent(QDBusMessage msg)
 {
     QList<QVariant> args = msg.arguments();
-    qDebug() << args;
+    qCDebug(COMMONMOUDLE) << args;
 
     if (!isRunning()) {
         if (args.size() == 3)
@@ -763,7 +763,7 @@ void CupsMonitor::showJobsWindow()
     QStringList args;
     args << "-m" << "4";
     if (!process.startDetached(cmd, args)) {
-        qWarning() << QString("showJobsWindow failed because %1").arg(process.errorString());
+        qCWarning(COMMONMOUDLE) << QString("showJobsWindow failed because %1").arg(process.errorString());
     }
 }
 

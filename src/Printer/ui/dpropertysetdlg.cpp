@@ -74,7 +74,7 @@ void DPropertySetDlg::initUI()
         if (DSettingsOption *option = qobject_cast<DSettingsOption *>(obj))
         {
             QString strVal = option->data("text").toString();
-            qDebug() << "create custom label:" << option->value();
+            qCDebug(COMMONMOUDLE) << "create custom label:" << option->value();
             DLabel *pLable = new DLabel(FLAGITEMSPACE + strVal);
             return pLable;
         }
@@ -98,7 +98,7 @@ void DPropertySetDlg::initUI()
     widgetFactory()->registerWidget("custom-listview", [this](QObject * obj) -> QWidget * {
         if (DSettingsOption *option = qobject_cast<DSettingsOption *>(obj))
         {
-            qDebug() << "create custom list:" << option->value();
+            qCDebug(COMMONMOUDLE) << "create custom list:" << option->value();
             DListView *pListView = new DListView;
             //pListView->setMinimumSize(QSize(300,200));
             QStandardItemModel *pModel = new QStandardItemModel(pListView);
@@ -129,7 +129,7 @@ void DPropertySetDlg::initUI()
     widgetFactory()->registerWidget("custom-combobox", [this](QObject * obj) -> QWidget * {
         if (DSettingsOption *option = qobject_cast<DSettingsOption *>(obj))
         {
-            qDebug() << "create custom combobox:" << option->value();
+            qCDebug(COMMONMOUDLE) << "create custom combobox:" << option->value();
             DComboBox *pCombo = new DComboBox;
             QString strName = option->name();
             pCombo->setObjectName(strName);
@@ -143,7 +143,7 @@ void DPropertySetDlg::initUI()
     widgetFactory()->registerWidget("custom-buttons", [this](QObject * obj) -> QWidget * {
         if (DSettingsOption *option = qobject_cast<DSettingsOption *>(obj))
         {
-            qDebug() << "create custom button:" << option->value();
+            qCDebug(COMMONMOUDLE) << "create custom button:" << option->value();
             QWidget *pWidget = new QWidget;
             auto itemdata = option->data(QString::fromStdString("items"));
 
@@ -1358,7 +1358,7 @@ void DPropertySetDlg::preferenceClickSlot()
     QString prefix = getBishengInfo("PackageName").replace(QRegExp("^ "), "").replace(QRegExp("\""), "");
 
     args << "setprinter" << prefix << model;
-    qInfo() << args;
+    qCInfo(COMMONMOUDLE) << args;
     QProcess::startDetached("/bin/bash", args, "/usr/bin");
 }
 

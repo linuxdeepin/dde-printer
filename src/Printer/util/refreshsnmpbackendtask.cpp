@@ -220,7 +220,7 @@ bool RefreshSnmpBackendTask::canGetSupplyMsg(const SNMPFRESHNODE &node)
                     vecMarkInfo.push_back(info);
             }
         } catch (const std::runtime_error &e) {
-            qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+            qCWarning(COMMONMOUDLE) << "Got execpt: " << QString::fromUtf8(e.what());
         }
     }
 

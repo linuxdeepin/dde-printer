@@ -31,6 +31,8 @@
 
 #define APPNAME "dde-printer"
 
+Q_DECLARE_LOGGING_CATEGORY(COMMONMOUDLE)
+
 typedef enum time_record_e {
     ADD_TIME = 0,
     START_TIME,

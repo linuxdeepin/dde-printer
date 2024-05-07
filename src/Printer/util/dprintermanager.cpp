@@ -66,7 +66,7 @@ void DPrinterManager::setAllowedUsers(const QString &strPrinterName, const QVect
         if (conPtr)
             conPtr->setPrinterUsersAllowed(strPrinterName.toStdString().c_str(), &vecTrans);
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
     }
 }
 
@@ -105,12 +105,12 @@ void DPrinterManager::updateDestinationList()
                 pDest->setName(strName);
                 m_mapDests.insert(strName, pDest);
             } else {
-                qWarning() << "not enough memory";
+                qCWarning(UTIL) << "not enough memory";
             }
 
         }
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
     }
 }
 
@@ -148,7 +148,7 @@ bool DPrinterManager::deletePrinterByName(QString PrinterName)
             bRet = true;
         }
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
         bRet = false;
     }
 
@@ -179,7 +179,7 @@ bool DPrinterManager::isPrinterShared(QString printerName)
             }
         }
     } catch (const std::runtime_error &e) {
-        qWarning() << e.what();
+        qCWarning(UTIL) << e.what();
     }
     return isShared;
 }
@@ -212,7 +212,7 @@ bool DPrinterManager::isPrinterEnabled(QString printerName)
             }
         }
     } catch (const std::runtime_error &e) {
-        qCritical() << e.what();
+        qCCritical(UTIL) << e.what();
     }
     return isEnable;
 }
@@ -245,7 +245,7 @@ bool DPrinterManager::isPrinterAcceptJob(QString printerName)
             }
         }
     } catch (const std::runtime_error &e) {
-        qCritical() << e.what();
+        qCCritical(UTIL) << e.what();
     }
     return isAcceptJobs;
 }
@@ -265,7 +265,7 @@ bool DPrinterManager::addPrinter(const QString &printer, const QString &info, co
             conPtr->addPrinter(printer.toStdString().data(), info.toStdString().data(),
                                location.toStdString().data(), device.toStdString().data(), ppdfile.toStdString().data(), nullptr, nullptr);
     } catch (const std::runtime_error &e) {
-        qWarning() << e.what();
+        qCWarning(UTIL) << e.what();
         return false;
     }
     return true;
@@ -302,7 +302,7 @@ bool DPrinterManager::hasUnfinishedJob()
             return false;
         return true;
     } catch (const std::runtime_error &e) {
-        qWarning() << e.what();
+        qCWarning(UTIL) << e.what();
         return false;
     }
 }
@@ -329,7 +329,7 @@ bool DPrinterManager::hasUnfinishedJob(const QString &printer)
         }
         return false;
     } catch (const std::runtime_error &e) {
-        qWarning() << e.what();
+        qCWarning(UTIL) << e.what();
         return false;
     }
 }
@@ -346,7 +346,7 @@ bool DPrinterManager::hasFinishedJob()
             return false;
         return true;
     } catch (const std::runtime_error &e) {
-        qWarning() << e.what();
+        qCWarning(UTIL) << e.what();
         return false;
     }
 }
@@ -417,7 +417,7 @@ void DPrinterManager::commit(const map<string, string> &options)
     try {
         m_pServerSettings.commit(g_Settings->getCupsServerHost().toLocal8Bit(), g_Settings->getCupsServerPort(), g_Settings->getCupsServerEncryption(), options);
     } catch (const std::runtime_error &e) {
-        qWarning() << e.what();
+        qCWarning(UTIL) << e.what();
     }
 }
 

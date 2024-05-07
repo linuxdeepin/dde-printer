@@ -20,6 +20,7 @@
  */
 
 #include "printerapplication.h"
+#include "reviselogger.h"
 
 #include <DApplication>
 #include <DLog>
@@ -31,6 +32,13 @@ DCORE_USE_NAMESPACE
 
 int main(int argc, char *argv[])
 {
+
+#if (DTK_VERSION >= DTK_VERSION_CHECK(5, 6, 8, 7))
+    DLogManager::registerLoggingRulesWatcher("dde-printer");
+#endif
+
+    MLogger loggerConf;
+
     int iRet = 0;
     /*需要在构造app之前设置这个属性,自适应屏幕缩放*/
     DApplication::setAttribute(Qt::AA_EnableHighDpiScaling);

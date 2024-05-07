@@ -479,7 +479,7 @@ void DPrintersShowWindow::showEvent(QShowEvent *event)
         /*第一次安装没有启动后台程序，需要手动启动*/
         QDBusInterface interface(SERVICE_INTERFACE_NAME, SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME, QDBusConnection::sessionBus());
         if (!interface.isValid()) {
-            qInfo() << "start dde-printer-helper";
+            qCInfo(COMMONMOUDLE) << "start dde-printer-helper";
             QProcess proces;
             proces.startDetached("bash", QStringList() << "-c" << "dde-printer-helper");
         }
@@ -487,11 +487,11 @@ void DPrintersShowWindow::showEvent(QShowEvent *event)
         //连接dbus信号
         if (!QDBusConnection::sessionBus().connect(SERVICE_INTERFACE_NAME, SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME,
                                                    "signalPrinterStateChanged", this, SLOT(printerStateChanged(QDBusMessage)))) {
-            qWarning() << "connect to dbus signal(signalPrinterStateChanged) failed";
+            qCWarning(COMMONMOUDLE) << "connect to dbus signal(signalPrinterStateChanged) failed";
         }
         if (!QDBusConnection::sessionBus().connect(SERVICE_INTERFACE_NAME, SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME,
                                                    "deviceStatusChanged", this, SLOT(deviceStatusChanged(QDBusMessage)))) {
-            qWarning() << "connect to dbus signal(deviceStatusChanged) failed";
+            qCWarning(COMMONMOUDLE) << "connect to dbus signal(deviceStatusChanged) failed";
         }
     });
 
@@ -680,7 +680,7 @@ void DPrintersShowWindow::serverSettingsSlot()
         m_pPrinterManager->commit(options);
         //触发本地cups服务启动
         if (!g_cupsConnection) {
-            qInfo() << "Try to restart the cups service";
+            qCInfo(COMMONMOUDLE) << "Try to restart the cups service";
         }
     }
 }
@@ -717,7 +717,7 @@ void DPrintersShowWindow::resizeEvent(QResizeEvent *event)
 void DPrintersShowWindow::printerStateChanged(const QDBusMessage &msg)
 {
     if (msg.arguments().count() != 3) {
-        qWarning() << "printerStateChanged dbus arguments error";
+        qCWarning(COMMONMOUDLE) << "printerStateChanged dbus arguments error";
         return;
     }
     const QString printer = msg.arguments().at(0).toString();
@@ -738,7 +738,7 @@ void DPrintersShowWindow::printerStateChanged(const QDBusMessage &msg)
 void DPrintersShowWindow::deviceStatusChanged(const QDBusMessage &msg)
 {
     if (msg.arguments().count() != 2) {
-        qWarning() << "deviceStatusChanged dbus arguments error";
+        qCWarning(COMMONMOUDLE) << "deviceStatusChanged dbus arguments error";
         return;
     }
     const QString printer = msg.arguments().at(0).toString();
@@ -900,7 +900,7 @@ void DPrintersShowWindow::renamePrinterSlot(QStandardItem *pItem)
             pItem->setText(m_CurPrinterName);
             m_pPrinterListView->blockSignals(false);
             m_pPrinterModel->blockSignals(false);
-            qWarning() << "add printer failed";
+            qCWarning(COMMONMOUDLE) << "add printer failed";
             return;
         }
         m_pPrinterManager->setPrinterEnabled(newPrinterName, true);
@@ -914,7 +914,7 @@ void DPrintersShowWindow::renamePrinterSlot(QStandardItem *pItem)
         // 刷新完成选中重命名的打印机
         refreshPrinterListView(m_CurPrinterName);
     } catch (const std::runtime_error &e) {
-        qWarning() << e.what();
+        qCWarning(COMMONMOUDLE) << e.what();
     }
 }
 

@@ -33,10 +33,11 @@
 #include <QJsonArray>
 #include <QTimer>
 #include <QEventLoop>
-
+#include <DLog>
 
 static QNetworkAccessManager g_networkManager;
 
+DCORE_USE_NAMESPACE
 PrinterServerInterface::PrinterServerInterface(const QString &url, const QJsonObject &obj, QObject *parent)
     : QObject(parent)
 {
@@ -63,10 +64,10 @@ void PrinterServerInterface::postToServer()
     } else {
         /*timeout*/
         disconnect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
-        qWarning() << "timeout(10s)";
+        qCWarning(COMMONMOUDLE) << "timeout(10s)";
     }
     if (reply->error() != QNetworkReply::NoError)
-        qWarning() << reply->error();
+        qCWarning(COMMONMOUDLE) << reply->error();
     QByteArray data = "";
     if (reply->isOpen())
         data = reply->readAll();
@@ -138,10 +139,10 @@ void PrinterServerInterface::getFromServer()
     } else {
         /* timeout */
         disconnect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
-        qWarning() << "timeout(10s)";
+        qCWarning(COMMONMOUDLE) << "timeout(10s)";
     }
     if (reply->error() != QNetworkReply::NoError)
-        qWarning() << reply->error();
+        qCWarning(COMMONMOUDLE) << reply->error();
     QByteArray data = "";
     if (reply->isOpen())
         data = reply->readAll();
@@ -170,7 +171,7 @@ PrinterServerInterface *PrinterService::searchDriverSolution(const QString &manu
     }
     QString ieee1284 = ieee1284_id.toUtf8().toBase64();
     QString urlDriver = m_urlDriver + info + "&ieee1284=" + ieee1284;
-    qDebug() << "Request urlinfo: " << urlDriver;
+    qCDebug(COMMONMOUDLE) << "Request urlinfo: " << urlDriver;
     PrinterServerInterface *reply = new PrinterServerInterface(urlDriver, obj);
 
     return reply;

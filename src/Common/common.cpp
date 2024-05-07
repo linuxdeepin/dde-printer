@@ -49,12 +49,14 @@ const QString LibEventLog = "/usr/lib/libdeepin-event-log.so";
 static QLibrary *eventLib = nullptr;
 static QStringList timeList;
 
+Q_LOGGING_CATEGORY(COMMONMOUDLE, "org.deepin.dde-printer.common")
+
 void loadEventlib()
 {
     if (!isSdkInit) {
         eventLib = new QLibrary(LibEventLog);
         if (eventLib == nullptr) {
-            qInfo() << "no mem";
+            qCWarning(COMMONMOUDLE) << "no mem";
             return;
         }
 
@@ -62,14 +64,14 @@ void loadEventlib()
         if (!eventLib->isLoaded()) {
             delete eventLib;
             eventLib = nullptr;
-            qInfo() << "Load libdeepin-event-log.so failed!";
+            qCWarning(COMMONMOUDLE) << "Load libdeepin-event-log.so failed!";
             return;
         }
 
         InitializeSdk = (pfInitialize)(eventLib->resolve("Initialize"));
         WriteEventLog = (pfWriteEventLog)eventLib->resolve("WriteEventLog");
         if (InitializeSdk && InitializeSdk(APPNAME, true)) {
-            qInfo() << "sdk load success" ;
+            qCDebug(COMMONMOUDLE) << "sdk load success" ;
             isSdkInit = true; // sdk初始化状态
         }
     }
@@ -124,7 +126,7 @@ QString getPrinterPPD(const char *name)
         if (conPtr)
             strPPD = STQ(conPtr->getPPD(name));
     } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+        qCWarning(COMMONMOUDLE) << "Got execpt: " << QString::fromUtf8(ex.what());
         return QString();
     };
 
@@ -158,7 +160,7 @@ QString getPrinterUri(const char *name)
         if (conPtr)
             attrs = conPtr->getPrinterAttributes(name, nullptr, &requestList);
     } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+        qCWarning(COMMONMOUDLE) << "Got execpt: " << QString::fromUtf8(ex.what());
         return QString();
     };
 
@@ -262,16 +264,16 @@ QVariant ipp_attribute_value(ipp_attribute_t *attr, int i)
     case IPP_TAG_CHARSET:
     case IPP_TAG_MIMETYPE:
     case IPP_TAG_LANGUAGE:
-        qDebug() << QString("Got %1 : %2").arg(UTF8_T_S(ippGetName(attr))).arg(UTF8_T_S(ippGetString(attr, i, nullptr)));
+        qCDebug(COMMONMOUDLE) << QString("Got %1 : %2").arg(UTF8_T_S(ippGetName(attr))).arg(UTF8_T_S(ippGetString(attr, i, nullptr)));
         val = QVariant(UTF8_T_S(ippGetString(attr, i, nullptr)).trimmed());
         break;
     case IPP_TAG_INTEGER:
     case IPP_TAG_ENUM:
-        qDebug() << QString("Got %1 : %2").arg(UTF8_T_S(ippGetName(attr))).arg(ippGetInteger(attr, i));
+        qCDebug(COMMONMOUDLE) << QString("Got %1 : %2").arg(UTF8_T_S(ippGetName(attr))).arg(ippGetInteger(attr, i));
         val = QVariant(ippGetInteger(attr, i));
         break;
     case IPP_TAG_BOOLEAN:
-        qDebug() << QString("Got %1 : %2").arg(UTF8_T_S(ippGetName(attr))).arg(ippGetBoolean(attr, i) ? "true" : "false");
+        qCDebug(COMMONMOUDLE) << QString("Got %1 : %2").arg(UTF8_T_S(ippGetName(attr))).arg(ippGetBoolean(attr, i) ? "true" : "false");
         val = QVariant(ippGetBoolean(attr, i));
         break;
     //    case IPP_TAG_RANGE:
@@ -312,12 +314,12 @@ int shellCmd(const QString &cmd, QString &out, QString &strErr, int timeout)
         out = proc.readAll();
         if (proc.exitCode() != 0 || proc.exitStatus() != QProcess::NormalExit) {
             strErr = QString("err %1, string: %2").arg(proc.exitCode()).arg(QString::fromUtf8(proc.readAllStandardError()));
-            qDebug() << cmd;
-            qWarning() << "shellCmd exit with err: " << strErr;
+            qCDebug(COMMONMOUDLE) << cmd;
+            qCWarning(COMMONMOUDLE) << "shellCmd exit with err: " << strErr;
             return -1;
         }
     } else {
-        qWarning() << "shellCmd timeout";
+        qCWarning(COMMONMOUDLE) << "shellCmd timeout";
         return -2;
     }
 

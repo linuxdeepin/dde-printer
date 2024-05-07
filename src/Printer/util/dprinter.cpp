@@ -31,7 +31,6 @@
 #include <QProcess>
 #include <QFile>
 #include <QDir>
-#include <QDebug>
 
 DPrinter::DPrinter()
 {
@@ -59,7 +58,7 @@ bool DPrinter::initPrinterPPD()
         }
     } catch (const std::runtime_error &e) {
         bRet = false;
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
     }
 
     return bRet;
@@ -131,7 +130,7 @@ bool DPrinter::canSetColorModel()
             bRet = true;
         }
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
         bRet = false;
     }
 
@@ -258,7 +257,7 @@ QString DPrinter::getDriverName()
         if (conPtr)
             strLinkPath = conPtr->getPPD(m_strName.toStdString().c_str());
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
     }
     return QFile::symLinkTarget(QString::fromStdString(strLinkPath));
 }
@@ -286,7 +285,7 @@ QString DPrinter::getPrinterMakeAndModel()
             }
         }
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
         strMakeAndModel.clear();
     }
 
@@ -311,7 +310,7 @@ QString DPrinter::getPrinterUri()
             }
         }
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
         strUri.clear();
     }
 
@@ -325,7 +324,7 @@ void DPrinter::setPrinterUri(const QString &strValue)
         if (conPtr)
             conPtr->setPrinterDevice(m_strName.toStdString().c_str(), strValue.toStdString().c_str());
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
     }
 }
 
@@ -355,7 +354,7 @@ QString DPrinter::getPageOrientation()
             }
         }
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
         strOritentation.clear();
     }
 
@@ -373,7 +372,7 @@ void DPrinter::setPageOrientationChoose(const QString &strValue)
             conPtr->addPrinterOptionDefault(m_strName.toStdString().c_str(),
                                             "orientation-requested", &Attrs);
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
     }
 }
 
@@ -424,7 +423,7 @@ QVector<QMap<QString, QString>> DPrinter::getPageOrientationChooses()
             }
         }
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
         vecChoose.clear();
     }
 
@@ -462,7 +461,7 @@ QString DPrinter::getPageOutputOrder()
             }
         }
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
         strOrder.clear();
     }
 
@@ -480,7 +479,7 @@ void DPrinter::setPageOutputOrder(const QString &strValue)
             conPtr->addPrinterOptionDefault(m_strName.toStdString().c_str(),
                                             "outputorder", &Attrs);
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
     }
 }
 
@@ -549,7 +548,7 @@ QString DPrinter::getFinishings()
             }
         }
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
         strFinishings.clear();
     }
 
@@ -576,7 +575,7 @@ void DPrinter::setFinishings(const QString &strValue)
             conPtr->addPrinterOptionDefault(m_strName.toStdString().c_str(),
                                             "finishings", &Attrs);
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
     }
 }
 
@@ -621,7 +620,7 @@ QVector<QMap<QString, QString>> DPrinter::getFinishingsChooses()
             }
         }
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
         vecChoose.clear();
     }
 
@@ -681,7 +680,7 @@ void DPrinter::updateSupplys()
             try {
                 strPPDName = conPtr->getPPD3(m_strName.toStdString().c_str(), &tm, nullptr);
             } catch (std::invalid_argument &e) {
-                qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+                qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
                 return;
             }
         } else {
@@ -742,7 +741,7 @@ void DPrinter::updateSupplys()
                 m_vecMarkInfo.push_back(info);
             }
         } catch (const std::runtime_error &e) {
-            qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+            qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
         }
     }
 
@@ -804,7 +803,7 @@ bool DPrinter::saveModify()
         if (conPtr)
             conPtr->addPrinter(getName().toUtf8().data(), nullptr, nullptr, nullptr, nullptr, nullptr, &m_ppd);
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
         bRet = false;
     }
 
@@ -872,7 +871,7 @@ QVector<INSTALLABLEOPTNODE> DPrinter::getInstallableNodes()
             }
         }
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
     }
     return nodes;
 }
@@ -882,7 +881,7 @@ void DPrinter::setInstallableNodeValue(const QString &strOpt, const QString &str
     try {
         setOptionValue(strOpt, strValue);
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
     }
 }
 
@@ -920,7 +919,7 @@ QVector<GENERALOPTNODE> DPrinter::getGeneralNodes()
             }
         }
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
     }
     return nodes;
 }
@@ -930,7 +929,7 @@ void DPrinter::setGeneralNodeValue(const QString &strOpt, const QString &strValu
     try {
         setOptionValue(strOpt, strValue);
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
     }
 }
 
@@ -958,7 +957,7 @@ OPTNODE DPrinter::getOptionNodeByKeyword(const QString &strKey)
             }
         }
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
     }
     return node;
 }
@@ -974,7 +973,7 @@ QString DPrinter::getPPDName()
         string strVal = conPtr->getPPD3(m_strName.toStdString().c_str(), &tm, nullptr);
         strPpdName = QString::fromStdString(strVal);
     } catch (const std::invalid_argument &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
         strPpdName.clear();
     }
 
@@ -989,7 +988,7 @@ QString DPrinter::getOptionValue(const QString &strOptName)
         Option opt = m_ppd.findOption(strOptName.toStdString().c_str());
         strDefault = QString::fromStdString(opt.getDefchoice());
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
         strDefault.clear();
     }
 
@@ -1007,13 +1006,13 @@ void DPrinter::setOptionValue(const QString &strOptName, const QString &strValue
         int iConflicts = m_ppd.markOption(strOptName.toStdString().c_str(), strValue.toStdString().c_str());
 
         if (iConflicts != 0) {
-            qDebug() << "conflict numbers:" << iConflicts;
+            qCDebug(UTIL) << "conflict numbers:" << iConflicts;
             m_bNeedSavePpd = false;
         } else {
             m_bNeedSavePpd = true;
         }
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
         m_bNeedSavePpd = false;
     }
 }
@@ -1037,7 +1036,7 @@ QVector<QMap<QString, QString>> DPrinter::getOptionChooses(const QString &strOpt
             retMap.push_back(mapTrans);
         }
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
         retMap.clear();
     }
 
@@ -1052,7 +1051,7 @@ QString DPrinter::getColorAttr()
         Attribute attr = m_ppd.findAttr("DefaultColorSpace", nullptr);
         strDefault = QString::fromStdString(attr.getValue());
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
     }
 
     return strDefault;
@@ -1075,7 +1074,7 @@ QString DPrinter::getMarkerType()
             }
         }
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
         strMarkerType.clear();
     }
 
@@ -1101,7 +1100,7 @@ QString DPrinter::getMarkerName()
             }
         }
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
         strMarkerName.clear();
     }
 
@@ -1127,7 +1126,7 @@ QString DPrinter::getMarkerLevel()
             }
         }
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
         strMarkerLevel.clear();
     }
 

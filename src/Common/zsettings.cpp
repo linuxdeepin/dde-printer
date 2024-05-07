@@ -60,7 +60,7 @@ QString sysArch()
         {"sw_64", "sw_64"},
         {"loongarch64", "loongarch64"}
     };
-    qInfo() << machine;
+    qDebug() << machine;
     return archMap[machine];
 }
 

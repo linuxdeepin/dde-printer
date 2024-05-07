@@ -22,6 +22,9 @@
 #include "zsettings.h"
 
 #include <QDebug>
+#include <QLoggingCategory>
+
+Q_LOGGING_CATEGORY(FACTORY, "org.deepin.dde-printer.factory")
 
 std::unique_ptr<Connection> CupsConnectionFactory::createConnection(QString strHost, int port, int encryption)
 
@@ -29,11 +32,11 @@ std::unique_ptr<Connection> CupsConnectionFactory::createConnection(QString strH
     std::unique_ptr<Connection> connectionPtr = std::unique_ptr<Connection>(new Connection());
     try {
         if (0 != connectionPtr->init(strHost.toUtf8().data(), port, encryption)) {
-            qWarning() << "Unable to connect cups server"  ;
+            qCWarning(FACTORY) << "Unable to connect cups server"  ;
             connectionPtr.reset();
         }
     } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+        qCWarning(FACTORY) << "Got execpt: " << QString::fromUtf8(ex.what());
         connectionPtr.reset();
 
     }
@@ -45,11 +48,11 @@ std::unique_ptr<Connection> CupsConnectionFactory::createConnectionBySettings()
     std::unique_ptr<Connection> connectionPtr = std::unique_ptr<Connection>(new Connection());
     try {
         if (0 != connectionPtr->init(g_Settings->getCupsServerHost().toLocal8Bit(), g_Settings->getCupsServerPort(), g_Settings->getCupsServerEncryption())) {
-            qWarning() << "Unable to connect deafult cups server";
+            qCWarning(FACTORY) << "Unable to connect deafult cups server";
             connectionPtr.reset();
         }
     } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+        qCWarning(FACTORY) << "Got execpt: " << QString::fromUtf8(ex.what());
         connectionPtr.reset();
     }
     return connectionPtr;

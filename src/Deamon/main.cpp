@@ -22,6 +22,7 @@
 #include "dbus/zcupsmonitor.h"
 #include "dbus/helperinterface.h"
 #include "zsettings.h"
+#include "reviselogger.h"
 
 #include <DApplication>
 #include <DLog>
@@ -52,7 +53,7 @@ void handler(int signo)
 
 int main(int argc, char *argv[])
 {
-
+    MLogger loggerConf;
     DApplication a(argc, argv);
 
     qApp->loadTranslator();
@@ -67,8 +68,12 @@ int main(int argc, char *argv[])
 
     DLogManager::registerConsoleAppender();
     DLogManager::registerFileAppender();
-    QString logRules = g_Settings->getLogRules();
-    QLoggingCategory::setFilterRules(logRules);
+#if (DTK_VERSION >= DTK_VERSION_CHECK(5, 6, 8, 0))
+    DLogManager::registerJournalAppender();
+#endif
+
+//    QString logRules = g_Settings->getLogRules();
+//    QLoggingCategory::setFilterRules(logRules);
 
     if (qApp->arguments().contains("-r")) {
         //重启模式先kill原始进程

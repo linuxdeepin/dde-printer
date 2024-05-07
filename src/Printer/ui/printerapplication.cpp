@@ -40,6 +40,8 @@
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 
+Q_LOGGING_CATEGORY(PRINTERAPP, "org.deepin.dde-printer.app")
+
 enum ApplicationModel {
     APPMODEL_Watch = 0x1,
     APPMODEL_TrayIcon = 0x2,
@@ -59,7 +61,7 @@ PrinterApplication *PrinterApplication::getInstance()
 void PrinterApplication::slotNewProcessInstance(qint64 pid, const QStringList &arguments)
 {
     Q_UNUSED(pid);
-    qInfo() << "enter slotNewProcessInstance";
+    qCInfo(PRINTERAPP) << "enter slotNewProcessInstance";
 
     launchWithMode(arguments);
 }
@@ -107,8 +109,12 @@ int PrinterApplication::create()
 
     DLogManager::registerConsoleAppender();
     DLogManager::registerFileAppender();
-    QString logRules = g_Settings->getLogRules();
-    QLoggingCategory::setFilterRules(logRules);
+
+#if (DTK_VERSION >= DTK_VERSION_CHECK(5, 6, 8, 0))
+    DLogManager::registerJournalAppender();
+#endif
+//    QString logRules = g_Settings->getLogRules();
+//    QLoggingCategory::setFilterRules(logRules);
 
     QObject::tr("Direct-attached Device");
     QObject::tr("File");
@@ -123,7 +129,7 @@ int PrinterApplication::create()
 
     bool isConnectSuc = connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::newProcessInstance, this, &PrinterApplication::slotNewProcessInstance);
     if (!isConnectSuc)
-        qWarning() << "newProcessInstance connect: " << isConnectSuc;
+        qCWarning(PRINTERAPP) << "newProcessInstance connect: " << isConnectSuc;
 
     return 0;
 }

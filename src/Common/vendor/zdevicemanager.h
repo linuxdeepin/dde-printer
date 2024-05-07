@@ -51,7 +51,9 @@ typedef struct tagDeviceInfo {
 
     QString toString() const
     {
-        return QString("uri: %1,class:%2,info:%3,name:%4,makemodel:%5,id:%6").arg(uriList.join(";")).arg(strClass).arg(strInfo).arg(strName).arg(strMakeAndModel).arg(strDeviceId);
+        return QString("uri: %1,class:%2,info:%3,name:%4,makemodel:%5,id:%6,location:%7,type:%8,serial:%9") \
+                .arg(uriList.join(";")).arg(strClass).arg(strInfo).arg(strName).arg(strMakeAndModel) \
+                .arg(strDeviceId).arg(strLocation).arg(iType).arg(serial);
     }
 
     QStringList uriList; //uri
