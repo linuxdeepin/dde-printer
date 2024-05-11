@@ -9,7 +9,8 @@ SUBDIRS += \
     src/cppcups/cppcups.pro \
     src/Printer/Printer.pro \
     src/Deamon              \
-    src/plugin
+    src/plugin              \
+    src/service
 
 CONFIG += ordered
 DEFINES += QT_MESSAGELOGCONTEXT

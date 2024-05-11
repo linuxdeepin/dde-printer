@@ -32,6 +32,7 @@
 
 #include <QRegularExpression>
 #include <QFile>
+#include <QDir>
 #include <QProcess>
 #include <QJsonParseError>
 #include <QFileInfo>
@@ -68,6 +69,53 @@ static bool isHplipDrv(const QString &ppd_name)
 {
     return (ppd_name.startsWith("drv:///hpcups.drv") || ppd_name.startsWith("drv:///hpijs.drv") || ppd_name.startsWith("lsb/usr/hplip/") ||
             ppd_name.startsWith("hplip:") || ppd_name.startsWith("hplip-data:") || ppd_name.startsWith("hpijs-ppds:") || ppd_name.startsWith("hp/hp-"));
+}
+
+static void dbusAutoStart(const QString &filePath)
+{
+    QDBusInterface interface("com.deepin.printer.manager", "/com/deepin/printer/manager", "com.deepin.printer.manager", QDBusConnection::systemBus());
+    interface.call("LaunchAutoStart", filePath);
+}
+
+static void checkPPDName(const QString &ppdname)
+{
+    QString folderPath = "/opt/printer-drivers";
+    QDir dir(folderPath);
+    if (!dir.exists()) {
+        qCDebug(COMMONMOUDLE) << "Folder does not exist: ";
+        return;
+    }
+
+    dir.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
+    QFileInfoList folders = dir.entryInfoList();
+
+    for (int i = 0; i < folders.size(); ++i) {
+        QString folderName = folders.at(i).fileName();
+        QString filePath = folderPath + "/" + folderName + "/config/";
+        QString ppdPath = filePath +  "ppds";
+
+        QFile file(ppdPath);
+
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            continue;
+        }
+
+        QTextStream in(&file);
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            if (line.contains(ppdname)) {
+                file.close();
+                dbusAutoStart(filePath);
+                if (folderName == "com.pantum.pantum") {
+                    QStringList args;
+                    QProcess::startDetached(filePath + "autostart.sh", QStringList() << "-r");
+                }
+                return;
+            }
+        }
+
+        file.close();
+    }
 }
 
 static QDBusInterface *getPackageInterface()
@@ -770,6 +818,7 @@ int AddPrinterTask::fixDriverDepends()
         return 0;
 
     QString ppd_name = m_solution[CUPS_PPD_NAME].toString();
+    checkPPDName(ppd_name);
     QStringList depends = g_driverManager->getDriverDepends(ppd_name.toUtf8().data());
     if (!depends.isEmpty()) {
         m_installDepends = new InstallInterface(this);
