@@ -1,3 +1,10 @@
+dde-printer (1.0.5-1+1060) unstable; urgency=medium
+
+  * Adapt log
+  * Drives starts on demand
+
+ -- LiuJingLin <liujinglin@uniontech.com>  Mon, 13 May 2024 10:00:00 +0800
+
 dde-printer (1.0.4-1+1060) unstable; urgency=medium
 
   * Fix bug
