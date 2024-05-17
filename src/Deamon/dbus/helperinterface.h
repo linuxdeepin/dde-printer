@@ -44,6 +44,7 @@ signals:
     void signalPrinterDelete(const QString &printer);
     void signalPrinterAdd(const QString &printer);
     void deviceStatusChanged(const QString &defaultPrinterName, int status);
+    void usbDeviceProcess();
 
 public slots:
     //dbus接口
@@ -55,11 +56,10 @@ public slots:
 protected:
     void slotShowTrayIcon(bool bShow);
     void showJobsWindow();
-    void usbDeviceProcess();
+
 
 private:
     CupsMonitor *m_pCupsMonitor;
-    USBThread *m_pUsbDevice;
     QSystemTrayIcon *m_pSystemTray;
     QTimer* m_timer;
 };

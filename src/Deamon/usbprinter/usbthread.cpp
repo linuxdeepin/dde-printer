@@ -200,8 +200,7 @@ USBThread::USBThread(QObject *parent)
     : QThread(parent)
     , m_currentUSBDevice(nullptr)
 {
-    /*槽函数处于主线程执行*/
-    bool ret = connect(this, &USBThread:: newUSBDeviceArrived, this, &USBThread::processArrivedUSBDevice);
+    bool ret = connect(this, &USBThread:: startGetDriver, this, &USBThread::getDriver);
     if (!ret)
         qCWarning(USBTHREAD) << "connect to newUSBDeviceArrived:" << ret;
     /*绑定系统通知的点击调用*/
@@ -260,12 +259,17 @@ void USBThread::getUsbDevice()
                 if (!m_usbDeviceList.contains(dev)) {
                     m_usbDeviceList.push_back(dev);
                 }
-                if (m_usbDeviceList.count() > 0 && (m_currentUSBDevice == nullptr)) {
-                    emit newUSBDeviceArrived();
-                }
             }
         }
     }
+
+    if ((m_usbDeviceList.count() > 0) && (m_currentUSBDevice == nullptr)) {
+        processArrivedUSBDevice();
+    }
+
+    QEventLoop loop;
+    connect(this, &USBThread::workFinished, &loop, &QEventLoop::quit);
+    loop.exec();
 
     libusb_free_device_list(devs, 1);
     libusb_exit(ctx);
@@ -376,7 +380,9 @@ void USBThread::nextConfiguration()
         m_currentUSBDevice = nullptr;
     }
     if (m_usbDeviceList.count() > 0) {
-        emit newUSBDeviceArrived();
+        processArrivedUSBDevice();
+    } else {
+        emit workFinished();
     }
 }
 
@@ -403,8 +409,14 @@ void USBThread::processArrivedUSBDevice()
 
     qCInfo(USBTHREAD) << QString("Device vendor:%1 product:%2").arg(desc.idVendor).arg(desc.idProduct);
 
-    if (!pHandle)
-        libusb_open(m_currentUSBDevice, &pHandle);
+    if (!pHandle) {
+        ret = libusb_open(m_currentUSBDevice, &pHandle);
+        if (ret != LIBUSB_SUCCESS) {
+            pHandle = nullptr;
+            nextConfiguration();
+            return;
+        }
+    }
 
     bool isUSBPrinter = false;
     for (uint8_t i = 0; i < desc.bNumConfigurations; i++) {
@@ -430,7 +442,7 @@ void USBThread::processArrivedUSBDevice()
         isAdded = isArrivedUSBPrinterAdded(infoMap, m_deviceInfo);
         if (!isAdded) {
             qCInfo(USBTHREAD) << "begin to parse printer driver";
-            getDriver();
+            emit startGetDriver();
         } else {
             qCInfo(USBTHREAD) << "The printer has been added";
 
@@ -443,6 +455,9 @@ void USBThread::processArrivedUSBDevice()
     if (isAdded) {
         nextConfiguration();
     }
-
 }
 
+void USBThread::run()
+{
+    getUsbDevice();
+}

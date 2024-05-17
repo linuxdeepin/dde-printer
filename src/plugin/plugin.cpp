@@ -155,8 +155,12 @@ bool SignalUSB::isUsbPrinter(libusb_device *dev)
 
     qInfo() << QString("Device vendor:%1 product:%2").arg(desc.idVendor).arg(desc.idProduct);
 
-    if (!pHandle)
-        libusb_open(dev, &pHandle);
+    if (!pHandle) {
+        ret = libusb_open(dev, &pHandle);
+        if (ret != LIBUSB_SUCCESS) {
+            return false;
+        }
+    }
 
     bool isUSBPrinter = false;
     for (uint8_t i = 0; i < desc.bNumConfigurations; ++i) {

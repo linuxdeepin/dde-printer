@@ -36,6 +36,7 @@ public:
     USBThread(QObject *parent = nullptr);
     ~USBThread() override;
     void getUsbDevice();
+    void processArrivedUSBDevice();
 
 private:
     libusb_device *m_currentUSBDevice;
@@ -52,15 +53,18 @@ private:
     void nextConfiguration();
 
 private slots:
-    void processArrivedUSBDevice();
     bool addArrivedUSBPrinter();
     void notificationActionInvoked(uint id, const QString &msg);
     void addingJobFinished(int status);
 signals:
     void newUSBDeviceArrived();
-
+    void startGetDriver();
+    void workFinished();
     /*通知前端当前正在配置的打印机状态变化*/
     void deviceStatusChanged(const QString &defaultPrinterName, int status);
+
+protected:
+   void run() override;
 };
 
 #endif // USBTHREAD_H

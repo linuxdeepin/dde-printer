@@ -103,11 +103,18 @@ int main(int argc, char *argv[])
         return -2;
     }
 
+    USBThread usbThread;
+
     CupsMonitor cupsMonitor;
     cupsMonitor.initTranslations();
 
     HelperInterface helper(&cupsMonitor);
     helper.registerDBus();
+
+    QObject::connect(&usbThread, &USBThread::deviceStatusChanged, &helper, &HelperInterface::deviceStatusChanged);
+    QObject::connect(&helper, &HelperInterface::usbDeviceProcess, [&](){
+        usbThread.start();
+    });
 
     cupsMonitor.initSubscription();
     cupsMonitor.initWatcher();

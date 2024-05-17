@@ -31,7 +31,6 @@
 HelperInterface::HelperInterface(CupsMonitor *pCupsMonitor, QObject *parent)
     : QObject(parent)
     , m_pCupsMonitor(pCupsMonitor)
-    , m_pUsbDevice(nullptr)
     , m_pSystemTray(new QSystemTrayIcon(QIcon(":/images/dde-printer.svg"), this))
 {
     if (m_pCupsMonitor) {
@@ -56,10 +55,6 @@ HelperInterface::HelperInterface(CupsMonitor *pCupsMonitor, QObject *parent)
 
 HelperInterface::~HelperInterface()
 {
-    if (m_pUsbDevice != nullptr) {
-        m_pUsbDevice->deleteLater();
-        m_pUsbDevice = nullptr;
-    }
 }
 
 bool HelperInterface::isJobPurged(int id)
@@ -143,18 +138,8 @@ void HelperInterface::setTypeAndState(int status)
     m_timer->start(TIMEOUT);
 
     if (status == 2) { // usb打印设备
-        usbDeviceProcess();
+        emit usbDeviceProcess();
     }
 }
 
-void HelperInterface::usbDeviceProcess()
-{
-    if (m_pUsbDevice == nullptr) {
-        m_pUsbDevice = new USBThread;
-        // usb线程信号通知ui刷新打印机列表
-        connect(m_pUsbDevice, &USBThread::deviceStatusChanged, this, &HelperInterface::deviceStatusChanged);
-    }
-
-    m_pUsbDevice->getUsbDevice();
-}
 
