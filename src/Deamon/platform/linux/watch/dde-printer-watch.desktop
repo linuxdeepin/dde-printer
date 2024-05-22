@@ -9,3 +9,4 @@ Name=Print Manager helper
 Name[zh_CN]=打印管理器助手
 Type=Application
 X-Deepin-AppID=dde-printer
+NoDisplay=true
