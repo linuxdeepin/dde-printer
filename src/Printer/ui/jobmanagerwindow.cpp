@@ -137,7 +137,7 @@ static QPixmap getActionPixmap(unsigned int iAction, QIcon::Mode mode)
         iconpath = "dp_job_priority";
         break;
     default:
-        qWarning() << "Unsupport actions: " << iAction;
+        qCWarning(COMMONMOUDLE) << "Unsupport actions: " << iAction;
         break;
     }
 
@@ -170,7 +170,7 @@ static QString getActionIconPath(unsigned int iAction)
         iconpath = "dp_job_priority";
         break;
     default:
-        qWarning() << "Unsupport actions: " << iAction;
+        qCWarning(COMMONMOUDLE) << "Unsupport actions: " << iAction;
         break;
     }
 
@@ -223,7 +223,7 @@ JobListView::JobListView(QWidget *parent)
     DFontSizeManager::instance()->bind(horizontalHeader(), DFontSizeManager::T6, int(QFont::Medium));
     DFontSizeManager::instance()->bind(this, DFontSizeManager::T7, int(QFont::Normal));
     horizontalHeader()->setFixedHeight(ITEM_Height);
-    horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+    horizontalHeader()->setDefaultAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
     m_tipsTimer = new QTimer(this);
     m_tipsTimer->setInterval(1000);
@@ -393,8 +393,8 @@ bool JobListView::askDeleteJobs(unsigned int flag)
     dlg.setIcon(QIcon(":/images/warning_logo.svg"));
     dlg.addButton(tr("Cancel", "button"), true);
     iAccept = dlg.addButton(tr("Delete", "button"), false, DDialog::ButtonWarning);
-    dlg.getButton(0)->setFixedSize(170, 36);
-    dlg.getButton(1)->setFixedSize(170, 36);
+    dlg.getButton(0)->setFixedWidth(170);
+    dlg.getButton(1)->setFixedWidth(170);
     dlg.setModal(true);
     dlg.setFixedSize(372, 162);
 
@@ -462,7 +462,7 @@ void JobListView::processAction(int index)
 void JobListView::slotMenuTriggered(QAction *action)
 {
     int index = m_atctions.indexOf(action);
-    qDebug() << index;
+    qCDebug(COMMONMOUDLE) << index;
     processAction(index);
 }
 
@@ -593,7 +593,7 @@ void JobsDataModel::deleteJobItem(int jobId)
 {
     int index = 0;
 
-    qInfo() << jobId;
+    qCInfo(COMMONMOUDLE) << jobId;
 
     for (; index < m_jobs.count(); index++) {
         if (jobId == m_jobs[index][JOB_ATTR_ID].toInt()) {
@@ -613,7 +613,7 @@ void JobsDataModel::addJobItem(const QMap<QString, QVariant> &job)
     if (job.isEmpty())
         return;
 
-    qInfo() << job[JOB_ATTR_ID].toInt();
+    qCInfo(COMMONMOUDLE) << job[JOB_ATTR_ID].toInt();
 
     m_jobs.append(job);
     m_refreshTimer->start();
@@ -630,7 +630,7 @@ void JobsDataModel::setJobAttributes(int index, const QMap<QString, QVariant> &j
     int state = job[JOB_ATTR_STATE].toString().toInt();
     int jobPriority = job[JOB_ATTR_PRIORITY].toString().toInt();
 
-    qInfo() << QString("(%1, %2) -> (%3, %4)").arg(lastState).arg(lastPriority).arg(state).arg(jobPriority);
+    qCInfo(COMMONMOUDLE) << QString("(%1, %2) -> (%3, %4)").arg(lastState).arg(lastPriority).arg(state).arg(jobPriority);
 
     m_jobs[index] = job;
 
@@ -681,7 +681,7 @@ void JobsDataModel::doItemAction(int jobId, unsigned int iAction)
         break;
     }
     default:
-        qWarning() << "Unsupport actions: " << iAction;
+        qCWarning(COMMONMOUDLE) << "Unsupport actions: " << iAction;
         break;
     }
 
@@ -766,7 +766,7 @@ void JobsDataModel::updateJobState(int id, int state, const QString &message)
         }
     }
 
-    qInfo() << iState << m_iWhichJob;
+    qCInfo(COMMONMOUDLE) << iState << m_iWhichJob;
 
     //如果是因为删除触发的状态改变，则从列表中删除
     QDBusInterface interface(SERVICE_INTERFACE_NAME, SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME, QDBusConnection::sessionBus());
@@ -866,7 +866,7 @@ void JobsDataModel::slotRefreshJobItems()
 
     endResetModel();
     emit signalJobsCountChanged(m_jobs.count());
-    qInfo() << "Current highest priorty" << m_iHighestPriority;
+    qCInfo(COMMONMOUDLE) << "Current highest priorty" << m_iHighestPriority;
 }
 
 void JobsDataModel::slotRefreshJobsList()
@@ -874,7 +874,7 @@ void JobsDataModel::slotRefreshJobsList()
     map<int, map<string, string>> jobsmap;
     map<int, map<string, string>>::const_iterator itmaps;
 
-    qInfo() << m_iWhichJob;
+    qCInfo(COMMONMOUDLE) << m_iWhichJob;
 
     if (0 != g_jobManager->getJobs(jobsmap, m_iWhichJob, 1))
         return;
@@ -1063,8 +1063,8 @@ JobManagerWindow::JobManagerWindow(QWidget *parent)
 
 void JobManagerWindow::createUi()
 {
-    m_refreshBut = new DIconButton(titlebar());
-    m_whichButBox = new DButtonBox(titlebar());
+    m_refreshBut = new DIconButton(this);
+    m_whichButBox = new DButtonBox(this);
     m_whichList.append(new DButtonBoxButton(QIcon::fromTheme("dp_print_all")));
     m_whichList.append(new DButtonBoxButton(QIcon::fromTheme("dp_print_wait")));
     m_whichList.append(new DButtonBoxButton(QIcon::fromTheme("dp_print_done")));
@@ -1092,8 +1092,15 @@ void JobManagerWindow::initUi()
         but->setFocusPolicy(Qt::NoFocus);
     }
 
-    titlebar()->addWidget(m_whichButBox, Qt::AlignLeft);
-    titlebar()->addWidget(m_refreshBut, Qt::AlignLeft);
+    QHBoxLayout *hLayout = new QHBoxLayout();
+    hLayout->setContentsMargins(0, 0, 0, 0);
+    hLayout->addSpacing(10);
+    hLayout->addWidget(m_whichButBox, Qt::AlignLeft | Qt::AlignVCenter);
+    hLayout->addSpacing(10);
+    hLayout->addWidget(m_refreshBut, Qt::AlignLeft | Qt::AlignVCenter);
+    QWidget *pWidget = new QWidget();
+    pWidget->setLayout(hLayout);
+    titlebar()->addWidget(pWidget, Qt::AlignLeft | Qt::AlignVCenter);
     titlebar()->setIcon(QIcon(":/images/dde-printer.svg"));
     titlebar()->setTitle("");
     titlebar()->setMenuVisible(false);
@@ -1145,7 +1152,7 @@ void JobManagerWindow::initConnect()
 
     if (!QDBusConnection::sessionBus().connect(SERVICE_INTERFACE_NAME, SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME,
                                                "signalJobStateChanged", this, SLOT(slotJobStateChanged(QDBusMessage)))) {
-        qWarning() << "connect to dbus signal(signalJobStateChanged) failed";
+        qCWarning(COMMONMOUDLE) << "connect to dbus signal(signalJobStateChanged) failed";
     }
 
     connect(m_jobsModel, &JobsDataModel::signalJobsCountChanged, this, &JobManagerWindow::slotJobsCountChanged);
@@ -1176,7 +1183,7 @@ void JobManagerWindow::slotWhichBoxClicked(QAbstractButton *whichbut)
 
 void JobManagerWindow::slotJobsCountChanged(int count)
 {
-    qInfo() << count;
+    qCInfo(COMMONMOUDLE) << count;
     m_jobCountLabel->setText(tr("%1 jobs").arg(count));
     m_jobsView->setLabelContentVisable(0 == count);
 }
@@ -1184,7 +1191,7 @@ void JobManagerWindow::slotJobsCountChanged(int count)
 void JobManagerWindow::slotJobStateChanged(const QDBusMessage &msg)
 {
     if (msg.arguments().count() != 3) {
-        qWarning() << "JobStateChanged dbus arguments error";
+        qCWarning(COMMONMOUDLE) << "JobStateChanged dbus arguments error";
         return;
     }
     m_jobsModel->updateJobState(msg.arguments().at(0).toInt(), msg.arguments().at(1).toInt(), msg.arguments().at(2).toString());

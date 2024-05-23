@@ -28,7 +28,7 @@ public:
     explicit InstallInterface(QObject *parent = nullptr);
 
     void setPackages(const QList<TPackageInfo> &packages);
-    void startInstallPackages();
+    void startInstallPackages(bool status = true);
 
     QString getErrorString();
 
@@ -39,14 +39,18 @@ signals:
 
 protected slots:
     void propertyChanged(const QDBusMessage &msg);
+    void updateSourceChanged(const QDBusMessage &msg);
 
 protected:
     QList<TPackageInfo> m_packages;
     QStringList m_installPackages;
     bool m_bQuit;
     QString m_jobPath;
+    QString m_updatePath;
     QString m_strType;
     QString m_strStatus;
+    QString m_strUpdateType;
+    QString m_strUpdateStatus;
     QString m_strErr;
 };
 
