@@ -129,7 +129,7 @@ int RefreshDevicesByBackendTask::mergeDevice(TDeviceInfo &device, const char *ba
     //排除重复的URI
     for (auto item : m_devices) {
         if (item.uriList.contains(uri)) {
-            qInfo() << "remove same uri";
+            qCInfo(COMMONMOUDLE) << "remove same uri";
             return -1;
         }
     }
@@ -140,13 +140,13 @@ int RefreshDevicesByBackendTask::mergeDevice(TDeviceInfo &device, const char *ba
         QRegularExpression re("serial=([^&]*)");
         QRegularExpressionMatch match = re.match(uri);
         if (match.hasMatch()) {
-            QString serial = match.captured(1).toLower();
+            QString serial = match.captured(1);
             device.serial = serial;
             for (auto &item : m_devices)
                 //只合并不同后端发现的uri，相同后端发现的URI应该对应不同设备，比如打印机和传真
-                if (!device.strClass.compare(item.strClass) && (item.uriList[0].startsWith("hp:") != isHP) && !serial.compare(item.serial)) {
+                if (!device.strClass.compare(item.strClass) && (item.uriList[0].startsWith("hp:") != isHP) && !serial.compare(item.serial, Qt::CaseInsensitive)) {
                     item.uriList << uri;
-                    qInfo() << "merge hp uri";
+                    qCInfo(COMMONMOUDLE) << "merge hp uri";
                     emit signalStatus(m_iTaskId, TStat_Update);
                     return 1;
                 }
@@ -160,10 +160,10 @@ int RefreshDevicesByBackendTask::mergeDevice(TDeviceInfo &device, const char *ba
                 if (item.uriList[0].startsWith("ipp:")) {
                     item.uriList.clear();
                     item.uriList = device.uriList;
-                    qInfo() << item.strInfo + ":Uri has been changed";
+                    qCInfo(COMMONMOUDLE) << item.strInfo + ":Uri has been changed";
                     emit signalStatus(m_iTaskId, TStat_Update);
                 }
-                qInfo() << "remove same device use samsung_schemes";
+                qCInfo(COMMONMOUDLE) << "remove same device use samsung_schemes";
                 return 1;
             }
         }
@@ -196,7 +196,7 @@ int RefreshDevicesByBackendTask::addDevices(const map<string, map<string, string
                                    "|([\\da-fA-F]{1,4}:){2}((:[\\da-fA-F]{1,4}){1,4}|:)|([\\da-fA-F]{1,4}:){3}((:[\\da-fA-F]{1,4}){1,3}|:)"
                                    "|([\\da-fA-F]{1,4}:){4}((:[\\da-fA-F]{1,4}){1,2}|:)|([\\da-fA-F]{1,4}:){5}:([\\da-fA-F]{1,4})?|([\\da-fA-F]{1,4}:){6}:");
         if (re_ipv6.match(uri).hasMatch()) {
-            qInfo() << "Unspport ipv6 uri";
+            qCInfo(COMMONMOUDLE) << "Unspport ipv6 uri";
             continue;
         }
 
@@ -210,7 +210,7 @@ int RefreshDevicesByBackendTask::addDevices(const map<string, map<string, string
         info.strName = info.strInfo;
         /*当dnssd后端发现的打印机uri不包含cups，说明不是从cups共享出来的打印机，暂时过滤*/
         if ((uri.startsWith("dnssd://") && !uri.contains("/cups"))) {
-            qDebug() << QString("Does not support non-cups shared dnssd protocol printers,uri=%1").arg(uri);
+            qCDebug(COMMONMOUDLE) << QString("Does not support non-cups shared dnssd protocol printers,uri=%1").arg(uri);
             continue;
         }
         if (uri.startsWith("dnssd://") && !info.strName.isEmpty()) {
@@ -220,7 +220,7 @@ int RefreshDevicesByBackendTask::addDevices(const map<string, map<string, string
         if (0 != mergeDevice(info, backend))
             continue;
 
-        qDebug() << QString("Add printer %1, by:%2").arg(info.toString()).arg(backend ? backend : "other");
+        qCDebug(COMMONMOUDLE) << QString("Add printer %1, by:%2").arg(info.toString()).arg(backend ? backend : "other");
         addDevice(info);
     }
 
@@ -261,10 +261,10 @@ int RefreshDevicesByBackendTask::doWork()
             }
 
             exSechemes = qStringListStdVector(exlist);
-            qDebug() << "Get devices by all other backends: " << exlist;
+            qCDebug(COMMONMOUDLE) << "Get devices by all other backends: " << exlist;
         } else {
             inSechemes.push_back(inSech);
-            qDebug() << "Get devices by" << inSech;
+            qCDebug(COMMONMOUDLE) << "Get devices by" << inSech;
         }
 
         try {
@@ -272,7 +272,7 @@ int RefreshDevicesByBackendTask::doWork()
             if (conPtr)
                 devs = conPtr->getDevices(&exSechemes, &inSechemes, 0, CUPS_TIMEOUT_DEFAULT);
         } catch (const std::exception &ex) {
-            qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+            qCWarning(COMMONMOUDLE) << "Got execpt: " << QString::fromUtf8(ex.what());
             continue;
         };
 
@@ -285,7 +285,7 @@ int RefreshDevicesByBackendTask::doWork()
             snmpCount = getResult().count() - lastPrinterCount;
     }
 
-    qInfo() << QString("Got %1 devices").arg(getResult().count());
+    qCInfo(COMMONMOUDLE) << QString("Got %1 devices").arg(getResult().count());
 
     return 0;
 }
@@ -298,7 +298,7 @@ RefreshDevicesByHostTask::RefreshDevicesByHostTask(const QString &strHost, int i
 
 int RefreshDevicesByHostTask::probe_snmp(const QString &strHost)
 {
-    qDebug() << strHost;
+    qCDebug(COMMONMOUDLE) << strHost;
     QString strRet, strErr;
     int iRet = shellCmd(QString("/usr/lib/cups/backend/snmp ") + strHost, strRet, strErr);
     if (0 == iRet) {
@@ -307,13 +307,13 @@ int RefreshDevicesByHostTask::probe_snmp(const QString &strHost)
             if (str.isEmpty())
                 continue;
 
-            qDebug() << "Got snmp " << str;
+            qCDebug(COMMONMOUDLE) << "Got snmp " << str;
             QStringList list = splitStdoutString(str);
             if (list.count() < 4)
                 return -2;
 
             TDeviceInfo info;
-            info.iType = InfoFrom_Detect;
+            info.iType = InfoFrom_Host;
             info.strClass = list[0];
             info.uriList << list[1];
             info.strName = info.strMakeAndModel = list[2];
@@ -340,7 +340,7 @@ int RefreshDevicesByHostTask::probe_hplip(const QString &strHost)
         //TODO get uri and info
         TDeviceInfo info;
         info.uriList << strRet;
-        info.iType = InfoFrom_Detect;
+        info.iType = InfoFrom_Host;
         addDevice(info);
     }
 
@@ -349,19 +349,19 @@ int RefreshDevicesByHostTask::probe_hplip(const QString &strHost)
 
 int RefreshDevicesByHostTask::probe_jetdirect(const QString &strHost)
 {
-    qDebug() << "probe_jetdirect" << strHost;
+    qCDebug(COMMONMOUDLE) << "probe_jetdirect" << strHost;
     QTcpSocket socket;
     socket.connectToHost(strHost, 9100);
     if (socket.waitForConnected(SOCKET_Timeout)) {
         TDeviceInfo info;
         info.uriList << QString("socket://%1:%2").arg(strHost).arg(9100);
-        info.iType = InfoFrom_Detect;
-        qDebug() << info.uriList;
+        info.iType = InfoFrom_Host;
+        qCDebug(COMMONMOUDLE) << info.uriList;
         addDevice(info);
         return 0;
     }
 
-    qDebug() << QString("Connect appsocket %1 failed, err: (%2) %3").arg(strHost).arg(socket.error()).arg(socket.errorString());
+    qCDebug(COMMONMOUDLE) << QString("Connect appsocket %1 failed, err: (%2) %3").arg(strHost).arg(socket.error()).arg(socket.errorString());
     return -1;
 }
 
@@ -375,7 +375,7 @@ int RefreshDevicesByHostTask::probe_ipp(const QString &strHost)
         try {
             printersMap = conPtr->getPrinters();
         } catch (const std::runtime_error &e) {
-            qWarning() << "runtime error:" << e.what();
+            qCWarning(COMMONMOUDLE) << "runtime error:" << e.what();
             return -1;
         }
     } else {
@@ -402,24 +402,24 @@ int RefreshDevicesByHostTask::probe_ipp(const QString &strHost)
 #define LPD_MAX 1
 int RefreshDevicesByHostTask::probe_lpd(const QString &strHost)
 {
-    qDebug() << "probe_lpd" << strHost;
+    qCDebug(COMMONMOUDLE) << "probe_lpd" << strHost;
     QTcpSocket socket;
     socket.connectToHost(strHost, 515);
     if (socket.waitForConnected(SOCKET_Timeout)) {
         TDeviceInfo info;
-        info.iType = InfoFrom_Detect;
+        info.iType = InfoFrom_Host;
         info.uriList << QString("lpd://%1/%2").arg(strHost).arg("Unknown");
         addDevice(info);
         return 0;
     }
 
-    qDebug() << QString("Connect appsocket %1 failed, err: (%2) %3").arg(strHost).arg(socket.error()).arg(socket.errorString());
+    qCDebug(COMMONMOUDLE) << QString("Connect appsocket %1 failed, err: (%2) %3").arg(strHost).arg(socket.error()).arg(socket.errorString());
     return -1;
 }
 
 int RefreshDevicesByHostTask::probe_smb(const QString &strHost)
 {
-    qDebug() << "probe_smb" << strHost;
+    qCDebug(COMMONMOUDLE) << "probe_smb" << strHost;
 
     if (!p_smbc_init_context) {
         QLibrary smbclient("libsmbclient", 0);
@@ -434,7 +434,7 @@ int RefreshDevicesByHostTask::probe_smb(const QString &strHost)
         if (!p_smbc_new_context || !p_smbc_setFunctionAuthDataWithContext ||
                 !p_smbc_init_context || !p_smbc_getFunctionOpendir || !p_smbc_getFunctionReaddir ||
                 !p_smbc_getFunctionClose || !p_smbc_free_context) {
-            qWarning() << "load libsmbclient error.";
+            qCWarning(COMMONMOUDLE) << "load libsmbclient error.";
             return -1;
         }
     }
@@ -466,7 +466,7 @@ int RefreshDevicesByHostTask::probe_smb(const QString &strHost)
     fd = p_smbc_getFunctionOpendir(ctx)(ctx, uri_utf8.constData());
     while (!fd) {
         int last = try_again;
-        qDebug() << "error: " << errno;
+        qCDebug(COMMONMOUDLE) << "error: " << errno;
         //if (errno != EACCES && errno != EPERM) {
         //    qDebug() << errno;
         //    ret = -3;
@@ -501,7 +501,7 @@ int RefreshDevicesByHostTask::probe_smb(const QString &strHost)
 
         info.strMakeAndModel = dirent->comment;
         info.strName = info.strInfo = info.strMakeAndModel;
-        info.iType = InfoFrom_Guess;
+        info.iType = InfoFrom_Host;
         addDevice(info);
     }
 
@@ -510,7 +510,7 @@ done:
         p_smbc_getFunctionClose(ctx)(ctx, fd);
     if (ctx)
         p_smbc_free_context(ctx, 1);
-    qDebug() << "probe_smb ret: " << ret;
+    qCDebug(COMMONMOUDLE) << "probe_smb ret: " << ret;
     return ret;
 }
 

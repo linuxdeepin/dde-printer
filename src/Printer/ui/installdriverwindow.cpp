@@ -24,6 +24,10 @@
 #include <DComboBox>
 #include <DButtonBox>
 
+#ifdef DTKWIDGET_CLASS_DSizeMode
+#include <DSizeMode>
+#endif
+
 #include <QStandardItemModel>
 #include <QStandardItem>
 #include <QHBoxLayout>
@@ -63,6 +67,7 @@ InstallDriverWindow::InstallDriverWindow(QWidget *parent)
 
 InstallDriverWindow::~InstallDriverWindow()
 {
+    unloadEventLib();
 }
 
 void InstallDriverWindow::initUI()
@@ -94,24 +99,31 @@ void InstallDriverWindow::initUI()
     m_pTabListView = new DListView(this);
     m_pTabListModel = new QStandardItemModel(m_pTabListView);
 
-    DStandardItem *pLocalDriver = new DStandardItem(tr("Local driver"));
-    pLocalDriver->setData(VListViewItemMargin, Dtk::MarginsRole);
-    pLocalDriver->setSizeHint(QSize(108, 48));
-    pLocalDriver->setToolTip(tr("Local driver"));
+    m_pLocalDriver = new DStandardItem(tr("Local driver"));
+    m_pLocalDriver->setData(VListViewItemMargin, Dtk::MarginsRole);
+    m_pLocalDriver->setToolTip(tr("Local driver"));
 
-    DStandardItem *pPpdFile = new DStandardItem(tr("Local PPD file"));
-    pPpdFile->setData(VListViewItemMargin, Dtk::MarginsRole);
-    pPpdFile->setSizeHint(QSize(108, 48));
-    pPpdFile->setToolTip(tr("Local PPD file"));
+    m_pPpdFile = new DStandardItem(tr("Local PPD file"));
+    m_pPpdFile->setData(VListViewItemMargin, Dtk::MarginsRole);
+    m_pPpdFile->setToolTip(tr("Local PPD file"));
 
-    DStandardItem *pSearchDriver = new DStandardItem(tr("Search for a driver"));
-    pSearchDriver->setData(VListViewItemMargin, Dtk::MarginsRole);
-    pSearchDriver->setSizeHint(QSize(108, 48));
-    pSearchDriver->setToolTip(tr("Search for a driver"));
+    m_pSearchDriver = new DStandardItem(tr("Search for a driver"));
+    m_pSearchDriver->setData(VListViewItemMargin, Dtk::MarginsRole);
+    m_pSearchDriver->setToolTip(tr("Search for a driver"));
 
-    m_pTabListModel->appendRow(pLocalDriver);
-    m_pTabListModel->appendRow(pPpdFile);
-    m_pTabListModel->appendRow(pSearchDriver);
+#ifdef DTKWIDGET_CLASS_DSizeMode
+    m_pLocalDriver->setSizeHint(DSizeModeHelper::element(QSize(108, 36), QSize(108, 48)));
+    m_pPpdFile->setSizeHint(DSizeModeHelper::element(QSize(108, 36), QSize(108, 48)));
+    m_pSearchDriver->setSizeHint(DSizeModeHelper::element(QSize(108, 36), QSize(108, 48)));
+#else
+    m_pLocalDriver->setSizeHint(QSize(108, 48));
+    m_pPpdFile->setSizeHint(QSize(108, 48));
+    m_pSearchDriver->setSizeHint(QSize(108, 48));
+#endif
+
+    m_pTabListModel->appendRow(m_pLocalDriver);
+    m_pTabListModel->appendRow(m_pPpdFile);
+    m_pTabListModel->appendRow(m_pSearchDriver);
     m_pTabListView->setModel(m_pTabListModel);
     m_pTabListView->setCurrentIndex(m_pTabListModel->index(0, 0));
     m_pTabListView->setEditTriggers(QListView::EditTrigger::NoEditTriggers);
@@ -141,7 +153,7 @@ void InstallDriverWindow::initUI()
     QHBoxLayout *pLocalHL1 = new QHBoxLayout();
     pLocalHL1->addWidget(pLabelManufacturer, 1);
     pLocalHL1->addWidget(m_pManufacturerCombo, 3);
-    pLocalHL1->setContentsMargins(20, 10, 10, 10);
+    pLocalHL1->setContentsMargins(20, 8, 10, 8);
     QWidget *pLocalWidget1 = new QWidget(this);
     pLocalWidget1->setLayout(pLocalHL1);
 
@@ -154,7 +166,7 @@ void InstallDriverWindow::initUI()
     QHBoxLayout *pLocalHL2 = new QHBoxLayout();
     pLocalHL2->addWidget(pLabelType, 1);
     pLocalHL2->addWidget(m_pTypeCombo, 3);
-    pLocalHL2->setContentsMargins(20, 10, 10, 10);
+    pLocalHL2->setContentsMargins(20, 8, 10, 8);
     QWidget *pLocalWidget2 = new QWidget(this);
     pLocalWidget2->setLayout(pLocalHL2);
 
@@ -166,10 +178,9 @@ void InstallDriverWindow::initUI()
     QHBoxLayout *pLocalHL3 = new QHBoxLayout();
     pLocalHL3->addWidget(pLabelDriver, 1);
     pLocalHL3->addWidget(m_pDriverCombo, 3);
-    pLocalHL3->setContentsMargins(20, 10, 10, 10);
+    pLocalHL3->setContentsMargins(20, 8, 10, 8);
     QWidget *pLocalWidget3 = new QWidget(this);
     pLocalWidget3->setLayout(pLocalHL3);
-    pLocalWidget3->setFixedHeight(56);
 
     pLocalWidget1->setAccessibleName("localWidget1_installDriver");
     pLocalWidget2->setAccessibleName("localWidget2_installDriver");
@@ -229,7 +240,7 @@ void InstallDriverWindow::initUI()
     m_pManuAndTypeLineEdit->setValidator(new QRegExpValidator(QRegExp("^[a-zA-Z0-9 ]*$")));
     m_pManuAndTypeLineEdit->setAccessibleName("manuBtn_installDriver");
     m_pSearchBtn = new QPushButton(tr("Search", "button"), this);
-	m_pSearchBtn->setMaximumSize(105, 36);
+    m_pSearchBtn->setMaximumWidth(105);
     m_pSearchBtn->setAccessibleName("searchBtn_installDriver");
     QHBoxLayout *pMakerHL1 = new QHBoxLayout();
     pMakerHL1->addWidget(pMakerAndTypeLabel, 1);
@@ -278,7 +289,7 @@ void InstallDriverWindow::initUI()
 
     //安装按钮
     m_pInstallBtn = new QPushButton(tr("Install Driver", "button"), this);
-    m_pInstallBtn->setFixedSize(200, 36);
+    m_pInstallBtn->setFixedWidth(200);
     m_pSpinner = new DSpinner();
     m_pSpinner->setFixedSize(32, 32);
 
@@ -339,6 +350,14 @@ void InstallDriverWindow::initConnections()
     connect(m_pManufacturerCombo, &QComboBox::currentTextChanged, this, &InstallDriverWindow::currentMakerChangedSlot);
     connect(m_pTypeCombo, &QComboBox::currentTextChanged, this, &InstallDriverWindow::currentModelChangedSlot);
     connect(m_pSearchBtn, &QPushButton::clicked, this, &InstallDriverWindow::searchDriverSlot);
+
+#ifdef DTKWIDGET_CLASS_DSizeMode
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::sizeModeChanged, [&]() {
+        m_pLocalDriver->setSizeHint(DSizeModeHelper::element(QSize(108, 36), QSize(108, 48)));
+        m_pPpdFile->setSizeHint(DSizeModeHelper::element(QSize(108, 36), QSize(108, 48)));
+        m_pSearchDriver->setSizeHint(DSizeModeHelper::element(QSize(108, 36), QSize(108, 48)));
+    });
+#endif
 
     connect(m_pManuAndTypeLineEdit, &QLineEdit::editingFinished, this, [this]() {
         // 按下enter会触发两次信号，需要过滤掉失去焦点之后的信号 并且判断校验结果
@@ -516,7 +535,6 @@ void InstallDriverWindow::currentModelChangedSlot(const QString &model)
                     ppdname = strPpd;
                 if (ppdname.contains("(recommended)")) {
                     ppdname.remove("(recommended)");
-                    ppdname.append(tr("(recommended)"));
                 }
                 m_pDriverCombo->addItem(ppdname, QVariant::fromValue(list[i]));
                 strValues.push_back(ppdname);
