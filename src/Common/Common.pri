@@ -13,6 +13,7 @@ HEADERS +=  \
     $$PWD/zjobmanager.h \
     $$PWD/cupsattrnames.h \
     $$PWD/config.h \
+    $$PWD/reviselogger.h \
     $$PWD/vendor/addprinter_p.h \
     $$PWD/vendor/addprinter.h \
     $$PWD/vendor/printerservice.h \
@@ -29,6 +30,7 @@ SOURCES +=  \
     $$PWD/cupsconnectionfactory.cpp \
     $$PWD/ztaskinterface.cpp \
     $$PWD/zjobmanager.cpp \
+    $$PWD/reviselogger.cpp \
     $$PWD/vendor/addprinter.cpp \
     $$PWD/vendor/printerservice.cpp \
     $$PWD/vendor/zdevicemanager.cpp \

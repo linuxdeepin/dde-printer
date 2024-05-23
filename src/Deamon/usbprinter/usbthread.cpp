@@ -17,6 +17,7 @@
 #include <QDBusPendingReply>
 #include <QDBusConnection>
 #include <QProcess>
+#include <QLoggingCategory>
 
 #include <map>
 #include <string>
@@ -26,6 +27,8 @@
 using namespace std;
 DCORE_USE_NAMESPACE
 DWIDGET_USE_NAMESPACE
+
+Q_LOGGING_CATEGORY(USBTHREAD, "org.deepin.dde-printer.usbthread")
 
 static bool isUSBPrinterDevice(const struct libusb_interface_descriptor *interface)
 {
@@ -84,7 +87,7 @@ static bool isArrivedUSBPrinterAdded(const map<string, string> &infoMap, TDevice
         if (conPtr)
             devsMap = conPtr->getDevices(&exSechemes, &inSechemes, 0, CUPS_TIMEOUT_DEFAULT);
     } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+        qCWarning(USBTHREAD) << "Got execpt: " << QString::fromUtf8(ex.what());
         return true;
 
     }
@@ -99,7 +102,7 @@ static bool isArrivedUSBPrinterAdded(const map<string, string> &infoMap, TDevice
         }
     }
     if (uriList.isEmpty() || devices.size() == 0) {
-        qWarning() << QString("device not found from cups,product:%1");
+        qCWarning(USBTHREAD) << QString("device not found from cups,product:%1");
         return true;
     }
     /*从cups返回的已经添加的打印机中查找是否存在对应的uri*/
@@ -112,12 +115,12 @@ static bool isArrivedUSBPrinterAdded(const map<string, string> &infoMap, TDevice
                 continue;
             QString strValue = attrValueToQString(mapProperty[CUPS_DEV_URI]);
 
-            if (uriList.contains(strValue)) {
+            if (uriList.contains(strValue) || strValue.contains(QString::fromStdString(infoMap.at("SerialNumber")))) {
                 return true;
             }
         }
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(USBTHREAD) << "Got execpt: " << QString::fromUtf8(e.what());
         return true;
     }
 
@@ -133,7 +136,7 @@ static bool isArrivedUSBPrinterAdded(const map<string, string> &infoMap, TDevice
     deviceInfo.iType = InfoFrom_Detect;
     deviceInfo.strName = deviceInfo.strInfo;
     deviceInfo.serial = QString::fromStdString(infoMap.at("SerialNumber"));
-
+    qCDebug(USBTHREAD) << deviceInfo.toString();
     return false;
 }
 
@@ -151,7 +154,7 @@ static map<string, string>  getInfomationFromDescription(libusb_device_handle *p
 
         ret = libusb_get_string_descriptor_ascii(pHandle, desc.iManufacturer, ustring, sizeof(ustring));
         if (ret > 0) {
-            qInfo() << QString("Manufacturer:%1").arg((char *)ustring);
+            qCInfo(USBTHREAD) << QString("Manufacturer:%1").arg((char *)ustring);
             infoMap.insert(make_pair<string, string>("Manufacturer", (char *)ustring));
         }
 
@@ -160,7 +163,7 @@ static map<string, string>  getInfomationFromDescription(libusb_device_handle *p
     if (desc.iProduct) {
         ret = libusb_get_string_descriptor_ascii(pHandle, desc.iProduct, ustring, sizeof(ustring));
         if (ret > 0) {
-            qInfo() << QString("Product:%1").arg((char *)ustring);
+            qCInfo(USBTHREAD) << QString("Product:%1").arg((char *)ustring);
             infoMap.insert(make_pair<string, string>("Product", (char *)ustring));
         }
 
@@ -179,56 +182,82 @@ static map<string, string>  getInfomationFromDescription(libusb_device_handle *p
 
 USBThread::USBThread(QObject *parent)
     : QThread(parent)
-    , needExit(false)
     , m_currentUSBDevice(nullptr)
 {
-    /*槽函数处于主线程执行*/
-    bool ret = connect(this, &USBThread:: newUSBDeviceArrived, this, &USBThread::processArrivedUSBDevice);
+    bool ret = connect(this, &USBThread:: startGetDriver, this, &USBThread::getDriver);
     if (!ret)
-        qWarning() << "connect to newUSBDeviceArrived:" << ret;
+        qCWarning(USBTHREAD) << "connect to startGetDriver:" << ret;
     /*绑定系统通知的点击调用*/
     QDBusConnection conn = QDBusConnection::sessionBus();
     ret = conn.connect("org.freedesktop.Notifications", "/org/freedesktop/Notifications", "org.freedesktop.Notifications", "ActionInvoked", this, SLOT(notificationActionInvoked(uint, const QString &)));
     if (!ret)
-        qWarning() << "connect to org.freedesktop.Notifications:" << ret;
-
+        qCWarning(USBTHREAD) << "connect to org.freedesktop.Notifications:" << ret;
 }
 
 USBThread::~USBThread()
 {
-
 }
 
-void USBThread::run()
+void USBThread::getUsbDevice()
 {
-    qInfo() << "USB monitor running...";
-    libusb_hotplug_callback_handle usb_arrived_handle;
-    libusb_context *ctx;
-    int rc = 0;
-    do {
+    libusb_context *ctx = nullptr;
+    libusb_device **devs = nullptr;
+    int ret;
+    ssize_t count;
 
-        rc = libusb_init(&ctx);
-        if (rc < 0) {
-            return;
+    ret = libusb_init(&ctx);
+    if (ret != 0) {
+        return;
+    }
+
+    count = libusb_get_device_list(ctx, &devs);
+    if (count < 0) {
+        libusb_exit(ctx);
+        return;
+    }
+
+    for (ssize_t i = 0; i < count; ++i) {
+        libusb_device *dev = devs[i];
+        struct libusb_device_descriptor desc;
+
+        ret = libusb_get_device_descriptor(dev, &desc);
+        if (ret < 0) {
+            continue;
         }
-        rc = libusb_hotplug_register_callback(ctx, LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED,
-                                              LIBUSB_HOTPLUG_NO_FLAGS, LIBUSB_HOTPLUG_MATCH_ANY, LIBUSB_HOTPLUG_MATCH_ANY,
-                                              LIBUSB_HOTPLUG_MATCH_ANY, static_usb_arrived_callback, this, &usb_arrived_handle);
-        if (LIBUSB_SUCCESS != rc) {
-            qWarning() << "Error to register usb arrived callback";
-            break;
+
+        for (uint8_t j = 0; j < desc.bNumConfigurations; j++) {
+            struct libusb_config_descriptor *config = nullptr;
+
+            ret = libusb_get_config_descriptor(dev, j, &config);
+            if (ret != LIBUSB_SUCCESS) {
+                qCWarning(USBTHREAD) << "Couldn't retrieve descriptors";
+                continue;
+            }
+
+            bool isUSBPrinter = false;
+            isUSBPrinter = isUSBPrinterDevice(config);
+
+            libusb_free_config_descriptor(config);
+
+            if (isUSBPrinter) {
+                if (!m_usbDeviceList.contains(dev)) {
+                    m_usbDeviceList.push_back(dev);
+                }
+            }
         }
+    }
 
-        while (!needExit) {
-            libusb_handle_events_completed(ctx, nullptr);
-            sleep(1);
-        }
+    if ((m_usbDeviceList.count() > 0) && (m_currentUSBDevice == nullptr)) {
+        processArrivedUSBDevice();
+    }
 
-        libusb_hotplug_deregister_callback(ctx, usb_arrived_handle);
+    QEventLoop loop;
+    connect(this, &USBThread::workFinished, &loop, &QEventLoop::quit);
+    loop.exec();
 
-    } while (false);
+    libusb_free_device_list(devs, 1);
     libusb_exit(ctx);
-    qInfo() << "USB monitor exit";
+    return;
 }
 
 bool USBThread::addArrivedUSBPrinter()
@@ -260,7 +289,7 @@ bool USBThread::addArrivedUSBPrinter()
                 return true;
             }
         }
-        qWarning() << QString("could not find avaliable dirvers");
+        qCWarning(USBTHREAD) << QString("could not find avaliable dirvers");
     }
     nextConfiguration();
     return false;
@@ -276,7 +305,7 @@ void USBThread::notificationActionInvoked(uint id, const QString &msg)
         args << "-p" << m_pendingNotificationsMap.value(id);
 
         if (!process.startDetached(cmd, args)) {
-            qWarning() << QString("showMainWindow failed because %1").arg(process.errorString());
+            qCWarning(USBTHREAD) << QString("showMainWindow failed because %1").arg(process.errorString());
         }
         m_pendingNotificationsMap.remove(id);
     }
@@ -288,11 +317,11 @@ void USBThread::addingJobFinished(int status)
     if (status == TStat_Suc) {
         emit deviceStatusChanged(m_configingPrinterName, 1);
         strReason = tr("Configuration successful. Click to view %1.").arg(m_deviceInfo.strName);
-        qInfo() << QString("add printer(%1) success").arg(m_deviceInfo.strName);
+        qCInfo(USBTHREAD) << QString("add printer(%1) success").arg(m_deviceInfo.strName);
     } else {
         emit deviceStatusChanged(m_configingPrinterName, 2);
         strReason = tr("Configuration failed. Click to add the printer %1.").arg(m_deviceInfo.strName);
-        qWarning() << QString("add printer(%1) failed").arg(m_deviceInfo.strName);
+        qCWarning(USBTHREAD) << QString("add printer(%1) failed").arg(m_deviceInfo.strName);
     }
 
     QDBusPendingReply<unsigned int> reply = DUtil::DNotifySender(qApp->productName())
@@ -335,19 +364,21 @@ void USBThread::nextConfiguration()
         m_currentUSBDevice = nullptr;
     }
     if (m_usbDeviceList.count() > 0) {
-        emit newUSBDeviceArrived();
+        processArrivedUSBDevice();
+    } else {
+        emit workFinished();
     }
 }
 
 void USBThread::processArrivedUSBDevice()
 {
     if ((m_usbDeviceList.count() <= 0) || m_currentUSBDevice) {
-        qInfo() << "usbdevice not exist or configing";
+        qCInfo(USBTHREAD) << "usbdevice not exist or configing";
         return;
     }
     m_currentUSBDevice = m_usbDeviceList.first();
     if (m_currentUSBDevice == nullptr) {
-        qInfo() << "m_currentUSBDevice is nullptr";
+        qCInfo(USBTHREAD) << "m_currentUSBDevice is nullptr";
         return;
     }
 
@@ -355,15 +386,21 @@ void USBThread::processArrivedUSBDevice()
     struct libusb_device_descriptor desc;
     int ret = libusb_get_device_descriptor(m_currentUSBDevice, &desc);
     if (ret < 0) {
-        qWarning() << "failed to get device descriptor";
+        qCWarning(USBTHREAD) << "failed to get device descriptor";
         nextConfiguration();
         return;
     }
 
-    qInfo() << QString("Device vendor:%1 product:%2").arg(desc.idVendor).arg(desc.idProduct);
+    qCInfo(USBTHREAD) << QString("Device vendor:%1 product:%2").arg(desc.idVendor).arg(desc.idProduct);
 
-    if (!pHandle)
-        libusb_open(m_currentUSBDevice, &pHandle);
+    if (!pHandle) {
+        ret = libusb_open(m_currentUSBDevice, &pHandle);
+        if (ret != LIBUSB_SUCCESS) {
+            pHandle = nullptr;
+            nextConfiguration();
+            return;
+        }
+    }
 
     bool isUSBPrinter = false;
     for (uint8_t i = 0; i < desc.bNumConfigurations; i++) {
@@ -371,7 +408,7 @@ void USBThread::processArrivedUSBDevice()
 
         ret = libusb_get_config_descriptor(m_currentUSBDevice, i, &config);
         if (LIBUSB_SUCCESS != ret) {
-            qWarning() << "Couldn't retrieve descriptors";
+            qCWarning(USBTHREAD) << "Couldn't retrieve descriptors";
             continue;
         }
 
@@ -388,10 +425,10 @@ void USBThread::processArrivedUSBDevice()
 
         isAdded = isArrivedUSBPrinterAdded(infoMap, m_deviceInfo);
         if (!isAdded) {
-            qInfo() << "begin to parse printer driver";
-            getDriver();
+            qCInfo(USBTHREAD) << "begin to parse printer driver";
+            emit startGetDriver();
         } else {
-            qInfo() << "The printer has been added";
+            qCInfo(USBTHREAD) << "The printer has been added";
 
         }
     }
@@ -402,44 +439,10 @@ void USBThread::processArrivedUSBDevice()
     if (isAdded) {
         nextConfiguration();
     }
-
 }
 
-int LIBUSB_CALL USBThread::static_usb_arrived_callback(struct libusb_context *ctx, struct libusb_device *dev,
-                                                       libusb_hotplug_event event, void *userdata)
+void USBThread::run()
 {
-    if (userdata)
-        return reinterpret_cast<USBThread *>(userdata)->usb_arrived_callback(ctx, dev, event);
-    else {
-        qWarning() << "userdata is null";
-        return -1;
-    }
-}
-
-int USBThread::usb_arrived_callback(libusb_context *ctx, libusb_device *dev, libusb_hotplug_event event)
-{
-    /*
-     * 1.先判断设备类型是否是打印机 bInterfaceClass =7 bInterfaceSubClass=1
-     * 2.获取serial
-     * 3.调用cups http api 获取 usb类型打印机
-     * 4.从列表中找到和serial对应的打印机
-     * 5.判断该打印机是否已经被添加过（uri）
-     * 6.自动添加打印机并给出系统通知
-    */
-    /*
-     * NOTE:回调函数结束后才能开始IO操作，不然会返回LIBUSB_ERROR_BUSY错误状态
-     * 考虑到多个设备同时插入的情况，需要做一个队列排队添加打印机。存在跨线程访问数据的情况，使用锁同步。
-     * 当m_currentUSBDevice为空时触发添加流程，添加完m_currentUSBDevice置为空，通过信号触发新的添加流程
-    */
-    Q_UNUSED(ctx)
-    Q_UNUSED(event)
-    if (!m_usbDeviceList.contains(dev))
-        m_usbDeviceList.push_back(dev);
-
-    if (m_usbDeviceList.count() > 0 && (m_currentUSBDevice == nullptr)) {
-        emit newUSBDeviceArrived();
-    }
-
-    return (dev) ? 0 : -1;
+    getUsbDevice();
 }
 

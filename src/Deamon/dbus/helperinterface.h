@@ -7,6 +7,7 @@
 
 #include <QObject>
 #include <QSystemTrayIcon>
+#include <QTimer>
 
 #include "zcupsmonitor.h"
 
@@ -25,22 +26,25 @@ signals:
     void signalPrinterStateChanged(const QString &printer, int state, const QString &message);
     void signalPrinterDelete(const QString &printer);
     void signalPrinterAdd(const QString &printer);
-
     void deviceStatusChanged(const QString &defaultPrinterName, int status);
+    void usbDeviceProcess();
 
 public slots:
     //dbus接口
     bool isJobPurged(int id);
     QString getJobNotify(const QMap<QString, QVariant> &job);
     QString getStateString(int iState);
+    void setTypeAndState(int status);
 
 protected:
     void slotShowTrayIcon(bool bShow);
     void showJobsWindow();
 
+
 private:
     CupsMonitor *m_pCupsMonitor;
     QSystemTrayIcon *m_pSystemTray;
+    QTimer* m_timer;
 };
 
 #endif // HELPERINTERFACE_H
