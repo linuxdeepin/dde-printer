@@ -1,6 +1,12 @@
-// SPDX-FileCopyrightText: 2019 - 2022 UnionTech Software Technology Co., Ltd.
-//
-// SPDX-License-Identifier: GPL-3.0-or-later
+/*
+ * SNMP functions for CUPS.
+ *
+ * Copyright © 2007-2014 by Apple Inc.
+ * Copyright © 2006-2007 by Easy Software Products, all rights reserved.
+ *
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
+ */
 
 /*
  * Include necessary headers.
@@ -141,13 +147,8 @@ _cupsSNMPDefaultCommunity(void)
           if(!cupsstrcasecmp(line, "Community")){
               char* pValue = getValue(line);
 
-              if(pValue) {
-                  if (strlen(pValue) > sizeof(pRet)) {
-                      strcpy(pRet, "public");
-                  }
-                  else {
-                      strcpy(pRet, pValue);
-                  }
+              if(pValue){
+                  strcpy(pRet, pValue);
                   break;
               }
               else {

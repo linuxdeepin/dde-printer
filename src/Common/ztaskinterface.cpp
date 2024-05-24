@@ -6,6 +6,9 @@
 
 #include <QEventLoop>
 #include <QTimer>
+#include <QLoggingCategory>
+
+Q_LOGGING_CATEGORY(TASK, "org.deepin.dde-printer.task")
 
 static const char *g_taskText[] = {"null",
                                    "Refresh devices by backends",
@@ -32,7 +35,7 @@ TaskInterface::TaskInterface(int id, QObject *parent)
 
 TaskInterface::~TaskInterface()
 {
-    qInfo() << g_taskText[m_iTaskId];
+    qCInfo(TASK) << g_taskText[m_iTaskId];
     stop();
 }
 
@@ -40,7 +43,7 @@ void TaskInterface::stop()
 {
     m_bQuit = true;
 
-    qInfo() << "Stop task " << g_taskText[m_iTaskId];
+    qCInfo(TASK) << "Stop task " << g_taskText[m_iTaskId];
     this->disconnect();
     if (this->isRunning()) {
         this->quit();
@@ -60,7 +63,7 @@ int TaskInterface::getErrCode()
 
 void TaskInterface::run()
 {
-    qInfo() << "Task " << g_taskText[m_iTaskId] << " running...";
+    qCInfo(TASK) << "Task " << g_taskText[m_iTaskId] << " running...";
     int iRet = 0;
     emit signalStatus(m_iTaskId, TStat_Running);
     iRet = doWork();
@@ -72,7 +75,7 @@ void TaskInterface::run()
     if (0 == getErrCode())
         m_errCode = iRet;
 
-    qInfo() << "Task " << g_taskText[m_iTaskId] << " finished " << iRet;
+    qCInfo(TASK) << "Task " << g_taskText[m_iTaskId] << " finished " << iRet;
     if (0 == iRet)
         emit signalStatus(m_iTaskId, TStat_Suc);
     else

@@ -28,6 +28,7 @@
 #include <QJsonArray>
 #include <QEventLoop>
 #include <QTimer>
+#include <QVersionNumber>
 
 #include <map>
 
@@ -151,7 +152,7 @@ static QStringList findBestMatchPPDs(QStringList &models, QString mdl)
     /*获取modelnumber*/
     QString modelNumber;
     if (!getModelNumber(mdl, modelNumber)) {
-        qWarning() << "Can not find modelnumber from model";
+        qCWarning(COMMONMOUDLE) << "Can not find modelnumber from model";
     }
     /*1.先使用插入排序规则匹配前缀相似的类型*/
     int index = 0, len = 0;
@@ -170,7 +171,7 @@ static QStringList findBestMatchPPDs(QStringList &models, QString mdl)
     if (index < (len - 1))
         right = models[index + 1];
 
-    qDebug() << QString("Between %1 left: %2 righ: %3").arg(mdl).arg(left).arg(right);
+    qCDebug(COMMONMOUDLE) << QString("Between %1 left: %2 righ: %3").arg(mdl).arg(left).arg(right);
 
     //找出左右两边和mdl匹配的字符数目
     len = mdl.length();
@@ -201,7 +202,7 @@ static QStringList findBestMatchPPDs(QStringList &models, QString mdl)
     for (std::multimap<double, QString>::iterator iter = simModelMap.begin();
             iter != simModelMap.end();
             ++iter) {
-        qDebug() << iter->second << " " << iter->first;
+        qCDebug(COMMONMOUDLE) << iter->second << " " << iter->first;
         if (index >= need)
             break;
         list.append(iter->second);
@@ -219,7 +220,7 @@ static QStringList findBestMatchPPDs(QStringList &models, QString mdl)
         }
     }
 
-    qInfo() << QString("Got %1").arg(list.join(","));
+    qCInfo(COMMONMOUDLE) << QString("Got %1").arg(list.join(","));
     return list;
 }
 
@@ -258,7 +259,7 @@ static QStringList getPPDNameFromCommandSet(QString strCMD)
         mdls << "ESC/P Dot Matrix";
 
     foreach (QString mdl, mdls) {
-        qDebug() << QString("Find for CMD: %1, mdl: %2").arg(strCMD).arg(mdl);
+        qCDebug(COMMONMOUDLE) << QString("Find for CMD: %1, mdl: %2").arg(strCMD).arg(mdl);
         list += findBestMatchPPDs(models, mdl);
     }
 
@@ -270,7 +271,7 @@ static QList<QMap<QString, QVariant>> getFuzzyMatchDrivers(const QString &strMak
     QList<QMap<QString, QVariant>> list;
 
     if (strMake.isEmpty() || strModel.isEmpty()) {
-        qWarning() << "printer info is invaild";
+        qCWarning(COMMONMOUDLE) << "printer info is invaild";
         return list;
     }
 
@@ -294,13 +295,13 @@ static QList<QMap<QString, QVariant>> getFuzzyMatchDrivers(const QString &strMak
     if (!strCMD.isEmpty()) {
         QList<QMap<QString, QVariant>> templist;
         QStringList commandsets = strCMD.split(",");
-        qDebug() << QString("Device commandsets: %1").arg(strCMD);
+        qCDebug(COMMONMOUDLE) << QString("Device commandsets: %1").arg(strCMD);
         //判断找到的驱动commandsets信息符不符合
         for (int i = 0; i < list.count(); i++) {
             QString devId = list[i].value(CUPS_PPD_ID).toString();
             QMap<QString, QString> devDirct = parseDeviceID(devId);
             QString strcmd = devDirct.value("CMD");
-            qDebug() << QString("PPD commandsets: %1").arg(strcmd);
+            qCDebug(COMMONMOUDLE) << QString("PPD commandsets: %1").arg(strcmd);
             QStringList cmds = strcmd.split(",");
             foreach (QString cmd, cmds) {
                 if (commandsets.contains(cmd)) {
@@ -315,7 +316,7 @@ static QList<QMap<QString, QVariant>> getFuzzyMatchDrivers(const QString &strMak
             int count = list.count();
             list = templist;
             if (count != list.count())
-                qDebug() << QString("Remove some ppds, that commandsets not support %1").arg(strCMD);
+                qCDebug(COMMONMOUDLE) << QString("Remove some ppds, that commandsets not support %1").arg(strCMD);
         }
 
         if (list.isEmpty()) {
@@ -335,7 +336,7 @@ static QList<QMap<QString, QVariant>> getFuzzyMatchDrivers(const QString &strMak
         }
     }
 
-    qInfo() << "Got dirver count: " << list.count();
+    qCInfo(COMMONMOUDLE) << "Got dirver count: " << list.count();
     return list;
 }
 
@@ -362,7 +363,7 @@ static QList<QMap<QString, QVariant>> getExactMatchDrivers(const QString &strMFG
         }
     }
 
-    qInfo() << "Got driver count: " << list.count();
+    qCInfo(COMMONMOUDLE) << "Got driver count: " << list.count();
 
     return list;
 }
@@ -372,14 +373,14 @@ static bool addToDirct(const QString &strMake, const QString &strModel, const QS
     QString makel, model;
 
     if (key.isEmpty()) {
-        qWarning() << QString("Dirct key is empty");
+        qCWarning(COMMONMOUDLE) << QString("Dirct key is empty");
         return false;
     }
 
     makel = normalize(strMake);
     model = normalize(strModel);
     if (makel.isEmpty() || model.isEmpty()) {
-        qWarning() << QString("make_and_model failed for %1").arg(key);
+        qCWarning(COMMONMOUDLE) << QString("make_and_model failed for %1").arg(key);
         return false;
     }
 
@@ -392,10 +393,10 @@ static bool addToDirct(const QString &strMake, const QString &strModel, const QS
     QString strkey = modelMap->value(model);
     if (strkey.isEmpty() || !g_driverManager->isSamePPD(key, strkey)) {
         modelMap->insertMulti(model, key);
-        qDebug() << QString("Insert %1#%2#%3 to dirct").arg(makel).arg(model).arg(key);
+        qCDebug(COMMONMOUDLE) << QString("Insert %1#%2#%3 to dirct").arg(makel).arg(model).arg(key);
         return true;
     } else {
-        qDebug() << "Remove duplicate driver" << strMake << strModel << strkey << "->" << key;
+        qCDebug(COMMONMOUDLE) << "Remove duplicate driver" << strMake << strModel << strkey << "->" << key;
         return false;
     }
 }
@@ -451,7 +452,7 @@ int RefreshLocalPPDS::doWork()
     map<string, map<string, string>> allPPDS;
     map<string, map<string, string>>::iterator itall;
 
-    qDebug() << QString("Starting...");
+    qCDebug(COMMONMOUDLE) << QString("Starting...");
 
     QMutexLocker locker(&g_mutex);
     g_iStatus = TStat_Running;
@@ -461,7 +462,7 @@ int RefreshLocalPPDS::doWork()
         if (conPtr)
             allPPDS = conPtr->getPPDs2(0, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, -1, nullptr, nullptr, nullptr);
     } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+        qCWarning(COMMONMOUDLE) << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
     };
 
@@ -469,9 +470,9 @@ int RefreshLocalPPDS::doWork()
         return 0;
 
     int count = 0;
-    qInfo() << "format ppd info";
+    qCInfo(COMMONMOUDLE) << "format ppd info";
     for (itall = allPPDS.begin(); itall != allPPDS.end(); itall++) {
-        qDebug() << QString("*****************************");
+        qCDebug(COMMONMOUDLE) << QString("*****************************");
         QMap<QString, QString> list;
         map<string, string> mapValue = itall->second;
         map<string, string>::iterator itinfo = mapValue.begin();
@@ -480,12 +481,12 @@ int RefreshLocalPPDS::doWork()
             return 0;
 
         QString ppdname = STQ(itall->first);
-        qDebug() << CUPS_PPD_NAME << ":" << ppdname;
+        qCDebug(COMMONMOUDLE) << CUPS_PPD_NAME << ":" << ppdname;
         list.insert(CUPS_PPD_NAME, ppdname);
         for (; itinfo != mapValue.end(); itinfo++) {
             QString attrName = STQ(itinfo->first);
             QString attrValue = attrValueToQString(itinfo->second);
-            qDebug() << attrName << ":" << attrValue;
+            qCDebug(COMMONMOUDLE) << attrName << ":" << attrValue;
             list.insert(attrName, attrValue);
         }
 
@@ -497,7 +498,7 @@ int RefreshLocalPPDS::doWork()
             count++;
             //make sure has make and model name
             if (strModel.isEmpty() || strMake.isEmpty() || key.isEmpty()) {
-                qWarning() << QString("invaild ppd %1").arg(ppdname);
+                qCWarning(COMMONMOUDLE) << QString("invaild ppd %1").arg(ppdname);
                 continue;
             } else if (addToDirct(strMake, strModel, key)) {
                 strMake = toNormalName(strMake);
@@ -519,10 +520,10 @@ int RefreshLocalPPDS::doWork()
 
             g_ppds.insertMulti(key, list);
         }
-        qDebug() << QString("*****************************");
+        qCDebug(COMMONMOUDLE) << QString("*****************************");
     }
 
-    qInfo() << QString("Got ppds count: %1").arg(count);
+    qCInfo(COMMONMOUDLE) << QString("Got ppds count: %1").arg(count);
     g_iStatus = TStat_Suc;
     return 0;
 }
@@ -551,27 +552,25 @@ DriverSearcher::DriverSearcher(const TDeviceInfo &printer, QObject *parent)
 
     m_strFullMake = strFullMake.isEmpty() ? m_strMake : strFullMake;
 
-    qDebug() << QString("Find driver for %1, %2, %3").arg(m_printer.uriList[0]).arg(m_printer.strMakeAndModel).arg(m_printer.strDeviceId);
+    qCDebug(COMMONMOUDLE) << QString("Find driver for %1, %2, %3").arg(m_printer.uriList[0]).arg(m_printer.strMakeAndModel).arg(m_printer.strDeviceId);
 }
 
 void DriverSearcher::startSearch()
 {
     QString strMake, strModel;
 
-    /* 1. 匹配EveryWhere driver驱动 */
+    /* 1. 匹配EveryWhere driver驱动, 查询到需要继续查询其他可用驱动 */
     QMap<QString, QVariant> driver = g_driverManager->getEveryWhereDriver(m_printer.uriList[0]);
     if (!driver.isEmpty()) {
         m_drivers.append(driver);
-        qInfo() << "Got EveryWhere driver";
-        emit signalDone();
-        return;
+        qCInfo(COMMONMOUDLE) << "Got EveryWhere driver";
     }
 
     /* 等待服务器查找结果返回之后再开始查找本地驱动
      * 如果服务有精确查找到驱动，再执行一次本地精确查找
     */
-    strModel = getPrinterFullModel();
-    PrinterServerInterface *search = g_printerServer->searchDriverSolution(m_strFullMake, strModel, m_printer.strDeviceId);
+
+    PrinterServerInterface *search = g_printerServer->searchDriverSolution(m_strFullMake, m_strModel, m_printer.strDeviceId);
     if (search) {
         connect(search, &PrinterServerInterface::signalDone, this, &DriverSearcher::slotDriverDone);
         search->getFromServer();
@@ -597,53 +596,32 @@ void DriverSearcher::setMatchLocalDriver(bool match)
 
 static void insertDriver(QList<QMap<QString, QVariant>> &drivers, QList<QMap<QString, QVariant>> &mdrivers)
 {
-    QStringList ppdNames;
-    vector<int> local, open, net, bisheng;
-    for (int i = 0; i < mdrivers.count(); ++i) { // 识别当前可用驱动类型
-        bool isDup = false;
-        QString ppdname = mdrivers[i][CUPS_PPD_NAME].toString();
-        foreach (QString str, ppdNames) {
-            if (g_driverManager->isSamePPD(str, ppdname)) {
-                qInfo() << "Remove same ppd" << ppdname;
-                isDup = true;
+    QList<QMap<QString, QVariant>> net, local, open, migration;
+
+    for (int i = 0; i < mdrivers.count(); ++i) { // 可用驱动类型
+        auto item = mdrivers[i];
+        if (item.contains(SD_KEY_recommended)) {
+            net.append(item);
+        } else if (item[SD_KEY_from].toInt() != PPDFrom_EveryWhere) {
+            bool isMigration = item[CUPS_PPD_NAME].toString().contains("printer-driver-deepinwine");
+            bool isOpen = item[CUPS_PPD_MAKE_MODEL].toString().contains("cups");
+            if (!isMigration && !isOpen) {
+                local.append(item);
+            } else if (isOpen) {
+                open.append(item);
+            } else {
+                migration.append(item);
             }
         }
-
-        if (isDup)
-            continue;
-
-        bool isServer = mdrivers[i][SD_KEY_from].toInt() == PPDFrom_Server ? true : false;
-        bool isBisheng = mdrivers[i]["ppd-name"].toString().contains("printer-driver-deepinwine");
-        bool isOpen = mdrivers[i][CUPS_PPD_MAKE_MODEL].toString().contains("cups");
-        if (!isServer && !isBisheng && !isOpen) {
-            local.push_back(i);
-            continue;
-        }
-
-        if (!isServer && !isBisheng) {
-            open.push_back(i);
-            continue;
-        }
-
-        if (!isBisheng) {
-            net.push_back(i);
-            continue;
-        }
-        bisheng.push_back(i);
     }
 
-    foreach (int i, local) { // 添加本地非开源非毕昇驱动
-        drivers.append(mdrivers[i]);
+    drivers.append(net);
+    if (mdrivers[0][SD_KEY_from].toInt() == PPDFrom_EveryWhere) {
+        drivers.append(mdrivers[0]);
     }
-    foreach (int i, open) { // 非网络获取驱动
-        drivers.append(mdrivers[i]);
-    }
-    foreach (int i, net) { // 网络获取驱动
-        drivers.append(mdrivers[i]);
-    }
-    foreach (int i, bisheng) { // 毕昇驱动
-        drivers.append(mdrivers[i]);
-    }
+    drivers.append(local);
+    drivers.append(open);
+    drivers.append(migration);
 }
 
 void DriverSearcher::sortDrivers()
@@ -658,12 +636,7 @@ void DriverSearcher::sortDrivers()
         return;
     }
 
-    // Everywhere 驱动放在第一位
-    if (m_drivers[0][SD_KEY_from].toInt() == PPDFrom_EveryWhere) {
-        drivers.append(m_drivers[0]);
-    }
-
-    /*先从本地查找的驱动开始遍历，保证本地驱动先插入列表中
+    /* 先从本地查找的驱动开始遍历，保证本地驱动先插入列表中
      * 然后遍历从服务获取的驱动，如果服务器获取的是精确查找的结果，则可以插入到本地驱动之前
      * 如果服务器获取的不是精确查找的结果，则插入到本地驱动之后
      * 如果和本地驱动重复，则删除服务器查找的结果
@@ -685,37 +658,39 @@ bool DriverSearcher::hasExcatDriver()
 
 void DriverSearcher::askForFinish()
 {
-    /*首次尝试通过本地和服务器查找驱动之后，可能本地驱动还没有初始化完成。
+    /* 首次尝试通过本地和服务器查找驱动之后，可能本地驱动还没有初始化完成。
      * 如果首次没有查找到精确匹配的驱动，等待本地驱动初始化完成之后再执行一次本地精确查找
-     * 如果本地精确查找仍然没有找到驱动，再执行一次模糊查找
+     * usb即插即用时，网络驱动优先；如果没有网络驱动进行本地查找
     */
-    if (m_matchLocalDriver) {
-        if (g_iStatus < TStat_Suc) {
-            qInfo() << "Wait ppd init";
-            connect(g_driverManager, &DriverManager::signalStatus, this, &DriverSearcher::slotDriverInit, Qt::UniqueConnection);
-            return;
-        }
 
-        // 驱动初始化完成，再执行一次本地精确查找
-        getLocalDrivers();
-
-        if (TStat_Suc == g_iStatus && !hasExcatDriver() && (!m_strMake.isEmpty() || !m_strModel.isEmpty())) {
-            QMutexLocker locker(&g_mutex);
-
-            m_strMake = normalize(m_strMake);
-            m_strModel = normalize(m_strModel);
-            QList<QMap<QString, QVariant>> list = getFuzzyMatchDrivers(m_strMake, m_strModel, m_strCMD);
-            if (!list.isEmpty()) {
-                m_localIndex = m_drivers.count();
-                m_drivers += list;
-            }
-        }
+    if (m_drivers.isEmpty() && !m_matchLocalDriver) { // usb需要初始化驱动信息，有网络驱动不进行本地初始化
+        qCDebug(COMMONMOUDLE) << "usb init local ppds";
+        g_driverManager->refreshPpds();
     }
 
-    // 如果无匹配驱动，并且无网络状态，搜索是否存在离线驱动信息
-    if (m_drivers.isEmpty() && m_isNetOffline && m_matchLocalDriver) {
-        QString strModel = getPrinterFullModel();
-        m_isOfflineDriverExist = searchOffineDriver(m_strFullMake, strModel);
+    if ((m_matchLocalDriver && g_iStatus < TStat_Suc) ||
+       (m_drivers.isEmpty() && !m_matchLocalDriver && g_iStatus < TStat_Suc)){
+        qCInfo(COMMONMOUDLE) << "Wait ppd init";
+        connect(g_driverManager, &DriverManager::signalStatus, this, &DriverSearcher::slotDriverInit, Qt::UniqueConnection);
+        return;
+    }
+
+    // 驱动初始化完成，再执行一次本地精确查找；usb时，如果网络找到驱动，不进行本地查找
+    if (m_drivers.isEmpty() || m_matchLocalDriver) {
+        getLocalDrivers();
+    }
+
+    if (TStat_Suc == g_iStatus && !hasExcatDriver() && m_matchLocalDriver &&
+        (!m_strMake.isEmpty() || !m_strModel.isEmpty())) { // 模糊匹配
+        QMutexLocker locker(&g_mutex);
+
+        m_strMake = normalize(m_strMake);
+        m_strModel = normalize(m_strModel);
+        QList<QMap<QString, QVariant>> list = getFuzzyMatchDrivers(m_strMake, m_strModel, m_strCMD);
+        if (!list.isEmpty()) {
+            m_localIndex = m_drivers.count();
+            m_drivers += list;
+        }
     }
 
     sortDrivers();
@@ -736,6 +711,13 @@ void DriverSearcher::parseJsonInfo(QJsonArray value)
         ppd.insert(SD_KEY_excat, QJsonValue(true));
         ppd.insert(CUPS_PPD_NAME, QJsonValue::fromVariant(ppdsobject.value("source").toString()));
         ppd.insert(SD_KEY_debver, ppdobject.value(SD_KEY_debver).toString());
+        ppd.insert(SD_KEY_recommended,  ppdobject.value(SD_KEY_recommended).toBool());
+
+        if (ppd[CUPS_PPD_MAKE_MODEL].toString().isEmpty() || ppd[SD_KEY_driver].toString().isEmpty() ||
+            ppd[CUPS_PPD_NAME].toString().isEmpty() || ppd[SD_KEY_recommended].toString().isEmpty()) {
+            qCDebug(COMMONMOUDLE) << "empty item";
+            continue;
+        }
 
         QString ppdName = ppd[SD_KEY_driver].toString();
         if (ppds.empty()) {
@@ -774,7 +756,7 @@ void DriverSearcher::slotDriverDone(int iCode, const QByteArray &result)
         QJsonArray array = rootObject.value("list").toArray();
 
         if (array.isEmpty()) {
-            qInfo() << "List is empty!";
+            qCInfo(COMMONMOUDLE) << "List is empty!";
             sender()->deleteLater();
             askForFinish();
             return;
@@ -786,7 +768,7 @@ void DriverSearcher::slotDriverDone(int iCode, const QByteArray &result)
     }
 
     sender()->deleteLater();
-    qInfo() << "Got net driver count:" << m_drivers.count();
+    qCInfo(COMMONMOUDLE) << "Got net driver count:" << m_drivers.count();
     askForFinish();
 }
 
@@ -861,13 +843,13 @@ int DriverSearcher::getLocalDrivers()
     QString strMake, strModel;
 
     if (g_iStatus < TStat_Suc) {
-        qWarning() << "PPD not init";
+        qCWarning(COMMONMOUDLE) << "PPD not init";
         m_localIndex = -1;
         return -1;
     }
 
     if (m_strMake.isEmpty() || m_strModel.isEmpty()) {
-        qWarning() << "printer info is invaild";
+        qCWarning(COMMONMOUDLE) << "printer info is invaild";
         return -2;
     }
 
@@ -876,7 +858,7 @@ int DriverSearcher::getLocalDrivers()
     QMutexLocker locker(&g_mutex);
 
     if (g_ppdsDirct.isEmpty() || g_ppds.isEmpty()) {
-        qWarning() << QString("PPD dirct is empty");
+        qCWarning(COMMONMOUDLE) << QString("PPD dirct is empty");
         return -3;
     }
 
@@ -890,7 +872,7 @@ int DriverSearcher::getLocalDrivers()
         m_localIndex = m_drivers.count();
     }
 
-    qInfo() << QString("Got %1 drivers").arg(list.count());
+    qCInfo(COMMONMOUDLE) << QString("Got %1 drivers").arg(list.count());
 
     return list.count();
 }
@@ -925,7 +907,7 @@ int DriverManager::stop()
 
     QMutexLocker locker(&g_mutex);
     g_iStatus = TStat_None;
-    qInfo() << "Clear local driver dirct";
+    qCInfo(COMMONMOUDLE) << "Clear local driver dirct";
 
     QList<QMap<QString, QString> *> models = g_ppdsDirct.values();
     foreach (auto model, models) {
@@ -978,7 +960,7 @@ QStringList DriverManager::getAllMakes()
 const QMap<QString, QString> *DriverManager::getModelsByMake(const QString &strMake)
 {
     if (TStat_Suc > g_iStatus) {
-        qWarning() << "PPD is not inited";
+        qCWarning(COMMONMOUDLE) << "PPD is not inited";
         return nullptr;
     }
 
@@ -988,7 +970,7 @@ const QMap<QString, QString> *DriverManager::getModelsByMake(const QString &strM
 const QMap<QString, QMap<QString, QString>> *DriverManager::getPPDs()
 {
     if (TStat_Suc > g_iStatus) {
-        qWarning() << "PPD is not inited";
+        qCWarning(COMMONMOUDLE) << "PPD is not inited";
         return nullptr;
     }
 
@@ -1018,7 +1000,7 @@ QMap<QString, QVariant> DriverManager::getEveryWhereDriver(const QString &strUri
         driver.insert(CUPS_PPD_MAKE_MODEL, tr("EveryWhere driver"));
         driver.insert(CUPS_PPD_NAME, "EveryWhere driver");
         driver.insert(SD_KEY_excat, true);
-        qDebug() << "Got everywhere driver for" << strUri;
+        qCDebug(COMMONMOUDLE) << "Got everywhere driver for" << strUri;
     }
 
     return driver;
@@ -1039,30 +1021,40 @@ QStringList DriverManager::getDriverDepends(const char *strPPD)
                 return depends;
             string ppdfile = conPtr->getServerPPD(strPPD);
 
-            qDebug() << strPPD << STQ(ppdfile);
+            qCDebug(COMMONMOUDLE) << strPPD << STQ(ppdfile);
             p.load(ppdfile.c_str());
         }
         attrs = p.getAttributes();
     } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+        qCWarning(COMMONMOUDLE) << "Got execpt: " << QString::fromUtf8(ex.what());
         return depends;
     };
 
     for (size_t i = 0; i < attrs.size(); i++) {
         QString strName = STQ(attrs[i].getName());
         QString strValue = STQ(attrs[i].getValue());
-        qDebug() << strName << strValue;
+        qCDebug(COMMONMOUDLE) << strName << strValue;
         if (strName == "NickName") {
             QString strMake, strModel;
             ppdMakeModelSplit(strValue, strMake, strModel);
             if (strMake.toLower() == "hp" && strValue.contains("requires proprietary plugin")) {
-                depends << "hplip-plugin";
+                QString arch = g_Settings->getSystemArch();
+                QRegExp regex("(\\d+\\.\\d+\\.\\d+)");
+                if (regex.indexIn(strValue) == -1) {
+                    break;
+                }
+
+                QVersionNumber curVer = QVersionNumber::fromString(regex.cap(1));
+                QVersionNumber baseVersion = QVersionNumber::fromString("3.18.12");
+                if (curVer <= baseVersion && !(arch.contains("mips") || arch.contains("loongarch"))) {
+                    depends << "hplip-plugin";
+                }
             }
             break;
         }
     }
 
-    qInfo() << strPPD << depends;
+    qCInfo(COMMONMOUDLE) << strPPD << depends;
     return depends;
 }
 

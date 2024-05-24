@@ -663,6 +663,11 @@
         <translation>删除</translation>
     </message>
     <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="795"/>
+        <source>Canon capt printer does not support name modification.</source>
+        <translation>佳能capt打印机不支持名称修改.</translation>
+    </message>
+    <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="782"/>
         <source>The name already exists</source>
         <translation>此名称已存在</translation>
@@ -1224,8 +1229,8 @@
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="236"/>
-        <source>Enter an address</source>
-        <translation>请输入地址</translation>
+        <source>Please enter an IP address or hostname</source>
+        <translation>请输入 IP 地址或主机名</translation>
     </message>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="238"/>
@@ -1530,8 +1535,13 @@
     </message>
     <message>
         <location filename="../ui/uisourcestring.h" line="43"/>
-        <source>For more drivers, please refer to our official website: </source>
-        <translation>更多驱动详见官网：</translation>
+        <source>Printer problem help: </source>
+        <translation>打印机问题帮助：</translation>
+    </message>
+    <message>
+        <location filename="../ui/uisourcestring.h" line="46"/>
+        <source>Unable to connect to printer. Please check the IP address or hostname and try again. Make sure the printer is turned on and the IP address or hostname is correct.</source>
+        <translation>无法连接到打印机。请检查 IP 地址或主机名并重试。请确保打印机已打开，并且 IP 地址或主机名正确输入。</translation>
     </message>
     <message>
         <location filename="../util/ddestination.cpp" line="201"/>
@@ -1562,6 +1572,16 @@
         <location filename="../../Common/common.cpp" line="154"/>
         <source>%1 not found, please ask the administrator for help, or enter the printer IP address in URI of Properties.</source>
         <translation>%1无法解析，请联系管理员，或前往属性-URI手动输入打印机IP</translation>
+    </message>
+    <message>
+        <location filename="../../Common/vendor/addprinter.cpp" line="489"/>
+        <source>The Canon capt printer has been added and is not allowed to be added again.</source>
+        <translation>佳能capt打印机已经添加，不允许重复添加.</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="69"/>
+        <source>Help on adding and using printers</source>
+        <translation>打印机添加与使用帮助</translation>
     </message>
 </context>
 <context>

@@ -43,7 +43,7 @@ QString sysArch()
         {"sw_64", "sw_64"},
         {"loongarch64", "loongarch64"}
     };
-    qInfo() << machine;
+    qDebug() << machine;
     return archMap[machine];
 }
 
@@ -169,6 +169,10 @@ int zSettings::getCupsServerEncryption()
 
 const QString zSettings::getDriverPlatformUrl()
 {
+    QString strUrl = getenv("DRIVER_PLATFORM_TEST_URL");
+    if (!strUrl.isEmpty()) {
+        return strUrl;
+    }
     return DRIVER_PLATFORM_URL;
 }
 const QString zSettings::getSystemArch()

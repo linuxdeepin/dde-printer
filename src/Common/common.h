@@ -12,6 +12,17 @@
 #include <QDebug>
 #include <cups/adminutil.h>
 
+#define APPNAME "dde-printer"
+
+Q_DECLARE_LOGGING_CATEGORY(COMMONMOUDLE)
+
+typedef enum time_record_e {
+    ADD_TIME = 0,
+    START_TIME,
+    FINISH_TIME,
+    RESET_TIME,
+    MAX_TIME
+} time_record_t;
 //将输入字符串转为小写，分隔出字母和数字
 QString normalize(const QString &strin);
 
@@ -54,5 +65,14 @@ QString toNormalName(const QString &name);
 
 bool isIpv4Address(const QString &str);
 
-QString getPrinterFullModel();
+void loadEventlib();
+
+bool isEventSdkInit();
+
+QStringList getCurrentTime(time_record_t type);
+
+typedef void (*pfWriteEventLog)(const std::string &);
+pfWriteEventLog getWriteEventLog();
+void unloadEventLib();
+
 #endif // COMMON_H

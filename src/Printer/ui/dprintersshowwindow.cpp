@@ -12,6 +12,7 @@
 #include "uisourcestring.h"
 #include "config.h"
 #include "cupsconnectionfactory.h"
+#include "common.h"
 
 #include "printertestpagedialog.h"
 #include "troubleshootdialog.h"
@@ -29,6 +30,10 @@
 #include <DBackgroundGroup>
 #include <DErrorMessage>
 
+#ifdef DTKWIDGET_CLASS_DSizeMode
+#include <DSizeMode>
+#endif
+
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QGridLayout>
@@ -43,6 +48,20 @@
 #include <QDBusConnection>
 #include <QDBusInterface>
 #include <QProcess>
+#include <QDesktopServices>
+#define FAQDOCUMENT_MESSAGE QObject::tr("Help on adding and using printers")
+static const QString faqDocPath = "/usr/share/deepin-manual/manual-assets/application/dde-printer/打印机使用FAQ文档.pdf";
+
+static const QString canonRemove = "/opt/cndrvcups-capt/remove";
+
+static bool isCanonCaptPrinter(QString printerName)
+{
+    QString printerUri = getPrinterUri(printerName.toUtf8().data());
+    if (printerUri.contains("ccp://")) {
+        return true;
+    }
+    return false;
+}
 
 DPrintersShowWindow::DPrintersShowWindow(const QString &printerName, QWidget *parent)
     : DMainWindow(parent)
@@ -84,10 +103,17 @@ void DPrintersShowWindow::initUI()
     DFontSizeManager::instance()->bind(pLabel, DFontSizeManager::T5, int(QFont::DemiBold));
     m_pBtnAddPrinter = new DIconButton(this);
     m_pBtnAddPrinter->setIcon(QIcon::fromTheme("dp_add"));
+
+#ifdef DTKWIDGET_CLASS_DSizeMode
+    m_pBtnAddPrinter->setFixedSize(DSizeModeHelper::element(QSize(24, 24), QSize(36, 36)));
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::sizeModeChanged, [this]() {
+        m_pBtnAddPrinter->setFixedSize(DSizeModeHelper::element(QSize(24, 24), QSize(36, 36)));
+    });
+#else
     m_pBtnAddPrinter->setFixedSize(36, 36);
+#endif
     m_pBtnAddPrinter->setToolTip(tr("Add printer"));
     m_pBtnDeletePrinter = new DIconButton(DStyle::SP_DecreaseElement);
-    m_pBtnDeletePrinter->setFixedSize(36, 36);
     m_pBtnDeletePrinter->setToolTip(tr("Delete printer"));
 
     pLabel->setAccessibleName("label_leftWidget");
@@ -104,7 +130,7 @@ void DPrintersShowWindow::initUI()
     m_pPrinterModel = new QStandardItemModel(m_pPrinterListView);
     m_pPrinterListView->setTextElideMode(Qt::ElideRight);
     m_pPrinterListView->setContextMenuPolicy(Qt::CustomContextMenu);
-    m_pPrinterListView->setMinimumWidth(310);
+    m_pPrinterListView->setFixedWidth(310);
     m_pPrinterListView->setItemSpacing(10);
     m_pPrinterListView->setModel(m_pPrinterModel);
     m_pPrinterListView->setFocusPolicy(Qt::NoFocus);
@@ -146,6 +172,12 @@ void DPrintersShowWindow::initUI()
     m_pListViewMenu->addAction(m_pDefaultAction);
     m_pListViewMenu->setAccessibleName("listView_printerList");
 
+    m_pFaqDocBtn = new QPushButton();
+    m_pFaqDocBtn->setFixedWidth(310);
+    QString showFaqInfo = FAQDOCUMENT_MESSAGE;
+    geteElidedText(m_pFaqDocBtn->font(), showFaqInfo, m_pFaqDocBtn->width() - 20);
+    m_pFaqDocBtn->setText(showFaqInfo);
+    m_pFaqDocBtn->setToolTip(FAQDOCUMENT_MESSAGE);
     // 没有打印机时的提示
     m_pLeftTipLabel = new QLabel(tr("No Printers"));
     m_pLeftTipLabel->setVisible(false);
@@ -160,6 +192,7 @@ void DPrintersShowWindow::initUI()
     pLeftVLayout->addLayout(pLeftTopHLayout, 1);
     pLeftVLayout->addWidget(m_pPrinterListView, 4);
     pLeftVLayout->addWidget(m_pLeftTipLabel, 1, Qt::AlignCenter);
+    pLeftVLayout->addWidget(m_pFaqDocBtn, 0, Qt::AlignBottom);
     pLeftVLayout->setContentsMargins(0, 0, 0, 0);
     QWidget *pLeftWidget = new QWidget(this);
     pLeftWidget->setLayout(pLeftVLayout);
@@ -396,7 +429,10 @@ void DPrintersShowWindow::initConnections()
     connect(m_pRejectAction, &QAction::triggered, this, &DPrintersShowWindow::listWidgetMenuActionSlot);
 
     connect(m_pSettings, &QAction::triggered, this, &DPrintersShowWindow::serverSettingsSlot);
-
+    connect(m_pFaqDocBtn, &QPushButton::clicked , this, []() {
+        QUrl url = QUrl::fromLocalFile(faqDocPath);
+        QDesktopServices::openUrl(url);
+    });
 }
 
 void DPrintersShowWindow::showEvent(QShowEvent *event)
@@ -428,7 +464,7 @@ void DPrintersShowWindow::showEvent(QShowEvent *event)
         /*第一次安装没有启动后台程序，需要手动启动*/
         QDBusInterface interface(SERVICE_INTERFACE_NAME, SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME, QDBusConnection::sessionBus());
         if (!interface.isValid()) {
-            qInfo() << "start dde-printer-helper";
+            qCInfo(COMMONMOUDLE) << "start dde-printer-helper";
             QProcess proces;
             proces.startDetached("bash", QStringList() << "-c" << "dde-printer-helper");
         }
@@ -436,13 +472,14 @@ void DPrintersShowWindow::showEvent(QShowEvent *event)
         //连接dbus信号
         if (!QDBusConnection::sessionBus().connect(SERVICE_INTERFACE_NAME, SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME,
                                                    "signalPrinterStateChanged", this, SLOT(printerStateChanged(QDBusMessage)))) {
-            qWarning() << "connect to dbus signal(signalPrinterStateChanged) failed";
+            qCWarning(COMMONMOUDLE) << "connect to dbus signal(signalPrinterStateChanged) failed";
         }
         if (!QDBusConnection::sessionBus().connect(SERVICE_INTERFACE_NAME, SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME,
                                                    "deviceStatusChanged", this, SLOT(deviceStatusChanged(QDBusMessage)))) {
-            qWarning() << "connect to dbus signal(deviceStatusChanged) failed";
+            qCWarning(COMMONMOUDLE) << "connect to dbus signal(deviceStatusChanged) failed";
         }
     });
+
 }
 
 void DPrintersShowWindow::selectPrinterByName(const QString &printerName)
@@ -628,7 +665,7 @@ void DPrintersShowWindow::serverSettingsSlot()
         m_pPrinterManager->commit(options);
         //触发本地cups服务启动
         if (!g_cupsConnection) {
-            qInfo() << "Try to restart the cups service";
+            qCInfo(COMMONMOUDLE) << "Try to restart the cups service";
         }
     }
 }
@@ -665,7 +702,7 @@ void DPrintersShowWindow::resizeEvent(QResizeEvent *event)
 void DPrintersShowWindow::printerStateChanged(const QDBusMessage &msg)
 {
     if (msg.arguments().count() != 3) {
-        qWarning() << "printerStateChanged dbus arguments error";
+        qCWarning(COMMONMOUDLE) << "printerStateChanged dbus arguments error";
         return;
     }
     const QString printer = msg.arguments().at(0).toString();
@@ -686,7 +723,7 @@ void DPrintersShowWindow::printerStateChanged(const QDBusMessage &msg)
 void DPrintersShowWindow::deviceStatusChanged(const QDBusMessage &msg)
 {
     if (msg.arguments().count() != 2) {
-        qWarning() << "deviceStatusChanged dbus arguments error";
+        qCWarning(COMMONMOUDLE) << "deviceStatusChanged dbus arguments error";
         return;
     }
     const QString printer = msg.arguments().at(0).toString();
@@ -715,6 +752,7 @@ void DPrintersShowWindow::addPrinterClickSlot()
         connect(m_pSearchWindow, &PrinterSearchWindow::updatePrinterList, this, &DPrintersShowWindow::refreshPrinterListView);
     }
     m_pSearchWindow->show();
+    (void)getCurrentTime(ADD_TIME);
 }
 
 void DPrintersShowWindow::deletePrinterClickSlot()
@@ -734,6 +772,17 @@ void DPrintersShowWindow::deletePrinterClickSlot()
         pDialog->setIcon(QIcon(":/images/warning_logo.svg"));
         int ret = pDialog->exec();
         if (ret > 0) {
+            if (isCanonCaptPrinter(printerName)) { // 判断是否canon capt打印机
+                QFile file(canonRemove);
+                if (file.exists()) {
+                    QProcess p;
+                    ret = p.execute("pkexec", QStringList {canonRemove, printerName});
+                    if (ret != 0) {
+                        return;
+                    }
+                }
+            }
+
             bool suc = m_pPrinterManager->deletePrinterByName(printerName);
             if (suc) {
                 // 刷新打印机列表
@@ -750,6 +799,26 @@ void DPrintersShowWindow::renamePrinterSlot(QStandardItem *pItem)
     //过滤掉空格
     if (!pItem)
         return;
+
+    if (isCanonCaptPrinter(m_CurPrinterName)) { // ccp打印机不支持修改名称
+        DDialog *pDialog = new DDialog();
+        pDialog->setIcon(QIcon(":/images/warning_logo.svg"));
+        QLabel *pMessage = new QLabel(tr("Canon capt printer does not support name modification."));
+        pMessage->setWordWrap(true);
+        pMessage->setAlignment(Qt::AlignCenter);
+        pDialog->addContent(pMessage);
+        pDialog->addButton(tr("Confirm"));
+        pDialog->exec();
+        pDialog->deleteLater();
+
+        m_pPrinterListView->blockSignals(true);
+        m_pPrinterModel->blockSignals(true);
+        pItem->setText(m_CurPrinterName);
+        m_pPrinterListView->blockSignals(false);
+        m_pPrinterModel->blockSignals(false);
+        return;
+    }
+
     QString newPrinterName = m_pPrinterManager->validataName(pItem->text());
     if (newPrinterName.isEmpty()) {
         m_pPrinterListView->blockSignals(true);
@@ -816,7 +885,7 @@ void DPrintersShowWindow::renamePrinterSlot(QStandardItem *pItem)
             pItem->setText(m_CurPrinterName);
             m_pPrinterListView->blockSignals(false);
             m_pPrinterModel->blockSignals(false);
-            qWarning() << "add printer failed";
+            qCWarning(COMMONMOUDLE) << "add printer failed";
             return;
         }
         m_pPrinterManager->setPrinterEnabled(newPrinterName, true);
@@ -830,7 +899,7 @@ void DPrintersShowWindow::renamePrinterSlot(QStandardItem *pItem)
         // 刷新完成选中重命名的打印机
         refreshPrinterListView(m_CurPrinterName);
     } catch (const std::runtime_error &e) {
-        qWarning() << e.what();
+        qCWarning(COMMONMOUDLE) << e.what();
     }
 }
 
@@ -1019,6 +1088,16 @@ void DPrintersShowWindow::listWidgetMenuActionSlot(bool checked)
         }
     } else if (sender()->objectName() == "Accept") {
         m_pPrinterManager->setPrinterAcceptJob(printerName, checked);
+    }
+}
+
+void DPrintersShowWindow::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::FontChange) {
+        QString showFaqInfo = FAQDOCUMENT_MESSAGE;
+        geteElidedText(m_pFaqDocBtn->font(), showFaqInfo, m_pFaqDocBtn->width() - 20);
+        m_pFaqDocBtn->setText(showFaqInfo);
+        QWidget::changeEvent(event);
     }
 }
 

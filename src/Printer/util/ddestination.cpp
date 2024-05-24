@@ -13,6 +13,8 @@
 
 using namespace std;
 
+Q_LOGGING_CATEGORY(UTIL, "org.deepin.dde-printer.util")
+
 DDestination::DDestination()
 {
 
@@ -75,7 +77,7 @@ QString DDestination::printerInfo()
             strPrintInfo = strPrintInfo.remove(0, 1);
         }
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
     }
 
     return strPrintInfo;
@@ -90,7 +92,7 @@ void DDestination::setPrinterInfo(const QString &info)
         if (conPtr)
             conPtr->setPrinterInfo(m_strName.toStdString().c_str(), m_printerInfo.toStdString().c_str());
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
     }
 }
 
@@ -108,7 +110,7 @@ QString DDestination::printerLocation()
             strLocation = strLocation.remove(0, 1);
         }
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
     }
 
     return strLocation;
@@ -123,7 +125,7 @@ void DDestination::setPrinterLocation(const QString &location)
         if (conPtr)
             conPtr->setPrinterLocation(m_strName.toStdString().c_str(), m_printerLocation.toStdString().c_str());
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(UTIL) << "Got execpt: " << QString::fromUtf8(e.what());
     }
 }
 
@@ -192,7 +194,7 @@ void DDestination::initPrinterAttr()
             m_isEnabled = false;
         }
     } catch (const std::runtime_error &e) {
-        qCritical() << e.what();
+        qCCritical(UTIL) << e.what();
     }
 }
 
