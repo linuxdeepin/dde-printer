@@ -8,6 +8,9 @@
 #include <QDBusMessage>
 #include <QDBusPendingReply>
 #include <QProcess>
+#include <QCoreApplication>
+
+#define TIMEOUT 1000 * 60 * 5
 
 HelperInterface::HelperInterface(CupsMonitor *pCupsMonitor, QObject *parent)
     : QObject(parent)
@@ -29,6 +32,9 @@ HelperInterface::HelperInterface(CupsMonitor *pCupsMonitor, QObject *parent)
         });
     }
 
+    m_timer = new QTimer(this);
+    connect(m_timer, &QTimer::timeout, QCoreApplication::instance(), &QCoreApplication::quit);
+    m_timer->start(TIMEOUT);
 }
 
 HelperInterface::~HelperInterface()
@@ -111,3 +117,14 @@ void HelperInterface::showJobsWindow()
         qWarning() << QString("showJobsWindow failed because %1").arg(process.errorString());
     }
 }
+
+void HelperInterface::setTypeAndState(int status)
+{
+    m_timer->start(TIMEOUT);
+
+    if (status == 2) { // usb打印设备
+        emit usbDeviceProcess();
+    }
+}
+
+

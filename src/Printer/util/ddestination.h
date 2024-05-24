@@ -8,6 +8,9 @@
 
 #include <QStringList>
 #include <QObject>
+#include <QLoggingCategory>
+
+Q_DECLARE_LOGGING_CATEGORY(UTIL)
 
 using namespace std;
 

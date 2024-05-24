@@ -141,13 +141,8 @@ _cupsSNMPDefaultCommunity(void)
           if(!cupsstrcasecmp(line, "Community")){
               char* pValue = getValue(line);
 
-              if(pValue) {
-                  if (strlen(pValue) > sizeof(pRet)) {
-                      strcpy(pRet, "public");
-                  }
-                  else {
-                      strcpy(pRet, pValue);
-                  }
+              if(pValue){
+                  strcpy(pRet, pValue);
                   break;
               }
               else {

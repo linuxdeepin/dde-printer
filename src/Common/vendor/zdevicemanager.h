@@ -22,7 +22,7 @@ using namespace std;
 enum {
     InfoFrom_Invalid = -1,
     InfoFrom_Detect = 0, /*准确的打印机信息，通过探测发现的*/
-    InfoFrom_Guess, /*通过host猜测的打印机信息*/
+    InfoFrom_Host, /*通过host猜测的打印机信息*/
     InfoFrom_Manual /*用户手动填写的打印机信息*/
 };
 
@@ -34,7 +34,9 @@ typedef struct tagDeviceInfo {
 
     QString toString() const
     {
-        return QString("uri: %1,class:%2,info:%3,name:%4,makemodel:%5,id:%6").arg(uriList.join(";")).arg(strClass).arg(strInfo).arg(strName).arg(strMakeAndModel).arg(strDeviceId);
+        return QString("uri: %1,class:%2,info:%3,name:%4,makemodel:%5,id:%6,location:%7,type:%8,serial:%9") \
+                .arg(uriList.join(";")).arg(strClass).arg(strInfo).arg(strName).arg(strMakeAndModel) \
+                .arg(strDeviceId).arg(strLocation).arg(iType).arg(serial);
     }
 
     QStringList uriList; //uri
