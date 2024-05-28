@@ -23,6 +23,8 @@
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
 
+Q_LOGGING_CATEGORY(PRINTERAPP, "org.deepin.dde-printer.app")
+
 enum ApplicationModel {
     APPMODEL_Watch = 0x1,
     APPMODEL_TrayIcon = 0x2,
@@ -42,7 +44,7 @@ PrinterApplication *PrinterApplication::getInstance()
 void PrinterApplication::slotNewProcessInstance(qint64 pid, const QStringList &arguments)
 {
     Q_UNUSED(pid);
-    qInfo() << "enter slotNewProcessInstance";
+    qCInfo(PRINTERAPP) << "enter slotNewProcessInstance";
 
     launchWithMode(arguments);
 }
@@ -106,7 +108,7 @@ int PrinterApplication::create()
 
     bool isConnectSuc = connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::newProcessInstance, this, &PrinterApplication::slotNewProcessInstance);
     if (!isConnectSuc)
-        qWarning() << "newProcessInstance connect: " << isConnectSuc;
+        qCWarning(PRINTERAPP) << "newProcessInstance connect: " << isConnectSuc;
 
     return 0;
 }

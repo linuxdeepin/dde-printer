@@ -11,8 +11,7 @@ SOURCES += \
         main.cpp \
     dbus/zcupsmonitor.cpp \
     dbus/helperinterface.cpp \
-    usbprinter/usbthread.cpp \
-    usbprinter/signalforwarder.cpp
+    usbprinter/usbthread.cpp
 
 RESOURCES +=         resources.qrc
 
@@ -37,8 +36,7 @@ LIBS += -lcups -lusb-1.0
 HEADERS += \
     dbus/zcupsmonitor.h \
     dbus/helperinterface.h \
-    usbprinter/usbthread.h \
-    usbprinter/signalforwarder.h
+    usbprinter/usbthread.h
 
 DISTFILES +=
 linux {
@@ -48,13 +46,13 @@ isEmpty(PREFIX){
 
 target.path = $${PREFIX}/bin
 
-watch.path = /etc/xdg/autostart
-watch.files = $${PWD}/platform/linux/watch/dde-printer-watch.desktop
-
 trans.path =  $${PREFIX}/share/dde-printer-helper/translations
 trans.files = $${PWD}/translations/*.qm
 
-INSTALLS += target watch trans
+service.path = /usr/share/dbus-1/services
+service.files = $${PWD}/com.deepin.print.helper.service
+
+INSTALLS += target trans service
 }
 include(../Common/Common.pri)
 

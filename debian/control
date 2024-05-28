@@ -22,7 +22,7 @@ Homepage: http://www.linuxdeepin.com/
 
 Package: dde-printer
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libnss-winbind
+Depends: ${shlibs:Depends}, ${misc:Depends}, libnss-winbind,libdeepin-service-framework,deepin-service-manager
 Description: Deepin Print Manager is a eazy tool to manage printers.
  Deepin Print Manager is a printer management tool,which supports adding and removing printers,managing print jobs and so on.
  

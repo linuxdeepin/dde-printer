@@ -71,7 +71,7 @@ static QStringList getDirectDevices()
         if (conPtr)
             devs = conPtr->getDevices(nullptr, &inSechemes, 0, CUPS_TIMEOUT_DEFAULT);
     } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+        qCWarning(COMMONMOUDLE) << "Got execpt: " << QString::fromUtf8(ex.what());
         return uris;
     }
 
@@ -128,7 +128,7 @@ bool CheckDriver::isPass()
 
     strPPD = getPrinterPPD(m_printerName.toUtf8().data());
     if (!QFile::exists(strPPD)) {
-        qWarning() << strPPD << "not found";
+        qCWarning(COMMONMOUDLE) << strPPD << "not found";
         m_strMessage = tr("PPD file %1 not found").arg(strPPD);
         emit signalStateChanged(TStat_Fail, m_strMessage);
         return false;
@@ -138,7 +138,7 @@ bool CheckDriver::isPass()
         p.load(strPPD.toUtf8().data());
         attrs = p.getAttributes();
     } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+        qCWarning(COMMONMOUDLE) << "Got execpt: " << QString::fromUtf8(ex.what());
         m_strMessage = tr("The driver is damaged");
         emit signalStateChanged(TStat_Fail, m_strMessage);
         return false;
@@ -153,7 +153,7 @@ bool CheckDriver::isPass()
                 break;
 
             QString filter = list.last();
-            qDebug() << strPPD << " filter: " << filter;
+            qCDebug(COMMONMOUDLE) << strPPD << " filter: " << filter;
             if (isFilterMissing(filter)) {
                 m_strMessage = tr("Driver filter %1 not found").arg(filter);
                 emit signalStateChanged(TStat_Fail, m_strMessage);
@@ -166,7 +166,7 @@ bool CheckDriver::isPass()
     depends = g_driverManager->getDriverDepends(strPPD.toUtf8().data());
     foreach (QString package, depends) {
         if (!isPackageExists(package)) {
-            qWarning() << package << "is not exists";
+            qCWarning(COMMONMOUDLE) << package << "is not exists";
             m_strMessage = tr("%1 is not installed, cannot print now").arg(package);
             emit signalStateChanged(TStat_Fail, m_strMessage);
             return false;
@@ -224,11 +224,11 @@ bool CheckConnected::isPass()
     }
 
     strHost = getHostFromUri(strUri);
-    qDebug() << strUri << "scheme:" << strScheme << "host:" << strHost << "port:" << iPort;
+    qCDebug(COMMONMOUDLE) << strUri << "scheme:" << strScheme << "host:" << strHost << "port:" << iPort;
 
     m_strMessage = reslovedHost(strHost);
     if (!m_strMessage.isEmpty()) {
-        qWarning() << strHost << "is not found";
+        qCWarning(COMMONMOUDLE) << strHost << "is not found";
         emit signalStateChanged(TStat_Fail, m_strMessage);
         return false;
     }
@@ -240,7 +240,7 @@ bool CheckConnected::isPass()
         QTcpSocket socket;
         socket.connectToHost(strHost, iPort);
         if (!socket.waitForConnected(3000)) {
-            qWarning() << "Can't connect to host,because " << socket.errorString();
+            qCWarning(COMMONMOUDLE) << "Can't connect to host,because " << socket.errorString();
             m_strMessage = tr("Cannot connect to the printer, error: %1").arg(socket.errorString());
             emit signalStateChanged(TStat_Fail, m_strMessage);
             return false;
@@ -248,7 +248,7 @@ bool CheckConnected::isPass()
     } else if (strHost.isEmpty() && ("hp" == strScheme || "usb" == strScheme)) {
         QStringList uris = getDirectDevices();
         if (!uris.contains(strUri)) {
-            qWarning() << "Not found direct devices";
+            qCWarning(COMMONMOUDLE) << "Not found direct devices";
             m_strMessage = m_printerName + tr(" is not connected, URI: ") + strUri;
             emit signalStateChanged(TStat_Fail, m_strMessage);
             return false;
@@ -257,7 +257,7 @@ bool CheckConnected::isPass()
         QString filePath = strUri.right(strUri.length() - 7);
         QFileInfo fileInfo(filePath);
         if (!fileInfo.absoluteDir().exists()) {
-            qWarning() << fileInfo.absoluteDir().path() << "not exists";
+            qCWarning(COMMONMOUDLE) << fileInfo.absoluteDir().path() << "not exists";
             m_strMessage = tr("%1 does not exist").arg(fileInfo.absoluteDir().path());
             emit signalStateChanged(TStat_Fail, m_strMessage);
             return false;
@@ -304,7 +304,7 @@ bool CheckAttributes::isPass()
         if (conPtr)
             attrs = conPtr->getPrinterAttributes(m_printerName.toUtf8().data(), nullptr, &reqs);
     } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+        qCWarning(COMMONMOUDLE) << "Got execpt: " << QString::fromUtf8(ex.what());
         emit signalStateChanged(TStat_Fail, tr("Failed to get printer attributes, error: ") + QString::fromUtf8(ex.what()));
         return true;
     }
@@ -312,7 +312,7 @@ bool CheckAttributes::isPass()
     //检查打印机是否启用
     strState = attrValueToQString(attrs[CUPS_OP_STATE]);
     if (IPP_PRINTER_STOPPED == strState.toInt()) {
-        qWarning() << m_printerName << "is disable";
+        qCWarning(COMMONMOUDLE) << m_printerName << "is disable";
         m_strMessage = tr("%1 is disabled").arg(m_printerName);
         emit signalStateChanged(TStat_Fail, m_strMessage);
         return false;
@@ -321,7 +321,7 @@ bool CheckAttributes::isPass()
     //检查打印机是否接受打印任务
     strIsAccept = attrs[CUPS_OP_ISACCEPT].c_str();
     if ("b0" == strIsAccept) {
-        qWarning() << m_printerName << "is not accept jobs";
+        qCWarning(COMMONMOUDLE) << m_printerName << "is not accept jobs";
         m_strMessage = m_printerName + tr("is not accepting jobs");
         emit signalStateChanged(TStat_Fail, m_strMessage);
         return false;
@@ -405,7 +405,7 @@ bool PrinterTestJob::isPass()
     emit signalStateChanged(TStat_Running, tr("Printing test page..."));
     if (!QDBusConnection::sessionBus().connect(SERVICE_INTERFACE_NAME, SERVICE_INTERFACE_PATH, SERVICE_INTERFACE_NAME,
                                                "signalJobStateChanged", this, SLOT(slotJobStateChanged(QDBusMessage)))) {
-        qWarning() << "connect to dbus signal(signalJobStateChanged) failed";
+        qCWarning(COMMONMOUDLE) << "connect to dbus signal(signalJobStateChanged) failed";
     }
     if (-1 == m_jobId) {
         m_strMessage = g_jobManager->printTestPage(m_printerName.toUtf8().data(), m_jobId);
@@ -417,7 +417,7 @@ bool PrinterTestJob::isPass()
 
     if (m_bSync) {
         m_eventLoop = new QEventLoop();
-        qInfo() << "Printer test job runing" << m_jobId;
+        qCInfo(COMMONMOUDLE) << "Printer test job runing" << m_jobId;
         return 0 == m_eventLoop->exec();
     }
 
@@ -427,7 +427,7 @@ bool PrinterTestJob::isPass()
 void PrinterTestJob::slotJobStateChanged(const QDBusMessage &msg)
 {
     if (msg.arguments().count() != 3) {
-        qWarning() << "JobStateChanged dbus arguments error";
+        qCWarning(COMMONMOUDLE) << "JobStateChanged dbus arguments error";
         return;
     }
     int id = msg.arguments().at(0).toInt();
@@ -512,7 +512,7 @@ int TroubleShoot::doWork()
         bool bPass = m_jobs[i]->isPass();
         emit signalUpdateProgress(i, m_jobs[i]->getMessage());
 
-        qDebug() << m_jobs[i]->getJobName() << m_jobs[i]->getMessage();
+        qCDebug(COMMONMOUDLE) << m_jobs[i]->getJobName() << m_jobs[i]->getMessage();
         if (!bPass) {
             return -1;
         }

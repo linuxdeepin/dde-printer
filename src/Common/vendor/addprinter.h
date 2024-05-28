@@ -58,6 +58,7 @@ protected slots:
     void slotInstallStatus(int iStatus);
     void slotDependsStatus(int iStatus);
     void slotFixHplipStatus(int iStatus);
+    void slotWriteLog(int iStatus);
 
 protected:
     TDeviceInfo m_printer;

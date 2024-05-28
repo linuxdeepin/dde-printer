@@ -27,6 +27,7 @@
 #define SD_KEY_feedback "feedback"
 #define SD_KEY_detail "detail"
 #define SD_KEY_package "package"
+#define SD_KEY_recommended "is_recommend"
 
 class PrinterServerInterface : public QObject
 {

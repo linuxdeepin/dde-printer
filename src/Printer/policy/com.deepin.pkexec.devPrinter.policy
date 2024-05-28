@@ -14,7 +14,20 @@
     </defaults>
     <message>Install Canon printer</message>
     <message xml:lang="zh_CN">安装佳能打印机</message>
-    <annotate key="org.freedesktop.policykit.exec.path">/opt/cndrvcups-capt/addprinter.sh</annotate>
+    <annotate key="org.freedesktop.policykit.exec.path">/opt/cndrvcups-capt/add</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+
+  <action id="com.deepin.pkexec.printer.remove">
+    <icon_name>dde-printer</icon_name>
+    <defaults>
+      <allow_any>no</allow_any>
+      <allow_inactive>no</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <message>Remove Canon printer</message>
+    <message xml:lang="zh_CN">卸载佳能打印机</message>
+    <annotate key="org.freedesktop.policykit.exec.path">/opt/cndrvcups-capt/remove</annotate>
     <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
   </action>
 

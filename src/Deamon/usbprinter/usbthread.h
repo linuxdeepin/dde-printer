@@ -9,7 +9,6 @@
 #include <QMutex>
 
 #include "zdevicemanager.h"
-#include "signalforwarder.h"
 
 #include <libusb-1.0/libusb.h>
 
@@ -20,18 +19,10 @@ class USBThread : public QThread
 public:
     USBThread(QObject *parent = nullptr);
     ~USBThread() override;
-
-    /*用于注册libusb回调*/
-    static int LIBUSB_CALL static_usb_arrived_callback(libusb_context *ctx, libusb_device *dev, libusb_hotplug_event event, void *userdata);
-
-    int  usb_arrived_callback(libusb_context *ctx, libusb_device *dev, libusb_hotplug_event event);
-
-protected:
-    void run() override;
+    void getUsbDevice();
+    void processArrivedUSBDevice();
 
 private:
-    bool needExit;
-
     libusb_device *m_currentUSBDevice;
     QList<libusb_device *> m_usbDeviceList;
     QMutex m_mutex;
@@ -46,15 +37,18 @@ private:
     void nextConfiguration();
 
 private slots:
-    void processArrivedUSBDevice();
     bool addArrivedUSBPrinter();
     void notificationActionInvoked(uint id, const QString &msg);
     void addingJobFinished(int status);
 signals:
     void newUSBDeviceArrived();
-
+    void startGetDriver();
+    void workFinished();
     /*通知前端当前正在配置的打印机状态变化*/
     void deviceStatusChanged(const QString &defaultPrinterName, int status);
+
+protected:
+   void run() override;
 };
 
 #endif // USBTHREAD_H
