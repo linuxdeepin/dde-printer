@@ -111,10 +111,16 @@ trans.files = $${PWD}/translations/*.qm
 polkit.path = $${PREFIX}/share/polkit-1/actions
 polkit.files = $${PWD}/policy/com.deepin.pkexec.devPrinter.policy
 
-offline.path = $${PREFIX}/share/dde-printer
-offline.files = $${PWD}/policy/offline.json
+dconfigfile.path = $${PREFIX}/share/dsg/configs/dde-printer
+dconfigfile.files = $${PWD}/logconf/org.deepin.dde.printer.json
 
-INSTALLS += target desktop hicolor trans polkit offline
+debugconf.path = $${PREFIX}/share/deepin-debug-config/deepin-debug-config.d
+debugconf.files = $${PWD}/logconf/dde-printer_debug.json
+
+logconf.path = $${PREFIX}//share/deepin-log-viewer/deepin-log.conf.d
+logconf.files = $${PWD}/logconf/dde-printer.json
+
+INSTALLS += target desktop hicolor trans polkit dconfigfile debugconf logconf
 }
 
 #从debian/rules里面获取定义好的VERSION，然后转成字符串

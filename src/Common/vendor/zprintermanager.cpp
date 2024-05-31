@@ -30,11 +30,11 @@ int GetSystemPrinters()
             QString name = STQ(itmap->first);
             map<string, string> infomap = itmap->second;
 
-            qDebug() << "printer :" << name;
+            qCDebug(COMMONMOUDLE) << "printer :" << name;
             dumpStdMapValue(infomap);
         }
     } catch (const std::exception &ex) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(ex.what());
+        qCWarning(COMMONMOUDLE) << "Got execpt: " << QString::fromUtf8(ex.what());
         return -1;
     };
 
@@ -46,7 +46,7 @@ int RemoveSystemPrinter(QString printername)
     ipp_t *request; /* IPP Request */
     char uri[HTTP_MAX_URI]; /* URI for printer/class */
 
-    qDebug() << "delete_printer " << printername;
+    qCDebug(COMMONMOUDLE) << "delete_printer " << printername;
 
     request = ippNewRequest(CUPS_DELETE_PRINTER);
 
@@ -56,12 +56,12 @@ int RemoveSystemPrinter(QString printername)
                  "printer-uri", NULL, uri);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
                  NULL, cupsUser());
-    qDebug() << "uri: " << uri << " user: " << cupsUser();
+    qCDebug(COMMONMOUDLE) << "uri: " << uri << " user: " << cupsUser();
 
     ippDelete(cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/admin/"));
 
     if (cupsLastError() > IPP_STATUS_OK_CONFLICTING) {
-        qWarning() << "delete_printer failed: " << cupsLastErrorString();
+        qCWarning(COMMONMOUDLE) << "delete_printer failed: " << cupsLastErrorString();
 
         return -1;
     }
@@ -126,7 +126,7 @@ set_printer_options(
         return 1;
 
     for (int i = 0; i < num_options; i++) {
-        qDebug() << options[i].name << " " << options[i].value;
+        qCDebug(COMMONMOUDLE) << options[i].name << " " << options[i].value;
     }
 
     if (get_printer_type(http, printer, uri, sizeof(uri)) & CUPS_PRINTER_CLASS)
@@ -164,7 +164,7 @@ set_printer_options(
     */
 
     if (cupsLastError() > IPP_STATUS_OK_CONFLICTING) {
-        qDebug() << "Set printer options failed: " << cupsLastErrorString();
+        qCDebug(COMMONMOUDLE) << "Set printer options failed: " << cupsLastErrorString();
         return -1;
     } else
         return (0);
@@ -175,7 +175,7 @@ int DuplicateSystemPrinter(TDeviceInfo printer, QString newname)
     QString strUri;
     int iRet = 0;
 
-    qDebug() << printer.strName << "-->" << newname;
+    qCDebug(COMMONMOUDLE) << printer.strName << "-->" << newname;
     if (printer.strName == newname)
         return 0;
 
@@ -197,7 +197,7 @@ int RenameSystemPrinter(TDeviceInfo printer, QString newname)
 {
     int iRet = 0;
 
-    qDebug() << printer.strName << "-->" << newname;
+    qCDebug(COMMONMOUDLE) << printer.strName << "-->" << newname;
     iRet = DuplicateSystemPrinter(printer, newname);
     if (0 == iRet)
         iRet = RemoveSystemPrinter(printer.strName);
@@ -210,7 +210,7 @@ int SetDefaultPrinter(QString printername)
     ipp_t *request; /* IPP Request */
     char uri[HTTP_MAX_URI]; /* URI for printer/class */
 
-    qDebug() << printername;
+    qCDebug(COMMONMOUDLE) << printername;
 
     httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), "ipp", NULL,
                      "localhost", 0, "/printers/%s", STR_T_UTF8(printername));
@@ -225,7 +225,7 @@ int SetDefaultPrinter(QString printername)
     ippDelete(cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/admin/"));
 
     if (cupsLastError() > IPP_STATUS_OK_CONFLICTING) {
-        qWarning() << cupsLastErrorString();
+        qCWarning(COMMONMOUDLE) << cupsLastErrorString();
 
         return (1);
     }
@@ -251,7 +251,7 @@ int SetPrinterShared(QString printername, bool bShared)
     strcpy(value, bShared ? "true" : "false");
     option.value = value;
 
-    qDebug() << printername << " " << option.value;
+    qCDebug(COMMONMOUDLE) << printername << " " << option.value;
     return set_printer_options(CUPS_HTTP_DEFAULT, STR_T_UTF8(printername), 1, &option);
 }
 
@@ -268,7 +268,7 @@ int setPrinterAcceptingJobs(const char *name, bool bAccept)
     strcpy(value, bAccept ? "true" : "false");
     option.value = value;
 
-    qDebug() << name << " " << option.value;
+    qCDebug(COMMONMOUDLE) << name << " " << option.value;
     return set_printer_options(CUPS_HTTP_DEFAULT, name, 1, &option);
 }
 
@@ -285,7 +285,7 @@ int setPrinterDisable(const char *name, bool bDisable)
     strcpy(value, bDisable ? "5" : "3");
     option.value = value;
 
-    qDebug() << name << " " << option.value;
+    qCDebug(COMMONMOUDLE) << name << " " << option.value;
     return set_printer_options(CUPS_HTTP_DEFAULT, name, 1, &option);
 }
 
@@ -323,7 +323,7 @@ bool DPrinterManager::InitConnection(const char *host_uri, int port, int encrypt
     try {
         bRet = (m_conn->init(host_uri, port, encryption) == 0);
     } catch (const std::runtime_error &e) {
-        qWarning() << "Got execpt: " << QString::fromUtf8(e.what());
+        qCWarning(COMMONMOUDLE) << "Got execpt: " << QString::fromUtf8(e.what());
         bRet = false;
     }
 

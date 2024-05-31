@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "printerapplication.h"
+#include "reviselogger.h"
 
 #include <DApplication>
 #include <DLog>

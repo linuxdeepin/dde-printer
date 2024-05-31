@@ -16,10 +16,11 @@
 #include <QJsonArray>
 #include <QTimer>
 #include <QEventLoop>
-
+#include <DLog>
 
 static QNetworkAccessManager g_networkManager;
 
+DCORE_USE_NAMESPACE
 PrinterServerInterface::PrinterServerInterface(const QString &url, const QJsonObject &obj, QObject *parent)
     : QObject(parent)
 {
@@ -46,10 +47,10 @@ void PrinterServerInterface::postToServer()
     } else {
         /*timeout*/
         disconnect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
-        qWarning() << "timeout(10s)";
+        qCWarning(COMMONMOUDLE) << "timeout(10s)";
     }
     if (reply->error() != QNetworkReply::NoError)
-        qWarning() << reply->error();
+        qCWarning(COMMONMOUDLE) << reply->error();
     QByteArray data = "";
     if (reply->isOpen())
         data = reply->readAll();
@@ -121,10 +122,10 @@ void PrinterServerInterface::getFromServer()
     } else {
         /* timeout */
         disconnect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
-        qWarning() << "timeout(10s)";
+        qCWarning(COMMONMOUDLE) << "timeout(10s)";
     }
     if (reply->error() != QNetworkReply::NoError)
-        qWarning() << reply->error();
+        qCWarning(COMMONMOUDLE) << reply->error();
     QByteArray data = "";
     if (reply->isOpen())
         data = reply->readAll();
@@ -145,14 +146,15 @@ QNetworkReply *PrinterServerInterface::get_request(const QString &path)
 PrinterServerInterface *PrinterService::searchDriverSolution(const QString &manufacturer,
                                                              const QString &model, const QString &ieee1284_id)
 {
-    Q_UNUSED(ieee1284_id);
     QJsonObject obj;
 
     QString info = QString("&deb_manufacturer=%1&desc=%1 %2").arg(manufacturer).arg(model);
     if (manufacturer == "HP" || manufacturer == "Hewlett-Packard") {
-        info = QString("&deb_manufacturer=HP&desc=%1").arg(model);
+        info = QString("&deb_manufacturer=HP&desc=HP %1").arg(model);
     }
-    QString urlDriver = m_urlDriver + info;
+    QString ieee1284 = ieee1284_id.toUtf8().toBase64();
+    QString urlDriver = m_urlDriver + info + "&ieee1284=" + ieee1284;
+    qCDebug(COMMONMOUDLE) << "Request urlinfo: " << urlDriver;
     PrinterServerInterface *reply = new PrinterServerInterface(urlDriver, obj);
 
     return reply;

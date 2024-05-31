@@ -162,7 +162,7 @@ const QString formatGroupString(const QVector<OptNode> &nodes)
         strAll += strNode;
     }
 
-    qDebug() << strAll;
+    qCDebug(UTIL) << strAll;
     return strAll;
 }
 
