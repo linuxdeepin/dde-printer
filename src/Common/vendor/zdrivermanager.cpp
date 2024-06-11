@@ -534,7 +534,6 @@ DriverSearcher::DriverSearcher(const TDeviceInfo &printer, QObject *parent)
 {
     m_printer = printer;
     m_localIndex = 0;
-    QString strFullMake;
 
     //通过device id中的MFG、MDL、CMD字段匹配
     if (!m_printer.strDeviceId.isEmpty()) {
@@ -542,15 +541,12 @@ DriverSearcher::DriverSearcher(const TDeviceInfo &printer, QObject *parent)
         id_dirct = parseDeviceID(m_printer.strDeviceId);
         m_strCMD = id_dirct["CMD"];
         m_strMake = id_dirct["MFG"];
-        strFullMake = id_dirct["MFG"];
         m_strModel = id_dirct["MDL"];
         ppdMakeModelSplit(m_strMake + " " + m_strModel, m_strMake, m_strModel);
     } else if (!m_printer.strMakeAndModel.isEmpty()) {
         //如果没有device id,尝试通过make_and_model解析出来的make和model匹配
         ppdMakeModelSplit(m_printer.strMakeAndModel, m_strMake, m_strModel);
     }
-
-    m_strFullMake = strFullMake.isEmpty() ? m_strMake : strFullMake;
 
     qCDebug(COMMONMOUDLE) << QString("Find driver for %1, %2, %3").arg(m_printer.uriList[0]).arg(m_printer.strMakeAndModel).arg(m_printer.strDeviceId);
 }
@@ -570,7 +566,7 @@ void DriverSearcher::startSearch()
      * 如果服务有精确查找到驱动，再执行一次本地精确查找
     */
 
-    PrinterServerInterface *search = g_printerServer->searchDriverSolution(m_strFullMake, m_strModel, m_printer.strDeviceId);
+    PrinterServerInterface *search = g_printerServer->searchDriverSolution(m_strMake, m_strModel, m_printer.strDeviceId);
     if (search) {
         connect(search, &PrinterServerInterface::signalDone, this, &DriverSearcher::slotDriverDone);
         search->getFromServer();
@@ -636,13 +632,25 @@ void DriverSearcher::sortDrivers()
         return;
     }
 
+    // driverless设备限制使用driverless驱动，非driverless设备不使用driverless驱动
+    for (int i = 0; i < m_drivers.count(); ++i) {
+        bool isDriverlessDriver = m_drivers[i]["ppd-name"].toString().contains("driverless");
+        bool isDriverlessDevice = m_printer.strInfo.contains("driverless");
+        if ((isDriverlessDevice && !isDriverlessDriver) ||
+            (!isDriverlessDevice && isDriverlessDriver)) {
+                m_drivers.removeAt(i);
+        }
+    }
+
     /* 先从本地查找的驱动开始遍历，保证本地驱动先插入列表中
      * 然后遍历从服务获取的驱动，如果服务器获取的是精确查找的结果，则可以插入到本地驱动之前
      * 如果服务器获取的不是精确查找的结果，则插入到本地驱动之后
      * 如果和本地驱动重复，则删除服务器查找的结果
     */
-    insertDriver(drivers, m_drivers);
-    m_drivers = drivers;
+    if (m_drivers.count() > 1) {
+        insertDriver(drivers, m_drivers);
+        m_drivers = drivers;
+    }
 }
 
 bool DriverSearcher::hasExcatDriver()
@@ -682,11 +690,12 @@ void DriverSearcher::askForFinish()
 
     if (TStat_Suc == g_iStatus && !hasExcatDriver() && m_matchLocalDriver &&
         (!m_strMake.isEmpty() || !m_strModel.isEmpty())) { // 模糊匹配
+        QString strMake, strModel;
         QMutexLocker locker(&g_mutex);
 
-        m_strMake = normalize(m_strMake);
-        m_strModel = normalize(m_strModel);
-        QList<QMap<QString, QVariant>> list = getFuzzyMatchDrivers(m_strMake, m_strModel, m_strCMD);
+        strMake = normalize(m_strMake);
+        strModel = normalize(m_strModel);
+        QList<QMap<QString, QVariant>> list = getFuzzyMatchDrivers(strMake, strModel, m_strCMD);
         if (!list.isEmpty()) {
             m_localIndex = m_drivers.count();
             m_drivers += list;
@@ -862,7 +871,7 @@ int DriverSearcher::getLocalDrivers()
         return -3;
     }
 
-    if (strMake == "hp" && strModel.contains("colorlaserjet")) {
+    if (strMake == "hp" && strModel.contains("colorlaserjet") && !m_printer.strInfo.contains("driverless")) {
         strModel.replace("colorlaserjet", "color laserjet");
     }
 

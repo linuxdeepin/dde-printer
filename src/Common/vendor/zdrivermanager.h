@@ -60,7 +60,6 @@ private:
 
     QString m_strMake;
     QString m_strModel;
-    QString m_strFullMake;
     QString m_strCMD;
 
     bool m_matchLocalDriver;
