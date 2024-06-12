@@ -75,4 +75,5 @@ typedef void (*pfWriteEventLog)(const std::string &);
 pfWriteEventLog getWriteEventLog();
 void unloadEventLib();
 
+int managerCanonPrinter(QString action, const QStringList &args);
 #endif // COMMON_H

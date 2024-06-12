@@ -667,3 +667,19 @@ bool isIpv4Address(const QString &str)
     return reg.match(str).hasMatch();
 }
 
+int managerCanonPrinter(QString action, const QStringList &args)
+{
+    QDBusInterface interface("com.deepin.printer.manager", "/com/deepin/printer/manager", "com.deepin.printer.manager", QDBusConnection::systemBus());
+    QDBusReply<int> ret;
+    if (action == "add") {
+        ret = interface.call("CanonPrinterInstall", args);
+    } else {
+        ret = interface.call("CanonPrinterRemove", args);
+    }
+
+    if (ret.isValid()) {
+        return ret;
+    }
+
+    return 0;
+}
