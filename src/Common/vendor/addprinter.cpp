@@ -587,7 +587,14 @@ int AddCanonCAPTPrinter::addPrinter()
     }
 
     qCDebug(COMMONMOUDLE) << "ppdname : " << ppd_name << "printInfo: " << printInfo;
-    m_proc.start("pkexec", QStringList {g_captexec, m_printer.strName, ppd_name, printInfo});
+    int ret = managerCanonPrinter("add", QStringList {m_printer.strName, ppd_name, printInfo});
+
+    m_proc.setProcessChannelMode(QProcess::ForwardedChannels);
+    if (ret != 0) {
+        emit m_proc.finished(ret, QProcess::CrashExit);
+    } else {
+        emit m_proc.finished(ret, QProcess::NormalExit);
+    }
 
     return 1;
 }

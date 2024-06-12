@@ -19,7 +19,7 @@ Copyright: None
 License: CC0-1.0
 
 # Project file
-Files: *.pro *.pri *.qrc *.ts *.sh .tx/*
+Files: *.pro *.pri *.qrc *.ts *.sh .tx/* src/Printer/policy/canon*
 Copyright: None
 License: CC0-1.0
 

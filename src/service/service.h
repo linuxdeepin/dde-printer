@@ -22,6 +22,8 @@ signals:
 
 public slots:
     void LaunchAutoStart(const QString &filePath);
+    int CanonPrinterInstall(const QStringList &args);
+    int CanonPrinterRemove(const QStringList &args);
 
 private:
     QProcess *m_proc;
