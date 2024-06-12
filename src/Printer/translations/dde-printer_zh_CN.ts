@@ -1182,6 +1182,14 @@
     </message>
 </context>
 <context>
+    <name>PrinterHelpWindow</name>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="76"/>
+        <source>Learn how to fix issues with not being able to print</source>
+        <translation>无法打印？了解如何解决</translation>
+    </message>
+</context>
+<context>
     <name>PrinterSearchWindow</name>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="88"/>
@@ -1583,6 +1591,136 @@
         <source>Help on adding and using printers</source>
         <translation>打印机添加与使用帮助</translation>
     </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="24"/>
+        <source>Instructions for Use</source>
+        <translation>使用说明</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="26"/>
+        <source>Can&apos;t print? Learn how to resolve</source>
+        <translation>无法打印？了解如何解决</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="35"/>
+        <source>1. Check printer connection</source>
+        <translation>1. 检查打印机连接</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="35"/>
+        <source>Please make sure the printer is turned on and properly connected to this computer. Please check if the printer power, USB or network connection is normal.</source>
+        <translation>请确保打印机已打开，并且正确连接到此电脑。请检查打印机电源、USB或网络连接是否正常。</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="36"/>
+        <source>2. Check the printer status</source>
+        <translation>2. 检查打印机状态</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="36"/>
+        <source>Please make sure that the printer is working normally, for example, there are no paper jams, ink cartridge exhaustion, etc.</source>
+        <translation>请确保打印机工作状态正常，比如：没有纸张卡主、墨盒耗尽等问题。</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="37"/>
+        <source>3. Check the printer driver</source>
+        <translation>3. 检查打印机驱动程序</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="37"/>
+        <source>Make sure the printer driver is installed correctly. If the driver does not match the printer, it is recommended to try updating the driver or download the latest version of the driver from the printer manufacturer&apos;s official website.</source>
+        <translation>请确保已经正确安装打印机驱动。如驱动与打印机不匹配，建议尝试更新驱动程序，或者从打印机制造商官方网站下载最新版本的驱动程序。</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="38"/>
+        <source>4. Restart the print service</source>
+        <translation>4. 重新启动打印服务</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="38"/>
+        <source>Open System Monitor, switch to System Services, search for &quot;cups&quot; and try to restart the service.</source>
+        <translation>打开系统监视器，切换至“系统服务”，搜索“cups”并尝试重新启动该服务。</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="39"/>
+        <source>5. Check the print queue</source>
+        <translation>5. 检查打印队列</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="39"/>
+        <source>In the print manager, find the printer in use and click the &quot;Print Queue&quot; icon button. Check for any pending print tasks, delete any pending tasks, and then try printing again.</source>
+        <translation>在打印管理器中，找到正在使用的打印机，点击“打印队列”图标按钮。查看是否有挂起的打印任务，删除所有挂起的任务，然后尝试重新打印。</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="40"/>
+        <source>6. Run troubleshooting</source>
+        <translation>6. 运行故障排查</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="40"/>
+        <source>In the print manager, find the printer in use, click the &quot;Troubleshooting&quot; icon button, run it and find solutions based on the detection results.</source>
+        <translation>在打印管理器中，找到正在使用的打印机，点击“故障排查”图标按钮，运行并根据检测结果寻找解决方法。</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="41"/>
+        <source>7. Check the default printer settings</source>
+        <translation>7. 检查默认打印机设置</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="41"/>
+        <source>In Print Manager, find the printer you are using and confirm whether it is set as default.</source>
+        <translation>在打印管理器中，找到正在使用的打印机，确认是否设置为默认。</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="42"/>
+        <source>8. Clean up temporary printer files</source>
+        <translation>8. 清理打印机临时文件</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="42"/>
+        <source> Open the terminal and enter the following commands in sequence and press Enter. This will stop the print service, delete the printer&apos;s temporary files, and finally restart the print service.</source>
+        <translation>打开终端依次输入以下命令并按回车键。这将停止打印服务，删除打印机的临时文件，最后重新启动打印服务。</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="43"/>
+        <source>9. Update your print manager or operating system</source>
+        <translation>9. 更新打印管理器或操作系统</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="43"/>
+        <source>Make sure your print manager or operating system is up to date. You can install the latest version of Print Manager through the App Store, and install the latest version of UOS through the Control Center-Update Module.</source>
+        <translation>请确保打印管理器或操作系统是最新版本。可通过应用商店安装打印管理器最新版本，通过控制中心-更新模块安装统信UOS最新版本。</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="44"/>
+        <source>10. Reinstall the printer</source>
+        <translation>10. 重新安装打印机</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="44"/>
+        <source>In Print Manager, select the printer you are using, click the &quot;Minus&quot; button to remove it, and then try to reinstall the printer.</source>
+        <translation>在打印管理器中，选择正在使用的打印机，点击“减号”按钮进行删除，然后尝试重新安装该打印机。</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="45"/>
+        <source>11. Check antivirus software</source>
+        <translation>11. 检查防病毒软件</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="45"/>
+        <source>Some antivirus software may block printing operations. Try turning off your antivirus software and retesting the printing functionality.</source>
+        <translation>部分防病毒软件可能会组织打印操作。尝试关闭防病毒软件并重新测试打印功能。</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="46"/>
+        <source>12. Check for hardware failure</source>
+        <translation>12. 检查硬件故障</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="46"/>
+        <source>If none of the above steps solve the problem, you need to consider whether the printer has a hardware failure. It is recommended to try connecting to another computer to test, or contact the manufacturer&apos;s technical support.</source>
+        <translation>如果上述步骤均未解决问题，需要考虑打印机是否存在硬件故障。建议尝试连接到另一台计算机上测试，或者联系制造商的技术支持。</translation>
+    </message>
 </context>
 <context>
     <name>RenamePrinterWindow</name>
@@ -1653,7 +1791,12 @@
         <translation>故障排查：</translation>
     </message>
     <message>
-        <location filename="../ui/troubleshootdialog.cpp" line="145"/>
+        <location filename="../ui/troubleshootdialog.cpp" line="130"/>
+        <source>Can&apos;t print? Learn how to resolve</source>
+        <translation>无法打印？了解如何解决</translation>
+    </message>
+    <message>
+        <location filename="../ui/troubleshootdialog.cpp" line="165"/>
         <source>Cancel</source>
         <comment>button</comment>
         <translation>取 消</translation>

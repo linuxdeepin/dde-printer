@@ -30,8 +30,8 @@ SOURCES += \
     ui/troubleshootdialog.cpp\
     util/dprintertanslator.cpp \
     ui/dprintersupplyshowdlg.cpp \
-    util/refreshsnmpbackendtask.cpp
-
+    util/refreshsnmpbackendtask.cpp \
+    ui/printerhelpwindow.cpp
 
 RESOURCES +=         resources.qrc \
     icons/theme-icons.qrc
@@ -59,7 +59,10 @@ HEADERS += \
     util/dprintertanslator.h \
     ui/dprinterpropertytemplate.h \
     ui/dprintersupplyshowdlg.h \
-    util/refreshsnmpbackendtask.h
+    util/refreshsnmpbackendtask.h \
+    ui/printerhelpwindow.h
+
+
 include(../Common/Common.pri)
 
 INCLUDEPATH +=  \
