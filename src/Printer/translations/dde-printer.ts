@@ -1184,14 +1184,6 @@
     </message>
 </context>
 <context>
-    <name>PrinterHelpWindow</name>
-    <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="76"/>
-        <source>Learn how to fix issues with not being able to print</source>
-        <translation>Learn how to fix issues with not being able to print</translation>
-    </message>
-</context>
-<context>
     <name>PrinterSearchWindow</name>
     <message>
         <location filename="../ui/printersearchwindow.cpp" line="88"/>
@@ -1589,140 +1581,9 @@
         <translation>The Canon capt printer has been added and is not allowed to be added again.</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="68"/>
-        <location filename="../ui/printerhelpwindow.cpp" line="25"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="69"/>
         <source>Help on adding and using printers</source>
         <translation>Help on adding and using printers</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="24"/>
-        <source>Instructions for Use</source>
-        <translation>Instructions for Use</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="26"/>
-        <source>Can&apos;t print? Learn how to resolve</source>
-        <translation>Can&apos;t print? Learn how to resolve</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="35"/>
-        <source>1. Check printer connection</source>
-        <translation>1. Check printer connection</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="35"/>
-        <source>Please make sure the printer is turned on and properly connected to this computer. Please check if the printer power, USB or network connection is normal.</source>
-        <translation>Please make sure the printer is turned on and properly connected to this computer. Please check if the printer power, USB or network connection is normal.</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="36"/>
-        <source>2. Check the printer status</source>
-        <translation>2. Check the printer status</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="36"/>
-        <source>Please make sure that the printer is working normally, for example, there are no paper jams, ink cartridge exhaustion, etc.</source>
-        <translation>Please make sure that the printer is working normally, for example, there are no paper jams, ink cartridge exhaustion, etc.</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="37"/>
-        <source>3. Check the printer driver</source>
-        <translation>3. Check the printer driver</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="37"/>
-        <source>Make sure the printer driver is installed correctly. If the driver does not match the printer, it is recommended to try updating the driver or download the latest version of the driver from the printer manufacturer&apos;s official website.</source>
-        <translation>Make sure the printer driver is installed correctly. If the driver does not match the printer, it is recommended to try updating the driver or download the latest version of the driver from the printer manufacturer&apos;s official website.</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="38"/>
-        <source>4. Restart the print service</source>
-        <translation>4. Restart the print service</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="38"/>
-        <source>Open System Monitor, switch to System Services, search for &quot;cups&quot; and try to restart the service.</source>
-        <translation>Open System Monitor, switch to System Services, search for &quot;cups&quot; and try to restart the service.</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="39"/>
-        <source>5. Check the print queue</source>
-        <translation>5. Check the print queue</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="39"/>
-        <source>In the print manager, find the printer in use and click the &quot;Print Queue&quot; icon button. Check for any pending print tasks, delete any pending tasks, and then try printing again.</source>
-        <translation>In the print manager, find the printer in use and click the &quot;Print Queue&quot; icon button. Check for any pending print tasks, delete any pending tasks, and then try printing again.</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="40"/>
-        <source>6. Run troubleshooting</source>
-        <translation>6. Run troubleshooting</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="40"/>
-        <source>In the print manager, find the printer in use, click the &quot;Troubleshooting&quot; icon button, run it and find solutions based on the detection results.</source>
-        <translation>In the print manager, find the printer in use, click the &quot;Troubleshooting&quot; icon button, run it and find solutions based on the detection results.</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="41"/>
-        <source>7. Check the default printer settings</source>
-        <translation>7. Check the default printer settings</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="41"/>
-        <source>In Print Manager, find the printer you are using and confirm whether it is set as default.</source>
-        <translation>In Print Manager, find the printer you are using and confirm whether it is set as default.</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="42"/>
-        <source>8. Clean up temporary printer files</source>
-        <translation>8. Clean up temporary printer files</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="42"/>
-        <source>Open the terminal and enter the following commands in sequence and press Enter. This will stop the print service, delete the printer&apos;s temporary files, and finally restart the print service.</source>
-        <translation>Open the terminal and enter the following commands in sequence and press Enter. This will stop the print service, delete the printer&apos;s temporary files, and finally restart the print service.</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="43"/>
-        <source>9. Update your print manager or operating system</source>
-        <translation>9. Update your print manager or operating system</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="43"/>
-        <source>Make sure your print manager or operating system is up to date. You can install the latest version of Print Manager through the App Store, and install the latest version of UOS through the Control Center-Update Module.</source>
-        <translation>Make sure your print manager or operating system is up to date. You can install the latest version of Print Manager through the App Store, and install the latest version of UOS through the Control Center-Update Module.</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="44"/>
-        <source>10. Reinstall the printer</source>
-        <translation>10. Reinstall the printer</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="44"/>
-        <source>In Print Manager, select the printer you are using, click the &quot;Minus&quot; button to remove it, and then try to reinstall the printer.</source>
-        <translation>In Print Manager, select the printer you are using, click the &quot;Minus&quot; button to remove it, and then try to reinstall the printer.</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="45"/>
-        <source>11. Check antivirus software</source>
-        <translation>11. Check antivirus software</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="45"/>
-        <source>Some antivirus software may block printing operations. Try turning off your antivirus software and retesting the printing functionality.</source>
-        <translation>Some antivirus software may block printing operations. Try turning off your antivirus software and retesting the printing functionality.</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="46"/>
-        <source>12. Check for hardware failure</source>
-        <translation>12. Check for hardware failure</translation>
-    </message>
-    <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="46"/>
-        <source>If none of the above steps solve the problem, you need to consider whether the printer has a hardware failure. It is recommended to try connecting to another computer to test, or contact the manufacturer&apos;s technical support.</source>
-        <translation>If none of the above steps solve the problem, you need to consider whether the printer has a hardware failure. It is recommended to try connecting to another computer to test, or contact the manufacturer&apos;s technical support.</translation>
     </message>
 </context>
 <context>
@@ -1794,12 +1655,7 @@
         <translation>Troubleshoot: </translation>
     </message>
     <message>
-        <location filename="../ui/troubleshootdialog.cpp" line="130"/>
-        <source>Can&apos;t print? Learn how to resolve</source>
-        <translation>Can&apos;t print? Learn how to resolve</translation>
-    </message>
-    <message>
-        <location filename="../ui/troubleshootdialog.cpp" line="165"/>
+        <location filename="../ui/troubleshootdialog.cpp" line="145"/>
         <source>Cancel</source>
         <comment>button</comment>
         <translation>Cancel</translation>
