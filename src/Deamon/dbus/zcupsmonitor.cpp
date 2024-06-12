@@ -524,6 +524,11 @@ void CupsMonitor::writeJobLog(bool isSuccess, int jobId, QString strReason)
         loadEventlib();
     }
 
+    pfWriteEventLog WriteEventLog = getWriteEventLog();
+    if (!WriteEventLog) {
+        return;
+    }
+
     QJsonObject obj;
     obj.insert("status", isSuccess ? "Success" : "Abort");
     QString strJobCreateTime, strJobEndTime, strJobUri;
@@ -572,16 +577,12 @@ void CupsMonitor::writeJobLog(bool isSuccess, int jobId, QString strReason)
         obj.insert("driverType", "other");
     }
     obj.insert("version", getPackageVerByName(APPNAME));
+    obj.insert("cupsVersion", getPackageVerByName("cups"));
     obj.insert("tid", 1000100001); // 事件ID
 
     QString logInfo = QString(QJsonDocument(obj).toJson(QJsonDocument::Compact));
     qCDebug(COMMONMOUDLE) << "json data: " << logInfo;
-
-    pfWriteEventLog WriteEventLog = getWriteEventLog();
-    if (WriteEventLog) {
-        qCDebug(COMMONMOUDLE) << "job info";
-        WriteEventLog(logInfo.toStdString());
-    }
+    WriteEventLog(logInfo.toStdString());
 }
 
 int CupsMonitor::initSubscription()

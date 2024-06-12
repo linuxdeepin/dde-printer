@@ -453,6 +453,7 @@ void InstallInterface::propertyChanged(const QDBusMessage &msg)
             emit signalStatus(TStat_Suc);
             goto done;
         } else if (m_strStatus == "failed") {
+            m_strErr = tr("Failed to install %1").arg(m_installPackages.join("  "));
             stop(); // 失败时先disconnect，避免成员析构导致sigsegv
             emit signalStatus(TStat_Fail);
         }
@@ -962,6 +963,11 @@ void AddPrinterTask::slotWriteLog(int status)
         loadEventlib();
     }
 
+    pfWriteEventLog WriteEventLog = getWriteEventLog();
+    if (!WriteEventLog) {
+        return;
+    }
+
     TDeviceInfo printerInfo = getPrinterInfo();
     QMap<QString, QVariant> driverInfo = getDriverInfo();
 
@@ -975,6 +981,7 @@ void AddPrinterTask::slotWriteLog(int status)
     obj.insert("printerInfo", QJsonValue(printerInfo.strMakeAndModel));
     obj.insert("serial", QJsonValue(printerInfo.serial));
     obj.insert("printerName", QJsonValue(printerInfo.strName));
+    obj.insert("printerUri", QJsonValue(m_uri));
 
     if (driverInfo[SD_KEY_from].toInt() == PPDFrom_Server) { // 网络方式存在包名和版本号信息
         obj.insert("packageName", QJsonValue(driverInfo[SD_KEY_driver].toString()));
@@ -995,14 +1002,11 @@ void AddPrinterTask::slotWriteLog(int status)
         obj.insert("reason", QJsonValue(reason));
     }
     obj.insert("version", getPackageVersion(APPNAME));
+    obj.insert("cupsVersion", getPackageVersion("cups"));
     obj.insert("tid", 1000100000); // 事件ID
 
     QString installInfo = QString(QJsonDocument(obj).toJson(QJsonDocument::Compact));
-
-    pfWriteEventLog WriteEventLog = getWriteEventLog();
-    if (WriteEventLog) {
-        WriteEventLog(installInfo.toStdString());
-    }
+    WriteEventLog(installInfo.toStdString());
 }
 
 AddPrinterFactory *AddPrinterFactory::getInstance()

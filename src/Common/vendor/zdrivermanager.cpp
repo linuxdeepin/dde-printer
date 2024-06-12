@@ -756,15 +756,40 @@ void DriverSearcher::parseJsonInfo(QJsonArray value)
     }
 }
 
+void DriverSearcher::WriteSearchLog(int iCode, const QString &reply)
+{
+    QJsonObject obj;
+    if (!isEventSdkInit()) {
+        loadEventlib();
+    }
+
+    pfWriteEventLog WriteEventLog = getWriteEventLog();
+    if (WriteEventLog) {
+        obj.insert("tid", 1000100002);
+        obj.insert("mfg", QJsonValue(m_strMake));
+        obj.insert("model", QJsonValue(m_strModel));
+        obj.insert("1284id", QJsonValue(m_printer.strDeviceId));
+        obj.insert("driverInfo", QJsonValue(reply));
+        obj.insert("replyCode", iCode);
+        QString platformInfo = QString(QJsonDocument(obj).toJson(QJsonDocument::Compact));
+        platformInfo.replace("\\", "");
+        WriteEventLog(platformInfo.toStdString());
+    }
+}
+
 void DriverSearcher::slotDriverDone(int iCode, const QByteArray &result)
 {
+    QString reply;
     if (QNetworkReply::NoError == iCode && !result.isNull()) {
         QJsonParseError err;
         QJsonDocument doc = QJsonDocument::fromJson(result, &err);
         QJsonObject rootObject = doc.object()["data"].toObject();
         QJsonArray array = rootObject.value("list").toArray();
 
+        reply = doc.toJson(QJsonDocument::Compact).constData();
+
         if (array.isEmpty()) {
+            WriteSearchLog(iCode, reply);
             qCInfo(COMMONMOUDLE) << "List is empty!";
             sender()->deleteLater();
             askForFinish();
@@ -776,6 +801,7 @@ void DriverSearcher::slotDriverDone(int iCode, const QByteArray &result)
         m_isNetOffline = true;
     }
 
+    WriteSearchLog(iCode, reply);
     sender()->deleteLater();
     qCInfo(COMMONMOUDLE) << "Got net driver count:" << m_drivers.count();
     askForFinish();
