@@ -880,7 +880,7 @@ QVector<GENERALOPTNODE> DPrinter::getGeneralNodes()
             Group grp = groups[k];
             QString strName = QString(grp.getName().data());
 
-            if (strName == QString::fromStdString("General")) {
+            if (strName != QString::fromStdString("InstallableOptions")) {
                 vector<Option>  opts = grp.getOptions();
 
                 for (unsigned int i = 0; i < opts.size(); i++) {
