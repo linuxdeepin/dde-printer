@@ -34,5 +34,6 @@
         <file>texts/filter_icon_unknown_24px.svg</file>
         <file>actions/dp_warning_14px.svg</file>
         <file>texts/dp_add_12px.svg</file>
+        <file>texts/icon_tips_16px.svg</file>
     </qresource>
 </RCC>

@@ -9,6 +9,7 @@
 #include "renameprinterwindow.h"
 #include "qtconvert.h"
 #include "util/refreshsnmpbackendtask.h"
+#include "printerhelpwindow.h"
 
 #include <DMainWindow>
 #include <DListView>
@@ -40,6 +41,8 @@ class QMenu;
 class QCheckBox;
 class QLineEdit;
 QT_END_NAMESPACE
+
+#include <QWidgetAction>
 
 class ServerSettingsWindow : public DMainWindow
 {
@@ -313,7 +316,6 @@ private slots:
 
     /*正在后台自动添加的打印机状态变化*/
     void deviceStatusChanged(const QDBusMessage &msg);
-    void changeEvent(QEvent *event) override;
 
 private:
     // UI成员变量
@@ -352,8 +354,8 @@ private:
 
     PrinterSearchWindow *m_pSearchWindow;
     ServerSettingsWindow *m_pSettingsDialog;
+    CustomLabel *m_customLabel;
     QAction *m_pSettings;
-    QPushButton *m_pFaqDocBtn;
 
 private:
     // 数据成员变量

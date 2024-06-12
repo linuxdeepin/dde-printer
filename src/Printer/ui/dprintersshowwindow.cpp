@@ -48,9 +48,8 @@
 #include <QDBusConnection>
 #include <QDBusInterface>
 #include <QProcess>
-#include <QDesktopServices>
+
 #define FAQDOCUMENT_MESSAGE QObject::tr("Help on adding and using printers")
-static const QString faqDocPath = "/usr/share/deepin-manual/manual-assets/application/dde-printer/打印机使用FAQ文档.pdf";
 
 static const QString canonRemove = "/opt/cndrvcups-capt/remove";
 
@@ -172,12 +171,7 @@ void DPrintersShowWindow::initUI()
     m_pListViewMenu->addAction(m_pDefaultAction);
     m_pListViewMenu->setAccessibleName("listView_printerList");
 
-    m_pFaqDocBtn = new QPushButton();
-    m_pFaqDocBtn->setFixedWidth(310);
-    QString showFaqInfo = FAQDOCUMENT_MESSAGE;
-    geteElidedText(m_pFaqDocBtn->font(), showFaqInfo, m_pFaqDocBtn->width() - 20);
-    m_pFaqDocBtn->setText(showFaqInfo);
-    m_pFaqDocBtn->setToolTip(FAQDOCUMENT_MESSAGE);
+
     // 没有打印机时的提示
     m_pLeftTipLabel = new QLabel(tr("No Printers"));
     m_pLeftTipLabel->setVisible(false);
@@ -192,7 +186,6 @@ void DPrintersShowWindow::initUI()
     pLeftVLayout->addLayout(pLeftTopHLayout, 1);
     pLeftVLayout->addWidget(m_pPrinterListView, 4);
     pLeftVLayout->addWidget(m_pLeftTipLabel, 1, Qt::AlignCenter);
-    pLeftVLayout->addWidget(m_pFaqDocBtn, 0, Qt::AlignBottom);
     pLeftVLayout->setContentsMargins(0, 0, 0, 0);
     QWidget *pLeftWidget = new QWidget(this);
     pLeftWidget->setLayout(pLeftVLayout);
@@ -315,6 +308,8 @@ void DPrintersShowWindow::initUI()
     pRightBottomGLayout->addWidget(m_pIBtnFault, 0, 4, Qt::AlignHCenter);
     pRightBottomGLayout->addWidget(m_pLabelPrintFault, 1, 4);
 
+    m_customLabel = new CustomLabel(this);
+
     // 右侧整体布局
     QVBoxLayout *pRightVLayout = new QVBoxLayout();
     pRightVLayout->addLayout(pRightTopHLayout);
@@ -342,6 +337,7 @@ void DPrintersShowWindow::initUI()
     pRightMainVLayout->addWidget(m_pPRightTipLabel1);
     pRightMainVLayout->addWidget(m_pPRightTipLabel2);
     pRightMainVLayout->addStretch();
+    pRightMainVLayout->addWidget(m_customLabel, 0, Qt::AlignBottom | Qt::AlignRight);
     //DFrame 会导致上面的QLabel显示颜色不正常
     QWidget *pRightWidgwt = new QWidget();
     pRightWidgwt->setLayout(pRightMainVLayout);
@@ -429,10 +425,6 @@ void DPrintersShowWindow::initConnections()
     connect(m_pRejectAction, &QAction::triggered, this, &DPrintersShowWindow::listWidgetMenuActionSlot);
 
     connect(m_pSettings, &QAction::triggered, this, &DPrintersShowWindow::serverSettingsSlot);
-    connect(m_pFaqDocBtn, &QPushButton::clicked , this, []() {
-        QUrl url = QUrl::fromLocalFile(faqDocPath);
-        QDesktopServices::openUrl(url);
-    });
 }
 
 void DPrintersShowWindow::showEvent(QShowEvent *event)
@@ -1088,16 +1080,6 @@ void DPrintersShowWindow::listWidgetMenuActionSlot(bool checked)
         }
     } else if (sender()->objectName() == "Accept") {
         m_pPrinterManager->setPrinterAcceptJob(printerName, checked);
-    }
-}
-
-void DPrintersShowWindow::changeEvent(QEvent *event)
-{
-    if (event->type() == QEvent::FontChange) {
-        QString showFaqInfo = FAQDOCUMENT_MESSAGE;
-        geteElidedText(m_pFaqDocBtn->font(), showFaqInfo, m_pFaqDocBtn->width() - 20);
-        m_pFaqDocBtn->setText(showFaqInfo);
-        QWidget::changeEvent(event);
     }
 }
 
