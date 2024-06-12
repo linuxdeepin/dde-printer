@@ -4,13 +4,11 @@
 
 #include <DDialog>
 #include <QFrame>
-#include <QLabel>
 
 DWIDGET_USE_NAMESPACE
 
 class TroubleShootJob;
 class TroubleShoot;
-class PrinterHelpWindow;
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -52,7 +50,4 @@ private:
 
     TroubleShoot *m_trobleShoot;
     QPushButton *m_button;
-    QPushButton *m_helpButton;
-    PrinterHelpWindow *m_pHelpWindow = nullptr;
 };
-
