@@ -51,9 +51,9 @@
 
 #define FAQDOCUMENT_MESSAGE QObject::tr("Help on adding and using printers")
 
-static const QString canonRemove = "/opt/cndrvcups-capt/remove";
+static const QString canonRemove = "/opt/printer-drivers/cndrvcups-capt/canonremove";
 
-static bool isCanonCaptPrinter(QString printerName)
+static bool isCanonCaptPrinter(const QString &printerName)
 {
     QString printerUri = getPrinterUri(printerName.toUtf8().data());
     if (printerUri.contains("ccp://")) {
@@ -767,9 +767,8 @@ void DPrintersShowWindow::deletePrinterClickSlot()
             if (isCanonCaptPrinter(printerName)) { // 判断是否canon capt打印机
                 QFile file(canonRemove);
                 if (file.exists()) {
-                    QProcess p;
-                    ret = p.execute("pkexec", QStringList {canonRemove, printerName});
-                    if (ret != 0) {
+                    int bret = managerCanonPrinter("remove", QStringList{printerName});
+                    if (bret != 0) {
                         return;
                     }
                 }
