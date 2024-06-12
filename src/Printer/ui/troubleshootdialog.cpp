@@ -7,6 +7,7 @@
 #include "zjobmanager.h"
 #include "ztroubleshoot_p.h"
 #include "qtconvert.h"
+#include "printerhelpwindow.h"
 
 #include <DPalette>
 #include <DApplicationHelper>
