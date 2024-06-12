@@ -41,6 +41,8 @@ public:
     void parseJsonInfo(QJsonArray value);
 
     bool hasOfflineDriver();
+
+    void WriteSearchLog(int iCode, const QString &reply);
 signals:
     void signalDone();
 
