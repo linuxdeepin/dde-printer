@@ -106,7 +106,26 @@ TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *pare
     pHLayout->setContentsMargins(0, 0, 0, 0);
     pHLayout->setSpacing(0);
     pHLayout->addSpacing(10);
+
+    m_helpButton = new QPushButton(this);
+    DFontSizeManager::instance()->bind(m_helpButton, DFontSizeManager::T7, QFont::Light);
+    m_helpButton->setText(tr("Can't print? Learn how to resolve"));
+    QIcon icon = QIcon::fromTheme("icon_tips");
+
+    m_helpButton->setIcon(QIcon::fromTheme("icon_tips"));
+    m_helpButton->setIconSize(QSize(20, 20));
+    m_helpButton->setLayoutDirection(Qt::RightToLeft);
+    QPalette palette;
+    palette.setColor(QPalette::ButtonText, "#0081FF");
+    m_helpButton->setPalette(palette);
+    m_helpButton->setFlat(true);
+
+    QHBoxLayout *helpLayout = new QHBoxLayout;
+    helpLayout->addStretch();
+    helpLayout->addWidget(m_helpButton);
     pHLayout->addWidget(title);
+    pHLayout->addLayout(helpLayout);
+
     DFrame *frame = new DFrame(contentWidget);
     QVBoxLayout *itemlay = new QVBoxLayout(frame);
     itemlay->setContentsMargins(10, 10, 10, 10);
@@ -149,6 +168,12 @@ TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *pare
 
     connect(m_trobleShoot, &TroubleShoot::signalStatus, this, &TroubleShootDialog::slotTroubleShootStatus);
     connect(m_button, &QPushButton::clicked, this, &DDialog::close);
+    connect(m_helpButton, &QPushButton::clicked, [this]() {
+        if (!m_pHelpWindow) {
+            m_pHelpWindow = new PrinterHelpWindow(this);
+        }
+        m_pHelpWindow->show();
+    });
 
     m_trobleShoot->start();
 }

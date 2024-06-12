@@ -2,8 +2,13 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+#pragma once
+
+#include "printerhelpwindow.h"
+
 #include <DDialog>
 #include <QFrame>
+#include <QLabel>
 
 DWIDGET_USE_NAMESPACE
 
@@ -50,4 +55,7 @@ private:
 
     TroubleShoot *m_trobleShoot;
     QPushButton *m_button;
+    QPushButton *m_helpButton;
+    PrinterHelpWindow *m_pHelpWindow = nullptr;
 };
+
