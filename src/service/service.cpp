@@ -32,3 +32,17 @@ void Service::LaunchAutoStart(const QString &filePath)
     QProcess::startDetached(scriptPath,  QStringList() << "-c");
     return;
 }
+
+int Service::CanonPrinterInstall(const QStringList &args)
+{
+    m_proc->start("/opt/printer-drivers/cndrvcups-capt/canonadd", args);
+    m_proc->waitForFinished();
+    return m_proc->exitCode();
+}
+
+int Service::CanonPrinterRemove(const QStringList &args)
+{
+    m_proc->start("/opt/printer-drivers/cndrvcups-capt/canonremove", args);
+    m_proc->waitForFinished();
+    return m_proc->exitCode();
+}
