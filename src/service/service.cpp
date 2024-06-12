@@ -7,6 +7,11 @@
 #include <QCoreApplication>
 #include <QTimer>
 #include <QDebug>
+#include <QStringList>
+
+QStringList g_autoStartList = QStringList() << "/opt/printer-drivers/com.pantum.pantum/config/"
+                                            << "/opt/printer-drivers/com.lanxum-ga-series/config/"
+                                            << "/opt/printer-drivers/com.hp.hplip/config/" ;
 
 Service::Service(QObject *parent) : QObject(parent)
 {
@@ -27,6 +32,8 @@ Service::~Service()
 
 void Service::LaunchAutoStart(const QString &filePath)
 {
+    if (!g_autoStartList.contains(filePath)) return;
+
     QTimer::singleShot(100, QCoreApplication::instance(), &QCoreApplication::quit);
     QString scriptPath = filePath + "autostart.sh";
     QProcess::startDetached(scriptPath,  QStringList() << "-c");
