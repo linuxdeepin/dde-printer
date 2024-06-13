@@ -44,6 +44,27 @@ QT_END_NAMESPACE
 
 #include <QWidgetAction>
 
+class SwitchWidget;
+class AdvanceShareWidget;
+
+class ClickableLabel : public QLabel
+{
+    Q_OBJECT
+public:
+    explicit ClickableLabel(const QString &text, QWidget *parent = nullptr)
+        : QLabel(text, parent) {
+    }
+
+signals:
+    void clicked();
+
+protected:
+    void mousePressEvent(QMouseEvent *event) override {
+        QLabel::mousePressEvent(event);
+        emit clicked();
+    }
+};
+
 class ServerSettingsWindow : public DMainWindow
 {
     Q_OBJECT
@@ -73,8 +94,8 @@ private:
         setWindowFlags(Qt::Dialog);
 
         setWindowModality(Qt::ApplicationModal);
-        this->setMinimumSize(480, 261);
-        this->setMaximumSize(480, 355);
+        this->setMinimumSize(480, 336);
+        this->setMaximumSize(480, 450);
 
         QLabel *pBaseSettings = new QLabel(tr("Basic Server Settings"));
         pBaseSettings->setAccessibleName("baseSetting_mainSetting");
@@ -82,16 +103,28 @@ private:
         QHBoxLayout *pHLayout = new QHBoxLayout();
         pHLayout->setSpacing(0);
         pHLayout->setContentsMargins(0, 0, 0, 0);
-        pHLayout->addSpacing(10);
         pHLayout->addWidget(pBaseSettings);
 
         QString checkShared = tr("Publish shared printers connected to this system");
         m_pCheckShared = new QCheckBox();
         m_pCheckIPP = new QCheckBox(tr("Allow printing from the Internet"));
         m_pCheckIPP->setEnabled(false);
+
+        QLabel *shareInfo = new QLabel(tr("To share your printer, turn on these settings"));
+        DFontSizeManager::instance()->bind(shareInfo, DFontSizeManager::T8, QFont::Light);
+        QPalette pal = shareInfo->palette();
+        pal.setColor(QPalette::WindowText, QColor("#00000060"));
+        shareInfo->setPalette(pal);
+
         m_pCheckRemote = new QCheckBox(tr("Allow remote administration"));
         //        m_pCheckCancelJobs = new QCheckBox(tr("Allow users to cancel all tasks (not just their own)"));
-        m_pCheckSaveDebugInfo = new QCheckBox(tr("Save debugging information for troubleshooting"));
+        QString checkSaveDebugInfo = tr("Save debugging information for troubleshooting");
+        m_pCheckSaveDebugInfo = new QCheckBox();
+        QString checkSaveDebugTipsInfo = checkSaveDebugInfo;
+        geteElidedText(m_pCheckSaveDebugInfo->font(), checkSaveDebugInfo, m_pCheckSaveDebugInfo->width() - 240);
+        m_pCheckSaveDebugInfo->setText(checkSaveDebugInfo);
+        m_pCheckSaveDebugInfo->setToolTip(checkSaveDebugTipsInfo);
+
         QString showCheckShared = checkShared;
         geteElidedText(m_pCheckShared->font(), showCheckShared, m_pCheckShared->width() - 240);
         m_pCheckShared->setText(showCheckShared);
@@ -108,13 +141,19 @@ private:
 
         QVBoxLayout *pSettingsVLayout1 = new QVBoxLayout();
         pSettingsVLayout1->addWidget(m_pCheckShared);
-        pSettingsVLayout1->addSpacing(3);
         QHBoxLayout *pSettingsHLayout = new QHBoxLayout();
-        pSettingsHLayout->addSpacing(12);
+        pSettingsHLayout->addSpacing(20);
         pSettingsHLayout->addWidget(m_pCheckIPP);
         pSettingsVLayout1->addLayout(pSettingsHLayout);
+        QHBoxLayout *pSettingsInfoHLayout = new QHBoxLayout();
+        pSettingsInfoHLayout->addSpacing(5);
+        pSettingsInfoHLayout->addWidget(shareInfo);
+        pSettingsInfoHLayout->setContentsMargins(0, 0, 0, 0);
+        pSettingsVLayout1->addLayout(pSettingsInfoHLayout);
+
         QWidget *pFrame1 = new QWidget();
-        pFrame1->setMaximumHeight(100);
+        pFrame1->setMinimumSize(440, 108);
+        pFrame1->setMaximumSize(440, 158);
         pFrame1->setLayout(pSettingsVLayout1);
         pFrame1->setContentsMargins(0, 0, 0, 0);
         pFrame1->setAccessibleName("frame1_SettingWidget");
@@ -149,8 +188,8 @@ private:
         DFrame *pSettingWidget1 = new DFrame(this);
         QVBoxLayout *pMainVlaout1 = new QVBoxLayout();
         pMainVlaout1->addLayout(pHLayout);
+        pMainVlaout1->addSpacing(10);
         pMainVlaout1->addWidget(pSettingWidget);
-        pMainVlaout1->addStretch();
         pMainVlaout1->setContentsMargins(10, 10, 10, 10);
         pSettingWidget1->setLayout(pMainVlaout1);
         pSettingWidget1->setAccessibleName("mainSetting_settingsWindow");
@@ -316,6 +355,7 @@ private slots:
 
     /*正在后台自动添加的打印机状态变化*/
     void deviceStatusChanged(const QDBusMessage &msg);
+    void changeEvent(QEvent *event) override;
 
 private:
     // UI成员变量
@@ -343,14 +383,18 @@ private:
     QStandardItemModel *m_pPrinterModel;
     QMenu *m_pListViewMenu;
     QAction *m_pPrinterRename;
-    QAction *m_pShareAction;
-    QAction *m_pEnableAction;
-    QAction *m_pRejectAction;
     QAction *m_pDefaultAction;
+    QAction *m_pDeleteAction;
+    SwitchWidget *m_pSwitchShareButton;
+    AdvanceShareWidget *m_pAdvancedshare;
+    QCheckBox *m_pDefaultPrinter;
 
     QWidget *m_pPrinterInfoWidget;
     QLabel *m_pPRightTipLabel1;
     QLabel *m_pPRightTipLabel2;
+    QLabel *m_pShareIpAddr;
+    ClickableLabel *m_pShareCopyIpAddr;
+    QWidget *m_pShareWidget;
 
     PrinterSearchWindow *m_pSearchWindow;
     ServerSettingsWindow *m_pSettingsDialog;

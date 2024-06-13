@@ -18,6 +18,8 @@
 #include "troubleshootdialog.h"
 #include "ztroubleshoot_p.h"
 #include "dprintersupplyshowdlg.h"
+#include "switchwidget.h"
+#include "advancedsharewidget.h"
 
 #include <DDialog>
 #include <DMessageBox>
@@ -48,6 +50,8 @@
 #include <QDBusConnection>
 #include <QDBusInterface>
 #include <QProcess>
+#include <QNetworkInterface>
+#include <QClipboard>
 
 #define FAQDOCUMENT_MESSAGE QObject::tr("Help on adding and using printers")
 
@@ -60,6 +64,27 @@ static bool isCanonCaptPrinter(const QString &printerName)
         return true;
     }
     return false;
+}
+
+static QStringList getLocalIPv4Addresses()
+{
+    QStringList ipv4AddressesList;
+    QList<QNetworkInterface> interfaceList = QNetworkInterface::allInterfaces();
+
+    foreach (QNetworkInterface interface, interfaceList) {
+        if (interface.flags() & QNetworkInterface::IsLoopBack) {
+            continue;
+        }
+
+        QList<QNetworkAddressEntry> entryList = interface.addressEntries();
+        foreach (QNetworkAddressEntry entry, entryList) {
+            if (entry.ip().protocol() == QAbstractSocket::IPv4Protocol) {
+                ipv4AddressesList.append(entry.ip().toString());
+            }
+        }
+    }
+
+    return ipv4AddressesList;
 }
 
 DPrintersShowWindow::DPrintersShowWindow(const QString &printerName, QWidget *parent)
@@ -129,7 +154,6 @@ void DPrintersShowWindow::initUI()
     m_pPrinterModel = new QStandardItemModel(m_pPrinterListView);
     m_pPrinterListView->setTextElideMode(Qt::ElideRight);
     m_pPrinterListView->setContextMenuPolicy(Qt::CustomContextMenu);
-    m_pPrinterListView->setFixedWidth(310);
     m_pPrinterListView->setItemSpacing(10);
     m_pPrinterListView->setModel(m_pPrinterModel);
     m_pPrinterListView->setFocusPolicy(Qt::NoFocus);
@@ -149,24 +173,13 @@ void DPrintersShowWindow::initUI()
     // 列表的右键菜单
     m_pListViewMenu = new QMenu();
     m_pPrinterRename = new QAction(tr("Rename"), m_pListViewMenu);
-    m_pShareAction = new QAction(tr("Shared"), m_pListViewMenu);
-    m_pShareAction->setObjectName("Share");
-    m_pShareAction->setCheckable(true);
-    m_pEnableAction = new QAction(tr("Enabled"), m_pListViewMenu);
-    m_pEnableAction->setObjectName("Enable");
-    m_pEnableAction->setCheckable(true);
-    m_pRejectAction = new QAction(tr("Accept jobs"), m_pListViewMenu);
-    m_pRejectAction->setObjectName("Accept");
-    m_pRejectAction->setCheckable(true);
-
     m_pDefaultAction = new QAction(tr("Set as default"), m_pListViewMenu);
     m_pDefaultAction->setObjectName("Default");
     m_pDefaultAction->setCheckable(true);
+    m_pDeleteAction = new QAction(tr("Delete"), m_pListViewMenu);
 
     m_pListViewMenu->addAction(m_pPrinterRename);
-    m_pListViewMenu->addAction(m_pShareAction);
-    m_pListViewMenu->addAction(m_pEnableAction);
-    m_pListViewMenu->addAction(m_pRejectAction);
+    m_pListViewMenu->addAction(m_pDeleteAction);
     m_pListViewMenu->addSeparator();
     m_pListViewMenu->addAction(m_pDefaultAction);
     m_pListViewMenu->setAccessibleName("listView_printerList");
@@ -188,29 +201,35 @@ void DPrintersShowWindow::initUI()
     pLeftVLayout->addWidget(m_pLeftTipLabel, 1, Qt::AlignCenter);
     pLeftVLayout->setContentsMargins(0, 0, 0, 0);
     QWidget *pLeftWidget = new QWidget(this);
+    pLeftWidget->setFixedSize(300, 566);
     pLeftWidget->setLayout(pLeftVLayout);
     pLeftWidget->setAccessibleName("leftWidget_mainWindow");
 
     // 右侧上方
     QLabel *pLabelImage = new QLabel("");
-    pLabelImage->setPixmap(QPixmap(":/images/printer_details.svg"));
+    pLabelImage->setPixmap(QPixmap(":/images/printer_details.svg").scaled(QSize(128, 128), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    pLabelImage->setContentsMargins(20, 0, 0, 0);
 
     m_pLabelPrinterName = new QLabel("");
-    m_pLabelPrinterName->setMinimumWidth(200);
-    m_pLabelPrinterName->setMaximumHeight(200);
-    DFontSizeManager::instance()->bind(m_pLabelPrinterName, DFontSizeManager::T4, QFont::DemiBold);
+    DFontSizeManager::instance()->bind(m_pLabelPrinterName, DFontSizeManager::T5, QFont::Medium);
 
     QLabel *pLabelLocation = new QLabel(tr("Location:"));
+    DFontSizeManager::instance()->bind(pLabelLocation, DFontSizeManager::T8, QFont::Medium);
     QFontMetrics fm(pLabelLocation->font());
-    pLabelLocation->setFixedWidth(fm.width(pLabelLocation->text()) + 30);
+    pLabelLocation->setFixedWidth(fm.width(pLabelLocation->text()) + 10);
     m_pLabelLocationShow = new QLabel(tr(""));
-    DFontSizeManager::instance()->bind(m_pLabelLocationShow, DFontSizeManager::T5, QFont::DemiBold);
+    DFontSizeManager::instance()->bind(m_pLabelLocationShow, DFontSizeManager::T8, QFont::Medium);
+    m_pLabelLocationShow->setFixedWidth(255);
     QLabel *pLabelType = new QLabel(tr("Model:"));
     m_pLabelTypeShow = new QLabel(tr(""));
-    DFontSizeManager::instance()->bind(m_pLabelTypeShow, DFontSizeManager::T5, QFont::DemiBold);
+    m_pLabelTypeShow->setFixedWidth(255);
+    DFontSizeManager::instance()->bind(pLabelType, DFontSizeManager::T8, QFont::Medium);
+    DFontSizeManager::instance()->bind(m_pLabelTypeShow, DFontSizeManager::T8, QFont::Medium);
     QLabel *pLabelStatus = new QLabel(tr("Status:"));
     m_pLabelStatusShow = new QLabel(tr(""));
-    DFontSizeManager::instance()->bind(m_pLabelStatusShow, DFontSizeManager::T5, QFont::DemiBold);
+    DFontSizeManager::instance()->bind(pLabelStatus, DFontSizeManager::T8, QFont::Medium);
+    DFontSizeManager::instance()->bind(m_pLabelStatusShow, DFontSizeManager::T8, QFont::Medium);
+
     QGridLayout *pRightGridLayout = new QGridLayout();
 
     // 添加AT测试控件标签
@@ -228,16 +247,68 @@ void DPrintersShowWindow::initUI()
     pRightGridLayout->addWidget(pLabelStatus, 3, 0);
     pRightGridLayout->addWidget(m_pLabelStatusShow, 3, 1);
 
-    pRightGridLayout->setColumnStretch(0, 1);
-    pRightGridLayout->setColumnStretch(1, 3);
+    QWidget *pPrinterInfoWidget = new QWidget(this);
+    pPrinterInfoWidget->setLayout(pRightGridLayout);
+    pPrinterInfoWidget->setFixedWidth(322);
+    pPrinterInfoWidget->setContentsMargins(0, 0, 0, 0);
 
     QHBoxLayout *pRightTopHLayout = new QHBoxLayout();
-    pRightTopHLayout->addWidget(pLabelImage, 1, Qt::AlignHCenter);
-    pRightTopHLayout->addSpacing(30);
-    pRightTopHLayout->addLayout(pRightGridLayout, 2);
+    pRightTopHLayout->addWidget(pLabelImage, 0, Qt::AlignHCenter | Qt::AlignLeft);
+    pRightTopHLayout->addSpacing(10);
+    pRightTopHLayout->addWidget(pPrinterInfoWidget);
+
+    QWidget *pRightTopWidget = new QWidget(this);
+    pRightTopWidget->setFixedSize(480, 168);
+    pRightTopWidget->setLayout(pRightTopHLayout);
+
+    // 右侧中部控件
+    m_pDefaultPrinter = new QCheckBox();
+    m_pDefaultPrinter->setText(tr("Default printer"));
+    DFontSizeManager::instance()->bind(m_pDefaultPrinter, DFontSizeManager::T8);
+    QHBoxLayout *phLayoutDefaultPrinter = new QHBoxLayout();
+    phLayoutDefaultPrinter->addWidget(m_pDefaultPrinter);
+    phLayoutDefaultPrinter->setContentsMargins(20, 0, 0, 0);
+
+    m_pSwitchShareButton = new SwitchWidget(tr("Shared printer"), this);
+    m_pAdvancedshare = new AdvanceShareWidget();
+    QLabel *shareIpInfo = new QLabel(tr("Shared address:"));
+    DFontSizeManager::instance()->bind(shareIpInfo, DFontSizeManager::T8, QFont::Light);
+    QStringList ipv4Addr = getLocalIPv4Addresses();
+    m_pShareIpAddr = new QLabel();
+    m_pShareIpAddr->setText(ipv4Addr.join(" "));
+    DFontSizeManager::instance()->bind(m_pShareIpAddr, DFontSizeManager::T8, QFont::Light);
+    m_pShareCopyIpAddr = new ClickableLabel(tr("Copy"));
+    QPalette pal = m_pShareCopyIpAddr->palette();
+    pal.setColor(QPalette::WindowText, QColor("#0082FA"));
+    m_pShareCopyIpAddr->setPalette(pal);
+    DFontSizeManager::instance()->bind(m_pShareCopyIpAddr, DFontSizeManager::T8, QFont::Light);
+
+    m_pShareWidget = new QWidget();
+    m_pShareWidget->setVisible(true);
+    m_pShareWidget->setContentsMargins(0, 0, 0, 0);
+    m_pShareWidget->setFixedSize(470, 36);
+
+    QHBoxLayout *pSharehLayout = new QHBoxLayout();
+    pSharehLayout->setSpacing(10);
+    pSharehLayout->addWidget(shareIpInfo, 0);
+    pSharehLayout->addWidget(m_pShareIpAddr, 0);
+    pSharehLayout->addWidget(m_pShareCopyIpAddr, 1);
+    pSharehLayout->setContentsMargins(10, 0, 0, 0);
+
+    m_pShareWidget->setLayout(pSharehLayout);
+
+    QVBoxLayout *pRightShareLayout = new QVBoxLayout();
+    pRightShareLayout->addWidget(m_pSwitchShareButton);
+    pRightShareLayout->addWidget(m_pAdvancedshare);
+    pRightShareLayout->addWidget(m_pShareWidget);
+    //pRightShareLayout->addLayout(pSharehLayout);
+    pRightShareLayout->setContentsMargins(20, 0, 0, 0);
+
+    QWidget *pRightShareWidget = new QWidget(this);
+    pRightShareWidget->setFixedWidth(490);
+    pRightShareWidget->setLayout(pRightShareLayout);
 
     // 右侧下方控件
-    QStringList strList =  QIcon::themeSearchPaths();
     m_pIBtnSetting = new DIconButton(this);
     m_pIBtnSetting->setIcon(QIcon::fromTheme("dp_set"));
     m_pIBtnSetting->setIconSize(QSize(32, 32));
@@ -245,7 +316,7 @@ void DPrintersShowWindow::initUI()
     m_pIBtnSetting->setEnabledCircle(true);
     QLabel *pLabelSetting = new QLabel();
     pLabelSetting->setText(tr("Properties"));
-    pLabelSetting->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    pLabelSetting->setAlignment(Qt::AlignHCenter);
     DFontSizeManager::instance()->bind(pLabelSetting, DFontSizeManager::T8);
 
     m_pIBtnPrintQueue = new DIconButton(this);
@@ -254,7 +325,7 @@ void DPrintersShowWindow::initUI()
     m_pIBtnPrintQueue->setFixedSize(60, 60);
     m_pIBtnPrintQueue->setEnabledCircle(true);
     m_pLabelPrintQueue = new QLabel();
-    m_pLabelPrintQueue->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    m_pLabelPrintQueue->setAlignment(Qt::AlignHCenter);
     DFontSizeManager::instance()->bind(m_pLabelPrintQueue, DFontSizeManager::T8);
 
     m_pIBtnPrintTest = new DIconButton(this);
@@ -263,7 +334,7 @@ void DPrintersShowWindow::initUI()
     m_pIBtnPrintTest->setFixedSize(60, 60);
     m_pIBtnPrintTest->setEnabledCircle(true);
     m_pLabelPrintTest = new QLabel();
-    m_pLabelPrintTest->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    m_pLabelPrintTest->setAlignment(Qt::AlignHCenter);
     DFontSizeManager::instance()->bind(m_pLabelPrintTest, DFontSizeManager::T8);
 
     m_pIBtnFault = new DIconButton(this);
@@ -272,7 +343,7 @@ void DPrintersShowWindow::initUI()
     m_pIBtnFault->setFixedSize(60, 60);
     m_pIBtnFault->setEnabledCircle(true);
     m_pLabelPrintFault = new QLabel();
-    m_pLabelPrintFault->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    m_pLabelPrintFault->setAlignment(Qt::AlignHCenter);
     DFontSizeManager::instance()->bind(m_pLabelPrintFault, DFontSizeManager::T8);
 
     m_pIBtnSupply = new DIconButton(this);
@@ -282,7 +353,7 @@ void DPrintersShowWindow::initUI()
     m_pIBtnSupply->setEnabledCircle(true);
     QLabel *pLabelSupply = new QLabel;
     pLabelSupply->setText(tr("Supplies"));
-    pLabelSupply->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    pLabelSupply->setAlignment(Qt::AlignHCenter);
     DFontSizeManager::instance()->bind(pLabelSupply, DFontSizeManager::T8);
 
     m_pIBtnSetting->setAccessibleName("setting_mainWindow");
@@ -297,6 +368,7 @@ void DPrintersShowWindow::initUI()
     m_pLabelPrintFault->setAccessibleName("labelFault_printerInfoWidget");
 
     QGridLayout *pRightBottomGLayout = new QGridLayout();
+    pRightBottomGLayout->setContentsMargins(0, 0, 0, 0);
     pRightBottomGLayout->addWidget(m_pIBtnSetting, 0, 0, Qt::AlignHCenter);
     pRightBottomGLayout->addWidget(pLabelSetting, 1, 0);
     pRightBottomGLayout->addWidget(m_pIBtnPrintQueue, 0, 1, Qt::AlignHCenter);
@@ -308,14 +380,24 @@ void DPrintersShowWindow::initUI()
     pRightBottomGLayout->addWidget(m_pIBtnFault, 0, 4, Qt::AlignHCenter);
     pRightBottomGLayout->addWidget(m_pLabelPrintFault, 1, 4);
 
+    QWidget *pRightBottomWidget = new QWidget(this);
+    pRightBottomWidget->setFixedSize(520, 85);
+    pRightBottomWidget->setLayout(pRightBottomGLayout);
+    pRightBottomWidget->setContentsMargins(0, 0, 0, 0);
+
     m_customLabel = new CustomLabel(this);
 
     // 右侧整体布局
     QVBoxLayout *pRightVLayout = new QVBoxLayout();
-    pRightVLayout->addLayout(pRightTopHLayout);
-    pRightVLayout->addSpacing(120);
-    pRightVLayout->addLayout(pRightBottomGLayout);
-    pRightVLayout->setContentsMargins(20, 100, 20, 120);
+    pRightVLayout->addSpacing(18);
+    pRightVLayout->addWidget(pRightTopWidget, Qt::AlignCenter);
+    pRightVLayout->addSpacing(20);
+    pRightVLayout->addLayout(phLayoutDefaultPrinter, Qt::AlignVCenter);
+    pRightVLayout->addWidget(pRightShareWidget, Qt::AlignCenter);
+    pRightVLayout->addSpacing(30);
+    pRightVLayout->addWidget(pRightBottomWidget, Qt::AlignCenter);
+    pRightVLayout->addSpacing(113);
+    pRightVLayout->setContentsMargins(0, 0, 0, 0);
     m_pPrinterInfoWidget = new QWidget();
     m_pPrinterInfoWidget->setLayout(pRightVLayout);
     m_pPrinterInfoWidget->setAccessibleName("printerInfoWidget_rightWidget");
@@ -332,22 +414,23 @@ void DPrintersShowWindow::initUI()
     m_pPRightTipLabel2->setAccessibleName("rightTipLabel2_rightWidget");
     DFontSizeManager::instance()->bind(m_pPRightTipLabel2, DFontSizeManager::T6, QFont::DemiBold);
     QVBoxLayout *pRightMainVLayout = new QVBoxLayout();
-    pRightMainVLayout->addWidget(m_pPrinterInfoWidget);
     pRightMainVLayout->addStretch();
-    pRightMainVLayout->addWidget(m_pPRightTipLabel1);
-    pRightMainVLayout->addWidget(m_pPRightTipLabel2);
+    pRightMainVLayout->addWidget(m_pPrinterInfoWidget, 0, Qt::AlignCenter);
+    pRightMainVLayout->addWidget(m_pPRightTipLabel1, 0, Qt::AlignCenter);
+    pRightMainVLayout->addWidget(m_pPRightTipLabel2, 0, Qt::AlignCenter);
     pRightMainVLayout->addStretch();
     pRightMainVLayout->addWidget(m_customLabel, 0, Qt::AlignBottom | Qt::AlignRight);
     //DFrame 会导致上面的QLabel显示颜色不正常
     QWidget *pRightWidgwt = new QWidget();
+    pRightWidgwt->setFixedSize(580, 586);
     pRightWidgwt->setLayout(pRightMainVLayout);
     pRightWidgwt->setAccessibleName("rightWidget_centralWidget");
+    pRightWidgwt->setContentsMargins(0, 0, 0, 0);
 
     QHBoxLayout *pMainHLayout = new QHBoxLayout();
-    pMainHLayout->setSpacing(2);
-    pMainHLayout->addWidget(pLeftWidget, 1);
-    pMainHLayout->addWidget(pRightWidgwt, 2);
-    //    pMainHLayout->setContentsMargins(10, 10, 10, 10);
+    pMainHLayout->addWidget(pLeftWidget, 320);
+    pMainHLayout->addWidget(pRightWidgwt, 600);
+
     //阴影分割布局控件
     DBackgroundGroup *pCentralWidget = new DBackgroundGroup();
     pCentralWidget->setLayout(pMainHLayout);
@@ -419,12 +502,46 @@ void DPrintersShowWindow::initConnections()
         m_pPrinterRename->blockSignals(false);
     });
 
-    connect(m_pShareAction, &QAction::triggered, this, &DPrintersShowWindow::listWidgetMenuActionSlot);
-    connect(m_pEnableAction, &QAction::triggered, this, &DPrintersShowWindow::listWidgetMenuActionSlot);
     connect(m_pDefaultAction, &QAction::triggered, this, &DPrintersShowWindow::listWidgetMenuActionSlot);
-    connect(m_pRejectAction, &QAction::triggered, this, &DPrintersShowWindow::listWidgetMenuActionSlot);
-
+    connect(m_pDeleteAction, &QAction::triggered, this, &DPrintersShowWindow::deletePrinterClickSlot);
     connect(m_pSettings, &QAction::triggered, this, &DPrintersShowWindow::serverSettingsSlot);
+    connect(m_pSwitchShareButton, &SwitchWidget::checkedChanged, this, [&](bool check) {
+        QString printerName = m_pPrinterListView->currentIndex().data().toString();
+        m_pPrinterManager->setPrinterShared(printerName, check);
+        if (check && !(m_pPrinterManager->isSharePrintersEnabled() && m_pPrinterManager->isRemoteAnyEnabled())) {
+            // 需要开启共享状态，先检查服务器配置是否开启，如果开启，直接退出。没有开启打开共享配置
+            m_pPrinterManager->enableSharePrinters(true);
+            m_pPrinterManager->enableRemoteAny(true);
+
+            map<string, string> options;
+            options.insert({CUPS_SERVER_SHARE_PRINTERS, "1"});
+            options.insert({CUPS_SERVER_REMOTE_ANY, "1"});
+            m_pPrinterManager->commit(options);
+            if (!g_cupsConnection) {
+                qCInfo(COMMONMOUDLE) << "Try to restart the cups service";
+            }
+        }
+
+        QTimer::singleShot(1000, [=]() {
+            printerListWidgetItemChangedSlot(QModelIndex());
+        });
+    });
+    connect(m_pDefaultPrinter, &QCheckBox::stateChanged, this, [&](int state) {
+        QString printerName = m_pPrinterListView->currentIndex().data().toString();
+        if (state == Qt::Checked) {
+            m_pPrinterManager->setPrinterDefault(printerName);
+            m_pDefaultPrinter->setChecked(true);
+            m_pDefaultPrinter->setEnabled(false);
+        }
+        updateDefaultPrinterIcon();
+    });
+
+    connect(m_pShareCopyIpAddr, &ClickableLabel::clicked, [this]() {
+        QClipboard *clipboard = QApplication::clipboard();
+        clipboard->setText(m_pShareIpAddr->text());
+    });
+
+    connect(m_pAdvancedshare, &AdvanceShareWidget::clicked, this, &DPrintersShowWindow::serverSettingsSlot);
 }
 
 void DPrintersShowWindow::showEvent(QShowEvent *event)
@@ -614,6 +731,13 @@ void DPrintersShowWindow::serverSettingsSlot()
     if (!m_pSettingsDialog) {
         m_pSettingsDialog = new ServerSettingsWindow(this);
     }
+
+    connect(m_pSettingsDialog, &ServerSettingsWindow::finished, this, [this]() {
+        QTimer::singleShot(1000, [=]() {
+            printerListWidgetItemChangedSlot(QModelIndex());
+        });
+    });
+
     /*打开设置界面之前先更新设置接口数据，避免外部程序修改了cups设置，导致数据不同步*/
     if (!m_pPrinterManager->updateServerSetting())
         return;
@@ -1022,13 +1146,27 @@ void DPrintersShowWindow::printerListWidgetItemChangedSlot(const QModelIndex &pr
         m_pLabelPrinterName->setText(showPrinter);
         m_pLabelPrinterName->setToolTip(printerName);
 
+        // 共享状态应该为打印机状态与cups服务共享状态相与结果
+        m_pPrinterManager->updateServerSetting();
+        bool isShared = m_pPrinterManager->isPrinterShared(printerName) && m_pPrinterManager->isSharePrintersEnabled() && m_pPrinterManager->isRemoteAnyEnabled();
+        m_pSwitchShareButton->setChecked(isShared);
+        m_pShareWidget->setVisible(isShared);
+
+        m_pDefaultPrinter->setEnabled(true);
+        bool isDefault = m_pPrinterManager->isDefaultPrinter(printerName);
+        if (isDefault) {
+            m_pDefaultPrinter->setChecked(true);
+        } else {
+            m_pDefaultPrinter->setChecked(false);
+        }
+
         QString location = QObject::tr(basePrinterInfo.at(0).toUtf8());
         m_pLabelLocationShow->setToolTip(location);
-        geteElidedText(m_pLabelLocationShow->font(), location, m_pLabelLocationShow->width());
+        geteElidedText(m_pLabelLocationShow->font(), location, m_pLabelLocationShow->width() - 20);
         m_pLabelLocationShow->setText(location);
 
         QString model = basePrinterInfo.at(1);
-        geteElidedText(m_pLabelTypeShow->font(), model, m_pLabelTypeShow->width());
+        geteElidedText(m_pLabelTypeShow->font(), model, m_pLabelTypeShow->width() - 20);
         m_pLabelTypeShow->setText(model);
         m_pLabelTypeShow->setToolTip(basePrinterInfo.at(1));
         m_pLabelStatusShow->setText(basePrinterInfo.at(2));
@@ -1049,12 +1187,6 @@ void DPrintersShowWindow::contextMenuRequested(const QPoint &point)
 {
     if (m_pPrinterListView->currentIndex().isValid()) {
         QString printerName = m_pPrinterListView->currentIndex().data().toString();
-        bool isShared = m_pPrinterManager->isPrinterShared(printerName);
-        m_pShareAction->setChecked(isShared);
-        bool isEnabled = m_pPrinterManager->isPrinterEnabled(printerName);
-        m_pEnableAction->setChecked(isEnabled);
-        bool isAcceptJob = m_pPrinterManager->isPrinterAcceptJob(printerName);
-        m_pRejectAction->setChecked(isAcceptJob);
         bool isDefault = m_pPrinterManager->isDefaultPrinter(printerName);
         m_pDefaultAction->setChecked(isDefault);
         // 当打印机为默认时，不让用户取消，避免出现没有默认打印机的状态
@@ -1079,6 +1211,27 @@ void DPrintersShowWindow::listWidgetMenuActionSlot(bool checked)
         }
     } else if (sender()->objectName() == "Accept") {
         m_pPrinterManager->setPrinterAcceptJob(printerName, checked);
+    }
+    printerListWidgetItemChangedSlot(QModelIndex());
+}
+
+void DPrintersShowWindow::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::FontChange) {
+        if (m_pPrinterListView->currentIndex().isValid()) {
+            QString printerName = m_pPrinterListView->currentIndex().data(Qt::DisplayRole).toString();
+            QStringList basePrinterInfo = m_pPrinterManager->getPrinterBaseInfoByName(printerName);
+            if (basePrinterInfo.count() == 3) {
+                QString location = QObject::tr(basePrinterInfo.at(0).toUtf8());
+                geteElidedText(m_pLabelLocationShow->font(), location, m_pLabelLocationShow->width() - 20);
+                m_pLabelLocationShow->setText(location);
+
+                QString model = basePrinterInfo.at(1);
+                geteElidedText(m_pLabelTypeShow->font(), model, m_pLabelTypeShow->width() - 20);
+                m_pLabelTypeShow->setText(model);
+            }
+        }
+        QWidget::changeEvent(event);
     }
 }
 

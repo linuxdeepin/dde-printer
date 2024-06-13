@@ -31,7 +31,9 @@ SOURCES += \
     util/dprintertanslator.cpp \
     ui/dprintersupplyshowdlg.cpp \
     util/refreshsnmpbackendtask.cpp \
-    ui/printerhelpwindow.cpp
+    ui/printerhelpwindow.cpp \
+    ui/switchwidget.cpp \
+    ui/advancedsharewidget.cpp
 
 RESOURCES +=         resources.qrc \
     icons/theme-icons.qrc
@@ -60,7 +62,9 @@ HEADERS += \
     ui/dprinterpropertytemplate.h \
     ui/dprintersupplyshowdlg.h \
     util/refreshsnmpbackendtask.h \
-    ui/printerhelpwindow.h
+    ui/printerhelpwindow.h \
+    ui/switchwidget.h \
+    ui/advancedsharewidget.h
 
 include(../Common/Common.pri)
 

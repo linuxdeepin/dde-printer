@@ -30,6 +30,14 @@
     </message>
 </context>
 <context>
+    <name>AdvanceShareWidget</name>
+    <message>
+        <location filename="../ui/advancedsharewidget.cpp" line="22"/>
+        <source>Advanced sharing options</source>
+        <translation>Advanced sharing options</translation>
+    </message>
+</context>
+<context>
     <name>CheckAttributes</name>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="305"/>
@@ -613,7 +621,32 @@
         <translation>Supplies</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="310"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="200"/>
+        <source>Delete</source>
+        <translation>Delete</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="291"/>
+        <source>Default printer</source>
+        <translation>Default printer</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="297"/>
+        <source>Shared printer</source>
+        <translation>Shared printer</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="300"/>
+        <source>Shared address:</source>
+        <translation>Shared address:</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="306"/>
+        <source>Copy</source>
+        <translation>Copy</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="430"/>
         <source>No printer configured</source>
         <translation>No printer configured</translation>
     </message>
@@ -1776,7 +1809,12 @@
         <translation>Allow printing from the Internet</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="105"/>
+        <location filename="../ui/dprintersshowwindow.h" line="128"/>
+        <source>To share your printer, turn on these settings</source>
+        <translation>To share your printer, turn on these settings</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.h" line="134"/>
         <source>Allow remote administration</source>
         <translation>Allow remote administration</translation>
     </message>
