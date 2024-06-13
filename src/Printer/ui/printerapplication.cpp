@@ -92,8 +92,12 @@ int PrinterApplication::create()
 
     DLogManager::registerConsoleAppender();
     DLogManager::registerFileAppender();
+#if (DTK_VERSION >= DTK_VERSION_CHECK(5, 6, 8, 0))
+    DLogManager::registerJournalAppender();
+#else
     QString logRules = g_Settings->getLogRules();
     QLoggingCategory::setFilterRules(logRules);
+#endif
 
     QObject::tr("Direct-attached Device");
     QObject::tr("File");
