@@ -89,8 +89,8 @@ void PrinterHelpWindow::initUi()
         QLabel *content = new QLabel;
         DFontSizeManager::instance()->bind(tmpTitle, DFontSizeManager::T6, int(QFont::Normal));
         DFontSizeManager::instance()->bind(content, DFontSizeManager::T7, int(QFont::Light));
-        tmpTitle->setText(it->first);
-        content->setText(it->second);
+        tmpTitle->setText(QObject::tr(it->first.toUtf8().data()));
+        content->setText(QObject::tr(it->second.toUtf8().data()));
         content->setWordWrap(true);
 
         pVLayout->addWidget(tmpTitle);

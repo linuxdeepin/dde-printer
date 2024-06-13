@@ -625,13 +625,13 @@
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="291"/>
-        <source>默认打印机</source>
-        <translation>Default printer</translation>
+        <source>Default printer</source>
+        <translation>默认打印机</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="297"/>
-        <source>共享打印机</source>
-        <translation>Shared printer</translation>
+        <source>Shared printer</source>
+        <translation>共享打印机</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="300"/>
@@ -1219,7 +1219,7 @@
     <message>
         <location filename="../ui/printerhelpwindow.cpp" line="76"/>
         <source>Learn how to fix issues with not being able to print</source>
-        <translation>无法打印？了解如何解决</translation>
+        <translation>了解如何解决无法打印的问题</translation>
     </message>
 </context>
 <context>
