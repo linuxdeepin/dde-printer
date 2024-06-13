@@ -1711,7 +1711,7 @@
     </message>
     <message>
         <location filename="../ui/printerhelpwindow.cpp" line="42"/>
-        <source> Open the terminal and enter the following commands in sequence and press Enter. This will stop the print service, delete the printer&apos;s temporary files, and finally restart the print service.</source>
+        <source>Open the terminal and enter the following commands in sequence and press Enter. This will stop the print service, delete the printer&apos;s temporary files, and finally restart the print service.</source>
         <translation>打开终端依次输入以下命令并按回车键。这将停止打印服务，删除打印机的临时文件，最后重新启动打印服务。</translation>
     </message>
     <message>
