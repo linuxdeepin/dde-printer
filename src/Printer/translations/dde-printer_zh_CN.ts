@@ -28,6 +28,14 @@
     </message>
 </context>
 <context>
+    <name>AdvanceShareWidget</name>
+    <message>
+        <location filename="../ui/advancedsharewidget.cpp" line="22"/>
+        <source>Advanced sharing options</source>
+        <translation>高级共享选项</translation>
+    </message>
+</context>
+<context>
     <name>CheckAttributes</name>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="305"/>
@@ -609,6 +617,31 @@
         <location filename="../ui/dprintersshowwindow.cpp" line="274"/>
         <source>Supplies</source>
         <translation>耗材</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="200"/>
+        <source>Delete</source>
+        <translation>删除</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="291"/>
+        <source>默认打印机</source>
+        <translation>Default printer</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="297"/>
+        <source>共享打印机</source>
+        <translation>Shared printer</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="300"/>
+        <source>Shared address:</source>
+        <translation>共享地址:</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="306"/>
+        <source>Copy</source>
+        <translation>复制</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="310"/>
@@ -1773,7 +1806,12 @@
         <translation>允许从互联网打印</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.h" line="105"/>
+        <location filename="../ui/dprintersshowwindow.h" line="128"/>
+        <source>To share your printer, turn on these settings</source>
+        <translation>如需共享打印机，请开启这些设置</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.h" line="134"/>
         <source>Allow remote administration</source>
         <translation>允许远程管理</translation>
     </message>

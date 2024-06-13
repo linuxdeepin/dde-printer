@@ -8,5 +8,7 @@
         <file>images/warning.svg</file>
         <file>images/printer_details.svg</file>
         <file>images/dde-printer.svg</file>
+        <file>images/enter_details_normal.svg</file>
+        <file>images/enter_details_normal-dark.svg</file>
     </qresource>
 </RCC>
