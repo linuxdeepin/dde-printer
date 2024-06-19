@@ -34,4 +34,7 @@ service.files = $$PWD/data/com.deepin.printer.manager.service
 dbus.path = /etc/dbus-1/system.d
 dbus.files = $$PWD/data/com.deepin.printer.manager.conf
 
-INSTALLS += service dbus binary
+serviced.path = $${PREFIX}/lib/systemd/system
+serviced.files = $$PWD/data/dde-printer-manager.service
+
+INSTALLS += service dbus binary serviced

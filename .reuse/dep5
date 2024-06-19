@@ -14,7 +14,7 @@ Copyright: None
 License: CC0-1.0
 
 # desktop json policy
-Files:  *.desktop *.json *.policy *.pdf
+Files:  *.desktop *.json *.policy *.pdf *.service
 Copyright: None
 License: CC0-1.0
 

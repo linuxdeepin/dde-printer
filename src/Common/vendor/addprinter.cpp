@@ -610,8 +610,11 @@ void AddCanonCAPTPrinter::slotProcessFinished(int iCode, QProcess::ExitStatus ex
         m_strErr = m_proc.readAllStandardError();
         if (iCode == 2) { // 佳能capt打印机已经添加，不允许重复添加
             m_strErr = QObject::tr("The Canon capt printer has been added and is not allowed to be added again.");
+        } else if (iCode == -11) {
+            m_strErr = "Application path does not match, and installation is not allowed.";
         }
 
+        m_strErr += "Canon capt install fail.";
         m_iStep = STEP_Failed;
     }
 

@@ -1,0 +1,9 @@
+[Unit]
+Description=Deepin Printer Manager
+
+[Service]
+Type=dbus
+BusName=com.deepin.printer.manager
+ExecStart=/usr/lib/deepin-daemon/dde-printer-manager
+CapabilityBoundingSet=CAP_SYS_ADMIN CAP_SYS_PTRACE
+MemoryLimit=8G
