@@ -393,6 +393,7 @@ void InstallInterface::startInstallPackages(bool status)
     }
 
     QDBusReply<QDBusObjectPath> objPath = interface->call("InstallPackage", "", m_installPackages.join(" "));
+    QString extInfo;
 
     if (objPath.isValid()) {
         m_jobPath = objPath.value().path();
@@ -404,13 +405,16 @@ void InstallInterface::startInstallPackages(bool status)
             qCDebug(COMMONMOUDLE) << "Start install " << m_installPackages;
             return;
         } else {
+            extInfo = "Connect dbus signal failed";
             qCWarning(COMMONMOUDLE) << "Connect dbus signal failed";
         }
     } else {
+        extInfo = objPath.error().message();
         qCWarning(COMMONMOUDLE) << "DBus error: " << objPath.error().message();
     }
 
     m_strErr = tr("Failed to install the driver by calling dbus interface");
+    m_strErr += extInfo;
     emit signalStatus(TStat_Fail);
 }
 

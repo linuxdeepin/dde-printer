@@ -639,6 +639,7 @@ void DriverSearcher::sortDrivers()
         if ((isDriverlessDevice && !isDriverlessDriver) ||
             (!isDriverlessDevice && isDriverlessDriver)) {
                 m_drivers.removeAt(i);
+                --i;
         }
     }
 

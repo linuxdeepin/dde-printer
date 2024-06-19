@@ -6,6 +6,9 @@
 
 #include <QDebug>
 #include <QString>
+#include <QLoggingCategory>
+
+Q_LOGGING_CATEGORY(CONVERT, "org.deepin.dde-printer.convert")
 
 vector<string> qStringListStdVector(const QStringList &strList)
 {
@@ -71,8 +74,8 @@ void dumpStdMapValue(const map<string, string> &mapValue)
 {
     map<string, string>::const_iterator itinfo = mapValue.begin();
 
-    for (; itinfo != mapValue.end(); itinfo++) {
-        qDebug() << QString::fromStdString(itinfo->first) << ":" << attrValueToQString(itinfo->second);
+    for (; itinfo != mapValue.end(); ++itinfo) {
+        qCDebug(CONVERT) << QString::fromStdString(itinfo->first) << ":" << attrValueToQString(itinfo->second);
     }
 }
 
