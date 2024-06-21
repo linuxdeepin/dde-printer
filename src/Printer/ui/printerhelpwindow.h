@@ -55,6 +55,7 @@ signals:
 protected slots:
     void slotOpenFaqDoc();
     void slotOpenHelpInfo();
+    void updateIcon();
 
 private:
     void initSubUi();
@@ -66,6 +67,7 @@ protected:
 private:
     QMenu *m_main;
     QLabel *m_textLabel;
+    QLabel *m_imageLabel;
     QPushButton *m_popupButton1;
     QPushButton *m_popupButton2;
     PrinterHelpWindow *m_pHelpWindow = nullptr;

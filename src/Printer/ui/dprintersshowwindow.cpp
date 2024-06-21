@@ -31,6 +31,7 @@
 #include <DFrame>
 #include <DBackgroundGroup>
 #include <DErrorMessage>
+#include <DApplicationHelper>
 
 #ifdef DTKWIDGET_CLASS_DSizeMode
 #include <DSizeMode>
@@ -208,7 +209,7 @@ void DPrintersShowWindow::initUI()
     // 右侧上方
     QLabel *pLabelImage = new QLabel("");
     pLabelImage->setPixmap(QPixmap(":/images/printer_details.svg").scaled(QSize(128, 128), Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    pLabelImage->setContentsMargins(20, 0, 0, 0);
+    pLabelImage->setContentsMargins(0, 0, 0, 0);
 
     m_pLabelPrinterName = new QLabel("");
     DFontSizeManager::instance()->bind(m_pLabelPrinterName, DFontSizeManager::T5, QFont::Medium);
@@ -257,9 +258,9 @@ void DPrintersShowWindow::initUI()
     pRightTopHLayout->addSpacing(10);
     pRightTopHLayout->addWidget(pPrinterInfoWidget);
 
-    QWidget *pRightTopWidget = new QWidget(this);
-    pRightTopWidget->setFixedSize(480, 168);
-    pRightTopWidget->setLayout(pRightTopHLayout);
+    m_pRightTopWidget = new BackgroundWidget(this);
+    m_pRightTopWidget->setFixedSize(480, 168);
+    m_pRightTopWidget->setLayout(pRightTopHLayout);
 
     // 右侧中部控件
     m_pDefaultPrinter = new QCheckBox();
@@ -267,7 +268,7 @@ void DPrintersShowWindow::initUI()
     DFontSizeManager::instance()->bind(m_pDefaultPrinter, DFontSizeManager::T8);
     QHBoxLayout *phLayoutDefaultPrinter = new QHBoxLayout();
     phLayoutDefaultPrinter->addWidget(m_pDefaultPrinter);
-    phLayoutDefaultPrinter->setContentsMargins(20, 0, 0, 0);
+    phLayoutDefaultPrinter->setContentsMargins(0, 0, 0, 0);
 
     m_pSwitchShareButton = new SwitchWidget(tr("Shared printer"), this);
     m_pAdvancedshare = new AdvanceShareWidget();
@@ -286,7 +287,6 @@ void DPrintersShowWindow::initUI()
     m_pShareWidget = new QWidget();
     m_pShareWidget->setVisible(true);
     m_pShareWidget->setContentsMargins(0, 0, 0, 0);
-    m_pShareWidget->setFixedSize(470, 36);
 
     QHBoxLayout *pSharehLayout = new QHBoxLayout();
     pSharehLayout->setSpacing(10);
@@ -301,17 +301,18 @@ void DPrintersShowWindow::initUI()
     pRightShareLayout->addWidget(m_pSwitchShareButton);
     pRightShareLayout->addWidget(m_pAdvancedshare);
     pRightShareLayout->addWidget(m_pShareWidget);
-    //pRightShareLayout->addLayout(pSharehLayout);
-    pRightShareLayout->setContentsMargins(20, 0, 0, 0);
+    pRightShareLayout->addStretch();
+    pRightShareLayout->setContentsMargins(0, 0, 0, 0);
 
     QWidget *pRightShareWidget = new QWidget(this);
-    pRightShareWidget->setFixedWidth(490);
+    pRightShareWidget->setMinimumSize(480, 105);
+    pRightShareWidget->setMaximumSize(480, 120);
     pRightShareWidget->setLayout(pRightShareLayout);
 
     // 右侧下方控件
     m_pIBtnSetting = new DIconButton(this);
     m_pIBtnSetting->setIcon(QIcon::fromTheme("dp_set"));
-    m_pIBtnSetting->setIconSize(QSize(32, 32));
+    m_pIBtnSetting->setIconSize(QSize(24, 24));
     m_pIBtnSetting->setFixedSize(60, 60);
     m_pIBtnSetting->setEnabledCircle(true);
     QLabel *pLabelSetting = new QLabel();
@@ -321,7 +322,7 @@ void DPrintersShowWindow::initUI()
 
     m_pIBtnPrintQueue = new DIconButton(this);
     m_pIBtnPrintQueue->setIcon(QIcon::fromTheme("dp_print_queue"));
-    m_pIBtnPrintQueue->setIconSize(QSize(32, 32));
+    m_pIBtnPrintQueue->setIconSize(QSize(24, 24));
     m_pIBtnPrintQueue->setFixedSize(60, 60);
     m_pIBtnPrintQueue->setEnabledCircle(true);
     m_pLabelPrintQueue = new QLabel();
@@ -330,7 +331,7 @@ void DPrintersShowWindow::initUI()
 
     m_pIBtnPrintTest = new DIconButton(this);
     m_pIBtnPrintTest->setIcon(QIcon::fromTheme("dp_test_page"));
-    m_pIBtnPrintTest->setIconSize(QSize(32, 32));
+    m_pIBtnPrintTest->setIconSize(QSize(24, 24));
     m_pIBtnPrintTest->setFixedSize(60, 60);
     m_pIBtnPrintTest->setEnabledCircle(true);
     m_pLabelPrintTest = new QLabel();
@@ -339,7 +340,7 @@ void DPrintersShowWindow::initUI()
 
     m_pIBtnFault = new DIconButton(this);
     m_pIBtnFault->setIcon(QIcon::fromTheme("dp_fault"));
-    m_pIBtnFault->setIconSize(QSize(32, 32));
+    m_pIBtnFault->setIconSize(QSize(24, 24));
     m_pIBtnFault->setFixedSize(60, 60);
     m_pIBtnFault->setEnabledCircle(true);
     m_pLabelPrintFault = new QLabel();
@@ -348,7 +349,7 @@ void DPrintersShowWindow::initUI()
 
     m_pIBtnSupply = new DIconButton(this);
     m_pIBtnSupply->setIcon(QIcon::fromTheme("filter_icon_unknown"));
-    m_pIBtnSupply->setIconSize(QSize(32, 32));
+    m_pIBtnSupply->setIconSize(QSize(24, 24));
     m_pIBtnSupply->setFixedSize(60, 60);
     m_pIBtnSupply->setEnabledCircle(true);
     QLabel *pLabelSupply = new QLabel;
@@ -387,16 +388,22 @@ void DPrintersShowWindow::initUI()
 
     m_customLabel = new CustomLabel(this);
 
+    // 右侧上中布局
+    QVBoxLayout *pRightTmVLayout = new QVBoxLayout();
+    pRightTmVLayout->addSpacing(18);
+    pRightTmVLayout->addWidget(m_pRightTopWidget, Qt::AlignCenter);
+    pRightTmVLayout->addSpacing(20);
+    pRightTmVLayout->addLayout(phLayoutDefaultPrinter, Qt::AlignVCenter);
+    pRightTmVLayout->addWidget(pRightShareWidget, Qt::AlignCenter);
+    pRightTmVLayout->setContentsMargins(25, 0, 0, 0);
+
     // 右侧整体布局
     QVBoxLayout *pRightVLayout = new QVBoxLayout();
-    pRightVLayout->addSpacing(18);
-    pRightVLayout->addWidget(pRightTopWidget, Qt::AlignCenter);
-    pRightVLayout->addSpacing(20);
-    pRightVLayout->addLayout(phLayoutDefaultPrinter, Qt::AlignVCenter);
-    pRightVLayout->addWidget(pRightShareWidget, Qt::AlignCenter);
+
+    pRightVLayout->addLayout(pRightTmVLayout);
     pRightVLayout->addSpacing(30);
     pRightVLayout->addWidget(pRightBottomWidget, Qt::AlignCenter);
-    pRightVLayout->addSpacing(113);
+    pRightVLayout->addSpacing(73);
     pRightVLayout->setContentsMargins(0, 0, 0, 0);
     m_pPrinterInfoWidget = new QWidget();
     m_pPrinterInfoWidget->setLayout(pRightVLayout);
@@ -420,9 +427,10 @@ void DPrintersShowWindow::initUI()
     pRightMainVLayout->addWidget(m_pPRightTipLabel2, 0, Qt::AlignCenter);
     pRightMainVLayout->addStretch();
     pRightMainVLayout->addWidget(m_customLabel, 0, Qt::AlignBottom | Qt::AlignRight);
+    pRightMainVLayout->setContentsMargins(0, 0, 0, 0);
     //DFrame 会导致上面的QLabel显示颜色不正常
     QWidget *pRightWidgwt = new QWidget();
-    pRightWidgwt->setFixedSize(580, 586);
+    pRightWidgwt->setFixedSize(580, 566);
     pRightWidgwt->setLayout(pRightMainVLayout);
     pRightWidgwt->setAccessibleName("rightWidget_centralWidget");
     pRightWidgwt->setContentsMargins(0, 0, 0, 0);
@@ -686,7 +694,7 @@ void DPrintersShowWindow::refreshPrinterListView(const QString &newPrinterName)
         m_pLabelStatusShow->setText("");
     }
 
-    m_pPrinterListView->setIconSize(QSize(52, 52));
+    m_pPrinterListView->setIconSize(QSize(45, 45));
     if (m_pPrinterListView->count() > 0) {
         m_pPrinterListView->setVisible(true);
         m_pLeftTipLabel->setVisible(false);
@@ -1234,6 +1242,24 @@ void DPrintersShowWindow::changeEvent(QEvent *event)
         }
         QWidget::changeEvent(event);
     }
+}
+
+BackgroundWidget::BackgroundWidget(QWidget *parent)
+{
+    Q_UNUSED(parent)
+}
+
+void BackgroundWidget::paintEvent(QPaintEvent *event)
+{
+    Q_UNUSED(event)
+
+    const DPalette &dp = DApplicationHelper::instance()->palette(this);
+    QPainter p(this);
+    p.setPen(Qt::NoPen);
+    p.setBrush(dp.brush(DPalette::ItemBackground));
+    p.drawRoundedRect(rect(), 8, 8);
+
+    return QWidget::paintEvent(event);
 }
 
 ItemDelegate::ItemDelegate(QObject *parent)
