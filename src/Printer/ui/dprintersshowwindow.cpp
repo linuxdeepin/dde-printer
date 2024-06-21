@@ -1156,6 +1156,7 @@ void DPrintersShowWindow::printerListWidgetItemChangedSlot(const QModelIndex &pr
         bool isDefault = m_pPrinterManager->isDefaultPrinter(printerName);
         if (isDefault) {
             m_pDefaultPrinter->setChecked(true);
+            m_pDefaultPrinter->setEnabled(false);
         } else {
             m_pDefaultPrinter->setChecked(false);
         }
