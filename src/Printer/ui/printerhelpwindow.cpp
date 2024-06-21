@@ -106,7 +106,7 @@ void PrinterHelpWindow::initUi()
            m_copyLabel->setWordWrap(true);
 
            QHBoxLayout *pHcopyLayout = new QHBoxLayout();
-           m_copyButton = new QPushButton("Copy");
+           m_copyButton = new QPushButton(tr("Copy"));
            m_copyButton->setFlat(true);
            DFontSizeManager::instance()->bind(m_copyButton, DFontSizeManager::T8, int(QFont::Light));
            QPalette palette1;
