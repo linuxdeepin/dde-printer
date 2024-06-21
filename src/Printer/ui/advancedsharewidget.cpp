@@ -6,8 +6,10 @@
 
 #include <DGuiApplicationHelper>
 #include <DFontSizeManager>
+#include <DApplicationHelper>
 
 #include <QHBoxLayout>
+#include <QPainter>
 
 DWIDGET_USE_NAMESPACE
 DGUI_USE_NAMESPACE
@@ -17,6 +19,7 @@ AdvanceShareWidget::AdvanceShareWidget(QWidget *parent)
     , m_textLabel(new QLabel)
     , m_enterIcon(new QLabel)
 {
+    setMinimumHeight(36);
     updateIcon();
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &AdvanceShareWidget::updateIcon);
     m_enterIcon->setFixedSize(16, 16);
@@ -64,4 +67,16 @@ void AdvanceShareWidget::updateIcon()
     }
 
     update();
+}
+
+void AdvanceShareWidget::paintEvent(QPaintEvent *event)
+{
+    Q_UNUSED(event)
+
+    const DPalette &dp = DApplicationHelper::instance()->palette(this);
+    QPainter p(this);
+    p.setPen(Qt::NoPen);
+    p.setBrush(dp.brush(DPalette::ItemBackground));
+    p.drawRoundedRect(rect(), 8, 8);
+    QWidget::paintEvent(event);
 }

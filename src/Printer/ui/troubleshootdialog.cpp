@@ -103,34 +103,37 @@ TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *pare
     title->setAccessibleName("title_contentWidget");
     DFontSizeManager::instance()->bind(title, DFontSizeManager::T5, QFont::DemiBold);
     QHBoxLayout *pHLayout = new QHBoxLayout();
-    pHLayout->setContentsMargins(0, 0, 0, 0);
-    pHLayout->setSpacing(0);
-    pHLayout->addSpacing(10);
 
     m_helpButton = new QPushButton(this);
+    m_helpButton->setContentsMargins(0, 0, 0, 0);
     DFontSizeManager::instance()->bind(m_helpButton, DFontSizeManager::T7, QFont::Light);
     m_helpButton->setText(tr("Can't print? Learn how to resolve"));
     QIcon icon = QIcon::fromTheme("icon_tips");
-
-    m_helpButton->setIcon(QIcon::fromTheme("icon_tips"));
-    m_helpButton->setIconSize(QSize(20, 20));
+    m_helpButton->setIcon(icon);
+    m_helpButton->setIconSize(QSize(22, 22));
     m_helpButton->setLayoutDirection(Qt::RightToLeft);
     QPalette palette;
     palette.setColor(QPalette::ButtonText, "#0081FF");
     m_helpButton->setPalette(palette);
     m_helpButton->setFlat(true);
+    m_helpButton->setMinimumWidth(180);
+    m_helpButton->setMaximumWidth(400);
 
     QHBoxLayout *helpLayout = new QHBoxLayout;
     helpLayout->addStretch();
     helpLayout->addWidget(m_helpButton);
     pHLayout->addWidget(title);
     pHLayout->addLayout(helpLayout);
+    pHLayout->setContentsMargins(28, 10, 0, 0);
 
     DFrame *frame = new DFrame(contentWidget);
-    QVBoxLayout *itemlay = new QVBoxLayout(frame);
-    itemlay->setContentsMargins(10, 10, 10, 10);
+    QVBoxLayout *itemlays = new QVBoxLayout(frame);
+    itemlays->addLayout(pHLayout);
+    itemlays->setContentsMargins(0, 0, 0, 0);
+    itemlays->setSpacing(0);
+    QVBoxLayout *itemlay = new QVBoxLayout();
+    itemlay->setContentsMargins(10, 0, 10, 10);
     itemlay->setSpacing(0);
-    itemlay->addLayout(pHLayout);
     itemlay->addSpacing(10);
     QList<TroubleShootJob *> jobs = m_trobleShoot->getJobs();
     for (int i = 0; i < jobs.count(); i++) {
@@ -139,7 +142,8 @@ TroubleShootDialog::TroubleShootDialog(const QString &printerName, QWidget *pare
         itemlay->addWidget(item);
     }
     itemlay->addStretch();
-    frame->setLayout(itemlay);
+    itemlays->addLayout(itemlay);
+    frame->setLayout(itemlays);
     frame->setAccessibleName("frame_contentWidget");
 
     m_button = new QPushButton(contentWidget);

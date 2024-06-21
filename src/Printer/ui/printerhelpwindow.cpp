@@ -154,16 +154,14 @@ void CustomLabel::initUi()
     this->installEventFilter(this);
     setMouseTracking(true);
     setAttribute(Qt::WA_Hover, true);
-    QLabel *imageLabel = new QLabel(this);
+    m_imageLabel = new QLabel(this);
     QIcon icon(QIcon::fromTheme("icon_tips"));
-    imageLabel->setPixmap(icon.pixmap(QSize(20, 20)));
-    QPalette palette;
-    palette.setColor(QPalette::WindowText, "#0081FF");
-    imageLabel->setPalette(palette);
-    imageLabel->setContentsMargins(0, 0, 0, 0);
+    m_imageLabel->setPixmap(icon.pixmap(QSize(24, 24)));
+    m_imageLabel->setContentsMargins(0, 0, 0, 0);
 
     m_textLabel = new QLabel(this);
     m_textLabel->setText(UI_PRINTER_PROBLEM_ENTRANCE);
+    m_textLabel->setContentsMargins(0, 0, 0, 0);
 
     m_main = new QMenu(this);
     m_main->setFixedSize(200, 88);
@@ -199,7 +197,7 @@ void CustomLabel::initUi()
     QHBoxLayout *hLayout = new QHBoxLayout;
 
     hLayout->addWidget(m_textLabel, Qt::AlignRight);
-    hLayout->addWidget(imageLabel, Qt::AlignRight);
+    hLayout->addWidget(m_imageLabel, Qt::AlignRight | Qt::AlignBottom);
     hLayout->setContentsMargins(0, 0, 0, 0);
 
     QFontMetrics fontWidth(m_textLabel->font());
@@ -208,10 +206,12 @@ void CustomLabel::initUi()
     setMaximumWidth(500);
     setLayout(hLayout);
     setAlignment(Qt::AlignRight);
+    setContentsMargins(0, 0, 0, 0);
 }
 
 void CustomLabel::initConnection()
 {
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &CustomLabel::updateIcon);
     connect(m_popupButton1, &QPushButton::clicked, this, &CustomLabel::slotOpenFaqDoc);
     connect(m_popupButton2, &QPushButton::clicked, this, &CustomLabel::slotOpenHelpInfo);
 }
@@ -273,4 +273,10 @@ bool CustomLabel::eventFilter(QObject *watched, QEvent *event)
         }
     }
     return QLabel::eventFilter(watched, event);
+}
+
+void CustomLabel::updateIcon()
+{
+    QIcon icon(QIcon::fromTheme("icon_tips"));
+    m_imageLabel->setPixmap(icon.pixmap(QSize(20, 20)));
 }

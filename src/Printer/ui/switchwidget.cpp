@@ -8,7 +8,10 @@
 #include <QDebug>
 #include <QMouseEvent>
 #include <QToolTip>
+#include <QPainter>
+
 #include <DFontSizeManager>
+#include <DApplicationHelper>
 
 DWIDGET_USE_NAMESPACE
 
@@ -64,11 +67,12 @@ SwitchWidget::SwitchWidget(QWidget *parent, QWidget *widget)
 
 void SwitchWidget::init()
 {
+    setMinimumHeight(36);
     QHBoxLayout *lableLayout = new QHBoxLayout;
     lableLayout->addWidget(m_leftWidget);
     m_mainLayout = new QHBoxLayout(this);
     m_mainLayout->setSpacing(0);
-    m_mainLayout->setContentsMargins(10, 0, 0, 0);
+    m_mainLayout->setContentsMargins(10, 2, 8, 2);
 
     m_mainLayout->addLayout(lableLayout, 0);
     m_mainLayout->addWidget(m_switchBtn, 0, Qt::AlignVCenter);
@@ -136,3 +140,14 @@ bool SwitchWidget::event(QEvent *event)
     return QFrame::event(event);
 }
 
+void SwitchWidget::paintEvent(QPaintEvent *event)
+{
+    Q_UNUSED(event)
+
+    const DPalette &dp = DApplicationHelper::instance()->palette(this);
+    QPainter p(this);
+    p.setPen(Qt::NoPen);
+    p.setBrush(dp.brush(DPalette::ItemBackground));
+    p.drawRoundedRect(rect(), 8, 8);
+    QFrame::paintEvent(event);
+}

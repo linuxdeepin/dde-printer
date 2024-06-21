@@ -272,6 +272,16 @@ protected:
     }
 };
 
+class BackgroundWidget : public QWidget
+{
+    Q_OBJECT
+public:
+    explicit BackgroundWidget(QWidget *parent = nullptr);
+
+protected:
+    void paintEvent(QPaintEvent *event) override;
+};
+
 class DPrintersShowWindow : public DMainWindow
 {
     Q_OBJECT
@@ -395,6 +405,8 @@ private:
     QLabel *m_pShareIpAddr;
     ClickableLabel *m_pShareCopyIpAddr;
     QWidget *m_pShareWidget;
+    BackgroundWidget *m_pRightTopWidget;
+    BackgroundWidget *m_pShareConfig;
 
     PrinterSearchWindow *m_pSearchWindow;
     ServerSettingsWindow *m_pSettingsDialog;
