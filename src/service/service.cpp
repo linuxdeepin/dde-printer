@@ -9,11 +9,24 @@
 #include <QDebug>
 #include <QStringList>
 
+#include <QDBusConnection>
+#include <QDBusConnectionInterface>
+#include <QFileInfo>
+
+static const QString getProcessPath(quint32 pid) {
+    QString path;
+    QFileInfo file("/proc/" + QString::number(pid) + "/exe");
+    if (file.exists() && file.isSymLink()) {
+        path = file.symLinkTarget();
+    }
+    return path;
+}
+
 static QStringList g_autoStartList = QStringList() << "/opt/printer-drivers/com.pantum.pantum/config/"
                                             << "/opt/printer-drivers/com.lanxum-ga-series/config/"
                                             << "/opt/printer-drivers/com.hp.hplip/config/" ;
 
-Service::Service(QObject *parent) : QObject(parent)
+Service::Service(QObject *parent) : QObject(parent), QDBusContext()
 {
     m_proc = new QProcess;
 
@@ -22,6 +35,7 @@ Service::Service(QObject *parent) : QObject(parent)
             QCoreApplication::exit();
         }
     });
+    QTimer::singleShot(10000, QCoreApplication::instance(), &QCoreApplication::quit);
 }
 
 Service::~Service()
@@ -36,6 +50,9 @@ void Service::LaunchAutoStart(const QString &filePath)
 
     if (filePath.isEmpty() || !g_autoStartList.contains(filePath)) return;
 
+    if (!IsAuthorizePath()) {
+        return;
+    }
     QString scriptPath = filePath + "autostart.sh";
     QProcess::startDetached(scriptPath,  QStringList() << "-c");
     return;
@@ -43,6 +60,10 @@ void Service::LaunchAutoStart(const QString &filePath)
 
 int Service::CanonPrinterInstall(const QStringList &args)
 {
+    if (!IsAuthorizePath()) {
+        return -11;
+    }
+
     m_proc->start("/opt/printer-drivers/cndrvcups-capt/canonadd", args);
     m_proc->waitForFinished();
     return m_proc->exitCode();
@@ -50,7 +71,24 @@ int Service::CanonPrinterInstall(const QStringList &args)
 
 int Service::CanonPrinterRemove(const QStringList &args)
 {
+    if (!IsAuthorizePath()) {
+        return -11;
+    }
+
     m_proc->start("/opt/printer-drivers/cndrvcups-capt/canonremove", args);
     m_proc->waitForFinished();
     return m_proc->exitCode();
+}
+
+bool Service::IsAuthorizePath()
+{
+    QDBusConnection conn = connection();
+    QDBusMessage msg = message();
+    QDBusReply<unsigned int> pid = conn.interface()->servicePid(msg.service());
+    QString name = getProcessPath(pid);
+    qDebug() << "path:" << pid << name;
+    if (name == "/usr/bin/dde-printer" || name == "/usr/bin/dde-printer-helper") {
+        return true;
+    }
+    return false;
 }
