@@ -141,9 +141,13 @@ bool DPrinterManager::deletePrinterByName(QString PrinterName)
 
 void DPrinterManager::setPrinterShared(QString printerName, int shared)
 {
-    auto conPtr = CupsConnectionFactory::createConnectionBySettings();
-    if (conPtr)
-        conPtr->setPrinterShared(printerName.toStdString().data(), shared);
+    try {
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr)
+            conPtr->setPrinterShared(printerName.toStdString().data(), shared);
+    } catch (const std::runtime_error &e) {
+        qCWarning(UTIL) << e.what();
+    }
 }
 
 bool DPrinterManager::isPrinterShared(QString printerName)
@@ -170,11 +174,15 @@ bool DPrinterManager::isPrinterShared(QString printerName)
 
 void DPrinterManager::setPrinterEnabled(QString printerName, bool enabled)
 {
-    auto conPtr = CupsConnectionFactory::createConnectionBySettings();
-    if (enabled && conPtr) {
-        conPtr->enablePrinter(printerName.toStdString().data(), "");
-    } else if (conPtr) {
-        conPtr->disablePrinter(printerName.toStdString().data(), "");
+    try {
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (enabled && conPtr) {
+            conPtr->enablePrinter(printerName.toStdString().data(), "");
+        } else if (conPtr) {
+            conPtr->disablePrinter(printerName.toStdString().data(), "");
+        }
+    } catch (const std::runtime_error &e) {
+        qCWarning(UTIL) << e.what();
     }
 }
 
@@ -203,11 +211,15 @@ bool DPrinterManager::isPrinterEnabled(QString printerName)
 
 void DPrinterManager::setPrinterAcceptJob(QString printerName, bool enabled)
 {
-    auto conPtr = CupsConnectionFactory::createConnectionBySettings();
-    if (enabled && conPtr) {
-        conPtr->acceptJobs(printerName.toStdString().data(), "");
-    } else if (conPtr) {
-        conPtr->rejectJobs(printerName.toStdString().data(), "");
+    try {
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (enabled && conPtr) {
+            conPtr->acceptJobs(printerName.toStdString().data(), "");
+        } else if (conPtr) {
+            conPtr->rejectJobs(printerName.toStdString().data(), "");
+        }
+    } catch (const std::runtime_error &e) {
+        qCCritical(UTIL) << e.what();
     }
 }
 
@@ -236,9 +248,13 @@ bool DPrinterManager::isPrinterAcceptJob(QString printerName)
 
 void DPrinterManager::setPrinterDefault(QString printerName)
 {
-    auto conPtr = CupsConnectionFactory::createConnectionBySettings();
-    if (conPtr)
-        conPtr->setDefault(printerName.toStdString().data(), "");
+    try {
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr)
+            conPtr->setDefault(printerName.toStdString().data(), "");
+    } catch (const std::runtime_error &e) {
+        qCCritical(UTIL) << e.what();
+    }
 }
 
 bool DPrinterManager::addPrinter(const QString &printer, const QString &info, const QString &location, const QString &device, const QString &ppdfile)
@@ -257,12 +273,16 @@ bool DPrinterManager::addPrinter(const QString &printer, const QString &info, co
 
 bool DPrinterManager::isDefaultPrinter(QString PrinterName)
 {
-    auto conPtr = CupsConnectionFactory::createConnectionBySettings();
-    if (!conPtr)
-        return false;
-    string defaultPrinter = conPtr->getDefault();
-    if (PrinterName.toStdString().compare(defaultPrinter) == 0) {
-        return true;
+    try {
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (!conPtr)
+            return false;
+        string defaultPrinter = conPtr->getDefault();
+        if (PrinterName.toStdString().compare(defaultPrinter) == 0) {
+            return true;
+        }
+    } catch (const std::runtime_error &e) {
+        qCWarning(UTIL) << e.what();
     }
     return false;
 }
@@ -387,10 +407,14 @@ bool DPrinterManager::isUserCancelAnyEnabled() const
 
 bool DPrinterManager::updateServerSetting()
 {
-    auto conPtr = CupsConnectionFactory::createConnectionBySettings();
-    if (conPtr) {
-        m_pServerSettings.updateSettings(conPtr->adminGetServerSettings());
-        return true;
+    try {
+        auto conPtr = CupsConnectionFactory::createConnectionBySettings();
+        if (conPtr) {
+            m_pServerSettings.updateSettings(conPtr->adminGetServerSettings());
+            return true;
+        }
+    } catch (const std::runtime_error &e) {
+        qCWarning(UTIL) << e.what();
     }
     return false;
 
