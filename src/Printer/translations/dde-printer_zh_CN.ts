@@ -1221,6 +1221,11 @@
         <source>Learn how to fix issues with not being able to print</source>
         <translation>了解如何解决无法打印的问题</translation>
     </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="109"/>
+        <source>Copy</source>
+        <translation>复制</translation>
+    </message>
 </context>
 <context>
     <name>PrinterSearchWindow</name>
