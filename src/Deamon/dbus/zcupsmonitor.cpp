@@ -133,6 +133,20 @@ static QString formatDateTime(const QString &time)
     return timetemp.toString("yyyy-MM-dd hh:mm:ss");
 }
 
+static QString replaceChineseWithAsterisk(const QString &text)
+{
+    QString result = text;
+
+    for (int i = 0; i < result.length(); ++i) {
+        QChar character = result[i];
+        if (character >= 0x4e00 && character <= 0x9fff) {
+            result.replace(i, 1, "*");
+        }
+    }
+
+    return result;
+}
+
 CupsMonitor::CupsMonitor(QObject *parent)
     : QThread(parent)
     , m_jobId(0)
@@ -394,6 +408,7 @@ int CupsMonitor::getNotifications(int &notifysSize)
                 QString strReason = attrValueToQString(info[CUPS_NOTIY_TEXT]);
                 QStringList list = attrValueToQString(info[JOB_ATTR_NAME]).split("/", QString::SkipEmptyParts);
                 QString strJobName = list.isEmpty() ? "" : list.last();
+                QString strRecordReason;
                 qCDebug(COMMONMOUDLE) << "Got a job event: " << iJob << iState << strReason;
 
                 if (iJob == m_jobId) {
@@ -452,7 +467,8 @@ int CupsMonitor::getNotifications(int &notifysSize)
                 case IPP_JOB_CANCELLED:
                     m_processingJob.remove(iJob);
 
-                    writeJobLog(iState == IPP_JSTATE_COMPLETED, iJob, strReason);
+                    strRecordReason = strReason.replace(strJobName, "Printing File");
+                    writeJobLog(iState == IPP_JSTATE_COMPLETED, iJob, strRecordReason);
                     break;
                 default:
                     break;
@@ -549,22 +565,22 @@ void CupsMonitor::writeJobLog(bool isSuccess, int jobId, QString strReason)
         }
     }
 
+    QString printerInfo = QString::fromUtf8(QByteArray::fromPercentEncoding(strJobUri.toUtf8()));
     strJobCreateTime = formatDateTime(strJobCreateTime);
     obj.insert("reason", isSuccess ? "" : strReason + strExtmsg.join(" "));
     strJobEndTime = formatDateTime(strJobEndTime);
     obj.insert("jobCreateTime", strJobCreateTime);
     obj.insert("jobEndTime", strJobEndTime);
-    obj.insert("printerInfo", strJobUri);
+    obj.insert("printerInfo", replaceChineseWithAsterisk(printerInfo));
 
     QString jobPrinterName = getPrinterNameFromUri(strJobUri);
     QString  strFilePath = getPrinterPPD(jobPrinterName.toStdString().c_str());
     QString pddPath = QFile::symLinkTarget(strFilePath);
     QString driverInfo = getPrinterInfo(jobPrinterName);
 
-    obj.insert("printerName", jobPrinterName);
+    obj.insert("printerName", replaceChineseWithAsterisk(jobPrinterName));
     obj.insert("driverInfo", driverInfo);
 
-    QString driverType;
     if (driverInfo.contains("Bisheng")) {
         QString packageName = getPpdInfo(pddPath, "PackageName").replace(QRegExp("^ "), "").replace(QRegExp("\""), "");
 
