@@ -4,6 +4,12 @@ Description=Deepin Printer Manager
 [Service]
 Type=dbus
 BusName=com.deepin.printer.manager
+User=root
 ExecStart=/usr/lib/deepin-daemon/dde-printer-manager
 CapabilityBoundingSet=CAP_SYS_ADMIN CAP_SYS_PTRACE
-MemoryLimit=8G
+MemoryLimit=20M
+ProtectSystem=strict
+ProtectHome=yes
+InaccessiblePaths=/etc/shadow
+ReadWritePaths=-/tmp
+ReadWritePaths=-/etc
