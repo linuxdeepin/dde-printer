@@ -29,6 +29,10 @@
 #include <QEventLoop>
 #include <QTimer>
 #include <QVersionNumber>
+#include <QDir>
+#include <QSqlDatabase>
+#include <QSqlError>
+#include <QSqlQuery>
 
 #include <map>
 
@@ -40,6 +44,10 @@ static QMap<QString, QString> g_textPPd; //没有找到驱动的情况，默认�
 static QSet<QString> g_offlineDriver;
 
 static int g_iStatus = TStat_None;
+
+static const QString g_dbpath = "/opt/printer-drivers/deb-repo";
+static const QString g_ppddbname = "ppd.db";
+static const QString g_dbversion = "0.1.2";
 
 static QMap<QString, QVariant> stringToVariant(const QMap<QString, QString> &driver)
 {
@@ -447,6 +455,194 @@ static void getPpdMakeModel(QString &strMake, QString &strModel, QMap<QString, Q
     }
 }
 
+QByteArray encryptString(const QString &input)
+{
+    QByteArray enArry = input.toUtf8();
+    for (int i = 0; i < enArry.count(); ++i) {
+        enArry[i] = enArry[i] ^ 0x73;
+    }
+    return enArry;
+}
+
+QString decryptString(const QByteArray &input)
+{
+    QByteArray deArry(input.count(), 0);
+    for (int i = 0; i < input.count(); ++i) {
+        deArry[i] = input[i] ^ 0x73;
+    }
+    return QString::fromUtf8(deArry);
+}
+
+static int checkDriversInfo(const QString &make, const QString &model, const QString &driverMakeModel,
+                            const QString &ppdname, const QString &debver, const QString &debfile, const QSqlDatabase &ppddb)
+{
+    QSqlQuery query(ppddb);
+    QString queryStr = "SELECT * FROM drivers_info WHERE driver_make = ? AND driver_model = ?";
+
+    if (!query.prepare(queryStr)) {
+        qCWarning(COMMONMOUDLE) << "Failed to prepare query:" << query.lastError().text();
+        return -1;
+    }
+
+    // 绑定参数
+    query.bindValue(0, make); // 第一个问号（?）绑定到make
+    query.bindValue(1, model); // 第二个问号（?）绑定到model
+
+    // 执行查询
+    if (!query.exec()) {
+        qCWarning(COMMONMOUDLE) << "Query failed:" << query.lastError().text();
+        return -2;
+    }
+
+    // 遍历查询结果
+    while (query.next()) {
+        QString make_model = decryptString(query.value("driver_make_model").toByteArray());
+        QString ppd_name = decryptString(query.value("ppd_name").toByteArray());
+        QString deb_file = decryptString(query.value("deb_file").toByteArray());
+        QString deb_ver = decryptString(query.value("deb_ver").toByteArray());
+
+    //    qCWarning(COMMONMOUDLE) << query.value("driver_make_model");
+    //    qCWarning(COMMONMOUDLE) << query.value("ppd_name");
+    //    qCWarning(COMMONMOUDLE) << query.value("deb_file");
+    //    qCWarning(COMMONMOUDLE) << query.value("deb_ver");
+
+        if (ppd_name == ppdname && debfile == deb_file && deb_ver == debver && make_model == driverMakeModel) return 0;
+    }
+
+    // 如果没有找到任何匹配项，输出一条消息
+    if (!query.first()) {
+        qCWarning(COMMONMOUDLE) << "No drivers found with make:" << make << "and model:" << model;
+        return -3;
+    }
+
+    return -4;
+}
+
+static int save_ppd_to_db(QString &debInfoFile, const QString &packname, QSqlDatabase &ppddb)
+{
+    QFile ppdinfo(debInfoFile);
+    if (!ppdinfo.open(QIODevice::ReadOnly)) return -1;
+
+    QString debMd5 = ppdinfo.readLine(1024);
+    debMd5 = debMd5.trimmed();
+
+    if(!debMd5.contains(packname)) {
+        qCWarning(COMMONMOUDLE) << debInfoFile << "deb info not contains " << packname;
+        return -2;
+    }
+
+    QStringList debinfo = debMd5.split(" ");
+    if (debinfo.count() != 3) {
+        qCWarning(COMMONMOUDLE) << debInfoFile << "deb info not right " << packname;
+        return -3;
+    }
+
+    QString debVer = debinfo[1];
+    // QString debFile = debinfo[2];
+    QString debFile = packname;
+
+    while(true) {
+        QString ppdName = ppdinfo.readLine(1024);
+        ppdName = ppdName.trimmed();
+        if (ppdName.isEmpty()) break;
+
+        QString ppdkey = ppdName.toLower();
+        if (!g_ppds.contains(ppdkey)) {
+            qCWarning(COMMONMOUDLE) << ppdName << "not install";
+            return -7;
+        }
+
+        /* 保存ppd信息到数据库中
+         * 数据库表头  driver_make  driver_model  ppd_name  deb_file deb_ver db_ver
+         */
+        QMap<QString, QString> ppdinfodict = g_ppds.value(ppdkey);
+        // 插入一条记录
+        QString driverMake = normalize(ppdinfodict[CUPS_PPD_MAKE]);
+        QString driverModel = normalize(ppdinfodict[CUPS_PPD_MODEL]);
+        QString driverMakeModel = ppdinfodict[CUPS_PPD_MAKE_MODEL];
+
+        // driverModel为空只会出现在重复ppd没有放到查询字典中，没有初始化model信息
+        if (driverModel.isEmpty()) continue;
+
+        QSqlQuery query(ppddb);
+        if (!query.prepare("INSERT INTO drivers_info (driver_make, driver_model, driver_make_model, ppd_name, deb_file, deb_ver, db_ver) "
+                           "VALUES (:driver_make, :driver_model, :driver_make_model, :ppd_name, :deb_file, :deb_ver, :db_ver)")) {
+            qCWarning(COMMONMOUDLE)  << "准备插入语句失败：" << query.lastError().text();
+            return -4;
+        } else {
+            query.bindValue(":driver_make", driverMake);
+            query.bindValue(":driver_model", driverModel);
+            query.bindValue(":driver_make_model", encryptString(driverMakeModel));
+            query.bindValue(":ppd_name", encryptString(ppdName));
+            query.bindValue(":deb_file", encryptString(debFile));
+            query.bindValue(":deb_ver", encryptString(debVer));
+            query.bindValue(":db_ver", g_dbversion);
+
+            if (!query.exec()) {
+                qCWarning(COMMONMOUDLE) << "插入数据失败：" << query.lastError().text();
+                return -5;
+            }
+        }
+
+        if (0 != checkDriversInfo(driverMake, driverModel, driverMakeModel, ppdName, debVer, debFile, ppddb)) {
+            qCWarning(COMMONMOUDLE) << "数据检查失败:" << driverMake << driverModel << ppdName << debVer << debFile;
+            return -6;
+        }
+    }
+
+    return 0;
+}
+
+int RefreshLocalPPDS::save_driver_info(const QString &debInfoDir)
+{
+    QSqlDatabase ppddb = QSqlDatabase::addDatabase("QSQLITE");
+    QStringList supportArchs;
+
+    supportArchs << "amd64" << "arm64" << "loongarch64";
+
+    foreach (QString strArch, supportArchs) {
+        QString archDirName = debInfoDir+"/"+strArch;
+        QDir archDir(archDirName);
+        if (!archDir.exists()) return -1;
+
+        ppddb.setDatabaseName(archDirName+"/"+g_ppddbname);
+        if (!ppddb.open()) {
+            qCWarning(COMMONMOUDLE) << archDirName+"/"+g_ppddbname << ppddb.lastError().text();
+            return -3;
+        }
+
+        QSqlQuery query(ppddb);
+        if (!query.exec("CREATE TABLE IF NOT EXISTS drivers_info ("
+                         "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                         "driver_make TEXT NOT NULL,"
+                         "driver_model TEXT NOT NULL,"
+                         "driver_make_model TEXT NOT NULL,"
+                         "ppd_name BLOB NOT NULL,"
+                         "deb_file BLOB NOT NULL,"
+                         "deb_ver BLOB NOT NULL,"
+                         "db_ver TEXT NOT NULL)")) {
+            qCWarning(COMMONMOUDLE) << "create drivers_info failed：" << query.lastError().text();
+            ppddb.close();
+            return -4;
+        }
+
+        QStringList allPackNames = archDir.entryList(QDir::Files);
+        foreach (QString packname, allPackNames) {
+            if (packname == g_ppddbname) continue;
+
+            QString debInfoFile = debInfoDir+"/"+strArch+"/"+packname;
+            if (0 != save_ppd_to_db(debInfoFile, packname, ppddb) ) {
+                ppddb.close();
+                return -2;
+            }
+        }
+
+        (void)ppddb.commit();
+        ppddb.close();
+    }
+    return 0;
+}
+
 int RefreshLocalPPDS::doWork()
 {
     map<string, map<string, string>> allPPDS;
@@ -671,6 +867,8 @@ void DriverSearcher::askForFinish()
      * 如果首次没有查找到精确匹配的驱动，等待本地驱动初始化完成之后再执行一次本地精确查找
      * usb即插即用时，网络驱动优先；如果没有网络驱动进行本地查找
     */
+    QStringList supportArchs;
+    supportArchs << "amd64" << "arm64" << "loongarch64";
 
     if (m_drivers.isEmpty() && !m_matchLocalDriver) { // usb需要初始化驱动信息，有网络驱动不进行本地初始化
         qCDebug(COMMONMOUDLE) << "usb init local ppds";
@@ -687,6 +885,9 @@ void DriverSearcher::askForFinish()
     // 驱动初始化完成，再执行一次本地精确查找；usb时，如果网络找到驱动，不进行本地查找
     if (m_drivers.isEmpty() || m_matchLocalDriver) {
         getLocalDrivers();
+    }
+    if (m_drivers.isEmpty() && supportArchs.contains(g_Settings->getSystemArch())) {
+        getLocalDbDrivers();
     }
 
     if (TStat_Suc == g_iStatus && !hasExcatDriver() && m_matchLocalDriver &&
@@ -911,6 +1112,131 @@ int DriverSearcher::getLocalDrivers()
     qCInfo(COMMONMOUDLE) << QString("Got %1 drivers").arg(list.count());
 
     return list.count();
+}
+
+int DriverSearcher::getLocalDbDrivers()
+{
+    qCDebug(COMMONMOUDLE) << "db start";
+    QString strMake, strModel;
+    if (m_strMake.isEmpty() || m_strModel.isEmpty()) {
+        qCWarning(COMMONMOUDLE) << "printer info is invaild";
+        return -2;
+    }
+
+    QSqlDatabase db;
+    if (QSqlDatabase::contains("qt_sql_default_connection")) {
+        db = QSqlDatabase::database("qt_sql_default_connection");
+    } else {
+        db = QSqlDatabase::addDatabase("QSQLITE");
+    }
+    db.setDatabaseName(g_dbpath + "/" + g_ppddbname);
+
+    if (!db.open()) {
+        qCDebug(COMMONMOUDLE) << "db open failed: " << db.lastError().text();
+        return -6;
+    }
+
+    QSqlQuery query(db);
+    QString tableName = "drivers_info";
+    QString queryStr = QString("SELECT * FROM %1 WHERE driver_make LIKE :driver_make AND driver_model LIKE :driver_model").arg(tableName);
+    (void)query.prepare(queryStr);
+
+    strMake = normalize(m_strMake);
+    strModel = normalize(m_strModel);
+    if (strMake == "hp" && strModel.contains("colorlaserjet")) {
+        strModel.replace("colorlaserjet", "color laserjet");
+    }
+
+    query.bindValue(":driver_make", strMake);
+    query.bindValue(":driver_model", strModel);
+
+    if (!query.exec()) {
+        qCDebug(COMMONMOUDLE) << "db query: " << query.lastError().text();
+        goto dbend;
+    }
+
+    /* 查找匹配规则
+       1. 使用型号精确匹配，如果匹配到，结束；
+       2. 如果未精确匹配，再次查找厂商信息，保存厂商下的型号信息；
+       3. 进行模糊查找；
+       4. 均未查到退出
+     */
+    while (query.next()) {
+        QString make = query.value("driver_make").toByteArray();
+        QString model = query.value("driver_model").toByteArray();
+        QString make_model = decryptString(query.value("driver_make_model").toByteArray());
+        QString ppd_name = decryptString(query.value("ppd_name").toByteArray());
+        QString deb_file = decryptString(query.value("deb_file").toByteArray());
+        QString deb_ver = decryptString(query.value("deb_ver").toByteArray());
+
+        QMap<QString, QVariant> ppd;
+        ppd.insert(SD_KEY_from, PPDFrom_Server);
+        ppd.insert(CUPS_PPD_MAKE_MODEL, make_model);
+        ppd.insert(SD_KEY_driver, deb_file);
+        ppd.insert(SD_KEY_excat, QJsonValue(true));
+        ppd.insert(CUPS_PPD_NAME, ppd_name);
+        ppd.insert(SD_KEY_debver, deb_ver);
+
+        m_drivers.append(ppd);
+        qCDebug(COMMONMOUDLE) << "make:" << make << "model:" << model  << "make_model:" << make_model << "ppd_name:" << ppd_name << "deb_file:" << deb_file << deb_ver ;
+    }
+
+    if (m_drivers.isEmpty()) {
+        QStringList modelList;
+        QString queryMakeStr = QString("SELECT * FROM %1 WHERE driver_make LIKE :driver_make").arg(tableName);
+        (void)query.prepare(queryMakeStr);
+        query.bindValue(":driver_make", strMake);
+        if (!query.exec()) {
+            qCDebug(COMMONMOUDLE) << "db query make: " << query.lastError().text();
+            goto dbend;
+        }
+
+        while (query.next()) {
+            modelList << query.value("driver_model").toByteArray();
+        }
+        if (modelList.isEmpty()) { // 如果为空返回
+            goto dbend;
+        }
+        // 查询到模糊匹配的型号
+        QStringList models = findBestMatchPPDs(modelList, strModel);
+        qCDebug(COMMONMOUDLE) << "fuzzy models:" << models;
+        if (models.isEmpty()) {
+            goto dbend;
+        }
+
+        QString queryFuzzyStr = QString("SELECT * FROM %1 WHERE driver_make LIKE :driver_make AND driver_model IN ('%2')").arg(tableName).arg(models.join("', '"));
+        (void)query.prepare(queryFuzzyStr);
+        query.bindValue(":driver_make", strMake);
+        if (!query.exec()) {
+            qCDebug(COMMONMOUDLE) << "db query models: " << query.lastError().text();
+            goto dbend;
+        }
+
+        while (query.next()) {
+            QString make_model = decryptString(query.value("driver_make_model").toByteArray());
+            QString ppd_name = decryptString(query.value("ppd_name").toByteArray());
+            QString deb_file = decryptString(query.value("deb_file").toByteArray());
+            QString deb_ver = decryptString(query.value("deb_ver").toByteArray());
+
+            QMap<QString, QVariant> ppd;
+            ppd.insert(SD_KEY_from, PPDFrom_Server);
+            ppd.insert(CUPS_PPD_MAKE_MODEL, make_model);
+            ppd.insert(SD_KEY_driver, deb_file);
+            ppd.insert(CUPS_PPD_NAME, ppd_name);
+            ppd.insert(SD_KEY_debver, deb_ver);
+
+            m_drivers.append(ppd);
+            qCDebug(COMMONMOUDLE) << "make_model:" << make_model << "ppd_name:" << ppd_name << "deb_file:" << deb_file << deb_ver ;
+        }
+    }
+
+dbend:
+
+    db.close();
+    QSqlDatabase::removeDatabase("QSQLITE");
+
+    qCInfo(COMMONMOUDLE) << QString("Got db %1 drivers").arg(m_drivers.count());
+    return 0;
 }
 
 DriverManager *DriverManager::getInstance()
