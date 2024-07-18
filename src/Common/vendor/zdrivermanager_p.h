@@ -19,6 +19,9 @@ protected:
 
     int doWork();
 
+    int save_driver_info(const QString &debInfoDir);
+
+    friend class PPDTool;
     friend class DriverManager;
 };
 

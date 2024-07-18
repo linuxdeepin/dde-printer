@@ -1,4 +1,4 @@
-QT += network
+QT += network sql
 
 INCLUDEPATH +=  \
                 $$PWD/../cppcups \
