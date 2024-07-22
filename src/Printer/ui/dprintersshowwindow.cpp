@@ -53,6 +53,7 @@
 #include <QProcess>
 #include <QNetworkInterface>
 #include <QClipboard>
+#include <QNetworkConfigurationManager>
 
 #define FAQDOCUMENT_MESSAGE QObject::tr("Help on adding and using printers")
 
@@ -270,6 +271,7 @@ void DPrintersShowWindow::initUI()
     phLayoutDefaultPrinter->addWidget(m_pDefaultPrinter);
     phLayoutDefaultPrinter->setContentsMargins(0, 0, 0, 0);
 
+    m_networkManager = new QNetworkConfigurationManager;
     m_pSwitchShareButton = new SwitchWidget(tr("Shared printer"), this);
     m_pAdvancedshare = new AdvanceShareWidget();
     QLabel *shareIpInfo = new QLabel(tr("Shared address:"));
@@ -550,6 +552,27 @@ void DPrintersShowWindow::initConnections()
     });
 
     connect(m_pAdvancedshare, &AdvanceShareWidget::clicked, this, &DPrintersShowWindow::serverSettingsSlot);
+
+    QObject::connect(m_networkManager, &QNetworkConfigurationManager::configurationChanged,
+                     [this](const QNetworkConfiguration &config) {
+        if (config.state() == QNetworkConfiguration::Active) {
+            QStringList ipv4AddrList;
+            QHostAddress ipAddress = QHostAddress();
+            const QList<QHostAddress> allAddresses = QNetworkInterface::allAddresses();
+            for (int i = 0; i < allAddresses.size(); ++i) {
+                if (allAddresses.at(i).protocol() == QAbstractSocket::IPv4Protocol && !allAddresses.at(i).isLoopback()) {
+                    ipAddress = allAddresses.at(i);
+                    ipv4AddrList << ipAddress.toString();
+                    continue;
+                }
+            }
+
+            qCDebug(COMMONMOUDLE) << "New IP address: " << ipv4AddrList;
+            m_pShareIpAddr->setText(ipv4AddrList.join(" "));
+        } else {
+            m_pShareIpAddr->setText(""); // 网络无连接
+        }
+    });
 }
 
 void DPrintersShowWindow::showEvent(QShowEvent *event)
