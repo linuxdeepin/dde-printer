@@ -32,4 +32,5 @@ RestrictNamespaces=yes
 LockPersonality=yes
 RestrictRealtime=yes
 RemoveIPC=yes
-MemoryDenyWriteExecute=yes
+# ARM模拟器运行需要分配内存有可写和可执行权限
+# MemoryDenyWriteExecute=yes
