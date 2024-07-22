@@ -1118,6 +1118,7 @@ int DriverSearcher::getLocalDbDrivers()
 {
     qCDebug(COMMONMOUDLE) << "db start";
     QString strMake, strModel;
+    QStringList ppdList;
     if (m_strMake.isEmpty() || m_strModel.isEmpty()) {
         qCWarning(COMMONMOUDLE) << "printer info is invaild";
         return -2;
@@ -1177,6 +1178,12 @@ int DriverSearcher::getLocalDbDrivers()
         ppd.insert(CUPS_PPD_NAME, ppd_name);
         ppd.insert(SD_KEY_debver, deb_ver);
 
+        if (!ppdList.contains(make_model)) {
+            ppdList << make_model;
+        } else {
+            continue;
+        }
+
         m_drivers.append(ppd);
         qCDebug(COMMONMOUDLE) << "make:" << make << "model:" << model  << "make_model:" << make_model << "ppd_name:" << ppd_name << "deb_file:" << deb_file << deb_ver ;
     }
@@ -1224,6 +1231,12 @@ int DriverSearcher::getLocalDbDrivers()
             ppd.insert(SD_KEY_driver, deb_file);
             ppd.insert(CUPS_PPD_NAME, ppd_name);
             ppd.insert(SD_KEY_debver, deb_ver);
+
+            if (!ppdList.contains(make_model)) {
+                ppdList << make_model;
+            } else {
+                continue;
+            }
 
             m_drivers.append(ppd);
             qCDebug(COMMONMOUDLE) << "make_model:" << make_model << "ppd_name:" << ppd_name << "deb_file:" << deb_file << deb_ver ;
