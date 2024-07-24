@@ -126,7 +126,7 @@ debugconf.files = $${PWD}/logconf/dde-printer_debug.json
 logconf.path = $${PREFIX}/share/deepin-log-viewer/deepin-log.conf.d
 logconf.files = $${PWD}/logconf/dde-printer.json
 
-canonscript.path = /opt/printer-drivers/cndrvcups-capt/
+canonscript.path = /opt/deepin/dde-printer/printer-drivers/cndrvcups-capt/
 canonscript.files = $${PWD}/policy/canon*
 
 INSTALLS += target desktop hicolor trans polkit dconfigfile debugconf logconf canonscript

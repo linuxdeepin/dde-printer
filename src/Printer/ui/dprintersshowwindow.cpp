@@ -56,7 +56,7 @@
 
 #define FAQDOCUMENT_MESSAGE QObject::tr("Help on adding and using printers")
 
-static const QString canonRemove = "/opt/printer-drivers/cndrvcups-capt/canonremove";
+static const QString canonRemove = "/opt/deepin/dde-printer/printer-drivers/cndrvcups-capt/canonremove";
 
 static bool isCanonCaptPrinter(const QString &printerName)
 {
