@@ -36,6 +36,9 @@
 
 #include <map>
 
+#include <DConfig>
+DCORE_USE_NAMESPACE
+
 static QMutex g_mutex;
 static QMap<QString, QMap<QString, QString>> g_ppds; //所有ppd文件的字典，以device_id(没有device_id则以make_and_model)作为key
 static QMap<QString, QMap<QString, QString> *> g_ppdsDirct; //将厂商和型号格式化之后作为key生成的字典，键值为g_ppds的key
@@ -48,6 +51,26 @@ static int g_iStatus = TStat_None;
 static const QString g_dbpath = "/opt/deepin/dde-printer/printer-drivers/deb-repo";
 static const QString g_ppddbname = "ppd.db";
 static const QString g_dbversion = "0.1.2";
+
+static bool isLastoreConfigVerAccord()
+{
+    QString name = "org.deepin.lastore";
+    DConfig *config = DConfig::create(name, name);
+
+    if (config == nullptr) {
+        return false;
+    }
+
+    QString version = config->value("version").toByteArray();
+    config->deleteLater();
+
+    qCDebug(COMMONMOUDLE) << "config ver:" << version;
+    if (!version.isEmpty() && QVersionNumber::fromString(version) > QVersionNumber::fromString("1.0")) {
+        return true;
+    }
+
+    return false;
+}
 
 static QMap<QString, QVariant> stringToVariant(const QMap<QString, QString> &driver)
 {
@@ -886,7 +909,8 @@ void DriverSearcher::askForFinish()
     if (m_drivers.isEmpty() || m_matchLocalDriver) {
         getLocalDrivers();
     }
-    if (m_drivers.isEmpty() && supportArchs.contains(g_Settings->getSystemArch())) {
+
+    if (m_drivers.isEmpty() && supportArchs.contains(g_Settings->getSystemArch()) && isLastoreConfigVerAccord()) {
         getLocalDbDrivers();
     }
 
