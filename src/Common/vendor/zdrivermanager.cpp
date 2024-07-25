@@ -45,7 +45,7 @@ static QSet<QString> g_offlineDriver;
 
 static int g_iStatus = TStat_None;
 
-static const QString g_dbpath = "/opt/printer-drivers/deb-repo";
+static const QString g_dbpath = "/opt/deepin/dde-printer/printer-drivers/deb-repo";
 static const QString g_ppddbname = "ppd.db";
 static const QString g_dbversion = "0.1.2";
 
