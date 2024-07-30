@@ -40,6 +40,7 @@ class QStandardItemModel;
 class QMenu;
 class QCheckBox;
 class QLineEdit;
+class QNetworkConfigurationManager;
 QT_END_NAMESPACE
 
 #include <QWidgetAction>
@@ -412,6 +413,7 @@ private:
     ServerSettingsWindow *m_pSettingsDialog;
     CustomLabel *m_customLabel;
     QAction *m_pSettings;
+    QNetworkConfigurationManager *m_networkManager;
 
 private:
     // 数据成员变量
