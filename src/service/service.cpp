@@ -13,8 +13,41 @@
 #include <QDBusConnectionInterface>
 #include <QFileInfo>
 
+static QString getMountNamespaceID(quint32 pid)
+{
+    QString path = QString("/proc/%1/ns/mnt").arg(pid);
+    QFile file(path);
+
+    if (!file.exists()) {
+        qDebug() << "Mnt does not exist:" << path;
+        return QString();
+    }
+
+    QString linkTarget = file.symLinkTarget(path);
+    if (linkTarget.isEmpty()) {
+        qDebug() << "Unable to get the symlink target for:" << path;
+    }
+
+    return linkTarget;
+}
+
+bool isMountNamespacesEqual(quint32 pid1, quint32 pid2) {
+    QString ns1 = getMountNamespaceID(pid1);
+    QString ns2 = getMountNamespaceID(pid2);
+    qDebug() << "isMountNamespacesEqual: " << ns1 << ns2;
+    if (ns1.isEmpty() || ns2.isEmpty()) {
+        return false;
+    }
+
+    return ns1.mid(ns1.lastIndexOf('/') + 1) == ns2.mid(ns2.lastIndexOf('/') + 1);
+}
+
 static const QString getProcessPath(quint32 pid) {
     QString path;
+    if (!isMountNamespacesEqual(pid, 1)) {
+        return path;
+    }
+
     QFileInfo file("/proc/" + QString::number(pid) + "/exe");
     if (file.exists() && file.isSymLink()) {
         path = file.symLinkTarget();
