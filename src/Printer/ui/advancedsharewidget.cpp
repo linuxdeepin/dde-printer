@@ -7,6 +7,7 @@
 #include <DGuiApplicationHelper>
 #include <DFontSizeManager>
 #include <DApplicationHelper>
+#include <DHiDPIHelper>
 
 #include <QHBoxLayout>
 #include <QPainter>
@@ -61,9 +62,9 @@ void AdvanceShareWidget::mouseReleaseEvent(QMouseEvent *event)
 void AdvanceShareWidget::updateIcon()
 {
     if (DGuiApplicationHelper::DarkType == DGuiApplicationHelper::instance()->themeType()) {
-        m_enterIcon->setPixmap(QPixmap(":/images/enter_details_normal.svg"));
+        m_enterIcon->setPixmap(DHiDPIHelper::loadNxPixmap(":/images/enter_details_normal.svg"));
     } else {
-        m_enterIcon->setPixmap(QPixmap(":/images/enter_details_normal-dark.svg"));
+        m_enterIcon->setPixmap(DHiDPIHelper::loadNxPixmap(":/images/enter_details_normal-dark.svg"));
     }
 
     update();
