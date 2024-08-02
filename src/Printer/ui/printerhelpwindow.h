@@ -7,6 +7,8 @@
 
 #include <QLabel>
 #include <DMainWindow>
+#include <DFrame>
+#include <DLabel>
 
 DWIDGET_USE_NAMESPACE
 
@@ -33,6 +35,18 @@ signals:
 private:
     QPushButton *m_copyButton;
     QLabel *m_copyLabel;
+};
+
+class PrinterManufacturerWidget : public DMainWindow
+{
+    Q_OBJECT
+public:
+    explicit PrinterManufacturerWidget(DMainWindow *parent = nullptr);
+    virtual ~PrinterManufacturerWidget() override;
+
+private:
+    void initUi();
+    void initConnections();
 };
 
 class CustomLabel : public QLabel
@@ -71,6 +85,36 @@ private:
     QPushButton *m_popupButton1;
     QPushButton *m_popupButton2;
     PrinterHelpWindow *m_pHelpWindow = nullptr;
+
+    QPushButton *m_popupButton;
+    PrinterManufacturerWidget *m_manufacturerWidget = nullptr;
+};
+
+class PrinterManufacturerItem : public DFrame
+{
+    Q_OBJECT
+public:
+    PrinterManufacturerItem(QWidget *parent = nullptr);
+    ~PrinterManufacturerItem() override;
+
+    void setMfgText(const QString &text);
+    void setLinkText(const QString &text);
+    void setItemIcon(const QString &iconPath);
+
+protected:
+    bool eventFilter(QObject *watched, QEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
+
+Q_SIGNALS:
+    void linkClicked();
+    void clicked();
+
+private:
+    DLabel *m_manufacturerIcon;
+    DLabel *m_mfgLabel;
+    DLabel *m_linkLabel;
+
+    QString m_tipStr;
 };
 
 #endif // PRINTERHELPWINDOW_H
