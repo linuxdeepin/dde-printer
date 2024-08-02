@@ -11,6 +11,7 @@
 #include "ztroubleshoot.h"
 #include "printerservice.h"
 #include "zdrivermanager.h"
+#include "common.h"
 
 #include <DTitlebar>
 #include <DSpinner>
@@ -24,6 +25,8 @@
 #include <QPushButton>
 #include <QComboBox>
 #include <QMapIterator>
+#include <QTimer>
+#include <QProcess>
 
 InstallPrinterWindow::InstallPrinterWindow(QWidget *parent)
     : DMainWindow(parent)
@@ -77,6 +80,13 @@ void InstallPrinterWindow::initUI()
     m_pTipLabel->setWordWrap(true);
     m_pTipLabel->setMinimumHeight(120);
 
+    m_pHplipTipLabel = new QLabel("");
+    m_pHplipTipLabel->setAlignment(Qt::AlignCenter | Qt::AlignBottom);
+    m_pHplipTipLabel->setMinimumHeight(80);
+    m_pHplipTipLabel->setWordWrap(true);
+    m_pHplipTipLabel->setContentsMargins(20, 0, 20, 0);
+    DFontSizeManager::instance()->bind(m_pHplipTipLabel, DFontSizeManager::T8, QFont::Light);
+
     m_pDriverCombo = new QComboBox();
     m_pDriverCombo->setMinimumSize(300, 36);
     m_pCancelInstallBtn = new QPushButton(tr("Cancel", "button"));
@@ -114,8 +124,8 @@ void InstallPrinterWindow::initUI()
     pMainLayout->addSpacing(13);
     pMainLayout->addWidget(m_pTipLabel, 0, Qt::AlignCenter);
     pMainLayout->addWidget(m_pDriverCombo, 0, Qt::AlignCenter);
-    QSpacerItem *pSpaceItem1 = new QSpacerItem(300, 146, QSizePolicy::Minimum, QSizePolicy::Preferred);
-    pMainLayout->addItem(pSpaceItem1);
+    pMainLayout->addWidget(m_pHplipTipLabel, 0, Qt::AlignCenter);
+    pMainLayout->addSpacing(20);
     pMainLayout->addWidget(m_pCancelInstallBtn, 0, Qt::AlignCenter);
     pMainLayout->addLayout(pHLayout);
     pMainLayout->setContentsMargins(0, 66, 0, 20);
@@ -164,6 +174,8 @@ void InstallPrinterWindow::setStatus(InstallationStatus status)
             m_pTipLabel->setVisible(true);
             m_pTipLabel->setText(tr("You have successfully added the printer."
                                     " Print a test page to check if it works properly."));
+
+            showHplipSetupInstruction();
 
             m_pDriverCombo->setVisible(false);
             m_pCheckPrinterListBtn->setVisible(true);
@@ -368,5 +380,18 @@ void InstallPrinterWindow::receiveInstallationStatusSlot(int status)
         m_bInstallFail = true;
         setStatus(Reinstall);
         m_printerName.clear();
+    }
+}
+
+void InstallPrinterWindow::showHplipSetupInstruction()
+{
+    QString execFile = "/opt/hp/hplip/bin/setup.py";
+    QFile file(execFile);
+    if (m_device.strMakeAndModel.startsWith("hp", Qt::CaseInsensitive) && isPackageInstalled("com.hp.hplip") && file.exists()) {
+        m_pHplipTipLabel->setText(tr("After the driver is successfully installed, you need to configure the printer. Please do so in the navigation window."));
+
+        QTimer::singleShot(1000,  this, [ = ]() {
+            QProcess::startDetached(execFile);
+        });
     }
 }

@@ -63,6 +63,8 @@ private:
     // 驱动未匹配提示
     void driverSearchNoMatchDialog(bool isExist);
     void changeEvent(QEvent *event) override;
+    void showHplipDriverInfo(int index);
+
 private slots:
     void listWidgetClickedSlot(const QModelIndex &previous);
     // 连接自动查找打印机线程信号槽
@@ -123,7 +125,8 @@ private:
     QLineEdit *m_pLineEditURI;
 
     QLabel *m_pLabelTip;
-
+    QLabel *m_phplipTipLabel;
+    QLabel *m_phplipAutoTipLabel;
     QComboBox *m_pURIDriverCom;
 
     QPushButton *m_pURIInstallDriverBtn;
@@ -142,6 +145,7 @@ private:
     InstallDriverWindow *m_pInstallDriverWindow;
     // 安装打印机状态界面
     InstallPrinterWindow *m_pInstallPrinterWindow;
+    QList<QMap<QString, QVariant>> m_drivers;
 };
 
 #endif // PRINTERSEARCHWINDOW_H

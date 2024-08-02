@@ -1030,6 +1030,11 @@
         <source>Installation failed</source>
         <translation>安装失败</translation>
     </message>
+    <message>
+        <location filename="../ui/installprinterwindow.cpp" line="394"/>
+        <source>After the driver is successfully installed, you need to configure the printer. Please do so in the navigation window.</source>
+        <translation>驱动安装成功后，需要配置打印机，请在向导弹框中操作。</translation>
+    </message>
 </context>
 <context>
     <name>JobListView</name>
@@ -1593,6 +1598,11 @@
         <location filename="../ui/uisourcestring.h" line="43"/>
         <source>Printer problem help: </source>
         <translation>打印机问题帮助：</translation>
+    </message>
+    <message>
+        <location filename="../ui/uisourcestring.h" line="30"/>
+        <source>After the driver is successfully installed, you need to configure the printer. Please do so in the navigation window.</source>
+        <translation>驱动安装成功后，需要配置打印机，请在向导弹框中操作。</translation>
     </message>
     <message>
         <location filename="../ui/uisourcestring.h" line="46"/>

@@ -60,6 +60,7 @@ private:
     void setStatus(InstallationStatus status);
 
     void feedbackPrintTestPage(bool success);
+    void showHplipSetupInstruction();
 
 protected:
     void closeEvent(QCloseEvent *event) override;
@@ -92,6 +93,7 @@ private:
     QLabel *m_pStatusImageLabel;
     QLabel *m_pStatusLabel;
     QLabel *m_pTipLabel;
+    QLabel *m_pHplipTipLabel;
     QPushButton *m_pCancelInstallBtn;
 
     // 这两个按钮需要在不同的阶段切换文案，实现不同功能，实现复用
