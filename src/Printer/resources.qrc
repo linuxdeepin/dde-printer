@@ -10,5 +10,12 @@
         <file>images/dde-printer.svg</file>
         <file>images/enter_details_normal.svg</file>
         <file>images/enter_details_normal-dark.svg</file>
+        <file>images/logo_brother.svg</file>
+        <file>images/logo_canon.svg</file>
+        <file>images/logo_dascom.svg</file>
+        <file>images/logo_fujixerox.svg</file>
+        <file>images/logo_lenovo.svg</file>
+        <file>images/logo_toshiba.svg</file>
+        <file>images/logo_uniontech.svg</file>
     </qresource>
 </RCC>

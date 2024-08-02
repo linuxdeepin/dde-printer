@@ -20,10 +20,27 @@
 #include <QScrollArea>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QMouseEvent>
 
+#define UI_PRINTER_DRIVER_NAVIGATION QObject::tr("Print Driver Download Navigation")
 #define UI_PRINTER_PROBLEM_ENTRANCE QObject::tr("Instructions for Use")
 #define UI_PRINTER_ADD_HELP QObject::tr("Help on adding and using printers")
 #define UI_PRINTER_PROBLEM_GUIDANCE QObject::tr("Can't print? Learn how to resolve")
+
+#define UNIONTECH_TIPINFO QObject::tr("UOS Ecology")
+#define UNIONTECH_WEBSITE "http://ecology.chinauos.com/"
+#define CANON_TIPINFO QObject::tr("Canon")
+#define CANON_WEBSITE "http://www.canon.com.cn/supports/download/sims/search/index"
+#define FUJIFILM_TIPINFO QObject::tr("Fuji Xerox")
+#define FUJIFILM_WEBSITE "http://support-fb.fujifilm.com/setupSupport.do?cid=3&ctry_code=CN&lang_code=zh_CN"
+#define BROTHER_TIPINFO QObject::tr("Brother")
+#define BROTHER_WEBSITE "https://www.brother.cn/project/DomesticOS/"
+#define DASCOM_TIPINFO QObject::tr("Dascom")
+#define DASCOM_WEBSITE "http://www.dascom.cn/front/web/site.down2"
+#define TOSHIBA_TIPINFO QObject::tr("Toshiba")
+#define TOSHIBA_WEBSITE "http://www.toshiba-tec.com.cn/Service/driver-download.aspx"
+#define LENOVOIMAGE_TIPINFO QObject::tr("Lenovo")
+#define LENOVOIMAGE_WEBSITE "http://www.lenovoimage.com/index.php/services/servers_drivers"
 
 static const QString faqDocPath = "/usr/share/deepin-manual/manual-assets/application/dde-printer/打印机使用FAQ文档.pdf";
 
@@ -164,7 +181,16 @@ void CustomLabel::initUi()
     m_textLabel->setContentsMargins(0, 0, 0, 0);
 
     m_main = new QMenu(this);
-    m_main->setFixedSize(200, 88);
+    m_main->setFixedSize(200, 122);
+
+    QString tipInfo1 = UI_PRINTER_DRIVER_NAVIGATION;
+    m_popupButton = new QPushButton(m_main);
+    m_popupButton->setFixedWidth(180);
+    m_popupButton->setToolTip(UI_PRINTER_DRIVER_NAVIGATION);
+    m_popupButton->setFlat(true);
+    m_popupButton->setText(UI_PRINTER_DRIVER_NAVIGATION);
+    DFontSizeManager::instance()->bind(m_popupButton, DFontSizeManager::T6, QFont::Normal);
+
     QString tipInfo = UI_PRINTER_ADD_HELP;
     m_popupButton1 = new QPushButton(m_main);
     m_popupButton1->setFixedWidth(180);
@@ -184,12 +210,15 @@ void CustomLabel::initUi()
     m_main->setContentsMargins(0, 0, 0, 0);
     m_main->setAttribute(Qt::WA_Hover, true);
 
+    geteElidedText(m_popupButton->font(), tipInfo1, m_popupButton->width() - 20);
+    m_popupButton->setText(tipInfo1);
     geteElidedText(m_popupButton1->font(), tipInfo, m_popupButton1->width() - 20);
     m_popupButton1->setText(tipInfo);
     geteElidedText(m_popupButton2->font(), tipInfo2, m_popupButton2->width() - 20);
     m_popupButton2->setText(tipInfo2);
 
     QVBoxLayout *layout = new QVBoxLayout;
+    layout->addWidget(m_popupButton);
     layout->addWidget(m_popupButton1);
     layout->addWidget(m_popupButton2);
     m_main->setLayout(layout);
@@ -214,6 +243,13 @@ void CustomLabel::initConnection()
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &CustomLabel::updateIcon);
     connect(m_popupButton1, &QPushButton::clicked, this, &CustomLabel::slotOpenFaqDoc);
     connect(m_popupButton2, &QPushButton::clicked, this, &CustomLabel::slotOpenHelpInfo);
+    connect(m_popupButton, &QPushButton::clicked, [this](){
+        if (!m_manufacturerWidget) {
+            m_manufacturerWidget = new PrinterManufacturerWidget();
+        }
+        m_manufacturerWidget->show();
+        m_main->hide();
+    });
 }
 
 void CustomLabel::initSubUi()
@@ -242,6 +278,10 @@ void CustomLabel::slotOpenHelpInfo()
 void CustomLabel::changeEvent(QEvent *event)
 {
     if (event->type() == QEvent::FontChange) {
+        QString tipInfo = UI_PRINTER_DRIVER_NAVIGATION;
+        geteElidedText(m_popupButton->font(), tipInfo, m_popupButton->width() - 20);
+        m_popupButton->setText(tipInfo);
+
         QString tipInfo1 = UI_PRINTER_ADD_HELP;
         geteElidedText(m_popupButton1->font(), tipInfo1, m_popupButton1->width() - 20);
         m_popupButton1->setText(tipInfo1);
@@ -279,4 +319,184 @@ void CustomLabel::updateIcon()
 {
     QIcon icon(QIcon::fromTheme("icon_tips"));
     m_imageLabel->setPixmap(icon.pixmap(QSize(20, 20)));
+}
+
+PrinterManufacturerWidget::PrinterManufacturerWidget(DMainWindow *parent) : DMainWindow(parent)
+{
+    titlebar()->setMenuVisible(false);
+    titlebar()->setTitle("");
+    titlebar()->setIcon(QIcon(":/images/dde-printer.svg"));
+
+    setWindowFlags(Qt::Dialog);
+    setWindowModality(Qt::ApplicationModal);
+    setFixedSize(680, 491);
+
+    QLabel *titlelabel = new QLabel();
+    titlelabel->setText(UI_PRINTER_DRIVER_NAVIGATION);
+    titlelabel->setAlignment(Qt::AlignCenter);
+    DFontSizeManager::instance()->bind(titlelabel, DFontSizeManager::T6, int(QFont::Normal));
+    titlelabel->setContentsMargins(0, 0, 0, 0);
+
+    DFrame *pWidget = new DFrame();
+    pWidget->setFrameShape(DFrame::Shape::NoFrame);
+    pWidget->setAutoFillBackground(true);
+
+    QVBoxLayout *pVLayout = new QVBoxLayout();
+
+    PrinterManufacturerItem *itemUniontech = new PrinterManufacturerItem(this);
+    itemUniontech->setMfgText(UNIONTECH_TIPINFO);
+    itemUniontech->setLinkText(UNIONTECH_WEBSITE);
+    itemUniontech->setItemIcon(":/images/logo_uniontech.svg");
+
+    PrinterManufacturerItem *itemCanon = new PrinterManufacturerItem(this);
+    itemCanon->setMfgText(CANON_TIPINFO);
+    itemCanon->setLinkText(CANON_WEBSITE);
+    itemCanon->setItemIcon(":/images/logo_canon.svg");
+
+    PrinterManufacturerItem *itemFujiXerox = new PrinterManufacturerItem(this);
+    itemFujiXerox->setMfgText(FUJIFILM_TIPINFO);
+    itemFujiXerox->setLinkText(FUJIFILM_WEBSITE);
+    itemFujiXerox->setItemIcon(":/images/logo_fujixerox.svg");
+
+    PrinterManufacturerItem *itemBrother = new PrinterManufacturerItem(this);
+    itemBrother->setMfgText(BROTHER_TIPINFO);
+    itemBrother->setLinkText(BROTHER_WEBSITE);
+    itemBrother->setItemIcon(":/images/logo_brother.svg");
+
+    PrinterManufacturerItem *itemDascom = new PrinterManufacturerItem(this);
+    itemDascom->setMfgText(DASCOM_TIPINFO);
+    itemDascom->setLinkText(DASCOM_WEBSITE);
+    itemDascom->setItemIcon(":/images/logo_dascom.svg");
+
+    PrinterManufacturerItem *itemToshiba = new PrinterManufacturerItem(this);
+    itemToshiba->setMfgText(TOSHIBA_TIPINFO);
+    itemToshiba->setLinkText(TOSHIBA_WEBSITE);
+    itemToshiba->setItemIcon(":/images/logo_toshiba.svg");
+
+    PrinterManufacturerItem *itemLenovo = new PrinterManufacturerItem(this);
+    itemLenovo->setMfgText(LENOVOIMAGE_TIPINFO);
+    itemLenovo->setLinkText(LENOVOIMAGE_WEBSITE);
+    itemLenovo->setItemIcon(":/images/logo_lenovo.svg");
+
+    QGridLayout *pItemGLayout = new QGridLayout();
+    pItemGLayout->setVerticalSpacing(10);
+    pItemGLayout->addWidget(itemUniontech, 0, 0);
+    pItemGLayout->addWidget(itemCanon, 0, 1);
+    pItemGLayout->addWidget(itemFujiXerox, 1, 0);
+    pItemGLayout->addWidget(itemBrother, 1, 1);
+    pItemGLayout->addWidget(itemDascom, 2, 0);
+    pItemGLayout->addWidget(itemToshiba, 2, 1);
+    pItemGLayout->addWidget(itemLenovo, 3, 0);
+
+    QWidget *itemWidget = new QWidget(this);
+    itemWidget->setLayout(pItemGLayout);
+
+    pVLayout->addWidget(titlelabel);
+    pVLayout->addWidget(itemWidget);
+    pVLayout->addSpacing(18);
+
+    pWidget->setLayout(pVLayout);
+
+    takeCentralWidget();
+    setCentralWidget(pWidget);
+}
+
+PrinterManufacturerWidget::~PrinterManufacturerWidget()
+{
+
+}
+
+PrinterManufacturerItem::PrinterManufacturerItem(QWidget *parent)
+    : DFrame(parent)
+    , m_manufacturerIcon(new DLabel(this))
+    , m_mfgLabel(new DLabel(this))
+    , m_linkLabel(new DLabel(this))
+{
+    setMouseTracking(true);
+    installEventFilter(this);
+    setAttribute(Qt::WA_Hover, true);
+
+    setFixedSize(315, 80);
+    setBackgroundRole(DPalette::ItemBackground);
+
+    m_mfgLabel->setContentsMargins(0, 0, 0, 0);
+    m_mfgLabel->setFixedWidth(220);
+    m_mfgLabel->adjustSize();
+    DFontSizeManager::instance()->bind(m_mfgLabel, DFontSizeManager::T7, QFont::Medium);
+
+    m_linkLabel->setFixedWidth(220);
+    m_linkLabel->adjustSize();
+    m_linkLabel->setContentsMargins(0, 0, 0, 0);
+    DFontSizeManager::instance()->bind(m_linkLabel, DFontSizeManager::T8);
+
+    QVBoxLayout *rightLayout = new QVBoxLayout;
+    rightLayout->setContentsMargins(5, 0, 0, 0);
+    rightLayout->addSpacing(6);
+    rightLayout->addWidget(m_mfgLabel);
+    rightLayout->addWidget(m_linkLabel);
+    rightLayout->addStretch();
+
+    m_manufacturerIcon->setFixedSize(48, 48);
+    m_manufacturerIcon->setContentsMargins(0, 0, 0, 0);
+
+
+    QHBoxLayout *hLayout = new QHBoxLayout;
+    hLayout->addWidget(m_manufacturerIcon);
+    hLayout->addLayout(rightLayout);
+
+    QHBoxLayout *mainLayout = new QHBoxLayout;
+    mainLayout->setContentsMargins(0, 0, 0, 0);
+    setLayout(hLayout);
+
+    connect(this, &PrinterManufacturerItem::clicked, [this](){
+        QDesktopServices::openUrl(m_tipStr);
+    });
+}
+
+PrinterManufacturerItem::~PrinterManufacturerItem()
+{
+
+}
+
+void PrinterManufacturerItem::setMfgText(const QString &text)
+{
+    m_mfgLabel->setText(text);
+}
+
+void PrinterManufacturerItem::setItemIcon(const QString &iconPath)
+{
+    m_manufacturerIcon->setPixmap(QPixmap(iconPath));
+}
+
+void PrinterManufacturerItem::setLinkText(const QString &text)
+{
+    m_linkLabel->setToolTip(text);
+    m_tipStr = text;
+}
+
+bool PrinterManufacturerItem::eventFilter(QObject *watched, QEvent *event)
+{
+    if (watched == this && event->type() == QEvent::MouseButtonPress) {
+        QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
+        if (mouseEvent->button() == Qt::LeftButton) {
+            emit clicked();
+            return true;
+        }
+    } else if (watched == this && event->type() == QEvent::HoverEnter) {
+        setBackgroundRole(DPalette::ObviousBackground);
+        return true;
+    } else if (watched == this && event->type() == QEvent::HoverLeave) {
+        setBackgroundRole(DPalette::ItemBackground);
+        return true;
+    }
+    return DFrame::eventFilter(watched, event);
+}
+
+void PrinterManufacturerItem::paintEvent(QPaintEvent *event)
+{
+    QFontMetrics fontmet(m_linkLabel->font());
+    QString elidedStr = fontmet.elidedText(m_tipStr, Qt::TextElideMode::ElideRight, 220);
+    m_linkLabel->setText(elidedStr);
+
+    DFrame::paintEvent(event);
 }

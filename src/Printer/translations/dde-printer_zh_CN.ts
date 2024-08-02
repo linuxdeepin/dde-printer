@@ -1640,6 +1640,11 @@
         <translation>打印机添加与使用帮助</translation>
     </message>
     <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="29"/>
+        <source>Print Driver Download Navigation</source>
+        <translation>打印驱动下载导航</translation>
+    </message>
+    <message>
         <location filename="../ui/printerhelpwindow.cpp" line="24"/>
         <source>Instructions for Use</source>
         <translation>使用说明</translation>
@@ -1650,7 +1655,42 @@
         <translation>无法打印？了解如何解决</translation>
     </message>
     <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="35"/>
+        <location filename="../ui/printerhelpwindow.cpp" line="36"/>
+        <source>UOS Ecology</source>
+        <translation>统信生态官网</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="38"/>
+        <source>Canon</source>
+        <translation>佳能</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="40"/>
+        <source>Fuji Xerox</source>
+        <translation>富士施乐</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="42"/>
+        <source>Brother</source>
+        <translation>兄弟</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="44"/>
+        <source>Dascom</source>
+        <translation>得实</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="46"/>
+        <source>Toshiba</source>
+        <translation>东芝</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="48"/>
+        <source>Lenovo</source>
+        <translation>联想</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="59"/>
         <source>1. Check printer connection</source>
         <translation>1. 检查打印机连接</translation>
     </message>

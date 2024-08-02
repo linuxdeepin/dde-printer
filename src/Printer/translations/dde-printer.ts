@@ -1643,7 +1643,12 @@
         <translation>Help on adding and using printers</translation>
     </message>
     <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="24"/>
+        <location filename="../ui/printerhelpwindow.cpp" line="29"/>
+        <source>Print Driver Download Navigation</source>
+        <translation>Print Driver Download Navigation</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="30"/>
         <source>Instructions for Use</source>
         <translation>Instructions for Use</translation>
     </message>
@@ -1653,7 +1658,42 @@
         <translation>Can&apos;t print? Learn how to resolve</translation>
     </message>
     <message>
-        <location filename="../ui/printerhelpwindow.cpp" line="35"/>
+        <location filename="../ui/printerhelpwindow.cpp" line="36"/>
+        <source>UOS Ecology</source>
+        <translation>UOS Ecology</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="38"/>
+        <source>Canon</source>
+        <translation>Canon</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="40"/>
+        <source>Fuji Xerox</source>
+        <translation>Fuji Xerox</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="42"/>
+        <source>Brother</source>
+        <translation>Brother</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="44"/>
+        <source>Dascom</source>
+        <translation>Dascom</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="46"/>
+        <source>Toshiba</source>
+        <translation>Toshiba</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="48"/>
+        <source>Lenovo</source>
+        <translation>Lenovo</translation>
+    </message>
+    <message>
+        <location filename="../ui/printerhelpwindow.cpp" line="59"/>
         <source>1. Check printer connection</source>
         <translation>1. Check printer connection</translation>
     </message>
