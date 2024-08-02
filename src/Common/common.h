@@ -76,4 +76,6 @@ pfWriteEventLog getWriteEventLog();
 void unloadEventLib();
 
 int managerCanonPrinter(const QString &action, const QStringList &args);
+
+bool isPackageInstalled(const QString &packageName);
 #endif // COMMON_H

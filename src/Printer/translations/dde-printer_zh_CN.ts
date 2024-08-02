@@ -28,14 +28,6 @@
     </message>
 </context>
 <context>
-    <name>AdvanceShareWidget</name>
-    <message>
-        <location filename="../ui/advancedsharewidget.cpp" line="22"/>
-        <source>Advanced sharing options</source>
-        <translation>高级共享选项</translation>
-    </message>
-</context>
-<context>
     <name>CheckAttributes</name>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="305"/>
@@ -634,6 +626,11 @@
         <translation>共享打印机</translation>
     </message>
     <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="303"/>
+        <source>Advanced sharing options</source>
+        <translation>高级共享选项</translation>
+    </message>
+    <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="300"/>
         <source>Shared address:</source>
         <translation>共享地址:</translation>
@@ -642,6 +639,11 @@
         <location filename="../ui/dprintersshowwindow.cpp" line="306"/>
         <source>Copy</source>
         <translation>复制</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="321"/>
+        <source>Management Tools</source>
+        <translation>管理工具</translation>
     </message>
     <message>
         <location filename="../ui/dprintersshowwindow.cpp" line="310"/>
@@ -1166,6 +1168,14 @@
         <location filename="../ui/jobmanagerwindow.cpp" line="727"/>
         <source>Action</source>
         <translation>操作</translation>
+    </message>
+</context>
+<context>
+    <name>ManagementToolWidget</name>
+    <message>
+        <location filename="../ui/advancedsharewidget.cpp" line="116"/>
+        <source>Management Tools</source>
+        <translation>管理工具</translation>
     </message>
 </context>
 <context>

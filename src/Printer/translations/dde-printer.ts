@@ -30,14 +30,6 @@
     </message>
 </context>
 <context>
-    <name>AdvanceShareWidget</name>
-    <message>
-        <location filename="../ui/advancedsharewidget.cpp" line="22"/>
-        <source>Advanced sharing options</source>
-        <translation>Advanced sharing options</translation>
-    </message>
-</context>
-<context>
     <name>CheckAttributes</name>
     <message>
         <location filename="../../Common/vendor/ztroubleshoot.cpp" line="305"/>
@@ -636,7 +628,12 @@
         <translation>Shared printer</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="300"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="275"/>
+        <source>Advanced sharing options</source>
+        <translation>Advanced sharing options</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="276"/>
         <source>Shared address:</source>
         <translation>Shared address:</translation>
     </message>
@@ -646,7 +643,12 @@
         <translation>Copy</translation>
     </message>
     <message>
-        <location filename="../ui/dprintersshowwindow.cpp" line="430"/>
+        <location filename="../ui/dprintersshowwindow.cpp" line="293"/>
+        <source>Management Tools</source>
+        <translation>Management Tools</translation>
+    </message>
+    <message>
+        <location filename="../ui/dprintersshowwindow.cpp" line="421"/>
         <source>No printer configured</source>
         <translation>No printer configured</translation>
     </message>
@@ -1168,6 +1170,14 @@
         <location filename="../ui/jobmanagerwindow.cpp" line="727"/>
         <source>Action</source>
         <translation>Action</translation>
+    </message>
+</context>
+<context>
+    <name>ManagementToolWidget</name>
+    <message>
+        <location filename="../ui/advancedsharewidget.cpp" line="119"/>
+        <source>Management Tools</source>
+        <translation>Management Tools</translation>
     </message>
 </context>
 <context>

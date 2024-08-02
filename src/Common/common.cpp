@@ -683,3 +683,14 @@ int managerCanonPrinter(const QString &action, const QStringList &args)
 
     return 0;
 }
+
+bool isPackageInstalled(const QString &packageName)
+{
+    QProcess process;
+    QString cmd = QString("dpkg -l %1 | grep -E '^ii.*%1'").arg(packageName);
+    process.start("/bin/bash", QStringList() << "-c" << cmd);
+    process.waitForFinished();
+    QString output = process.readAllStandardOutput();
+
+    return !output.isEmpty();
+}
