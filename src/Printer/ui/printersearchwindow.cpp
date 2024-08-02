@@ -42,6 +42,9 @@
 #include <QRegularExpression>
 #include <QScrollArea>
 
+static const QString strHplipName = "com.hp.hplip";
+static int netCount = 0;
+
 PrinterSearchWindow::PrinterSearchWindow(QWidget *parent)
     : DMainWindow(parent)
 {
@@ -204,11 +207,20 @@ void PrinterSearchWindow::initUi()
     pHLayout3->addWidget(m_pAutoInstallDriverBtn);
     pHLayout3->addStretch();
     pHLayout3->setContentsMargins(0, 0, 0, 0);
+
+    m_phplipAutoTipLabel = new QLabel("");
+    m_phplipAutoTipLabel->setFixedWidth(485);
+    m_phplipAutoTipLabel->setWordWrap(true);
+    m_phplipAutoTipLabel->setContentsMargins(60, 0, 0, 0);
+    DFontSizeManager::instance()->bind(m_phplipAutoTipLabel, DFontSizeManager::T8, QFont::Light);
+
     QWidget *pAutoFrame2 = new QWidget();
     QVBoxLayout *pVLayoutSub1 = new QVBoxLayout();
     pVLayoutSub1->setSpacing(0);
     pVLayoutSub1->addLayout(pHLayout2);
-    pVLayoutSub1->addSpacing(26);
+    pVLayoutSub1->addSpacing(4);
+    pVLayoutSub1->addWidget(m_phplipAutoTipLabel);
+    pVLayoutSub1->addSpacing(4);
     pVLayoutSub1->addWidget(m_pAutoSpinner, 0, Qt::AlignCenter);
     pVLayoutSub1->addLayout(pHLayout3);
     pVLayoutSub1->setContentsMargins(20, 10, 10, 10);
@@ -312,10 +324,18 @@ void PrinterSearchWindow::initUi()
     pHLayout6->addStretch();
     pHLayout6->setContentsMargins(0, 0, 0, 0);
 
+    m_phplipTipLabel = new QLabel("");
+    m_phplipTipLabel->setFixedWidth(485);
+    m_phplipTipLabel->setWordWrap(true);
+    m_phplipTipLabel->setContentsMargins(60, 0, 0, 0);
+    DFontSizeManager::instance()->bind(m_phplipTipLabel, DFontSizeManager::T8, QFont::Light);
+
     QVBoxLayout *pVLayoutSub2 = new QVBoxLayout();
     pVLayoutSub2->setSpacing(0);
     pVLayoutSub2->addLayout(pHLayout5);
-    pVLayoutSub2->addSpacing(26);
+    pVLayoutSub2->addSpacing(4);
+    pVLayoutSub2->addWidget(m_phplipTipLabel);
+    pVLayoutSub2->addSpacing(4);
     pVLayoutSub2->addWidget(m_pManSpinner, 0, Qt::AlignCenter);
     pVLayoutSub2->addLayout(pHLayout6);
     pVLayoutSub2->setContentsMargins(20, 10, 10, 10);
@@ -764,6 +784,12 @@ void PrinterSearchWindow::printerListClickedSlot(const QModelIndex &index)
         m_pAutoSpinner->setVisible(true);
         m_pAutoSpinner->start();
         TDeviceInfo device = temp.value<TDeviceInfo>();
+        m_phplipAutoTipLabel->setText("");
+        if (device.strMakeAndModel.startsWith("hp", Qt::CaseInsensitive) &&
+            isPackageInstalled(strHplipName)) {
+            m_phplipAutoTipLabel->setText(UI_PRINTER_HPLIP_TIPINFO);
+        }
+
         DriverSearcher *pDriverSearcher = pDManager->createSearcher(device);
         connect(pDriverSearcher, &DriverSearcher::signalDone, this, &PrinterSearchWindow::driverAutoSearchedSlot);
         pDriverSearcher->startSearch();
@@ -783,6 +809,12 @@ void PrinterSearchWindow::printerListClickedSlot(const QModelIndex &index)
         m_pManSpinner->setVisible(true);
         m_pManSpinner->start();
         TDeviceInfo device = temp.value<TDeviceInfo>();
+
+        m_phplipTipLabel->setText("");
+        if (device.strMakeAndModel.startsWith("hp", Qt::CaseInsensitive) &&
+            isPackageInstalled(strHplipName)) {
+            m_phplipTipLabel->setText(UI_PRINTER_HPLIP_TIPINFO);
+        }
         DriverSearcher *pDriverSearcher = pDManager->createSearcher(device);
         connect(pDriverSearcher, &DriverSearcher::signalDone, this, &PrinterSearchWindow::driverManSearchedSlot);
         pDriverSearcher->startSearch();
@@ -840,17 +872,18 @@ void PrinterSearchWindow::driverSearchNoMatchDialog(bool isExist)
 
 void PrinterSearchWindow::driverAutoSearchedSlot()
 {
+    netCount = 0;
     DriverSearcher *pDriverSearcher = static_cast<DriverSearcher *>(sender());
     if (pDriverSearcher) {
         m_pAutoDriverCom->clear();
-        QList<QMap<QString, QVariant>> drivers = pDriverSearcher->getDrivers();
+        m_drivers = pDriverSearcher->getDrivers();
         pDriverSearcher->deleteLater();
 
         bool isInsert = false;
         int indexSelect = -1;
-        int netCount = 0;
+
         int index = 0;
-        foreach (const auto &driver, drivers) { // 驱动已排序，网络驱动前ipp居中本地在后
+        foreach (const auto &driver, m_drivers) { // 驱动已排序，网络驱动前ipp居中本地在后
             QString driverdesc = driverDescription(driver);
             if (driver[SD_KEY_recommended].toBool() && (indexSelect == -1)) {
                 indexSelect = index;
@@ -876,6 +909,7 @@ void PrinterSearchWindow::driverAutoSearchedSlot()
                 ++indexSelect;
             }
             m_pAutoDriverCom->setCurrentIndex(indexSelect);
+            showHplipDriverInfo(indexSelect);
         }
         m_pAutoDriverCom->addItem(UI_PRINTERSEARCH_MANUAL);
     }
@@ -896,17 +930,17 @@ void PrinterSearchWindow::driverAutoSearchedSlot()
 
 void PrinterSearchWindow::driverManSearchedSlot()
 {
+    netCount = 0;
     DriverSearcher *pDriverSearcher = static_cast<DriverSearcher *>(sender());
     if (pDriverSearcher) {
         m_pManDriverCom->clear();
-        QList<QMap<QString, QVariant>> drivers = pDriverSearcher->getDrivers();
+        m_drivers = pDriverSearcher->getDrivers();
         pDriverSearcher->deleteLater();
 
         bool isInsert = false;
         int indexSelect = -1;
-        int netCount = 0;
         int index = 0;
-        foreach (const auto &driver, drivers) { // 驱动已排序，网络驱动前ipp居中本地在后
+        foreach (const auto &driver, m_drivers) { // 驱动已排序，网络驱动前ipp居中本地在后
             QString driverdesc = driverDescription(driver);
             if (driver[SD_KEY_recommended].toBool() && (indexSelect == -1)) {
                 indexSelect = index;
@@ -932,6 +966,7 @@ void PrinterSearchWindow::driverManSearchedSlot()
                 ++indexSelect;
             }
             m_pManDriverCom->setCurrentIndex(indexSelect);
+            showHplipDriverInfo(indexSelect);
         }
         m_pManDriverCom->addItem(UI_PRINTERSEARCH_MANUAL);
     }
@@ -952,6 +987,7 @@ void PrinterSearchWindow::driverManSearchedSlot()
 
 void PrinterSearchWindow::refreshPrinterListSlot()
 {
+    m_phplipAutoTipLabel->setText("");
     m_pBtnRefresh->blockSignals(true);
     m_pBtnRefresh->setVisible(true);
 
@@ -977,6 +1013,7 @@ void PrinterSearchWindow::refreshPrinterListSlot()
 void PrinterSearchWindow::searchPrintersByManual()
 {
     QString location = m_pLineEditLocation->text();
+    m_phplipTipLabel->setText("");
     if (location.isEmpty())
         return;
     // 阻塞信号防止查询完成之前重复查询打印机
@@ -1065,6 +1102,7 @@ void PrinterSearchWindow::driverChangedSlot(int index)
             m_pAutoInstallDriverBtn->setText(UI_PRINTERSEARCH_INSTALLDRIVER_NEXT);
         } else {
             // 自动安装驱动
+            showHplipDriverInfo(m_pAutoDriverCom->currentIndex());
             m_pAutoInstallDriverBtn->setText(UI_PRINTERSEARCH_INSTALLDRIVER_AUTO);
         }
     } else if (m_pTabListView->currentIndex().row() == 1) {
@@ -1072,6 +1110,7 @@ void PrinterSearchWindow::driverChangedSlot(int index)
             // 手动选择驱动
             m_pManInstallDriverBtn->setText(UI_PRINTERSEARCH_INSTALLDRIVER_NEXT);
         } else {
+            showHplipDriverInfo(m_pManDriverCom->currentIndex());
             // 自动安装驱动
             m_pManInstallDriverBtn->setText(UI_PRINTERSEARCH_INSTALLDRIVER_AUTO);
         }
@@ -1113,5 +1152,15 @@ void PrinterSearchWindow::changeEvent(QEvent *event)
 
         m_pManDriverWebLink->setText(tipInfo + webLink);
         QWidget::changeEvent(event);
+    }
+}
+
+void PrinterSearchWindow::showHplipDriverInfo(int index)
+{
+    // 存在网络推荐驱动并且索引非网络驱动时，index需-1
+    int realIndex = (netCount == 0 || (index <= netCount - 1)) ? index : (index - 1);
+    if (realIndex <= m_drivers.count() && m_drivers[realIndex][SD_KEY_driver].toString() == strHplipName) {
+        m_phplipTipLabel->setText(UI_PRINTER_HPLIP_TIPINFO);
+        m_phplipAutoTipLabel->setText(UI_PRINTER_HPLIP_TIPINFO);
     }
 }

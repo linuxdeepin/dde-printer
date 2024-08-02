@@ -1032,6 +1032,11 @@
         <source>Installation failed</source>
         <translation>Installation failed</translation>
     </message>
+    <message>
+        <location filename="../ui/installprinterwindow.cpp" line="391"/>
+        <source>After the driver is successfully installed, you need to configure the printer. Please do so in the navigation window.</source>
+        <translation>After the driver is successfully installed, you need to configure the printer. Please do so in the navigation window.</translation>
+    </message>
 </context>
 <context>
     <name>JobListView</name>
@@ -1597,7 +1602,12 @@
         <translation>Printer problem help: </translation>
     </message>
     <message>
-        <location filename="../ui/uisourcestring.h" line="46"/>
+        <location filename="../ui/uisourcestring.h" line="30"/>
+        <source>After the driver is successfully installed, you need to configure the printer. Please do so in the navigation window.</source>
+        <translation>After the driver is successfully installed, you need to configure the printer. Please do so in the navigation window.</translation>
+    </message>
+    <message>
+        <location filename="../ui/uisourcestring.h" line="32"/>
         <source>Unable to connect to printer. Please check the IP address or hostname and try again. Make sure the printer is turned on and the IP address or hostname is correct.</source>
         <translation>Unable to connect to printer. Please check the IP address or hostname and try again. Make sure the printer is turned on and the IP address or hostname is correct.</translation>
     </message>
