@@ -32,6 +32,7 @@ class DImageButton;
 class DSettingsDialog;
 class DDialog;
 class DFloatingButton;
+class DToolButton;
 DWIDGET_END_NAMESPACE
 
 QT_BEGIN_NAMESPACE
@@ -371,8 +372,8 @@ private slots:
 
 private:
     // UI成员变量
-    DIconButton *m_pBtnAddPrinter;
-    DIconButton *m_pBtnDeletePrinter;
+    QPushButton *m_pBtnAddPrinter;
+    DToolButton *m_pBtnDeletePrinter;
     QLabel *m_pLeftTipLabel;
 
     QLabel *m_pLabelPrinterName;

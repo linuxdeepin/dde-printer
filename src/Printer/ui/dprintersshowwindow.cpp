@@ -32,6 +32,7 @@
 #include <DBackgroundGroup>
 #include <DErrorMessage>
 #include <DApplicationHelper>
+#include <DToolButton>
 
 #ifdef DTKWIDGET_CLASS_DSizeMode
 #include <DSizeMode>
@@ -125,30 +126,12 @@ void DPrintersShowWindow::initUI()
 
     // 左边上面的控制栏
     QLabel *pLabel = new QLabel(tr("Printers"));
+    pLabel->setFixedHeight(36);
     DFontSizeManager::instance()->bind(pLabel, DFontSizeManager::T5, int(QFont::DemiBold));
-    m_pBtnAddPrinter = new DIconButton(this);
-    m_pBtnAddPrinter->setIcon(QIcon::fromTheme("dp_add"));
-
-#ifdef DTKWIDGET_CLASS_DSizeMode
-    m_pBtnAddPrinter->setFixedSize(DSizeModeHelper::element(QSize(24, 24), QSize(36, 36)));
-    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::sizeModeChanged, [this]() {
-        m_pBtnAddPrinter->setFixedSize(DSizeModeHelper::element(QSize(24, 24), QSize(36, 36)));
-    });
-#else
-    m_pBtnAddPrinter->setFixedSize(36, 36);
-#endif
-    m_pBtnAddPrinter->setToolTip(tr("Add printer"));
-    m_pBtnDeletePrinter = new DIconButton(DStyle::SP_DecreaseElement);
-    m_pBtnDeletePrinter->setToolTip(tr("Delete printer"));
-
     pLabel->setAccessibleName("label_leftWidget");
-    m_pBtnAddPrinter->setAccessibleName("addPrinter_mainWindow");
-    m_pBtnDeletePrinter->setAccessibleName("deletePrinter_leftWidget");
 
     QHBoxLayout *pLeftTopHLayout = new QHBoxLayout();
     pLeftTopHLayout->addWidget(pLabel, 6, Qt::AlignLeft);
-    pLeftTopHLayout->addWidget(m_pBtnAddPrinter, 1);
-    pLeftTopHLayout->addWidget(m_pBtnDeletePrinter, 1);
     pLeftTopHLayout->setContentsMargins(0, 0, 0, 0);
     // 打印机列表
     m_pPrinterListView = new PrinterListView(this);
@@ -185,6 +168,15 @@ void DPrintersShowWindow::initUI()
     m_pListViewMenu->addAction(m_pDefaultAction);
     m_pListViewMenu->setAccessibleName("listView_printerList");
 
+    m_pBtnAddPrinter = new QPushButton(tr("Add printer"));
+    #ifdef DTKWIDGET_CLASS_DSizeMode
+        m_pBtnAddPrinter->setFixedSize(DSizeModeHelper::element(QSize(300, 24), QSize(300, 36)));
+        connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::sizeModeChanged, [this]() {
+            m_pBtnAddPrinter->setFixedSize(DSizeModeHelper::element(QSize(300, 24), QSize(300, 36)));
+        });
+    #else
+        m_pBtnAddPrinter->setFixedSize(300, 36);
+    #endif
 
     // 没有打印机时的提示
     m_pLeftTipLabel = new QLabel(tr("No Printers"));
@@ -200,6 +192,7 @@ void DPrintersShowWindow::initUI()
     pLeftVLayout->addLayout(pLeftTopHLayout, 1);
     pLeftVLayout->addWidget(m_pPrinterListView, 4);
     pLeftVLayout->addWidget(m_pLeftTipLabel, 1, Qt::AlignCenter);
+    pLeftVLayout->addWidget(m_pBtnAddPrinter, 0, Qt::AlignBottom);
     pLeftVLayout->setContentsMargins(0, 0, 0, 0);
     QWidget *pLeftWidget = new QWidget(this);
     pLeftWidget->setFixedSize(300, 566);
@@ -209,7 +202,13 @@ void DPrintersShowWindow::initUI()
     // 右侧上方
     QLabel *pLabelImage = new QLabel("");
     pLabelImage->setPixmap(QPixmap(":/images/printer_details.svg").scaled(QSize(128, 128), Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    pLabelImage->setContentsMargins(0, 0, 0, 0);
+    pLabelImage->setContentsMargins(10, 5, 0, 0);
+    m_pBtnDeletePrinter = new DToolButton(this);
+    m_pBtnDeletePrinter->setIcon(QIcon::fromTheme("dp_delete_printer"));
+    m_pBtnDeletePrinter->setToolTip(tr("Delete printer"));
+    m_pBtnDeletePrinter->setIconSize(QSize(20, 20));
+    m_pBtnDeletePrinter->setFixedSize(QSize(30, 30));
+    m_pBtnDeletePrinter->setContentsMargins(0, 0, 0, 0);
 
     m_pLabelPrinterName = new QLabel("");
     DFontSizeManager::instance()->bind(m_pLabelPrinterName, DFontSizeManager::T5, QFont::Medium);
@@ -240,16 +239,34 @@ void DPrintersShowWindow::initUI()
     m_pLabelTypeShow->setAccessibleName("typeShow_printerInfoWidget");
     m_pLabelStatusShow->setAccessibleName("statusShow_printerInfoWidget");
 
-    pRightGridLayout->addWidget(m_pLabelPrinterName, 0, 0, 1, 2, Qt::AlignLeft);
-    pRightGridLayout->addWidget(pLabelLocation, 1, 0);
-    pRightGridLayout->addWidget(m_pLabelLocationShow, 1, 1);
-    pRightGridLayout->addWidget(pLabelType, 2, 0);
-    pRightGridLayout->addWidget(m_pLabelTypeShow, 2, 1);
-    pRightGridLayout->addWidget(pLabelStatus, 3, 0);
-    pRightGridLayout->addWidget(m_pLabelStatusShow, 3, 1);
+    QHBoxLayout *pDeleteTopHLayout = new QHBoxLayout();
+    pDeleteTopHLayout->addStretch();
+    pDeleteTopHLayout->addWidget(m_pBtnDeletePrinter);
+    pDeleteTopHLayout->setContentsMargins(0, 0, 0, 0);
+
+    m_pLabelPrinterName->setFixedHeight(25);
+    m_pLabelPrinterName->setContentsMargins(0, 0, 0, 0);
+    pRightGridLayout->addWidget(pLabelLocation, 0, 0, Qt::AlignLeft);
+    pRightGridLayout->addWidget(m_pLabelLocationShow, 0, 1);
+    pRightGridLayout->addWidget(pLabelType, 1, 0, Qt::AlignLeft);
+    pRightGridLayout->addWidget(m_pLabelTypeShow, 1, 1);
+    pRightGridLayout->addWidget(pLabelStatus, 2, 0, Qt::AlignLeft);
+    pRightGridLayout->addWidget(m_pLabelStatusShow, 2, 1);
+    pRightGridLayout->setHorizontalSpacing(0);
+    pRightGridLayout->setVerticalSpacing(10);
+    pRightGridLayout->setContentsMargins(0, 0, 0, 0);
+
+    QVBoxLayout *pRightTopVLayout = new QVBoxLayout();
+    pRightTopVLayout->addLayout(pDeleteTopHLayout);
+    pRightTopVLayout->addWidget(m_pLabelPrinterName);
+    pRightTopVLayout->addSpacing(10);
+    pRightTopVLayout->addLayout(pRightGridLayout);
+    pRightTopVLayout->addStretch();
+    pRightTopVLayout->setSpacing(0);
+    pRightTopVLayout->setContentsMargins(0, 0, 0, 0);
 
     QWidget *pPrinterInfoWidget = new QWidget(this);
-    pPrinterInfoWidget->setLayout(pRightGridLayout);
+    pPrinterInfoWidget->setLayout(pRightTopVLayout);
     pPrinterInfoWidget->setFixedWidth(322);
     pPrinterInfoWidget->setContentsMargins(0, 0, 0, 0);
 
@@ -257,6 +274,7 @@ void DPrintersShowWindow::initUI()
     pRightTopHLayout->addWidget(pLabelImage, 0, Qt::AlignHCenter | Qt::AlignLeft);
     pRightTopHLayout->addSpacing(10);
     pRightTopHLayout->addWidget(pPrinterInfoWidget);
+    pRightTopHLayout->setContentsMargins(0, 0, 0, 0);
 
     m_pRightTopWidget = new BackgroundWidget(this);
     m_pRightTopWidget->setFixedSize(480, 168);
