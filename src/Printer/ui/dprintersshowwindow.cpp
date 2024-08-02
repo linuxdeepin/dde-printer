@@ -272,6 +272,7 @@ void DPrintersShowWindow::initUI()
 
     m_pSwitchShareButton = new SwitchWidget(tr("Shared printer"), this);
     m_pAdvancedshare = new AdvanceShareWidget();
+    m_pAdvancedshare->setLabelText(tr("Advanced sharing options"));
     QLabel *shareIpInfo = new QLabel(tr("Shared address:"));
     DFontSizeManager::instance()->bind(shareIpInfo, DFontSizeManager::T8, QFont::Light);
     QStringList ipv4Addr = getLocalIPv4Addresses();
@@ -287,6 +288,14 @@ void DPrintersShowWindow::initUI()
     m_pShareWidget = new QWidget();
     m_pShareWidget->setVisible(true);
     m_pShareWidget->setContentsMargins(0, 0, 0, 0);
+
+    m_pAdminTool = new AdvanceShareWidget();
+    m_pAdminTool->setLabelText(tr("Management Tools"));
+    m_pAdminTool->setFixedWidth(480);
+
+    QHBoxLayout *phAdminLayout = new QHBoxLayout();
+    phAdminLayout->addSpacing(10);
+    phAdminLayout->addWidget(m_pAdminTool);
 
     QHBoxLayout *pSharehLayout = new QHBoxLayout();
     pSharehLayout->setSpacing(10);
@@ -401,9 +410,10 @@ void DPrintersShowWindow::initUI()
     QVBoxLayout *pRightVLayout = new QVBoxLayout();
 
     pRightVLayout->addLayout(pRightTmVLayout);
-    pRightVLayout->addSpacing(30);
+    pRightVLayout->addLayout(phAdminLayout);
+    pRightVLayout->addSpacing(25);
     pRightVLayout->addWidget(pRightBottomWidget, Qt::AlignCenter);
-    pRightVLayout->addSpacing(73);
+    pRightVLayout->addSpacing(37);
     pRightVLayout->setContentsMargins(0, 0, 0, 0);
     m_pPrinterInfoWidget = new QWidget();
     m_pPrinterInfoWidget->setLayout(pRightVLayout);
@@ -550,6 +560,13 @@ void DPrintersShowWindow::initConnections()
     });
 
     connect(m_pAdvancedshare, &AdvanceShareWidget::clicked, this, &DPrintersShowWindow::serverSettingsSlot);
+    connect(m_pAdminTool, &AdvanceShareWidget::clicked, this, &DPrintersShowWindow::showAdminToolsSlot);
+}
+
+void DPrintersShowWindow::showAdminToolsSlot()
+{
+    ManagementToolWidget toolWidget;
+    toolWidget.exec();
 }
 
 void DPrintersShowWindow::showEvent(QShowEvent *event)

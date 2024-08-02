@@ -367,6 +367,8 @@ private slots:
     void deviceStatusChanged(const QDBusMessage &msg);
     void changeEvent(QEvent *event) override;
 
+    void showAdminToolsSlot();
+
 private:
     // UI成员变量
     DIconButton *m_pBtnAddPrinter;
@@ -397,6 +399,7 @@ private:
     QAction *m_pDeleteAction;
     SwitchWidget *m_pSwitchShareButton;
     AdvanceShareWidget *m_pAdvancedshare;
+    AdvanceShareWidget *m_pAdminTool;
     QCheckBox *m_pDefaultPrinter;
 
     QWidget *m_pPrinterInfoWidget;
