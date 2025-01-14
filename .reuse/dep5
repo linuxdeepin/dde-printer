@@ -48,3 +48,6 @@ Files: assets/dde-printer/print-manager/*
 Copyright: UnionTech Software Technology Co., Ltd.
 License: GPL-3.0-or-later
 
+Files: toolGenerate/**/*
+Copyright: None
+License: CC0-1.0
